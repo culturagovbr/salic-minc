@@ -2,7 +2,7 @@
 
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="index-cadastrar-edital.htm">Criar Edital - Passo 1</a></li>
         <li class=""><a href="form-informacoes-basicas.htm">Criar Edital - Passo 2</a></li>
         <li class=""><a href="form-modulos-edital.htm">Criar Edital - Passo 3</a></li>
@@ -13,7 +13,7 @@
     <div>Adicionar Texto<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
 <div id="conteudo">
-    
+
     <form id="frmCadTexto" action="<?php echo $this->url(array('controller' => 'edital', 'action' => 'salvar-texto')); ?>" method="POST">
         <input type="hidden" name="nrTexto" value="<?php echo $this->ultimaOrdem; ?>" />
         <table class="tabela">
@@ -21,7 +21,7 @@
                 <td class="bold">Texto</td>
             </tr>
             <tr>
-                <td style="vertical-align: top;"> 
+                <td style="vertical-align: top;">
                     <textarea style="width:99%;" cols="" class="input_simples" name="txtConteudo" id="txtConteudo"></textarea>
                 </td>
             </tr>
@@ -38,7 +38,7 @@
     <br clear="all">
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 <br clear="all" />
 
@@ -78,5 +78,5 @@
         var idEdital = $('#idEdital').val();
         window.location = '<?php echo $this->url(array('controller' => 'edital', 'action' => 'deletar-texto-edital'), '', true); ?>/idTextoEdital/' + id + '/idEdital/' + idEdital;
     }
-    
+
 </script>

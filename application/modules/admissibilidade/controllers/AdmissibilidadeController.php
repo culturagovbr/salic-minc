@@ -2439,7 +2439,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
         if (isset($get->estado) && !empty($get->estado)) {
             if ($get->estado == 1) {
-                $situacao = 'Em an�lise';
+                $situacao = 'Em Análise';
             } else {
                 $situacao = '<font color=red>Concluida</font>';
             }
@@ -2527,7 +2527,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
         if (isset($post->estado) && !empty($post->estado)) {
             if ($post->estado == 1) {
-                $situacao = 'Em an�lise';
+                $situacao = 'Em Análise';
             } else {
                 $situacao = '<font color=red>Concluida</font>';
             }

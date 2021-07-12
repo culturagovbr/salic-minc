@@ -1,7 +1,7 @@
 <?php include_once 'inc/menu.infger.inc.php'; ?>
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="edital/index">Criar Edital - Passo 1</a></li>
         <li class="">Criar Edital - Passo 2</li>
     </ul>
@@ -9,13 +9,13 @@
 
 <div id="titulo">
     <div>Criar Edital</div>
-</div> 
+</div>
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <fieldset>
-        <legend> Passo 2 - Definir informaÁıes gerais do Edital</legend>
+        <legend> Passo 2 - Definir informaÔøΩÔøΩes gerais do Edital</legend>
         <div id="informacoesGerais" class="_conteudoAba" style="">
             <table class="tabela">
                 <tr>
@@ -23,7 +23,7 @@
                         Reutilizar Informa&ccedil;&otilde;es Gerais
                     </td>
                     <td>
-                        <img src="<?php echo $this->baseUrl(); ?>/public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th>  
+                        <img src="<?php echo $this->baseUrl(); ?>/public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th>
                     </td>
                 </tr>
             </table>
@@ -43,22 +43,22 @@
                         <td>
                             <input maxlength="200" size="60" type="text" name="nmEdital" id="nomeMatriz" class="input_simples required" value="<?php echo ($this->dadosEdital) ? $this->dadosEdital->nmEdital : ''; ?>" />
                         </td>
-                        <td class="bold esquerdo destacar" nowrap>N˙mero do Edital <span style="color: red;">*</span></td>
+                        <td class="bold esquerdo destacar" nowrap>NÔøΩmero do Edital <span style="color: red;">*</span></td>
                         <td>
                             <input name="nrEdital" type="text" class="input_simples required" value="<?php echo ($this->dadosEdital) ? $this->dadosEdital->nrEdital : ''; ?>"/>
                         </td>
                     </tr>
                     <tr>
-                        <td class="destacar bold esquerdo">Fase de InscriÁ„o <span style="color: red;">*</span></td>
+                        <td class="destacar bold esquerdo">Fase de InscriÔøΩÔøΩo <span style="color: red;">*</span></td>
                         <td colspan="<?php echo $this->existePRP == 1 ? '1':'3'?>">
-                            Dt. InÌcio &nbsp;<input onkeyup="mascara(this, format_data);" name="dtInicioElaboracao" id="dtInicioElaboracao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital) ? Data::tratarDataZend($this->dadosEdital->dtInicioEdital, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
+                            Dt. IN√çCIO &nbsp;<input onkeyup="mascara(this, format_data);" name="dtInicioElaboracao" id="dtInicioElaboracao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital) ? Data::tratarDataZend($this->dadosEdital->dtInicioEdital, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             Dt. Fim &nbsp;<input onkeyup="mascara(this, format_data);" name="dtFimElaboracao" id="dtFimElaboracao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital) ? Data::tratarDataZend($this->dadosEdital->dtFimEdital, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
                         </td>
                         <?php if($this->existePRP == 1):?>
-                        <td class="destacar bold esquerdo">RealizaÁ„o do projeto</td>
+                        <td class="destacar bold esquerdo">RealizaÔøΩÔøΩo do projeto</td>
                         <td colspan="1">
-                            Dt. InÌcio &nbsp;<input onkeyup="mascara(this, format_data);" name="dtInicioRealizacao" id="dtInicioRealizacao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital->dtInicioRealizacao) ? Data::tratarDataZend($this->dadosEdital->dtInicioRealizacao, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
+                            Dt. IN√çCIO &nbsp;<input onkeyup="mascara(this, format_data);" name="dtInicioRealizacao" id="dtInicioRealizacao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital->dtInicioRealizacao) ? Data::tratarDataZend($this->dadosEdital->dtInicioRealizacao, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             Dt. Fim &nbsp;<input onkeyup="mascara(this, format_data);" name="dtFimRealizacao" id="dtFimRealizacao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital->dtFimRealizacao) ? Data::tratarDataZend($this->dadosEdital->dtFimRealizacao, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
                         </td>
@@ -71,15 +71,15 @@
                                 <option value="">- Selecione -</option>
                                 <?php foreach ($this->origemrecursoedital as $orrec): ?>
                                     <option value="<?php echo $orrec['idVerificacao']; ?>" <?php echo ($this->dadosEdital && $this->dadosEdital->idOrigemRecurso == $orrec['idVerificacao']) ? 'selected="selected"' : ''; ?>><?php echo $orrec['Descricao']; ?></option>
-                                <?php endforeach; ?> 
-                                <?php if($this->dadosEdital->idTpEdital == 3): ?> 
-                                <option value="0">N„o se aplica</option>
-                                <?php endif; ?> 
+                                <?php endforeach; ?>
+                                <?php if($this->dadosEdital->idTpEdital == 3): ?>
+                                <option value="0">N√£o se aplica</option>
+                                <?php endif; ?>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td class="destacar bold esquerdo">¡rea</td>
+                        <td class="destacar bold esquerdo">ÔøΩrea</td>
                         <td>
                             <div style="min-width: 300px; height: 180px; padding-left: 10px; border: 1px #ccc solid">
                                 <input type="checkbox" class="marcatodasareas" filho=".area" style="vertical-align: middle"/>&nbsp;<strong>Todas</strong><br />
@@ -92,7 +92,7 @@
                         <td class="destacar bold esquerdo">Segmento</td>
                         <td>
                             <div style="min-width: 300px; height: 180px; padding-left: 10px; overflow: auto; border: 1px #ccc solid">
-                                <input type="checkbox" class="marcatodos" filho=".Segmento" style="vertical-align: middle"/>&nbsp;<strong>Todas</strong><br />    
+                                <input type="checkbox" class="marcatodos" filho=".Segmento" style="vertical-align: middle"/>&nbsp;<strong>Todas</strong><br />
                                 <?php foreach ($this->segmento as $s): ?>
                                     <span class="pai-<?php echo substr($s['id'], 0, 1); ?> mta" style="<?php if(!in_array(substr($s['id'], 0, 1), $this->editalAreas)){ echo 'display: none;';} ?>">
                                         <input class="filho-<?php echo substr($s['id'], 0, 1); ?> segmento" type="checkbox" <?php if(in_array($s['id'], $this->editalSegmentos)){ echo 'checked="checked"';} ?> name="segmento[]" value="<?php echo $s['id']; ?>"  style="vertical-align: middle" />&nbsp;<strong><?php echo $s['descricao']; ?></strong><br />
@@ -108,7 +108,7 @@
                                 <option value="">- Selecione -</option>
                                 <?php foreach ($this->tipopremiacao as $tppr): ?>
                                     <option value="<?php echo $tppr['idTpPremiacao']; ?>" <?php echo ($this->dadosEdital && $this->dadosEdital->idTpPremiacao == $tppr['idTpPremiacao']) ? 'selected="selected"' : ''; ?>><?php echo $tppr['dsTpPremiacao']; ?></option>
-                                <?php endforeach; ?> 
+                                <?php endforeach; ?>
                             </select>
                         </td>
                     </tr>
@@ -117,7 +117,7 @@
                         <td colspan="3"><input maxlength="3" size="3" type="text" name="quantidadeAvaliadores" id="nomeMatriz" class="input_simples required" value="<?php echo ($this->dadosEdital) ? $this->dadosEdital->qtAvaliadores : ''; ?>"></td>
                     </tr>
                     <tr>
-                        <td class="destacar bold esquerdo">Tipo de ParticipaÁ„o do Edital<span style="color: red;">*</span></td>
+                        <td class="destacar bold esquerdo">Tipo de ParticipaÔøΩÔøΩo do Edital<span style="color: red;">*</span></td>
                         <td colspan="3">
                             <?php
                             $idPart = array();
@@ -154,7 +154,7 @@
         </div>
     </fieldset>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 <!-- ========== INICIO RODAPE DO CONTEUDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
@@ -235,32 +235,32 @@
         });
 
         $("#proximoSalvaInfo").click(function() {
-            
+
             $('#msg').hide();
             $('#txtmsg').html('');
-            
+
             var check       = 0;
             var TPE         = 0;
             var Area        = 0;
             var Segmento    = 0;
             var enviar      = 0;
-                
+
             $('.required').each(function () {
-                
+
                 var obj = $(this).val();
-                
+
                 if(obj == '') {
                     check = 1;
                 }
 
             });
-            
+
             $('.check').each(function () {
                 if(this.checked) {
                     TPE = 1;
                 }
             });
-            
+
             $('.area').each(function () {
                 if(this.checked) {
                     Area = 1;
@@ -273,66 +273,66 @@
                 }
             });
 
-            
-            
+
+
             if((check == 1) || (TPE == 0) || (Area == 0) || (Segmento == 0)) {
-                $('#txtmsg').html('Verifique os campos obrigatÛrios!');
+                $('#txtmsg').html('Verifique os campos obrigatÔøΩrios!');
                 $('#msg').show();
                 enviar = 1;
             }else{
                 $('#txtmsg').html('');
                 $('#msg').hide();
             }
-            
+
             var data = new Date();
             var dia     = data.getDate();
             var mes     = data.getMonth();
             var ano = data.getFullYear();
             var dtAtual = dia+'/'+mes+'/'+ano;
-            
+
             var dtInicioElaboracao = $('#dtInicioElaboracao').val();
             var dtFimElaboracao   = $('#dtFimElaboracao').val();
-            
+
             var dtInicioRealizacao = $('#dtInicioRealizacao').val();
             var dtFimRealizacao   = $('#dtFimRealizacao').val();
-            
+
             if( (new Date(dtAtual).getTime() > new Date(dtInicioElaboracao).getTime())){
-                $('#txtmsg').append('<br />Fase de InscriÁ„o: A data de inÌcio n„o pode ser menor que a data atual.');
+                $('#txtmsg').append('<br />Fase de InscriÔøΩÔøΩo: A data de IN√çCIO N√£o pode ser menor que a data atual.');
                 $('#msg').show();
                 enviar = 1;
             }
-            
+
             if( (new Date(dtInicioElaboracao).getTime() > new Date(dtFimElaboracao).getTime())){
-                $('#txtmsg').append('<br />Fase de InscriÁ„o: A data de inÌcio n„o pode ser maior que a do fim.');
+                $('#txtmsg').append('<br />Fase de InscriÔøΩÔøΩo: A data de IN√çCIO N√£o pode ser maior que a do fim.');
                 $('#msg').show();
                 enviar = 1;
             }
-            
+
             <?php if($this->existePRP == 1):?>
-                
+
                 if( (new Date(dtInicioRealizacao).getTime() > new Date(dtFimRealizacao).getTime())){
-                    $('#txtmsg').append('<br />RealizaÁ„o do projeto: A data de inÌcio n„o pode ser maior que a do fim.');
+                    $('#txtmsg').append('<br />RealizaÔøΩÔøΩo do projeto: A data de IN√çCIO N√£o pode ser maior que a do fim.');
                     $('#msg').show();
                     enviar = 1;
                 }
 
                 if( (new Date(dtFimElaboracao).getTime() > new Date(dtInicioRealizacao).getTime())){
-                    $('#txtmsg').append('<br />RealizaÁ„o do projeto: A data de inÌcio n„o pode ser maior que a do fim da Fase de InscriÁ„o.');
+                    $('#txtmsg').append('<br />RealizaÔøΩÔøΩo do projeto: A data de IN√çCIO N√£o pode ser maior que a do fim da Fase de InscriÔøΩÔøΩo.');
                     $('#msg').show();
                     enviar = 1;
                 }
-            
+
             <?php endif;?>
-            
-            
+
+
             // Enviar o Form
             if((enviar == 0)) {
                 $('#txtmsg').html('');
                 $('#msg').hide();
                 $('#formularioProcuracao').submit();
             }
-            
-            
+
+
         });
 
         $("#incluirCriterio").click(function() {

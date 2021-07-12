@@ -1,65 +1,65 @@
 <?php
 /**
- * Planilha OrÁamento
+ * Planilha OrÔøΩamento
  * @author Equipe RUP - Politec
  * @since 07/06/2010
  * @version 1.0
  * @package application
  * @subpackage application.controller.realizaranaliseprojeto
  * @link http://www.cultura.gov.br
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  */
-	
+
 ?>
-	
-	<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+
+	<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 	<div id="breadcrumb">
 		<ul>
-			<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
-			<li><a href="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'planilhaorcamento')); ?>" title="Ir para An·lise do Membro da Comiss„o">An·lise do Membro da Comiss„o</a></li>
-			<li class="last">Planilha de OrÁamento Aprovada</li>
+			<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
+			<li><a href="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'planilhaorcamento')); ?>" title="Ir para An√°lise do Membro da comiss√£o">An√°lise do Membro da comiss√£o</a></li>
+			<li class="last">Planilha de OrÔøΩamento Aprovada</li>
 		</ul>
 	</div>
 	<!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-	
-	
-	
-	<!-- ========== INÕCIO TÕTULO ========== -->
+
+
+
+	<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 	<div id="titulo">
-		<div>Planilha de OrÁamento Aprovada <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+		<div>Planilha de OrÔøΩamento Aprovada <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 	</div>
-	<!-- ========== FIM TÕTULO ========== -->
-	
-	
-	
-	<!-- ========== INÕCIO CONTE⁄DO ========== -->
+	<!-- ========== FIM TÔøΩTULO ========== -->
+
+
+
+	<!-- ========== IN√çCIO CONTE√öDO ========== -->
 	<div id="conteudo">
-	
-	
-	
-	
-	
-	<script language="javascript">  
 
-	function verifica()    
-	{         
-		if (formu.justificativa.value=="")              
-		alert("Por favor, Digite a Justificativa!");         
-	return false;               
 
-	} 
-	
+
+
+
+	<script language="javascript">
+
+	function verifica()
+	{
+		if (formu.justificativa.value=="")
+		alert("Por favor, Digite a Justificativa!");
+	return false;
+
+	}
+
 	</script>
-	
-	
-	
-		<!-- ========== INÕCIO PRONAC ========== -->
-		
-		
-				
-		
+
+
+
+		<!-- ========== IN√çCIO PRONAC ========== -->
+
+
+
+
 		<table class="tabela">
-	
+
 			<?php foreach ($this->pronac as $p) : ?>
 			<tr>
 				<th>
@@ -67,20 +67,20 @@
 				</th>
 			</tr>
 			<?php endforeach; ?>
-	
+
 		</table>
 		<!-- ========== FIM PRONAC ========== -->
-		
 
-	
-	
+
+
+
 	<form name="form" id="form" action="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'recurso')); ?>?idPronac=<?php echo $p->IdPRONAC; ?>" method="post">
 
-								
-		<table class="tabela">
-	
 
-			<!-- ========== INÕCIO BUSCA POR PRODUTO ========== -->
+		<table class="tabela">
+
+
+			<!-- ========== IN√çCIO BUSCA POR PRODUTO ========== -->
 			<?php
 			$item = 1; // contador para os itens
 			$contadorProd  = 0;
@@ -96,18 +96,18 @@
 					</strong>
 				</td>
 			</tr>
-	
-	
-	
-				<!-- ========== INÕCIO BUSCA POR ETAPA ========== -->
+
+
+
+				<!-- ========== IN√çCIO BUSCA POR ETAPA ========== -->
 				<?php
 				foreach (RecursoDAO::analiseDeCustosBuscarEtapa($buscarProd->IdPRONAC, $buscarProd->idProduto, true) as $buscarEtapa) :
 				?>
-	
+
 				<tr class="IFF IFF_PRODUTO<?php echo $contadorProd; ?>">
 					<td colspan="12">
 						<strong style="margin-left:2%;">
-							<?php foreach ($this->planilhaEtapa as $etapa) : // Nome ou DescriÁ„o da Etapa ?>
+							<?php foreach ($this->planilhaEtapa as $etapa) : // Nome ou Descri√ß√£o da Etapa ?>
 								<?php if ($buscarEtapa->idEtapa == $etapa->idPlanilhaEtapa) : ?>
 									<div id="icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>" class="sumir"><a href="#icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>" onclick="$('#icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>, .IFF_ETAPA<?php echo $contadorEtapa; ?>').show(); $('#icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>').hide();" onkeypress=" "><div class="icn_mais" style="width:90%; margin-left:4%;"><span class="orange del_link"><?php echo $buscarEtapa->idEtapa; ?> - <?php echo $etapa->Descricao; ?></span></div></a></div>
 									<div id="icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>"><a href="#icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>" onclick="$('#icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>').show(); $('#icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>, .IFF_ETAPA<?php echo $contadorEtapa; ?>').hide();" onkeypress=" "><div class="icn_menos" style="width:90%; margin-left:4%;"><span class="orange del_link"><?php echo $buscarEtapa->idEtapa; ?> - <?php echo $etapa->Descricao; ?></span></div></a></div>
@@ -116,36 +116,36 @@
 						</strong>
 					</td>
 				</tr>
-	
-	
-	
-					<!-- ========== INÕCIO BUSCA POR UF ========== -->
+
+
+
+					<!-- ========== IN√çCIO BUSCA POR UF ========== -->
 					<?php
 					//foreach (RealizarAnaliseProjetoDAO::analiseDeCustosBuscarUF($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, true) as $buscarUF) :
 					?>
-	
-	
-	
-						<!-- ========== INÕCIO ÕTENS ========== -->
+
+
+
+						<!-- ========== IN√çCIO ÔøΩTENS ========== -->
 					    <tr class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?>">
 						<th>Nome do Item</th>
 					        <th width="10%">Valor Solicitado/th>
 					        <th width="10%">Valor Aprovado</th>
 					        <th width="49%">Justificativa Proponente</th>
-					        <th width="6%">Justificativa TÈcnica</th>
+					        <th width="6%">Justificativa T√©cnica</th>
 					    </tr>
-	
+
 						<?php
 						// caso tenha projetos
 						$totalItens = 0;
 						if (count(RecursoDAO::analiseDeConta($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, null, null, true)) > 0)
 						{
 							foreach (RecursoDAO::analiseDeConta($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, null, null, true) as $resposta) :
-								$i = $resposta->idPlanilhaAprovacao; // criar· id ˙nido
+								$i = $resposta->idPlanilhaAprovacao; // criarÔøΩ id ÔøΩnido
 						?>
-	
-					    <tr onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);" 
-					    	class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?> 
+
+					    <tr onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);"
+					    	class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?>
 					    		<?php
 					    		if ($i == $_GET['Ativo'])
 					    		{
@@ -162,56 +162,56 @@
 					    		$totalItens--;
 					    		?>">
 					        <td>
-	
-	
-	
-								<a onclick="modal(<?php echo $i; ?>)"><?php echo $this->escape($resposta->Item); ?></a> 
+
+
+
+								<a onclick="modal(<?php echo $i; ?>)"><?php echo $this->escape($resposta->Item); ?></a>
 					        </td>
-					        
-					
-	
-					      
+
+
+
+
 					        <td class="direita<?php if ($resposta->VlSugeridoParecerista == $resposta->VlSugeridoConselheiro) echo " blue"; ?>"><?php echo $this->formatarReal($this->escape($resposta->VlSolicitado)); ?></td>
 					        <td class="direita<?php if ($resposta->VlSugeridoParecerista == $resposta->VlSugeridoConselheiro) echo " green"; ?>"><?php echo $this->formatarReal($this->escape($resposta->VlSugeridoParecerista)); ?></td>
 							<td><?php echo html_entity_decode($resposta->justproponente);?>
 							<td> <textarea cols="80" id="justificativatecnico" name="justificativatecnico" rows="5"></textarea></td>
-	
-					
+
+
 						</tr>
-	
-	
-	
+
+
+
 						<?php
 								$item++; // incrementa o contador de itens
-							endforeach; // fecha foreach itens		
+							endforeach; // fecha foreach itens
 						} // fecha if (caso tenha projetos)
 						?>
-						<!-- ========== FIM ÕTENS ========== -->
-	
-	
-	
+						<!-- ========== FIM ÔøΩTENS ========== -->
+
+
+
 						<?php $contadorUF++; ?>
 					<?php // endforeach; ?>
 					<!-- ========== FIM BUSCA POR UF ========== -->
-	
-	
-	
+
+
+
 				<?php
 					$contadorEtapa++;
 				endforeach;
 				?>
 				<!-- ========== FIM BUSCA POR ETAPA ========== -->
-	
-	
-	
+
+
+
 			<?php $contadorProd++; ?>
 			<?php endforeach; ?>
 			<!-- ========== FIM BUSCA POR PRODUTO ========== -->
 
-	
+
 			<tr>
 				<td colspan="10">
-	
+
 					<div class="float_right">
 						<input type="submit" class="btn_salvar" value=" " onclick="return valida()" /></input>
 						<input type="hidden" name="idProduto" value="<?php echo $resposta->idProduto; ?>" /></input>
@@ -224,12 +224,12 @@
 		</table>
 	</form>
 	</div>
-	<!-- ========== FIM CONTE⁄DO ========== -->
-	
-	
-	
-	<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+	<!-- ========== FIM CONTE√öDO ========== -->
+
+
+
+	<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 	<div id="rodapeConteudo"><span></span></div>
-	<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
-	
+	<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
+
 	<br clear="all" />

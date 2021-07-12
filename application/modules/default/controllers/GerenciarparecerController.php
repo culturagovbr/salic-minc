@@ -11,7 +11,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -395,7 +395,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                 if ($tipoescolha == 2) {    // encaminhar
                     $msg = "Enviado os Produtos/Projeto para a entidade!";
 
-                    // ALTERAR UNIDADE DE AN�LISE ( COORDENADOR DE PARECER )
+                    // ALTERAR UNIDADE DE Análise ( COORDENADOR DE PARECER )
 
                     $dadosE = array(
                         'idOrgao' => $orgaoDestino,
@@ -648,7 +648,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
                 // encaminhar
                 if ($tipoescolha == 2) {
-                    // ALTERAR UNIDADE DE AN�LISE ( COORDENADOR DE PARECER )
+                    // ALTERAR UNIDADE DE Análise ( COORDENADOR DE PARECER )
 
                     $dadosE = array(
                         'idOrgao' => $orgaoDestino,
@@ -844,7 +844,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         //$situacaoTexto .= '<br /> Area: '.$projeto[0]->Area.' Segmento: '.$projeto[0]->Segmento.' idAgente: '.$idAgente;
 
 
-        // An�lises em eberto
+        // Análises em eberto
         $whereAnalise['distribuirParecer.idAgenteParecerista = ?'] = $idAgente;
         $analiseEmAberto = $projetosDAO->buscaProjetosProdutosParaAnalise($whereAnalise);
         $situacaoTexto .= '<br /> An&aacute;lise em aberto: ' . count($analiseEmAberto);

@@ -32,7 +32,7 @@ class CadastrareditalController extends MinC_Controller_Action_Abstract
         //parent::perfil(1, $PermissoesGrupo);
 
         parent::init();
-    } 
+    }
 
     public function indexAction()
     {
@@ -256,7 +256,7 @@ class CadastrareditalController extends MinC_Controller_Action_Abstract
                     'idAti' => $atiid
                     //, 'piDisponivel' => $PiDisponivel
                     );
-    
+
                     $idEdital = $insereDadosEdital->salvar($dados);
                 } else { // altera��o
                     $dados = array('idEdital' => $idEdital,
@@ -271,7 +271,7 @@ class CadastrareditalController extends MinC_Controller_Action_Abstract
                     'stAdmissibilidade' => 'S',
                     'cdTipoFundo' => $tipoFundo,
                     'idAti' => $atiid);
-    
+
                     $idEdital = $insereDadosEdital->salvar($dados);
                 }
             } catch (Exception $e) {
@@ -423,7 +423,7 @@ class CadastrareditalController extends MinC_Controller_Action_Abstract
 
         // caso os dados sejam enviados via post
         if ($_POST) {
-            /* n�o est� sendo utilizado
+            /* Não est� sendo utilizado
             // recadastra a posi��o
             if ( isset ( $_POST['operacao'] ) )
             {
@@ -2461,20 +2461,20 @@ class CadastrareditalController extends MinC_Controller_Action_Abstract
             $dadosEdital = ManterAvaliadorDAO::listarEditaisAvaliador(); //BUSCA DA MODAL EDITAIS
             $this->view->dadosEditalAvaliador = $dadosEdital;
 
-            // ========== IN�CIO PAGINA��O ==========
+            // ========== INÍCIO PAGINAÇÂO ==========
             Zend_Paginator::setDefaultScrollingStyle('Sliding');
             Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
             $paginator = Zend_Paginator::factory($dadosEdital); // dados a serem paginados
 
-            // p�gina atual e quantidade de �tens por p�gina
+            // página atual e quantidade de �tens por página
             $currentPage = $this->_getParam('page', 1);
             $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(5);
             $this->view->dadosEditalAvaliador = $paginator;
             $this->view->qtdDoc    = count($dadosEdital); // quantidade
 
-            // ========== FIM PAGINA��O ==========
+            // ========== FIM PAGINAÇÂO ==========
         } else {
-            parent::message("CPF n�o cadastrado!", "/cadastraredital/acessaravaliador?nrFormDocumento={$nrFormDocumento}&nrVersaoDocumento={$nrVersaoDocumento}&idEdital={$idEdital}&idUsuario={$idUsuario}", "ALERT");
+            parent::message("CPF Não cadastrado!", "/cadastraredital/acessaravaliador?nrFormDocumento={$nrFormDocumento}&nrVersaoDocumento={$nrVersaoDocumento}&idEdital={$idEdital}&idUsuario={$idUsuario}", "ALERT");
         }
         if (isset($_POST['idEdit'])) {
             x(3);//Desvincular

@@ -249,8 +249,8 @@ gerarBreadCrumb($links);
                                     if ($projeto["Ordem"] == 0) {
                                         echo 'Proponente';
                                     } else if ($projeto["Ordem"] == 1) {
-                                        if ($projeto["idSolicitante"] == 989898) { // Código cadastrado pelo Rômulo para identificar procuradores que foram migrados do sistema antigo para o novo com perfil de procurador, mas com função de Responsável.
-                                            echo 'Responsável';
+                                        if ($projeto["idSolicitante"] == 989898) { // CÃ³digo cadastrado pelo Rï¿½mulo para identificar procuradores que foram migrados do sistema antigo para o novo com perfil de procurador, mas com funï¿½ï¿½o de Responsï¿½vel.
+                                            echo 'Responsï¿½vel';
                                         } else {
                                             echo 'Procurador';
                                         }
@@ -330,7 +330,7 @@ gerarBreadCrumb($links);
                                                 <?php if ($projeto["liberarEdicao"]) : ?>
                                                     <li>
                                                         <a class="btn btn-floating waves-effect waves-light tooltipped btn-default"
-                                                           data-tooltip="Adequar à realidade ou Encaminhar para o MinC" target="_blank"
+                                                           data-tooltip="Adequar ï¿½ realidade ou Encaminhar para o MinC" target="_blank"
                                                            href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta', 'idPreProjeto' => $projeto["idProjeto"])); ?>">
                                                             <i class="material-icons">edit</i>
                                                         </a>
@@ -379,13 +379,13 @@ gerarBreadCrumb($links);
     </div> <!-- ========== DIV IMPRESSAO ========== -->
 </div> <!-- ========== DIV CONTEUDO ========== -->
 
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 <br clear="all"/>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <div id="modal-pre-loader" class="modal modal-pre-loader">
     <div class="modal-header center valign"><h5>Aguarde!</h5></div>

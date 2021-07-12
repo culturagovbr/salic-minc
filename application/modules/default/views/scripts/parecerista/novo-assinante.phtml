@@ -1,25 +1,25 @@
 <?php echo $this->partial('parecerista/inc/menu-assinantes.php', $this); ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class=""><a href="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'gerenciar-assinantes'),'',true); ?>" title="Ir para Gerenciar assinante">Gerenciar assinante</a></li>
         <li class="last">Novo assinante</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
- 
+
 <div id="dialog"></div>
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Novo assinante <span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span></div>
+    <div>Novo assinante <span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span></div>
 </div>
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 
 <div id="conteudo">
-    
+
     <form class="form" name="form" id="form" method="post" action="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'add-novo-assinante')); ?>">
         <table class="tabela">
             <tr>
@@ -57,22 +57,22 @@
     </form>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script>
-    
+
     $(document).ready(function(){
-        
+
         $('#btnAddAssinante').click(function(){
-            
+
             $("#dialog").html('Deseja adicionar a assinatura?');
-        
+
             $("#dialog").dialog("destroy");
             $("#dialog").dialog({
                 width: '400px',
@@ -80,8 +80,8 @@
                 draggable: false,
                 resizable: false,
                 closeOnEscape: false,
-                title: 'ConfirmaÁ„o',
-                buttons: { 
+                title: 'Confirma√ß√£o',
+                buttons: {
                     Cancelar:function() {
                         $(this).dialog('close');
                     },
@@ -94,16 +94,16 @@
 
             $('.ui-dialog-titlebar-close').remove();
 
-            
-            
+
+
         });
-        
+
     });
 
     function removeAssinante(valor){
-        
+
         $("#dialog").html('Deseja remover a assinatura?');
-        
+
         $("#dialog").dialog("destroy");
         $("#dialog").dialog({
             width: '400px',
@@ -111,8 +111,8 @@
             draggable: false,
             resizable: false,
             closeOnEscape: false,
-            title: 'ConfirmaÁ„o',
-            buttons: { 
+            title: 'Confirma√ß√£o',
+            buttons: {
                 Cancelar:function() {
                     $(this).dialog('close');
                 },
@@ -123,17 +123,17 @@
                 }
             }
         });
-        
+
         $('.ui-dialog-titlebar-close').remove();
 
-        
+
     }
-    
+
 
     function visualizarPagamentos(id){
         $('.pagamentos').hide();
         $('#t_'+id).show();
-        
+
         $('#btnAbrir_'+id).hide();
         $('#btnFechar_'+id).show();
     }
@@ -147,11 +147,11 @@
     function contarNumeracao(){
         var nrDespachoInicial   = parseInt($('#nrDespachoInicial').val());
         var nrDespachoGeral     = parseInt($('#nrDespachos').val());
-        
+
         var conta = (nrDespachoGeral) + (nrDespachoInicial);
         $('#nrDespachoFinal').val(conta -1);
         $('#lbnrDespachoFinal').html(conta -1);
-       
+
         if($('#nrDespachoInicial').val() === ''){
             $('#nrDespachoFinal').val('0');
             $('#lbnrDespachoFinal').html('0');
@@ -159,13 +159,13 @@
     }
 
     function gerarDespachos(){
-        
+
         var nrDespachos   = parseInt($('#nrDespachos').val());
         var nrDespachoInicial   = parseInt($('#nrDespachoInicial').val());
-        
+
         if(nrDespachoInicial <= nrDespachos){
-            $("#dialog").html('N˙mero despacho inicial n„o pode ser menor ou igual ao ⁄ltimo despacho gerado!');
-        
+            $("#dialog").html('NÔøΩmero despacho inicial N√£o pode ser menor ou igual ao ÔøΩltimo despacho gerado!');
+
             $("#dialog").dialog("destroy");
             $("#dialog").dialog({
                 width: '400px',
@@ -174,7 +174,7 @@
                 resizable: false,
                 closeOnEscape: false,
                 title: 'Alerta',
-                buttons: { 
+                buttons: {
                     Fechar:function() {
                         $(this).dialog('close');
                     }
@@ -184,9 +184,9 @@
             $('.ui-dialog-titlebar-close').remove();
             return false;
         }
-        
+
         $("#dialog").html('Deseja realmente gerar os despachos?');
-        
+
         $("#dialog").dialog("destroy");
         $("#dialog").dialog({
             width: '400px',
@@ -194,9 +194,9 @@
             draggable: false,
             resizable: false,
             closeOnEscape: false,
-            title: 'ConfirmaÁ„o',
-            buttons: { 
-                N„o:function() {
+            title: 'Confirma√ß√£o',
+            buttons: {
+                N√£o:function() {
                     $(this).dialog('close');
                 },
                 Sim:function() {
@@ -206,9 +206,9 @@
         });
 
         $('.ui-dialog-titlebar-close').remove();
-        
-       
-        
+
+
+
     }
-    
+
 </script>

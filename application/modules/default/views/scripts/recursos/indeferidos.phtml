@@ -6,15 +6,15 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.recurso
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'recursos', 'action' => 'recurso')); ?>" title="Ir para Recurso">Recurso</a></li>
 		<li class="last">Projetos Indeferidos</li>
 	</ul>
@@ -23,20 +23,20 @@
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>Projetos Indeferidos <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 	<br />
 
-	<!-- ========== INÕCIO TABELA RECURSO ========== -->
+	<!-- ========== IN√çCIO TABELA RECURSO ========== -->
 	<table class="tabela">
 		<tr>
 			<th>Pronac</th>
@@ -56,7 +56,7 @@
 
 		<?php $tbinferidos = $this->recursoindeferidos; ?>
 		<tr>
-			<td><?php echo (!empty($tbinferidos[0]->CgcCpf)) ? Validacao::mascaraCPFCNPJ($this->escape($tbinferidos[0]->CgcCpf)) : "<em>N„o informado.</em>"; ?></td>
+			<td><?php echo (!empty($tbinferidos[0]->CgcCpf)) ? Validacao::mascaraCPFCNPJ($this->escape($tbinferidos[0]->CgcCpf)) : "<em>N√£o informado.</em>"; ?></td>
 			<td><?php echo $this->escape($tbinferidos[0]->NomeProponente);?></td>
 		</tr>
 	</table>
@@ -81,7 +81,7 @@
 
 
 
-	<!-- ========== INÕCIO FORMUL¡RIO JUSTIFICATIVA ========== -->
+	<!-- ========== IN√çCIO FORMULÔøΩRIO JUSTIFICATIVA ========== -->
 	<div id="dialog-alert" class="sumir">Por favor, digite sua justificativa!</div>
 	<form name="form" id="form" action="<?php echo $this->url(array('controller' => 'recursos', 'action' => 'indeferidos')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>" method="post">
 	<table class="tabela">
@@ -106,8 +106,8 @@
 
 						if (texto.length > 0 && texto != 'Digiteseutextoaqui...')
 						{
-							// verifica se o usu·rio clicou no bot„o
-							 
+							// verifica se o usuÔøΩrio clicou no botÔøΩo
+
 							$('#justificativa').val(CKEDITOR.instances['justificativa'].getData());
 						}
 						else
@@ -119,7 +119,7 @@
 								draggable: false,
 								resizable: false,
 								closeOnEscape: false,
-								title: 'Dados obrigatÛrios n„o informados!',
+								title: 'Dados obrigatÔøΩrios N√£o informados!',
 								buttons:
 								{
 									Ok:function()
@@ -137,31 +137,31 @@
 				<input type="hidden" name="idPronac" id="idPronac" value="<?php echo $_GET['idPronac']; ?>" />
 				<br />
 				<p align="center">
-					<input type="radio" name="stAtendimento" id="D" value="D" checked="checked" /> <label for="D">Deferir</label> &nbsp;&nbsp;&nbsp; 
+					<input type="radio" name="stAtendimento" id="D" value="D" checked="checked" /> <label for="D">Deferir</label> &nbsp;&nbsp;&nbsp;
 					<input type="radio" name="stAtendimento" id="I" value="I" /> <label for="I">Indeferir</label>
 				</p>
 				<br />
 				<p>
-					<input type="button" class="btn" value=" An·lise do Projeto " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado', 'idpronac' => $_GET['idPronac'])); ?>');" onkeypress=" " /> &nbsp; 
-					<input type="submit" class="btn" value=" Salvar " /> &nbsp; 
+					<input type="button" class="btn" value=" An√°lise do Projeto " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado', 'idpronac' => $_GET['idPronac'])); ?>');" onkeypress=" " /> &nbsp;
+					<input type="submit" class="btn" value=" Salvar " /> &nbsp;
 
-					<input type="reset" class="btn" value=" Cancelar " onclick="redirecionar('<?php echo $this->url(array('controller' => 'recursos', 'action' => 'index')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>');" onkeypress=" " /> &nbsp; 
+					<input type="reset" class="btn" value=" Cancelar " onclick="redirecionar('<?php echo $this->url(array('controller' => 'recursos', 'action' => 'index')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>');" onkeypress=" " /> &nbsp;
 				</p>
 			</td>
 		</tr>
 	</table>
 	</form>
-	<!-- ========== FIM FORMUL¡RIO JUSTIFICATIVA ========== -->
+	<!-- ========== FIM FORMULÔøΩRIO JUSTIFICATIVA ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

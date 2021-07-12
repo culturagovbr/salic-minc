@@ -1,12 +1,12 @@
 <?php
 /**
- * Classe para conversão, validação e exibição de data e hora
+ * Classe para conversï¿½o, validaï¿½ï¿½o e exibiï¿½ï¿½o de data e hora
  * @author Equipe RUP - Politec
  * @since 29/03/2010
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Data
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -43,9 +43,9 @@ class Data
         }
         else
         {
-            return @checkdate($mes, $dia, $ano); // faz a validação da data
+            return @checkdate($mes, $dia, $ano); // faz a validaï¿½ï¿½o da data
         }
-    } // fecha método validarData()
+    } // fecha mï¿½todo validarData()
 
 
 
@@ -74,7 +74,7 @@ class Data
             $segundo = substr($horas, 4, 2);
         }
 
-        // retorna falso caso não tenha sido informados números ou string numéricas
+        // retorna falso caso NÃ£o tenha sido informados nï¿½meros ou string numï¿½ricas
         if (!is_numeric($hora) || !is_numeric($minuto) || !is_numeric($segundo))
         {
             return false;
@@ -90,12 +90,12 @@ class Data
                 return true;
             }
         } // fecha else
-    } // fecha método validarHora()
+    } // fecha mï¿½todo validarHora()
 
 
 
     /**
-     * Retorna a data e hora no padrão americano, exemplo: YYYY-MM-DD HH:MM:SS
+     * Retorna a data e hora no padrï¿½o americano, exemplo: YYYY-MM-DD HH:MM:SS
      *
      * @access public
      * @static
@@ -116,12 +116,12 @@ class Data
         {
             return $data_sistema[0];
         }
-    } // fecha método dataAmericana()
+    } // fecha mï¿½todo dataAmericana()
 
 
 
     /**
-     * Retorna a data e hora no padrão brasileiro, exemplo: DD/MM/AAAA HH:MM:SS
+     * Retorna a data e hora no padrï¿½o brasileiro, exemplo: DD/MM/AAAA HH:MM:SS
      *
      * @access public
      * @static
@@ -144,7 +144,7 @@ class Data
         {
             return $data_sistema[0];
         }
-    } // fecha método dataBrasileira()
+    } // fecha mï¿½todo dataBrasileira()
 
 
 
@@ -163,10 +163,10 @@ class Data
         $ano    = date("Y");
         $semana = date("w");
 
-        // mês por extenso
+        // mï¿½s por extenso
         $mes_extenso[1] = "janeiro";
         $mes_extenso[2] = "fevereiro";
-        $mes_extenso[3] = "março";
+        $mes_extenso[3] = "marï¿½o";
         $mes_extenso[4] = "abril";
         $mes_extenso[5] = "maio";
         $mes_extenso[6] = "junho";
@@ -180,23 +180,23 @@ class Data
         // dia da semana por extenso
         $semana_extenso[0] = "Domingo";
         $semana_extenso[1] = "Segunda-feira";
-        $semana_extenso[2] = "Terça-feira";
+        $semana_extenso[2] = "Terï¿½a-feira";
         $semana_extenso[3] = "Quarta-feira";
         $semana_extenso[4] = "Quinta-feira";
         $semana_extenso[5] = "Sexta-feira";
-        $semana_extenso[6] = "Sábado";
+        $semana_extenso[6] = "Sï¿½bado";
 
         if ($dia == 1)
         {
-            $dia = "1°";
+            $dia = "1ï¿½";
         }
         return $semana_extenso[$semana] . ", " . $dia . " de " . $mes_extenso[$mes] . " de " . $ano;
-    } // fecha método mostraData()
+    } // fecha mï¿½todo mostraData()
 
 
 
     /**
-     * Retorna a saudação de acordo com a hora
+     * Retorna a saudaï¿½ï¿½o de acordo com a hora
      *
      * @access public
      * @static
@@ -205,7 +205,7 @@ class Data
      */
     public static function saudacao()
     {
-        // configura a saudação
+        // configura a saudaï¿½ï¿½o
         $hora = date("H");
         if ($hora >= 6 && $hora < 12)
         {
@@ -224,7 +224,7 @@ class Data
             $saudacao = "Boa madrugada";
         }
         return $saudacao;
-    } // fecha método saudacao()
+    } // fecha mï¿½todo saudacao()
 
 
 
@@ -258,7 +258,7 @@ class Data
                 {
                     $data = date('Y-m-d');
                 }
-                
+
             }
         }
         else
@@ -285,14 +285,14 @@ class Data
         }
 
         return $data;
-    } // fecha método tratarDataZend()
+    } // fecha mï¿½todo tratarDataZend()
 
 
 
     /**
      * Retorna o status da data
-     * - Semaforo Verde    : Data em atraso até 10 dias
-     * - Semaforo Amarelo  : Data em atraso de 10 à 20 dias
+     * - Semaforo Verde    : Data em atraso atï¿½ 10 dias
+     * - Semaforo Amarelo  : Data em atraso de 10 ï¿½ 20 dias
      * - Semaforo Vermelho : Data em atraso mais de 20 dias
      * @access public
      * @static
@@ -322,12 +322,12 @@ class Data
             $bl_vermelho = "public/img/bola_vermelho.gif";
             return $bl_vermelho;
         }
-    } // fecha método verificacaoData()
+    } // fecha mï¿½todo verificacaoData()
 
 
 
 	/**
-	 * Método para fazer comparação de datas
+	 * Mï¿½todo para fazer comparaï¿½ï¿½o de datas
 	 * @access public
 	 * @static
 	 * @param $datainicial string
@@ -341,7 +341,7 @@ class Data
         $datatirada  = $datafinal - $datainicial;
         $dias = (($datatirada / 3600) / 24);
         return $dias;
-    } // fecha método CompararDatas()
+    } // fecha mï¿½todo CompararDatas()
 
     public static function somarData($data="NOW", $qtdDias=null)
     {
@@ -356,7 +356,7 @@ class Data
             $dia  = $data[2];
             $mes  = $data[1];
             $ano  = $data[0];
-            
+
             switch($mes) {
               case 01: $mes = "janeiro";
                        break;
@@ -384,7 +384,7 @@ class Data
                        break;
             }
             return $dia.' de '.$mes.' de '.$ano;
-        
+
     }
 
 } // fecha class

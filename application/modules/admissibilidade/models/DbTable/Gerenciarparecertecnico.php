@@ -112,10 +112,10 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 					pr.Descricao AS Produto,
 					a.idProduto,
 					CASE
-						WHEN Lei8313 = 1 THEN 'Sim' ELSE 'N�o'
+						WHEN Lei8313 = 1 THEN 'Sim' ELSE 'Não'
 					END AS Lei8313,
 					CASE
-						WHEN Artigo3 = 1 THEN 'Sim' ELSE 'N�o'
+						WHEN Artigo3 = 1 THEN 'Sim' ELSE 'Não'
 					END AS Artigo3,
 					CASE
 						WHEN IncisoArtigo3 = 1 THEN 'I'
@@ -126,17 +126,17 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 					END AS IncisoArtigo3,
 					a.AlineaArtigo3,
 					CASE
-						WHEN Artigo18 = 1 THEN 'Sim' ELSE 'N�o'
+						WHEN Artigo18 = 1 THEN 'Sim' ELSE 'Não'
 					END AS Artigo18,
 					a.AlineaArtigo18,
 					CASE
-						WHEN Artigo26 = 1 THEN 'Sim' ELSE 'N�o'
+						WHEN Artigo26 = 1 THEN 'Sim' ELSE 'Não'
 					END AS Artigo26,
 					CASE
-						WHEN Lei5761 = 1 THEN 'Sim' ELSE 'N�o'
+						WHEN Lei5761 = 1 THEN 'Sim' ELSE 'Não'
 					END AS Lei5761,
 					CASE
-						WHEN Artigo27 = 1 THEN 'Sim' ELSE 'N�o'
+						WHEN Artigo27 = 1 THEN 'Sim' ELSE 'Não'
 					END AS Artigo27,
 					CASE
 						WHEN IncisoArtigo27_I = 1 THEN 'X' ELSE ''
@@ -151,12 +151,12 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 						WHEN IncisoArtigo27_IV = 1 THEN 'X' ELSE ''
 					END AS IncisoArtigo27_IV,
 					CASE
-						WHEN TipoParecer = 1 THEN 'Aprova��o'
+						WHEN TipoParecer = 1 THEN 'aprovação'
 						WHEN TipoParecer = 2 THEN 'Complementa��o'
 						WHEN TipoParecer = 4 THEN 'Redu��o'
 					END AS TipoParecer,
 					CASE
-						WHEN ParecerFavoravel = 1 THEN 'Sim' ELSE 'N�o'
+						WHEN ParecerFavoravel = 1 THEN 'Sim' ELSE 'Não'
 					END AS ParecerFavoravel,
 					a.ParecerDeConteudo,
 					sac.dbo.fnNomeParecerista(a.idUsuario) AS Parecerista
@@ -253,7 +253,7 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
     public static function LocalRealizacao($pronac)
     {
         $sql = "SELECT CASE a.idPais
-			            WHEN 0 THEN 'N�o � poss�vel informar o local de realiza��o do projeto'
+			            WHEN 0 THEN 'Não � poss�vel informar o local de realiza��o do projeto'
 			            ELSE p.Descricao
 			            END as Pais,u.Descricao as UF,m.Descricao as Cidade,x.DtInicioDeExecucao,x.DtFinalDeExecucao
 			FROM  sac.dbo.Abrangencia a

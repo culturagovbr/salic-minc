@@ -8,14 +8,14 @@ class DadosprojetoDAO extends Zend_Db_Table
         $sql = "SELECT
 			Pr.AnoProjeto+Pr.Sequencial as pronac ,
 			Pr.idPRONAC,
-			Tp.Emissor, 
-			CONVERT(CHAR(10),Tp.dtTramitacaoEnvio,103) as dtTramitacaoEnvio, 
-			Tp.Situacao, 
-			Tp.Destino, 
-			Tp.Receptor, 
-			CONVERT(CHAR(10),Tp.DtTramitacaoRecebida,103) as DtTramitacaoRecebida, 
+			Tp.Emissor,
+			CONVERT(CHAR(10),Tp.dtTramitacaoEnvio,103) as dtTramitacaoEnvio,
+			Tp.Situacao,
+			Tp.Destino,
+			Tp.Receptor,
+			CONVERT(CHAR(10),Tp.DtTramitacaoRecebida,103) as DtTramitacaoRecebida,
 			Pr.NomeProjeto,
-			Pr.ResumoProjeto, 
+			Pr.ResumoProjeto,
 			Tp.meDespacho,
 			St.descricao dsSituacao,
 			Mc.descricao dsMecanismo,
@@ -26,13 +26,13 @@ class DadosprojetoDAO extends Zend_Db_Table
 			THEN I.Nome
 			ELSE N.Descricao
 			END AS nmProponente,
-			Pr.UfProjeto, 
-			Pr.Processo, 
-			Pr.CgcCpf, 
-			CONVERT(CHAR(10),Pr.DtSituacao,103) as DtSituacao, 
-			Pr.ProvidenciaTomada, 
+			Pr.UfProjeto,
+			Pr.Processo,
+			Pr.CgcCpf,
+			CONVERT(CHAR(10),Pr.DtSituacao,103) as DtSituacao,
+			Pr.ProvidenciaTomada,
 			Pr.Localizacao,
-			CASE En.Enquadramento when 1 then 'Artigo 26' when 2 then 'Artigo 18' else 'N�o enquadrado' end as Enquadramento,
+			CASE En.Enquadramento when 1 then 'Artigo 26' when 2 then 'Artigo 18' else 'Não enquadrado' end as Enquadramento,
 			Pr.SolicitadoReal,
 			--SAC.dbo.fnOutrasFontes(Pr.idPronac) AS OutrasFontes,
 			CASE WHEN SAC.dbo.fnOutrasFontes(Pr.idPronac) is null
@@ -56,7 +56,7 @@ class DadosprojetoDAO extends Zend_Db_Table
 			LEFT JOIN SAC.dbo.Enquadramento En ON En.idPRONAC =  Pr.idPRONAC
 			JOIN AGENTES.dbo.Agentes A ON A.CNPJCPF = Pr.CgcCpf
 			JOIN SAC.dbo.PreProjeto PP ON PP.idPreProjeto = Pr.idProjeto
-			JOIN AGENTES.dbo.Nomes N ON N.idAgente = A.idAgente 
+			JOIN AGENTES.dbo.Nomes N ON N.idAgente = A.idAgente
 			LEFT JOIN SAC.dbo.vwTramitarProjeto Tp ON Tp.idPronac = Pr.idPRONAC
 			JOIN SAC.dbo.Interessado I ON Pr.CgcCpf = I.CgcCpf
 			WHERE Pr.idPRONAC = ". $pronac ."" ;

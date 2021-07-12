@@ -4,14 +4,14 @@ function sumiraqui(id)
 {
 	$('img[class='+id+']').toggle();
 	$('tr[class='+id+']').toggle();
-	
+
 }
 
 function pdf()
 {
 	$('#htmlpdf').val($('#imprimir').html());
 	$('#formpdf').submit();
-	
+
 }
 
 function xls()
@@ -28,7 +28,7 @@ function xls()
 echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -40,24 +40,24 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 	<div>Guias de tramita&ccedil;&atilde;o <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 <form id="formpdf" action="<?php echo $this->url(array('controller' => 'tramitardocumentos', 'action' => 'gerarpdf'),'',true); ?>" method="post">
 	<input type="hidden" name="html" value="" id="htmlpdf" />
-	<input type="hidden" name="nomearquivo" value="Guias de Tramitação" id="nomearquivo" />
+	<input type="hidden" name="nomearquivo" value="Guias de TramitaÃ§Ã£o" id="nomearquivo" />
 </form>
 <form id="formxls" action="<?php echo $this->url(array(' controller' => 'tramitardocumentos', 'action' => 'gerarxls')); ?>" method="post">
 	<input type="hidden" name="html" value="" id="htmlxls" />
-	<input type="hidden" name="nomearquivo" value="Guias de Tramitação" id="nomearquivo" />
+	<input type="hidden" name="nomearquivo" value="Guias de TramitaÃ§Ã£o" id="nomearquivo" />
 </form>
 
 <!--  habilitar  em versao superior 1.5 do UC
@@ -86,9 +86,9 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
  			<td colspan="6" align="left">
  				<img src="<?php echo $this->baseUrl(); ?>/public/img/icn_menos.gif" class="<?php echo $lote->idLote; ?>" style="cursor:pointer;" onclick="sumiraqui('<?php echo $lote->idLote; ?>');" />
  				<img src="<?php echo $this->baseUrl(); ?>/public/img/icn_mais.gif" class="<?php echo $lote->idLote; ?>" style="cursor:pointer; display:none;" onclick="sumiraqui('<?php echo $lote->idLote; ?>');" />
- 			 &nbsp;&nbsp;&nbsp;&nbsp;	<strong>Lote Nr:</strong> <?php echo $lote->idLote; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ 			 &nbsp;&nbsp;&nbsp;&nbsp;	<strong>Lote Nr:</strong> <?php echo $lote->idLote; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  			 							<strong>Data de Envio:</strong> <?php echo $lote->dtEnvio; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- 			 							<strong>Destino:</strong> <?php echo $lote->Destino; ?> &nbsp;&nbsp;|&nbsp;&nbsp; 
+ 			 							<strong>Destino:</strong> <?php echo $lote->Destino; ?> &nbsp;&nbsp;|&nbsp;&nbsp;
  			 <a href="<?php echo $this->url(array('controller' => 'tramitardocumentos', 'action' => 'imprimirguia')); ?>?idLote=<?php echo $lote->idLote; ?>">imprimir </a>
  			</td>
  		</tr>
@@ -98,7 +98,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
  			<th width="200">Nome do Projeto</th>
  			<th width="150">Documento</th>
  			<th width="100">Data</th>
- 			<th>Arquivo</th> 			
+ 			<th>Arquivo</th>
  		</tr>
  			<?php foreach($docs as $doc): ?>
  		<tr class="<?php echo $lote->idLote; ?>">
@@ -109,7 +109,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
  			<td align="center"><?php echo $doc->dtDocumentoBR; ?></td>
  			<td align="center"><a href="<?php echo $this->url(array('controller' => 'tramitardocumentos', 'action' => 'abrir')); ?>/id/<?php echo $doc->idDocumento; ?>"><?php echo $doc->NoArquivo; ?></a></td>
  		</tr>
- 			<?php endforeach; ?> 		
+ 			<?php endforeach; ?>
  	</table>
  	<?php }?>
  	<?php endforeach; ?>
@@ -118,25 +118,25 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
 	<table class="tabela">
 		<tr>
 			<td class="centro">
-				Não há guias de tramitação!
+				NÃ£o hï¿½ guias de TramitaÃ§Ã£o!
 			</td>
 		</tr>
 	</table>
-<?php endif;?> 
- </div>	
+<?php endif;?>
+ </div>
 </fieldset>
 
-<!-- ============ PAGINAÇÃO ============ -->		   
+<!-- ============ PAGINAÃ‡Ã‚O ============ -->
 <?php if ($this->qtdDocumentos > 5) { echo $this->dados; } ?>
-<!-- ========== FIM PAGINAÇÃO ========== -->
+<!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="imagemRodape"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

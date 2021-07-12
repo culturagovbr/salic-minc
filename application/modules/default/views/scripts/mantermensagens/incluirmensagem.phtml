@@ -8,7 +8,7 @@
             modal: true,
             autoOpen:false,
             buttons: {
-                'Não': function(){
+                'NÃ£o': function(){
                     $('#confirm').dialog('close');
                 },
                 'Sim': function(){
@@ -48,14 +48,14 @@
             }
             else if(($("#encaminhar").val() == 0)){
                 validar = false;
-                var msgError = 'Dados Obrigatórios nao informados.'
+                var msgError = 'Dados Obrigatï¿½rios nao informados.'
             }
             if(!validar){
                 $('#error').html(msgError);
                 $('#error').dialog('open');
             }
             else{
-                $('#confirm').html('Tem certeza que deseja enviar essa mensagem?');       
+                $('#confirm').html('Tem certeza que deseja enviar essa mensagem?');
                 confirma();
                 $('#confirm').dialog('open');
             }
@@ -66,12 +66,12 @@
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Mensagens<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <div id="error"></div>
     <div id="confirm"></div>
@@ -108,8 +108,8 @@
                     <?php
                     foreach ($this->BuscarSelect as $select) {
                     ?>
-                        <option value="<?php echo $select['idAgente'].'/'.$select['perfil']; ?>"><?php echo isset($select['orgao']) ? $select['orgao'] : "Á".'rea: '.$select['Area']; echo ' / '.$select['TipoUsuario'] . ' - ' . $select['nome'] ?></option>
-                        
+                        <option value="<?php echo $select['idAgente'].'/'.$select['perfil']; ?>"><?php echo isset($select['orgao']) ? $select['orgao'] : "ï¿½".'rea: '.$select['Area']; echo ' / '.$select['TipoUsuario'] . ' - ' . $select['nome'] ?></option>
+
                     <?php } ?>
                 </select>
             </p>
@@ -120,12 +120,12 @@
         </div>
     </form>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

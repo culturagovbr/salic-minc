@@ -239,7 +239,7 @@ function alertar(msg, id)
 
 
 /**
- * Mensagens de confirma��o
+ * Mensagens de Confirmação
  */
 function confirmar(msg)
 {
@@ -256,7 +256,7 @@ function confirmar(msg)
 
 
 /**
- * Redirecionamento de p�gina
+ * Redirecionamento de página
  */
 function redirecionar(url)
 {
@@ -266,7 +266,7 @@ function redirecionar(url)
 
 
 /**
- * Voltar p�gina anterior
+ * Voltar página anterior
  */
 function voltar()
 {
@@ -276,7 +276,7 @@ function voltar()
 
 
 /**
- * Imprimir p�gina
+ * Imprimir página
  */
 function imprimir()
 {
@@ -412,7 +412,7 @@ function grid_01(elemento)
 
 /**
  * Fun��o para abrir e fechar a grid (modelo 3)
- * Foi retirada a fun��o toggle(), pois, a mesma n�o funcionou com tbody no IE 7
+ * Foi retirada a fun��o toggle(), pois, a mesma Não funcionou com tbody no IE 7
  */
 function grid_03(elemento)
 {
@@ -708,7 +708,7 @@ function validaDigito(e)
         return;
     }
 
-    // Verifica se a tecla � um d�gito, sendo que o shift n�o pode estar sendo pressionado
+    // Verifica se a tecla � um d�gito, sendo que o shift Não pode estar sendo pressionado
     if ((tecla >= 48 && tecla <= 57) && !e.shiftKey){
         return;
     }
@@ -735,8 +735,8 @@ function validaDigito(e)
     }
     var caracter = String.fromCharCode(tecla);
 
-    //Verifica se o caractere n�o est� entre 0-9, se foi utilizada a sequ�ncia Ctrl+c ou Ctrl+v e se a tecla Shift estava pressionada
-    //Se verdadeiro, n�o permite a digita��o do caractere.
+    //Verifica se o caractere Não est� entre 0-9, se foi utilizada a sequ�ncia Ctrl+c ou Ctrl+v e se a tecla Shift estava pressionada
+    //Se verdadeiro, Não permite a digita��o do caractere.
     if(((("0123456789".indexOf(caracter) == -1) && !controle)) || e.shiftKey)
     {
         if (window.event){ //IE
@@ -780,7 +780,7 @@ function alertModal(titulo, mensagem, largura, altura, campo, url, id_formulario
 				{
 					document.getElementById(campo).focus();
 				}
-				if (url != null) // faz o redirecionamento para uma p�gina
+				if (url != null) // faz o redirecionamento para uma página
 				{
 					redirecionar(url);
 				}
@@ -817,7 +817,7 @@ function alertModalPt(titulo, mensagem, largura, altura, campo, url, id_formular
 				{
 					document.getElementById(campo).focus();
 				}
-				if (url != null) // faz o redirecionamento para uma p�gina
+				if (url != null) // faz o redirecionamento para uma página
 				{
 					redirecionar(url);
 				}
@@ -1151,7 +1151,7 @@ function JSBloquearAlteracaoFormulario()
 
 
 
-// ========== AP�S O CARREGAMENTO DA P�GINA ==========
+// ========== AP�S O CARREGAMENTO DA página ==========
 $(document).ready(function()
 {
 	$('tr.registros, .registros tr').mouseover(function() // mouse em cima da linha

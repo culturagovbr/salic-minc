@@ -22,7 +22,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 90; // Protocolo - Documento
         $PermissoesGrupo[] = 91; // Protocolo - Recebimento
         $PermissoesGrupo[] = 92; // Tec. de Admissibilidade
-        $PermissoesGrupo[] = 93; // Coordenador - Geral de An�lise (Ministro)
+        $PermissoesGrupo[] = 93; // Coordenador - Geral de Análise (Ministro)
         $PermissoesGrupo[] = 94; // Parecerista
         $PermissoesGrupo[] = 96;  // Consulta Gerencial
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
@@ -39,7 +39,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 124; // Tec. de Presta��o de Contas
         $PermissoesGrupo[] = 125; // Coord. de Presta��o de Contas
         $PermissoesGrupo[] = 126; // Coord. Geral de Presta��o de Contas
-        $PermissoesGrupo[] = 127; // Coord. Geral de An�lise
+        $PermissoesGrupo[] = 127; // Coord. Geral de Análise
         $PermissoesGrupo[] = 128; // Tec. de Portaria
         $PermissoesGrupo[] = 131; // Coord. de Admissibilidade
         $PermissoesGrupo[] = 132; // Chefe de Divis�o
@@ -1931,7 +1931,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
 
         $tbl = new Projetos();
 
-        // ========== IN�CIO PAGINA��O ==========
+        // ========== INÍCIO PAGINAÇÂO ==========
         $get = Zend_Registry::get('get');
         if (isset($pag)) {
             $pagina = $pag;
@@ -1943,7 +1943,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
         $total = $tbl->buscar(array('Situacao = ?' => $filtro['situacao']));
         //$buscaAprovados = $aprovacao->buscarAprovados($inicio,$fim);
 
-        // ========== FIM PAGINA��O ==========
+        // ========== FIM PAGINAÇÂO ==========
 
         $this->view->dados       = $rs;
         $this->view->qtdRegistro = ceil(count($total)/$qtPag); // quantidade de comprovantes
@@ -1966,11 +1966,11 @@ class OperacionalController extends MinC_Controller_Action_Abstract
 
         $tbl = new Projetos();
 
-        // ========== IN�CIO PAGINA��O ==========
+        // ========== INÍCIO PAGINAÇÂO ==========
         $get = Zend_Registry::get('get');
         $rs = $tbl->imprimirResultadoProjetoSituacao($filtro);
         $total = $tbl->buscar(array('Situacao = ?' => $filtro['situacao']));
-        // ========== FIM PAGINA��O ==========
+        // ========== FIM PAGINAÇÂO ==========
 
         $this->view->dados = $rs;
         $this->_helper->layout->disableLayout();// Desabilita o Zend Layout
@@ -2052,7 +2052,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
             if ($post->statusAnalise == "SA") {
                 $statusAnalise = "Analisado";
             } else {
-                $statusAnalise = "N�o analisado";
+                $statusAnalise = "Não analisado";
             }
         }
 
@@ -2945,7 +2945,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
             if ($post->statusAnalise == "SA") {
                 $statusAnalise = 2; //Analisados
             } else {
-                $statusAnalise = 1; //N�o Analisados
+                $statusAnalise = 1; //Não Analisados
             }
         }
 
@@ -3127,7 +3127,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
             if ($post->statusAnalise == "SA") {
                 $arrBusca["status"] = 2; //Analisados
             } else {
-                $arrBusca["status"] = 1; //N�o Analisados
+                $arrBusca["status"] = 1; //Não Analisados
             }
         }
 
@@ -3407,7 +3407,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
         $arrBusca = MinC_Controller_Action_Abstract::montaBuscaData($post, "tpDtCaptacao", "dtCaptacao", "ca.DtRecibo", "dtCaptacao_Final", $arrBusca);
         $arrBusca = MinC_Controller_Action_Abstract::montaBuscaData($post, "tpDtExecucao", "dtExecucao", "p.DtInicioExecucao", "dtExecucao_Final", $arrBusca);
 
-        //Dados para pagina��o
+        //Dados para PAGINAÇÂO
         $pag = 1;
         if (isset($post->pag)) {
             $pag = $post->pag;
@@ -3435,7 +3435,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
             $ordem = array('6');
         }
 
-        //Valida se est� na �ltima p�gina para passar os somat�rios
+        //Valida se est� na �ltima página para passar os somat�rios
         //if($totalPag == $pag){
         $rsSomatorioAutorizado = $tbl->buscarDemonstrativoDeCaptacaoSomatorioValorAutorizado($arrBusca, $arrBuscaValor);
         $rsSomatorioCaptado    = $tbl->buscarDemonstrativoDeCaptacaoSomatorioValorCaptado($arrBusca, $arrBuscaValor);
@@ -3606,7 +3606,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
             $i++;
         }
 
-        //Dados para view e para a pagina��o
+        //Dados para view e para a PAGINAÇÂO
         $this->view->registros       = $lista;
         $this->view->pag             = $pag;
         $this->view->total           = $total;
@@ -3711,7 +3711,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
     {
         //FUN��O ACESSADA SOMENTE PELO TEC., COORD. E COORD. GERAL DE ACOMPANHAMENTO
         if ($this->idPerfil != 121 && $this->idPerfil != 122 && $this->idPerfil != 123) {
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
         }
     }
 
@@ -3719,7 +3719,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
     {
         //FUN��O ACESSADA SOMENTE PELO TEC., COORD. E COORD. GERAL DE ACOMPANHAMENTO
         if ($this->idPerfil != 121 && $this->idPerfil != 122 && $this->idPerfil != 123) {
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
         }
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
@@ -3788,7 +3788,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
 
         if (!empty($_GET['tpDtLtCap'])) {
 
-            //SE O USUARIO N�O INFORMAR A DATA CORRETAMENTE, O SISTEMA RETORNA A MSG.
+            //SE O USUARIO Não INFORMAR A DATA CORRETAMENTE, O SISTEMA RETORNA A MSG.
             if (empty($_GET['dtInicioLtCap'])) {
                 parent::message("Faltou informar a data para a realizarmos a pesquisa!", "operacional/conta-bancaria", "ALERT");
             } else {
@@ -3859,7 +3859,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
     {
         //FUN��O ACESSADA SOMENTE PELO TEC., COORD. E COORD. GERAL DE ACOMPANHAMENTO
         if ($this->idPerfil != 121 && $this->idPerfil != 122 && $this->idPerfil != 123) {
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
         }
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
@@ -3928,7 +3928,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
 
         if (!empty($_POST['tpDtLtCap'])) {
 
-            //SE O USUARIO N�O INFORMAR A DATA CORRETAMENTE, O SISTEMA RETORNA A MSG.
+            //SE O USUARIO Não INFORMAR A DATA CORRETAMENTE, O SISTEMA RETORNA A MSG.
             if (empty($_POST['dtInicioLtCap'])) {
                 parent::message("Faltou informar a data para a realizarmos a pesquisa!", "operacional/conta-bancaria", "ALERT");
             } else {

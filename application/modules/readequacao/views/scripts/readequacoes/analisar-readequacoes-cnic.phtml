@@ -15,7 +15,7 @@
     });
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta"></div>
 <div class="container-fluid">
     <div class="row">
@@ -67,7 +67,7 @@
                 </form>
 
                 <?php if (count($this->dados) > 0) { ?>
-                    <!-- ============ PAGINAÇÃO ============ -->
+                    <!-- ============ PAGINAÃ‡Ã‚O ============ -->
                     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
                         <tbody>
                         <tr>
@@ -94,7 +94,7 @@
                                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                                onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'analisar-readequacoes-cnic')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronac; ?>'">
                                     <?php } ?>
-                                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()"
+                                    PÃ¡g.:<select name="pag" id="pag" onchange="$('#form1').submit()"
                                                  class="input_simples">
                                         <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
                                             <option value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
@@ -102,7 +102,7 @@
                                             </option>
                                         <?php endfor; ?>
                                     </select>
-                                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde"
+                                    &nbsp;Registros por pÃ¡gina:<input type="text" size="1" name="qtde" id="qtde"
                                                                       class="input_simples"
                                                                       value="<?php echo $this->intTamPag; ?>"><input
                                             type="submit" class="btn_recarregar" value="">
@@ -122,7 +122,7 @@
                         echo " de " . $this->paginacao['total'] . " Projetos listados";
                         ?>
                     </center>
-                    <!-- ========== FIM PAGINAÇÃO ========== -->
+                    <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
                 <?php } ?>
 
 
@@ -142,7 +142,7 @@
                             <th>
                                 <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'analisar-readequacoes-cnic')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&pronac=' . $this->pronac . '&campo=6&ordem=' . $this->paginacao['novaOrdem']; ?>">Tipo
                                     Solicita&ccedil;&atilde;o</a></th>
-                            <th>Diligência</th>
+                            <th>Diligï¿½ncia</th>
                             <th>Avaliar</th>
                         </tr>
                         </thead>
@@ -189,7 +189,7 @@
 
                     <?php if (count($this->dados) > 0) { ?>
 
-                        <!-- ============ PAGINAÇÃO ============ -->
+                        <!-- ============ PAGINAÃ‡Ã‚O ============ -->
                         <?php if ($this->qtdRegistros > 10) { //echo $this->dados; ?>
                             <center>
                                 <?php
@@ -225,7 +225,7 @@
                                                 <input class="btn_ultimo" id="btn_ultimo" type="button"
                                                        onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'analisar-readequacoes-cnic')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronac; ?>'">
                                             <?php } ?>
-                                            Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()"
+                                            PÃ¡g.:<select name="pag" id="pag" onchange="$('#form2').submit()"
                                                          class="input_simples">
                                                 <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
                                                     <option value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
@@ -233,7 +233,7 @@
                                                     </option>
                                                 <?php endfor; ?>
                                             </select>
-                                            &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde"
+                                            &nbsp;Registros por pÃ¡gina:<input type="text" size="1" name="qtde" id="qtde"
                                                                               class="input_simples"
                                                                               value="<?php echo $this->intTamPag; ?>"><input
                                                     type="submit" class="btn_recarregar" value="">
@@ -248,7 +248,7 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <!-- ========== FIM PAGINAÇÃO ========== -->
+                            <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
 
                         <?php }
                     } ?>

@@ -5,13 +5,13 @@ HOST: http://localhost:4000
 
 # Group Autenticação
 
-## Login [/autenticacao/index/login2] 
+## Login [/autenticacao/index/login2]
 
 ### Login [POST]
 
 + Request (multipart/form-data; charset=utf-8)
 
-    + Attributes 
+    + Attributes
         + Login: 239.691.561-49 (string, required)
         + Senha: 123456 (number, required)
 
@@ -28,8 +28,8 @@ HOST: http://localhost:4000
 ### Trocar Perfil [POST]
 
 + Request (application/x-www-form-urlencoded)
-        
-    + Attributes 
+
+    + Attributes
         + codGrupo: 124 (string, required)
         + codOrgao: 203 (string, required)
 
@@ -350,7 +350,7 @@ HOST: http://localhost:4000
 
 + Response 200 (application/json; charset=utf-8)
 
-    + Body 
+    + Body
 
             {
                 "data": {
@@ -420,7 +420,7 @@ HOST: http://localhost:4000
 
             X-My-Message-Header: 42
 
-    + Body 
+    + Body
 
             {
                 "data": {
@@ -449,7 +449,7 @@ HOST: http://localhost:4000
                         "Analista": " ",
                         "DtSituacao": "2018-12-21 17:35:22",
                         "ResumoProjeto": "Trata-se de  uma obra de fomento  das artes plásticas de Santa Catarina destinada ao público  escolar , com abordagem informativa, destacando a vida e obra de  20 artistas  plásticos desde a época colonial aos dias  atuais.O material  será apresentado  de forma colorida e dinâmica com brincadeiras, histórias em quadrinhos e animação. Sua primeira edição foi Lançado no Museu  de Arte de SC em 2005.e atualmente  está esgotada e necessita de atualização dos dados.",
-                        "ProvidenciaTomada": "Comprova&ccedil;&atilde;o Financeira do Projeto em AnÃ¡lise",
+                        "ProvidenciaTomada": "Comprova&ccedil;&atilde;o Financeira do Projeto em Análise",
                         "Localizacao": " ",
                         "DtInicioExecucao": "2011-05-06 00:00:00",
                         "DtFimExecucao": "2016-03-31 00:00:00",
@@ -475,7 +475,7 @@ HOST: http://localhost:4000
 
 + Response 200 (application/json; charset=utf-8)
 
-    + Body 
+    + Body
 
             {
                 "0": {
@@ -605,7 +605,7 @@ HOST: http://localhost:4000
 
 + Response 200 (application/json; charset=utf-8)
 
-    + Body 
+    + Body
 
             {
                 "0": {
@@ -671,7 +671,7 @@ HOST: http://localhost:4000
 
 + Response 200 (application/json; charset=utf-8)
 
-    + Body 
+    + Body
 
             {
                 "data": {
@@ -702,7 +702,7 @@ HOST: http://localhost:4000
 
 + Response 200 (application/json; charset=utf-8)
 
-    + Body 
+    + Body
 
             {
                 "data": {
@@ -1153,7 +1153,7 @@ HOST: http://localhost:4000
                     "dsLaudoFinal": "<p>Teste assinatura </p>"
                     }
                 }
-            }           
+            }
 
 ## DILIGÊNCIAS [/avaliacao-resultados/diligencia?idPronac={idPronac}&situacao={situacao}&tpDiligencia={tpDiligencia}]
 
@@ -1335,7 +1335,7 @@ HOST: http://localhost:4000
 
 + Response 200 (application/json; charset=utf-8)
 
-    + Body 
+    + Body
 
             {"consolidacaoPorProduto":{"lines":[{"dsProduto":"Administra&ccedil;&atilde;o do Projeto","qtComprovantes":"2","vlComprovado":"6.000,00","PercComprovado":"13,36"},
             {"dsProduto":"Livro","qtComprovantes":"14","vlComprovado":"38.921,05","PercComprovado":"86,64"}],"cols":{"dsProduto":{"name":"Produto","class":""},

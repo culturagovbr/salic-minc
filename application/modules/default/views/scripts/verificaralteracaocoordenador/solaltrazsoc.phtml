@@ -1,4 +1,4 @@
-<!-- ========== INÕCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== IN√çCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 <!--
 function layout_fluido()
@@ -16,7 +16,7 @@ function layout_fluido()
 	$("#rodape").css("width", fluidRodape);
 	$("#conteudo").css("min-height", $('#menuContexto').height()); // altura minima do conteudo
 	$("#rodapeConteudo").css("margin-left", "225px");
-} // fecha funÁ„o layout_fluido()
+} // fecha funÔøΩÔøΩo layout_fluido()
 //-->
 </script>
 <!-- ========== FIM AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
@@ -28,15 +28,15 @@ function layout_fluido()
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
         <li class="last">Acompanhamento</li>
-        <li class="last">Verificar ReadequaÁ„o de Projeto</li>
+        <li class="last">Verificar ReadequaÔøΩÔøΩo de Projeto</li>
     </ul>
 </div>
 <div id="mostra"></div>
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>READEQUA«√O: TROCA DE PROPONENTE
+    <div>READEQUAÔøΩÔøΩO: TROCA DE PROPONENTE
         <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
         <span style="vertical-align: middle;">
             <?php
@@ -46,10 +46,10 @@ function layout_fluido()
                 <select name="status" disabled="disabled" id="status" style="float: right; width: 12em" class="select_simples" onchange="stAnalise(<?php echo $this->stResult[0]->idAvaliacaoItemPedidoAlteracao; ?>,<?php echo $this->escape($this->idpedidoalteracao) ?>,this ,'solaltrazsoc')" >
                 <?php
                 if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
-                    echo "<option value='0' selected='selected'>Aguardando An·lise</option>
-<option value='1'>Em An·lise</option>";
+                    echo "<option value='0' selected='selected'>Aguardando An√°lise</option>
+<option value='1'>Em An√°lise</option>";
                 } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "EA") {
-                    echo "<option value='1' selected='selected'>Em An·lise</option>
+                    echo "<option value='1' selected='selected'>Em An√°lise</option>
 <option value='2'>Aprovado</option>
 <option value='3'>Indeferido</option>";
                 } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AP") {
@@ -66,7 +66,7 @@ function layout_fluido()
     </div>
 
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 <div id="conteudo">
     <script type='text/javascript' src='<?php echo $this->baseUrl(); ?>/public/js/projetosGerenciar.js'></script>
 
@@ -74,7 +74,7 @@ function layout_fluido()
                 <table class="tabela">
                     <thead>
                         <tr>
-                            <th align="center">N∫ PRONAC:</th>
+                            <th align="center">NÔøΩ PRONAC:</th>
                             <th align="center">Nome do Projeto:</th>
                         </tr>
                     </thead>
@@ -112,7 +112,7 @@ function layout_fluido()
                                 <tr>
                                     <td class="destacar bold centro">PRONAC</td>
                                     <td class="destacar bold centro">NOME DO PROJETO</td>
-                                    <td class="destacar bold centro">SITUA«√O</td>
+                                    <td class="destacar bold centro">SITUAÔøΩÔøΩO</td>
                                 </tr>
                                 <?php foreach ($this->resultProjeto as $projeto){ ?>
                                     <tr>
@@ -123,11 +123,11 @@ function layout_fluido()
                                 <?php } ?>
                             </table>
                         </div>
-                        <?php } else { echo '<span style="color: red;">N„o existe projetos para este proponente.</span>'; } ?>
+                        <?php } else { echo '<span style="color: red;">N√£o existe projetos para este proponente.</span>'; } ?>
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="2">SolicitaÁ„o de alteraÁ„o do proponente</th>
+                    <th colspan="2">Solicita√ß√£o de alteraÔøΩÔøΩo do proponente</th>
                 </tr>
                 <tr>
                     <td class="destacar bold" width="150">Novo Proponente:</td>
@@ -156,14 +156,14 @@ function layout_fluido()
                         <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivo->idArquivo; ?>"><?php echo $arquivo->nmarquivo ?></a><br />
                     </td>
                 </tr>
-                <?php } } else { echo '<tr><td colspan="2"><span style="color: red;">N„o h· arquivos anexados!</span></td></tr>'; } ?>
+                <?php } } else { echo '<tr><td colspan="2"><span style="color: red;">N√£o hÔøΩ arquivos anexados!</span></td></tr>'; } ?>
 
                 <?php if ($this->resultParecerTecnico) { ?>
                 <tr>
-                    <th colspan="2">Parecer do TÈcnico</th>
+                    <th colspan="2">Parecer do TÔøΩcnico</th>
                 </tr>
                 <tr>
-                    <td colspan="2">Coment·rios:</td>
+                    <td colspan="2">ComentÔøΩrios:</td>
                 </tr>
                     <?php
                     $justificativa = "";
@@ -182,12 +182,12 @@ function layout_fluido()
 </div>
 
 
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

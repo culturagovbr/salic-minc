@@ -65,7 +65,7 @@ class ComprovantePagamentoService
             $agentesDao = new Agente_Model_DbTable_Agentes();
             $fornecedores = $agentesDao->buscarFornecedor(array(' A.CNPJCPF = ? ' => $cnpjcpf));
             if (!$fornecedores->count()) {
-                throw new Exception('Fornecedor n�o encontrado');
+                throw new Exception('Fornecedor Não encontrado');
             }
             $fornecedor = $fornecedores->current();
 

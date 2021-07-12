@@ -6,7 +6,7 @@
             $("#resultadoConsulta").html("");
             var tpDtCaptacao = $("#tpDtCaptacao").val();
             var dtCaptacao   = $("#dtCaptacao").val();
-            
+
             if(tpDtCaptacao == ""){
                 $("#msgErro1").html("<br><font color='red'>Dados obrigat&oacute;rios n&atilde;o informados.</font>");
                 $("#msgErro2").html("");
@@ -57,7 +57,7 @@
         $("#uf").change(function(){
             carregar_combo($(this).val(), "cidade", "<?php echo $this->url(array('controller'=>'cidade', 'action'=>'combo')); ?>", "Selecione uma UF", "");
         });
-        
+
         $("#tpDtExecucao").change(function(){
             if($("#spanDtExecucao").css("display")=="none" && $(this).val() == "entre"){
                 $("#spanDtExecucao").show();
@@ -107,12 +107,12 @@
                 centsLimit: 2
             });
     });
-    
+
 </script>
 
 <?php echo $this->partial('operacional/inc/menu.inc.php', $this); ?>
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Demonstrativo de capta&ccedil;&atilde;o de recursos</div>
 </div>
@@ -241,7 +241,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <table class="tabela">
             <tr>
                 <td align="center">
@@ -251,19 +251,19 @@
                 </td>
             </tr>
         </table>
-        
+
         </form>
 </fieldset>
 
 <div id="resultadoConsulta"></div>
 
 </div>
-<!-- ========== FIM CONTE�DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

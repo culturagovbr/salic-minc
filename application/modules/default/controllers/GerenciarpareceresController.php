@@ -13,8 +13,8 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 93;  // Parecerista
         $PermissoesGrupo[] = 94;  // Coordenador de Parecer UC 101
         $PermissoesGrupo[] = 97;  // Gestor Salic
-        $PermissoesGrupo[] = 103;  // Coordenador de An�lise
-        $PermissoesGrupo[] = 110;  // T�cnico de An�lise
+        $PermissoesGrupo[] = 103;  // Coordenador de Análise
+        $PermissoesGrupo[] = 110;  // T�cnico de Análise
         $PermissoesGrupo[] = 151;
         $PermissoesGrupo[] = 148;
 
@@ -115,7 +115,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
         $orgSuperior = GerenciarPareceresDAO::buscarUnidades($codOrgao);
         //$orgSuperior = GerenciarPareceresDAO::buscarUnidades($idusuario);
-        
+
         $org_superior = $orgSuperior[0]->org_superior;
         /******************************************************************/
         $tblProjeto = new Projetos();
@@ -196,7 +196,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
             /* Situa��o ************************************************************
             * C09 - Projeto fora da pauta - Proponente Inabilitado
-            * C20 - An�lise T�cnica Concluida
+            * C20 - Análise Técnica Concluida
             * C25 - Parecer T�cnico desfavor�vel
             */
             if (($situacao) && ($sutuacaotc == 1)) {
@@ -343,7 +343,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
         $orgSuperior = GerenciarPareceresDAO::buscarUnidades($codOrgao);
         //$orgSuperior = GerenciarPareceresDAO::buscarUnidades($idusuario);
-        
+
         $org_superior = $orgSuperior[0]->org_superior;
         /******************************************************************/
         $tblProjeto = new Projetos();
@@ -409,7 +409,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
             /* Situa��o ************************************************************
             * C09 - Projeto fora da pauta - Proponente Inabilitado
-            * C20 - An�lise T�cnica Concluida
+            * C20 - Análise Técnica Concluida
             * C25 - Parecer T�cnico desfavor�vel
             */
             if (($situacao) && ($sutuacaotc == 1)) {
@@ -520,7 +520,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
         $orgSuperior = GerenciarPareceresDAO::buscarUnidades($codOrgao);
         //$orgSuperior = GerenciarPareceresDAO::buscarUnidades($idusuario);
-        
+
         $org_superior = $orgSuperior[0]->org_superior;
         /******************************************************************/
         $tblProjeto = new Projetos();
@@ -585,7 +585,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
         /* Situa��o ************************************************************
         * C09 - Projeto fora da pauta - Proponente Inabilitado
-        * C20 - An�lise T�cnica Concluida
+        * C20 - Análise Técnica Concluida
         * C25 - Parecer T�cnico desfavor�vel
         */
         if (($situacao) && ($sutuacaotc == 1)) {
@@ -880,7 +880,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
         $html = "<table cellspacing='0' cellpadding='2' border='1' align='center' width='99%'>
 					<tr>
-						<td colspan='6' height='30' align='center'>VISUALIZA��O DE TRAMITA��O</td>
+						<td colspan='6' height='30' align='center'>VISUALIZA��O DE Tramitação</td>
 					</tr>
 					<tr>
 						<th width='100' align='left'>Produto</th>
@@ -927,7 +927,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
     public function execconsolidacaoAction()
     {
         $exec = GerenciarPareceresDAO::execPareceres();
-        //O Procedimento foi executado, por�m, n�o retornou resultados
+        //O Procedimento foi executado, por�m, Não retornou resultados
         if ($exec) {
             parent::message("O Procedimento foi executado com sucesso!", "gerenciarpareceres/consolidarpareceres", "ALERT");
         } else {
@@ -958,7 +958,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
         $u = '';
         $html = "<table cellspacing='0' cellpadding='2' border='1' align='center' width='99%'>
                     <tr>
-                            <td colspan='7' height='30' align='center'>Tramita��o do Projeto: ".$nomeProjeto."</td>
+                            <td colspan='7' height='30' align='center'>Tramitação do Projeto: ".$nomeProjeto."</td>
                     </tr>
                     <tr>
                             <th width='100' align='left'>Produto</th>
@@ -1016,7 +1016,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
         $u = '';
         $html = "<table cellspacing='0' cellpadding='2' border='1' align='center' width='99%'>
                     <tr>
-                            <td colspan='7' height='30' align='center'>Tramita��o do Projeto: ".$nomeProjeto."</td>
+                            <td colspan='7' height='30' align='center'>Tramitação do Projeto: ".$nomeProjeto."</td>
                     </tr>
                     <tr>
                             <th width='100' align='left'>Produto</th>
@@ -1081,15 +1081,15 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
             // Tem que existir
             $emPauta = GerenciarPareceresDAO::emPauta($idpronac);
 
-            // N�o pode est�r aprovado
+            // Não pode est�r aprovado
             $projetoAprovado = GerenciarPareceresDAO::projetoAprovado($pronac);
 
             if (!$emPauta) {
-                parent::message("O projeto n�o est� em situa��o de pauta e n�o pode ser desconsolidado.", "gerenciarpareceres/index", "ALERT");
+                parent::message("O projeto Não est� em situa��o de pauta e Não pode ser desconsolidado.", "gerenciarpareceres/index", "ALERT");
             }
 
             if ($projetoAprovado) {
-                parent::message("O projeto j� est� aprovado e n�o pode ser desconsolidado.", "gerenciarpareceres/index", "ALERT");
+                parent::message("O projeto j� est� aprovado e Não pode ser desconsolidado.", "gerenciarpareceres/index", "ALERT");
             }
 
             $db = Zend_Db_Table::getDefaultAdapter();
@@ -1111,7 +1111,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
                 parent::message("Erro ao desconsolidar o projeto.", "gerenciarpareceres/index", "CONFIRM");
             }
         } else {
-            parent::message("Projeto n�o encontrado!", "gerenciarpareceres/index", "ERROR");
+            parent::message("Projeto Não encontrado!", "gerenciarpareceres/index", "ERROR");
         }
     }
 

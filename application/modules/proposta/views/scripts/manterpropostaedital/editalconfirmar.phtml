@@ -29,20 +29,20 @@
                         <tr class="titulo_tabela">
                             <th></th>
                             <th>Nome do edital</th>
-                            <th>N∞ do Edital</th>
-                            <th>ClassificaÁ„o</th>
+                            <th>NÔøΩ do Edital</th>
+                            <th>ClassificaÔøΩÔøΩo</th>
                             <th>Unidade</th>
                             <th>Ano</th>
-                            <th>Dt.InÌcio InscriÁ„o</th>
-                            <th>Dt.Fim InscriÁ„o</th>
+                            <th>Dt.IN√çCIO InscriÔøΩÔøΩo</th>
+                            <th>Dt.Fim InscriÔøΩÔøΩo</th>
                             <th>Objeto</th>
 
-                            
-                            
+
+
                         </tr>
                         <?php
                         foreach($dados as $dado) {
-                        
+
                             ?>
                         <div id="modalobj<?php echo $dado['idEdital'] ?>" style="display: none;"><?php echo $dado['Objeto'] ?></div>
                         <tr class="fundo">
@@ -50,10 +50,10 @@
                             <td class="centro"><?php echo $dado['nmDocumento']; ?></td>
                             <td class="centro"><?php echo $dado['NrEditalTb']; ?></td>
                             <td class="centro"><?php echo $dado['Classificacao']; ?></td>
-                            
+
                             <td class="centro"><?php echo $dado['Unidade']; ?></td>
                             <td class="centro"><?php echo $dado['Ano']; ?></td>
-                            
+
                             <td class="centro"><?php echo ConverteData(strtotime($dado['dtIniFase']),5); ?></td>
                             <td class="centro"><?php echo ConverteData(strtotime($dado['dtFimFase']),5); ?></td>
                             <td class="centro"><img src="../public/img/ico/eye.png" style="cursor: pointer" onclick="objeto(<?php echo $dado['idEdital']; ?>)"></td>

@@ -1,19 +1,19 @@
 <?php
 /**
- * Verifica o status da análise na Readequação
+ * Verifica o status da AnÃ¡lise na Readequaï¿½ï¿½o
  * @author emanuel.sampaio - Politec
  * @since 23/09/2011
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_VerificarStatusAnalise
 {
     /**
-     * Método com os status da análise
+     * Mï¿½todo com os status da AnÃ¡lise
      * @access public
      * @param string $dtEnvio
      * @return string
@@ -26,13 +26,13 @@ class Zend_View_Helper_VerificarStatusAnalise
 
         if ($qtdDias < 10) {
             $cor = 'verde';
-            $alt = 'Menos de 10 dias de atraso no recebimento da solicitação (data inicial)';
+            $alt = 'Menos de 10 dias de atraso no recebimento da SolicitaÃ§Ã£o (data inicial)';
         } elseif ($qtdDias >= 10 && $qtdDias < 20) {
             $cor = 'amarelo';
-            $alt = 'Entre 10 e 19 dias de atraso no recebimento da solicitação (data inicial)';
+            $alt = 'Entre 10 e 19 dias de atraso no recebimento da SolicitaÃ§Ã£o (data inicial)';
         } elseif ($qtdDias >= 20) {
             $cor = 'vermelho';
-            $alt = '20 ou mais dias de atraso no recebimento da solicitação (data inicial)';
+            $alt = '20 ou mais dias de atraso no recebimento da SolicitaÃ§Ã£o (data inicial)';
         }
 
         if (!empty($cor) && !empty($alt)) {
@@ -41,5 +41,5 @@ class Zend_View_Helper_VerificarStatusAnalise
         } else {
             return '&nbsp;';
         }
-    } // fecha método verificarStatusAnalise()
+    } // fecha mï¿½todo verificarStatusAnalise()
 } // fecha class

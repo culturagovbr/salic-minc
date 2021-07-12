@@ -15,9 +15,9 @@
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>"
-                             title="Ir para In�cio">In�cio</a></li>
+                             title="Ir para INÍCIO">INÍCIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'index')); ?>"
-               title="Tramita��o de Projetos">Tramita��o de Projetos</a></li>
+               title="Tramitação de Projetos">Tramitação de Projetos</a></li>
         <li class="last">Consolida&ccedil;&atilde;o por Parecerista</li>
     </ul>
 </div>
@@ -42,7 +42,7 @@
                 </td>
                 <td align="center"><?php echo $e->NomeProjeto ?></td>
                 <td align="center"><?php if ($e->TipoParecer == 1) {
-                        echo "APROVA��O";
+                        echo "aprovação";
                     } elseif ($e->TipoParecer == 2) {
                         echo "COMPLEMENTA��O";
                     } elseif ($e->TipoParecer == 3) {
@@ -51,7 +51,7 @@
                 <td align="center"><?php if ($e->Atendimento == 'S') {
                         echo 'Atendido';
                     } elseif ($e->Atendimento == 'N') {
-                        echo 'N�o atendido';
+                        echo 'Não atendido';
                     } ?></td>
                 <td align="center"><a
                         href="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'dadosdoparecer')) . '?parecer=' . $e->idParecer; ?>">Visualizar

@@ -1493,21 +1493,21 @@ class Projetos extends MinC_Db_Table_Abstract
             array('a' => 'tbAnaliseDeConteudo'),
             "p.IdPRONAC = a.idPronac",
             array("a.idProduto",
-                "Lei8313" => new Zend_Db_Expr("CASE WHEN Lei8313 = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "Artigo3" => new Zend_Db_Expr("CASE WHEN Artigo3 = 1 THEN 'Sim' ELSE 'N�o' END"),
+                "Lei8313" => new Zend_Db_Expr("CASE WHEN Lei8313 = 1 THEN 'Sim' ELSE 'Não' END"),
+                "Artigo3" => new Zend_Db_Expr("CASE WHEN Artigo3 = 1 THEN 'Sim' ELSE 'Não' END"),
                 "IncisoArtigo3" => new Zend_Db_Expr("CASE WHEN IncisoArtigo3 = 1 THEN 'I' WHEN IncisoArtigo3 = 2 THEN 'II' WHEN IncisoArtigo3 = 3 THEN 'III' WHEN IncisoArtigo3 = 4 THEN 'IV' WHEN IncisoArtigo3 = 5 THEN 'V' END"),
                 "a.AlineaArtigo3",
-                "Artigo18" => new Zend_Db_Expr("CASE WHEN Artigo18 = 1 THEN 'Sim' ELSE 'N�o' END"),
+                "Artigo18" => new Zend_Db_Expr("CASE WHEN Artigo18 = 1 THEN 'Sim' ELSE 'Não' END"),
                 "a.AlineaArtigo18",
-                "Artigo26" => new Zend_Db_Expr("CASE WHEN Artigo26 = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "Lei5761" => new Zend_Db_Expr("CASE WHEN Lei5761 = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "Artigo27" => new Zend_Db_Expr("CASE WHEN Artigo27 = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "IncisoArtigo27_I" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_I = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "IncisoArtigo27_II" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_II = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "IncisoArtigo27_III" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_III = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "IncisoArtigo27_IV" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_IV = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "TipoParecer" => new Zend_Db_Expr("CASE WHEN TipoParecer = 1 THEN 'Aprova��o' WHEN TipoParecer = 2 THEN 'Complementa��o' WHEN TipoParecer = 4 THEN 'Redu��o' END"),
-                "ParecerFavoravel" => new Zend_Db_Expr("CASE WHEN ParecerFavoravel = 1 THEN 'Sim' ELSE 'N�o' END"),
+                "Artigo26" => new Zend_Db_Expr("CASE WHEN Artigo26 = 1 THEN 'Sim' ELSE 'Não' END"),
+                "Lei5761" => new Zend_Db_Expr("CASE WHEN Lei5761 = 1 THEN 'Sim' ELSE 'Não' END"),
+                "Artigo27" => new Zend_Db_Expr("CASE WHEN Artigo27 = 1 THEN 'Sim' ELSE 'Não' END"),
+                "IncisoArtigo27_I" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_I = 1 THEN 'Sim' ELSE 'Não' END"),
+                "IncisoArtigo27_II" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_II = 1 THEN 'Sim' ELSE 'Não' END"),
+                "IncisoArtigo27_III" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_III = 1 THEN 'Sim' ELSE 'Não' END"),
+                "IncisoArtigo27_IV" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_IV = 1 THEN 'Sim' ELSE 'Não' END"),
+                "TipoParecer" => new Zend_Db_Expr("CASE WHEN TipoParecer = 1 THEN 'aprovação' WHEN TipoParecer = 2 THEN 'Complementa��o' WHEN TipoParecer = 4 THEN 'Redu��o' END"),
+                "ParecerFavoravel" => new Zend_Db_Expr("CASE WHEN ParecerFavoravel = 1 THEN 'Sim' ELSE 'Não' END"),
                 "a.ParecerDeConteudo",
                 "sac.dbo.fnNomeParecerista(a.idUsuario) AS Parecerista",
             )
@@ -1582,21 +1582,21 @@ class Projetos extends MinC_Db_Table_Abstract
             array('a' => 'tbAnaliseDeConteudo'),
             "p.IdPRONAC = a.idPronac",
             array("a.idProduto",
-                "Lei8313" => new Zend_Db_Expr("CASE WHEN Lei8313 = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "Artigo3" => new Zend_Db_Expr("CASE WHEN Artigo3 = 1 THEN 'Sim' ELSE 'N�o' END"),
+                "Lei8313" => new Zend_Db_Expr("CASE WHEN Lei8313 = 1 THEN 'Sim' ELSE 'Não' END"),
+                "Artigo3" => new Zend_Db_Expr("CASE WHEN Artigo3 = 1 THEN 'Sim' ELSE 'Não' END"),
                 "IncisoArtigo3" => new Zend_Db_Expr("CASE WHEN IncisoArtigo3 = 1 THEN 'I' WHEN IncisoArtigo3 = 2 THEN 'II' WHEN IncisoArtigo3 = 3 THEN 'III' WHEN IncisoArtigo3 = 4 THEN 'IV' WHEN IncisoArtigo3 = 5 THEN 'V' END"),
                 "a.AlineaArtigo3",
-                "Artigo18" => new Zend_Db_Expr("CASE WHEN Artigo18 = 1 THEN 'Sim' ELSE 'N�o' END"),
+                "Artigo18" => new Zend_Db_Expr("CASE WHEN Artigo18 = 1 THEN 'Sim' ELSE 'Não' END"),
                 "a.AlineaArtigo18",
-                "Artigo26" => new Zend_Db_Expr("CASE WHEN Artigo26 = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "Lei5761" => new Zend_Db_Expr("CASE WHEN Lei5761 = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "Artigo27" => new Zend_Db_Expr("CASE WHEN Artigo27 = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "IncisoArtigo27_I" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_I = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "IncisoArtigo27_II" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_II = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "IncisoArtigo27_III" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_III = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "IncisoArtigo27_IV" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_IV = 1 THEN 'Sim' ELSE 'N�o' END"),
-                "TipoParecer" => new Zend_Db_Expr("CASE WHEN TipoParecer = 1 THEN 'Aprova��o' WHEN TipoParecer = 2 THEN 'Complementa��o' WHEN TipoParecer = 4 THEN 'Redu��o' END"),
-                "ParecerFavoravel" => new Zend_Db_Expr("CASE WHEN ParecerFavoravel = 1 THEN 'Sim' ELSE 'N�o' END"),
+                "Artigo26" => new Zend_Db_Expr("CASE WHEN Artigo26 = 1 THEN 'Sim' ELSE 'Não' END"),
+                "Lei5761" => new Zend_Db_Expr("CASE WHEN Lei5761 = 1 THEN 'Sim' ELSE 'Não' END"),
+                "Artigo27" => new Zend_Db_Expr("CASE WHEN Artigo27 = 1 THEN 'Sim' ELSE 'Não' END"),
+                "IncisoArtigo27_I" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_I = 1 THEN 'Sim' ELSE 'Não' END"),
+                "IncisoArtigo27_II" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_II = 1 THEN 'Sim' ELSE 'Não' END"),
+                "IncisoArtigo27_III" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_III = 1 THEN 'Sim' ELSE 'Não' END"),
+                "IncisoArtigo27_IV" => new Zend_Db_Expr("CASE WHEN IncisoArtigo27_IV = 1 THEN 'Sim' ELSE 'Não' END"),
+                "TipoParecer" => new Zend_Db_Expr("CASE WHEN TipoParecer = 1 THEN 'aprovação' WHEN TipoParecer = 2 THEN 'Complementa��o' WHEN TipoParecer = 4 THEN 'Redu��o' END"),
+                "ParecerFavoravel" => new Zend_Db_Expr("CASE WHEN ParecerFavoravel = 1 THEN 'Sim' ELSE 'Não' END"),
                 "a.ParecerDeConteudo",
                 new Zend_Db_Expr("sac.dbo.fnNomeParecerista(a.idUsuario) AS Parecerista"),
             )
@@ -2292,9 +2292,9 @@ class Projetos extends MinC_Db_Table_Abstract
             new Zend_Db_Expr('(p.AnoProjeto = e.AnoProjeto AND p.Sequencial = e.Sequencial)'),
             array(
                 new Zend_Db_Expr("
-                CASE 
-                    WHEN e.Enquadramento = '1' THEN 'Artigo 26' 
-                    WHEN e.Enquadramento = '2' THEN 'Artigo 18' 
+                CASE
+                    WHEN e.Enquadramento = '1' THEN 'Artigo 26'
+                    WHEN e.Enquadramento = '2' THEN 'Artigo 18'
                     ELSE 'Não enquadrado' END AS Enquadramento"
                 )
             )
@@ -2329,9 +2329,9 @@ class Projetos extends MinC_Db_Table_Abstract
             array('p' => 'Parecer'),
             array(
                 'p.tpResultado' => new Zend_Db_Expr("
-                CASE 
-                WHEN ParecerFavoravel = 1 THEN 'Desfavor&aacute;vel' 
-                WHEN ParecerFavoravel = 2 THEN 'Favor&aacute;vel' 
+                CASE
+                WHEN ParecerFavoravel = 1 THEN 'Desfavor&aacute;vel'
+                WHEN ParecerFavoravel = 2 THEN 'Favor&aacute;vel'
                 END"),
                 'p.ResumoParecer',
                 'p.SugeridoReal'
@@ -7317,7 +7317,7 @@ class Projetos extends MinC_Db_Table_Abstract
 
     /*
      * Criada em 07/04/2016
-     * @author: Fern�o Lopes
+     * @author: FerNão Lopes
      * Essa consulta retorna os dados do painel de presta��o de contas - Perfil: Chefe de divis�o
      */
     public function buscarPainelChefeDivisaoPrestacaoDeContas($where = array(), $order = array(), $tamanho = -1, $inicio = -1, $qtdeTotal = false, $filtro = '')
@@ -7325,7 +7325,7 @@ class Projetos extends MinC_Db_Table_Abstract
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
-        // em aguardando an�lise, nao puxa t�cnico nem relat�rio
+        // em aguardando Análise, nao puxa t�cnico nem relat�rio
         if ($filtro == '') {
             $select->from(
                 array('p' => $this->_name),
@@ -7390,7 +7390,7 @@ class Projetos extends MinC_Db_Table_Abstract
             'BDCORPORATIVO.scSAC'
         );
 
-        // se n�o for 'aguardando an�lise'
+        // se Não for 'aguardando Análise'
         if ($filtro != '') {
             $select->joinLeft(
                 array('u' => 'Usuarios'),

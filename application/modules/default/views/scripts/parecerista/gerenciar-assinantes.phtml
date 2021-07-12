@@ -1,26 +1,26 @@
 <?php echo $this->partial('parecerista/inc/menu-assinantes.php', $this); ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Gerenciar assinante</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 <div id="dialog"></div>
- 
-<!-- ========== INÕCIO TÕTULO ========== -->
+
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Gerenciar assinante <span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span></div>
+    <div>Gerenciar assinante <span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span></div>
 </div>
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 
 <div id="conteudo">
     <form id="formAssinantes" action="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'remove-assinante')); ?>" method="POST">
         <input type="hidden" name="idAssinantes" id="idAssinantes" />
-        
+
         <table class="tabela">
             <tr>
                 <th colspan="3" class="titulo_tabela">Lista de Assinantes</th>
@@ -41,22 +41,22 @@
     </form>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script>
-    
+
     $(document).ready(function(){
-        
+
         $('#btnAddAssinante').click(function(){
-            
+
             $("#dialog").html('Deseja adicionar a assinatura?');
-        
+
             $("#dialog").dialog("destroy");
             $("#dialog").dialog({
                 width: '400px',
@@ -64,8 +64,8 @@
                 draggable: false,
                 resizable: false,
                 closeOnEscape: false,
-                title: 'ConfirmaÁ„o',
-                buttons: { 
+                title: 'Confirma√ß√£o',
+                buttons: {
                     Cancelar:function() {
                         $(this).dialog('close');
                     },
@@ -78,16 +78,16 @@
 
             $('.ui-dialog-titlebar-close').remove();
 
-            
-            
+
+
         });
-        
+
     });
 
     function removeAssinante(valor){
-        
+
         $("#dialog").html('Deseja desabilitar o assinante?');
-        
+
         $("#dialog").dialog("destroy");
         $("#dialog").dialog({
             width: '400px',
@@ -95,8 +95,8 @@
             draggable: false,
             resizable: false,
             closeOnEscape: false,
-            title: 'ConfirmaÁ„o',
-            buttons: { 
+            title: 'Confirma√ß√£o',
+            buttons: {
                 Cancelar:function() {
                     $(this).dialog('close');
                 },
@@ -106,10 +106,10 @@
                 }
             }
         });
-        
+
         $('.ui-dialog-titlebar-close').remove();
 
-        
+
     }
-    
+
 </script>

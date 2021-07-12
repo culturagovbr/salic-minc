@@ -8,10 +8,10 @@ if ($menu=="Bot�o") {
 	$readonly = '';
 }
 ?>
-<!-- in�cio: navega��o local #qm0 -->
-<div id="Teste" class="sumir" title="Alterar Produto"><p>Produto alterado com sucesso!</p><p>Solicita��o de readequa��o realizada com sucesso! Deseja fazer nova readequa��o?</p></div>
-<div id="Excluir" class="sumir" title="Excluir"><p>Tem certeza que deseja excluir este Produto? As planilhas de custos ser�o deletadas!</p></div>
-<div id="Excluido" class="sumir" title="Excluir"><p>Produto exclu�do com sucesso!</p><p>Solicita��o de readequa��o realizada com sucesso! Deseja fazer nova readequa��o?</p></div>
+<!-- INÍCIO: navega��o local #qm0 -->
+<div id="Teste" class="sumir" title="Alterar Produto"><p>Produto alterado com sucesso!</p><p>Solicitação de readequa��o realizada com sucesso! Deseja fazer nova readequa��o?</p></div>
+<div id="Excluir" class="sumir" title="Excluir"><p>Tem certeza que deseja excluir este Produto? As planilhas de custos seráo deletadas!</p></div>
+<div id="Excluido" class="sumir" title="Excluir"><p>Produto exclu�do com sucesso!</p><p>Solicitação de readequa��o realizada com sucesso! Deseja fazer nova readequa��o?</p></div>
 <script type="text/javascript">
 
 function validarFormulario(form){
@@ -20,7 +20,7 @@ var verifica = true;
 
 	$(form).find('[null=false]').each(function()
 	{
-            
+
 		if ($.trim($(this).val().replace(/(\,|\.)/g,'')).length == 0)
 		{
 			verifica = false;
@@ -44,7 +44,7 @@ var verifica = true;
             return verifica;
          });
      });
-     
+
     function Enviar()
     {
 
@@ -59,12 +59,12 @@ var verifica = true;
                 resizable: false,
                 closeOnEscape: false,
                 buttons: {
-                    'N�o': function()
+                    'Não': function()
                     {
                         $('#form').attr('action','<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto','action' => 'alterar2')); ?>');
                         $('#form').submit();
                         $(this).dialog('close');
-                        
+
 
                     },
                     'Sim': function()
@@ -91,7 +91,7 @@ function EnviarProposta()
             resizable: false,
             closeOnEscape: false,
             buttons: {
-                'N�o': function()
+                'Não': function()
                 {
                     $(this).dialog('close');
                 },
@@ -105,7 +105,7 @@ function EnviarProposta()
 			            resizable: false,
 			            closeOnEscape: false,
 			            buttons: {
-			                'N�o': function()
+			                'Não': function()
 			                {
 			                    $(this).dialog('close');
 			                    $('#Curso').attr('action', '<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'excluir2')); ?>');
@@ -138,12 +138,12 @@ function Proposta()
             resizable: false,
             closeOnEscape: false,
             buttons: {
-                'N�o': function()
+                'Não': function()
                 {
                     $(this).dialog('close');
                     $('#Curso').attr('action','<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto','action' => 'excluir2')); ?>');
                     $('#Curso').submit();
-                    
+
 
                 },
                 'Sim': function()
@@ -151,7 +151,7 @@ function Proposta()
                     $(this).dialog('close');
                     $('#Curso').attr('action', '<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'excluir')); ?>');
                     $('#Curso').submit();
-                    
+
 
                    // document.forms['Curso'].action = "<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'excluir')); ?>";
                    // document.forms['Curso'].submit();
@@ -169,7 +169,7 @@ function Proposta()
 	 */
 	function somaIngressos()
 	{
-		/* ========== IN�CIO SOMA DE INGRESSOS ========== */
+		/* ========== INÍCIO SOMA DE INGRESSOS ========== */
 		campo1 = document.getElementById('Patrocinador').value;
 		campo1 = campo1.replace(/\D/g, ""); // retira os pontos e as v�rgulas, deixando somente n�meros
 		campo1 = campo1.replace(/(\d{0})(\d)/, "$1$2");
@@ -198,7 +198,7 @@ function Proposta()
 		// total de ingressos
 		total = campo1 + campo2 + campo3 + campo4 + campo5;
 
-		if (isNaN(total)) // se n�o for n�mero
+		if (isNaN(total)) // se Não for n�mero
 		{
 			total = '';
 		}
@@ -224,7 +224,7 @@ function Proposta()
 		/* ========== FIM SOMA DE INGRESSOS ========== */
 
 
-		/* ========== IN�CIO CALCULO DE INGRESSOS ========== */
+		/* ========== INÍCIO CALCULO DE INGRESSOS ========== */
 		campo6 = document.getElementById('Normal_Uni').value;
 		campo6 = campo6.replace(/\D/g, ""); // retira os pontos e as v�rgulas, deixando somente n�meros
 		campo6 = campo6.replace(/(\d{0})(\d)/, "$1$2");
@@ -243,7 +243,7 @@ function Proposta()
 
 
 		// total de ingressos (normal + promocional)
-		if (isNaN(total_normal) || isNaN(total_promocional)) // se n�o for n�mero
+		if (isNaN(total_normal) || isNaN(total_promocional)) // se Não for n�mero
 		{
 			total_geral = '';
 		}
@@ -270,7 +270,7 @@ function Proposta()
 
 
 		// total de ingressos (normal)
-		if (isNaN(total_normal)) // se n�o for n�mero
+		if (isNaN(total_normal)) // se Não for n�mero
 		{
 			total_normal = '';
 		}
@@ -295,7 +295,7 @@ function Proposta()
 
 
 		// total de ingressos (promocional)
-		if (isNaN(total_promocional)) // se n�o for n�mero
+		if (isNaN(total_promocional)) // se Não for n�mero
 		{
 			total_promocional = '';
 		}
@@ -321,7 +321,7 @@ function Proposta()
 
     } // fecha fun��o somaIngressos()
 </script>
-<!-- in�cio: #breadcrumb -->
+<!-- INÍCIO: #breadcrumb -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('module'=>'default', 'controller' => 'principalproponente', 'action' => 'index')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -331,12 +331,12 @@ function Proposta()
 </div>
 <!-- final: #breadcrumb -->
 
-<!-- in�cio: #titulo -->
+<!-- INÍCIO: #titulo -->
 <div id="titulo"><div>Dados do projeto com Op��es de Readequa��es <span class="voltar"><a  href="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'index')); ?>?idpronac=<?php echo $_POST['idPronac'] ?>">Voltar</a></span></div>
 </div>
 <!-- final: #titulo -->
 
-<!-- in�cio: �rea principal #conteudo -->
+<!-- INÍCIO: �rea principal #conteudo -->
 <div id="conteudo">
     <div id="miolo">
 
@@ -372,7 +372,7 @@ function areaCultural(idSegmento, dsSegmento)
         $idPronac=$this->escape($resultado[0]->IdPRONAC);
         ?>
         <div id="dialog-message" style="display:none;">
-            Campo obrigat�rio n�o informado!
+            Campo obrigat�rio Não informado!
         </div>
         <table class="tabela">
             <thead>
@@ -443,7 +443,7 @@ function areaCultural(idSegmento, dsSegmento)
                             <?php
                                 $excluir = $idPronac=$this->escape($produtoacao[0]->stPrincipal);
                                 if(empty($excluir)){
-                                    echo "N�o";
+                                    echo "Não";
                                 } else {
                                     echo "Sim";
                                 }
@@ -580,11 +580,11 @@ function areaCultural(idSegmento, dsSegmento)
 							{
                             	$e= "";
                             }
-                            else 
+                            else
                             {
                             	$e= "onclick='EnviarProposta(); return false'";
                             }
-                            
+
                             $excluir = $idPronac=$this->escape($produtoacao[0]->stPrincipal);
 
                             $action = $this->url(array('controller' => 'solicitarreadequacaodoprojeto','action' => 'excluir'));
@@ -632,7 +632,7 @@ function areaCultural(idSegmento, dsSegmento)
             ?>
             <input type="hidden" value="<?php echo $idPronac; ?>" name="idPronac"/>
             <input type="hidden" value="<?php echo $idProduto; ?>" name="idProduto"/>
-           
+
             <table width="100%" border="0" cellpadding="0" cellspacing="1" class="tabela">
                 <thead>
                     <tr>
@@ -659,7 +659,7 @@ function areaCultural(idSegmento, dsSegmento)
                             <label for="tipo_produto">Produto Principal?</label><br />
                             <?php $excluir = $idPronac=$this->escape($produtoacao[0]->stPrincipal);
                                 if(empty($excluir)){
-                                    echo "N�o";
+                                    echo "Não";
                            	} else{
                                 echo "Sim";
                             } ?>
@@ -817,14 +817,14 @@ function areaCultural(idSegmento, dsSegmento)
             }
         ?>
 <?php } ?>
-    <!-- final: conte�do principal #conteudo -->
+    <!-- final: CONTEÚDO principal #conteudo -->
 </div>
-<!-- in�cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÍCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 
 </div><!-- final: �rea principal #container -->
-<div id="dialog-alert">Campos obrigat�rios n�o preenchidos!</div>
+<div id="dialog-alert">Campos obrigat�rios Não preenchidos!</div>
 <br clear="all" />
 <script type="text/javascript">
     $("#dialog-alert").dialog({
@@ -841,7 +841,7 @@ function areaCultural(idSegmento, dsSegmento)
 
 
     $('#formPlano').submit(function(){
-        
+
         return validarFormulario(this);
     });
 </script>

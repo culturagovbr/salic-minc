@@ -246,7 +246,7 @@
             // Handle error
             MultiFile.error(ERROR);
 
-            // 2007-06-24: BUG FIX - Thanks to Adrian Wróbel <adrian [dot] wrobel [at] gmail.com>
+            // 2007-06-24: BUG FIX - Thanks to Adrian Wrï¿½bel <adrian [dot] wrobel [at] gmail.com>
             // Ditch the trouble maker and add a fresh new element
             MultiFile.n--;
             MultiFile.addSlave(newEle[0], slave_count);
@@ -297,8 +297,8 @@
          v = String(slave.value || ''/*.attr('value)*/),
          // a = $('<span class="MultiFile-title" title="'+MultiFile.STRING.selected.replace('$file', v)+'"><a href="'+ v +'" title="Abrir Arquivo">'+MultiFile.STRING.file.replace('$file', v.match(/[^\/\\]+$/gi)[0])+'</a></span>'),
          a = $('<span class="MultiFile-title" title="'+MultiFile.STRING.selected.replace('$file', v)+'">'+MultiFile.STRING.file.replace('$file', v.match(/[^\/\\]+$/gi)[0])+'</span>'),
-         /* a = ((navigator.appName == 'Microsoft Internet Explorer') 
-        		? $('<span class="MultiFile-title" title="'+MultiFile.STRING.selected.replace('$file', v)+'"><a href="'+ v +'" title="Abrir Arquivo">'+MultiFile.STRING.file.replace('$file', v.match(/[^\/\\]+$/gi)[0])+'</a></span>') 
+         /* a = ((navigator.appName == 'Microsoft Internet Explorer')
+        		? $('<span class="MultiFile-title" title="'+MultiFile.STRING.selected.replace('$file', v)+'"><a href="'+ v +'" title="Abrir Arquivo">'+MultiFile.STRING.file.replace('$file', v.match(/[^\/\\]+$/gi)[0])+'</a></span>')
         		: $('<span class="MultiFile-title" title="'+MultiFile.STRING.selected.replace('$file', v)+'">'+MultiFile.STRING.file.replace('$file', v.match(/[^\/\\]+$/gi)[0])+'</span>')), */
          b = $('<a class="MultiFile-remove" id="btn_remove" href="#'+MultiFile.wrapID+'" style="text-decoration:none;">'+MultiFile.STRING.remove+'</a>');
 
@@ -314,7 +314,7 @@
           if(!MultiFile.trigger('onFileRemove', slave, MultiFile)) return false;
           //# End Event!
 
-          
+
           MultiFile.n--;
           MultiFile.current.disabled = false;
 
@@ -482,10 +482,10 @@
 		// STRING: collection lets you show messages in different languages
 		STRING: {
 			remove:'<input type="button" class="btn_exclusao" onclick="exclusao2()" title="Cancelar envio do arquivo" /><input type="button" id="exsalvar" style="margin-left: 5px;" onclick="adicionar_imagem(); desabilitar_salvar();" class="btn_salvar" />',
-			denied:'Você não pode anexar um arquivo $ext. Somente .pdf.',
+			denied:'Vocï¿½ NÃ£o pode anexar um arquivo $ext. Somente .pdf.',
 			file:'$file',
 			selected:'Arquivo selecionado: $file',
-			duplicate:'Este arquivo já foi selecionado:\n$file'
+			duplicate:'Este arquivo jï¿½ foi selecionado:\n$file'
 		},
 
 		// name of methods that should be automcatically intercepted so the plugin can disable

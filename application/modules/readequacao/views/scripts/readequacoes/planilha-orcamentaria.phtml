@@ -1,15 +1,15 @@
 <script type="text/javascript">
  $(document).ready(function(){
      <?php if (count($this->readequacao) > 0): ?>
-     $('.solicitacoesSimples').removeClass('sumir');			
-     $('.planilhaOrcamentaria').removeClass('sumir');	    
-     $('.btnSalvar').removeClass('sumir');			
+     $('.solicitacoesSimples').removeClass('sumir');
+     $('.planilhaOrcamentaria').removeClass('sumir');
+     $('.btnSalvar').removeClass('sumir');
      atualizarDadosPlanilha();
      <?php endif; ?>
      $('#btn_voltar').click(function(){
          window.location = "<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index'), null, true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>";
      });
-     
+
      $('#SalvarReadequacao').click(function(){
 	 enviarformulario();
      });
@@ -29,17 +29,17 @@
                  'Sim' : function(){
 		     $(this).dialog('close');
 		     $('.btnIncluir').addClass('sumir');
-		     $('.btnSalvar').removeClass('sumir');			
-		     $('.solicitacoesSimples').removeClass('sumir');			
+		     $('.btnSalvar').removeClass('sumir');
+		     $('.solicitacoesSimples').removeClass('sumir');
 		     $('.planilhaOrcamentaria').removeClass('sumir');
 		     atualizarDadosPlanilha();
-		     
+
                  }
 	     }
-	 });	    
-	 
+	 });
+
      });
-     
+
      $('.btn_exclusao').click(function(){
          var idReadequacao = $(this).attr('readequacao');
          $("#msgAlerta").dialog("destroy");
@@ -79,14 +79,14 @@
 	     'id_produto': $(this).attr('id_produto'),
 	     'id_fonte': $(this).attr('id_fonte')
 	 }
-         
+
 	 modalItem(dadosModal);
      });
-     
+
      $('#AdicionarItem').click(function(){
 	 modalItem();
      });
-     
+
      var modalItem = function(dados = null) {
 
 	 if (dados) {
@@ -107,13 +107,13 @@
                      for(a in valor){
                          $("#newMunicipio").append('<option value="'+valor[a].idCidade+'">'+valor[a].nomeCidade+'</option>');
                      }
-		     $('#newMunicipio').val(dados.id_municipio).prop('disabled', true);			    
+		     $('#newMunicipio').val(dados.id_municipio).prop('disabled', true);
                  },
                  type : 'post'
                  , dataType : 'json'
              });
 
-	     
+
              $.ajax({
 		 url : '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'index'), null, true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>',
 		 type: "POST",
@@ -122,7 +122,7 @@
 		     idMunicipio: dados.id_municipio,
 		     idProduto : dados.id_produto,
 		     idPronac: <?php print $this->idPronac; ?>
-		     
+
                  },
                  success: function(valor){
                      $("#newItem").html('<option value=""> - Selecione - </option>');
@@ -133,16 +133,16 @@
                  type : 'post'
                  , dataType : 'json'
              });
-	     
-	     
+
+
 	 } else {
-	     
+
 	     $('#newRecursos').val('').prop('disabled', false);
 	     $('#newUF').val('').prop('disabled', false);
 	     $('#newEtapa').val('').prop('disabled', false);
 	     $('#newProduto').val('').prop('disabled', false);
 	     $('#newMunicipio').val('').prop('disabled', false);
-	     
+
 	     $('#newMunicipio')
 		 .find('option')
 		 .remove()
@@ -152,7 +152,7 @@
 		 .remove()
 		 .end();
 	 }
-         
+
          // **** LIMPA OS CAMPOS ANTES DE ABRIR A MODAL ****
          $('.camposObrigatoriosInclusao:not(#newRecursos,#newUF,#newMunicipio,#newEtapa,#newProduto)').each(function(){
              $(this).css('border-color', '#CCCCCC');
@@ -160,7 +160,7 @@
          });
          $('#newTotalCalculado').html('R$ 0,00');
          // ***********************************************
-         
+
          $("#modalInclusaoItem").dialog("destroy");
          $("#modalInclusaoItem").dialog({
              resizable: false,
@@ -251,7 +251,7 @@
 				     mensagem = '';
 				     return false;
 				 }
-				 
+
                                  $("#modalInclusaoItem").dialog("destroy");
                                  atualizarDadosPlanilha();
                              },
@@ -288,11 +288,11 @@
              });
          }
      });
-     
+
      $('#newEtapa').change(function(){
          $('#newProduto').change();
      });
-     
+
      $('#newProduto').change(function(){
          $("#newItem").html('<option value=""> - Carregando - </option>');
          if($(this).val() == 0){
@@ -319,18 +319,18 @@
              });
          }
      });
-     
+
      $('.btn_finalizar').click(function(){
 
 	 var descJustificativa = CKEDITOR.instances['descJustificativa'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,''),
              texto = CKEDITOR.instances['descJustificativa'].getData(),
              erro = 0,
              msg = 'Favor preencher os dados obrigat&oacute;rios!';
-	 
+
 	 if (descJustificativa == ''){
              erro++;
 	 }
-	 
+
 	 if(texto.length > 6000){
              erro++;
              msg = 'O campo s&oacute; permite 5.000 caracteres!';
@@ -351,10 +351,10 @@
 		 }
              });
              $('.ui-dialog-titlebar-close').remove();
-	     
+
 	     return false;
 	 }
-         
+
 	 $('#mensagens').html('<span style="font-weigth: bold; color: grey">Verificando limites or&ccedil;amentarios...</span>');
 	 // verifica limites or�ament�rios
          $.ajax({
@@ -366,7 +366,7 @@
              success: function(resposta){
                  /* var resposta = JSON.parse(resposta), */
                  respostaErro = false;
-                 
+
                  resposta.mensagens.forEach(function(mensagem) {
                      if (mensagem.Observacao !== 'OK') {
                          respostaErro = true;
@@ -375,7 +375,7 @@
                  if (!respostaErro) {
 		     $('#mensagens').html('');
 		     // sem problemas de limites orcamentarios
-		     
+
 		     $("#msgAlerta").dialog("destroy");
 		     $("#msgAlerta").html('Deseja realmente finalizar as solicita&ccedil;&otilde;es de readequa&ccedil;&atilde;o cadastradas?<br /><br />Ao finalizar, todas as solicita&ccedil;&otilde;es ser&atilde;o encaminhadas ao MinC.');
 		     $("#msgAlerta").dialog({
@@ -401,13 +401,13 @@
 				 window.setTimeout('finalizarformulario()', 1000);
 			     }
 			 }
-			 
+
 		     });
 		     $('.ui-dialog-titlebar-close').remove();
-		     
+
 		 } else {
 		     var saidaHtml = "<table class='tabela'><thead><th colspan='2'>Verifica&ccedil;&atilde;o de limites or&ccedil;amentarios</th></thead>";
-		     
+
 		     for (var m = 0; m < resposta.mensagens.length; m++) {
 			 var item = resposta.mensagens[m];
 			 if (item.Observacao == 'OK') {
@@ -415,18 +415,18 @@
 			     saidaHtml += "<td><strong>" + item.Descricao + "</strong></td>";
 			 } else {
 			     saidaHtml += "<tr><td><img src='<?php echo $this->baseUrl(); ?>/public/img/delete_16x16.png' alt='' /></td>";
-			     saidaHtml += "<td><strong>" + item.Descricao + " <span class='vlDiferenca'>" + moeda.formatar(item.vlDiferenca) + "</span></strong></td>";		                                    
+			     saidaHtml += "<td><strong>" + item.Descricao + " <span class='vlDiferenca'>" + moeda.formatar(item.vlDiferenca) + "</span></strong></td>";
 			 }
 			 saidaHtml += "</tr>";
 		     }
-		     
+
 		     saidaHtml += "</table>";
 		     $('#mensagens').html(saidaHtml);
-		 }		    
+		 }
 	     }
 	 });
      });
-     
+
      $(".icn_menos").click(function(){
          var tipo = $(this).attr('tipo');
          var aberto = $(this).attr('aberto');
@@ -478,7 +478,7 @@
              $(this).addClass('fundo_linha4');
          }
      });
-     
+
      $('#planilhaOrcamentariaMontada').on('click', '.editarItem', function(){
          var idPlanilhaAprovacao = $(this).attr('idPlanilhaAprovacao'), itemClicado = $(this);
 
@@ -500,7 +500,7 @@
                  idPlanilha: idPlanilhaAprovacao
              },
              success: function(data){
-                 
+
                  if(data.resposta){
                      $('#campoPronac').html(data.dadosProjeto.PRONAC);
                      $('#campoNomeProjeto').html(data.dadosProjeto.NomeProjeto);
@@ -515,25 +515,25 @@
                      $('#campoVlUnitarioSolicitado').html(data.dadosPlanilhaAtiva.ValorUnitario);
                      $('#campoDiasSolicitado').html(data.dadosPlanilhaAtiva.QtdeDias);
                      $('#campoTotalSolicitado').html(data.dadosPlanilhaAtiva.TotalSolicitado);
-                     
+
                      $('#campoValorComprovado').html(data.valoresDoItem.vlComprovadoDoItem);
-		     
+
 		     $('#modalFonteRecurso').val(data.dadosPlanilhaEditavel.nrFonteRecurso);
                      $('#modalUnidade').val(data.dadosPlanilhaEditavel.idUnidade);
                      $('#modalQuantidade').val(data.dadosPlanilhaEditavel.Quantidade);
                      $('#modalOcorrencia').val(data.dadosPlanilhaEditavel.Ocorrencia);
                      $('#modalValorUnitario').val(data.dadosPlanilhaEditavel.ValorUnitario);
-                     
+
                      $('#modalDias').val(data.dadosPlanilhaEditavel.QtdeDias);
                      $('#modalJustificativa').val(data.dadosPlanilhaEditavel.Justificativa);
                      $('#TotalCalculado').html(data.dadosPlanilhaEditavel.TotalSolicitado);
-                     
+
                      $('#campoIdPlanilha').attr('idPlanilha', idPlanilhaAprovacao);
 
                      var vlComprovadoDoItemValidacao = data.valoresDoItem.vlComprovadoDoItemValidacao,
                          valorParaMsgErro = data.dadosPlanilhaAtiva.TotalSolicitado,
                          mensagem = '';
-                     
+
                      //MOSTRA OS DADOS NA MODAL AP�S ABRI-LA
                      $("#modalItem").dialog("destroy");
                      $("#modalItem").dialog({
@@ -567,7 +567,7 @@
                                          $(this).css('border-color', '#CCCCCC');
                                      }
                                  });
-                                 
+
                                  if(obrigatorios > 0){
                                      mensagem += '- Favor preencher os dados obrigat&oacute;rios.<br/>';
                                  }
@@ -578,7 +578,7 @@
                                      mensagem += '- O valor total do item n&atilde;o pode ser menor do que o valor comprovado de '+data.valoresDoItem.vlComprovadoDoItem+'.<br/>';
                                      erros++;
                                  }
-                                 
+
                                  //SE HOUVER ALGO DE ERRADO, EXIBE MENSAGEM DE ALERTA.
                                  if(erros > 0){
                                      $('#TotalCalculado').css('color','red');
@@ -598,7 +598,7 @@
                                      erros = 0;
                                      mensagem = '';
                                      return false;
-                                     
+
                                      //SE NENHUM CAMPO ESTIVER EM BRANCO, SALVA OS DADOS
                                  } else {
                                      $.ajax({
@@ -631,7 +631,7 @@
                                                          }
                                                      }
                                                  });
-                                             } else {                                                 
+                                             } else {
                                                  $("#modalItem").dialog("destroy");
                                                  atualizarDadosPlanilha();
                                              }
@@ -649,12 +649,12 @@
 
              return false;
          });
-         
+
          $('.excluirItemPlanilha').live('click', function(){
              var idPlanilhaAprovacao = $(this).attr('idPlanilhaAprovacao'),
                  itemClicado = $(this);
-             
-             //ABRE O MODAL DE CONFIRMA��O DA A��O REALIZADA
+
+             //ABRE O MODAL DE Confirmação DA A��O REALIZADA
              $("#msgAlerta").dialog("destroy");
              $("#msgAlerta").html('Tem certeza que deseja excluir o item da planilha?');
              $("#msgAlerta").dialog({
@@ -696,7 +696,7 @@
                                      $("#msgAlerta").dialog("destroy");
                                      atualizarDadosPlanilha();
                                  }
-                             },                         
+                             },
                              dataType : 'json'
                          });
                      }
@@ -704,7 +704,7 @@
              });
              $('.ui-dialog-titlebar-close').remove();
          });
-         
+
          $('.multiplicarValores').keyup(function(){
              // recebe os valores do formul�rio
              var qtd = $('#modalQuantidade').val(),
@@ -725,7 +725,7 @@
              // vari�vel com o resultado
              resultado = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
 
-             // se n�o for n�mero
+             // se Não for n�mero
              if (isNaN(resultado))
                  {
                      resultado = '';
@@ -751,7 +751,7 @@
 
              $('#TotalCalculado').html(resultado);
          });
-         
+
          $('.newMultiplicarValores').keyup(function(){
              // recebe os valores do formul�rio
              var qtd = $('#newQuantidade').val(),
@@ -772,7 +772,7 @@
              // vari�vel com o resultado
              resultado = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
 
-             // se n�o for n�mero
+             // se Não for n�mero
              if (isNaN(resultado))
                  {
                      resultado = '';
@@ -801,10 +801,10 @@
 
          $("#modalValorUnitario").priceFormat();
          $("#newValorUnitario").priceFormat();
-         
+
          CKEDITOR.replace( 'descJustificativa', { toolbar: [] } );
-         
-         
+
+
          <?php if($this->idPerfil == 1111){ ?>
              $('.restaurarItem').live('click', function(){
                  var idPlanilha = $(this).attr('idPlanilha'),
@@ -843,17 +843,17 @@
              });
              <?php } ?>
      });
-     
+
      function enviarformulario(){
          var descJustificativa = CKEDITOR.instances['descJustificativa'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,''),
              texto = CKEDITOR.instances['descJustificativa'].getData(),
              erro = 0,
              msg = 'Favor preencher os dados obrigat&oacute;rios!';
-         
+
          if (descJustificativa == ''){
              erro++;
          }
-         
+
          if(texto.length > 6000){
              erro++;
              msg = 'O campo s&oacute; permite 5.000 caracteres!';
@@ -874,17 +874,17 @@
                  }
              });
              $('.ui-dialog-titlebar-close').remove();
-         } else {           
+         } else {
 	     $('#formReadequacao').submit();
          }
      }
-     
+
      function finalizarformulario(){
          var idReadequacao = $('#idReadequacao').val();
-         
+
          window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'finalizar-solicitacao-readequacao'), null, true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>&idReadequacao=" + idReadequacao;
      }
-     
+
      function excluirReadequacao(){
          var idReadequacao = $('#idReadequacao').val();
          $.ajax({
@@ -897,7 +897,7 @@
 
      function atualizarDadosPlanilha(){
          $('#valorEntrePlanilhas').html('&nbsp;');
-         
+
          <?php
          // armazena idReadequacao somente no caso de planilha or�ament�ria
          if(count($this->readequacao)>0){
@@ -922,7 +922,7 @@
 	         idPronac: <?php echo $this->idPronac; ?>,
 	         idReadequacao: idReadequacao
 	     },
-	     
+
 	     // ap�s carregar a planilha, monta planilha
 	     success: function(data) {
 	         jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'carregar-valor-entre-planilhas'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>', '', 'valorEntrePlanilhas');
@@ -934,14 +934,14 @@
 	         $('#btn_finalizar').removeClass('sumir');
 	         $('#adicionar_item_novo_municipio').removeClass('sumir');
 	         $('#btn_exclusao').attr('readequacao', data.idReadequacao);
-	         
+
 	     }
          });
      }
-     
+
 </script>
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'principalproponente', 'action' => ''), null, true); ?>" title="Ir para p&aacute;gina inicial" onclick="carregandoModal();">In&iacute;cio</a></li>
@@ -952,19 +952,19 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Readequa&ccedil;&atilde;o de Planilha Or&ccedil;ament&aacute;ria<span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
 
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="msgAlerta" class="sumir"></div>
 
 <div id="conteudo">
 
-    <!-- ========== IN�CIO FORMUL�RIO ========== -->
+    <!-- ========== INÍCIO FORMUL�RIO ========== -->
     <form name="formReadequacao" id="formReadequacao" action="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'incluir-solicitacao-readequacao'), null, true); ?><?php echo '?idPronac='. Seguranca::encrypt($this->idPronac); ?>" method="post" enctype="multipart/form-data">
         <input type="hidden" id="idReadequacao" name="idReadequacao" value="<?php if (count($this->readequacao) > 0) { echo $this->readequacao[0]->idReadequacao; } ?>">
     	<input type="hidden" id="tipoReadequacao" name="tipoReadequacao" value="2">
@@ -993,7 +993,7 @@
 		</td>
             </tr>
         </table>
-        
+
         <table class="tabela planilhaOrcamentaria sumir">
             <tr>
                 <td align="center">
@@ -1034,8 +1034,8 @@
 		</td>
 	    </tr>
 	    <?php endif; ?>
-	    <?php endif; ?>    
-	    
+	    <?php endif; ?>
+
             <tr>
                 <td>
                     <div id="planilhaOrcamentariaMontada"></div>
@@ -1060,23 +1060,23 @@
                 <td><span class="red-text">* Campo obrigatorio e permite o maximo de 5.000 caracteres</span></td>
             </tr>
         </table>
-        
+
         <table class="tabela solicitacoesSimples sumir">
             <tr>
                 <td class="destacar bold" style="font-size: 13px;">Anexo</td>
             </tr>
-	    <?php if (count($this->readequacao) > 0): ?>	    
+	    <?php if (count($this->readequacao) > 0): ?>
 	    <?php if (!empty($this->readequacao[0]->idArquivo)): ?>
 	    <tr>
 		<td><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $this->readequacao[0]->idArquivo; ?>"><?php echo $this->readequacao[0]->nmArquivo; ?></a></td>
 	    </tr>
 	    <?php endif; ?>
-	    <?php endif; ?>	    
+	    <?php endif; ?>
             <tr>
                 <td><input type="file" name="arquivo" class="input_simples"> <span style="margin-left: 10px;" class="red-text">Somente arquivos .pdf</span></td>
             </tr>
         </table>
-	
+
         <table class="tabela btnSalvar sumir">
             <tr>
                 <td class="centro">
@@ -1086,7 +1086,7 @@
         </table>
 
 	<div align="center" id="mensagens"></div>
-	
+
         <table class="tabela">
             <tr>
                 <td class="centro">
@@ -1097,7 +1097,7 @@
             </tr>
         </table>
     </form>
-    
+
     <!-- ========== Fim FORMUL�RIO ========== -->
 
     <?php //MODAL DE AVALIA��O DO ITEM ?>
@@ -1116,7 +1116,7 @@
                 <td class="camposModal green bold direita"><span id="campoValorComprovado">&nbsp;</span></td>
             </tr>
         </table>
-        
+
         <table class="tabela">
             <tr>
                 <th colspan="6">Valores Solicitados</th>
@@ -1139,7 +1139,7 @@
                 <td id="campoTotalSolicitado" class="direita camposModal">&nbsp;</td>
             </tr>
         </table>
-        
+
         <table class="tabela">
             <tr>
                 <th colspan="3">Dados para a readequa&ccedil;&atilde;o</th>
@@ -1158,7 +1158,7 @@
 		</td>
 
 	    </tr>
-	    
+
             <tr class="centro">
                 <td class="destacar bold">Unidade</td>
                 <td class="destacar bold">Qtd</td>

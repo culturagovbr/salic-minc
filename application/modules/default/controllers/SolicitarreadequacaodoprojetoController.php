@@ -28,7 +28,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
     public function indexAction()
     {
         $mapperArea = new Agente_Model_AreaMapper();
-        
+
         // combo com as �reas culturais
         $this->view->comboareasculturais = $mapperArea->fetchPairs('codigo', 'descricao');
 
@@ -120,7 +120,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 $this->view->justificativa7 = $justicativa7;
             }
 
-            // caso n�o tenha locais por pedido de altera��o, busca por projeto
+            // caso Não tenha locais por pedido de altera��o, busca por projeto
             if (empty($locais)) {
                 $locais = $buscaprojeto->buscarLocais($idProjeto);
                 $this->view->somenteabrangencia = "ok";
@@ -234,7 +234,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     } else {
                         $excluir = $buscaSoliciatacao->excluirProduto($idPedidoAlteracao, $idProdutoExcluir);
                     }
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
                 } else {
                     $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
                     $idProjeto = $buscaidProjeto[0]->idProjeto;
@@ -251,9 +251,9 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                         $excluir = $buscaSoliciatacao->excluirProduto($idPedidoAlteracao, $idProdutoExcluir);
                     } else {
                         $excluir = $buscaSoliciatacao->excluirProduto($idPedidoAlteracao, $idProdutoExcluir);
-                        parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                        parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
                     }
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
                 }
             } else {
                 $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
@@ -278,9 +278,9 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $excluir = $buscaSoliciatacao->excluirProduto($idPedidoAlteracao, $idProdutoExcluir);
                 } else {
                     $excluir = $buscaSoliciatacao->excluirProduto($idPedidoAlteracao, $idProdutoExcluir);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
                 }
-                parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
             }
         } else {
             parent::message("error!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "ERROR");
@@ -327,7 +327,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                         $excluir = $buscaSoliciatacao->excluirProduto($idPedidoAlteracao, $idProdutoExcluir);
                     }
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
                     $idProjeto = $buscaidProjeto[0]->idProjeto;
@@ -345,10 +345,10 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     } else {
                         $excluir = $buscaSoliciatacao->excluirProduto($idPedidoAlteracao, $idProdutoExcluir);
                         $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                        parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                        parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                     }
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
@@ -375,10 +375,10 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 } else {
                     $excluir = $buscaSoliciatacao->excluirProduto($idPedidoAlteracao, $idProdutoExcluir);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
                 $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
             }
         } else {
             parent::message("error!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
@@ -450,7 +450,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     } else {
                         $updateproduto = $buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                     }
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
                 } else {
                     $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
                     $idProjeto = $buscaidProjeto[0]->idProjeto;
@@ -468,9 +468,9 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                         $updateproduto = $buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                     } else {
                         $updateproduto = $buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
-                        parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                        parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
                     }
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
                 }
             } // fecha if
             else {
@@ -496,9 +496,9 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $updateproduto = $buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                 } else {
                     $updateproduto =$buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
                 }
-                parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
             }
         } else {
             parent::message("error!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "ERROR");
@@ -570,7 +570,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                         $updateproduto =$buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                         $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     }
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
                     $idProjeto = $buscaidProjeto[0]->idProjeto;
@@ -589,10 +589,10 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     } else {
                         $updateproduto =$buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                         $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                        parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                        parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                     }
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
@@ -618,10 +618,10 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 } else {
                     $updateproduto =$buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
                 $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
             }
         }
     } // fecha m�todo alterar2Action()
@@ -636,9 +636,9 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
         $idPedidoAlteracao = $valores[0]->idPedidoAlteracao;
         if (!empty($idPedidoAlteracao)) {
             $valor = $buscaSoliciatacao->alterarPedido($idPedidoAlteracao);
-            parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+            parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
         } else {
-            parent::message("Solicita��o ja foi Enviada!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message("Solicitação ja foi Enviada!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     } // fecha m�todo incluirprodutoAction()
 
@@ -689,19 +689,19 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                         $inserirprodutotabela = $buscaSoliciatacao->inserirProdutoPlano($idProjeto, $idPedidoAlteracao, $idProduto);
                     }
                 }
-            
+
                 $busca = $buscaSoliciatacao->buscarProdutobd($idPedidoAlteracao, $idProdutoNovo);
-            
-             
+
+
                 if (empty($busca)) {
                     $inserirproduto =$buscaSoliciatacao->inserirProduto($idPedidoAlteracao, $idProdutoNovo, $areaCultural, $segmentoCultural, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                 } else {
                     $updateproduto = $buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                 }
-                parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
             } else {
                 $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
-           
+
                 $idProjeto = $buscaidProjeto[0]->idProjeto;
                 $p = $buscaSoliciatacao->buscarProdutostabelaAtiva($idProjeto);
                 foreach ($p as $result) {
@@ -711,14 +711,14 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                         $inserirprodutotabela = $buscaSoliciatacao->inserirProdutoPlano($idProjeto, $idPedidoAlteracao, $idProduto);
                     }
                 }
-           
+
                 $busca = $buscaSoliciatacao->buscarProdutobd($idPedidoAlteracao, $idProdutoNovo);
                 if (empty($busca)) {
                     $inserirproduto =$buscaSoliciatacao->inserirProduto($idPedidoAlteracao, $idProdutoNovo, $areaCultural, $segmentoCultural, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                 } else {
                     $updateproduto = $buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                 }
-                parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+                parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
             }
         } else {
             $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
@@ -728,7 +728,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
             $valores = $buscaSoliciatacao->buscarSolicitacao($idPronac);
             $idPedidoAlteracao = $valores[0]->idPedidoAlteracao;
             $status1 = $buscaSoliciatacao->buscaridPedidoAlteracao($idPedidoAlteracao);
-            
+
             if (empty($status1)) {
                 $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
             }
@@ -740,13 +740,13 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 }
             }
             $busca = $buscaSoliciatacao->buscarProdutobd($idPedidoAlteracao, $idProdutoNovo);
-            
+
             if (empty($busca)) {
                 $inserirproduto =$buscaSoliciatacao->inserirProduto($idPedidoAlteracao, $idProdutoNovo, $areaCultural, $segmentoCultural, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
             } else {
                 $updateproduto = $buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
             }
-            parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
+            parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac&ativar_menu_produto=ok", "CONFIRM");
         }
     } // fecha m�todo novoprodutoAction()
 
@@ -814,7 +814,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                 }
                 $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
             } else {
                 $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
                 $idProjeto = $buscaidProjeto[0]->idProjeto;
@@ -833,10 +833,10 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 } else {
                     $updateproduto = $buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
                 $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
             }
         } else {
             $buscaidProjeto = $buscaSoliciatacao->buscarID($idPronac);
@@ -862,7 +862,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
             } else {
                 $updateproduto = $buscaSoliciatacao->alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural);
             }
-            parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+            parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
         }
     }
 
@@ -885,7 +885,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
             $resultado = $buscaprojeto->buscarProjetos($idPronac);
             $this->view->buscaprojeto = $resultado;
             $resultadoproduto = $buscaprojeto->buscarProdutos($idPronac);
-            
+
             $this->view->buscaproduto = $resultadoproduto;
             $resultadodescricao = $buscaprojeto->buscarDescricao();
             $this->view->buscadescricao = $resultadodescricao;
@@ -895,7 +895,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
             if (!empty($idPedidoAlteracao)) {
                 $enviar = $buscaprojeto->verificarBotao($idPedidoAlteracao);
                 $resultadoprodutoacao = $buscaprojeto->buscarProdutobd($idPedidoAlteracao, $idProduto);
-                              
+
                 if (!empty($resultadoprodutoacao)) {
                     $this->view->buscarprodutoAcao = $resultadoprodutoacao;
                     $this->view->botao = $enviar;
@@ -912,7 +912,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 $resultadoid = $buscaprojeto->buscarID($idPronac);
                 $idProjeto = $resultadoid[0]->idProjeto;
                 $resultadoprodutoacao = $buscaprojeto->buscarProdutosOpcao($idProjeto, $idProduto);
-                                
+
                 $this->view->buscarprodutoAcao = $resultadoprodutoacao;
             }
 
@@ -950,7 +950,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
     {
         $buscaSoliciatacao = new ReadequacaoProjetos();
         $mostrar = $buscaSoliciatacao->verificarMenu($idPronac);
-                                       
+
         if (empty($mostrar)) {
             $valores = $buscaSoliciatacao->buscarSolicitacao($idPronac);
             $idPedidoAlteracao = $valores[0]->idPedidoAlteracao;
@@ -976,7 +976,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
             $enviar = $buscaSoliciatacao->verificarBotao($idPedidoAlteracao);
             if (empty($enviar)) {
             } else {
-                return "Enviar Solicita��o";
+                return "Enviar Solicitação";
             }
         }
     }
@@ -984,10 +984,10 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
     {
         $buscaSoliciatacao = new ReadequacaoProjetos();
         $mostrar = $buscaSoliciatacao->verificarMenu($idPronac);
-      
+
         if (!empty($mostrar)) {
             $menu = $mostrar[0]->stPedidoAlteracao;
-       
+
             switch ($menu) {
     case 'I':
         return "Sem Menu";
@@ -1007,7 +1007,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
         }
     }
 
-    
+
     public static function Teste($idPronac)
     {
         $buscaSoliciatacao = new ReadequacaoProjetos();
@@ -1050,8 +1050,8 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     }
 
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
-                    
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     if (empty($buscatbProposta)) {
@@ -1061,7 +1061,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     }
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1074,15 +1074,15 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 if (empty($resultadoPedidoAlteracao)) {
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message(" Dados Obrigat�rios N�o Informados", "solicitaralteracao/acaoprojeto", "ERROR");
+            parent::message(" Dados Obrigat�rios Não Informados", "solicitaralteracao/acaoprojeto", "ERROR");
         }
     }
 
@@ -1117,7 +1117,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
 
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     if (empty($buscatbProposta)) {
@@ -1128,7 +1128,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1142,12 +1142,12 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         }
@@ -1186,7 +1186,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
 
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     if (empty($buscatbProposta)) {
@@ -1198,7 +1198,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     }
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1214,15 +1214,15 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message(" Dados Obrigat�rios N�o Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message(" Dados Obrigat�rios Não Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     }
     public function nomeproponente2Action()
@@ -1256,7 +1256,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     if (empty($buscatbProposta)) {
@@ -1267,7 +1267,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1281,16 +1281,16 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message(" Dados Obrigat�rios N�o Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message(" Dados Obrigat�rios Não Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     }
     public function termoAction()
@@ -1323,7 +1323,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
 
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     if (empty($buscatbProposta)) {
@@ -1333,7 +1333,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     }
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1346,11 +1346,11 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 if (empty($resultadoPedidoAlteracao)) {
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
@@ -1390,7 +1390,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     if (empty($buscatbProposta)) {
@@ -1401,7 +1401,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1415,16 +1415,16 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message(" Dados Obrigat�rios N�o Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message(" Dados Obrigat�rios Não Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     }
 
@@ -1473,7 +1473,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
                     $compararInserirAbrangencia = $Projetos->compararInserirAbrangencia($idProjeto, $idPedidoAlteracao);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $prazo = $buscaSoliciatacao->buscarLocaisCadastrados($idPais, $idUF, $idMunicipioIBGE, $idPedidoAlteracao);
                     if (empty($prazo)) {
@@ -1487,7 +1487,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $compararInserirAbrangencia = $Projetos->compararInserirAbrangencia($idProjeto, $idPedidoAlteracao);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $prazo = $buscaSoliciatacao->buscarLocaisCadastrados($idPais, $idUF, $idMunicipioIBGE, $idPedidoAlteracao);
@@ -1503,16 +1503,16 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
                     $compararInserirAbrangencia = $Projetos->compararInserirAbrangencia($idProjeto, $idPedidoAlteracao);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
                     $compararInserirAbrangencia = $Projetos->compararInserirAbrangencia($idProjeto, $idPedidoAlteracao);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message("Dados Obrigat�rios N�o Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message("Dados Obrigat�rios Não Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     }
     public function local2Action()
@@ -1551,7 +1551,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $prazo = $buscaSoliciatacao->buscarLocaisCadastrados($idPais, $idUF, $idMunicipioIBGE, $idPedidoAlteracao);
                     if (empty($prazo)) {
@@ -1565,7 +1565,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $prazo = $buscaSoliciatacao->buscarLocaisCadastrados($idPais, $idUF, $idMunicipioIBGE, $idPedidoAlteracao);
@@ -1581,16 +1581,16 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message("Dados Obrigat�rios N�o Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message("Dados Obrigat�rios Não Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     }
 
@@ -1627,7 +1627,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
 
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     $prazo = $buscaSoliciatacao->BuscarPrazo($idPedidoAlteracao, $tpProrrogacao);
@@ -1638,7 +1638,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     }
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1652,15 +1652,15 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 if (empty($resultadoPedidoAlteracao)) {
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message("Dados Obrigat�rios N�o Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message("Dados Obrigat�rios Não Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     }
     public function prazo2Action()
@@ -1697,7 +1697,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     $prazo = $buscaSoliciatacao->BuscarPrazo($idPedidoAlteracao, $tpProrrogacao);
@@ -1709,7 +1709,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1724,16 +1724,16 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message("Dados Obrigat�rios N�o Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message("Dados Obrigat�rios Não Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     }
     public function captacaoAction()
@@ -1769,7 +1769,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
 
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     $prazo = $buscaSoliciatacao->BuscarPrazo($idPedidoAlteracao, $tpProrrogacao);
@@ -1780,7 +1780,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     }
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1794,15 +1794,15 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                 if (empty($resultadoPedidoAlteracao)) {
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message("Dados Obrigat�rios N�o Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message("Dados Obrigat�rios Não Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     }
     public function captacao2Action()
@@ -1839,7 +1839,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     $prazo = $buscaSoliciatacao->BuscarPrazo($idPedidoAlteracao, $tpProrrogacao);
@@ -1851,7 +1851,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -1866,16 +1866,16 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitaralteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message("Dados Obrigat�rios N�o Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
+            parent::message("Dados Obrigat�rios Não Informados", "solicitarreadequacaodoprojeto/index?idpronac=$idPronac", "ERROR");
         }
     }
 
@@ -1912,7 +1912,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
             $stPedido = 'A';
             $idPais= $_GET["pais"];
             $idUF= $_GET["estados"];
-            
+
             if (empty($idUF)) {
                 $idUF=0;
             }
@@ -1925,7 +1925,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
             $idPronac = $_GET["idpronac"];
             $auth = Zend_Auth::getInstance();
             $idSolicitante = $auth->getIdentity()->IdUsuario;
-            $dsJustificativa = 'inser��o';
+            $dsJustificativa = 'inserá�o';
             $buscaSoliciatacao = new ReadequacaoProjetos();
             $Projetos = new SolicitarAlteracaoDAO();
             $valores = $buscaSoliciatacao->buscarSolicitacao($idPronac);

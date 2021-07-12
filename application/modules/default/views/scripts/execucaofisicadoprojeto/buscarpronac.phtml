@@ -6,49 +6,49 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.execucaofisicadoprojeto
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="last">Comprovação de Execução Física do Projeto</li>
+		<li class="last">Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Comprovação de Execução Física do Projeto</div>
+	<div>Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
-	<!-- ========== FORMULÁRIO PARA BUSCAR PRONAC ========== -->
-	<form class="form" name="formBuscar" id="formBuscar" method="post" 
+	<!-- ========== FORMULï¿½RIO PARA BUSCAR PRONAC ========== -->
+	<form class="form" name="formBuscar" id="formBuscar" method="post"
 		action="<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'buscarpronac')); ?>">
 
 		<table class="tabela_busca">
 			<tr>
-				<th colspan="2">COMPROVAÇÃO DE EXECUÇÃO FÍSICA DO PROJETO</th>
+				<th colspan="2">COMPROVAï¿½ï¿½O DE EXECUï¿½ï¿½O Fï¿½SICA DO PROJETO</th>
 			<tr>
 			<tr>
-				<th class="titulo_campo"><label for="pronac">Nº PRONAC:</label></th>
+				<th class="titulo_campo"><label for="pronac">Nï¿½ PRONAC:</label></th>
 				<td>
 					<div class="left"></div>
-					<input class="input w150" type="text" name="pronac" id="pronac" maxlength="20" 
-						onkeyup="mascara(this, format_num);" onmouseup=" " 
-						onclick="limpar_campo(this, 'Digite o nº do PRONAC!');" onkeypress=" " 
-						onblur="restaurar_campo(this, 'Digite o nº do PRONAC!');" onmouseout=" "
-						value="<?php echo isset($_GET['pronac'])? $_GET['pronac']: 'Digite o nº do PRONAC!';?>"
+					<input class="input w150" type="text" name="pronac" id="pronac" maxlength="20"
+						onkeyup="mascara(this, format_num);" onmouseup=" "
+						onclick="limpar_campo(this, 'Digite o nï¿½ do PRONAC!');" onkeypress=" "
+						onblur="restaurar_campo(this, 'Digite o nï¿½ do PRONAC!');" onmouseout=" "
+						value="<?php echo isset($_GET['pronac'])? $_GET['pronac']: 'Digite o nï¿½ do PRONAC!';?>"
                                         />
 					<?php echo $this->botaoPesquisar('formBuscar'); ?>
 				</td>
@@ -56,17 +56,17 @@
 		</table>
 
 	</form>
-	<!-- ========== FIM FORMULÁRIO DE BUSCA PRONAC ========== -->
+	<!-- ========== FIM FORMULï¿½RIO DE BUSCA PRONAC ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

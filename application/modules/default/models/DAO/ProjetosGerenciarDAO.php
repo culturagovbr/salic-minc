@@ -63,7 +63,7 @@ class ProjetosGerenciarDAO extends Zend_Db_Table
     }
 
     /**************************************************************************************************************************
-    * Fun��o para buscar os projetos do componente da comiss�o
+    * Fun��o para buscar os projetos do componente da comissão
     * ************************************************************************************************************************/
 
     public static function buscaProjetos($idAgente)
@@ -90,7 +90,7 @@ class ProjetosGerenciarDAO extends Zend_Db_Table
     }
 
     /**************************************************************************************************************************
-    * Fun��o para encaminhar o projeto para outro componente da comiss�o
+    * Fun��o para encaminhar o projeto para outro componente da comissão
     * ************************************************************************************************************************/
 
     public static function encaminharProjeto($idPronac, $data, $justificativa, $agenteAtual, $agenteNovo)
@@ -108,7 +108,7 @@ class ProjetosGerenciarDAO extends Zend_Db_Table
     }
 
     /**************************************************************************************************************************
-    * Fun��o para desativar o componente da comiss�o
+    * Fun��o para desativar o componente da comissão
     * ************************************************************************************************************************/
 
     public function desativarComponente($idAgente, $justificativa)
@@ -140,7 +140,7 @@ class ProjetosGerenciarDAO extends Zend_Db_Table
     }
 
     /**************************************************************************************************************************
-    * Fun��o para habilitar o componente da comiss�o para o balanceamento
+    * Fun��o para habilitar o componente da comissão para o balanceamento
     * ************************************************************************************************************************/
 
     public static function ativarComponente($idAgente, $justificativa, $usucodigo)
@@ -148,7 +148,7 @@ class ProjetosGerenciarDAO extends Zend_Db_Table
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-        // Mudar a situa��o do componente da comiss�o para inativo 'I'
+        // Mudar a situa��o do componente da comissão para inativo 'I'
         $dadosUpdateSituacao = array(
             'stConselheiro' => 'A'
         );
@@ -195,7 +195,7 @@ class ProjetosGerenciarDAO extends Zend_Db_Table
             $agenteP = $dados->idAgente;
         }
 
-        // Se n�o tiver componente com a Area e Segmento do projeto ele faz...
+        // Se Não tiver componente com a Area e Segmento do projeto ele faz...
         if (!isset($agenteP) && $agenteP == '') {
 
             //aqui j� est� buscando o id do agente que tem a menor quantidade de projetos

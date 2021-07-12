@@ -74,7 +74,7 @@ class Data
             $segundo = substr($horas, 4, 2);
         }
 
-        // retorna falso caso n�o tenha sido informados n�meros ou string num�ricas
+        // retorna falso caso Não tenha sido informados n�meros ou string num�ricas
         if (!is_numeric($hora) || !is_numeric($minuto) || !is_numeric($segundo))
         {
             return false;
@@ -257,14 +257,14 @@ class Data
             else
             {
                 if($data){
-                    
+
                 $data = date('Y-m-d', strtotime($data));
                 }
                 else
                 {
                     $data = date('Y-m-d');
                 }
-                
+
             }
         }
         else
@@ -391,7 +391,7 @@ class Data
             return $dataFormatadaBrasil;
         }
     }
-        
+
 	/**
 	 * M�todo para fazer compara��o de datas
 	 * @access public
@@ -406,7 +406,7 @@ class Data
 
             $dataquebrada1 = explode('-', $data1);
             $dataquebrada2 = explode('-', $data2);
-            
+
             //defino data 1
                 $ano1 = $dataquebrada1['2'];
                 $mes1 = $dataquebrada1['1'];

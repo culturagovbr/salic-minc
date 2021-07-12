@@ -11,17 +11,17 @@
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para Página Inicial">Início</a></li>
-        <li><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'diagnostico')); ?>">Relatório Operacional</a></li>
-        <li class="last">Diagnóstico</li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para pÃ¡gina Inicial">INÃCIO</a></li>
+        <li><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'diagnostico')); ?>">Relatï¿½rio Operacional</a></li>
+        <li class="last">Diagnï¿½stico</li>
     </ul>
 </div>
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>Resultado pesquisa diagnóstico<span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
+    <div>Resultado pesquisa diagnï¿½stico<span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div id="conteudo" align="center">
 
@@ -30,7 +30,7 @@
             <tr>
                 <th valign="middle" align="center" bgcolor="#abda5d">PRONAC</th>
                 <th valign="middle" align="center" bgcolor="#abda5d">Nome do Projeto</th>
-                <th valign="middle" align="center" bgcolor="#abda5d">Dt. Situação</th>
+                <th valign="middle" align="center" bgcolor="#abda5d">Dt. Situaï¿½ï¿½o</th>
             </tr>
             <?php foreach($this->dados as $dado): ?>
             <tr>
@@ -41,7 +41,7 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <!-- ========== PAGINAÇÃO ========== -->
+    <!-- ========== PAGINAÃ‡Ã‚O ========== -->
     <?php if(!isset($_GET['pag'])) {
             $pagina=1;
         } else {
@@ -70,14 +70,14 @@
         <input type="button" class="btn_imprimir" id="btn_imprimir" onclick="window.open('<?php echo $this->baseUrl(); ?>/operacional/imprimirresultadoprojetoporsituacao?situacao=<?php echo $_GET['situacao']; ?>&orgao=<?php echo $_GET['orgao']; ?>')"/>
         <br clear="all" />
         <br clear="all" />
-        <!-- ========== FIM PAGINAÇÃO ========== -->
+        <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

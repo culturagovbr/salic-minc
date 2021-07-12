@@ -32,7 +32,7 @@ class InconsistenciaBancariaModel
                 $inconsistenciaBancariaChecaVisao->incentivadorProponenteIguaisVisaoIncentivador($cpfCnpj);
             }
         } catch (Exception $exception) {
-            throw new Exception('Não foi possível resolver a inconsistência de incentivador e proponente iguais', null, $exception);
+            throw new Exception('NÃ£o foi possï¿½vel resolver a inconsistï¿½ncia de incentivador e proponente iguais', null, $exception);
         }
     }
 }

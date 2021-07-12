@@ -21,10 +21,10 @@
 
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
 		<li><a href="<?php echo $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'agentes')); ?>">Manter Agentes</a></li>
 		<li class="last">Pesquisar</li>
 	</ul>
@@ -33,15 +33,15 @@
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>Pesquisar <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 	<br /><br />
@@ -96,7 +96,7 @@
 
 	<script type="text/javascript">
 	<!--
-	// valida o envio do formul·rio
+	// valida o envio do formulÔøΩrio
     $('#formBuscar').submit(function()
 	{
 		cpf = document.getElementById('cpf').value;
@@ -139,7 +139,7 @@
 
                 else if (Tipo == 0 && cpf.length != 14 && (nome == "" || nome == " "))
 		{
-			msg = 'CPF inv·lido!';
+			msg = 'CPF invÔøΩlido!';
 			$("#dialog").dialog("destroy");
 			$("#dialog-alert").dialog
 			({
@@ -160,7 +160,7 @@
 		}
 		else if (Tipo == 1 && cpf.length != 18 && (nome == "" || nome == " "))
 		{
-			msg = 'CNPJ inv·lido!';
+			msg = 'CNPJ invÔøΩlido!';
 			$("#dialog").dialog("destroy");
 			$("#dialog-alert").dialog
 			({
@@ -189,12 +189,12 @@
         <div id="dialog-alert" class="sumir">Informe um documento v&aacute;lido!</div>
         <div id="dialog-alert2" class="sumir">Dados Obrigat&oacute;rios n&atilde;o informados!</div>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

@@ -18,7 +18,7 @@
                    }
                }
             });
-            
+
             if(verifica){
                 $(this).attr('checked',!verifica);
                 var nomeJanelaAlerta = janelaObj({
@@ -39,7 +39,7 @@
                                 });
                                 $(this).dialog('close');
                             }
-                            
+
                         }
                     },
                     removerBtFechar:true,
@@ -50,7 +50,7 @@
             }
         });
     });
-    
+
     function janelaObj(dados){
         var divConteudo = $('<div></div>').attr('title',dados.title).appendTo('body');
         var novaJanela = {
@@ -113,7 +113,7 @@
         var nmSecretario 		= $("#nmSecretario").val();
 
         if(nrMemorando == ''){
-            alertar('Informe o n˙mero do memorando');
+            alertar('Informe o nÔøΩmero do memorando');
             return false;
         } else if(nmCoordenador == ''){
             alertar('Informe o nome do Coordenador');
@@ -122,7 +122,7 @@
             alertar('Informe o Cargo do Coordenador');
             return false;
         } else if(nmSecretario == ''){
-            alertar('Informe o nome do secret·rio');
+            alertar('Informe o nome do secretÔøΩrio');
             return false;
         } else {
 
@@ -131,7 +131,7 @@
             <?php } else { ?>
             	$("#modal").html("Deseja Enviar Pagamento?");
             <?php } ?>
-            
+
             $("#modal").dialog({
                 title : 'Alerta',
                 resizable: false,
@@ -157,10 +157,10 @@
     }
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <?php if($this->grupo == 93){ ?>
         <li class="last">Enviar para Pagamento</li>
         <?php } else { ?>
@@ -171,15 +171,15 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 <div id="modal"></div>
 <div id="confirma"></div>
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <?php if($this->grupo == 93){ ?>
-    <div>Enviar para Pagamento <span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span></div>
+    <div>Enviar para Pagamento <span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span></div>
      <?php } else { ?>
-    <div>Gerar Memorando de Pagamento <span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span></div>
+    <div>Gerar Memorando de Pagamento <span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span></div>
      <?php } ?>
 </div>
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 
 <div id="conteudo">
 <!--============================================INICIO GRID=====================================================================-->
@@ -191,7 +191,7 @@
     <form id="form137" action="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'gerarmemorando')); ?>" method="POST">
         <table class="tabela">
             <tr>
-                <td align="center" class="fundo_linha3"><b style="color: green"> … PERMITIDO GERAR MEMORANDO DE APENAS UM PARECERISTA POR VEZ!</b></td>
+                <td align="center" class="fundo_linha3"><b style="color: green"> ÔøΩ PERMITIDO GERAR MEMORANDO DE APENAS UM PARECERISTA POR VEZ!</b></td>
             </tr>
         </table>
 
@@ -201,7 +201,7 @@
             </tr>
             <tr>
                 <td width="200">
-                    <label for="nrMemorando">N∫ Memorando</label><br />
+                    <label for="nrMemorando">NÔøΩ Memorando</label><br />
                     <input type="text" name="nrMemorando" id="nrMemorando"  class="input_simples" />
                 </td>
                 <td width="300">
@@ -213,12 +213,12 @@
                     <input type="text" name="cargoCoordenador" id="cargoCoordenador" value="Coordenador" class="input_simples" size="40" />
                 </td>
                 <td>
-                    <label for="nmSecretario">Secret·rio</label><br />
+                    <label for="nmSecretario">SecretÔøΩrio</label><br />
                     <input type="text" name="nmSecretario" id="nmSecretario" value="Henilton Parente de Menezes" class="input_simples" size="40" />
                 </td>
                 <td>
-                    <label for="nmSecretario">Cargo Secret·rio</label><br />
-                    <input type="text" name="cargoSecretario" id="cargoSecretario" value="Secret·rio" class="input_simples" size="40" />
+                    <label for="nmSecretario">Cargo SecretÔøΩrio</label><br />
+                    <input type="text" name="cargoSecretario" id="cargoSecretario" value="SecretÔøΩrio" class="input_simples" size="40" />
                 </td>
             </tr>
         </table>
@@ -242,7 +242,7 @@
                 $produto = '';
                 $nomeParecerista = '';
                 foreach($this->dadospainel as $dp){
-               
+
             ?>
             <tr>
                 <td><?php if($dp->nomeParecerista != $nomeParecerista) {echo $dp->nomeParecerista;} ?></td>
@@ -272,11 +272,11 @@
         </tr>
     </table>
     </form>
-        <!--===============================================================PAGINA«¬O============================================================================================-->
+        <!--===============================================================PAGINA√á√ÇO============================================================================================-->
 
-<!-- ========== PAGINA«?O ========== -->
+<!-- ========== PAGINAÔøΩ?O ========== -->
 <?php if($this->qtdDocumentos > 5){ echo "<p>" . $this->dadospainel . "</p>"; } ?>
-<!-- ========== FIM PAGINA«?O ========== -->
+<!-- ========== FIM PAGINAÔøΩ?O ========== -->
 
 <?php } else { ?>
     <table class="tabela">
@@ -287,9 +287,9 @@
 <?php } ?>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

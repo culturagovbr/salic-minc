@@ -2,21 +2,21 @@
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
-        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="CLista de Relatórios">Lista de Relatórios</a></li>
-        <li class="last">Comprovantes de Execução</li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="CLista de Relatï¿½rios">Lista de Relatï¿½rios</a></li>
+        <li class="last">Comprovantes de Execuï¿½ï¿½o</li>
     </ul>
 </div>
 
 
 <div id="titulo">
-    <div>Comprovantes de Execução <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico/" title="Voltar">Voltar</a></span></div>
+    <div>Comprovantes de Execuï¿½ï¿½o <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico/" title="Voltar">Voltar</a></span></div>
 </div>
 
 
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center" width="30%">Nï¿½ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -44,7 +44,7 @@
             <td class="destacar bold">Tipo de Comprovante</td>
             <td class="destacar bold">Nome do Arquivo</td>
             <td class="destacar bold">Data de Envio</td>
-            <td class="destacar bold">Observações</td>
+            <td class="destacar bold">Observaï¿½ï¿½es</td>
         </tr>
         <?php foreach ($this->DadosComprovantes as $DadosComprovantes) { ?>
         <tr>
@@ -53,7 +53,7 @@
                     if($DadosComprovantes->idTipoDocumento == 22){
                         echo 'Fotos';
                     } else if($DadosComprovantes->idTipoDocumento == 23){
-                        echo 'Vídeos';
+                        echo 'Vï¿½deos';
                     } else if($DadosComprovantes->idTipoDocumento == 24){
                         echo 'Arquivo';
                     }
@@ -76,7 +76,7 @@
     <br clear="all" />
 </div>
 
-<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÃCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

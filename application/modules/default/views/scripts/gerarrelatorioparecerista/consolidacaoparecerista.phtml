@@ -5,13 +5,13 @@ $resconsolidacaopareceristaHref = $this->url(array('controller' => 'gerarrelator
 include_once 'inc/funcoes.inc.php';
 ?>
 <div id="menu">
-    <!-- in�cio: conte�do principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
         <?php echo $this->partial('gerarrelatorioparecerista/inc/menu.inc.php', $this);?>
-        <!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="index.phtml" title="Ir para In�cio">In&iacute;cio</a></li>
+                <li class="first"><a href="index.phtml" title="Ir para INÍCIO">In&iacute;cio</a></li>
 
                 <li class="last">Principal</li>
             </ul>
@@ -75,42 +75,42 @@ include_once 'inc/funcoes.inc.php';
                         <td>&Aacute;rea</td>
                         <td>
 	                        <select name="Area" id="Area" onchange="carregar_combo(this.value, 'Seguimento', '<?php echo $this->url(array('controller' => 'segmentocultural', 'action' => 'combo')); ?>', ' - Selecione uma �rea Cultural - ')" class="input_simples" style="width: 200px;">
-			
+
 								<?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
 								<option value="0"> - Selecione - </option>
 								<?php } ?>
-				
+
 								<?php foreach ($this->comboareasculturais as $key=>$value): ?>
 								<option value="<?php echo $key; ?>" <?php if ($this->areaCultural == $key) echo "selected=\"selected\""; ?>>
 									<?php echo $value; ?>
 								</option>
 								<?php endforeach; ?>
-				
+
 							</select>
-                           
+
                         </td>
                         <td>Segmento</td>
                         <td>
                             <select name="Seguimento" id="Seguimento"  class="input_simples" style="width: 200px;">
-		
+
 								<?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
 								<option value="0"> - Selecione uma &Aacute;rea Cultural - </option>
 								<?php } else { ?>
-				
+
 									<?php if (!isset($this->segmentoCultural) || empty($this->segmentoCultural)) { ?>
 									<option value=""> - Selecione - </option>
 									<?php } ?>
-				
+
 									<?php foreach ($this->combosegmentosculturais as $combosegmentocultural): ?>
 									<option value="<?php echo $combosegmentocultural->id; ?>" <?php if ($this->segmentoCultural == $combosegmentocultural->id) echo "selected=\"selected\""; ?>>
 										<?php echo $combosegmentocultural->descricao; ?>
 									</option>
 									<?php endforeach; ?>
-				
+
 								<?php } ?>
-				
+
 							</select>
-                            
+
                         </td>
                     </tr>
                     <tr>
@@ -137,10 +137,10 @@ include_once 'inc/funcoes.inc.php';
                 </table>
             </form>
         </div>
-        <!-- ========== FIM CONTE�DO ========== -->
-        <!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+        <!-- ========== FIM CONTEÚDO ========== -->
+        <!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
         <div id="rodapeConteudo"><span></span></div>
-        <!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+        <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
         <br clear="all" />
     </div>

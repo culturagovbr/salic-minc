@@ -35,9 +35,9 @@ class DbfController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = 'Salic - Sistema de Apoio �s Leis de Incentivo � Cultura'; // t�tulo da p�gina
+        $this->view->title = 'Salic - Sistema de Apoio �s Leis de Incentivo � Cultura'; // t�tulo da página
 
-        /* ========== IN�CIO PERFIL ========== */
+        /* ========== INÍCIO PERFIL ========== */
         // define os grupos que tem acesso
         $PermissoesGrupo = array();
         //$PermissoesGrupo[] = 121; // T�cnico de Acompanhamento
@@ -122,7 +122,7 @@ class DbfController extends MinC_Controller_Action_Abstract
                 if (empty($ano)) {
                     throw new Exception('Por favor, informe um ano v�lido!');
                 } elseif ($ano > date('Y')) {
-                    throw new Exception('O ano informado n�o pode ser maior que o ano atual!');
+                    throw new Exception('O ano informado Não pode ser maior que o ano atual!');
                 } elseif ($receber == 'S' && (empty($email) || !$ValidarEmail->isValid($email))) {
                     throw new Exception('Por favor, informe um e-mail v�lido!');
                 } else {
@@ -130,7 +130,7 @@ class DbfController extends MinC_Controller_Action_Abstract
                     $this->sInformacaoReceitaFederalV3 = new sInformacaoReceitaFederalV3();
                     $this->sInformacaoReceitaFederalV3->gerarDBF($ano);
 
-                    // busca as infoma��es que ser�o armazenadas no arquivo
+                    // busca as infoma��es que seráo armazenadas no arquivo
                     $this->Dbf = new Dbf();
                     $buscar = $this->Dbf->buscarInformacoes();
 

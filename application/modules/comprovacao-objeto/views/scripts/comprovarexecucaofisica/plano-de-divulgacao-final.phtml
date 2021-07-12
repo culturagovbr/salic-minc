@@ -75,7 +75,7 @@
                 height:180,
                 modal: true,
                 buttons : {
-                    'N�o' : function(){
+                    'Não' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -101,7 +101,7 @@
                                     $('.ui-dialog-titlebar-close').remove();
                                     window.setTimeout('location.reload()', 1000);
                                 } else {
-                                    alertaModal("N�o foi poss�vel excluir o Plano de Divulga��o.");
+                                    alertaModal("Não foi poss�vel excluir o Plano de Divulga��o.");
                                 }
                             },
                             dataType : 'json'
@@ -197,7 +197,7 @@
                     <?php } else { ?>
                     <select name="siPlanoDeDivulgacao[]" class="select_simples obrigatorio w200 <?php echo($PlanoDeDivulgacao->siPlanoDeDivulgacao < 2)?'selectPlnDiv':''; ?>" <?php echo($PlanoDeDivulgacao->siPlanoDeDivulgacao < 2)?'':'disabled="disabled"'; ?>>
                         <option value="0:<?php echo $PlanoDeDivulgacao->idPlanoDivulgacao; ?>">Sem Informa��o</option>
-                        <option value="1:<?php echo $PlanoDeDivulgacao->idPlanoDivulgacao; ?>" <?php echo($PlanoDeDivulgacao->siPlanoDeDivulgacao == 1)?'selected="selected"':''; ?>>N�o Realizado</option>
+                        <option value="1:<?php echo $PlanoDeDivulgacao->idPlanoDivulgacao; ?>" <?php echo($PlanoDeDivulgacao->siPlanoDeDivulgacao == 1)?'selected="selected"':''; ?>>Não Realizado</option>
                         <option value="2:<?php echo $PlanoDeDivulgacao->idPlanoDivulgacao; ?>" <?php echo($PlanoDeDivulgacao->siPlanoDeDivulgacao == 2)?'selected="selected"':''; ?>>Realizado</option>
                     </select>
                     <?php } ?>
@@ -281,7 +281,7 @@
     <br clear="all" />
 </div>
 
-<!-- in�cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÍCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

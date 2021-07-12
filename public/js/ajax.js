@@ -1,16 +1,16 @@
 <!--
 /**
- * FunÁıes AJAX
+ * FunÔøΩÔøΩes AJAX
  * @author Emanuel Sampaio <contato@emanuelsampaio.com.br>
  * @since 24/03/2010
  * @version 1.0
- * @copyright © 2010 Politec - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 Politec - Todos os direitos reservados.
  * @package js
  * @link http://www.politec.com.br
  */
 
 /**
- * vari·veis globais
+ * variÔøΩveis globais
  */
 var linha_cache = null; // guarda o id do registro a ser editado
 var fundo_linha = "#ffffcc"; // guarda a cor do registro a ser editado
@@ -21,7 +21,7 @@ var carregando = "<div class='carregando'><img src='public/img/ajax.gif' alt='Ag
 
 
 /**
- * FunÁ„o para converter as aspas simples dos inputs nos formul·rios de  alteraÁ„o
+ * FunÔøΩÔøΩo para converter as aspas simples dos inputs nos formulÔøΩrios de  alteraÔøΩÔøΩo
  */
 function tratar_input(campo)
 {
@@ -31,7 +31,7 @@ function tratar_input(campo)
 
 
 /**
- * FunÁ„o para pegar o objeto XMLHTTP para uso com AJAX
+ * FunÔøΩÔøΩo para pegar o objeto XMLHTTP para uso com AJAX
  */
 function xmlhttp()
 {
@@ -42,7 +42,7 @@ function xmlhttp()
 	}
 
 	// ActiveXObject para navegadores microsoft
-	var versao = ['Microsoft.XMLHttp', 'Msxml2.XMLHttp', 'Msxml2.XMLHttp.6.0', 
+	var versao = ['Microsoft.XMLHttp', 'Msxml2.XMLHttp', 'Msxml2.XMLHttp.6.0',
 	              'Msxml2.XMLHttp.5.0', 'Msxml2.XMLHttp.4.0', 'Msxml2.XMLHttp.3.0'];
 	for (var i = 0; i < versao.length; i++)
 	{
@@ -52,20 +52,20 @@ function xmlhttp()
 		}
 		catch(e)
 		{
-			alertar("Seu navegador n„o possui recursos para o uso do AJAX!");
+			alertar("Seu navegador N√£o possui recursos para o uso do AJAX!");
 		}
 	} // fecha for
 	return null;
-} // fecha funÁ„o xmlhttp
+} // fecha funÔøΩÔøΩo xmlhttp
 
 
 
 /**
- * FunÁ„o para pegar os scripts que ficam dentro das p·ginas aberta via AJAX
+ * FunÔøΩÔøΩo para pegar os scripts que ficam dentro das p√°ginas aberta via AJAX
  */
 function pegar_script(tag_script)
 {
-	var js_home = 0; // inÌcio do script
+	var js_home = 0; // IN√çCIO do script
 	var js_end  = 0; // final do script
 
 	// varre os scripts encontrados
@@ -75,9 +75,9 @@ function pegar_script(tag_script)
 															// script
 		if (js_home >= 0)
 		{
-			js_home = tag_script.indexOf('>', js_home) + 1; // pega o inÌcio
+			js_home = tag_script.indexOf('>', js_home) + 1; // pega o IN√çCIO
 			js_end  = tag_script.indexOf('</script>', js_home); // pega o final
-			codigo  = tag_script.substring(js_home, js_end); // pega o cÛdigo
+			codigo  = tag_script.substring(js_home, js_end); // pega o C√≥digo
 
 			var novo  = document.createElement('script');
 			novo.type = 'text/javascript';
@@ -85,12 +85,12 @@ function pegar_script(tag_script)
 			document.body.appendChild(novo);
 		} // fecha if
 	} // fecha while
-} // fecha funÁ„o pegar_script()
+} // fecha funÔøΩÔøΩo pegar_script()
 
 
 
 /**
- * FunÁ„o AJAX para abrir os links das p·ginas via GET
+ * FunÔøΩÔøΩo AJAX para abrir os links das p√°ginas via GET
  */
 function abrir_pag(pag, id, carregando)
 {
@@ -113,18 +113,18 @@ function abrir_pag(pag, id, carregando)
 		}
 		if (ajax.readyState == 4 && ajax.status == 200)
 		{
-			pegar_script(unescape(ajax.responseText.replace(/\+/g," "))); // convers„o de scripts
+			pegar_script(unescape(ajax.responseText.replace(/\+/g," "))); // conversÔøΩo de scripts
 			id.innerHTML = ajax.responseText;
-			linha_cache = null; // limpa o id do registro em ediÁ„o no cache
+			linha_cache = null; // limpa o id do registro em ediÔøΩÔøΩo no cache
 		}
 	}
 	ajax.send(null);
-} // fecha funÁ„o abrir_pag()
+} // fecha funÔøΩÔøΩo abrir_pag()
 
 
 
 /**
- * FunÁ„o AJAX para enviar dados via POST
+ * FunÔøΩÔøΩo AJAX para enviar dados via POST
  */
 function enviar_pag(url, dados, id)
 {
@@ -142,15 +142,15 @@ function enviar_pag(url, dados, id)
 		if (ajax.readyState == 4 && ajax.status == 200)
 		{
 			id.innerHTML = ajax.responseText;
-			linha_cache = null; // limpa o id do registro em ediÁ„o no cache
+			linha_cache = null; // limpa o id do registro em ediÔøΩÔøΩo no cache
 		}
 	}
 	ajax.send(dados);
-} // fecha funÁ„o enviar_pag()
+} // fecha funÔøΩÔøΩo enviar_pag()
 
 
 /**
- * FunÁ„o AJAX para enviar dados via POST
+ * FunÔøΩÔøΩo AJAX para enviar dados via POST
  */
 function enviar_pag_nao_assincrono(url, dados, id)
 {
@@ -168,24 +168,24 @@ function enviar_pag_nao_assincrono(url, dados, id)
 		if (ajax.readyState == 4 && ajax.status == 200)
 		{
 			id.innerHTML = ajax.responseText;
-			linha_cache = null; // limpa o id do registro em ediÁ„o no cache
+			linha_cache = null; // limpa o id do registro em ediÔøΩÔøΩo no cache
 		}
 	}
 	ajax.send(dados);
 }
 
 /**
- * FunÁ„o para buscar os dados de um combo de acordo com o valor de outro
+ * FunÔøΩÔøΩo para buscar os dados de um combo de acordo com o valor de outro
  */
 function carregar_combo(valor, combo, url, txt_combo, campo_selecionado)
 {
     console.log(valor, combo, url, txt_combo, campo_selecionado);
 	ajax = xmlhttp(); // instancia ajax
 
-	// deixa apenas um elemento no combo, os outros s„o excluÌdos
+	// deixa apenas um elemento no combo, os outros sÔøΩo excluÔøΩdos
 	document.getElementById(combo).options.length = 1;
 
-	// abre a p·gina que possue o XML gerado
+	// abre a p√°gina que possue o XML gerado
 	ajax.open("POST", url, true);
 	ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -196,7 +196,7 @@ function carregar_combo(valor, combo, url, txt_combo, campo_selecionado)
 			txt_combo == null ? document.getElementById(combo).options[0].innerHTML = "..." : document.getElementById(combo).options[0].innerHTML = "carregando...";
 		}
 
-		// lÍ os dados do XML
+		// lÔøΩ os dados do XML
 		if (ajax.readyState == 4)
 		{
 			if (ajax.responseXML)
@@ -210,29 +210,29 @@ function carregar_combo(valor, combo, url, txt_combo, campo_selecionado)
 			}
 		}
 	}
-	// passa o cÛdigo do Ìtem escolhido
+	// passa o C√≥digo do ÔøΩtem escolhido
 	var params = "id=" + valor;
 	ajax.send(params);
 
 }
 
 /**
- * FunÁ„o para lÍ o XML de um combo gerado a partir de outro
+ * FunÔøΩÔøΩo para lÔøΩ o XML de um combo gerado a partir de outro
  */
 function buscar_xml_combo(xml, combo, txt_combo, campo_selecionado)
 {
-	// pega o nÛ do elemento
+	// pega o nÔøΩ do elemento
 	var no = xml.getElementsByTagName("item");
 
-	// total de elementos contidos no nÛ
+	// total de elementos contidos no nÔøΩ
 	if (no.length > 0)
 	{
-		// percorre o nÛ para extrair seus filhos
+		// percorre o nÔøΩ para extrair seus filhos
 		for (var i = 0; i < no.length; i++)
 		{
 			var item = no[i];
 
-			// pega o valor dos filhos do nÛ
+			// pega o valor dos filhos do nÔøΩ
 			var id        = item.getElementsByTagName("id")[0].firstChild.nodeValue;
 			var descricao = item.getElementsByTagName("descricao")[0].firstChild.nodeValue;
 
@@ -256,12 +256,12 @@ function buscar_xml_combo(xml, combo, txt_combo, campo_selecionado)
 		// se o XML retornar vazio
 		txt_combo == null ? document.getElementById(combo).options[0].innerHTML = " -- " : document.getElementById(combo).options[0].innerHTML = txt_combo;
 	}
-} // fecha funÁ„o buscar_xml_combo()
+} // fecha funÔøΩÔøΩo buscar_xml_combo()
 
 
 
 /**
- * FunÁ„o AJAX para abrir duas requisiÁıes para os combos de alteraÁ„o
+ * FunÔøΩÔøΩo AJAX para abrir duas requisiÔøΩÔøΩes para os combos de alteraÔøΩÔøΩo
  */
 function abrir_pag_combo(pag, id, pag2, id2)
 {
@@ -298,12 +298,12 @@ function abrir_pag_combo(pag, id, pag2, id2)
 	}
 	ajax.send(null);
 	ajax2.send(null);
-} // fecha funÁ„o abrir_pag_combo()
+} // fecha funÔøΩÔøΩo abrir_pag_combo()
 
 
 
 /**
- * Formul·rio Alterar Senha
+ * FormulÔøΩrio Alterar Senha
  */
 function alterar_senha()
 {
@@ -321,25 +321,25 @@ function alterar_senha()
 	}
 	else if (confirmaSenha == "")
 	{
-		alertar("Informe a confirmaÁ„o de senha!", "confirmaSenha");
+		alertar("Informe a Confirma√ß√£o de senha!", "confirmaSenha");
 	}
 	else if (novaSenha.length < 6 || novaSenha.length > 20)
 	{
-		alertar("Por questıes de seguranÁa, a nova senha dever· possuir de 6 ‡ 20 caracteres!", "novaSenha");
+		alertar("Por questÔøΩes de seguranÔøΩa, a nova senha deverÔøΩ possuir de 6 ÔøΩ 20 caracteres!", "novaSenha");
 	}
 	else if (novaSenha != confirmaSenha)
 	{
-		alertar("A confirmaÁ„o de senha n„o confere!", "confirmaSenha");
+		alertar("A Confirma√ß√£o de senha N√£o confere!", "confirmaSenha");
 	}
 	else
 	{
-		// campos do formul·rio
+		// campos do formulÔøΩrio
 		dados = 'senhaAntiga=' + encodeURIComponent(senhaAntiga);
 		dados+= '&novaSenha=' + encodeURIComponent(novaSenha);
 		dados+= '&confirmaSenha=' + encodeURIComponent(confirmaSenha);
 		enviar_pag("php/alterar_senha.php?acao=AlterarSenha", dados);
 	} // fecha else
-} // fecha funÁ„o alterar_senha()
+} // fecha funÔøΩÔøΩo alterar_senha()
 
 
 
@@ -347,14 +347,14 @@ function alterar_senha()
 
 /**
  * ==============================
- *  InÌcio DATA GRID
+ *  IN√çCIO DATA GRID
  * ==============================
  */
 
 
 
 /**
- * FunÁıes para cadastro, alteraÁ„o e exclus„o de CONSELHEIRO
+ * FunÔøΩÔøΩes para cadastro, alteraÔøΩÔøΩo e exclusÔøΩo de CONSELHEIRO
  */
 function cadastrar_proponente() // cadastro
 {
@@ -391,16 +391,16 @@ function cadastrar_proponente() // cadastro
 	else if (cep == "")                      { alertar("Por favor, informe o cep!", "cep");	}
 	else if (uf == "")                       { alertar("Por favor, selecione o estado!", "uf");	}
 	else if (cidade == "")                   { alertar("Por favor, selecione a cidade!", "cidade");	}
-	else if (tipoEndereco == "")             { alertar("Por favor, selecione o tipo de endereÁo!", "tipoEndereco");	}
+	else if (tipoEndereco == "")             { alertar("Por favor, selecione o tipo de endereÔøΩo!", "tipoEndereco");	}
 	else if (tipoLogradouro == "")           { alertar("Por favor, selecione o tipo de logradouro!", "tipoLogradouro");	}
 	else if (logradouro == "")               { alertar("Por favor, informe o logradouro!", "logradouro");	}
-	else if (numero == "")                   { alertar("Por favor, informe o n˙mero!", "numero");	}
+	else if (numero == "")                   { alertar("Por favor, informe o nÔøΩmero!", "numero");	}
 	else if (complemento == "")              { alertar("Por favor, informe o complemento!", "complemento");	}
 	else if (bairro == "")                   { alertar("Por favor, informe o bairro!", "bairro");	}
 	//else if (titular == "")                  { alertar("Por favor, informe o nome do Proponente!", "titular");	}
 	//else if (divulgarEndereco == "")         { alertar("Por favor, informe o nome do Proponente!", "divulgarEndereco");	}
 	//else if (enderecoCorrespondencia == "")  { alertar("Por favor, informe o nome do Proponente!", "enderecoCorrespondencia");	}
-	else if (areaCultural == "")             { alertar("Por favor, selecione a ·rea cultural!", "areaCultural");	}
+	else if (areaCultural == "")             { alertar("Por favor, selecione a ÔøΩrea cultural!", "areaCultural");	}
 	else if (segmentoCultural == "")         { alertar("Por favor, selecione o segmento cultural!", "segmentoCultural");	}
 
 	//else if (tipoFone == "")                 { alertar("Por favor, informe o nome do Proponente!", "tipoFone");	}
@@ -415,7 +415,7 @@ function cadastrar_proponente() // cadastro
 	//else if (enviarEmail == "")              { alertar("Por favor, informe o nome do Proponente!", "enviarEmail");	}
 	else
 	{
-		// campos do formul·rio
+		// campos do formulÔøΩrio
 		dados = 'cpf=' + encodeURIComponent(cpf);
 		dados+= '&nome=' + encodeURIComponent(nome);
 		dados+= '&cep=' + encodeURIComponent(cep);
@@ -442,7 +442,7 @@ function cadastrar_proponente() // cadastro
 	} // fecha else
 }
 
-function alterar_proponente(linha) // cria o formul·rio de aleraÁ„o
+function alterar_proponente(linha) // cria o formulÔøΩrio de aleraÔøΩÔøΩo
 {
 	if (!linha_cache)
 	{
@@ -462,19 +462,19 @@ function alterar_proponente(linha) // cria o formul·rio de aleraÁ„o
 	}
 	else
 	{
-		alertar("Termine de editar o Ìtem \"" + c_nome + "\"!");
+		alertar("Termine de editar o ÔøΩtem \"" + c_nome + "\"!");
 	}
 }
 
-function del_alterar_proponente(linha, c1) // apaga o formul·rio de alteraÁ„o
+function del_alterar_proponente(linha, c1) // apaga o formulÔøΩrio de alteraÔøΩÔøΩo
 {
 	linha = document.getElementById(linha); // linha alterada
 	linha.style.backgroundColor = ""; // cor da linha
-	linha.cells[0].innerHTML = unescape(c1); // vari·vel em cache
-	linha_cache = null; // limpa o id do registro em ediÁ„o no cache
+	linha.cells[0].innerHTML = unescape(c1); // variÔøΩvel em cache
+	linha_cache = null; // limpa o id do registro em ediÔøΩÔøΩo no cache
 }
 
-function add_alterar_proponente(linha, nomeAntigo) // alteraÁ„o
+function add_alterar_proponente(linha, nomeAntigo) // alteraÔøΩÔøΩo
 {
 	prm  = document.getElementById("prm").value;
 	nome = document.getElementById("nomeProponenteAlterar").value;
@@ -485,7 +485,7 @@ function add_alterar_proponente(linha, nomeAntigo) // alteraÁ„o
 	}
 	else
 	{
-		// campos do formul·rio
+		// campos do formulÔøΩrio
 		dados = 'prm=' + encodeURIComponent(prm);
 		dados+= '&cod=' + encodeURIComponent(linha.substr(5));
 		dados+= '&nomeAntigo=' + encodeURIComponent(nomeAntigo);
@@ -494,7 +494,7 @@ function add_alterar_proponente(linha, nomeAntigo) // alteraÁ„o
 	} // fecha else
 }
 
-function excluir_proponente(linha) // exclus„o
+function excluir_proponente(linha) // exclusÔøΩo
 {
 	if (!linha_cache)
 	{
@@ -518,7 +518,7 @@ function excluir_proponente(linha) // exclus„o
 	}
 	else
 	{
-		alertar("Para continuar È necess·rio terminar a ediÁ„o do Ìtem ativo!");
+		alertar("Para continuar ÔøΩ necessÔøΩrio terminar a ediÔøΩÔøΩo do ÔøΩtem ativo!");
 	}
 }
 
@@ -527,7 +527,7 @@ function excluir_proponente(linha) // exclus„o
 
 
 /**
-* FunÁıes para cadastro, alteraÁ„o e exclus„o de FONE
+* FunÔøΩÔøΩes para cadastro, alteraÔøΩÔøΩo e exclusÔøΩo de FONE
 */
 function cadastrar_fone() // cadastro
 {
@@ -544,7 +544,7 @@ function cadastrar_fone() // cadastro
             divulgarFone = document.formAlterar.divulgarFone[i].value;
         }
     }
-	
+
 	divulgar = divulgarFone;
 
 	if (tipo == "")
@@ -565,7 +565,7 @@ function cadastrar_fone() // cadastro
 	}
 	else
 	{
-		// campos do formul·rio
+		// campos do formulÔøΩrio
 		dados = 'tipo=' + encodeURIComponent(tipo);
 		dados+= '&idAgente=' + encodeURIComponent(idagente);
 		dados+= '&uf=' + encodeURIComponent(uf);
@@ -576,7 +576,7 @@ function cadastrar_fone() // cadastro
 	} // fecha else
 }
 
-function alterar_fone(linha) // cria o formul·rio de aleraÁ„o
+function alterar_fone(linha) // cria o formulÔøΩrio de aleraÔøΩÔøΩo
 {
 	if (!linha_cache)
 	{
@@ -604,24 +604,24 @@ function alterar_fone(linha) // cria o formul·rio de aleraÁ„o
 	}
 	else
 	{
-		alertar("Termine de editar o Ìtem \"" + c_tipo + "\"!");
+		alertar("Termine de editar o ÔøΩtem \"" + c_tipo + "\"!");
 	}
 }
 
-function del_alterar_fone(linha, c1, c2, c3, c4, c5) // apaga o formul·rio de
-														// alteraÁ„o
+function del_alterar_fone(linha, c1, c2, c3, c4, c5) // apaga o formulÔøΩrio de
+														// alteraÔøΩÔøΩo
 {
 	linha = document.getElementById(linha); // linha alterada
 	linha.style.backgroundColor = ""; // cor da linha
-	linha.cells[0].innerHTML = unescape(c1); // vari·vel em cache
-	linha.cells[1].innerHTML = unescape(c2); // vari·vel em cache
-	linha.cells[2].innerHTML = unescape(c3); // vari·vel em cache
-	linha.cells[3].innerHTML = unescape(c4); // vari·vel em cache
-	linha.cells[4].innerHTML = unescape(c5); // vari·vel em cache
-	linha_cache = null; // limpa o id do registro em ediÁ„o no cache
+	linha.cells[0].innerHTML = unescape(c1); // variÔøΩvel em cache
+	linha.cells[1].innerHTML = unescape(c2); // variÔøΩvel em cache
+	linha.cells[2].innerHTML = unescape(c3); // variÔøΩvel em cache
+	linha.cells[3].innerHTML = unescape(c4); // variÔøΩvel em cache
+	linha.cells[4].innerHTML = unescape(c5); // variÔøΩvel em cache
+	linha_cache = null; // limpa o id do registro em ediÔøΩÔøΩo no cache
 }
 
-function add_alterar_fone(linha, nomeAntigo) // alteraÁ„o
+function add_alterar_fone(linha, nomeAntigo) // alteraÔøΩÔøΩo
 {
 	prm  = document.getElementById("prm").value;
 	nome = document.getElementById("nomeProponenteAlterar").value;
@@ -632,7 +632,7 @@ function add_alterar_fone(linha, nomeAntigo) // alteraÁ„o
 	}
 	else
 	{
-		// campos do formul·rio
+		// campos do formulÔøΩrio
 		dados = 'prm=' + encodeURIComponent(prm);
 		dados+= '&cod=' + encodeURIComponent(linha.substr(5));
 		dados+= '&nomeAntigo=' + encodeURIComponent(nomeAntigo);
@@ -641,7 +641,7 @@ function add_alterar_fone(linha, nomeAntigo) // alteraÁ„o
 	} // fecha else
 }
 
-function excluir_fone(linha) // exclus„o
+function excluir_fone(linha) // exclusÔøΩo
 {
 	if (!linha_cache)
 	{
@@ -660,12 +660,12 @@ function excluir_fone(linha) // exclus„o
 	}
 	else
 	{
-		alert("Para continuar È necess·rio terminar a ediÁ„o do Ìtem ativo!");
+		alert("Para continuar ÔøΩ necessÔøΩrio terminar a ediÔøΩÔøΩo do ÔøΩtem ativo!");
 	}
 }
 
 /**
-* FunÁıes para cadastro, alteraÁ„o e exclus„o de EMAIL
+* FunÔøΩÔøΩes para cadastro, alteraÔøΩÔøΩo e exclusÔøΩo de EMAIL
 */
 function cadastrar_email() // cadastro
 {
@@ -700,15 +700,15 @@ function cadastrar_email() // cadastro
 	}
 	else if (divulgar == "")
 	{
-		alertar("Por favor, informe se o e-mail poder· ser divulgado!", "divulgar");
+		alertar("Por favor, informe se o e-mail poderÔøΩ ser divulgado!", "divulgar");
 	}
 	else if (envEmail == "")
 	{
-		alertar("Por favor, se o E-mail È para correspondÍncia!", "envEmail");
+		alertar("Por favor, se o E-mail ÔøΩ para correspondÔøΩncia!", "envEmail");
 	}
 	else
 	{
-		// campos do formul·rio
+		// campos do formulÔøΩrio
 		dados = 'idAgente=' 		+ encodeURIComponent(idAgente);
 		dados+= '&tipo=' 			+ encodeURIComponent(tipo);
 		dados+= '&descricao=' 		+ encodeURIComponent(descricao);
@@ -718,7 +718,7 @@ function cadastrar_email() // cadastro
 	} // fecha else
 }
 
-function alterar_email(linha) // cria o formul·rio de aleraÁ„o
+function alterar_email(linha) // cria o formulÔøΩrio de aleraÔøΩÔøΩo
 {
 	if (!linha_cache)
 	{
@@ -744,23 +744,23 @@ function alterar_email(linha) // cria o formul·rio de aleraÁ„o
 	}
 	else
 	{
-		alertar("Termine de editar o Ìtem \"" + c_email + "\"!");
+		alertar("Termine de editar o ÔøΩtem \"" + c_email + "\"!");
 	}
 }
 
-function del_alterar_email(linha, c1, c2, c3, c4) // apaga o formul·rio de
-													// alteraÁ„o
+function del_alterar_email(linha, c1, c2, c3, c4) // apaga o formulÔøΩrio de
+													// alteraÔøΩÔøΩo
 {
 	linha = document.getElementById(linha); // linha alterada
 	linha.style.backgroundColor = ""; // cor da linha
-	linha.cells[0].innerHTML = unescape(c1); // vari·vel em cache
-	linha.cells[1].innerHTML = unescape(c2); // vari·vel em cache
-	linha.cells[2].innerHTML = unescape(c3); // vari·vel em cache
-	linha.cells[3].innerHTML = unescape(c4); // vari·vel em cache
-	linha_cache = null; // limpa o id do registro em ediÁ„o no cache
+	linha.cells[0].innerHTML = unescape(c1); // variÔøΩvel em cache
+	linha.cells[1].innerHTML = unescape(c2); // variÔøΩvel em cache
+	linha.cells[2].innerHTML = unescape(c3); // variÔøΩvel em cache
+	linha.cells[3].innerHTML = unescape(c4); // variÔøΩvel em cache
+	linha_cache = null; // limpa o id do registro em ediÔøΩÔøΩo no cache
 }
 
-function add_alterar_email(linha, nomeAntigo) // alteraÁ„o
+function add_alterar_email(linha, nomeAntigo) // alteraÔøΩÔøΩo
 {
 	prm  = document.getElementById("prm").value;
 	nome = document.getElementById("nomeProponenteAlterar").value;
@@ -771,7 +771,7 @@ function add_alterar_email(linha, nomeAntigo) // alteraÁ„o
 	}
 	else
 	{
-		// campos do formul·rio
+		// campos do formulÔøΩrio
 		dados = 'prm=' + encodeURIComponent(prm);
 		dados+= '&cod=' + encodeURIComponent(linha.substr(5));
 		dados+= '&nomeAntigo=' + encodeURIComponent(nomeAntigo);
@@ -780,14 +780,14 @@ function add_alterar_email(linha, nomeAntigo) // alteraÁ„o
 	} // fecha else
 }
 
-function excluir_email(linha) // exclus„o
+function excluir_email(linha) // exclusÔøΩo
 {
 	if (!linha_cache)
-	{	
+	{
 		//document.getElementById(linha).style.backgroundColor = fundo_linha; // cor da linha
 		confirma = confirm("Deseja realmente excluir esse e-mail?");
 		//document.getElementById(linha).style.backgroundColor = ""; // cor da linha
-		
+
 		if (confirma)
 		{
 			dados = 'cod=' + encodeURIComponent(linha.substr(5));
@@ -800,7 +800,7 @@ function excluir_email(linha) // exclus„o
 	}
 	else
 	{
-		alert("Para continuar È necess·rio terminar a ediÁ„o do Ìtem ativo!");
+		alert("Para continuar ÔøΩ necessÔøΩrio terminar a ediÔøΩÔøΩo do ÔøΩtem ativo!");
 	}
 }
 
@@ -817,19 +817,19 @@ function excluir_email(linha) // exclus„o
 
 
 /**
- * FunÁıes do bot„o voltar
+ * FunÔøΩÔøΩes do botÔøΩo voltar
  */
 
-// DefiniÁ„o de vari·veis
+// DefiniÔøΩÔøΩo de variÔøΩveis
 var v_cache = new Array;
 var v_cont = 0;
 var v_indiceAtual = "";
 var v_iframeCarregado = false;
 var v_divSaida = "";
 
-// LÍ o Ìndice armazenado no IFRAME. Se ele for diferente do Ìndice atual
-// da cache, significa que o bot„o Voltar foi pressionado. Nesse caso,
-// obtÈm o conte˙do da cache e atualiza a p·gina
+// LÔøΩ o ÔøΩndice armazenado no IFRAME. Se ele for diferente do ÔøΩndice atual
+// da cache, significa que o botÔøΩo Voltar foi pressionado. Nesse caso,
+// obtÔøΩm o CONTE√öDO da cache e atualiza a p√°gina
 function v_checaEstado()
 {
 	if (v_iframeCarregado == false)
@@ -849,13 +849,13 @@ function v_checaEstado()
  	}
 }
 
-// FunÁ„o chamada apÛs o carregamento do IFRAME
+// FunÔøΩÔøΩo chamada apÔøΩs o carregamento do IFRAME
 function v_carregado()
 {
 	v_iframeCarregado = true;
 }
 
-// Atualiza o IFRAME invisÌvel
+// Atualiza o IFRAME invisÔøΩvel
 function v_carregaFrame()
 {
 	var frame_voltar = document.getElementById("frame_voltar");
@@ -873,7 +873,7 @@ function v_salvaEstado()
 	v_indiceAtual = v_cont;
 }
 
-// Carrega o IFRAME invisÌvel e inicia o timer
+// Carrega o IFRAME invisÔøΩvel e inicia o timer
 function v_inicia(id)
 {
 	v_divSaida = id;
@@ -898,7 +898,7 @@ function carregar_cidades(valor)
 {
 	ajax = xmlhttp(); // instancia ajax
 
-	// deixa apenas o elemento 1 no option, os outros s„o excluÌdos
+	// deixa apenas o elemento 1 no option, os outros sÔøΩo excluÔøΩdos
 	document.forms[0].cidade.options.length = 1;
 
 	idOpcao = document.getElementById("opcoesCidade");
@@ -913,7 +913,7 @@ function carregar_cidades(valor)
 			idOpcao.innerHTML = "carregando...";
 		}
 
-		// lÍ os dados
+		// lÔøΩ os dados
 		if (ajax.readyState == 4)
 		{
 			if (ajax.responseXML)
@@ -922,18 +922,18 @@ function carregar_cidades(valor)
 			}
 			else
 			{
-				// caso n„o seja um arquivo XML emite a mensagem abaixo
+				// caso N√£o seja um arquivo XML emite a mensagem abaixo
 				idOpcao.innerHTML = " - Selecione primeiro o UF - ";
 			}
 		}
 	}
-	// passa o cÛdigo do estado escolhido
+	// passa o C√≥digo do estado escolhido
 	var params = "id=" + valor;
 	ajax.send(params);
 }
 
 /**
-* LÍ o XML com as cidades
+* LÔøΩ o XML com as cidades
 */
 function buscar_xml_cidades(obj)
 {
@@ -948,7 +948,7 @@ function buscar_xml_cidades(obj)
 		{
 			var item = dataArray[i];
 
-			// contÈudo dos campos no arquivo XML
+			// contÔøΩudo dos campos no arquivo XML
 			var codigo    = item.getElementsByTagName("codigo")[0].firstChild.nodeValue;
 			var descricao = item.getElementsByTagName("descricao")[0].firstChild.nodeValue;
 
@@ -981,7 +981,7 @@ function carregar_ddd(valor)
 {
 	ajax = xmlhttp(); // instancia ajax
 
-	// deixa apenas o elemento 1 no option, os outros s„o excluÌdos
+	// deixa apenas o elemento 1 no option, os outros sÔøΩo excluÔøΩdos
 	document.forms[0].dddFone.options.length = 1;
 
 	idOpcao = document.getElementById("opcoesDDD");
@@ -996,7 +996,7 @@ function carregar_ddd(valor)
 			idOpcao.innerHTML = "...";
 		}
 
-		// lÍ os dados
+		// lÔøΩ os dados
 		if (ajax.readyState == 4)
 		{
 			if (ajax.responseXML)
@@ -1005,18 +1005,18 @@ function carregar_ddd(valor)
 			}
 			else
 			{
-				// caso n„o seja um arquivo XML emite a mensagem abaixo
+				// caso N√£o seja um arquivo XML emite a mensagem abaixo
 				idOpcao.innerHTML = " -- ";
 			}
 		}
 	}
-	// passa o cÛdigo do estado escolhido
+	// passa o C√≥digo do estado escolhido
 	var params = "id=" + valor;
 	ajax.send(params);
 }
 
 /**
-* LÍ o XML com os ddd
+* LÔøΩ o XML com os ddd
 */
 function buscar_xml_ddd(obj)
 {
@@ -1031,7 +1031,7 @@ function buscar_xml_ddd(obj)
 		{
 			var item = dataArray[i];
 
-			// contÈudo dos campos no arquivo XML
+			// contÔøΩudo dos campos no arquivo XML
 			var codigo    = item.getElementsByTagName("codigo")[0].firstChild.nodeValue;
 			var descricao = item.getElementsByTagName("descricao")[0].firstChild.nodeValue;
 
@@ -1058,13 +1058,13 @@ function buscar_xml_ddd(obj)
 
 
 /**
-* Combo para buscar os segmentos culturais de acordo com a ·rea cultural escolhida
+* Combo para buscar os segmentos culturais de acordo com a ÔøΩrea cultural escolhida
 */
 function carregar_segmentocultural(valor)
 {
 	ajax = xmlhttp(); // instancia ajax
 
-	// deixa apenas o elemento 1 no option, os outros s„o excluÌdos
+	// deixa apenas o elemento 1 no option, os outros sÔøΩo excluÔøΩdos
 	document.forms[0].segmentoCultural.options.length = 1;
 
 	idOpcao = document.getElementById("opcoesSegmentocultural");
@@ -1079,7 +1079,7 @@ function carregar_segmentocultural(valor)
 			idOpcao.innerHTML = "carregando...";
 		}
 
-		// lÍ os dados
+		// lÔøΩ os dados
 		if (ajax.readyState == 4)
 		{
 			if (ajax.responseXML)
@@ -1088,18 +1088,18 @@ function carregar_segmentocultural(valor)
 			}
 			else
 			{
-				// caso n„o seja um arquivo XML emite a mensagem abaixo
-				idOpcao.innerHTML = " - Selecione uma ·rea cultural - ";
+				// caso N√£o seja um arquivo XML emite a mensagem abaixo
+				idOpcao.innerHTML = " - Selecione uma ÔøΩrea cultural - ";
 			}
 		}
 	}
-	// passa o cÛdigo do estado escolhido
+	// passa o C√≥digo do estado escolhido
 	var params = "id=" + valor;
 	ajax.send(params);
 }
 
 /**
-* LÍ o XML com os segmentos culturais
+* LÔøΩ o XML com os segmentos culturais
 */
 function buscar_xml_segmentocultural(obj)
 {
@@ -1114,7 +1114,7 @@ function buscar_xml_segmentocultural(obj)
 		{
 			var item = dataArray[i];
 
-			// contÈudo dos campos no arquivo XML
+			// contÔøΩudo dos campos no arquivo XML
 			var codigo    = item.getElementsByTagName("codigo")[0].firstChild.nodeValue;
 			var descricao = item.getElementsByTagName("descricao")[0].firstChild.nodeValue;
 
@@ -1136,14 +1136,14 @@ function buscar_xml_segmentocultural(obj)
 	else
 	{
 		// se o xml retorna vazio
-		idOpcao.innerHTML = " - Selecione uma ·rea cultural - ";
+		idOpcao.innerHTML = " - Selecione uma ÔøΩrea cultural - ";
 	}
 }
 
 
 
 /**
- * FunÁıes para mostrar as abas
+ * FunÔøΩÔøΩes para mostrar as abas
  */
 function mostrar_menu_dados()
 {
@@ -1206,20 +1206,20 @@ function validarCPF(cpf)
 	var digitoGerado = (soma1 * 10) + soma2;
 	if (digitoGerado != digitoDigitado)
 	{
-		mostrar_menu_dados(); alertar("CPF Inv·lido!", "cpf");
+		mostrar_menu_dados(); alertar("CPF InvÔøΩlido!", "cpf");
 	}
 }
 
 
 
 /**
-* confirmaÁ„o de insert
+* Confirma√ß√£o de insert
 */
 
 function confirmouinsert()
 {
 	// DADOS
-	
+
 	cpf                = document.getElementById("cpf").value;
 	nome               = document.getElementById("nome").value;
 	cep                = document.getElementById("cep").value;
@@ -1284,7 +1284,7 @@ function confirmouinsert()
 function confirmarinsert()
 {
 	// DADOS
-	
+
 	cpf                = document.getElementById("cpf").value;
 	nome               = document.getElementById("nome").value;
 	cep                = document.getElementById("cep").value;
@@ -1384,24 +1384,24 @@ function confirmarinsert()
 
 
 	// DADOS
-	if (cpf == "")                   { mostrar_menu_dados(); alertar("Por favor, informe o n˙mero do CPF!", "cpf"); }
+	if (cpf == "")                   { mostrar_menu_dados(); alertar("Por favor, informe o nÔøΩmero do CPF!", "cpf"); }
 	else if (nome == "")             { mostrar_menu_dados(); alertar("Por favor, informe o nome!", "nome"); }
-	else if (nome.length <= 3)       { mostrar_menu_dados(); alertar("Por favor, informe um nome v·lido!", "nome"); }
+	else if (nome.length <= 3)       { mostrar_menu_dados(); alertar("Por favor, informe um nome vÔøΩlido!", "nome"); }
 	else if (cep == "")              { mostrar_menu_dados(); alertar("Por favor, informe o CEP!", "cep"); }
 	else if (cep != "" && cep.length < 10)
 	{
 		mostrar_menu_dados();
-		alertar("CEP inv·lido!", "cep");
+		alertar("CEP invÔøΩlido!", "cep");
 	}
 	else if (uf == 0)                { mostrar_menu_dados(); alertar("Por favor, selecione o estado!", "uf"); }
 	else if (cidade == 0)            { mostrar_menu_dados(); alertar("Por favor, selecione uma cidade!", "cidade"); }
-	else if (tipoEndereco == 0)      { mostrar_menu_dados(); alertar("Por favor, selecione um tipo de endereÁo!", "tipoEndereco"); }
+	else if (tipoEndereco == 0)      { mostrar_menu_dados(); alertar("Por favor, selecione um tipo de endereÔøΩo!", "tipoEndereco"); }
 	else if (tipoLogradouro == 0)    { mostrar_menu_dados(); alertar("Por favor, selecione um tipo de logradouro!", "tipoLogradouro"); }
 	else if (logradouro == "")       { mostrar_menu_dados(); alertar("Por favor, informe o logradouro!", "logradouro"); }
-	else if (numero == "")           { mostrar_menu_dados(); alertar("Por favor, informe o n˙mero!", "numero"); }
+	else if (numero == "")           { mostrar_menu_dados(); alertar("Por favor, informe o nÔøΩmero!", "numero"); }
 	else if (complemento == "")      { mostrar_menu_dados(); alertar("Por favor, informe o complemento!", "complemento"); }
 	else if (bairro == "")           { mostrar_menu_dados(); alertar("Por favor, informe o bairro!", "bairro"); }
-	else if (areaCultural == 0)      { mostrar_menu_dados(); alertar("Por favor, selecione uma ·rea cultural!", "areaCultural"); }
+	else if (areaCultural == 0)      { mostrar_menu_dados(); alertar("Por favor, selecione uma ÔøΩrea cultural!", "areaCultural"); }
 	else if (segmentoCultural == 0)  { mostrar_menu_dados(); alertar("Por favor, selecione um segmento cultural!", "segmentoCultural"); }
 
 	// FONE
@@ -1411,7 +1411,7 @@ function confirmarinsert()
 	else if (fone == "")             { mostrar_menu_fone(); alertar("Por favor, informe o telefone!", "fone"); }
 	else if (fone != "" && fone.length < 9)
 	{
-		mostrar_menu_fone(); alertar("Por favor, informe um telefone v·lido!", "fone");
+		mostrar_menu_fone(); alertar("Por favor, informe um telefone vÔøΩlido!", "fone");
 	}
 
 	// E-MAIL
@@ -1420,12 +1420,12 @@ function confirmarinsert()
 	else if ((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length))
 	{
 		mostrar_menu_email();
-		alertar("Email inv·lido!", "email");
+		alertar("Email invÔøΩlido!", "email");
 	}
 
 	else
 	{
-		
+
 		dados = 'cpf=' + encodeURIComponent(cpf);
 		dados+= '&nome=' + encodeURIComponent(nome);
 		dados+= '&cep=' + encodeURIComponent(cep);
@@ -1468,7 +1468,7 @@ function confirmarinsert()
 
 
 /**
-* cancela confirmaÁ„o de insert
+* cancela Confirma√ß√£o de insert
 */
 function cancelar_confirmarinsert()
 {
@@ -1512,7 +1512,7 @@ function cancelar_confirmarinsert()
 	divulgarEmail = document.getElementById("divulgarEmail").value;
 	enviarEmail   = document.getElementById("enviarEmail").value;
 
-	
+
 	dados = 'cpf=' + encodeURIComponent(cpf);
 	dados+= '&nome=' + encodeURIComponent(nome);
 	dados+= '&cep=' + encodeURIComponent(cep);
@@ -1557,30 +1557,30 @@ function cancelar_confirmarinsert()
 
 
 /**
-* confirmaÁ„o de update
+* Confirma√ß√£o de update
 */
 
-function confirmarupdate() // alteraÁ„o
+function confirmarupdate() // alteraÔøΩÔøΩo
 {
 	idAgente 				= document.getElementById("idAgente").value;
 	sigla 					= document.getElementById("uf");
 	sigla                   = sigla.options[sigla.selectedIndex].text;
-	
+
 	nomeCidade 				= document.getElementById("cidade");
 	nomeCidade				= nomeCidade.options[nomeCidade.selectedIndex].text;
-	
+
 	nomeTipoLogradouro 		= document.getElementById("tipoLogradouro");
 	nomeTipoLogradouro		= nomeTipoLogradouro.options[nomeTipoLogradouro.selectedIndex].text;
-	
+
 	nomeTipoEndereco 		= document.getElementById("tipoEndereco");
 	nomeTipoEndereco		= nomeTipoEndereco.options[nomeTipoEndereco.selectedIndex].text;
-	
+
 	nomeAreaCultural 		= document.getElementById("areaCultural");
 	nomeAreaCultural		= nomeAreaCultural.options[nomeAreaCultural.selectedIndex].text;
-	
+
 	nomeSegmentoCultural 	= document.getElementById("segmentoCultural");
 	nomeSegmentoCultural	= nomeSegmentoCultural.options[nomeSegmentoCultural.selectedIndex].text;
-	
+
 	cpf 					= document.getElementById("cpf").value;
 	nome 					= document.getElementById("nome").value;
 	cep 					= document.getElementById("cep").value;
@@ -1592,20 +1592,20 @@ function confirmarupdate() // alteraÁ„o
 	numero 					= document.getElementById("numero").value;
 	complemento 			= document.getElementById("complemento").value;
 	bairro 					= document.getElementById("bairro").value;
-	
+
 	titular = "";
     for (i = 0; i < document.formAlterar.titular.length; i++)
     {
         if (document.formAlterar.titular[i].checked)
         {
             titular = document.formAlterar.titular[i].value;
-            
+
         }
     }
-	
-	
+
+
 	//divulgarEndereco        = document.getElementById("divulgarEndereco").value;
-	
+
 	divulgarEndereco = "";
     for (i = 0; i < document.formAlterar.divulgarEndereco.length; i++)
     {
@@ -1614,9 +1614,9 @@ function confirmarupdate() // alteraÁ„o
         	divulgarEndereco = document.formAlterar.divulgarEndereco[i].value;
         }
     }
-    
+
 	//enderecoCorrespondencia = document.getElementById("enderecoCorrespondencia").value;
-    
+
     enderecoCorrespondencia = "";
     for (i = 0; i < document.formAlterar.enderecoCorrespondencia.length; i++)
     {
@@ -1625,11 +1625,11 @@ function confirmarupdate() // alteraÁ„o
         	enderecoCorrespondencia = document.formAlterar.enderecoCorrespondencia[i].value;
         }
     }
-    
-    
+
+
     areaCultural            = document.getElementById("areaCultural").value;
 	segmentoCultural        = document.getElementById("segmentoCultural").value;
-	dsCidade       			= document.getElementById("cidade").value;	
+	dsCidade       			= document.getElementById("cidade").value;
 	dsTipoEndereco          = document.getElementById("tipoEndereco").value;
 	dsTipoLogradouro        = document.getElementById("tipoLogradouro").value;
 	dsArea        			= document.getElementById("areaCultural").value;
@@ -1641,7 +1641,7 @@ function confirmarupdate() // alteraÁ„o
 	}
 	else
 	{
-		// campos do formul·rio
+		// campos do formulÔøΩrio
 		dados = 'idAgente='					+ encodeURIComponent(idAgente);
 		dados+= '&sigla=' 					+ encodeURIComponent(sigla);
 		dados+= '&nomeCidade=' 				+ encodeURIComponent(nomeCidade);
@@ -1670,8 +1670,8 @@ function confirmarupdate() // alteraÁ„o
 		dados+= '&dsTipoLogradouro=' 		+ encodeURIComponent(dsTipoLogradouro);
 		dados+= '&dsArea=' 					+ encodeURIComponent(dsArea);
 		dados+= '&dsSegmento=' 				+ encodeURIComponent(dsSegmento);
-		
-		
+
+
 		enviar_pag("conselheiro/confirmarupdate", dados, "meu_frame");
 	}
 }
@@ -1680,7 +1680,7 @@ function confirmarupdate() // alteraÁ„o
 
 
 /**
-* cancela confirmaÁ„o de update
+* cancela Confirma√ß√£o de update
 */
 function cancelar_confirmarupdate()
 {
@@ -1724,7 +1724,7 @@ function cancelar_confirmarupdate()
 	divulgarEmail = document.getElementById("divulgarEmail").value;
 	enviarEmail   = document.getElementById("enviarEmail").value;
 
-	
+
 	dados = 'cpf=' + encodeURIComponent(cpf);
 	dados+= '&nome=' + encodeURIComponent(nome);
 	dados+= '&cep=' + encodeURIComponent(cep);
@@ -1766,27 +1766,27 @@ function cancelar_confirmarupdate()
 
 
 
-function confirmarupdate() // alteraÁ„o
+function confirmarupdate() // alteraÔøΩÔøΩo
 {
     idAgente                 = document.getElementById("idAgente").value;
     sigla                     = document.getElementById("uf");
     sigla                   = sigla.options[sigla.selectedIndex].text;
-    
+
     nomeCidade                 = document.getElementById("cidade");
     nomeCidade                = nomeCidade.options[nomeCidade.selectedIndex].text;
-    
+
     nomeTipoLogradouro         = document.getElementById("tipoLogradouro");
     nomeTipoLogradouro        = nomeTipoLogradouro.options[nomeTipoLogradouro.selectedIndex].text;
-    
+
     nomeTipoEndereco         = document.getElementById("tipoEndereco");
     nomeTipoEndereco        = nomeTipoEndereco.options[nomeTipoEndereco.selectedIndex].text;
-    
+
     nomeAreaCultural         = document.getElementById("areaCultural");
     nomeAreaCultural        = nomeAreaCultural.options[nomeAreaCultural.selectedIndex].text;
-    
+
     nomeSegmentoCultural     = document.getElementById("segmentoCultural");
     nomeSegmentoCultural    = nomeSegmentoCultural.options[nomeSegmentoCultural.selectedIndex].text;
-    
+
     cpf                     = document.getElementById("cpf").value;
     nome                     = document.getElementById("nome").value;
     cep                     = document.getElementById("cep").value;
@@ -1798,20 +1798,20 @@ function confirmarupdate() // alteraÁ„o
     numero                     = document.getElementById("numero").value;
     complemento             = document.getElementById("complemento").value;
     bairro                     = document.getElementById("bairro").value;
-    
+
     titular = "";
     for (i = 0; i < document.formAlterar.titular.length; i++)
     {
         if (document.formAlterar.titular[i].checked)
         {
             titular = document.formAlterar.titular[i].value;
-            
+
         }
     }
-    
-    
+
+
     //divulgarEndereco        = document.getElementById("divulgarEndereco").value;
-    
+
     divulgarEndereco = "";
     for (i = 0; i < document.formAlterar.divulgarEndereco.length; i++)
     {
@@ -1820,9 +1820,9 @@ function confirmarupdate() // alteraÁ„o
             divulgarEndereco = document.formAlterar.divulgarEndereco[i].value;
         }
     }
-    
+
     //enderecoCorrespondencia = document.getElementById("enderecoCorrespondencia").value;
-    
+
     enderecoCorrespondencia = "";
     for (i = 0; i < document.formAlterar.enderecoCorrespondencia.length; i++)
     {
@@ -1831,11 +1831,11 @@ function confirmarupdate() // alteraÁ„o
             enderecoCorrespondencia = document.formAlterar.enderecoCorrespondencia[i].value;
         }
     }
-    
-    
+
+
     areaCultural            = document.getElementById("areaCultural").value;
     segmentoCultural        = document.getElementById("segmentoCultural").value;
-    dsCidade                   = document.getElementById("cidade").value;    
+    dsCidade                   = document.getElementById("cidade").value;
     dsTipoEndereco          = document.getElementById("tipoEndereco").value;
     dsTipoLogradouro        = document.getElementById("tipoLogradouro").value;
     dsArea                    = document.getElementById("areaCultural").value;
@@ -1847,7 +1847,7 @@ function confirmarupdate() // alteraÁ„o
     }
     else
     {
-        // campos do formul·rio
+        // campos do formulÔøΩrio
         dados = 'idAgente='                    + encodeURIComponent(idAgente);
         dados+= '&sigla='                     + encodeURIComponent(sigla);
         dados+= '&nomeCidade='                 + encodeURIComponent(nomeCidade);
@@ -1876,16 +1876,16 @@ function confirmarupdate() // alteraÁ„o
         dados+= '&dsTipoLogradouro='         + encodeURIComponent(dsTipoLogradouro);
         dados+= '&dsArea='                     + encodeURIComponent(dsArea);
         dados+= '&dsSegmento='                 + encodeURIComponent(dsSegmento);
-        
-        
+
+
         enviar_pag("conselheiro/confirmarupdate", dados, "meu_frame");
     }
 }
 
 
 
-//manda alteraÁ„o confirmado
-function confirmouUpdate() 
+//manda alteraÔøΩÔøΩo confirmado
+function confirmouUpdate()
 {
     idAgente                 = document.getElementById("idAgente").value;
     cpf                     = document.getElementById("cpf").value;
@@ -1905,8 +1905,8 @@ function confirmouUpdate()
     areaCultural            = document.getElementById("areaCultural").value;
     segmentoCultural        = document.getElementById("segmentoCultural").value;
 
-    
-        // campos do formul·rio
+
+        // campos do formulÔøΩrio
         dados = 'idAgente='                    + encodeURIComponent(idAgente);
         dados+= '&cpf='                     + encodeURIComponent(cpf);
         dados+= '&nome='                     + encodeURIComponent(nome);
@@ -1925,9 +1925,9 @@ function confirmouUpdate()
         dados+= '&areaCultural='             + encodeURIComponent(areaCultural);
         dados+= '&segmentoCultural='         + encodeURIComponent(segmentoCultural);
         dados+= '&msg='         + encodeURIComponent("Cadastrado com sucesso!");
-        
+
         enviar_pag("conselheiro/alterou", dados, "meu_frame");
-    
+
 }
 
 
@@ -1976,24 +1976,24 @@ function adicionarFone()
         var newCell1 = newRow.insertCell(0);
         newCell1.innerHTML = document.getElementById("tipoFone").options[document.getElementById("tipoFone").selectedIndex].text;
         newCell1.innerHTML+= '<input type="hidden" name="tipoFones[]" id="tipoFones[]" value=' + tipoFone + '>';
-    
+
         var newCell2 = newRow.insertCell(1);
         newCell2.innerHTML = document.getElementById("ufFone").options[document.getElementById("ufFone").selectedIndex].text;
         newCell2.innerHTML+= '<input type="hidden" name="ufFones[]" id="ufFones[]" value=' + ufFone + '>';
         newCell2.setAttribute("class", "center");
-    
+
         var newCell3 = newRow.insertCell(2);
         newCell3.innerHTML = document.getElementById("dddFone").options[document.getElementById("dddFone").selectedIndex].text;
         newCell3.innerHTML+= '<input type="hidden" name="dddFones[]" id="dddFones[]" value=' + dddFone + '>';
         newCell3.setAttribute("class", "center");
-    
+
         var newCell4 = newRow.insertCell(3);
         newCell4.innerHTML = fone;
         newCell4.innerHTML+= '<input type="hidden" name="Fones[]" id="Fones[]" value=' + fone + '>';
         newCell4.setAttribute("class", "center");
-    
+
         var newCell5 = newRow.insertCell(4);
-        newCell5.innerHTML = (divulgarFone == 1 ? 'Sim' : 'N„o');
+        newCell5.innerHTML = (divulgarFone == 1 ? 'Sim' : 'N√£o');
         newCell5.innerHTML+= '<input type="hidden" name="divulgarFones[]" id="divulgarFones[]" value=' + divulgarFone + '>';
         newCell5.setAttribute("class", "center");
 
@@ -2046,7 +2046,7 @@ function adicionarEmail()
     }
     else if ((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length))
     {
-        alertar("Email inv·lido!", "email");
+        alertar("Email invÔøΩlido!", "email");
     }
     else
     {
@@ -2058,19 +2058,19 @@ function adicionarEmail()
         var newCell1 = newRow.insertCell(0);
         newCell1.innerHTML = document.getElementById("tipoEmail").options[document.getElementById("tipoEmail").selectedIndex].text;
         newCell1.innerHTML+= '<input type="hidden" name="tipoEmails[]" id="tipoEmails[]" value="' + tipoEmail + '" />';
-    
+
         var newCell2 = newRow.insertCell(1);
         newCell2.innerHTML = email;
         newCell2.innerHTML+= '<input type="hidden" name="Emails[]" id="Emails[]" value="' + email + '" />';
-    
+
         var newCell3 = newRow.insertCell(2);
         newCell3.setAttribute("class", "center");
-        newCell3.innerHTML = (divulgarEmail=='1' ? 'Sim' : 'N„o');
+        newCell3.innerHTML = (divulgarEmail=='1' ? 'Sim' : 'N√£o');
         newCell3.innerHTML+= '<input type="hidden" name="divulgarEmails[]" id="divulgarEmails[]" value="' + divulgarEmail + '" />';
-    
+
         var newCell4 = newRow.insertCell(3);
         newCell4.setAttribute("class", "center");
-        newCell4.innerHTML = (enviarEmail=='1' ? 'Sim' : 'N„o');
+        newCell4.innerHTML = (enviarEmail=='1' ? 'Sim' : 'N√£o');
         newCell4.innerHTML+= '<input type="hidden" name="enviarEmails[]" id="enviarEmails[]" value="' + enviarEmail + '" />';
 
         var newCell5 = newRow.insertCell(4);
@@ -2083,13 +2083,13 @@ function adicionarEmail()
 
 
 
-function buscaNomeCpf() 
+function buscaNomeCpf()
 {
     opcao                     = document.getElementById("opcao").value;
     dado                     = document.getElementById("dado").value;
     alert(opcao);
     alert(dado);
-    // campos do formul·rio
+    // campos do formulÔøΩrio
     dados = 'opcao='                    + encodeURIComponent(opcao);
     dados+= '&dado='                     + encodeURIComponent(dado);
 
@@ -2136,7 +2136,7 @@ function jqAjaxLink(fUrlDestino, fDados, fLocalExibir) {
         success: function(html){ //se for bem sucedido exibe html do arquivo
             $("#erro").hide();
             $("#"+fLocalExibir).html(html); //insere html na div corpo
-            
+
         },
         error: function(d,msg) {
                 /*if(contRecursao < 3){
@@ -2278,7 +2278,7 @@ function modalValidacaoEnvioArquivos(msg)
 }
 
 /**
- * FunÁ„o para carregar uma p·gina dentro de outra via ajax
+ * FunÔøΩÔøΩo para carregar uma p√°gina dentro de outra via ajax
  */
 function carregarDados(url, divRetorno)
 {
@@ -2292,5 +2292,5 @@ function carregarDados(url, divRetorno)
 		},
 		type : 'post'
 	});
-} // fecha funÁ„o carregaDados()
+} // fecha funÔøΩÔøΩo carregaDados()
 //-->

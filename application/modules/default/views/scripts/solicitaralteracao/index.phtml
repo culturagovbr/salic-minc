@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.execucaofisicadoprojeto
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -28,7 +28,7 @@
         $('#btn_pesquisar').click(function(){
             if($("#checkCpf").attr('checked') == true){
                 if($("#CgcCpf").val().length != 14){
-                    $("#erro").html('Dados obrigatórios não informados ou incorretos!');
+                    $("#erro").html('Dados obrigatï¿½rios NÃ£o informados ou incorretos!');
                     $("#erro").dialog('open');
                 }
                 else{
@@ -37,7 +37,7 @@
             }
             if($("#CheckCnpj").attr('checked') == true){
                 if($("#CgcCpf").val().length != 18){
-                    $("#erro").html('Dados obrigatórios não informados ou incorretos!');
+                    $("#erro").html('Dados obrigatï¿½rios NÃ£o informados ou incorretos!');
                     $("#erro").dialog('open');
                 }
                 else{
@@ -47,7 +47,7 @@
         });
 
     });
-    
+
     <!--
     function cpf()
     {
@@ -65,29 +65,29 @@
     }
     //-->
 </script>
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="last">Solicitar Readequação</li>
+        <li class="last">Solicitar Readequaï¿½ï¿½o</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>SOLICITAR READEQUAÇÃO <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+    <div>SOLICITAR READEQUAï¿½ï¿½O <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="erro" title="Erro"></div>
 <div id="conteudo">
 
-    <!-- ========== FORMULÁRIO PARA BUSCAR PRONAC ========== -->
+    <!-- ========== FORMULï¿½RIO PARA BUSCAR PRONAC ========== -->
     <form class="form" name="formBuscar" id="formBuscar" method="post"
           action="<?php echo $this->url(array('controller' => 'solicitaralteracao', 'action' => 'projetos')); ?>">
 
         <table class="tabela_busca">
             <tr>
-                <th colspan="2">Solicitar Readequação</th>
+                <th colspan="2">Solicitar Readequaï¿½ï¿½o</th>
             <tr>
             <tr>
                 <th class="titulo_campo">
@@ -104,13 +104,13 @@
         </table>
 
     </form>
-    <!-- ========== FIM FORMULÁRIO DE BUSCA PRONAC ========== -->
+    <!-- ========== FIM FORMULï¿½RIO DE BUSCA PRONAC ========== -->
 
 </div>
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

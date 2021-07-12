@@ -5,7 +5,7 @@
         if (texto.length > 0){
             $('#justificativapainel').val(CKEDITOR.instances['justificativapainel'].getData());
         } else {
-            alertar('O Campo justificativa È obrigatÛrio');
+            alertar('O Campo justificativa ÔøΩ obrigatÔøΩrio');
             return false;
         }
         $("#form").submit();
@@ -13,7 +13,7 @@
 
     function cancelarferias(id){
         $('#modaljustificativa').dialog({
-            title : 'Justificativa do cancelamento de fÈrias',
+            title : 'Justificativa do cancelamento de fÔøΩrias',
             resizable: false,
             width:920,
             position: [320,65],
@@ -24,7 +24,7 @@
                 'Fechar' : function(){
                     $(this).dialog('close');
                 },
-                'Cancelar FÈrias' : function(){
+                'Cancelar FÔøΩrias' : function(){
                     validarFormPainel();
                 }
             }
@@ -43,7 +43,7 @@
             modal: true,
             autoOpen:false,
             buttons : {
-                'N„o' : function(){
+                'N√£o' : function(){
                     $(this).dialog('close');
                 },
                 'Sim' : function(){
@@ -51,29 +51,29 @@
                 }
             }
         });
-        $('#confirma').html('Deseja realmente confirmar as fÈrias?');
+        $('#confirma').html('Deseja realmente confirmar as fÔøΩrias?');
         $('#confirma').dialog('open');
     }
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
-        <li class="last">FÈrias Pareceristas</li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
+        <li class="last">FÔøΩrias Pareceristas</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Pedidos de fÈrias dos Pareceristas <span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span></div>
+    <div>Pedidos de fÔøΩrias dos Pareceristas <span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="confirma" class="sumir"></div>
 <div id="modaljustificativa" class="sumir">
     <form id="form" action="<?php echo $this->url(array('module'=>'agente', 'controller' => 'agentes', 'action' => 'cancelaferias'));?>" method="post">
@@ -95,9 +95,9 @@
         <tr>
             <td style="<?php if($nome != $d->Nome); ?>"><b><?php if($nome != $d->Nome) echo $d->Nome; ?></b></td>
             <td style="<?php if($nome != $d->Nome); ?>" >Quantidade de dias: <span id="qtdDias"><?php echo $d->qtdDias; ?></span></td>
-            <td style="<?php if($nome != $d->Nome); ?>" align="center">Data das fÈrias: </td>
+            <td style="<?php if($nome != $d->Nome); ?>" align="center">Data das fÔøΩrias: </td>
             <td style="<?php if($nome != $d->Nome); ?>" align="center"><?php echo $d->dtInicio; ?></td>
-            <td style="<?php if($nome != $d->Nome); ?>" width="1" align="center">‡</td>
+            <td style="<?php if($nome != $d->Nome); ?>" width="1" align="center">ÔøΩ</td>
             <td style="<?php if($nome != $d->Nome); ?>" align="center"><?php echo $d->dtFim; ?></td>
             <td style="<?php if($nome != $d->Nome); ?>" width="1" align="center">
                 <input type="button" name="btn_aprovar" id="btn_aprovar" class="btn_aprovar" onclick="confirmaferias('<?php echo $this->url(array('module'=>'agente', 'controller' => 'agentes', 'action' => 'confirmaferias', 'idferias' => $d->idAusencia),'',true);?>');">
@@ -109,11 +109,11 @@
         <?php $nome = $d->Nome; } ?>
     </table>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

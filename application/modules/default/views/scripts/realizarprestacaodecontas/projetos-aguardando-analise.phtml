@@ -37,7 +37,7 @@
     }
 
     function JSEncaminharParaAnalise(idPronac,idOrgaoDestino){
-    
+
         $('html').css('overflow', 'hidden');
         $("body").append("<div id='divDinamica'></div>");
         $("#divDinamica").html("");
@@ -58,7 +58,7 @@
 
         });
 
-        var title = 'Encaminhar Projeto para Análise';
+        var title = 'Encaminhar Projeto para AnÃ¡lise';
         //jqAjaxLink("<?php echo $this->baseUrl()?>/operacional/resultado-projetos-por-situacao?situacao=" + situacao, null, "divDinamica");
         $("#divDinamica").dialog({
             resizable: true,
@@ -95,22 +95,22 @@
         <!-- MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
         <div style="display: none;" id="modal_encaminhar" title=""></div>
         <!-- FIM DO MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
-        
+
         <table class="tabela">
             <thead>
                 <tr class="titulo_tabela">
-                    <th width="60">Número</th>
+                    <th width="60">Nï¿½mero</th>
                     <th width="60"><a href="#resultadoConsultaAguardandoAnalise" class="orderByAG" valorOrdenacaoAG="1">Pronac</a></th>
                     <th width="200"><a href="#resultadoConsultaAguardandoAnalise" class="orderByAG" valorOrdenacaoAG="5">Nome do Projeto</a></th>
-                    <th width="110"><a href="#resultadoConsultaAguardandoAnalise" class="orderByAG" valorOrdenacaoAG="13">Área / Segmento</a></th>
+                    <th width="110"><a href="#resultadoConsultaAguardandoAnalise" class="orderByAG" valorOrdenacaoAG="13">ï¿½rea / Segmento</a></th>
                     <th width="60"><a href="#resultadoConsultaAguardandoAnalise" class="orderByAG" valorOrdenacaoAG="4">Cidade</a></th>
                     <th width="60"><a href="#resultadoConsultaAguardandoAnalise" class="orderByAG" valorOrdenacaoAG="15">Mecanismo</a></th>
                     <th width="60"><a href="#resultadoConsultaAguardandoAnalise" class="orderByAG" valorOrdenacaoAG="7">Data de Recebimento</a></th>
                     <?php if ($this->codGrupo == 125 || $this->codGrupo == 126) : //Coord. prestacao de contas?>
-                        <th width="130">Encaminhar para Análise</th>
+                        <th width="130">Encaminhar para AnÃ¡lise</th>
                     <?php else : ?>
-                        <th width="130">Analisar Prestação de Contas</th>
-                        <th width="130">Diligência</th>
+                        <th width="130">Analisar Prestaï¿½ï¿½o de Contas</th>
+                        <th width="130">Diligï¿½ncia</th>
                     <?php endif; ?>
                 </tr>
             </thead>
@@ -164,7 +164,7 @@
     <?php } else { ?>
             <table class="tabela">
                 <tr>
-                    <td align="center"><em>Não foram encontrados projetos de acordo com os parâmetros de pesquisa.</em></td>
+                    <td align="center"><em>NÃ£o foram encontrados projetos de acordo com os parï¿½metros de pesquisa.</em></td>
                 </tr>
             </table>
             <script>$('#paginacaoAG').hide();</script>

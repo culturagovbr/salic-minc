@@ -1,17 +1,17 @@
 /***********************************************************************
- * Gerenciar Balanceamento Funções Modal
+ * Gerenciar Balanceamento Funï¿½ï¿½es Modal
  **********************************************************************/
 
 function confirmar(id){
 	$('#btn'+id).click(function (e) {
 		e.preventDefault();
 
-		confirm("Deseja realmente desabilitar o Componente da Comissão?", function () {
+		confirm("Deseja realmente desabilitar o Componente da comissÃ£o?", function () {
 			$('#form'+id).submit();
 			//window.location.href = 'http://www.tarcisioangelo.com.br';
 		});
 	});
-}	
+}
 
 
 function validar(id)
@@ -21,24 +21,24 @@ function validar(id)
             // Define as regras
             rules:{
                 justificativa:{
-                    // campoNome será obrigatorio (required) e terá tamanho minimo (minLength)
+                    // campoNome serÃ¡ obrigatorio (required) e terï¿½ tamanho minimo (minLength)
                     required: true, minlength: 15
                 }
             },
             // Define as mensagens de erro para cada regra
             messages:{
                 justificativa:{
-                    required: "<br />Dados obrigatórios não informados.",
-                    minlength: "<br />A justificativa deve conter, no mínimo, 15 caracteres"
+                    required: "<br />Dados obrigatï¿½rios NÃ£o informados.",
+                    minlength: "<br />A justificativa deve conter, no mï¿½nimo, 15 caracteres"
                 }
             }
-        
+
     	});
 }
 
 
 function desabilitar(id){
-	
+
 	$('#desabilitar'+id).modal(
 			{
 				appendTo:'body',
@@ -47,16 +47,16 @@ function desabilitar(id){
 				zIndex:1000,
 				closeClass:'Close',
 				escClose:true
-			}	
+			}
 	);
-	
+
 	$('#desabilitar'+id).draggable({handle: '#titleDesativar'});
-	
+
 	validar(id+'d');
 }
 
 function habilitar(id){
-	
+
 	$('#habilitar'+id).modal(
 			{
 				appendTo:'body',
@@ -65,31 +65,31 @@ function habilitar(id){
 				zIndex:1000,
 				closeClass:'Close',
 				escClose:true
-			}	
+			}
 	);
-	
+
 	$('#habilitar'+id).draggable({handle: '#titlehabilitar'});
-	
-	
+
+
 }
 
 function abrir_fechar(id_div){
 
 	$('#'+id_div).slideToggle(400);
-	
+
 		$('#maiss'+id_div).toggle();
-		
+
 		$('#menoss'+id_div).toggle();
-		
-		 
+
+
 
 };
 
 function abrir_fechar2(id_div){
-	
+
 		$('#hab'+id_div).slideToggle(400);
-		
+
 		$('#mais'+id_div).toggle();
-		
+
 		$('#menos'+id_div).toggle();
 	};

@@ -2,19 +2,19 @@
 <div id="alerta" class="sumir"></div>
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="edital/index">Criar Edital - Passo 1</a></li>
         <li class="">Criar Edital - Passo 2</li>
     </ul>
 </div>
 
 <div id="titulo">
-    <div>InformaÁıes da Categoria</div>
-</div> 
+    <div>InformaÔøΩÔøΩes da Categoria</div>
+</div>
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
-    
+
     <!-- FOMULARIO PARA CADASTRO DOS CRITERIOS DE PARTICIPACAO -->
     <br />
     <div id="msg" class="msgALERT sumir" style="margin: 0px 20px 0px 20px">
@@ -28,14 +28,14 @@
         <table class="tabela">
             <tbody>
                 <tr>
-                    <th colspan="2" style="font-size: 14px">InformaÁıes do MÛdulo</th>
+                    <th colspan="2" style="font-size: 14px">InformaÔøΩÔøΩes do MÔøΩdulo</th>
                 </tr>
                 <tr>
-                    <td class="destacar bold w300 esquerdo">Nome do MÛdulo <span style="color: red;">*</span></td>
+                    <td class="destacar bold w300 esquerdo">Nome do MÔøΩdulo <span style="color: red;">*</span></td>
                     <td><input maxlength="200" type="text" name="nomeModulo" id="nomeModulo" value="<?php echo $this->dsModulo; ?>" class="input_simples w400 required"></td>
                 </tr>
                 <tr>
-                    <td class="destacar bold esquerdo">Tipo de ParticipaÁ„o do Edital<span style="color: red;">*</span></td>
+                    <td class="destacar bold esquerdo">Tipo de ParticipaÔøΩÔøΩo do Edital<span style="color: red;">*</span></td>
                     <td colspan="3">
                         <?php foreach ($this->participacoes as $tpart): ?>
                             <input type="checkbox" id="tipoParticipacao_<?php echo $tpart['idTpParticipacao']; ?>" name="tipoParticipacaoEdital[]" value="<?php echo $tpart['idTpParticipacao']; ?>" style="vertical-align: middle"/>
@@ -49,7 +49,7 @@
                                     <?php endif;?>
                                 </select>
                             </span><br />
-                        <?php endforeach; ?> 
+                        <?php endforeach; ?>
                     </td>
                 </tr>
 
@@ -63,11 +63,11 @@
     <br clear="all">
     <!-- FIM FOMULARIO PARA CADASTRO DOS CRITERIOS DE PARTICIPACAO -->
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script type="text/javascript">
@@ -93,7 +93,7 @@
             });
 
             if ((check === 1)) {
-                $('#txtmsg').html('Verifique os campos obrigatÛrios!<br />');
+                $('#txtmsg').html('Verifique os campos obrigatÔøΩrios!<br />');
                 $('#msg').show();
                 enviar = 1;
             } else {

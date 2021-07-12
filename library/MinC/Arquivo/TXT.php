@@ -6,14 +6,14 @@
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Arquivo
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class TXT
 {
 	/**
-	 * Método para gravar em um arquivo txt 
+	 * Mï¿½todo para gravar em um arquivo txt
 	 * @access public
 	 * @static
 	 * @param string $msg
@@ -30,10 +30,10 @@ class TXT
 				throw new Exception("Erro ao tentar abrir o arquivo <strong>$arq</strong>!");
 			}
 
-			// conteúdo do arquivo
+			// CONTEÃšDO do arquivo
 			$conteudo = $msg;
 
-			if (!fwrite($ponteiro, $conteudo)) // efetua a gravação
+			if (!fwrite($ponteiro, $conteudo)) // efetua a gravaï¿½ï¿½o
 			{
 				throw new Exception("Erro ao tentar gravar no arquivo <strong>$arq</strong>!");
 			}
@@ -44,12 +44,12 @@ class TXT
 			echo $e->getMessage();
 			exit();
 		}
-	} // fecha método gravarTXT()
+	} // fecha mï¿½todo gravarTXT()
 
 
 
 	/**
-	 * Método para ler um arquivo txt
+	 * Mï¿½todo para ler um arquivo txt
 	 * @access public
 	 * @static
 	 * @param string $arq
@@ -65,7 +65,7 @@ class TXT
 				throw new Exception("Erro ao tentar abrir o arquivo <strong>$arquivo</strong>!");
 			}
 
-			while (!feof($ponteiro)) // lê o arquivo, linha por linha até chegar no final
+			while (!feof($ponteiro)) // lï¿½ o arquivo, linha por linha atï¿½ chegar no final
 			{
 				$linha = fgets($ponteiro, 4096);
 				echo $linha . "<br /><br />";
@@ -77,7 +77,7 @@ class TXT
 			echo $e->getMessage();
 			exit();
 		}
-	} // fecha método lerTXT()
+	} // fecha mï¿½todo lerTXT()
 
 
 
@@ -92,7 +92,7 @@ class TXT
 	{
 		try
 		{
-			// obtendo o número de visitas
+			// obtendo o nï¿½mero de visitas
 			$arquivo = fopen($txt, "r");
 			if (!$arquivo)
 			{
@@ -103,7 +103,7 @@ class TXT
 
 			if ($_SESSION["contador"] != $_SERVER["REMOTE_ADDR"])
 			{
-				// atualizando número de visitas
+				// atualizando nï¿½mero de visitas
 				$arquivo = fopen($txt, "r+");
 				$visitas += 1;
 				if (!fwrite($arquivo, $visitas))
@@ -121,7 +121,7 @@ class TXT
 			echo $e->getMessage();
 			exit();
 		}
-	} // fecha método contadorVisitas()
+	} // fecha mï¿½todo contadorVisitas()
 
 
 
@@ -195,6 +195,6 @@ class TXT
 		fclose($a);
 
 		return $useronline + $additions;
-	} // fecha método visitantesOnline()
+	} // fecha mï¿½todo visitantesOnline()
 
 } // fecha class

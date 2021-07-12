@@ -1,23 +1,23 @@
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
-        <li class="last">Solicitar AlteraÁ„o Projeto</li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
+        <li class="last">Solicitar AlteraÔøΩÔøΩo Projeto</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>            <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 <table class="tabela">
@@ -25,20 +25,20 @@
             	<td class="titulo_tabela">Projeto Cultural</td>
             </tr>
             <tr align="center">
-            	<th> AlteraÁ„o de Proponente</th>
+            	<th> AlteraÔøΩÔøΩo de Proponente</th>
             </tr>
 
 </table>
 <table class="tabela" >
             <tr>
-                <td class="titulo_dentro">IdentificaÁ„o</td>                
-            </tr>            
-           <?php foreach ($this->resposta as $resposta) {?>          
+                <td class="titulo_dentro">IdentificaÔøΩÔøΩo</td>
+            </tr>
+           <?php foreach ($this->resposta as $resposta) {?>
            <tr>
                 <td><strong>CNPJ / CPF:</strong> <br>
-                <?php 
-                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3); 
-                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"]; 
+                <?php
+                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3);
+                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"];
                 ?>
                 </td>
                 <td><strong>Proponente:</strong> <br><?php echo $this->escape($resposta->Nome); ?></td>
@@ -48,7 +48,7 @@
 <form action="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/telaalterarproponente" method="post" enctype="multipart/form-data">
 	<table class="tabela" >
 	            <tr>
-	            	<td class="titulo_dentro">AlteraÁ„o do Nome Proponente</td>
+	            	<td class="titulo_dentro">AlteraÔøΩÔøΩo do Nome Proponente</td>
 	            </tr>
 	            <tr>
 	            	<td >*CNPJ / CPF <br /><input type="text" name="cpfProponente" maxlength="14" onkeyup="mascara(this, format_cpf);" /></td>
@@ -74,18 +74,18 @@
 					<?php } ?>
 	            </tr>
 	            <tr>
-	            	<td ><br>Todos os campos com * s„o obrigatÛrios</td>
+	            	<td ><br>Todos os campos com * sÔøΩo obrigatÔøΩrios</td>
 	            </tr>
 	</table>
 </form>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

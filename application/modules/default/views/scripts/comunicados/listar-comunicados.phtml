@@ -1,13 +1,13 @@
 <?php
 /**
- * Exemplo de Utilização do Layout
- * @author Tarcísio Angelo - XTI
+ * Exemplo de Utilizaï¿½ï¿½o do Layout
+ * @author Tarcï¿½sio Angelo - XTI
  * @since 12/01/2012
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.comunicados
  * @link http://salic.cultura.gov.br
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  */
 
 ?>
@@ -30,12 +30,12 @@ function paginar(pag){
 <?php if($this->total != 0):?>
 
 <?php foreach($this->registros as $c): ?>
-	
+
 	<table class="tabela">
 		<tr>
 			<th align="left">Sistema: <?php echo $c->stopcao == 1 ? 'Proposta':'Salic'; ?></th>
-			<th align="left" width="300">Início da vigência: <?php echo $c->dtiniciovigenciapt; ?></th>
-			<th align="left" width="300">Fim da vigência: <?php echo $c->dtterminovigenciapt; ?></th>
+			<th align="left" width="300">INÃCIO da vigï¿½ncia: <?php echo $c->dtiniciovigenciapt; ?></th>
+			<th align="left" width="300">Fim da vigï¿½ncia: <?php echo $c->dtterminovigenciapt; ?></th>
 		</tr>
 		<tr>
 			<td colspan="3" class="fundo_linha3" align="center">Comunicado</td>
@@ -52,7 +52,7 @@ function paginar(pag){
 	<br />
 <?php endforeach; ?>
 
-<!-- ========== PAGINAÇ?O ========== -->
+<!-- ========== PAGINAï¿½?O ========== -->
 <form action="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'listar-comunicados')); ?>" method="post" name="frmPaginacao" id="frmPaginacao">
 <?php foreach($this->parametrosBusca as $name=>$value):?>
     <?php if(!is_array($value)): ?>
@@ -91,7 +91,7 @@ function paginar(pag){
 	    </td>
 	</tr>
 </table>
-<!-- ========== FIM PAGINAÇ?O ========== -->
+<!-- ========== FIM PAGINAï¿½?O ========== -->
 
 <?php else:?>
 <table class="tabela">

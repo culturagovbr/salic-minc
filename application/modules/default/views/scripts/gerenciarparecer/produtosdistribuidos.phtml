@@ -12,28 +12,28 @@
     window.onload = function() {areadetrabalho();};
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres</a></li>
                 <li class="last">Produtos Distribu&iacute;dos</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Produtos Distribu&iacute;dos<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">                    <!--============================================INICIO GRID=====================================================================-->
     <table class="tabela">
         <tr>
             <td width="200"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'enviarpagamento'),'',true);?>"><b>Enviar Pareceres para Pagamento</b></a></td>
         </tr>
     </table>
-    
+
     <table class="tabela tablesorter">
 	<thead>
 		<tr class="titulo_tabela">
@@ -67,9 +67,9 @@
 			<td align="center"><?php echo $dp->DtDistribuicaoPT; ?></td>
                         <td align="center"><?php if ($dp->Status == 1)
                             {
-                                echo 'Favor·vel';
+                                echo 'FavorÔøΩvel';
                             }else{
-                               echo'Desfavor·vel';
+                               echo'DesfavorÔøΩvel';
                            };
                             ?>
                         </td>
@@ -81,10 +81,10 @@
             <?php $nomeProjeto = $dp->NomeProjeto; $pronac = $dp->NrProjeto; $produto = $dp->Produto;?>
             <?php endforeach; ?>
        </table>
- <!-- ========== PAGINA«?O ========== -->
+ <!-- ========== PAGINAÔøΩ?O ========== -->
     <?php if($this->qtdDocumentos > 5){ echo "<p>" . $this->dadospainel . "</p>"; } ?>
-    <!-- ========== FIM PAGINA«?O ========== -->
+    <!-- ========== FIM PAGINAÔøΩ?O ========== -->
 </div>
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

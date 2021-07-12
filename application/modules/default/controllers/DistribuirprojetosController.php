@@ -27,7 +27,7 @@ class DistribuirprojetosController extends MinC_Controller_Action_Abstract
     public function init()
     {
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
 
         // 3 => autentica��o scriptcase e autentica��o/permiss�o zend (AMBIENTE PROPONENTE E MINC)
         // utilizar quando a Controller ou a Action for acessada via scriptcase e zend
@@ -367,7 +367,7 @@ class DistribuirprojetosController extends MinC_Controller_Action_Abstract
                 $this->view->alerta = "Informe um avaliador";
             }
             if ((empty($_POST['idAvaliadorAnt']) or $_POST['idAvaliadorAnt'] == 0) and $acao == 'add') {
-                $this->view->alerta = "N�o foi possivel recuperar o antigo avaliador";
+                $this->view->alerta = "Não foi possivel recuperar o antigo avaliador";
             }
         }
         if (count($PreProjetos) < 1) {
@@ -386,14 +386,14 @@ class DistribuirprojetosController extends MinC_Controller_Action_Abstract
 
                 if (count($vinculado) > 0 and strlen($error) < 2) {
                     if (!$tblProjetos->alterarSituacao($dadosprojeto->idPronac, null, $this->COD_SITUACAO_PROJETO_ATUALIZA, 'Redistribuindo o projeto para avalia��o')) {
-                        $error = "N�o foi possivel mudar a situa��o do projeto";
+                        $error = "Não foi possivel mudar a situa��o do projeto";
                     }
 
                     $tbAvaliacao = new tbAvaliacaoPreProjeto();
                     $Avaliacao = $tbAvaliacao->buscar(array('idPreProjeto = ?' => $value, 'idAvaliador = ?' => $_POST['idAvaliadorAnt']));
                     if (count($Avaliacao) > 0 and strlen($error) < 2) {
                         if (!$tbAvaliacao->alterar(array('idAvaliador' => $_POST['idAvaliador'], 'stAvaliacao' => 'false'), array('idPreProjeto = ?' => $value, 'idAvaliador = ?' => $_POST['idAvaliadorAnt']))) {
-                            $error = "N�o foi possivel distribuir a avalia��o";
+                            $error = "Não foi possivel distribuir a avalia��o";
                         }
                     }
 
@@ -409,7 +409,7 @@ class DistribuirprojetosController extends MinC_Controller_Action_Abstract
                         if ($tbltbdistribuir->alterar($dados, $where)) {
                             $novosvinculos++;
                         } else {
-                            $error = "N�o foi possivel distribuir a avalia��o";
+                            $error = "Não foi possivel distribuir a avalia��o";
                         }
                     }
                 }
@@ -454,7 +454,7 @@ class DistribuirprojetosController extends MinC_Controller_Action_Abstract
                 $this->view->alerta = "Informe um avaliador";
             }
             if ((empty($_POST['Avaliador']) or $_POST['Avaliador'] == 0) and $acao == 'add') {
-                $this->view->alerta = "N�o foi possivel recuperar o antigo avaliador";
+                $this->view->alerta = "Não foi possivel recuperar o antigo avaliador";
             }
         }
         if (count($PreProjetos) < 1) {
@@ -470,14 +470,14 @@ class DistribuirprojetosController extends MinC_Controller_Action_Abstract
 
                 if (strlen($error) < 2) {
                     if (!$tblProjetos->alterarSituacao($dadosprojeto->idPronac, null, $this->COD_SITUACAO_PROJETO_ATUALIZA, 'Redistribuindo o projeto para avalia��o')) {
-                        $error = "N�o foi possivel mudar a situa��o do projeto";
+                        $error = "Não foi possivel mudar a situa��o do projeto";
                     }
 
                     $tbAvaliacao = new tbAvaliacaoPreProjeto();
                     $Avaliacao = $tbAvaliacao->buscar(array('idPreProjeto = ?' => $value, 'idAvaliador = ?' => $_POST['Avaliador']));
                     if (count($Avaliacao) > 0 and strlen($error) < 2) {
                         if (!$tbAvaliacao->alterar(array('stAvaliacao' => 'false'), array('idPreProjeto = ?' => $value, 'idAvaliador = ?' => $_POST['Avaliador']))) {
-                            $error = "N�o foi possivel distribuir a avalia��o";
+                            $error = "Não foi possivel distribuir a avalia��o";
                         }
                     }
 
@@ -493,7 +493,7 @@ class DistribuirprojetosController extends MinC_Controller_Action_Abstract
                         if ($tbltbdistribuir->alterar($dados, $where)) {
                             $novosvinculos++;
                         } else {
-                            $error = "N�o foi possivel distribuir a avalia��o";
+                            $error = "Não foi possivel distribuir a avalia��o";
                         }
                     }
                 }
@@ -558,7 +558,7 @@ class DistribuirprojetosController extends MinC_Controller_Action_Abstract
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
-        
+
         $idDistribuicao = !empty($_REQUEST['idDistribuicao']) ? (int)$_REQUEST['idDistribuicao'] : null;
         if (!empty($idDistribuicao) and $idDistribuicao > 0) {
             $where = "idDistribuicao = ".$idDistribuicao;

@@ -14,7 +14,7 @@
 <script src="<?php echo $this->baseUrl(); ?>/public/js/gerenciarpautareuniao.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        
+
         $(".carregando").dialog({
             resizable: false,
             width:300,
@@ -22,22 +22,22 @@
             modal: true,
             autoOpen:false
         });
-        
+
         <?php if ($this->stPlenaria != 'A') { ?>
             $(".acaocoordenador").removeClass('sumir');
         <?php } ?>
-            
+
         <?php if ($this->stPlenaria == 'A') { ?>
             $(".acao").removeClass('sumir');
         <?php } ?>
 
         <?php if ($this->grupoativo == '119') { //presidente CNIC ?>
-            var votacaoEmAndamento = '<?php echo $this->pronacvotacaoatual ? 'true' : 'false' ?>'; 
+            var votacaoEmAndamento = '<?php echo $this->pronacvotacaoatual ? 'true' : 'false' ?>';
             $("#reuniaoaberta").val(votacaoEmAndamento);
         <?php } ?>
-        
+
     });//$(document).ready
-    
+
     function dadosprojetosreadequados(idpronac, idreadequacao, e){
         var idpronac = idpronac;
         var view = $(e).attr('view');
@@ -89,17 +89,17 @@
 
 <table class="tabela">
     <tr>
-        <td><input type="button" id="projetosReadequacoes" class="btn_remover" onclick="JSMostraOcultaElemento('projetosReadequacoes');" /><b>Projetos submetidos &agrave; plen&aacute;ria - Readequações <div style="float: right">Quantidade: (<span id="qtdeProjPlenariaReadequacao"><?php echo $this->qtdplenarioreadequacao; ?></span>)</div></b></td>
+        <td><input type="button" id="projetosReadequacoes" class="btn_remover" onclick="JSMostraOcultaElemento('projetosReadequacoes');" /><b>Projetos submetidos &agrave; plen&aacute;ria - Readequaï¿½ï¿½es <div style="float: right">Quantidade: (<span id="qtdeProjPlenariaReadequacao"><?php echo $this->qtdplenarioreadequacao; ?></span>)</div></b></td>
     </tr>
 </table>
 <table class="tabela projetosReadequacoes">
     <tr class="titulo_tabela">
         <th width="5%">N&uacute;mero</th>
-        <th width="10%" >Análise do Projeto</th>
+        <th width="10%" >AnÃ¡lise do Projeto</th>
         <th width="5%">PRONAC</th>
         <th width="35%">Nome do Projeto</th>
         <?php if ($this->grupoativo == '119') { //presidente CNIC ?>
-            <th width="10%">Área do Projeto</th>
+            <th width="10%">ï¿½rea do Projeto</th>
             <th width="10%">Segmento</th>
         <?php } ?>
         <!--<th width="5%">Parecer Favor&aacute;vel</th>-->
@@ -129,7 +129,7 @@
             ?>
             <tr class="tradd" id="<?php echo $a."_".$plenario['IdPRONAC']; ?>" aberto="false">
                 <td class="centro"><?php echo $a ?></td>
-                <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onclick="abrirdadosReadequacoes('<?php echo $a."_".$plenario['IdPRONAC']; ?>', <?php echo $plenario['IdPRONAC']; ?>, '<?php echo $tipoagente; ?>','s', '<?php echo $plenario['idReadequacao']; ?>', '<?php echo $plenario['idTipoReadequacao']; ?>')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da Análise do Projeto" alt="Dados da Análise do Projeto" width="20px"/></a></td>
+                <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onclick="abrirdadosReadequacoes('<?php echo $a."_".$plenario['IdPRONAC']; ?>', <?php echo $plenario['IdPRONAC']; ?>, '<?php echo $tipoagente; ?>','s', '<?php echo $plenario['idReadequacao']; ?>', '<?php echo $plenario['idTipoReadequacao']; ?>')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da AnÃ¡lise do Projeto" alt="Dados da AnÃ¡lise do Projeto" width="20px"/></a></td>
                 <td class="centro"><a id="consultarprojetos" href="<?php echo $this->url(array('controller' => 'dadosprojeto', 'action' => 'index', 'idpronac'=>$plenario['IdPRONAC']),'',true); ?>" target="_new" title="Ir para Consultar Projetos"><?php echo $plenario['pronac'] ?></a></td>
                 <td><?php echo $plenario['NomeProjeto'] ?></td>
                 <?php if ($this->grupoativo == '119') { //presidente CNIC ?>
@@ -161,11 +161,11 @@
                 <td id="votacao_<?php echo $plenario['IdPRONAC'].'_'.$plenario['idTipoReadequacao']; ?>" colspan="7" class="destacar"></td>
             </tr>
             <?php $a++;
-        }  
+        }
     }else{ ?>
     <tr>
         <td colspan="9" class="centro">
-            <em><b>Não há projetos submetidos &agrave; plen&aacute;ria de recursos</b></em>
+            <em><b>NÃ£o hï¿½ projetos submetidos &agrave; plen&aacute;ria de recursos</b></em>
         </td>
     </tr>
 <?php } ?>

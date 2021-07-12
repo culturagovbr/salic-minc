@@ -284,7 +284,7 @@ function linhaPEI(info){
                                         }
                                         else{
                                             $(tr).remove();
-                                            janelaAlerta('Excluído com sucesso!');
+                                            janelaAlerta('Excluï¿½do com sucesso!');
                                         }
 
                                         $(this).dialog('close');
@@ -757,7 +757,7 @@ function buscarFornecedor(este){
 
 function outroFornecedor(este){
     $("#divPerguntaFornecedor").dialog('close');
-    $("#divPerguntaFornecedor").html('Deseja utilizar este fornecedor na comprovação do pagamento?');
+    $("#divPerguntaFornecedor").html('Deseja utilizar este fornecedor na comprovaï¿½ï¿½o do pagamento?');
     $("#divPerguntaFornecedor").dialog('open');
     $("#divPerguntaFornecedor").dialog({
         resizable: false,
@@ -767,7 +767,7 @@ function outroFornecedor(este){
         draggable:false,
         title: 'Alerta!',
         buttons: {
-            'Não': function(){
+            'NÃ£o': function(){
                 $('#'+$(este).attr('idAgente')).val('');
                 $('#'+$(este).attr('idDescricao')).val('');
                 $('#CNPJCPF').val('');
@@ -959,9 +959,9 @@ function fornecedores(){
 }
 </script>
 <script type="text/javascript">
-    var me71 = 'Esse projeto não possui itens de custo para comprovação financeira. Favor incluir todos os itens de custo para inclusão de comprovação financeira.';
-    var me72 = 'Deseja realmente finalizar esse processo? Com essa confirmação você não poderá mais alterar os dados desse processo.';
-    var ag1  = 'Dados obrigatórios não informados.';
+    var me71 = 'Esse projeto NÃ£o possui itens de custo para comprovaï¿½ï¿½o financeira. Favor incluir todos os itens de custo para inclusï¿½o de comprovaï¿½ï¿½o financeira.';
+    var me72 = 'Deseja realmente finalizar esse processo? Com essa ConfirmaÃ§Ã£o vocï¿½ NÃ£o poderï¿½ mais alterar os dados desse processo.';
+    var ag1  = 'Dados obrigatï¿½rios NÃ£o informados.';
     var ag4  = 'Deseja realmente excluir dados?';
     var sg1  = '';
     var sg2  = '';

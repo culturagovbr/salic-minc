@@ -39,7 +39,7 @@ ul#icons span.ui-icon {float: left; margin: 0 4px;}
 <script type="text/javascript" src="../js/jquery.wysiwyg.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/jquery.wysiwyg.css"/>
 
-<!-- Realizar An·lise Projeto -->
+<!-- Realizar An√°lise Projeto -->
 <script type="text/javascript" src="../js/realizaranaliseprojeto.js"></script>
 <script type="text/javascript" src="../js/openwysiwyg/wysiwyg.js"></script>
 
@@ -61,7 +61,7 @@ ul#icons span.ui-icon {float: left; margin: 0 4px;}
 			visao.remove(i); // remove o option do select de origem
 			i--;
 		}
-	} // fecha funÁ„o addTodos()
+	} // fecha funÔøΩÔøΩo addTodos()
 
 
 	function delTodos() // deleta todos os options da direita
@@ -80,7 +80,7 @@ ul#icons span.ui-icon {float: left; margin: 0 4px;}
 				i--;
 			}
 		}
-	} // fecha funÁ„o delTodos()
+	} // fecha funÔøΩÔøΩo delTodos()
 
 
 	function addSelecionado() // adiciona o option selecionado da esquerda para direita
@@ -99,7 +99,7 @@ ul#icons span.ui-icon {float: left; margin: 0 4px;}
 				i--;
 			}
 		}
-	} // fecha funÁ„o addSelecionado()
+	} // fecha funÔøΩÔøΩo addSelecionado()
 
 
 	function delSelecionado() // deleta o option selecionado da direita
@@ -118,10 +118,10 @@ ul#icons span.ui-icon {float: left; margin: 0 4px;}
 				i--;
 			}
 		}
-	} // fecha funÁ„o delSelecionado()
+	} // fecha funÔøΩÔøΩo delSelecionado()
 
 
-	function selecionarOptions() // funÁ„o para selecionar todos os options antes do envio do formul·rio
+	function selecionarOptions() // funÔøΩÔøΩo para selecionar todos os options antes do envio do formulÔøΩrio
 	{
 		visaoAgente = document.getElementById("visaoAgente"); // select de destino
 		for (i = 0; i < visaoAgente.length; i++) // varre todo o option de origem
@@ -129,12 +129,12 @@ ul#icons span.ui-icon {float: left; margin: 0 4px;}
 			visaoAgente.options[i].selected = true; // adiciona o novo option no select de destino
 		}
 		document.getElementById('form').submit();
-	} // fecha funÁ„o selecionarOptions()
+	} // fecha funÔøΩÔøΩo selecionarOptions()
 	//-->
 	</script>
 <form class="form" id="form">
 
-		
+
 
 		<table class="tabela">
 			<tr>
@@ -145,8 +145,8 @@ ul#icons span.ui-icon {float: left; margin: 0 4px;}
 					<label for="visao"> </label>
 					<select class="select w150" name="visao[]" id="visao" multiple="multiple" size="7">
 
-						<option value="N.Reuniao">N. Reuni„o</option>
-						<option value="Dt.Inicio ">Dt. InÌcio </option>
+						<option value="N.Reuniao">N. ReuniÔøΩo</option>
+						<option value="Dt.Inicio ">Dt. IN√çCIO </option>
 						<option value="Dt.Final">Dt. Final</option>
 						<option value="Dt.Fechamento">Dt. Fechamento</option>
 						<option value="Mecanismo">Mecanismo </option>
@@ -154,10 +154,10 @@ ul#icons span.ui-icon {float: left; margin: 0 4px;}
 					</select>
 				</td>
 				<td class="centro" valign="middle">
-					<p><input class="btn" value=" &gt;&gt;  " onkeypress=" " onclick="addTodos();" title="Adicionar todas as visıes para o Agente" type="button"></p>
-					<p><input class="btn" value="  &gt;  " onkeypress=" " onclick="addSelecionado();" title="Adicionar a vis„o selecionada para o Agente" type="button"></p>
-					<p><input class="btn" value="  &lt;  " onkeypress=" " onclick="delSelecionado();" title="Remover a vis„o selecionada do Agente" type="button"></p>
-					<p><input class="btn" value=" &lt;&lt;  " onkeypress=" " onclick="delTodos();" title="Remover todas as visıes do Agente" type="button"></p>
+					<p><input class="btn" value=" &gt;&gt;  " onkeypress=" " onclick="addTodos();" title="Adicionar todas as visÔøΩes para o Agente" type="button"></p>
+					<p><input class="btn" value="  &gt;  " onkeypress=" " onclick="addSelecionado();" title="Adicionar a visÔøΩo selecionada para o Agente" type="button"></p>
+					<p><input class="btn" value="  &lt;  " onkeypress=" " onclick="delSelecionado();" title="Remover a visÔøΩo selecionada do Agente" type="button"></p>
+					<p><input class="btn" value=" &lt;&lt;  " onkeypress=" " onclick="delTodos();" title="Remover todas as visÔøΩes do Agente" type="button"></p>
 				</td>
 				<td class="centro" valign="top">
 					<label for="visaoAgente"> </label>

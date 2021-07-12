@@ -2,17 +2,17 @@
 <div id="alerta" class="sumir"></div>
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="edital/index">Criar Edital - Passo 1</a></li>
         <li class="">Criar Edital - Passo 2</li>
     </ul>
 </div>
 
 <div id="titulo">
-    <div>CritÈrio de Participa&ccedil;&atilde;o</div>
-</div> 
+    <div>CritÔøΩrio de Participa&ccedil;&atilde;o</div>
+</div>
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <!-- FOMULARIO PARA CADASTRO DOS CRITERIOS DE PARTICIPACAO -->
     <div id="boxCriteriosParticipacao">
@@ -21,7 +21,7 @@
             <div class="float_right"><input type="button" class="btn_close" title="Fechar mensagem" id="msgALERT" onclick="$('.msgALERT').hide();" onkeypress="$('.msgALERT').hide();"/></div>
             <div id="txtmsg" style="line-height: 25px;"></div>
         </div>
-        
+
         <form id="formularioCriteriosParticipacao" action="<?php echo $this->url(array('controller' => 'edital', 'action' => 'salva-criterio-participacao')); ?>" method="post">
             <input type="hidden" id="idEdital" name="idEdital" value="<?php echo $this->idEdital;?>" />
             <input type="hidden" id="idModulo" name="idModulo" value="<?php echo $this->idModulo;?>" />
@@ -29,10 +29,10 @@
             <table class="tabela" id="tbCriterioParticipacao" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
                 <tbody>
                     <tr>
-                        <th colspan="2" style="font-size: 14px">CritÈrio de Participa&ccedil;&atilde;o</th>
+                        <th colspan="2" style="font-size: 14px">CritÔøΩrio de Participa&ccedil;&atilde;o</th>
                     </tr>
                     <tr>
-                        <td class="destacar bold w150 esquerdo">DescriÁ„o do crit&eacute;rio <span style="color: red;">*</span></td>
+                        <td class="destacar bold w150 esquerdo">Descri√ß√£o do crit&eacute;rio <span style="color: red;">*</span></td>
                         <td>
                             <input type="text" id="dsCriterioParticipacao" name="dsCriterioParticipacao" size="80" class="input_simples required">
                         </td>
@@ -44,7 +44,7 @@
                                 <option value="">- Selecione -</option>
                                 <option value="DN">Idade</option>
                                 <option value="SX">Sexo</option>
-                                <option value="RE">Regi„o</option>
+                                <option value="RE">RegiÔøΩo</option>
                                 <option value="UF">UF</option>
                                 <option value="CI">Cidade</option>
                             </select>
@@ -96,7 +96,7 @@
                         <td class="destacar bold w150 esquerdo">Data de nascimento: <span style="color: red;">*</span></td>
                         <td>
                             <input type="text" name="dsFaixaEtariaInicio" id="dsFaixaEtariaInicio" onkeyup="num(this);" maxlength="3" class="input_simples" />
-                            &nbsp; ‡ &nbsp;
+                            &nbsp; ÔøΩ &nbsp;
                             <input type="text" name="dsFaixaEtariaFim" id="dsFaixaEtariaFim" onkeyup="num(this);" maxlength="3" class="input_simples" />
                         </td>
                     </tr>
@@ -112,7 +112,7 @@
                         </td>
                     </tr>
                     <tr id="regiao" class="sumir">
-                        <td class="destacar bold w150 esquerdo">Regi„o: <span style="color: red;">*</span></td>
+                        <td class="destacar bold w150 esquerdo">RegiÔøΩo: <span style="color: red;">*</span></td>
                         <td>
                             <div id="checkRegiao">
                                 <div style="float: left; width: 150px; margin: 10px 30px 10px 0px;">
@@ -139,7 +139,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="destacar bold w150 esquerdo">Resposta ObrigatÛria</td>
+                        <td class="destacar bold w150 esquerdo">Resposta ObrigatÔøΩria</td>
                         <td>
                             <input type="checkbox" name="respostaObrigatoria" value="S">
                         </td>
@@ -161,24 +161,24 @@
         <?php if(count($this->criterioParticipacao) > 0): ?>
         <table class="tabela" id="tblCriteriosAdicionada" style="margin-top: 0px !important; padding-top: 0px !important; border-top: 1px #fff solid !important; ">
             <tbody><tr>
-                    <td colspan="4" class="destacar centro bold">CRIT…RIOS ADICIONADOS</td>
+                    <td colspan="4" class="destacar centro bold">CRITÔøΩRIOS ADICIONADOS</td>
                 </tr>
                 <tr>
-                    <td class="destacar bold" style="width: 40%">DescriÁ„o do critÈrio</td>
+                    <td class="destacar bold" style="width: 40%">Descri√ß√£o do critÔøΩrio</td>
                     <td class="destacar bold " style="width: 15%">Regra para o campo</td>
-                    <td class="destacar bold centro" style="width: 15%">AÁıes</td>
+                    <td class="destacar bold centro" style="width: 15%">AÔøΩÔøΩes</td>
                 </tr>
                 <?php foreach ($this->criterioParticipacao as $critP): ?>
                 <tr id="trCriterio_zero">
                     <td class="centro"><?php echo $critP['dsCriterioParticipacao']; ?></td>
                     <td class="centro">
-                        <?php 
+                        <?php
                             if($critP['rgCriterioParticipacao'] == 'DN'){
                                 echo 'Idade';
                             }else if($critP['rgCriterioParticipacao'] == 'SX'){
                                 echo 'Sexo';
                             }else if($critP['rgCriterioParticipacao'] == 'RE'){
-                                echo 'Regi„o';
+                                echo 'RegiÔøΩo';
                             }else if($critP['rgCriterioParticipacao'] == 'UF'){
                                 echo 'UF';
                             }else if($critP['rgCriterioParticipacao'] == 'CI'){
@@ -199,7 +199,7 @@
     <br clear="all">
     <!-- FIM FOMULARIO PARA CADASTRO DOS CRITERIOS DE PARTICIPACAO -->
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 <div id="rodapeConteudo"><span></span></div>
 <br clear="all" />
@@ -209,13 +209,13 @@
     $(document).ready(function() {
 
         $('#ufMunicipio').change(function(){
-            
+
             $('.municipio').hide();
-            
+
             var valor = $(this).val();
-            
+
             if(valor == '0'){
-                
+
                 $('div#checkboxes input[type=checkbox]').each(function() {
 
                     var id = $(this).attr('valor');
@@ -228,18 +228,18 @@
                     }
 
                  });
-                 
+
             }
-            
+
             $('.municipio_'+valor).show();
-            
+
         });
-        
-        
+
+
         $('#campo').change(function(){
-        
+
             var item = $(this).val();
-            
+
             if(item == 'DN'){
                 $('#nascimento').show();
                 $('#sexo').hide();
@@ -271,11 +271,11 @@
                 $('#uf').hide();
                 $('#cidade').show();
             }
-            
-        
+
+
         });
-        
-        
+
+
         $("#formularioCriteriosParticipacao").submit(function() {
 
             $('#msg').hide();
@@ -285,35 +285,35 @@
             var regraCriterio = $('#campo').val();
 
             if(regraCriterio == 'DN'){
-                
+
                 var dsFaixaEtariaInicio     = $('#dsFaixaEtariaInicio').val(),
                     dsFaixaEtariaFim        = $('#dsFaixaEtariaFim').val();
-                    
+
                 if(dsFaixaEtariaInicio == '' || dsFaixaEtariaFim == ''){
                     enviar = 1;
                 }
-                
+
             }else if(regraCriterio == 'RE'){
-                
+
                 enviar = 1;
                 $('div#checkRegiao input[type=checkbox]').each(function() {
                     if($(this).is(":checked")) {
                         enviar = 0;
                     }
                  });
-                
-                
+
+
             }else if(regraCriterio == 'UF'){
-                
+
                 enviar = 1;
                 $('div#checkUfs input[type=checkbox]').each(function() {
                     if($(this).is(":checked")) {
                         enviar = 0;
                     }
                  });
-                
+
             }else if(regraCriterio == 'CI'){
-                
+
                 enviar = 1;
                 $('div#checkboxes input[type=checkbox]').each(function() {
                     if($(this).is(":checked")) {
@@ -322,15 +322,15 @@
                  });
             }
 
-            
+
             var dsCriterioParticipacao  = $('#dsCriterioParticipacao').val();
-                
+
             if(dsCriterioParticipacao == ''){
                 enviar = 1;
             }
 
             if ((enviar == 1)) {
-                $('#txtmsg').html('Verifique os campos obrigatÛrios!<br />');
+                $('#txtmsg').html('Verifique os campos obrigatÔøΩrios!<br />');
                 $('#msg').show();
                 return false;
             }else{
@@ -377,7 +377,7 @@
 
         // classe dos campos que utilizarao o calendario
         $(".cmpData").datepicker($.datepicker.regional['pt-BR']);
-        
+
     });
 
     function num(dom) {
@@ -385,9 +385,9 @@
     }
 
     function excluirCriterioParticipacao(id){
-        
+
         $("#alerta").dialog("destroy");
-        $("#alerta").html("Tem certeza que deseja excluir o critÈrio de participaÁ„o?");
+        $("#alerta").html("Tem certeza que deseja excluir o critÔøΩrio de participaÔøΩÔøΩo?");
         $("#alerta").dialog({
             resizable: false,
             title: 'Alerta!',
@@ -395,7 +395,7 @@
             height: 170,
             modal: true,
             buttons: {
-                'N„o': function() {
+                'N√£o': function() {
                     $(this).dialog('close');
                 },
                 'Sim': function() {
@@ -405,5 +405,5 @@
         });
         $('.ui-dialog-titlebar-close').remove();
     }
-    
+
 </script>

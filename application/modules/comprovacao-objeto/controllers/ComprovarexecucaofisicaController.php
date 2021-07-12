@@ -1788,7 +1788,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
             $dadosProj = $Projetos->buscar(array('IdPRONAC = ?' => $idpronac))->current();
 
             if (!$dadosProj) {
-                parent::message('Projeto n�o foi encontrado!', $url, 'ERROR');
+                parent::message('Projeto Não foi encontrado!', $url, 'ERROR');
             }
 
             $post = filter_input_array(INPUT_POST);

@@ -1,12 +1,12 @@
 <?php
-/** 
+/**
  * Busca PRONAC
  * @author Equipe RUP - Politec
  * @since 28/04/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicaprojeto
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -16,7 +16,7 @@
         $('.btn_aprovar').click(function(){
             var btn = $(this);
             $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html("Deseja realmente aprovar a procuraÁ„o?");
+            $("#msgAlerta").html("Deseja realmente aprovar a procuraÔøΩÔøΩo?");
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -24,7 +24,7 @@
                 height:160,
                 modal: true,
                 buttons : {
-                    'N„o' : function(){
+                    'N√£o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -62,7 +62,7 @@
         $('.btn_rejeitar').click(function(){
             var btn = $(this);
             $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html("Deseja realmente rejeitar a procuraÁ„o?");
+            $("#msgAlerta").html("Deseja realmente rejeitar a procuraÔøΩÔøΩo?");
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -70,7 +70,7 @@
                 height:160,
                 modal: true,
                 buttons : {
-                    'N„o' : function(){
+                    'N√£o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -264,10 +264,10 @@
 //        });
 //        $("#nprojeto").numeric()
     });
-    
+
     function justificativa(btn){
         $("#justificativaModal").dialog("destroy");
-//        $("#justificativaModal").html("Deseja realmente rejeitar a procuraÁ„o?");
+//        $("#justificativaModal").html("Deseja realmente rejeitar a procuraÔøΩÔøΩo?");
         $("#justificativaModal").dialog({
             resizable: false,
             title: 'Justificativa!',
@@ -317,20 +317,20 @@
     }
 
 </script>
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Analisar Procura&ccedil;&otilde;es</li>
         <!--<li class="last">Filtro</li>-->
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Analisar Procura&ccedil;&otilde;es <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 <div id="msgAlerta" class="sumir"></div>
@@ -350,7 +350,7 @@
 <div id="projetosListados" class="sumir">
     <table class="tabela" id="lista-projetos"></table>
 </div>
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <br clear="all" />
     <!--
@@ -367,9 +367,9 @@
                 <td><input type="text" class="input_simples" name="cpfcnpjproponente" id="cpfcnpjproponente" onkeyup="mascaraCnpjCpf(this);" maxlength="18"/></td>
             </tr>
             <tr>
-                <th>CPF do respons·vel:</th>
+                <th>CPF do responsÔøΩvel:</th>
                 <td><input type="text" class="input_simples" name="cpfresponsavel" id="cpfresponsavel" onkeyup="mascaraCnpjCpf(this);" maxlength="14"/></td>
-                <th>Nome do respons·vel:</th>
+                <th>Nome do responsÔøΩvel:</th>
                 <td><input type="text" class="input_simples" name="nomeresponsavel" id="nomeresponsavel"/></td>
             </tr>
             <tr>
@@ -379,7 +379,7 @@
                 <td>
                     <select class="select_simples" name="situacao" id="situacao">
                         <option value="">--Selecione--</option>
-                        <option value="0">Aguardando an·lise</option>
+                        <option value="0">Aguardando An√°lise</option>
                         <option value="1">Aprovado</option>
                         <option value="2">Rejeitado</option>
                     </select>
@@ -429,10 +429,10 @@
     <br clear="all" />
 </div>
 
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

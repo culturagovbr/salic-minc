@@ -1,16 +1,16 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        
+
         <?php  if(isset($this->msg) && !empty($this->msg)): ?>
             message('<?php echo $this->msg;?>', '<?php echo $this->tipoMsg;?>');
         <?php  endif; ?>
-        
+
         //<![CDATA[
         CKEDITOR.replace('dsTermoDecisao', {fullPage : true });
         CKEDITOR.config.height = '400';
         //]]>
     });
-    
+
     function verificarTermo(){
         if(validarCampo()){
             $("#frmTermoDecisao").submit();
@@ -56,7 +56,7 @@
         }
         return bln_validacao;
     }
-        
+
 </script>
 <div id="breadcrumb">
     <ul>
@@ -67,13 +67,13 @@
     </ul>
 </div> <!-- final: #breadcrumb -->
 
-<!-- inÌcio: #titulo -->
+<!-- IN√çCIO: #titulo -->
 <div id="titulo">
-        <div>Alterar termo de decis&atilde;o <span class="voltar"><a href="<?php echo $this->url(array('controller'=>'mantertermodecisao', 'action'=>'')); ?>" title="Ir para p·gina anterior">Voltar</a></span></div>
+        <div>Alterar termo de decis&atilde;o <span class="voltar"><a href="<?php echo $this->url(array('controller'=>'mantertermodecisao', 'action'=>'')); ?>" title="Ir para p√°gina anterior">Voltar</a></span></div>
 </div>
 <!-- final: #titulo -->
 
-<!-- inÌcio: &aacute;rea principal #conteudo -->
+<!-- IN√çCIO: &aacute;rea principal #conteudo -->
 <div id="conteudo">
 
     <fieldset><legend>Informa&ccedil;&otilde;es do termo</legend>
@@ -146,7 +146,7 @@
                         <textarea cols="80" id="dsTermoDecisao" name="dsTermoDecisao" rows="10">
 
                             <?php echo $this->texto; ?>
-                        
+
                         </textarea>
                         <div id="dsTermoDecisaoSpan"></div>
                     </td>
@@ -160,7 +160,7 @@
                                        {@NUMERO_PLENARIA@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;N˙mero da reuni„o plen·ria. <br /> 
+                                        ==>&nbsp;&nbsp;NÔøΩmero da reuniÔøΩo plenÔøΩria. <br />
                                     </td>
                                 </tr>
                                 <tr>
@@ -168,7 +168,7 @@
                                        {@DIA_INICIO_PLENARIA@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;Dia de inÌcio da reuni„o plen·ria. <br /> 
+                                        ==>&nbsp;&nbsp;Dia de IN√çCIO da reuniÔøΩo plenÔøΩria. <br />
                                     </td>
                                 </tr>
                                 <tr>
@@ -176,7 +176,7 @@
                                        {@DT_FIM_PLENARIA@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;Data fim da reuni„o plen·ria (por extenso). <br /> 
+                                        ==>&nbsp;&nbsp;Data fim da reuniÔøΩo plenÔøΩria (por extenso). <br />
                                     </td>
                                 </tr>
                                 <tr>
@@ -184,7 +184,7 @@
                                        {@NUMERO_PRONAC@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;N˙mero do PRONAC. <br /> 
+                                        ==>&nbsp;&nbsp;NÔøΩmero do PRONAC. <br />
                                     </td>
                                 </tr>
                                 <tr>
@@ -192,23 +192,23 @@
                                        {@NOME_PROJETO@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;Nome do projeto cultural. <br /> 
+                                        ==>&nbsp;&nbsp;Nome do projeto cultural. <br />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td width="10%">
-                                        {@SUGESTAO_PARECER@}  
+                                        {@SUGESTAO_PARECER@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;Texto do Parecer T&eacute;cnico. <br /> 
+                                        ==>&nbsp;&nbsp;Texto do Parecer T&eacute;cnico. <br />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td width="10%">
-                                        {@SUGESTAO_MEMBRO_RELATOR@}  
+                                        {@SUGESTAO_MEMBRO_RELATOR@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;Texto do Membro Relator da CNIC. <br /> 
+                                        ==>&nbsp;&nbsp;Texto do Membro Relator da CNIC. <br />
                                     </td>
                                 </tr>
                                 <tr>
@@ -216,7 +216,7 @@
                                         {@SUGESTAO_PLENARIA@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;Texto da Plen&aacute;ria. <br /> 
+                                        ==>&nbsp;&nbsp;Texto da Plen&aacute;ria. <br />
                                     </td>
                                 </tr>
                                 <tr>
@@ -224,7 +224,7 @@
                                         {@NOME_SECRETARIO@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;Nome do(a) secret&aacute;rio(a) que assina o termo. <br /> 
+                                        ==>&nbsp;&nbsp;Nome do(a) secret&aacute;rio(a) que assina o termo. <br />
                                     </td>
                                 </tr>
                                 <tr>
@@ -232,7 +232,7 @@
                                         {@CARGO_SECRETARIO@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;Cargo do(a) secret&aacute;rio(a) que assina o termo. <br /> 
+                                        ==>&nbsp;&nbsp;Cargo do(a) secret&aacute;rio(a) que assina o termo. <br />
                                     </td>
                                 </tr>
                                 <tr>
@@ -240,7 +240,7 @@
                                         {@DATA_ASS_TERMO@}
                                     </td>
                                     <td width="90%">
-                                        ==>&nbsp;&nbsp;Data de assinatura do termo. <br /> 
+                                        ==>&nbsp;&nbsp;Data de assinatura do termo. <br />
                                     </td>
                                 </tr>
                             </table>
@@ -268,9 +268,9 @@
 
 
 </div>
-<!-- final: conte˙do principal #conteudo -->
+<!-- final: CONTE√öDO principal #conteudo -->
 
-<!-- inÌcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

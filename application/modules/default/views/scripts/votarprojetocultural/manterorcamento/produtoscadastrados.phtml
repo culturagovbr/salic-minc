@@ -63,7 +63,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
 <?php foreach ($this->Etapa as $etapa):?>
 <div class="etapas" style="display: none;">
 
-	<table width="95%" summary="Produto">  
+	<table width="95%" summary="Produto">
 		<?php if ($produtos->CodigoProduto == $etapa->CodigoProduto){ ?>
 	   <tr>
 	     <td width="4%"  align="center"><img style="cursor: pointer; width: 35%; height: 25%; border: 0px" class="btn_adicionar item" src="<?php echo $this->baseUrl(); ?>/public/img/buttons/btn_adicionar.gif" alt="Adicionar" /></td>
@@ -72,7 +72,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
 	     <td align="center" style="width: 10%">
          <input type="button" class="btn_novo" onclick="window.location.href='<?php echo $CadastrarProduto?>'" />
          </td>
-	   </tr> 
+	   </tr>
 	   <?php }?>
 	</table>
 
@@ -93,7 +93,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
 		<td class='centro'><?php echo $itens->DescricaoUf ?></td>
 		<td class='centro'><?php echo $itens->DescricaoMecanismo ?></td>
 		<td class='centro' width="5%">
-		<a href='<?php echo $this->baseurl();?>/manterorcamento/editarprodutos?item=<?php echo $this->escape($itens->idItem); ?>&etapa=<?php echo $this->escape($etapa->idEtapa);?>&produto=<?php echo $this->escape($produtos->CodigoProduto);?>&proposta=<?php echo $this->escape($produtos->idProposta);?> '> 
+		<a href='<?php echo $this->baseurl();?>/manterorcamento/editarprodutos?item=<?php echo $this->escape($itens->idItem); ?>&etapa=<?php echo $this->escape($etapa->idEtapa);?>&produto=<?php echo $this->escape($produtos->CodigoProduto);?>&proposta=<?php echo $this->escape($produtos->idProposta);?> '>
 		<img title="Editar" class="editar" src="<?php echo $this->baseUrl(); ?>/public/img/ico/edit.png" style="width: 40%; height: 45%"></img></a></td>
 		<td class='centro' width="5%"><a href="<?php echo $this->url(array('controller'=>'manterorcamento','action'=>'excluiritensprodutos'))?>?idPlanilhaProposta=<?php echo $itens->idPlanilhaProposta?>&retorno=produtoscadastrados"> <img src="<?php echo $this->baseUrl(); ?>/public/img/btn_excluir.gif" style="width: 30%; height: 35%"></img></a></td>
 	</tr>
@@ -101,10 +101,10 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
 	<?php } ?>
 	<?php endforeach; ?>
 </table>
-	
+
 </div><!-- FIM DIV ETAPAS -->
 <?php endforeach; ?> <!-- FIM FOREACH ETAPAS -->
-</div>	
+</div>
 <br />
 	<?php endforeach; ?> <!-- FIM FOREACH PRODUTOS -->
 	<table class="tabela" width="100%" cellpadding="0" cellspacing="0">
@@ -116,7 +116,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
 
 </div>
 <!-- FIM DIV CONTEUDO -->
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />

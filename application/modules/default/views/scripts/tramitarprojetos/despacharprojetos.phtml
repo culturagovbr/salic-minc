@@ -13,7 +13,7 @@
 
             if ( codOrgao ==  $('#destino').val()){
                 $('#btn_salvar').hide();
-                $('#mostraMsg').html('<font color="red">Este projeto já se encontra nesta unidade.</font>');
+                $('#mostraMsg').html('<font color="red">Este projeto jï¿½ se encontra nesta unidade.</font>');
             } else {
                 $('#btn_salvar').show();
                 $('#mostraMsg').html('');
@@ -23,7 +23,7 @@
 
     function redirecionarPag(){
         setTimeout(redirecionarPag, 2000);
-        window.location.href="<?php echo $this->url(array('controller'=>'tramitarprojetos', 'action'=>'despacharprojetos')); ?>?msg=Projetos%20com%20situação%20CADASTRADO%20enviado%20com%20sucesso!";
+        window.location.href="<?php echo $this->url(array('controller'=>'tramitarprojetos', 'action'=>'despacharprojetos')); ?>?msg=Projetos%20com%20situaï¿½ï¿½o%20CADASTRADO%20enviado%20com%20sucesso!";
     }
 
     function visualizarTextoModal(text){
@@ -93,7 +93,7 @@
             });
             if(validar == false){
                 $('#error').dialog("destroy");
-                $("#error").html('Dados obrigatórios n&atilde;o informados!');
+                $("#error").html('Dados obrigatï¿½rios n&atilde;o informados!');
                 $("#error").dialog('open');
                 $("#error").dialog({
                     height: 180,
@@ -122,7 +122,7 @@
             });
             if(validar == false){
                 $('#error').dialog("destroy");
-                $("#error").html('Dados obrigatórios n&atilde;o informados!');
+                $("#error").html('Dados obrigatï¿½rios n&atilde;o informados!');
                 $("#error").dialog('open');
                 $("#error").dialog({
                     height: 180,
@@ -146,7 +146,7 @@
     function buscarProjeto2(v){
         if($("#pronac").val().length < 6){
             $('#error').dialog("destroy");
-            $("#error").html('Pronac tem que ter no mínimo 6 caracteres!');
+            $("#error").html('Pronac tem que ter no mï¿½nimo 6 caracteres!');
             $("#error").dialog('open');
             $("#error").dialog({
                 width:350,
@@ -210,7 +210,7 @@ if (isset($_GET['pronac'])) {
     $projeto = $this->Projeto;
 }
 
-// mensagem de confirmação
+// mensagem de ConfirmaÃ§Ã£o
 if (isset($_GET['msg']) && !empty($_GET['msg'])) {
     ?>
 <div class="msgCONFIRM">
@@ -223,7 +223,7 @@ if (isset($_GET['msg']) && !empty($_GET['msg'])) {
 echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -234,18 +234,18 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 <!-- ========== FIM BRADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Cadastrar projetos <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 <div id="error"></div>
 <div id="confirm" title="Confirma&ccedil;&atilde;o" class="sumir">Tem certeza que deseja excluir o registro?</div>
 <div id="visualizarTextoModal" title="Visualizar Texto" class="sumir"></div>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <?php if (isset ($_GET['pronac'])){ ?>
     <form name="formu1" id="formu1" method="post" action="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'editarprojetos'));?>">
@@ -299,7 +299,7 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
         </table>
         <?php } ?>
     </form>
-    
+
     <?php } else { ?>
 
     <form name="formu2" id="formu2" method="post" action="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'despacharproj'));?>">
@@ -337,7 +337,7 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
             </tr>
         </table>
     </form>
-    
+
     <table class="tabela">
         <tr>
             <td class="centro"><input type="button" class="btn_salvar" id="btn_salvar" title="Salvar" /> <div id="mostraMsg"></div></td>
@@ -348,7 +348,7 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 
     <?php
     $historicodocumento = new HistoricoDocumento();
-    $auth = Zend_Auth::getInstance(); // instancia da autenticação
+    $auth = Zend_Auth::getInstance(); // instancia da autenticaï¿½ï¿½o
     $idusuario = $auth->getIdentity()->usu_codigo;
     ?>
 
@@ -433,10 +433,10 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
     </fieldset>
     <?php }?>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

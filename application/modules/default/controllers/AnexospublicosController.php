@@ -8,7 +8,7 @@
  * @package application
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  */
 class AnexospublicosController extends MinC_Controller_Action_Abstract
 {
@@ -36,7 +36,7 @@ class AnexospublicosController extends MinC_Controller_Action_Abstract
     }
 
     /**
-     * Método para abrir um arquivo anexado
+     * Mï¿½todo para abrir um arquivo anexado
      * @access public
      * @param void
      * @return void
@@ -47,7 +47,7 @@ class AnexospublicosController extends MinC_Controller_Action_Abstract
         $get = Zend_Registry::get('get');
         $id = (int) isset($get->id) ? $get->id : $this->_request->getParam('id');
 
-        // Configuração o php.ini para 10MB
+        // Configuraï¿½ï¿½o o php.ini para 10MB
         @ini_set("mssql.textsize", 10485760);
         @ini_set("mssql.textlimit", 10485760);
         @ini_set("upload_max_filesize", "10M");
@@ -62,10 +62,10 @@ class AnexospublicosController extends MinC_Controller_Action_Abstract
             $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
             $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
             die("N&atilde;o existe o arquivo especificado");
-            $this->view->message = 'Não foi possível abrir o arquivo!';
+            $this->view->message = 'NÃ£o foi possï¿½vel abrir o arquivo!';
             $this->view->message_type = 'ERROR';
         } else {
-            // lê os cabeçalhos formatado
+            // lï¿½ os cabeï¿½alhos formatado
             foreach ($resultado as $r) {
                 $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
                 $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
@@ -90,14 +90,14 @@ class AnexospublicosController extends MinC_Controller_Action_Abstract
      * @param void
      * @return void
      */
-  
+
     public function abrirdocumentosanexadosAction()
     {
         // recebe o id do arquivo via get
         $get = Zend_Registry::get('get');
         $id = (int) $get->id;
         $busca = $this->_request->getParam('busca'); //$get->busca;
-        // Configuração o php.ini para 10MB
+        // Configuraï¿½ï¿½o o php.ini para 10MB
         @ini_set("mssql.textsize", 10485760);
         @ini_set("mssql.textlimit", 10485760);
         @ini_set("upload_max_filesize", "10M");
@@ -119,10 +119,10 @@ class AnexospublicosController extends MinC_Controller_Action_Abstract
             $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
             $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
             die("N&atilde;o existe o arquivo especificado");
-            $this->view->message = 'Não foi possível abrir o arquivo!';
+            $this->view->message = 'NÃ£o foi possï¿½vel abrir o arquivo!';
             $this->view->message_type = 'ERROR';
         } else {
-            // lê os cabeçalhos formatado
+            // lï¿½ os cabeï¿½alhos formatado
             foreach ($resultado as $r) {
                 $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
                 $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render

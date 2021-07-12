@@ -1,11 +1,11 @@
 <?php
 /**
- * PrestaÁ„o de Contas (UC45) - AECI PrestaÁ„o de Contas
+ * PrestaÔøΩÔøΩo de Contas (UC45) - AECI PrestaÔøΩÔøΩo de Contas
  * @author Equipe RUP - Politec
  * @since 27/12/2010
  * @version 1.0
  * @subpackage application.view.scripts.tecnicoprestacaocontas
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  *
  */
@@ -14,20 +14,20 @@
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN√çCIO</a></li>
         <li class="last">Analisar presta&ccedil;&atilde;o de contas</li>
     </ul>
 </div>
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Analisar presta&ccedil;&atilde;o de contas <span class="voltar" style="float:right;"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
     <script>
@@ -79,7 +79,7 @@
             });
 
             $("#encaminhar2").dialog({
-                title : 'Responder solicitaÁ„o de consultoria',
+                title : 'Responder Solicita√ß√£o de consultoria',
                 resizable: true,
                 width:750,
                 height:600,
@@ -102,7 +102,7 @@
             $("#idPronac").val(idPronac);
 
             $("#encaminhar2").dialog({
-                title : 'Encaminhar Projeto para An·lise',
+                title : 'Encaminhar Projeto para An√°lise',
                 resizable: true,
                 width:560,
                 height:580,
@@ -161,7 +161,7 @@
     </script>
     <!-- FIM DO MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
     <!-- HISTORICO DO PROJETO -->
-    <div style="display: none;" id="encaminhar2" title="Encaminhar projeto para an·lise">
+    <div style="display: none;" id="encaminhar2" title="Encaminhar projeto para An√°lise">
 
     </div>
     <!-- FIM DO MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
@@ -171,7 +171,7 @@
     <div id="miolo">
         <table class="tabela" >
             <tr>
-                <td><input type="button" id="abrir_fechar_E18" class="btn_adicionar" />AGUARDANDO AN¡LISE</td>
+                <td><input type="button" id="abrir_fechar_E18" class="btn_adicionar" />AGUARDANDO An√°lise</td>
                 <td width="100" align="right" >Quantidade: <?php echo "0".count($this->AeciPresContas);?></td>
             </tr>
         </table>
@@ -179,12 +179,12 @@
             <?php
             if (count ( $this->AeciPresContas ) > 0) { ?>
             <table class="tabela tablesorter">
-                <thead> 
+                <thead>
                     <tr class="titulo_tabela">
-                        <th width="60">N˙mero</th>
+                        <th width="60">NÔøΩmero</th>
                         <th width="60">Pronac</th>
                         <th>Nome do Projeto</th>
-                        <th width="220">¡rea / Segmento</th>
+                        <th width="220">ÔøΩrea / Segmento</th>
                         <th width="60">Cidade</th>
                         <th width="60">Data de Recebimento</th>
                         <th width="130">Consultoria</th>
@@ -229,7 +229,7 @@
                 ?>
             <table class="tabela">
                 <tr>
-                    <th>VocÍ n„o possui projetos devolvidos apÛs a an·lise.</th>
+                    <th>VocÔøΩ N√£o possui projetos devolvidos apÔøΩs a An√°lise.</th>
                 </tr>
             </table>
                 <?php
@@ -240,7 +240,7 @@
     </div>
 </div>
 
-<!-- inÌcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 <br clear="all" />

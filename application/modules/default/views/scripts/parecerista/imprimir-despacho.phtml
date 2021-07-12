@@ -3,8 +3,8 @@
     <header>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>DESPACHO <?php echo $this->listaDePagamentos[0]['nrDespacho']; ?></title>
-    </header> 
-    
+    </header>
+
     <style>
         body {
         margin:0;
@@ -102,17 +102,17 @@
         <div class="paginaA4">
             <div id="topo-despacho" style="text-align: center; font-size: 13px; font-weight: 500;">
                 <img src="<?php echo $this->baseUrl();?>/public/img/brasaoArmas.jpg" />
-                <div>Ministério da Cidadania</div>
+                <div>Ministï¿½rio da Cidadania</div>
                 <div>Secretaria de Fomento e Incentivo &agrave; Cultura</div>
                 <div>Departamento de Incentivo &agrave; Produ&ccedil;&atilde;o Cultural</div>
-                <div>Coordenação da CNIC e Banco de Pareceristas</div>
+                <div>Coordenaï¿½ï¿½o da CNIC e Banco de Pareceristas</div>
             </div>
             <br />
             <br />
             <div id="topo-despacho-descricao" style="text-align: left; padding-left: 0px; font-size: 15px; font-weight: 500;">
                 <div style="margin-bottom: 4px;">DESPACHO
                     <?php echo $this->listaDePagamentos[0]['nrDespacho']; ?>/<?php echo $this->listaDePagamentos[0]['anoGeracaoPagamento']; ?>/COCBP/DEIPC/SEFIC/MINC</div>
-                <div style="margin-bottom: 4px;">Assunto: Solicitação de Pagamento</div>
+                <div style="margin-bottom: 4px;">Assunto: SolicitaÃ§Ã£o de Pagamento</div>
             </div>
             <br />
             <br />
@@ -120,7 +120,7 @@
                 <div style="padding-right: 10px;"><?php echo Data::DataporExtenso(date('d-m-Y'));?>.</div>
             </div>
             <br />
-            <br />  
+            <br />
             <div style="padding-left: 0px;">&Agrave; Coordena&ccedil;&atilde;o-Geral de Execu&ccedil;&atilde;o Or&ccedil;ament&aacute;ria e Financeira</div>
 
             <table class="tabela" border="1">
@@ -150,18 +150,18 @@
             </table>
 
             <p class="break" style="text-indent: 30px; text-align: justify;">
-               Encaminho a V.Sa., Relação de Pareceres emitidos pelo(a) parecerista <strong><?php echo $this->pareceristaNome; ?></strong>, 
+               Encaminho a V.Sa., Relaï¿½ï¿½o de Pareceres emitidos pelo(a) parecerista <strong><?php echo $this->pareceristaNome; ?></strong>,
                CPF: <b><?php echo Mascara::addMaskCPF($this->pareceristaCpf); ?></b>, cujo valor perfaz o montante de <?php echo $this->formatarReal($this->projetoValor); ?>
                (<?php echo ucfirst($this->projetoValorExtenso); ?>).
             </p>
 
             <p style="text-indent: 30px; text-align: justify;">
-                Solicito que sejam tomadas as providências necessárias para efetuar o pagamento do valor acima citado, tendo em vista que os 
-                serviços foram devidamente realizados.
+                Solicito que sejam tomadas as providï¿½ncias necessï¿½rias para efetuar o pagamento do valor acima citado, tendo em vista que os
+                serviï¿½os foram devidamente realizados.
             </p>
             <p style="text-indent: 30px; text-align: justify;">
-                Realizado o pagamento, os respectivos Recibos de Pagamento Autônomo - RPAs, serão encaminhados para a Secretaria de Fomento e
-                Incentivo à Cultura - SEFIC, para fins de registro e controle.
+                Realizado o pagamento, os respectivos Recibos de Pagamento Autï¿½nomo - RPAs, serÃ¡o encaminhados para a Secretaria de Fomento e
+                Incentivo ï¿½ Cultura - SEFIC, para fins de registro e controle.
             </p>
 
             <?php
@@ -176,7 +176,7 @@
                             echo '<span style="float: right"> Em ___/___/' , date('Y') , '.</span>';
                             break;
                         case 3:
-                            echo '<div style="padding: 10px 0px 10px 0px; text-align: left;">De acordo, encaminhe-se à Coordenação-Geral de Execução Orçamentária e Financeira, para providências.</div>';
+                            echo '<div style="padding: 10px 0px 10px 0px; text-align: left;">De acordo, encaminhe-se ï¿½ Coordenaï¿½ï¿½o-Geral de Execuï¿½ï¿½o Orï¿½amentï¿½ria e Financeira, para providï¿½ncias.</div>';
                             echo '<span style="float: right"> Em ___/___/' , date('Y') , '.</span>';
                             break;
                     endswitch;

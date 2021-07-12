@@ -1,12 +1,12 @@
 <?php
 /**
- * Formulário para Gerar o DBF
+ * Formulï¿½rio para Gerar o DBF
  * @author emanuel.sampaio - Politec
  * @since 29/07/2011
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.dbf
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -20,7 +20,7 @@ $cnpj = '01.264.142/0001-29';
 $ano_atual = date('Y');
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -32,21 +32,21 @@ $ano_atual = date('Y');
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 	<div>Gerar DBF</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 	<script type="text/javascript">
 	<!--
 	/**
-	 * Função para mostrar/ocultar o e-mail
+	 * Funï¿½ï¿½o para mostrar/ocultar o e-mail
 	 */
 	function ver_email(receber)
 	{
@@ -65,31 +65,31 @@ $ano_atual = date('Y');
 
 
 	/**
-	 * Funções que são chamadas após a página ser carregada
+	 * Funï¿½ï¿½es que sï¿½o chamadas apï¿½s a pÃ¡gina ser carregada
 	 */
 	$(document).ready(function()
 	{
-		// máscaras dos campos
+		// mï¿½scaras dos campos
 		$('#ano').keyup(function()
 		{
-			mascara(this, format_num); // somente números
+			mascara(this, format_num); // somente nï¿½meros
 		});
 
 
-		// verifica a opção "Deseja receber uma cópia do arquivo?"
+		// verifica a opï¿½ï¿½o "Deseja receber uma cï¿½pia do arquivo?"
 		$('#receber').click(function()
 		{
 			ver_email(document.getElementById('receber').checked);
 		});
 
 
-		// validações antes do envio do formulário
+		// validaï¿½ï¿½es antes do envio do formulï¿½rio
 		$('#enviar').click(function()
 		{
 			if ( $('#ano').val() == '' || $('#ano').val() <= 1000 || $('#ano').val() >= 3000 )
 			{
 				$('#msg').show();
-				$('#txtMSG').html(' * Por favor, informe um ano válido!');
+				$('#txtMSG').html(' * Por favor, informe um ano vï¿½lido!');
 				$('#ano').focus();
 				$('.btn_cancelar, .btn_confirmar').show();
 				$('.carregando_ajax').hide();
@@ -98,7 +98,7 @@ $ano_atual = date('Y');
 			else if ( document.getElementById('receber').checked == true && ( $('#email').val() == '' || ($('#email').val().indexOf('@') < 1) || ($('#email').val().lastIndexOf('.') <= $('#email').val().indexOf('@')) || ($('#email').val().indexOf('@') == $('#email').val().length) ) )
 			{
 				$('#msg').show();
-				$('#txtMSG').html(' * Por favor, informe um e-mail válido!');
+				$('#txtMSG').html(' * Por favor, informe um e-mail vï¿½lido!');
 				$('#email').focus();
 				$('.btn_cancelar, .btn_confirmar').show();
 				$('.carregando_ajax').hide();
@@ -107,7 +107,7 @@ $ano_atual = date('Y');
 			else if ( $('#ano').val() > <?php echo $ano_atual; ?> )
 			{
 				$('#msg').show();
-				$('#txtMSG').html(' * O ano informado não pode ser maior que o ano atual!');
+				$('#txtMSG').html(' * O ano informado NÃ£o pode ser maior que o ano atual!');
 				$('#email').focus();
 				$('.btn_cancelar, .btn_confirmar').show();
 				$('.carregando_ajax').hide();
@@ -127,8 +127,8 @@ $ano_atual = date('Y');
 
 
 
-	<!-- ========== INÍCIO FORMULÁRIO ========== -->
-	<form name="formGerar" id="formGerar" method="post" 
+	<!-- ========== INÃCIO FORMULï¿½RIO ========== -->
+	<form name="formGerar" id="formGerar" method="post"
 		action="<?php echo $this->url(array('controller' => 'dbf', 'action' => 'gerar-dbf')); ?>" enctype="multipart/form-data">
 
 		<table class="tabela w700">
@@ -164,7 +164,7 @@ $ano_atual = date('Y');
 		<table class="tabela w700">
 			<tr>
 				<td align="center">
-					<input type="reset" title="Cancelar" class="btn_cancelar" value=" " onclick="voltar();" /> 
+					<input type="reset" title="Cancelar" class="btn_cancelar" value=" " onclick="voltar();" />
 					<input type="submit" id="enviar" title="Gerar DBF" class="btn_confirmar" value=" " />
 					<div class="carregando_ajax sumir"><div class="txt_ajax">Gerando DBF, por favor, aguarde...</div></div>
 				</td>
@@ -172,17 +172,17 @@ $ano_atual = date('Y');
 		</table>
 
 	</form>
-	<!-- ========== FIM FORMULÁRIO ========== -->
+	<!-- ========== FIM FORMULï¿½RIO ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

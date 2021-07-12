@@ -407,7 +407,7 @@ function isCnpjValid($cnpj) {
         return false;
     }
 
-    //Etapa 3: O n�mero 00000000000 embora n�o seja um cnpj real resultaria um cnpj v�lido
+    //Etapa 3: O n�mero 00000000000 embora Não seja um cnpj real resultaria um cnpj v�lido
     // ap�s o calculo dos d�gitos verificares e por isso precisa ser filtradas nesta etapa.
     if ($num[0] == 0 && $num[1] == 0 && $num[2] == 0 && $num[3] == 0 && $num[4] == 0 && $num[5] == 0 && $num[6] == 0 && $num[7] == 0 && $num[8] == 0 && $num[9] == 0 && $num[10] == 0 && $num[11] == 0) {
         return false;

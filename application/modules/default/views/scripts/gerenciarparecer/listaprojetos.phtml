@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -8,15 +8,15 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 <?php
 $filtros = array(
-		 'aguardando_distribuicao' => 'Aguardando distribuição',
-		 'em_analise' => 'Em análise',
-		 'em_validacao' => 'Em validação',
+		 'aguardando_distribuicao' => 'Aguardando distribuiï¿½ï¿½o',
+		 'em_analise' => 'Em AnÃ¡lise',
+		 'em_validacao' => 'Em validaï¿½ï¿½o',
 		 'validados' => 'Validados',
-		 'devolvida' => 'Devolvidas para análise',
+		 'devolvida' => 'Devolvidas para AnÃ¡lise',
 		 'impedimento_parecerista' => 'Impedimento do parecerista'
 );
 ?>
@@ -24,7 +24,7 @@ $filtros = array(
 </div>
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <table class="tabela">
 	<tr>
@@ -44,9 +44,9 @@ $filtros = array(
             <td align="center"><?php if($this->qtdDocumentos != 0){echo $this->qtdDocumentos.' Projetos listados';}else{ echo 'Nenhum Registro encontrado!';}?></td>
         </tr>
     </table>
-    
+
     <?php if(count($this->dados)>0): ?>
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINAÃ‡Ã‚O ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -95,11 +95,11 @@ $filtros = array(
             echo " de ". $this->paginacao['total'];
         ?>
     </center>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
     <?php endif; ?>
 
     <?php if($this->qtdDocumentos != 0): ?>
-    
+
         <table class="tabela gerenciar_pareceres">
             <tr class="titulo_tabela">
                 <th width="40"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=nrProjeto&ordem='.$this->paginacao['novaOrdem'];?>">PRONAC</a></th>
@@ -108,26 +108,26 @@ $filtros = array(
                 <th><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=Valor&ordem='.$this->paginacao['novaOrdem'];?>">Vl.&nbsp;Incentivo<br />(S&oacute; Mecenato)</a></th>
                 <th width="250"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=Produto&ordem='.$this->paginacao['novaOrdem'];?>">Produto</a></th>
                 <th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=stPrincipal&ordem='.$this->paginacao['novaOrdem'];?>">Produto principal?</a></th>
-		
+
 		<?php if ($this->tipoFiltro == 'aguardando_distribuicao') { ?>
                 <th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtEnvioMincVinculada&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Chegada &agrave; vinculada</a></th>
 		<?php } else if ($this->tipoFiltro == 'em_analise' || $this->tipoFiltro == 'em_validacao') { ?>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtDistribuicao&ordem='.$this->paginacao['novaOrdem'];?>">Dt. distribui&ccedil;&atilde;o</a></th>
-		
+
 		<?php if ($this->tipoFiltro == 'em_validacao') { ?>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtDevolucao&ordem='.$this->paginacao['novaOrdem'];?>">Dt. devolu&ccedil;&atilde;o</a></th>
 		<?php } ?>
-		
+
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=Parecerista&ordem='.$this->paginacao['novaOrdem'];?>">Parecerista</a></th>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TempoTotalAnalise&ordem='.$this->paginacao['novaOrdem'];?>">Tempo total de an&aacute;lise</a></th>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TempoParecerista&ordem='.$this->paginacao['novaOrdem'];?>">Tempo com parecerista</a></th>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TempoDiligencia&ordem='.$this->paginacao['novaOrdem'];?>">Tempo diligenciado</a></th>
-		
+
 		<?php if ($this->tipoFiltro == 'em_analise') { ?>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=dtEnvioDiligencia&ordem='.$this->paginacao['novaOrdem'];?>">Dt. envio dilig&ecirc;ncia</a></th>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=dtRespostaDiligencia&ordem='.$this->paginacao['novaOrdem'];?>">Dt. resposta dilig&ecirc;ncia</a></th>
 		<?php } ?>
-		
+
 		<?php } else if ($this->tipoFiltro == 'validados') { ?>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TecnicoValidador&ordem='.$this->paginacao['novaOrdem'];?>">T&eacute;cnico validador</a></th>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtValidacao&ordem='.$this->paginacao['novaOrdem'];?>">Dt. valida&ccedil;&atilde;o</a></th>
@@ -140,7 +140,7 @@ $filtros = array(
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtDistribuicao&ordem='.$this->paginacao['novaOrdem'];?>">Dt. distribui&ccedil;&atilde;o</a></th>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtDevolucao&ordem='.$this->paginacao['novaOrdem'];?>">Dt. devolu&ccedil;&atilde;o</a></th>
 		<?php } ?>
-		
+
 		<th width="50">Distribuir / Encaminhar</th>
 
 		<?php if ($this->tipoFiltro != 'aguardando_distribuicao' && $this->tipoFiltro != '') { ?>
@@ -173,19 +173,19 @@ $filtros = array(
                 <td align="center">
                     <?php if ($dp->stPrincipal == 1) { ?><img title="Produto Principal" src="<?php echo $this->baseUrl();?>/public/img/passed.gif" /><?php } ?>
                 </td>
-		
+
 		<?php if ($this->tipoFiltro == 'aguardando_distribuicao') { ?>
 		<td align="center"><?php echo Data::tratarDataZend($dp->DtEnvioMincVinculada, 'Brasileira'); ?></td>
-		
+
 		<?php } else if ($this->tipoFiltro == 'em_analise' || $this->tipoFiltro == 'em_validacao') { ?>
 		<td align="center"><?php echo Data::tratarDataZend($dp->DtDistribuicao, 'Brasileira'); ?></td>
-		
+
 		<?php if ($this->tipoFiltro == 'em_validacao') { ?>
 		<td align="center"><?php echo Data::tratarDataZend($dp->DtDevolucao, 'Brasileira'); ?></td>
 		<?php } ?>
-		
+
 		<td align="center"><strong><?php echo $dp->Parecerista; ?></strong></td>
-		<td align="center"><?php echo $dp->TempoTotalAnalise; ?></td>		
+		<td align="center"><?php echo $dp->TempoTotalAnalise; ?></td>
 		<td align="center"><?php echo $dp->TempoParecerista; ?></td>
 		<td align="center"><?php echo $dp->TempoDiligencia; ?></td>
 
@@ -201,14 +201,14 @@ $filtros = array(
 		<td align="center">
 		    <?php if ($dp->JustComponente != '') { ?>
                     <a title="<?php echo strip_tags($dp->JustComponente); ?>" class="tooltip" style="text-decoration: none; cursor: pointer">
-                        <span title=" "><?php echo substr($dp->JustComponente, 0, 50); ?>...</span>			
+                        <span title=" "><?php echo substr($dp->JustComponente, 0, 50); ?>...</span>
                     </a>
 		    <?php } ?>
 		</td>
 		<td align="center">
 		    <?php if ($dp->JustDevolucaoPedido != '') { ?>
                     <a title="<?php echo strip_tags($dp->JustDevolucaoPedido); ?>" class="tooltip" style="text-decoration: none; cursor: pointer">
-                        <span title=" "><?php echo substr($dp->JustDevolucaoPedido, 0, 50); ?>...</span>			
+                        <span title=" "><?php echo substr($dp->JustDevolucaoPedido, 0, 50); ?>...</span>
                     </a>
 		    <?php } ?>
 		</td>
@@ -245,10 +245,10 @@ $filtros = array(
 		  <?php if ($dp->stPrincipal == 1) { ?>
 		  <!-- pergunto se tem secundarios abertos -->
 		  <?php if($this->checarValidacaoSecundarios[$dp->IdPRONAC] == 1) { ?>
-		  <!-- se retornar true mostra o botão -->
+		  <!-- se retornar true mostra o botï¿½o -->
 		  <img id="img_concluir_analise<?php echo $dp->idDistribuirParecer; ?>" style="cursor:pointer;" title="Concluir" src="<?php echo $this->baseUrl() . '/public/img/save.gif'; ?>" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'concluir', 'idDistribuirParecer' =>$dp->idDistribuirParecer, 'idpronac'=> $dp->IdPRONAC)); ?>/tipoFiltro/<?php echo $this->tipoFiltro; ?>')">
 		  <?php } ?>
-		  <!-- secundários: sempre exibe botão de concluir -->
+		  <!-- secundï¿½rios: sempre exibe botï¿½o de concluir -->
 		  <?php } else { ?>
 		  <img id="img_concluir_analise<?php echo $dp->idDistribuirParecer; ?>" style="cursor:pointer;" title="Concluir" src="<?php echo $this->baseUrl() . '/public/img/save.gif'; ?>" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'concluir', 'idDistribuirParecer' =>$dp->idDistribuirParecer, 'idpronac'=> $dp->IdPRONAC)); ?>/tipoFiltro/<?php echo $this->tipoFiltro; ?>')">
 		  <?php } ?>
@@ -256,7 +256,7 @@ $filtros = array(
 		<?php } ?>
 
             </tr>
-            <?php 
+            <?php
                 $nomeProjeto = $dp->NomeProjeto;
                 $pronac      = $dp->NrProjeto;
                 $produto     = $dp->Produto;
@@ -266,7 +266,7 @@ $filtros = array(
 
         <?php if(count($this->dados) > 0): ?>
 
-            <!-- ============ PAGINAÇÃO ============ -->
+            <!-- ============ PAGINAÃ‡Ã‚O ============ -->
             <center>
                 <?php
                     echo $this->paginacao['inicio']." a ";
@@ -316,7 +316,7 @@ $filtros = array(
                     </tr>
                 </tbody>
             </table>
-            <!-- ========== FIM PAGINAÇÃO ========== -->
+            <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
 
         <?php endif; ?>
     <?php endif; ?>
@@ -324,19 +324,19 @@ $filtros = array(
     <br clear="all" />
 
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />
 
 
 <script type="text/javascript">
     function areadetrabalho(){
-        
+
         $('#pinicial').click(function(){
             $('#analiseinicial').toggle('slow');
         });
-        
+
         $('#preadequacao').click(function(){
             $('#readequacao').toggle('slow');
         });
@@ -350,7 +350,7 @@ $filtros = array(
 		window.location = "<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')); ?>?pag=1&tipoFiltro="+filtro+"&pronac="+pronac;
 	    }
 	});
-	
+
         $("#btn_pesquisar").click(function(){
             var pronac = $('#pronac').val(),
                 filtro = $('.comboFiltro').val();
@@ -365,5 +365,5 @@ $filtros = array(
     window.onload = function(){
         areadetrabalho();
     };
-    
+
 </script>

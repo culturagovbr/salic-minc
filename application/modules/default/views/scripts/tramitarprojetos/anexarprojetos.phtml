@@ -4,7 +4,7 @@ function sumiraqui(id)
 {
 	$('img[class='+id+']').toggle();
 	$('tr[class='+id+']').toggle();
-	
+
 }
 //-->
 </script>
@@ -13,7 +13,7 @@ function sumiraqui(id)
 echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -25,7 +25,7 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
 	<div>Anexar documentos <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
@@ -33,7 +33,7 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 
 
@@ -45,7 +45,7 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
  			<td colspan="7" align="left">
  				<img src="<?php echo $this->baseUrl(); ?>/public/img/icn_menos.gif" class="<?php echo $lote->idLote; ?>" style="cursor:pointer;" onclick="sumiraqui('<?php echo $lote->idLote; ?>');" />
  				<img src="<?php echo $this->baseUrl(); ?>/public/img/icn_mais.gif" class="<?php echo $lote->idLote; ?>" style="cursor:pointer; display:none;" onclick="sumiraqui('<?php echo $lote->idLote; ?>');" />
- 			 &nbsp;&nbsp;&nbsp;&nbsp;	<strong>Lote Nr:</strong> <?php echo $lote->idLote; ?> - Destino: <?php echo $lote->Origem; ?> | 
+ 			 &nbsp;&nbsp;&nbsp;&nbsp;	<strong>Lote Nr:</strong> <?php echo $lote->idLote; ?> - Destino: <?php echo $lote->Origem; ?> |
  			 <a href="<?php echo $this->url(array('controller' => 'tramitardocumentos', 'action' => 'anexarlote')); ?>?idLote=<?php echo $lote->idLote; ?>">Anexar Lote </a>
  			</td>
  		</tr>
@@ -55,8 +55,8 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
  			<th width="150">Nome do Projeto</th>
  			<th width="120">Documento</th>
  			<th width="70">Data</th>
- 			<th>Arquivo</th> 			
- 			<th width="50">Anexar</th> 			
+ 			<th>Arquivo</th>
+ 			<th width="50">Anexar</th>
  		</tr>
  			<?php $docs = TramitarDocumentosDAO::buscarDocumentosRecebidos($this->idUsuarioLogado,$lote->idLote); ?>
  			<?php foreach($docs as $doc): ?>
@@ -69,29 +69,29 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
  			<td align="center"><a href="<?php echo $this->url(array('controller' => 'tramitardocumentos', 'action' => 'abrir')); ?>?id=<?php echo $doc->idDocumento; ?>"><?php echo $doc->noArquivo; ?></a></td>
  			<td align="center"> <img src="<?php echo $this->baseUrl(); ?>/public/img/ico/copy.gif" style="cursor:pointer;" onclick="location.href='<?php echo $this->baseUrl(); ?>/tramitardocumentos/anexardocumento?idDocumento=<?php echo $doc->idDocumento;; ?>'""  /> </td>
  		</tr>
- 			<?php endforeach; ?> 		
- 		<?php endforeach; ?> 		
- 		
+ 			<?php endforeach; ?>
+ 		<?php endforeach; ?>
+
  	</table>
 </fieldset>
 <?php else:?>
 	<table class="tabela">
 		<tr>
 			<td class="centro">
-				N�o h� Documento para Receber!
+				Não h� Documento para Receber!
 			</td>
 		</tr>
 	</table>
-<?php endif;?>   		   
+<?php endif;?>
 
 
 </div>
-<!-- ========== FIM CONTE�DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

@@ -2,7 +2,7 @@
 <div id="alerta" class="sumir"></div>
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="edital/index">Criar Edital - Passo 1</a></li>
         <li class="">Criar Edital - Passo 2</li>
     </ul>
@@ -10,20 +10,20 @@
 
 <div id="titulo">
     <div>Criar Edital<!--span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span--></div>
-</div> 
+</div>
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <fieldset>
-        <legend> Passo 2 - Definir informaÁıes gerais do Edital</legend>
+        <legend> Passo 2 - Definir informaÔøΩÔøΩes gerais do Edital</legend>
         <div id="criteriosAvaliacao" class="">
             <table class="tabela">
                 <tr>
                     <td class="bold w150 esquerdo">
-                        Reutilizar CritÈrios de AvaliÁ„o
+                        Reutilizar CritÔøΩrios de AvaliÔøΩÔøΩo
                     </td>
                     <td>
-                        <img src="<?php echo $this->baseUrl(); ?>/public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th>  
+                        <img src="<?php echo $this->baseUrl(); ?>/public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th>
                     </td>
                 </tr>
             </table>
@@ -38,10 +38,10 @@
                 <input type="hidden" name="idCriterioAvaliacao" id="idCriterioAvaliacao" value="<?php echo $this->idCriterioAvaliacao; ?>" />
                 <table class="tabela" id="tbCriterioAvaliacao">
                     <tr>
-                        <th colspan="8" style="font-size: 14px">CritÈrios de Avali&ccedil;&atilde;o</th>
+                        <th colspan="8" style="font-size: 14px">CritÔøΩrios de Avali&ccedil;&atilde;o</th>
                     </tr>
                     <tr>
-                        <td class="destacar bold w150 esquerdo">CritÈrio de Avali&ccedil;&atilde;o <span style="color: red;">*</span></td>
+                        <td class="destacar bold w150 esquerdo">CritÔøΩrio de Avali&ccedil;&atilde;o <span style="color: red;">*</span></td>
                         <td colspan="4">
                             <input maxlength="200" type="text" name="nomeCriterio" id="nmCriterioAvaliacao" class="input_simples w400 required"><br/>
                             <label id="msgErrorNomeCriterio" class="error"></label>
@@ -79,7 +79,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="destacar bold w150 esquerdo">Texto de ajuda do critÈrio de Avalia&ccedil;&atilde;o (opcional)</td>
+                        <td class="destacar bold w150 esquerdo">Texto de ajuda do critÔøΩrio de Avalia&ccedil;&atilde;o (opcional)</td>
                         <td colspan="7"><textarea style="width: 99%; height: 150px" maxlength="490" name="txtCriterio" id="txCriterioAvaliacao" class="input_simples w400"></textarea></td>
                     </tr>
                     <tr>
@@ -100,16 +100,16 @@
                 <?php if ($this->qtdCriterioAvaliacao == 0): ?>
                     <table class="tabela">
                         <tr>
-                            <td class="centro"><em>Nenhum critÈrio de avaliaÁ„o cadastrado!</em></td>
+                            <td class="centro"><em>Nenhum critÔøΩrio de avaliaÔøΩÔøΩo cadastrado!</em></td>
                         </tr>
                     </table>
                 <?php else: ?>
                     <table class="tabela">
                         <tr>
-                            <th colspan="9">CritÈrios de AvaliaÁ&Atilde;o adicionados</th>
+                            <th colspan="9">CritÔøΩrios de AvaliaÔøΩ&Atilde;o adicionados</th>
                         </tr>
                         <tr>
-                            <td class="destacar bold">CritÈrio</td>
+                            <td class="destacar bold">CritÔøΩrio</td>
                             <td class="destacar bold">Peso</td>
                             <td class="destacar bold">Nota Inicial</td>
                             <td class="destacar bold">Nota Final</td>
@@ -139,12 +139,12 @@
                                 </td>
                                 <td style="vertical-align: top;" class="centro">
                                     <span class="textoDeAjuda" style="cursor: pointer;" txt="<?php echo $ca['txCriterioAvaliacao']; ?>"><img src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png"></span>
-                                </td>  
-                                <td style="vertical-align: top;">
-                                    <?php echo ($ca['stDesempate']) ? 'Sim' : 'N„o'; ?>
                                 </td>
                                 <td style="vertical-align: top;">
-                                    <?php 
+                                    <?php echo ($ca['stDesempate']) ? 'Sim' : 'N√£o'; ?>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <?php
                                         if($ca['orDesempate'] != 0){
                                             $numerosOrdem .= "'".$ca['orDesempate']."'";
                                             if(count($this->criterioavaliacao) > $i){
@@ -154,7 +154,7 @@
 
                                         $i++;
                                     ?>
-                                    <?php echo ($ca['orDesempate']) != '0' ? 'Sim' : 'N„o'; ?>
+                                    <?php echo ($ca['orDesempate']) != '0' ? 'Sim' : 'N√£o'; ?>
                                 </td>
                                 <td nowrap class="centro">
                                     <input type="button" class="btn_editar" onclick="editarCriterio('<?php echo $ca['idCriterioAvaliacao']; ?>');" />
@@ -162,7 +162,7 @@
                                 </td>
                             </tr>
                         <?php endforeach; ?>
-                    </table>    
+                    </table>
                     <?php endif; ?>
                     <?php $numerosOrdem .= ']'; ?>
                 <br clear="all" />
@@ -175,11 +175,11 @@
     </fieldset>
     <input type="hidden" id="idarrayordem" value="<?php echo $numerosOrdem; ?>" />
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
-<!-- ========== INÔøΩCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="txtdialog" title="Texto de Ajuda" style="display: none;">
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script type="text/javascript">
@@ -190,7 +190,7 @@
 //        $("#notaInicio").numeric(",");
 //        $("#notaFim").numeric(",");
 //        $("#varNota").numeric(",");
-        
+
         $('#stDesempate').click(function() {
 
             $('#orDesempate').val('');
@@ -207,11 +207,11 @@
         });
 
         $(".textoDeAjuda").click(function() {
-            
+
             var txt = $(this).attr('txt');
-        
+
             $("#txtdialog").html(txt);
-            
+
             $("#txtdialog").dialog({
                 resizable: false,
                 width:520,
@@ -226,8 +226,8 @@
                         $("#txtdialog").html('');
                     }
                 }
-            });	
-            
+            });
+
         });
 
         $(".incluirCriterio").click(function() {
@@ -245,12 +245,12 @@
                 orDesempate = $('#orDesempate').val(),
                 stDesempate = $('#stDesempate'),
                 ordems      = $('#idarrayordem').val();
-                
+
             notaInicio  = notaInicio.replace(",",".");
             notaFim     = notaFim.replace(",",".");
             nrPeso      = nrPeso.replace(",",".");
             varNota     = varNota.replace(",",".");
-            
+
             $('.required').each(function() {
                 var obj = $(this).val();
                 if (obj == '') {
@@ -259,7 +259,7 @@
             });
 
             if ((check == 1)) {
-                $('#txtmsg').html('Verifique os campos obrigatÛrios!<br />');
+                $('#txtmsg').html('Verifique os campos obrigatÔøΩrios!<br />');
                 $('#msg').show();
                 enviar = 1;
             } else {
@@ -269,27 +269,27 @@
 
             if(ordems != '[]'){
                 if(in_array(orDesempate, ordems)){
-                    $('#txtmsg').append('Ordem de desempate n„o pode se repetir!<br />');
+                    $('#txtmsg').append('Ordem de desempate N√£o pode se repetir!<br />');
                     $('#msg').show();
                     enviar = 1;
                 }
             }
-            
+
             if (parseFloat(notaFim) < parseFloat(notaInicio)) {
-                $('#txtmsg').append('A Nota Final n„o pode ser menor que a Nota Inicial!<br />');
+                $('#txtmsg').append('A Nota Final N√£o pode ser menor que a Nota Inicial!<br />');
                 $('#msg').show();
                 enviar = 1;
             }
 
             if ((nrPeso == '0') || (nrPeso == '00') || (nrPeso == '000')) {
-                $('#txtmsg').append('Peso n„o pode ser igual a 0<br />');
+                $('#txtmsg').append('Peso N√£o pode ser igual a 0<br />');
                 $('#msg').show();
                 enviar = 1;
             }
-            
-            
+
+
             if ((varNota == '0') || (varNota == '00') || (varNota == '000') || (varNota == '0000')) {
-                $('#txtmsg').append('VariaÁ„o da Nota n„o pode ser igual a 0<br />');
+                $('#txtmsg').append('VariaÔøΩÔøΩo da Nota N√£o pode ser igual a 0<br />');
                 $('#msg').show();
                 enviar = 1;
             }
@@ -372,7 +372,7 @@
           strict = !! argStrict;
 
         //we prevent the double check (strict && arr[key] === ndl) || (!strict && arr[key] == ndl)
-        //in just one for, in order to improve the performance 
+        //in just one for, in order to improve the performance
         //deciding wich type of comparation will do before walk array
         if (strict) {
           for (key in haystack) {
@@ -398,7 +398,7 @@
 
     function excluir(id) {
         $("#alerta").dialog("destroy");
-        $("#alerta").html("Tem certeza que deseja excluir o critÈrio de avaliaÁ„o?");
+        $("#alerta").html("Tem certeza que deseja excluir o critÔøΩrio de avaliaÔøΩÔøΩo?");
         $("#alerta").dialog({
             resizable: false,
             title: 'Alerta!',
@@ -406,7 +406,7 @@
             height: 170,
             modal: true,
             buttons: {
-                'N„o': function() {
+                'N√£o': function() {
                     $(this).dialog('close');
                 },
                 'Sim': function() {

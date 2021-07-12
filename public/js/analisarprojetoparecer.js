@@ -1,11 +1,11 @@
 
 /**
- * Função para escolher Artigo 18 e desabilitar Artigo 26
+ * Funï¿½ï¿½o para escolher Artigo 18 e desabilitar Artigo 26
  */
 
 function APPescolherArt_18()
 {
-	// recebe os campos do formAnaliseConteudoulário
+	// recebe os campos do formAnaliseConteudoulï¿½rio
     var Artigo18 = null;
     for (i = 0; i < document.formAnaliseConteudo.Artigo18.length; i++)
     {
@@ -42,17 +42,17 @@ function APPescolherArt_18()
             AlineaArtigo18.value = '';
         }
     }
-} // fecha função escolherArt_18()
+} // fecha funï¿½ï¿½o escolherArt_18()
 
 
 
 /**
- * Função para escolher Artigo 26 e desabilitar Artigo 18
+ * Funï¿½ï¿½o para escolher Artigo 26 e desabilitar Artigo 18
  */
 
 function APPescolherArt_26()
 {
-	// recebe os campos do formAnaliseConteudoulário
+	// recebe os campos do formAnaliseConteudoulï¿½rio
     var Artigo18 = null;
     for (i = 0; i < document.formAnaliseConteudo.Artigo18.length; i++)
     {
@@ -87,12 +87,12 @@ function APPescolherArt_26()
             AlineaArtigo18.value = AlineaArt18;
         }
     }
-} // fecha função escolherArt_26()
+} // fecha funï¿½ï¿½o escolherArt_26()
 
 
 
 /**
- * Função para desabilitar todos os campos caso a opção selecionada seja não
+ * Funï¿½ï¿½o para desabilitar todos os campos caso a opï¿½ï¿½o selecionada seja NÃ£o
  */
 
 function APPescolherLei_8313()
@@ -174,7 +174,7 @@ function APPescolherLei_8313()
 
 
 /**
- * Função para limpar os campos caso a opção selecionada seja não
+ * Funï¿½ï¿½o para limpar os campos caso a opï¿½ï¿½o selecionada seja NÃ£o
  */
 
 function APPescolherArtigo3()
@@ -204,7 +204,7 @@ function APPescolherArtigo3()
 
 
 /**
- * Função para limpar os campos caso a opção selecionada seja não
+ * Funï¿½ï¿½o para limpar os campos caso a opï¿½ï¿½o selecionada seja NÃ£o
  */
 
 function APPescolherDecreto5761()

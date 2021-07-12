@@ -5,16 +5,16 @@ $resconsolidacaopareceristaHref = $this->url(array('controller' => 'gerarrelator
 include_once 'inc/funcoes.inc.php';
 ?>
 <div id="menu">
-    <!-- in�cio: conte�do principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
         <?php
         if(!$this->gerenciar)
         echo $this->partial('gerarrelatorioparecerista/inc/menu.inc.php', $this);
         ?>
-        <!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="index.phtml" title="Ir para In�cio">In�cio</a></li>
+                <li class="first"><a href="index.phtml" title="Ir para INÍCIO">INÍCIO</a></li>
 
                 <li class="last">Principal</li>
             </ul>
@@ -22,7 +22,7 @@ include_once 'inc/funcoes.inc.php';
         <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
         <!-- ========== BUTTON VOLTAR ========== -->
         <div id="titulo">
-            <div>An�lise por parecerista<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+            <div>Análise por parecerista<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
         </div>
         <!-- ========== FIM T�TULO ========== -->
         <!-- ========== GRID NOME DA PROPOSTA ========== -->
@@ -33,14 +33,14 @@ include_once 'inc/funcoes.inc.php';
                     <td align="center"><input type="button" class="btn_pdf" style="width: 40px;" /> <input type="button" class="btn_xls" style="width: 40px;" /></td>
                 </tr>
             </table>
-            
+
 
             <table class="tabela">
                 <tr>
                     <th colspan="3" style="font-size: 13px; font-family: sans-serif; text-align: left;">Parecerista : <?php echo $this->parecerista['nmParecerista'];?></th>
                 </tr>
                 <tr>
-                    <td>QTD de An�lise: <?php echo $this->parecerista['qtAnalise'];?></td>
+                    <td>QTD de Análise: <?php echo $this->parecerista['qtAnalise'];?></td>
                     <td>F�rias:<?php echo $this->parecerista['ferias'];?></td>
                 </tr>
                 <tr>
@@ -80,7 +80,7 @@ include_once 'inc/funcoes.inc.php';
                     <th>Provid?ncia Tomada</th>-->
                 </tr>
                 <?php
-                
+
                 foreach ($this->parecerista['projetos'] as $projeto) {
                     $cProduto = 1;
                     foreach ($projeto['produtos'] as $produto){
@@ -96,7 +96,7 @@ include_once 'inc/funcoes.inc.php';
                                         <td><?php echo $distribuicao['dtDistribuicao'];?></td>
                                         <td><?php echo $distribuicao['nrDias'];?></td>
                                         <td><?php echo $produto['diligencia'];?></td>
-                                        <!--<td>B11 - Encaminhado para an�lise t�cnica</td>
+                                        <!--<td>B11 - Encaminhado para Análise Técnica</td>
                                         <td>Proposta transformada em projeto cultural</td>-->
                                     </tr>
                                     <?php
@@ -110,9 +110,9 @@ include_once 'inc/funcoes.inc.php';
                                         <td><?php echo $distribuicao['dtDistribuicao'];?></td>
                                         <td><?php echo $distribuicao['nrDias'];?></td>
                                         <td></td>
-                                        <!--<td>B11 - Encaminhado para an�lise t�cnica</td>
+                                        <!--<td>B11 - Encaminhado para Análise Técnica</td>
                                         <td>Proposta transformada em projeto cultural</td>
-                                    </tr> --> 
+                                    </tr> -->
                                     <?php
                                 //}
                                 $cdistribuicao++;
@@ -131,7 +131,7 @@ include_once 'inc/funcoes.inc.php';
                                         <td><?php echo $distribuicao['dtDistribuicao'];?></td>
                                         <td><?php echo $distribuicao['nrDias'];?></td>
                                         <td><?php echo $produto['diligencia'];?></td>
-                                        <!--<td>B11 - Encaminhado para an�lise t�cnica</td>
+                                        <!--<td>B11 - Encaminhado para Análise Técnica</td>
                                         <td>Proposta transformada em projeto cultural</td>-->
                                     </tr>
                                     <?php
@@ -145,7 +145,7 @@ include_once 'inc/funcoes.inc.php';
                                         <td><?php //echo $distribuicao['dtDistribuicao'];?></td>
                                         <td><?php //echo $distribuicao['nrDias'];?></td>
                                         <td></td>
-                                        <!--<td>B11 - Encaminhado para an�lise t�cnica</td>
+                                        <!--<td>B11 - Encaminhado para Análise Técnica</td>
                                         <td>Proposta transformada em projeto cultural</td>
                                     </tr> -->
                                     <?php
@@ -172,10 +172,10 @@ include_once 'inc/funcoes.inc.php';
             }
             ?>
         </div>
-        <!-- ========== FIM CONTE�DO ========== -->
-        <!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+        <!-- ========== FIM CONTEÚDO ========== -->
+        <!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
         <div id="rodapeConteudo"><span></span></div>
-        <!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+        <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
         <br clear="all" />
     </div>

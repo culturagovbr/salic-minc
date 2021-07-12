@@ -27,10 +27,10 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
 
         // verifica as permiss�es
         $PermissoesGrupo = array();
-        $PermissoesGrupo[] = 109; // T�cnico de An�lise
-        $PermissoesGrupo[] = 110; // T�cnico de An�lise
-        $PermissoesGrupo[] = 103; // Coordenador de An�lise
-        $PermissoesGrupo[] = 127; // Coordenador - Geral de An�lise
+        $PermissoesGrupo[] = 109; // T�cnico de Análise
+        $PermissoesGrupo[] = 110; // T�cnico de Análise
+        $PermissoesGrupo[] = 103; // Coordenador de Análise
+        $PermissoesGrupo[] = 127; // Coordenador - Geral de Análise
 
         $PermissoesGrupo[] = 131; // Coordenador de Admissibilidade
         $PermissoesGrupo[] = 92;  // T�cnico de Admissibilidade
@@ -117,7 +117,7 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
      * @return void
      */
     public function indexAction() {
-        
+
     }
 
     // fecha m�todo indexAction()

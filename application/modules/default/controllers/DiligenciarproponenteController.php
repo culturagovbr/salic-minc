@@ -10,7 +10,7 @@ class DiligenciarProponenteController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio ï¿½s Leis de Incentivo ï¿½ Cultura"; // tï¿½tulo da pï¿½gina
+        $this->view->title = "Salic - Sistema de Apoio ï¿½s Leis de Incentivo ï¿½ Cultura"; // tï¿½tulo da pÃ¡gina
         $auth = Zend_Auth::getInstance(); // pega a autenticaï¿½ï¿½o
         $Usuario = new UsuarioDAO(); // objeto usuï¿½rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessï¿½o com o grupo ativo
@@ -23,7 +23,7 @@ class DiligenciarProponenteController extends MinC_Controller_Action_Abstract
             // $PermissoesGrupo[] = 119;
            // $PermissoesGrupo[] = 120;
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo estï¿½ no array de permissï¿½es
-                parent::message("Vocï¿½ nï¿½o tem permissï¿½o para acessar essa ï¿½rea do sistema!", "principal/index", "ALERT");
+                parent::message("Vocï¿½ NÃ£o tem permissï¿½o para acessar essa ï¿½rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, orgï¿½os e grupos do usuï¿½rio (pega todos os grupos)
@@ -35,7 +35,7 @@ class DiligenciarProponenteController extends MinC_Controller_Action_Abstract
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usuï¿½rio para a visï¿½o
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o ï¿½rgï¿½o ativo do usuï¿½rio para a visï¿½o
         } // fecha if
-        else { // caso o usuï¿½rio nï¿½o esteja autenticado
+        else { // caso o usuï¿½rio NÃ£o esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -43,8 +43,8 @@ class DiligenciarProponenteController extends MinC_Controller_Action_Abstract
     }
     public function indexAction()
     {
-        $auth              = Zend_Auth::getInstance(); // pega a autenticação
-        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuário
+        $auth              = Zend_Auth::getInstance(); // pega a autenticaï¿½ï¿½o
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuï¿½rio
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $idagente = $idagente['idAgente'];
 
@@ -70,7 +70,7 @@ class DiligenciarProponenteController extends MinC_Controller_Action_Abstract
                     $diligencia = new Diligencia();
                     $idReuniao = $reuniao->buscarReuniaoAberta();
                     $idReuniao = $idReuniao['idNrReuniao'];
-                
+
                     $dadosDiligencia = array(
                                                                 'idPronac' =>$idPronac,
                                                                 'idTipoDiligencia' => 126,
@@ -104,7 +104,7 @@ class DiligenciarProponenteController extends MinC_Controller_Action_Abstract
 
                 // validaï¿½ï¿½o
                 if (empty($pronac)) {
-                    throw new Exception("Por favor, clique no Pronac Aguardando Anï¿½lise!");
+                    throw new Exception("Por favor, clique no Pronac Aguardando AnÃ¡lise!");
                 } else {
                     $diligencia = new Diligencia();
 
@@ -115,7 +115,7 @@ class DiligenciarProponenteController extends MinC_Controller_Action_Abstract
 
                     $this->view->pronac          = $buscarPronac;
                     $this->view->idpronac        = $idpronac;
-                                        
+
                     $this->view->Respostas       = ($respostaDiligencia->count() > 0) ? $respostaDiligencia : false;
                     //-------------------------------------------------------------------------------------------------------------
                     $reuniao = new Reuniao();
@@ -139,7 +139,7 @@ class DiligenciarProponenteController extends MinC_Controller_Action_Abstract
                             }
                         }
                     } else {
-                        parent::message("Nï¿½o existe CNIC aberta no momento. Favor aguardar!", "principal/index", "ERROR");
+                        parent::message("NÃ£o existe CNIC aberta no momento. Favor aguardar!", "principal/index", "ERROR");
                     }
                 } // fecha else
             } // fecha try

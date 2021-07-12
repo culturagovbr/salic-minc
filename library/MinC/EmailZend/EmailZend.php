@@ -3,7 +3,7 @@
 /**
 *nome: email.php
 *Classe: EmailZend
-*Descrição: Envio de e-mails atraves da ZF.
+*DescriÃ§Ã£o: Envio de e-mails atraves da ZF.
 */
 class EmailZend
 {

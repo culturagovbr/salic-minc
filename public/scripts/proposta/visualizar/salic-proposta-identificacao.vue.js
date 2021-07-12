@@ -10,7 +10,7 @@ Vue.component('salic-proposta-identificacao', {
                         {{ proposta.PRONAC }}
                     </div>
                     <div class="col s12 l3 m3" v-if="proposta.idPreProjeto">
-                        <b>Nº da proposta</b><br>
+                        <b>Nï¿½ da proposta</b><br>
                         {{ proposta.idPreProjeto }}
                     </div>
                     <div class="col s12 l6 m6">
@@ -49,7 +49,7 @@ Vue.component('salic-proposta-identificacao', {
                         <salic-texto-simples :texto="proposta.AgenciaBancaria"></salic-texto-simples>
                     </div>
                     <div class="col s12 l3 m3" v-if="proposta.AreaAbrangencia">
-                        <b>É proposta audiovisual</b><br>
+                        <b>ï¿½ proposta audiovisual</b><br>
                         {{ AreaAbrangencia }}
                     </div>
                     <div class="col s12 l3 m3" v-if="proposta.tpProrrogacao">
@@ -68,7 +68,7 @@ Vue.component('salic-proposta-identificacao', {
                 <h5>Tombamento</h5>
                 <div class="row">
                     <div class="col s12 l4 m4">
-                        <b>Nº Ato</b><br>
+                        <b>Nï¿½ Ato</b><br>
                         {{ proposta.NrAtoTombamento }}
                     </div>
                     <div class="col s12 l4 m4">
@@ -100,7 +100,7 @@ Vue.component('salic-proposta-identificacao', {
             if (valor == 1)
                 return 'Sim';
             else
-                return 'Não';
+                return 'NÃ£o';
         },
         label_mecanismo: function (valor) {
             switch (valor) {
@@ -108,7 +108,7 @@ Vue.component('salic-proposta-identificacao', {
                     return 'Mecenato';
                     break;
                 default:
-                    return 'Inválido';
+                    return 'Invï¿½lido';
                     break;
             }
         },
@@ -133,7 +133,7 @@ Vue.component('salic-proposta-identificacao', {
                     string = 'Federal';
                     break;
                 default:
-                    string = 'Não informada';
+                    string = 'NÃ£o informada';
                     break;
             }
 

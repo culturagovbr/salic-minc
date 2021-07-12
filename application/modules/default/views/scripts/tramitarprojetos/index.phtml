@@ -60,7 +60,7 @@ $(document).ready(function(){
 			}
 		});
 		if(validar == false){
-			$("#error").html('Dados obrigatórios não informados!');
+			$("#error").html('Dados obrigatï¿½rios NÃ£o informados!');
 			$("#error").dialog('open');
 			$("#error").dialog
             ({
@@ -113,7 +113,7 @@ $(document).ready(function(){
 				}
 			});
 			if(validar == false){
-				$("#error").html('Dados obrigatórios não informados!');
+				$("#error").html('Dados obrigatï¿½rios NÃ£o informados!');
 				$("#error").dialog('open');
 				$("#error").dialog
 	            ({
@@ -175,14 +175,14 @@ function buscarProjeto(v)
 			{
 				if (data[i].msg == 'ok')
 				{
-					$('#l_localizacao').html('Localização: '+data[i].localizacao);
+					$('#l_localizacao').html('Localizaï¿½ï¿½o: '+data[i].localizacao);
 					$('#l_processonome').html(data[i].processonome);
 					$('#idpronac').val(data[i].idpronac);
 					$('#idDestino').val(data[i].Orgao);
 				}
 				else
 				{
-					$('#l_localizacao').html('Projeto não Cadastrado!');
+					$('#l_localizacao').html('Projeto NÃ£o Cadastrado!');
 					$('#l_processonome').html('');
 					$('#idpronac').val('');
 				}
@@ -209,7 +209,7 @@ if (isset($_GET['pronac'])) {
 echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -219,15 +219,15 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 </div>
 <!-- ========== FIM BRADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 	<div>Cadastrar projetos <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div id="error"></div>
 <div id="confirm" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja excluir o registro?</div>
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 <fieldset><legend> Preencha os dados abaixo </legend>
 	<?php if (isset ($_GET['pronac'])) {?>
@@ -395,10 +395,10 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
  </fieldset>
 <?php }?>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

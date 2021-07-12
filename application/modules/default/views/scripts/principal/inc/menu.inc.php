@@ -1,4 +1,4 @@
-<!-- ========== IN�CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
@@ -14,10 +14,10 @@
 	});
 	</script>
 
-	<!-- in�cio: conte�do principal #container -->
+	<!-- INÍCIO: CONTEÚDO principal #container -->
 	<div id="container">
 
-		<!-- in�cio: navega��o local #qm0 -->
+		<!-- INÍCIO: navega��o local #qm0 -->
 		<script type="text/javascript">
 		function layout_fluido()
 		{

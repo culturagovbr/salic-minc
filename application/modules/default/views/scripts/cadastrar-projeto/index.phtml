@@ -67,7 +67,7 @@ $('#cnpfcpf').blur(function(){
                         $('#nomeProponente').html(data.descricao);
                     } else{
                         $("#erro").dialog("destroy");
-                        $("#erro").html("Agente n�o cadastrado no Sistema.<br />Deseja cadastra-lo ? ");
+                        $("#erro").html("Agente Não cadastrado no Sistema.<br />Deseja cadastra-lo ? ");
                         $("#erro").dialog({
                         resizable: false,
                         title: 'Aten��o!',
@@ -78,7 +78,7 @@ $('#cnpfcpf').blur(function(){
                             'Sim' : function(){
                                 redirecionar('<?php echo $this->baseUrl() ?>' + '/agente/agentes/incluiragente/cpf/' + CgcCpf.replace( /[^0-9]/g, '' ) + '/cadastrarprojeto/fnc');
                             },
-                            'N�o' : function(){
+                            'Não' : function(){
                                 $('#cnpfcpf').val('');
                                  $('#nomeProponente').html('');
                                 $(this).dialog('close');
@@ -105,7 +105,7 @@ $("#btn_salvar").click(function(){
 
     if(preenchimento) {
         $("#erro").dialog("destroy");
-        $("#erro").html("Dados obrig�torios n�o informados.");
+        $("#erro").html("Dados obrig�torios Não informados.");
         $("#erro").dialog({
             resizable: false,
             title: 'Aten��o!',
@@ -198,10 +198,10 @@ $(function()
 </script>
 <link type="image/x-icon" rel="shortcut icon" href="/NovoSalic/public/img/favicon.ico" />
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="index.phtml" title="Ir para In�cio">In�cio</a></li>
+        <li class="first"><a href="index.phtml" title="Ir para INÍCIO">INÍCIO</a></li>
         <li class="last">Cadastrar Projetos FNC	</li>
     </ul>
 </div>
@@ -218,7 +218,7 @@ $(function()
 
 
         <form action="<?php echo $this->url(array('controller' => 'cadastrarprojeto', 'action' => 'cadastrarprojetos')); ?>" name="formCadastraProjeto" method="POST" id="formCadastraProjeto">
-        <!-- ========== IN�CIO TABELA DADOS ========== -->
+        <!-- ========== INÍCIO TABELA DADOS ========== -->
         <?php //require_once "inc/menuabas.phtml"; // menu abas ?>
         <div id="tabDados">
             <table class="tabela">

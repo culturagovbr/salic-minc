@@ -1,6 +1,6 @@
 <?php
 /**
- * Situação da procuração
+ * Situaï¿½ï¿½o da procuraï¿½ï¿½o
  * @author Equipe RUP - Politec
  * @since 29/03/2010
  * @version 1.0
@@ -13,7 +13,7 @@
 class Zend_View_Helper_SituacaoProcuracao
 {
     /**
-     * Informa a situação da procuração
+     * Informa a situaï¿½ï¿½o da procuraï¿½ï¿½o
      * @access public
      * @param integer $stvinculo
      * @return string
@@ -21,7 +21,7 @@ class Zend_View_Helper_SituacaoProcuracao
     public function situacaoProcuracao($stvinculo)
     {
         if ($stvinculo == 0) {
-            $return =  "Aguardando An&aacute;lise";
+            $return =  "Aguardando AnÃ¡lise";
         }
         if ($stvinculo == 1) {
             $return =  "Aprovado";

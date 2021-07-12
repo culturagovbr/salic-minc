@@ -21,7 +21,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract
         // verifica as permissoes
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
-        $PermissoesGrupo[] = 103;  // Coordenador de An�lise
+        $PermissoesGrupo[] = 103;  // Coordenador de Análise
         $PermissoesGrupo[] = 122;  // Coordenador de Acompanhamento
 
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
@@ -71,7 +71,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract
 //        $this->view->nomeproponente = $buscaAcessos[0]->Nome;
         //x($this->idResponsavel);
         //x($this->idAgente);
-        
+
 
         parent::init();
     }
@@ -249,7 +249,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract
             }
 
 
-            // ======== CADASTRA A VIS�O DE PROCURADOR PARA O RESPONS�VEL CASO A MESMA N�O EXISTA ========
+            // ======== CADASTRA A VIS�O DE PROCURADOR PARA O RESPONS�VEL CASO A MESMA Não EXISTA ========
             $buscarDadosResponsavel = $Sgcacesso->buscar(array('IdUSuario = ?' => $responsavel))->current(); // busca os dados do respons�vel
             $buscarDadosAgente      = $Agentes->buscar(array('CNPJCPF = ?' => $buscarDadosResponsavel['Cpf']))->current(); // verifica se o respons�vel � um agente
 

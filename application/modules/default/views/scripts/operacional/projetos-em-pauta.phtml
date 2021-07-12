@@ -22,7 +22,7 @@
             visao.remove(i); // remove o option do select de origem
             i--;
         }
-    } // fecha funç?o addTodos()
+    } // fecha funï¿½?o addTodos()
 
 
     function delTodos() // deleta todos os options da direita
@@ -41,7 +41,7 @@
                 i--;
             }
         }
-    } // fecha funç?o delTodos()
+    } // fecha funï¿½?o delTodos()
 
 
     function addSelecionado() // adiciona o option selecionado da esquerda para direita
@@ -60,7 +60,7 @@
                 i--;
             }
         }
-    } // fecha funç?o addSelecionado()
+    } // fecha funï¿½?o addSelecionado()
 
 
     function delSelecionado() // deleta o option selecionado da direita
@@ -79,26 +79,26 @@
                 i--;
             }
         }
-    } // fecha funç?o delSelecionado()
+    } // fecha funï¿½?o delSelecionado()
 
 
-    function selecionarOptions() // funç?o para selecionar todos os options antes do envio do formulário
+    function selecionarOptions() // funï¿½?o para selecionar todos os options antes do envio do formulï¿½rio
     {
         visaoAgente = document.getElementById("visaoAgente"); // select de destino
         for (i = 0; i < visaoAgente.length; i++) // varre todo o option de origem
         {
             visaoAgente.options[i].selected = true; // adiciona o novo option no select de destino
         }
-    } // fecha funç?o selecionarOptions()
+    } // fecha funï¿½?o selecionarOptions()
 </script>
 
 <?php echo $this->partial('operacional/inc/menu.inc.php', $this); ?>
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Extrato de Pauta de Reuni&atilde;o da CNIC</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div id="conteudo" align="center">
 
@@ -139,7 +139,7 @@
                         </td>
                 </tr>
                 <tr>
-                        <td>Área Cultural</td>
+                        <td>ï¿½rea Cultural</td>
                         <td align="left">
                             <select name="area" id="area" style="width: 200px;" class="input_simples">
                                 <option value="">Selecione</option>
@@ -197,13 +197,13 @@
                                             <option value="cmpsOrd_SolicitadoReal">Solicitado</option>
                                             <option value="cmpsOrd_SugeridoReal">Sugerido</option>
                                             <option value="cmpsOrd_Processo">Processo</option>
-                                            <option value="cmpsOrd_o.Sigla">Órg&atilde;o</option>
+                                            <option value="cmpsOrd_o.Sigla">ï¿½rg&atilde;o</option>
                                             <option value="cmpsOrd_#ResumoProjeto">Resumo do Projeto</option>
                                             <option value="cmpsOrd_TipoParecer">Tipo de Parecer</option>
                                             <option value="cmpsOrd_NumeroReuniao">Nr.Reuni&atilde;o</option>
-                                            <option value="cmpsOrd_#ResumoParecer">Parecer Técnico</option>
+                                            <option value="cmpsOrd_#ResumoParecer">Parecer Tï¿½cnico</option>
                                             <option value="cmpsOrd_#cgccpf">CNPJ/CPF</option>
-                                            <option value="cmpsOrd_#Area">Área Cultural</option>
+                                            <option value="cmpsOrd_#Area">ï¿½rea Cultural</option>
                                             <option value="cmpsOrd_s.Descricao">Situa&ccedil;&atilde;o</option>
                                             <option value="cmpsOrd_Cidade">Cidade</option>
                                             <option value="cmpsOrd_Uf">UF do Projeto</option>
@@ -235,12 +235,12 @@
 <div id="resultadoConsulta"></div>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

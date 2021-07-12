@@ -42,7 +42,7 @@
 
     function buscarProjeto(v){
         if($("#pronac").val().length < 6){
-            $("#error").html('Pronac tem que ter no mínimo 6 caracteres!');
+            $("#error").html('Pronac tem que ter no mï¿½nimo 6 caracteres!');
             $("#error").dialog('open');
             $("#error").dialog({
                 width:350,
@@ -73,14 +73,14 @@
                         if (data[i].msg == 'ok'){
                             var codOrgao = <?php echo $this->codOrgao; ?>
 
-                            $('#l_localizacao').html('Localização: '+data[i].localizacao);
+                            $('#l_localizacao').html('Localizaï¿½ï¿½o: '+data[i].localizacao);
                             $('#l_processonome').html(data[i].processonome);
                             $('#idpronac').val(data[i].idpronac);
                             $('#idDestino').val(data[i].Orgao);
                             $('#btnSalvar').show();
                             $('#mostraMsg').html('');
                         } else {
-                            $('#l_localizacao').html('Projeto não Cadastrado!');
+                            $('#l_localizacao').html('Projeto NÃ£o Cadastrado!');
                             $('#l_processonome').html('');
                             $('#idpronac').val('');
                         }
@@ -88,7 +88,7 @@
                 },
                 error: function(data){
                     $('#l_erro').html('Informe o Pronac!');
-                    //alert('Falha na recuperação dos dados.\nNão foi possível carregar os e-mails!');
+                    //alert('Falha na recuperaï¿½ï¿½o dos dados.\nNÃ£o foi possï¿½vel carregar os e-mails!');
                 }
             });
         }
@@ -99,7 +99,7 @@
     echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this); // menu
 }?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -112,15 +112,15 @@
 <div id="error"></div>
 <div id="wrapper"></div>
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Cadastrar documentos <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div id="confirm" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja excluir o registro?</div>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
     <form action="<?php echo $this->url(array('controller' => 'tramitardocumentos', 'action' => 'despachardoc')); ?>" method="post" enctype="multipart/form-data">
@@ -153,7 +153,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold">Código ECT</td>
+                <td class="destacar bold">CÃ³digo ECT</td>
                 <td><input type="text" class="input_simples" name="cod_ect" id="cod_ect" value="" size="20" maxlength="13" /></td>
             </tr>
             <tr>
@@ -196,7 +196,7 @@
                 <th width="120">Documento</th>
                 <th width="70">Data</th>
                 <th>Arquivo</th>
-                <th>Situação</th>
+                <th>Situaï¿½ï¿½o</th>
                 <th>Excluir</th>
             </tr>
             <?php foreach($docs as $doc) { ?>
@@ -219,18 +219,18 @@
         <?php if($x == 0) :?>
         <table class="tabela">
             <tr>
-                <td class="centro">Não há documentos cadastrados!</td>
+                <td class="centro">NÃ£o hï¿½ documentos cadastrados!</td>
             </tr>
         </table>
         <?php endif;?>
     </fieldset>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

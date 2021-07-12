@@ -1,47 +1,47 @@
 <?php
 /**
- * Planilha Orçamento
+ * Planilha Orï¿½amento
  * @author Equipe RUP - Politec
  * @since 07/06/2010
  * @version 1.0
  * @package application
  * @subpackage application.controller.realizaranaliseprojeto
  * @link http://www.cultura.gov.br
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  */
-	
+
 ?>
-	
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li><a href="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'planilhaorcamento')); ?>" title="Ir para Análise do Membro da Comissão">Análise do Membro da Comissão</a></li>
-		<li class="last">Planilha de Orçamento Aprovada</li>
+		<li><a href="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'planilhaorcamento')); ?>" title="Ir para AnÃ¡lise do Membro da comissÃ£o">AnÃ¡lise do Membro da comissÃ£o</a></li>
+		<li class="last">Planilha de Orï¿½amento Aprovada</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-	
-	
-	
-<!-- ========== INÍCIO TÍTULO ========== -->
+
+
+
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Planilha de Orçamento Aprovada <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>Planilha de Orï¿½amento Aprovada <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
-	
-	
-	
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
+
+
+
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
-	
-	
-	<script language="javascript">  
+
+
+	<script language="javascript">
 	<!--
-	function verifica()    
-	{         
-		if (formu.justificativa.value=="")            
-		alert("Por favor, Digite a Justificativa!");         
+	function verifica()
+	{
+		if (formu.justificativa.value=="")
+		alert("Por favor, Digite a Justificativa!");
 		return false;
 	}
 	//-->
@@ -49,7 +49,7 @@
 
 
 
-	<!-- ========== INÍCIO PRONAC ========== -->
+	<!-- ========== INÃCIO PRONAC ========== -->
 	<table class="tabela">
 		<tr>
 			<th>
@@ -63,10 +63,10 @@
 
 
 	<form name="form" id="form" action="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'planilhaorcamentoaprovada')); ?>?idPronac=<?php echo $p->IdPRONAC; ?>" method="post">
-								
-		<table class="tabela">	
 
-			<!-- ========== INÍCIO BUSCA POR PRODUTO ========== -->
+		<table class="tabela">
+
+			<!-- ========== INÃCIO BUSCA POR PRODUTO ========== -->
 			<?php
 			$item = 1; // contador para os itens
 			$contadorProd  = 0;
@@ -82,18 +82,18 @@
 					</strong>
 				</td>
 			</tr>
-	
-	
-	
-				<!-- ========== INÍCIO BUSCA POR ETAPA ========== -->
+
+
+
+				<!-- ========== INÃCIO BUSCA POR ETAPA ========== -->
 				<?php
 				foreach (SolicitarRecursoDecisaoDAO::analiseDeCustosBuscarEtapa($buscarProd->IdPRONAC, $buscarProd->idProduto, true) as $buscarEtapa) :
 				?>
-	
+
 				<tr class="IFF IFF_PRODUTO<?php echo $contadorProd; ?>">
 					<td colspan="12">
 						<strong style="margin-left:2%;">
-							<?php foreach ($this->planilhaEtapa as $etapa) : // Nome ou Descrição da Etapa ?>
+							<?php foreach ($this->planilhaEtapa as $etapa) : // Nome ou DescriÃ§Ã£o da Etapa ?>
 								<?php if ($buscarEtapa->idEtapa == $etapa->idPlanilhaEtapa) : ?>
 									<div id="icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>" class="sumir"><a href="#icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>" onclick="$('#icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>, .IFF_ETAPA<?php echo $contadorEtapa; ?>').show(); $('#icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>').hide();" onkeypress=" "><div class="icn_mais" style="width:90%; margin-left:4%;"><span class="orange del_link"><?php echo $buscarEtapa->idEtapa; ?> - <?php echo $etapa->Descricao; ?></span></div></a></div>
 									<div id="icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>"><a href="#icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>" onclick="$('#icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>').show(); $('#icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>, .IFF_ETAPA<?php echo $contadorEtapa; ?>').hide();" onkeypress=" "><div class="icn_menos" style="width:90%; margin-left:4%;"><span class="orange del_link"><?php echo $buscarEtapa->idEtapa; ?> - <?php echo $etapa->Descricao; ?></span></div></a></div>
@@ -102,17 +102,17 @@
 						</strong>
 					</td>
 				</tr>
-	
-	
-	
-					<!-- ========== INÍCIO BUSCA POR UF ========== -->
+
+
+
+					<!-- ========== INÃCIO BUSCA POR UF ========== -->
 					<?php
 					//foreach (RealizarAnaliseProjetoDAO::analiseDeCustosBuscarUF($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, true) as $buscarUF) :
 					?>
-	
-	
-	
-						<!-- ========== INÍCIO ÍTENS ========== -->
+
+
+
+						<!-- ========== INÃCIO ï¿½TENS ========== -->
 					    <tr class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?>">
 						<th>Item</th>
 					        <th width="10%">Valor do Item</th>
@@ -120,18 +120,18 @@
 					        <th width="49%">Justificativa</th>
 					        <th width="6%">Reintegrar</th>
 					    </tr>
-	
+
 						<?php
 						// caso tenha projetos
 						$totalItens = 0;
 						if (count(SolicitarRecursoDecisaoDAO::analiseDeConta($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, null, null, true)) > 0)
 						{
 							foreach (SolicitarRecursoDecisaoDAO::analiseDeConta($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, null, null, true) as $resposta) :
-								$i = $resposta->idPlanilhaAprovacao; // criará id únido
+								$i = $resposta->idPlanilhaAprovacao; // criarï¿½ id ï¿½nido
 						?>
-	
-					    <tr onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);" 
-					    	class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?> 
+
+					    <tr onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);"
+					    	class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?>
 					    		<?php
 					    		if ($i == $_GET['Ativo'])
 					    		{
@@ -148,32 +148,32 @@
 					    		$totalItens--;
 					    		?>">
 					        <td>
-	
-	
-								<a onclick="modal(<?php echo $i; ?>)"><?php echo $this->escape($resposta->Item); ?></a> 
+
+
+								<a onclick="modal(<?php echo $i; ?>)"><?php echo $this->escape($resposta->Item); ?></a>
 					        </td>
-					        
-					
-	
-					      
+
+
+
+
 					        <td class="direita<?php if ($resposta->VlSugeridoParecerista == $resposta->VlSugeridoConselheiro) echo " blue"; ?>"><?php echo $this->formatarReal($this->escape($resposta->VlSolicitado)); ?></td>
 					        <td class="direita<?php if ($resposta->VlSugeridoParecerista == $resposta->VlSugeridoConselheiro) echo " green"; ?>"><?php echo $this->formatarReal($this->escape($resposta->VlSugeridoParecerista)); ?></td>
 
-					        
-					        
-					        
-					        
-					        
-					        
-					      					        
+
+
+
+
+
+
+
 					        			<td>
 					    <input type="hidden" name="idProduto[<?php echo $item-1; ?>]" value="<?php echo $resposta->idProduto; ?>" /></input>
 						<input type="hidden" name="idPronac" value="<?php echo $resposta->IdPRONAC; ?>" /></input>
 						<input type="hidden" name="idPlanilha[<?php echo $item-1; ?>]" value="<?php echo $resposta->idPlanilhaAprovacao; ?>" /></input>
 						<input type="hidden" name="idRecurso[<?php echo $item-1; ?>]" value="<?php echo $resposta->idRecurso; ?>" /></input>
 				<?php
-				if (!empty($resposta->justificativa)  || ($resposta->VlSugeridoParecerista == $resposta->VlSolicitado) 
-	
+				if (!empty($resposta->justificativa)  || ($resposta->VlSugeridoParecerista == $resposta->VlSolicitado)
+
 				)
 				{
 					echo ($this->escape($resposta->justificativa));
@@ -182,79 +182,79 @@
 				{
 				?>
 					<textarea cols="80" id="justificativa" name="justificativa[<?php echo $item-1; ?>]" class="textarea_simples" rows="5"></textarea>
-				<?php 
+				<?php
 				}
 				?>
-				
+
 
 			</td>
-		
-					          
-					        
-					        
-					        
-					        
-		
-					        
+
+
+
+
+
+
+
+
 					        <td align="center">
-					        
-					        
-		
-							
+
+
+
+
 							<?php if (!empty($resposta->justificativa)  || ($resposta->VlSugeridoParecerista == 0)) {?>
-							
+
 							<input type="checkbox" name="reintegrar[<?php echo $item-1; ?>]" id="<?php echo $item-1; ?>" value="<?php echo $item-1; ?>" class="checkbox" <?php if ($this->status == 'AO' || !isset($this->status)); ?> ></input> </td>
-						
+
 						    <?php }
-						    
+
 						    else {?>
 						    <input type="checkbox" name="reintegrar[<?php echo $item-1; ?>]" id="<?php echo $item-1; ?>" value="<?php echo $item-1; ?>" class="checkbox" <?php if ($this->status == 'AO' || !isset($this->status)); ?>></input> </td>
 						    <?php } ?>
-						
-					</td>	
-					
+
+					</td>
+
 						</tr>
-	
-	
-	
+
+
+
 						<?php
 								$item++; // incrementa o contador de itens
-							endforeach; // fecha foreach itens		
+							endforeach; // fecha foreach itens
 						} // fecha if (caso tenha projetos)
 						?>
-						<!-- ========== FIM ÍTENS ========== -->
-	
-	
-	
+						<!-- ========== FIM ï¿½TENS ========== -->
+
+
+
 						<?php $contadorUF++; ?>
 					<?php // endforeach; ?>
 					<!-- ========== FIM BUSCA POR UF ========== -->
-	
-	
-	
+
+
+
 				<?php
 					$contadorEtapa++;
 				endforeach;
 				?>
 				<!-- ========== FIM BUSCA POR ETAPA ========== -->
-	
-	
-	
+
+
+
 			<?php $contadorProd++; ?>
 			<?php endforeach; ?>
 			<!-- ========== FIM BUSCA POR PRODUTO ========== -->
 
-	
+
 			<tr>
 				<td colspan="10">
 						<?php
-			
+
 					if(!empty($contadorProd)){?>
 					<div class="float_right">
 						<input type="submit" class="btn_salvar" value=" " /></input>
 					</div>
 					<?php } else{
-						echo "Não existe Planilha para reintegrar"; ?>					
+						echo "NÃ£o existe Planilha para reintegrar"; ?>
 						<?php }?>
 				</td>
 			</tr>
@@ -262,12 +262,12 @@
 	</form>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

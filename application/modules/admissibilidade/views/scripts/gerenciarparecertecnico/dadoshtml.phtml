@@ -19,8 +19,8 @@ foreach ($this->ParecerTecnico as $parecer):
     $html .= '</tr>';
     $html .= '</table>';
 
-    $html .= '<table width="100%"> 
-	
+    $html .= '<table width="100%">
+
 	<tr>
 		<td colspan="2"><b>Nome do Projeto: </b>' . $parecer->NomeProjeto . '</td>
 	</tr>
@@ -29,11 +29,11 @@ foreach ($this->ParecerTecnico as $parecer):
 		<td><b>Area: </b>' . $parecer->Area . '</td>
 	</tr>
 	<tr>
-		<td><b>Segmento: </b>' . $parecer->Segmento . '</td> 
+		<td><b>Segmento: </b>' . $parecer->Segmento . '</td>
 		<td><b>Mecanismo: </b>' . $parecer->Mecanismo . '</td>
 	</tr>
 	<tr>
-		<td><b>Proponente: </b>' . $parecer->Proponente . '</td> 
+		<td><b>Proponente: </b>' . $parecer->Proponente . '</td>
 		<td><b>Processo: </b>' . $parecer->Processo . '</td>
 	</tr>
 	<tr>
@@ -59,7 +59,7 @@ endforeach;
 
 $html .= '<table width="100%" border="2px">
 	<tr class="titulo_tabela">
-		<th colspan="4" style="background-color: #D3D3D3;">An�lise de Conte�do do Projeto</th>
+		<th colspan="4" style="background-color: #D3D3D3;">Análise de CONTEÚDO do Projeto</th>
 	</tr>
 </table>
 <table width="100%" border="2px">';
@@ -125,7 +125,7 @@ foreach ($this->FonteRecurso as $fonte):
                             $html .= '<tr class="fundo_linha2 left">
 		<td colspan="8"><h4 style="color: black;"><b>' . $uf->UF . ' - ' . $uf->Municipio . '</b></h4></td>
 	</tr>
-	
+
 	<tr class="titulo_tabela">
 		<td align="center" style="background-color: #D3D3D3;"></td>
 		<td align="center" width="30%" style="background-color: #D3D3D3;">&Iacute;tem</td>
@@ -183,7 +183,7 @@ foreach ($this->FonteRecurso as $fonte):
 		<td colspan="7"><h1 style="color: red;"><b>Total por Mecanismo de Incentivo</b></h1></td>
 		<td align="center"><h1 style="color: red;"><b>' . $TotalRecurso . '</b></h1></td>
 	</tr>
-	
+
 </table>';
 endforeach;
 

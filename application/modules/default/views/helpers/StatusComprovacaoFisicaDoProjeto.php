@@ -1,19 +1,19 @@
 <?php
 /**
- * Nomes dos status da comprovação física do projeto
+ * Nomes dos status da comprovaï¿½ï¿½o fï¿½sica do projeto
  * @author Equipe RUP - Politec
  * @since 14/05/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.helpers
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_StatusComprovacaoFisicaDoProjeto
 {
     /**
-     * Método com os status dos comprovantes de status do projeto
+     * Mï¿½todo com os status dos comprovantes de status do projeto
      * @access public
      * @param string $status
      * @return string $nomeStatus
@@ -21,21 +21,21 @@ class Zend_View_Helper_StatusComprovacaoFisicaDoProjeto
     public function statusComprovacaoFisicaDoProjeto($status)
     {
         if ($status == 'AG') {
-            $nomeStatus = "Aguardando Avaliação";
+            $nomeStatus = "Aguardando AvaliaÃ§Ã£o";
         } elseif ($status == 'AV') {
-            $nomeStatus = "Em Avaliação";
+            $nomeStatus = "Em AvaliaÃ§Ã£o";
         } elseif ($status == 'EA') {
-            $nomeStatus = "Em Aprovação";
+            $nomeStatus = "Em aprovaÃ§Ã£o";
         } elseif ($status == 'AD') {
             $nomeStatus = "Avaliado - Deferido";
         } elseif ($status == 'AI') {
             $nomeStatus = "Avaliado - Indeferido";
         } elseif ($status == 'CS') {
-            $nomeStatus = "Comprovante Substituído";
+            $nomeStatus = "Comprovante Substituï¿½do";
         } else {
             $nomeStatus = "Avaliado";
         }
 
         return $nomeStatus;
-    } // fecha método statusComprovacaoFisicaDoProjeto()
+    } // fecha mï¿½todo statusComprovacaoFisicaDoProjeto()
 } // fecha class

@@ -7,7 +7,7 @@
  * @package application
  * @subpackage application.controller.realizaranaliseprojeto.inc
  * @link http://www.cultura.gov.br
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  */
 $pronac = $this->idpronac;
 ?>
@@ -19,22 +19,22 @@ $pronac = $this->idpronac;
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado')); ?>?idPronac=<?php echo $pronac; ?>">Parecer Técnico Consolidado</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado')); ?>?idPronac=<?php echo $pronac; ?>">Parecer Tï¿½cnico Consolidado</a></th>
         <th class="<?php if (strstr($this->url(), 'analisedeconta') == 'analisedeconta') {
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconta')); ?>?idPronac=<?php echo $pronac; ?>">Análise de Cortes Sugeridos</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconta')); ?>?idPronac=<?php echo $pronac; ?>">AnÃ¡lise de Cortes Sugeridos</a></th>
         <th class="<?php if (strstr($this->url(), 'analisedeconteudo') == 'analisedeconteudo') {
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconteudo')); ?>?idPronac=<?php echo $pronac; ?>">Análise de Conteúdo</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconteudo')); ?>?idPronac=<?php echo $pronac; ?>">AnÃ¡lise de CONTEÃšDO</a></th>
         <th class="<?php if (strstr($this->url(), 'analisedecustos') == 'analisedecustos') {
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedecustos')); ?>?idPronac=<?php echo $pronac; ?>" id="custos">Análise de Custos</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedecustos')); ?>?idPronac=<?php echo $pronac; ?>" id="custos">AnÃ¡lise de Custos</a></th>
         <th class="<?php if (strstr($this->url(), 'emitirparecer') == 'emitirparecer') {
     echo "fundo_linha4";
 } else {

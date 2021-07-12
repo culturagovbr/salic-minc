@@ -6,18 +6,18 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright (c) 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright (c) 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">InÌcio</a></li>
-        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="InÌcio"-->Manuten&ccedil;&atilde;o<!--/a--></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">IN√çCIO</a></li>
+        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO"-->Manuten&ccedil;&atilde;o<!--/a--></li>
         <li><a href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'consultarprojeto')); ?>" title="Ir para alterar projeto">Alterar projeto</a></li>
         <li class="last">Alterar proponente</li>
     </ul>
@@ -29,7 +29,7 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 <div id="titulo">
     <div>Alterar proponente <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 <!-- ========== GRID NOME DA PROPOSTA ========== -->
@@ -39,11 +39,11 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
             // Define as regras
             rules:{
                 nome:{
-                    // campoNome ser· obrigatÛrio (required) e ter· tamanho mÌnimo (minLength)
+                    // campoNome ser√° obrigatÔøΩrio (required) e terÔøΩ tamanho mÔøΩnimo (minLength)
                     required: true
                 },
                 justificativa:{
-                    // campoEmail ser· obrigatÛrio (required) e precisar· ser um e-mail v·lido (email)
+                    // campoEmail ser√° obrigatÔøΩrio (required) e precisarÔøΩ ser um e-mail vÔøΩlido (email)
                     required: true
                 }
             },
@@ -53,7 +53,7 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
                     required: "<br>Informe um Agente cadastrado"
                 },
                 justificativa:{
-                    required: "<br>Dados obrigatÛrios n&atilde;o informados"
+                    required: "<br>Dados obrigatÔøΩrios n&atilde;o informados"
                 }
             }
         });
@@ -190,9 +190,9 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 </div>
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />
 <iframe name="enviar_arquivo" id="enviar_arquivo" style="height: 20px; display: none;"></iframe>

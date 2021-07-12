@@ -1,21 +1,21 @@
-<?php 
+<?php
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 ?>
 <script>
-    
+
     function adicionarDias(data1, periodo){
         data1 = data1.split("/");
         data1 = new Date(data1[1]+"/"+data1[0]+"/"+data1[2]);
         var datacalculada = new Date(data1.getTime() + (periodo * 24 * 60 * 60 * 1000));
         //dataatual = data1.getFullYear() + '-' + (data1.getMonth()+1) + '-' + data1.getDate();
-        
+
         var dia = datacalculada.getDate();
         var mes = (datacalculada.getMonth()+1)
         var ano = datacalculada.getFullYear();
-        
+
         if (  dia < 10 )
         {
             dia = "0" + dia;
@@ -25,22 +25,22 @@
         {
             mes = "0" + mes;
         }
-        
+
         datacalculada = dia + '/' + mes + '/' + ano;
         return datacalculada;
-      
+
      //return new Date(data.getTime() + (dias * 24 * 60 * 60 * 1000));
-     
+
    }
    $(document).ready(function(){
-        
+
         <?php if(isset($_GET['grid']) && $_GET['grid'] != ""): ?>
                 $('.<?php echo $_GET['grid'];?>').show();
                 $('#<?php echo $_GET['grid'];?>').addClass('btn_remover');
                 $('#<?php echo $_GET['grid'];?>').removeClass('btn_adicionar');
               JSRecarregaGrid('<?php echo $_GET['grid'];?>');
         <?php endif;?>
-            
+
         $(".btn_adicionar").click(function(){
             var tipo = $(this).attr('tipo');
             var aberto = $(this).attr('aberto');
@@ -53,7 +53,7 @@
                 $(".tabela[tipo="+tipo+"]").removeClass('sumir');
             }
         });
-        
+
         $('#dtinicioexecucao').mask('99/99/9999');
         $('#dtfimexecucao').mask('99/99/9999');
 
@@ -80,14 +80,14 @@
         });
 
         $("#modalConfirmacao").dialog({
-            title:"ConfirmaÁ„o",
+            title:"Confirma√ß√£o",
             resizable: true,
             width:300,
             height:150,
             modal: true,
             autoOpen:false,
             buttons: {
-                'N„o': function() {
+                'N√£o': function() {
                     $(this).dialog('close')
                 },
                 'Sim': function() {
@@ -115,7 +115,7 @@
                     var idpronac         = $("form[name='formularioeditar']").find("input:[name='idpronac']").val();
                     var nomeProjeto      = $("form[name='formularioeditar']").find("input:[name='nomeProjeto']").val();
                     var resumoProjeto    = $("form[name='formularioeditar']").find("textarea:[name='resumoProjeto']").val();
-                    
+
                     $.ajax({
                         async: true,
                         type: "post",
@@ -135,11 +135,11 @@
                             resumoProjeto:resumoProjeto
                         },
                         beforeSend: function(){
-                            
+
                         },
                         success: function(data)
                         {
-                            
+
                             //if(!data.error){
                                 $("#modalConfirmacao").dialog('close');
                                 JSMostrarModalMensagem(data.error,data.msg);
@@ -151,15 +151,15 @@
                 }
             }
         });
-        
+
         $("#redistribuir").click(function(){
             window.location = "<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'form-redistribuir-projeto')); ?>";
         });
 
     }); //fecha document.read
-    
+
     function JSMostrarModalMensagem(error,msg){
-    
+
         if(error){
             msg = "<font color='red'>" + msg + "</font>";
         }else{
@@ -174,7 +174,7 @@
             height:180,
             modal: true,
             autoOpen:true,
-            title:"ConfirmaÁ„o",
+            title:"Confirma√ß√£o",
             buttons: {
                 'OK': function() {
                     //$(this).dialog('close');
@@ -190,14 +190,14 @@
             }
         });
     }
-    
+
     function JSEncaminharPortaria(idpronac){
         var idpronac = idpronac;
         $('html').css('overflow', 'hidden');
         $("body").append("<div id='divDinamica'></div>");
         $("#divDinamica").html("");
         $('#divDinamica').html("<br>Deseja realmente encaminhar o projeto para a publica&ccedil;&atilde;o no DOU?");
-        var title = 'ConfirmaÁ„o';
+        var title = 'Confirma√ß√£o';
         $("#divDinamica").dialog({
             //resizable: true,
             width:300,
@@ -206,7 +206,7 @@
             autoOpen:true,
             title: title,
             buttons: {
-                'N„o': function() {
+                'N√£o': function() {
                     $("#divDinamica").remove();
                     $(this).dialog('close');
                     $('html').css('overflow', 'auto');
@@ -227,7 +227,7 @@
     }
 
     function JSRegularidadeProponente(cfpCnpj){
-        
+
         $('html').css('overflow', 'hidden');
         $("body").append("<div id='divDinamica'></div>");
         $("#divDinamica").html("");
@@ -307,7 +307,7 @@
                     $('html').css('overflow', 'auto');
                 },
                 'Salvar': function() {
-                    
+
                     if(($('#enq').val() == 'Selecione...') || ($('#areacultural').val() == '') || ($('#segmento').val() == '') || ($('#enq').val() == '') || ($('#dtinicioexecucao').val() == '') || ($('#dtfimexecucao').val() == ''))
                     {
                         $('#error').dialog('open');
@@ -326,15 +326,15 @@
                 'Finalizar': function() {
                     var idpronac = $('#idpronac').val(idpronac);
                     $("form[name='formulariofinalizar']").find("input:[name='grid']").val(grid); //atualiza grid a ser recarregada
-                    
+
                     //recupera datas de captacao do formulario de editar projeto
                     var dataCaptacaoIni  = $("form[name='formularioeditar']").find("input:[name='dataCaptacaoIni']").val();
                     var dataCaptacaoFim  = $("form[name='formularioeditar']").find("input:[name='dataCaptacaoFim']").val();
-                    
+
                     //atualiza o valor das datas no formulario de finalizar analise do projeto
                     $("form[name='formulariofinalizar']").find("input:[name='dataCaptacaoIni_finalizar']").val(dataCaptacaoIni);
                     $("form[name='formulariofinalizar']").find("input:[name='dataCaptacaoFim_finalizar']").val(dataCaptacaoFim);
-                    
+
                     $("form[name='formulariofinalizar']").submit();
                     /*$.ajax({
                         async : true,
@@ -356,7 +356,7 @@
                     $('html').css('overflow', 'auto');
                 }
             },
-            close: function() 
+            close: function()
             {
                 JSRecarregaGrid(grid);
                 $("#divDinamica").remove();
@@ -365,21 +365,21 @@
             }
         });
     }
-    
+
     function JSFinalizarAnalise(idPronac,idAprovacao,grid){
-        
-        $('#colunafinalizar'+idPronac).html('<center>Finalizando an·lise, aguarde...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
+
+        $('#colunafinalizar'+idPronac).html('<center>Finalizando An√°lise, aguarde...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
         $('#idpronac').val(idPronac);
         $('#idAprovacao').val(idAprovacao);
         $('#grid').val(grid);
         $("#formFinalizarAnalise").submit();
-        
+
         //CONFIRMACAO DA FINALIZACAO
         /*$('html').css('overflow', 'hidden');
         $("body").append("<div id='divDinamica'></div>");
-        $("#divDinamica").html("Deseja realmente finalizar a an·lise do projeto? ");
+        $("#divDinamica").html("Deseja realmente finalizar a An√°lise do projeto? ");
         $("#divDinamica").dialog({
-            title: "ConfirmaÁ„o",
+            title: "Confirma√ß√£o",
             resizable: true,
             width:350,
             height:150,
@@ -387,7 +387,7 @@
             autoOpen:true,
             draggable:false,
             buttons: {
-                'N√O': function() {
+                'N√£o': function() {
                     $("#divDinamica").remove();
                     $(this).dialog('close');
                     $('html').css('overflow', 'auto');
@@ -402,7 +402,7 @@
             }
         });*/
     }
-    
+
     function JSAbrirModal(conteudo){
         $("body").append("<div id='divDinamica'></div>");
         $("#divDinamica").html(conteudo);
@@ -422,7 +422,7 @@
             }
         });
     }
-    
+
     function JSMostraOcultaElemento(elemento)
     {
         //$('.' + elemento).toggle('slow');
@@ -451,12 +451,12 @@
         if(elemento == 'proponenteirregular' && $('#proponenteirregular_resultado').html() == ''){
             jqAjaxLink('<?php echo $this->Url(array('controller' => 'checklistpublicacao', 'action' => 'proponente-irregular', 'tipoAnalise' => $this->tipoAnalise)) ?>', '', 'proponenteirregular_resultado');
         }
-		//CARREGA - SOLICITA«√O READEQUA«√O
+		//CARREGA - Solicita√ß√£o READEQUAÔøΩÔøΩO
         if(elemento == 'solicitacaoreadequacao' && $('#solicitacaoreadequacao_resultado').html() == ''){
 			jqAjaxLink('<?php echo $this->Url(array('controller' => 'checklistpublicacao', 'action' => 'solicitacao-readequacao', 'tipoAnalise' => $this->tipoAnalise)) ?>', '', 'solicitacaoreadequacao_resultado');
         }
     }
-    
+
     function JSRecarregaGrid(grid)
     {
         //CARREGA - PROJETOS EM AGUARDANDO ANALISE
@@ -471,12 +471,12 @@
         if(grid == 'proponenteirregular'){
             jqAjaxLink('<?php echo $this->Url(array('controller' => 'checklistpublicacao', 'action' => 'proponente-irregular', 'tipoAnalise' => $this->tipoAnalise)) ?>', '', 'proponenteirregular_resultado');
         }
-        //CARREGA - SOLICITA«√O READEQUA«√O
+        //CARREGA - Solicita√ß√£o READEQUAÔøΩÔøΩO
         if(grid == 'solicitacaoreadequacao'){
             jqAjaxLink('<?php echo $this->Url(array('controller' => 'checklistpublicacao', 'action' => 'solicitacao-readequacao', 'tipoAnalise' => $this->tipoAnalise)) ?>', '', 'solicitacaoreadequacao_resultado');
         }
     }
-    
+
     function JSVisualizarProjetoDaGrid()
     {
         var idPronac = '<?php echo (isset($_GET['idPronac'])) ? $_GET['idPronac'] : '';?>';
@@ -491,7 +491,7 @@
     }
 </script>
 <div id="modalConfirmacao" style="display:none;"></div>
-<div id="error" style="display:none;">Dados ObrigatÛrios n„o preenchidos!</div>
+<div id="error" style="display:none;">Dados ObrigatÔøΩrios N√£o preenchidos!</div>
 <div id="load" class="carregando sumir" style="width:100%; height:100%;" title="Carregando..."><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" alt="carregando"><br/><br/>Carregando...<br>Por Favor, aguarde!!</div>
 
 <form name="formFinalizarAnalise" id="formFinalizarAnalise" method="post" action="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'gravar-finalizacao-analise')); ?>">
@@ -505,7 +505,7 @@
 <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Checklist de public&atilde;o</li>
     </ul>
 </div>
@@ -513,19 +513,19 @@
 
 <!-- ========== INICIO TITULO ========== -->
 <div id="titulo">
-    <div>Checklist de publicaÁ&atilde;o</div>
+    <div>Checklist de publicaÔøΩ&atilde;o</div>
 </div>
 <!-- ========== FIM TITULO ========== -->
 <!-- ========== INICIO CONTEUDO ========== -->
 <div id="conteudo">
-    
+
     <table class="tabela">
         <tr>
             <td>
                 <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice1.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left;"> A diligenciar</div>
                 <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice.png" width="20px"/></div><div style="margin-top: 2px;  margin-right: 15px; margin-left: 3px; float: left"> Diligenciado</div>
-                <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice3.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left"> DiligÍncia respondida</div>
-                <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice2.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left"> DiligÍncia n„o respondida</div>
+                <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice3.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left"> DiligÔøΩncia respondida</div>
+                <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice2.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left"> DiligÔøΩncia N√£o respondida</div>
             </td>
         </tr>
     </table>
@@ -537,14 +537,14 @@
     <!-- ================================================================-->
     <table class="tabela">
         <tr>
-            <td><input type="button" id="aguardandoanalise" class="btn_adicionar" title="Expandir" onclick="JSMostraOcultaElemento('aguardandoanalise')" />PROJETO APROVADO - AGUARDANDO AN¡LISE DOCUMENTAL - PROPONENTE REGULAR</td>
+            <td><input type="button" id="aguardandoanalise" class="btn_adicionar" title="Expandir" onclick="JSMostraOcultaElemento('aguardandoanalise')" />PROJETO APROVADO - AGUARDANDO An√°lise DOCUMENTAL - PROPONENTE REGULAR</td>
             <!--<td width="100" align="right" >Quantidade: <span id="qtdeAguardandoAnalise" style="font-weight: bold"><?php //echo $this->totalAguardandoAnalise; ?></span></td>-->
         </tr>
     </table>
 
     <!-- RESULTADO DO AJAX -->
     <div class="aguardandoanalise sumir" ><div id="aguardandoanalise_resultado"></div></div>
-        
+
 
     <!-- ================================================================-->
     <!-- ================ PROPONENTE DILIGENCIADO =======================-->
@@ -557,7 +557,7 @@
 
     <!-- RESULTADO DO AJAX -->
     <div class="proponentediligenciado sumir"><div id="proponentediligenciado_resultado"></div></div>
-        
+
     <!-- ================================================================-->
     <!-- ================ PROPONENTE IRREGULAR ==========================-->
     <!-- ================================================================-->
@@ -569,14 +569,14 @@
 
     <!-- RESULTADO DO AJAX -->
     <div class="proponenteirregular sumir"><div id="proponenteirregular_resultado"></div></div>
-    
+
 	<?php if ($this->tipoAnalise == 'readequados') : ?>
 	<!-- ================================================================ -->
-	<!-- ================== SOLICITA«¬O DE READEQUA«√O ================== -->
+	<!-- ================== Solicita√ß√£o DE READEQUAÔøΩÔøΩO ================== -->
 	<!-- ================================================================ -->
 	<table class="tabela">
 		<tr>
-			<td><input type="button" id="solicitacaoreadequacao" class="btn_adicionar" title="Expandir" onclick="JSMostraOcultaElemento('solicitacaoreadequacao')" />PROJETO APROVADO - SOLICITA«√O DE READEQUA«√O</td>
+			<td><input type="button" id="solicitacaoreadequacao" class="btn_adicionar" title="Expandir" onclick="JSMostraOcultaElemento('solicitacaoreadequacao')" />PROJETO APROVADO - Solicita√ß√£o DE READEQUAÔøΩÔøΩO</td>
 		</tr>
 	</table>
 

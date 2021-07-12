@@ -43,7 +43,7 @@ class Liberacao extends MinC_Db_Table_Abstract
 
         $slct->where('p.IdPRONAC = ?', $idPronac);
 
-        
+
         return $this->fetchAll($slct)->current();
     }
 
@@ -77,7 +77,7 @@ class Liberacao extends MinC_Db_Table_Abstract
                       );
 
         $select->where('l.AnoProjeto+l.Sequencial = ?', $pronac);
-        
+
         return $this->fetchAll($select);
     }
 
@@ -205,7 +205,7 @@ class Liberacao extends MinC_Db_Table_Abstract
                     'Inabilitado' => new Zend_Db_Expr("CASE
                                                             WHEN (SELECT TOP 1 Habilitado FROM Inabilitado i WHERE p.CgcCpf = i.CgcCpf) = 'N'
                                                             THEN 'SIM'
-                                                            ELSE 'N�O'
+                                                            ELSE 'Não'
                                                             END "),
                     'Certidao' => new Zend_Db_Expr("CASE
                                                             WHEN EXISTS(SELECT top 1 CONVERT(CHAR(8),DtValidade,112) FROM CertidoesNegativas c WHERE p.CgcCpf = c.CgcCpf AND CodigoCertidao <> 244 AND CodigoCertidao <> 70 AND CONVERT(CHAR(8),DtValidade,112) <  GETDATE())
@@ -265,7 +265,7 @@ class Liberacao extends MinC_Db_Table_Abstract
             }
             $slct->limit($tamanho, $tmpInicio);
         }
-        
+
         return $this->fetchAll($slct);
     }
 
@@ -363,7 +363,7 @@ class Liberacao extends MinC_Db_Table_Abstract
             $select->limit($tamanho, $tmpInicio);
         }
 
-        
+
         return $this->fetchAll($select);
     }
 
@@ -405,20 +405,20 @@ class Liberacao extends MinC_Db_Table_Abstract
             $select->where($coluna, $valor);
         }
 
-        
+
         return $this->fetchRow($select);
     }
 
     /**
      * Método que diz se a conta para um projeto buscado está liberada
-     * 
+     *
      * @param integer $idPronac
      * @return bool
      */
     public function contaLiberada($idPronac)
     {
         $select = $this->select();
-        $select->setIntegrityCheck(false);        
+        $select->setIntegrityCheck(false);
         $select->from(
             array('l' => $this->_name),
             array('Permissao')
@@ -430,9 +430,9 @@ class Liberacao extends MinC_Db_Table_Abstract
             $this->_schema
         );
         $select->where('p.idPronac = ?', $idPronac);
-        
+
         $contaLiberada = $this->fetchAll($select);
 
         return ($contaLiberada) ? true: false;
-    }   
+    }
 }

@@ -129,7 +129,7 @@ function validarFormulario(form,mensagem){
             mensagem += '<br />Preencha o CNPJ.';
         }
     });
-    
+
     $(form).find('[data=true]').each(function(){
         if($(this).val() != undefined && $(this).val() != '' && $(this).val() != '00/00/0000'){
             var estadata =   $(this).val().slice(6,10)+''+$(this).val().slice(3,5)+''+$(this).val().slice(0,2);
@@ -268,13 +268,13 @@ function buscarJson(pagina,dados){
     return retorno;
 }
 function carregarPgHtml(pagina,idSelect,dados,textoIni){
-	
+
     if(textoIni == undefined)
         textoIni = 'Todos';
 
-    var selectVazio = '<option value="">Não encontrado!</option>';
-    
-    
+    var selectVazio = '<option value="">NÃ£o encontrado!</option>';
+
+
     var select      = '<option value="">'+textoIni+'</option>';
     var resposta    = buscarJson(pagina,dados);
 	var cont = 0;
@@ -294,7 +294,7 @@ function carregarPgHtml(pagina,idSelect,dados,textoIni){
     }
 
 
-    
+
 
 }
 function buscarJsonAux(pagina,dados){

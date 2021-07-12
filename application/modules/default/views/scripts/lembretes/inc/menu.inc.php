@@ -1,11 +1,11 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
-	<!-- início: conteúdo principal #container -->
+	<!-- INÃCIO: CONTEÃšDO principal #container -->
 	<div id="container">
 
-		<!-- início: navegação local #qm0 -->
+		<!-- INÃCIO: navegaï¿½ï¿½o local #qm0 -->
 		<script type="text/javascript">
 		function layout_fluido()
 		{
@@ -34,7 +34,7 @@
 		</style>
 
 		<?php
-        // pega a variável com o id do pronac via get
+        // pega a variï¿½vel com o id do pronac via get
         $getPronac = isset($_GET['idPronac']) ? $_GET['idPronac'] : $_GET['pronac'];
         ?>
 
@@ -43,7 +43,7 @@
 			<div id="qm0" class="qmmc">
 				<a href="<?php echo $this->url(array('controller' => 'proponente', 'action' => 'index')); ?>?pronac=<?php echo $getPronac; ?>" title="Ir para Dados do Proponente">Dados do Proponente</a>
 				<a href="<?php echo $this->url(array('controller' => 'anexardocumentos', 'action' => 'index')); ?>?pronac=<?php echo $getPronac; ?>" title="Ir para Documentos Anexados">Documentos Anexados</a>
-				<a href="<?php echo $this->url(array('controller' => 'visualizarhistorico', 'action' => 'index')); ?>?pronac=<?php echo $getPronac; ?>" title="Ir para Histórico">Histórico</a>
+				<a href="<?php echo $this->url(array('controller' => 'visualizarhistorico', 'action' => 'index')); ?>?pronac=<?php echo $getPronac; ?>" title="Ir para Histï¿½rico">Histï¿½rico</a>
 				<a class="last" href="<?php echo $this->url(array('controller' => 'diligenciarproponente', 'action' => 'index')); ?>?idPronac=<?php echo $getPronac; ?>" title="Ir para Diligenciar Proponente">Diligenciar Proponente</a>
 			</div>
 			<div class="bottom"></div>
@@ -59,7 +59,7 @@
 			});
 		});
 		</script>
-		<!-- final: navegação local #qm0 -->
+		<!-- final: navegaï¿½ï¿½o local #qm0 -->
 	</div>
 </div>
 <!-- ========== FIM MENU ========== -->

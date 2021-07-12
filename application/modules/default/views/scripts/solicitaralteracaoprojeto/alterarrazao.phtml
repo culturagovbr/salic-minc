@@ -1,23 +1,23 @@
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Início">Início</a></li>
-        <li class="last">Solicitar Alteração Projeto</li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="INÃCIO">INÃCIO</a></li>
+        <li class="last">Solicitar Alteraï¿½ï¿½o Projeto</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>Solicitar Alteração Projeto <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+    <div>Solicitar Alteraï¿½ï¿½o Projeto <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 <table class="tabela"  >
@@ -25,20 +25,20 @@
             	<td class="titulo_tabela">Projeto Cultural</td>
             </tr>
             <tr >
-            	<th>Alteracão </th>
+            	<th>Alteracï¿½o </th>
             </tr>
-           
+
 </table>
 <table class="tabela"  >
             <tr>
-                <td class="titulo_dentro">Identificação</td>                
-            </tr>            
-           <?php foreach ($this->resposta as $resposta) {?>          
+                <td class="titulo_dentro">Identificaï¿½ï¿½o</td>
+            </tr>
+           <?php foreach ($this->resposta as $resposta) {?>
            <tr>
                 <td><strong>CNPJ / CPF:</strong> <br>
-                <?php 
-                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3); 
-                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"]; 
+                <?php
+                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3);
+                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"];
                 ?>
                 </td>
                 <td><strong>Proponente:</strong> <br><?php echo $this->escape($resposta->Nome); ?></td>
@@ -49,14 +49,14 @@
 
 	<table class="tabela" >
 	            <tr>
-            	  <td class="titulo_dentro">Alteração do Nome Razão Social</td>
+            	  <td class="titulo_dentro">Alteraï¿½ï¿½o do Nome Razï¿½o Social</td>
                 </tr>
-                
+
                 <tr >
-            	<th>Alteracão </th>
+            	<th>Alteracï¿½o </th>
                </tr>
-                <tr>	         
-	            	<td >*Nova Razão Social<br /><input type="text" name="nomeRazao" size="50" maxlength="150" /></td>
+                <tr>
+	            	<td >*Nova Razï¿½o Social<br /><input type="text" name="nomeRazao" size="50" maxlength="150" /></td>
 	            </tr>
 	            <tr>
 	            	<td >*Justificativa<br /><textarea name="justificativa" id="justificativa" cols="70"  rows="10" maxlength="600"></textarea></td>
@@ -76,18 +76,18 @@
 					<?php } ?>
 	            </tr>
 	            <tr>
-	            	<td ><br>Todos os campos com * são obrigatórios</td>
+	            	<td ><br>Todos os campos com * sï¿½o obrigatï¿½rios</td>
 	            </tr>
 	</table>
 </form>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

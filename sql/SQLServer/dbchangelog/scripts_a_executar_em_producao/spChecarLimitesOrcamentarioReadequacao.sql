@@ -1,22 +1,22 @@
 -- ==========================================================================================================
--- Autor: Rômulo Menhô Barbosa
--- Data de Criação: 29/08/2016
--- Descrição: Verifica os limites orçamentários permitidos para Custo Administrativos, Remuneração para
---            Captação e Divulgação na Readequação Orçamentára
+-- Autor: Rï¿½mulo Menhï¿½ Barbosa
+-- Data de Criaï¿½ï¿½o: 29/08/2016
+-- DescriÃ§Ã£o: Verifica os limites orï¿½amentï¿½rios permitidos para Custo Administrativos, Remuneraï¿½ï¿½o para
+--            Captaï¿½ï¿½o e Divulgaï¿½ï¿½o na Readequaï¿½ï¿½o Orï¿½amentï¿½ra
 -- ==========================================================================================================
--- Data de Alteração: 15/03/2018
--- Motivo : Incluir a tabela tbReadequação nas restrições, uma vez que o proponente pode solicitar a reade-
---          quação várias vezes.
+-- Data de Alteraï¿½ï¿½o: 15/03/2018
+-- Motivo : Incluir a tabela tbReadequaï¿½ï¿½o nas restriï¿½ï¿½es, uma vez que o proponente pode solicitar a reade-
+--          quaï¿½ï¿½o vï¿½rias vezes.
 -- ==========================================================================================================
-IF OBJECT_ID ( 'dbo.spChecarLimitesOrcamentarioReadequacao', 'P' ) IS NOT NULL 
+IF OBJECT_ID ( 'dbo.spChecarLimitesOrcamentarioReadequacao', 'P' ) IS NOT NULL
     DROP PROCEDURE dbo.spChecarLimitesOrcamentarioReadequacao;
 GO
 
 CREATE PROCEDURE dbo.spChecarLimitesOrcamentarioReadequacao @idPronac int
-AS 
+AS
 
-SET NOCOUNT ON    
-    
+SET NOCOUNT ON
+
 DECLARE @Rows                 INT
 DECLARE @Flag                 INT
 DECLARE @TotalSemCustoAdm     DECIMAL(18,2)
@@ -35,7 +35,7 @@ DECLARE @vlCorretoRemuneracao DECIMAL(18,2)
 SET @Flag = 0
 
 --============================================================================================================
--- Tabela temporária
+-- Tabela temporï¿½ria
 --============================================================================================================
 
 CREATE TABLE #Verificacao
@@ -46,86 +46,86 @@ CREATE TABLE #Verificacao
         vlDiferenca DECIMAL(18,2),
         Observacao  VARCHAR (100)
        )
-       
+
 --============================================================================================================
  --MONTAR O CUSTO TOTAL DO PROJETO E O CUSTO ADMINISTRATIVO
 --============================================================================================================
-SET @TotalSemCustoAdm = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
+SET @TotalSemCustoAdm = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario)
                                        FROM sac.dbo.tbPlanilhaAprovacao a
-									   INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao) 
-                                       WHERE     a.idPronac          = @idPronac 
-									         AND a.idEtapa          <> 4 
-											 AND a.nrFonteRecurso    = 109 
-											 AND a.tpPlanilha        = 'SR' 
+									   INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao)
+                                       WHERE     a.idPronac          = @idPronac
+									         AND a.idEtapa          <> 4
+											 AND a.nrFonteRecurso    = 109
+											 AND a.tpPlanilha        = 'SR'
 											 AND a.tpAcao           <> 'E'
 											 AND a.stAtivo           = 'N'
-											 AND b.idTipoReadequacao = 2 
+											 AND b.idTipoReadequacao = 2
                                              AND b.siEncaminhamento <> 15
 		                                     AND b.stEstado          = 0),0)
 
-SET @CustoAdm = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
+SET @CustoAdm = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario)
                                FROM sac.dbo.tbPlanilhaAprovacao a
 							   INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao)
-                               WHERE     a.idPronac          = @idPronac 
-							         AND a.idEtapa           = 4 
-									 AND a.idPlanilhaItem   <> 5249 
-									 AND a.nrFonteRecurso    = 109 
-									 AND a.tpPlanilha        = 'SR' 
+                               WHERE     a.idPronac          = @idPronac
+							         AND a.idEtapa           = 4
+									 AND a.idPlanilhaItem   <> 5249
+									 AND a.nrFonteRecurso    = 109
+									 AND a.tpPlanilha        = 'SR'
 									 AND a.tpAcao           <> 'E'
 									 AND a.stAtivo           = 'N'
-									 AND b.idTipoReadequacao = 2 
+									 AND b.idTipoReadequacao = 2
                                      AND b.siEncaminhamento <> 15
 		                             AND b.stEstado          = 0),0)
 
-SET @TotalSemRemuneracao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
+SET @TotalSemRemuneracao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario)
                                           FROM sac.dbo.tbPlanilhaAprovacao a
 							              INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao)
-                                          WHERE     a.idPronac          = @idPronac 
-										        AND a.idPlanilhaItem   <> 5249 
-												AND a.nrFonteRecurso    = 109 
-												AND a.tpPlanilha        = 'SR' 
+                                          WHERE     a.idPronac          = @idPronac
+										        AND a.idPlanilhaItem   <> 5249
+												AND a.nrFonteRecurso    = 109
+												AND a.tpPlanilha        = 'SR'
 											    AND a.tpAcao           <> 'E'
 												AND a.stAtivo           = 'N'
-									            AND b.idTipoReadequacao = 2 
+									            AND b.idTipoReadequacao = 2
                                                 AND b.siEncaminhamento <> 15
 		                                        AND b.stEstado          = 0),0)
 
-SET @RemuneracaoCaptacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
+SET @RemuneracaoCaptacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario)
                                           FROM sac.dbo.tbPlanilhaAprovacao a
 							              INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao)
-                                          WHERE     a.idPronac          = @idPronac 
-										        AND a.idPlanilhaItem    = 5249 
-												AND a.nrFonteRecurso    = 109 
-												AND a.tpPlanilha        = 'SR' 
+                                          WHERE     a.idPronac          = @idPronac
+										        AND a.idPlanilhaItem    = 5249
+												AND a.nrFonteRecurso    = 109
+												AND a.tpPlanilha        = 'SR'
 											    AND a.tpAcao           <> 'E'
 												AND a.stAtivo           = 'N'
-									            AND b.idTipoReadequacao = 2 
+									            AND b.idTipoReadequacao = 2
                                                 AND b.siEncaminhamento <> 15
 		                                        AND b.stEstado          = 0),0)
 
-SET @TotalSemDivulgacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
+SET @TotalSemDivulgacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario)
                                          FROM sac.dbo.tbPlanilhaAprovacao a
-							             INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao) 
-                                         WHERE     a.idPronac          = @idPronac  
-										       AND a.idEtapa          <> 3 
-											   AND a.nrFonteRecurso    = 109 
+							             INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao)
+                                         WHERE     a.idPronac          = @idPronac
+										       AND a.idEtapa          <> 3
+											   AND a.nrFonteRecurso    = 109
 											   AND a.tpPlanilha        = 'SR'
 											   AND a.tpAcao           <> 'E'
 											   AND a.stAtivo           = 'N'
-									           AND b.idTipoReadequacao = 2 
+									           AND b.idTipoReadequacao = 2
                                                AND b.siEncaminhamento <> 15
 		                                       AND b.stEstado          = 0),0)
 
-SET @Divulgacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
+SET @Divulgacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario)
                                  FROM sac.dbo.tbPlanilhaAprovacao a
-							     INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao) 
-                                 WHERE     a.idPronac          = @idPronac 
-								       AND a.idEtapa           = 3 
-									   AND a.nrFonteRecurso    = 109 
+							     INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao)
+                                 WHERE     a.idPronac          = @idPronac
+								       AND a.idEtapa           = 3
+									   AND a.nrFonteRecurso    = 109
 									   AND a.tpPlanilha        = 'SR'
 									   AND a.tpAcao           <> 'E'
 									   AND a.stAtivo           = 'N'
-									   AND b.idTipoReadequacao = 2 
+									   AND b.idTipoReadequacao = 2
                                        AND b.siEncaminhamento <> 15
 		                               AND b.stEstado          = 0),0)
 
@@ -133,27 +133,27 @@ SET @Divulgacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario)
 -- VERIFICAR O PERCENTUAL DOS CUSTOS ADMINISTRATIVOS
 --============================================================================================================
 IF (@TotalSemCustoAdm <> 0 AND @CustoAdm <> 0)
-   BEGIN  
+   BEGIN
      -- CALCULA EM REAIS O CUSTO ADMINISTRATIVO
      SET @vlCorretoCustoAdm = @TotalSemCustoAdm * 0.15
-     SET @vlDiferenca =  @custoAdm - @vlCorretoCustoAdm  
+     SET @vlDiferenca =  @custoAdm - @vlCorretoCustoAdm
      --calcula o percentual
      SET @ResultadoPercentual =  @custoAdm / @TotalSemCustoAdm * 100
-     --verifica se é superior a 15
+     --verifica se ï¿½ superior a 15
      IF (@ResultadoPercentual > 15)
         BEGIN
-          INSERT INTO #Verificacao       
+          INSERT INTO #Verificacao
                        VALUES (@idPronac,'custo_administrativo','Custo administrativo superior a 15% do valor total do projeto, para corrigir reduza o valor da etapa em R$ ' ,@vlDiferenca,'PENDENTE')
-           SET @Flag = 1     
+           SET @Flag = 1
         END
      ELSE
         BEGIN
-          INSERT INTO #Verificacao       
+          INSERT INTO #Verificacao
                        VALUES (@idPronac,'custo_administrativo','Custo administrativo inferior a 15% do valor total do projeto.',0,'OK')
           END
-     END   
+     END
 --============================================================================================================
--- VERIFICAR O PERCENTUAL DA REMUNERAÇÃO PARA CAPTAÇÃO DE RECURSOS
+-- VERIFICAR O PERCENTUAL DA REMUNERAï¿½ï¿½O PARA CAPTAï¿½ï¿½O DE RECURSOS
 --============================================================================================================
 IF (@TotalSemRemuneracao <> 0 AND @RemuneracaoCaptacao <> 0)
     BEGIN
@@ -161,70 +161,69 @@ IF (@TotalSemRemuneracao <> 0 AND @RemuneracaoCaptacao <> 0)
       SET @vlCorretoRemuneracao =   @TotalSemRemuneracao * 0.10
       --calcula o percentual
       SET @ResultadoPercentual =  @RemuneracaoCaptacao / @TotalSemRemuneracao * 100
-      --verifica se é superior a 10
+      --verifica se ï¿½ superior a 10
       IF (@RemuneracaoCaptacao > 150000)
          BEGIN
 		    SET @vlCorretoRemuneracao = 150000
-            INSERT INTO #Verificacao       
-                        VALUES (@idPronac,'remuneracao','Remuneração para captação de recursos superior a 10% do valor do projeto, ou superior a  R$ 150.000,00.',@vlCorretoRemuneracao,'PENDENTE')
-               SET @Flag = 1     
+            INSERT INTO #Verificacao
+                        VALUES (@idPronac,'remuneracao','Remuneraï¿½ï¿½o para captaï¿½ï¿½o de recursos superior a 10% do valor do projeto, ou superior a  R$ 150.000,00.',@vlCorretoRemuneracao,'PENDENTE')
+               SET @Flag = 1
          END
       ELSE
       IF (@ResultadoPercentual > 10)
          BEGIN
-            INSERT INTO #Verificacao       
-                        VALUES (@idPronac,'remuneracao','Remuneração para captação de recursos superior a 10% do valor do projeto, ou superior a  R$ 150.000,00. O valor correto é: R$',@vlCorretoRemuneracao,'PENDENTE')
-               SET @Flag = 1     
+            INSERT INTO #Verificacao
+                        VALUES (@idPronac,'remuneracao','Remuneraï¿½ï¿½o para captaï¿½ï¿½o de recursos superior a 10% do valor do projeto, ou superior a  R$ 150.000,00. O valor correto ï¿½: R$',@vlCorretoRemuneracao,'PENDENTE')
+               SET @Flag = 1
          END
-      ELSE 
+      ELSE
          BEGIN
-           INSERT INTO #Verificacao       
-                        VALUES (@idPronac,'remuneracao','Remuneração para captação de recursos está dentro dos parâmetros permitidos.',0,'OK')
+           INSERT INTO #Verificacao
+                        VALUES (@idPronac,'remuneracao','Remuneraï¿½ï¿½o para captaï¿½ï¿½o de recursos estï¿½ dentro dos parï¿½metros permitidos.',0,'OK')
         END
-END 
+END
 --============================================================================================================
--- VERIFICAR O PERCENTUAL DA DIVULGAÇÃO E COMERCIALIZAÇÃO
+-- VERIFICAR O PERCENTUAL DA DIVULGAï¿½ï¿½O E COMERCIALIZAï¿½ï¿½O
 --============================================================================================================
 IF (@TotalSemDivulgacao <> 0 AND @Divulgacao <> 0)
    BEGIN
-     -- CALCULA EM REAIS O CUSTO DA DIVULGAÇÃO
+     -- CALCULA EM REAIS O CUSTO DA DIVULGAï¿½ï¿½O
      SET @vlCorretoDivulgacao = @TotalSemDivulgacao * 0.20
-     SET @vlDiferenca =  @Divulgacao - @vlCorretoDivulgacao  
+     SET @vlDiferenca =  @Divulgacao - @vlCorretoDivulgacao
      --calcula o percentual
      SET @ResultadoPercentual =  @Divulgacao / @TotalSemDivulgacao * 100
-     --verifica se é superior a 20
-     IF @ResultadoPercentual > 20 
+     --verifica se ï¿½ superior a 20
+     IF @ResultadoPercentual > 20
         BEGIN
-          INSERT INTO #Verificacao       
-                      VALUES (@idPronac,'divulgacao','Divulgação / Comercialização superior a 20%, para corrigir reduza o valor da etapa em R$',@vlDiferenca ,'PENDENTE')
-                 SET @Flag = 1     
+          INSERT INTO #Verificacao
+                      VALUES (@idPronac,'divulgacao','Divulgaï¿½ï¿½o / Comercializaï¿½ï¿½o superior a 20%, para corrigir reduza o valor da etapa em R$',@vlDiferenca ,'PENDENTE')
+                 SET @Flag = 1
         END
      ELSE
         BEGIN
-          INSERT INTO #Verificacao       
-                 VALUES (@idPronac,'divulgacao','Divulgação / Comercialização está dentro dos parâmetros permitidos.',0,'OK')
+          INSERT INTO #Verificacao
+                 VALUES (@idPronac,'divulgacao','Divulgaï¿½ï¿½o / Comercializaï¿½ï¿½o estï¿½ dentro dos parï¿½metros permitidos.',0,'OK')
         END
    END
-   
+
 --============================================================================================================
--- VERIFICAR SE O CORTE É SUPERIOR A 50%
+-- VERIFICAR SE O CORTE ï¿½ SUPERIOR A 50%
 --============================================================================================================
   IF @PercTotalProjeto > 50
      BEGIN
-       INSERT INTO #Verificacao       
+       INSERT INTO #Verificacao
               VALUES (@idPronac,'corte_superior','Corte superior a 50%.',0,'OK')
      END
 --============================================================================================================
 -- RESULTADO
 --============================================================================================================
-         
+
  SELECT * FROM #Verificacao
- 
+
 GO
 
 GRANT  EXECUTE ON dbo.spChecarLimitesOrcamentarioReadequacao  TO usuarios_internet
 GO
 
 SET NOCOUNT OFF
-GO   
- 
+GO

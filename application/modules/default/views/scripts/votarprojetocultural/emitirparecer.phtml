@@ -1,12 +1,12 @@
 <?php
 /**
- * Emissão de Parecer
+ * Emissï¿½o de Parecer
  * @author Equipe RUP - Politec
  * @since 12/05/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicaprojeto
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -15,7 +15,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== INÍCIO TÍTULO PÁGINA ========== -->
+<!-- ========== INÃCIO Tï¿½TULO pÃ¡gina ========== -->
 <table class="w1000" style="margin:10px auto;">
 
 	<?php foreach ($this->pronac as $p) : ?>
@@ -28,9 +28,9 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 	<?php endforeach; ?>
 
 </table>
-<!-- ========== FIM TÍTULO PÁGINA ========== -->
+<!-- ========== FIM Tï¿½TULO pÃ¡gina ========== -->
 
-<!-- ========== INÍCIO FORMULÁRIO ========== -->
+<!-- ========== INÃCIO FORMULï¿½RIO ========== -->
 <form action="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'emitirparecer')); ?>" method="post">
 	<input type="hidden" name="idPlanilha" value="<?php echo $_GET['idPlanilha']; ?>" />
 	<input type="hidden" name="idPronac" value="<?php echo $_GET['idPronac']; ?>" />
@@ -51,16 +51,16 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 		<br />
 		<p>
 			<input type="submit" style="width:auto;" class="btn" value=" Acompanhar Parecer " />
-			<input type="button" style="width:auto;" class="btn" value=" Não Acompanhar Parecer " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'aprovarparecer')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>');" />
+			<input type="button" style="width:auto;" class="btn" value=" NÃ£o Acompanhar Parecer " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'aprovarparecer')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>');" />
 		</p>
 		<br />
 	</div>
 </form>
-<!-- ========== FIM FORMULÁRIO ========== -->
+<!-- ========== FIM FORMULï¿½RIO ========== -->
 
 
 
-<!-- ========== BOTÕES ========== -->
+<!-- ========== BOTï¿½ES ========== -->
 <br />
 <p class="center">
 	<input type="button" class="btn_p_anterior" value=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedecustos')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>');" />

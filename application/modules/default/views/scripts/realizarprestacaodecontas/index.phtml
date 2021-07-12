@@ -1,7 +1,7 @@
-<script> 
+<script>
     $(document).ready(function(){
         $(".btn_pesquisar").click(function(){
-            
+
             //jqAjaxLink("<?php echo $this->baseUrl()?>/operacional/tabelas?consulta="+$("#consulta").val(), null, "resultadoConsulta");
             //$("#resultadoConsulta").html("");
             //jqAjaxForm(document.getElementById("frmPesquisa"), "resultadoConsulta");
@@ -13,7 +13,7 @@
         $("#tpPeriodoExecucao").change(function(){
             var opcao = $(this).val();
             if(opcao == '1'){
-                $('#labelTipo1').html('Dt. InÌcio:');
+                $('#labelTipo1').html('Dt. IN√çCIO:');
                 $('#labelTipo2').html('Dt. Fim:');
                 $("#spandtExecucaoIni").show();
                 $("#spandtExecucaoFim").show();
@@ -29,7 +29,7 @@
                 $("#spandtExecucaoFim").show();
             }else if(opcao == '4'){
                 $('#labelTipo1').html('De:');
-                $('#labelTipo2').html('atÈ:');
+                $('#labelTipo2').html('atÔøΩ:');
                 $("#spandtExecucaoIni").show();
                 $("#spandtExecucaoFim").show();
             }else{
@@ -39,7 +39,7 @@
                 $("#spandtExecucaoFim").hide();
             }
         });
-        
+
         $(function()
         {
             $.datepicker.regional['pt-BR'] = {
@@ -103,11 +103,11 @@
     }
 </script>
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Analisar Presta&ccedil;&atilde;o de Contas</div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 <div id="conteudo" align="center">
 
@@ -135,7 +135,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="destacar bold">SituaÁ&atilde;o do projeto</td>
+                    <td class="destacar bold">SituaÔøΩ&atilde;o do projeto</td>
                     <td align="left" colspan="2">
                         <select name="situacao" id="situacao" class="select_simples focus" >
                             <option value=""> - Selecione - </option>
@@ -159,16 +159,16 @@
         </table>
         <input type="submit" class="btn_pesquisar" id="btn_pesquisar" value=" "/>
         <input type="reset" class="btn_limpar" id="btn_limpar" value=" " onclick="$('#spandtExecucaoIni').hide(); $('#spandtExecucaoFim').hide(); $('#labelTipo1').html('');$('#labelTipo2').html(''); JSLiberaCampos();" value=""/>
-        
+
     </form>
     <br clear="all" />
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
-<br clear="all" /> 
+<br clear="all" />

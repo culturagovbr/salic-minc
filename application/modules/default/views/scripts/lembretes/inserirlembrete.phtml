@@ -1,10 +1,10 @@
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para InÌcio">InÌcio</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar ¡rea de Trabalho">Visualizar ¡rea de Trabalho</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar ÔøΩrea de Trabalho">Visualizar ÔøΩrea de Trabalho</a></li>
 		<li class="last">Lembretes</li>
 	</ul>
 </div>
@@ -12,15 +12,15 @@
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>Lembretes <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 
@@ -42,13 +42,13 @@
 
 
 <table class="tabela">
- 
+
 <form id="formExcluir" name="formExcluir" method="post" action="<?php echo $this->url(array('controller' => 'lembretes','action' => 'inserirlembrete')); ?>?pronac=<?php echo $this->escape($tblembretesprojeto->IdPRONAC);?>">
    <tr><td align="center">
-  <div class="center">	
+  <div class="center">
   <label for="descricao">Lembretes</label><br />
      <textarea class="textarea_simples" name="descricao" id="descricao" cols="40" rows="4" <?php echo $this->contadorTextarea('form.descricao', 'form.exibirContadorTextarea', 500); ?>  class="w600"><?php echo isset($this->Lembrete) ? $this->Lembrete : ''; ?>
-     
+
      </textarea>
      <?php echo $this->exibirContadorTextarea('exibirContadorTextarea', 3, 500, strlen($this->descricao)); ?>
        </td></tr></div>
@@ -58,7 +58,7 @@
 <input type="hidden" name="pronac" value="<?php echo $this->escape($tblembretesprojeto->IdPRONAC);?>" />
 <input type="hidden" name="AnoProjeto" value="<?php echo $this->anoprojeto;?>" />
 <input type="hidden" name="Sequencial" value="<?php echo $this->sequencial;?>" />
-             
+
 <input type="submit" class="btn_incluir" name="enviar" id="enviar" value=" " />
 <input type="reset" class="btn_limpar" name="cancelar" id="cancelar" value=" " />
    </td></tr>
@@ -76,12 +76,12 @@
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

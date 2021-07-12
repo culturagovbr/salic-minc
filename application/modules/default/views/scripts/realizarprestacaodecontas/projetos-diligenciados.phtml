@@ -65,7 +65,7 @@
         }else if(idOrgaoDestino == 12){
             title = 'Consultoria - CONJUR';
         }else{
-            title = 'Encaminhar Projeto para Análise';
+            title = 'Encaminhar Projeto para AnÃ¡lise';
         }
         //jqAjaxLink("<?php echo $this->baseUrl()?>/operacional/resultado-projetos-por-situacao?situacao=" + situacao, null, "divDinamica");
         $("#divDinamica").dialog({
@@ -144,13 +144,13 @@
         <table class="tabela">
             <thead>
                 <tr class="titulo_tabela">
-                        <th width="50">Número</th>
+                        <th width="50">Nï¿½mero</th>
                         <th width="50"><a href="#resultadoConsultaDevolvidoAposAnalise" class="orderByDI" valorOrdenacaoDI="1">Pronac</a></th>
                         <th width="150"><a href="#resultadoConsultaDevolvidoAposAnalise" class="orderByDI" valorOrdenacaoDI="5">Nome do Projeto</a></th>
-                        <th width="220"><a href="#resultadoConsultaDevolvidoAposAnalise" class="orderByDI" valorOrdenacaoDI="14">Área / Segmento</a></th>
+                        <th width="220"><a href="#resultadoConsultaDevolvidoAposAnalise" class="orderByDI" valorOrdenacaoDI="14">ï¿½rea / Segmento</a></th>
                         <th width="60" nowrap><a href="#resultadoConsultaDevolvidoAposAnalise" class="orderByDI" valorOrdenacaoDI="18">Data de Recebimento</a></th>
                         <th width="130"><a href="#resultadoConsultaDevolvidoAposAnalise" class="orderByDI" valorOrdenacaoDI="16">Mecanismo</a></th>
-                        <th width="130">Analisar Prestação de Contas</th>
+                        <th width="130">Analisar Prestaï¿½ï¿½o de Contas</th>
                         <th width="60">Consultoria AECI</th>
                         <th width="60">Consultoria CONJUR</th>
                         <th width="60">Visualizar Hist&oacute;rico</th>
@@ -216,7 +216,7 @@
                                         $diligencia = 3;
 
                                         $diligenciado = "notice2.png";
-                                        $Titlediligenciado = "Diligência não respondida";
+                                        $Titlediligenciado = "Diligï¿½ncia NÃ£o respondida";
                                     }
                                     else
                                     {
@@ -228,7 +228,7 @@
                                     ?>
 
                                 <a target="_blank" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' =>'listardiligenciaanalista')).'?idPronac=' . $prescontas->IdPRONAC.'&situacao=E17&tpDiligencia=174';?>" ><img src="<?php echo $this->baseUrl(); ?>/public/img/<?php echo $diligenciado; ?>" title="<?php echo $Titlediligenciado; ?>" width="30px"/></a>
-                                
+
                             </td>
                         </tr>
             <?php $i ++; //$idPronac=$prescontas->IdPRONAC; }//feacha if idpronac
@@ -237,7 +237,7 @@
     <?php } else { ?>
             <table class="tabela">
                 <tr>
-                    <td align="center"><em>Não foram encontrados projetos de acordo com os parâmetros de pesquisa.</em></td>
+                    <td align="center"><em>NÃ£o foram encontrados projetos de acordo com os parï¿½metros de pesquisa.</em></td>
                 </tr>
             </table>
             <script>$('#paginacaoDI').hide();</script>

@@ -76,7 +76,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     }
 
     /*
-    *  View: Solicita��o de Altera��o do Nome do Projeto
+    *  View: Solicitação de Altera��o do Nome do Projeto
     */
     public function solaltnomprojAction()
     {
@@ -143,7 +143,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
-            //VERIFICA O STATUS DA SOLICITA��O
+            //VERIFICA O STATUS DA Solicitação
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
@@ -162,7 +162,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     }
 
     /*
-    *  View: Solicita��o de Altera��o Raz�o Social
+    *  View: Solicitação de Altera��o Raz�o Social
     */
     public function solaltrazsocAction()
     {
@@ -228,7 +228,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
-            //VERIFICA O STATUS DA SOLICITA��O
+            //VERIFICA O STATUS DA Solicitação
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
@@ -325,7 +325,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     }
 
     /*
-    *  View: Solicita��o de Altera��o do Local de Realiza��o
+    *  View: Solicitação de Altera��o do Local de Realiza��o
     */
     public function solaltlocrelAction()
     {
@@ -405,7 +405,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
-            //VERIFICA O STATUS DA SOLICITA��O
+            //VERIFICA O STATUS DA Solicitação
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
@@ -425,7 +425,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     }
 
     /*
-    *  View: Solicita��o de Altera��o da Ficha t�cnica
+    *  View: Solicitação de Altera��o da Ficha Técnica
     */
     public function solaltfictecAction()
     {
@@ -484,7 +484,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
-            //VERIFICA O STATUS DA SOLICITA��O
+            //VERIFICA O STATUS DA Solicitação
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
@@ -502,7 +502,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     }
 
     /*
-    *  View: Solicita��o de Prorrogacao de Prazos - Capta��o
+    *  View: Solicitação de Prorrogacao de Prazos - Capta��o
     */
     public function solaltprogprazcapAction()
     {
@@ -579,7 +579,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
-            //VERIFICA O STATUS DA SOLICITA��O
+            //VERIFICA O STATUS DA Solicitação
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
@@ -598,7 +598,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     }
 
     /*
-    *  View: Solicita��o de Prorrogacao de Prazos - Execu��o
+    *  View: Solicitação de Prorrogacao de Prazos - Execu��o
     */
     public function solaltprogprazexecAction()
     {
@@ -676,7 +676,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
-            //VERIFICA O STATUS DA SOLICITA��O
+            //VERIFICA O STATUS DA Solicitação
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);

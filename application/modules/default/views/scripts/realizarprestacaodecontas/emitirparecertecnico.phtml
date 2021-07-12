@@ -8,7 +8,7 @@
             var texto = CKEDITOR.instances['ParecerTecnico'].getData();
 	    $('#ParecerTecnico').val(texto);
 	    $('#ParecerTecnico')[0].value = texto;
-            
+
             if (texto == ""){
                 $("#obrigatorio").dialog('open');
                 $("#obrigatorio").html('Dados obrigat&oacute;rios n&atilde;o informados!');
@@ -44,7 +44,7 @@
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
         <?php if($this->codGrupo == 132): ?>
             <li><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas'));?>">Presta&ccedil;&atilde;o de contas</a></li>
         <?php else: ?>
@@ -72,8 +72,8 @@
         </tr>
     </table>
     <table class="tabela">
-        <?php  if($this->codGrupo == 132): 
-        
+        <?php  if($this->codGrupo == 132):
+
         ?>
         <tr>
             <td align="left">
@@ -83,10 +83,10 @@
 			<?php if(!empty($this->parecerTecnico)):echo $this->parecerTecnico->meRelatorio;endif;?>
 		    </div>
 		    <br/>
-		    
+
                     <?php
                         if ($this->parecerTecnico) :
-                            echo '<span style="color: #35953F; font-size: 16px; font-weight: bold; padding: 5px;">ManifestaÁ„o Final: </span>';
+                            echo '<span style="color: #35953F; font-size: 16px; font-weight: bold; padding: 5px;">ManifestaÔøΩÔøΩo Final: </span>';
                             echo ($this->parecerTecnico->siManifestacao == 0) ? 'Irregular' : 'Regular';
                         endif;
                     ?>
@@ -102,7 +102,7 @@
                     <?php else: $bln_chefedivisao = "nao";?>
                         <legend> Parecer * </legend>
                     <?php endif; ?>
-                        <textarea cols="80" id="ParecerTecnico" name="ParecerTecnico" class="cParecerTecnico" 
+                        <textarea cols="80" id="ParecerTecnico" name="ParecerTecnico" class="cParecerTecnico"
                             rows="10"><?php
                                 if (!empty($this->parecerChefe) && $this->codGrupo == 132) :
                                     echo $this->parecerChefe->meRelatorio;
@@ -120,7 +120,7 @@
                 <span style="color: #35953F; font-size: 16px; font-weight: bold; padding: 5px;">
                     <?php
                         if($this->codGrupo != 132) :
-                            echo 'ManifestaÁ„o Final:';
+                            echo 'ManifestaÔøΩÔøΩo Final:';
                         else :
                             echo 'Pronunciamento:';
                         endif;
@@ -128,7 +128,7 @@
                 </span>
                 <input type="radio" name="manifestacao" id="regular" value="1" checked="checked"/>
                 <label for="regular">Regular</label>
-                <input type="radio" name="manifestacao" id="irregular" 
+                <input type="radio" name="manifestacao" id="irregular"
                     value="0"
                     <?php
                         if ($this->codGrupo == 124) : // tecnico
@@ -158,10 +158,10 @@
 </div>
 <div id="obrigatorio" ></div>
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== --> 
-<div id="rodapeConteudo"><span></span></div> 
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== --> 
- 
-<br clear="all" /> 
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
-<div id="analisar-confirm" style="width:220px" class="sumir" title="Enviar Chefe de Divis„o"></div>
+<br clear="all" />
+
+<div id="analisar-confirm" style="width:220px" class="sumir" title="Enviar Chefe de DivisÔøΩo"></div>

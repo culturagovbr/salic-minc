@@ -4,7 +4,7 @@ $(document).ready(function(){
 
         $("#enviar").click(function(){
             if($("#tipoDocumento").val()== ''){
-                alert('Favor selecione o Componente da Comiss�o!')
+                alert('Favor selecione o Componente da comissão!')
                 $("#tipoDocumento").focus();
                 return false;
             }
@@ -13,18 +13,18 @@ $(document).ready(function(){
                 $("#descricao").focus();
                 return false;
             }
-            
+
                 $('#formCadastrar').submit();
         });
 
 });
 </script>
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In�cio">In�cio</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para An�lise do Membro da Comiss�o">An�lise do Membro da Comiss�o</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Análise do Membro da comissão">Análise do Membro da comissão</a></li>
 		<li class="last">Hist�rico</li>
 	</ul>
 </div>
@@ -32,7 +32,7 @@ $(document).ready(function(){
 
 
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
 	<div>Hist�rico <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -40,9 +40,9 @@ $(document).ready(function(){
 
 
 
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 
-<?php 
+<?php
 	/*Zend_Debug::dump($this->historico);$this->_helper->viewRenderer->setNoRender(TRUE);*/
 
 ?>
@@ -85,19 +85,19 @@ $(document).ready(function(){
 
 <table class="tabela">
   <tr><td>
-  
-  
+
+
   <div align="center" class="titulo_tabela"><label for="descricao">Enviar Mensagem</label></div>
     </td></tr>
 <form id="formCadastrar" name="formCadastrar" method="post" action="">
    <tr><td align="center">
-     <div align="center">    
-     
-        	<textarea  class="textarea_simples" type="text" name="descricao" id="descricao" cols="40"  rows="4" 
-	            		onclick="limpar_campo(this, 'Digite a Mensagem e depois selecione o Componente da Comiss�o...');" onkeypress=" "
-	            		onblur="restaurar_campo(this, 'Digite a Mensagem e depois selecione o Componente da Comiss�o...');">Digite a Mensagem e depois selecione o Componente da Comiss�o...<?php echo isset($this->dsMensagem) ? $this->dsMensagem : ''; ?></textarea>
-     
-     
+     <div align="center">
+
+        	<textarea  class="textarea_simples" type="text" name="descricao" id="descricao" cols="40"  rows="4"
+	            		onclick="limpar_campo(this, 'Digite a Mensagem e depois selecione o Componente da comissão...');" onkeypress=" "
+	            		onblur="restaurar_campo(this, 'Digite a Mensagem e depois selecione o Componente da comissão...');">Digite a Mensagem e depois selecione o Componente da comissão...<?php echo isset($this->dsMensagem) ? $this->dsMensagem : ''; ?></textarea>
+
+
      </div></td></tr>
   </table>
 <table class="tabela">
@@ -105,12 +105,12 @@ $(document).ready(function(){
     <div align="center" class="titulo_tabela"> <label for="tipoDocumento">Encaminhar para:</label></div>
   </td></tr>
     <tr><td align="center" >
-  <select name="componenteComissao" id="tipoDocumento" class="input_simples"><option value="">- Selecione o Componente da Comiss�o - </option>
+  <select name="componenteComissao" id="tipoDocumento" class="input_simples"><option value="">- Selecione o Componente da comissão - </option>
 				<?php foreach ($this->componentecomissao as $comboComponenteComissao) { ?>
 				<option value="<?php echo $comboComponenteComissao->agente; ?>"><?php echo $comboComponenteComissao->nomeConselheiro;?></option>
 				<?php } ?>
-			
-			</select>	
+
+			</select>
                      </td></tr>
 
 
@@ -128,18 +128,18 @@ $(document).ready(function(){
 
 
 <table class="tabela">
-	<td class="center"> 	<a href="javascript:window.print()"><img src="<?php echo $this->baseUrl(); ?>/public/img/imprimir.gif" alt="Imprimir" /> </a></td>	
+	<td class="center"> 	<a href="javascript:window.print()"><img src="<?php echo $this->baseUrl(); ?>/public/img/imprimir.gif" alt="Imprimir" /> </a></td>
 </table>
 
 
 
 </div>
-<!-- ========== FIM CONTE�DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

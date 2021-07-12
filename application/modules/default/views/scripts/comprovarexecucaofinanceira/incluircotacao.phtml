@@ -53,7 +53,7 @@
                     <th>Dados da Cota&ccedil;&atilde;o</th>
                 </tr>
             </table>
-            
+
             <table class="tabela">
                 <tr>
                     <td class="destacar w200 bold" align="right">N&uacute;mero da Cota&ccedil;&atilde;o<span style='color:red'>*</span></td>
@@ -171,7 +171,7 @@
                 <?php foreach ($this->itensVinculados as $itensVinculados) { ?>
                 <tr>
                     <td>
-                        <?php echo $itensVinculados->dsProduto ? $itensVinculados->dsProduto : 'Administração do Projeto'; ?>
+                        <?php echo $itensVinculados->dsProduto ? $itensVinculados->dsProduto : 'Administraï¿½ï¿½o do Projeto'; ?>
                         <input type="hidden" name="produto[]" value="<?php echo $itensVinculados->idProduto; ?>">
                     </td>
                     <td>
@@ -204,11 +204,11 @@
         </form>
     </div>
     <br clear="left" />
-    
+
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />
 
 <div id="msgAlerta" class="sumir"></div>
@@ -217,7 +217,7 @@
 
 <script type="text/javascript">
     var corpo  = '#<?php echo $corpo;?>';
-    
+
     $(document).ready(function(){
 
         $('.btnExcluirItem').click(function(){
@@ -234,7 +234,7 @@
                 height:160,
                 modal: true,
                 buttons : {
-                    'Não' : function(){
+                    'NÃ£o' : function(){
                         $("#msgConfirm").dialog('close');
                     },
                     'Sim' : function(){
@@ -249,7 +249,7 @@
                             success: function(dados) {
                                 obj.parent().parent().remove();
                                 $("#msgAlerta").dialog("destroy");
-                                $("#msgAlerta").html("Excluído com sucesso!");
+                                $("#msgAlerta").html("Excluï¿½do com sucesso!");
                                 $("#msgAlerta").dialog({
                                     resizable: false,
                                     title: 'Alerta!',
@@ -272,7 +272,7 @@
             $('.ui-dialog-titlebar-close').remove();
             return false;
         });
-        
+
         mascaras(corpo);
 
         $(corpo+' a').click(function(){
@@ -351,7 +351,7 @@
             // validar item vinculado
             if (!$('input[name=item\\[\\]]').length) {
                 preenchimento = true;
-                message = 'Selecione o item para vincular a cotação.';
+                message = 'Selecione o item para vincular a cotaï¿½ï¿½o.';
             }
 
             if(preenchimento) {
@@ -375,7 +375,7 @@
                 $('#formularioCotacao').submit();
             }
         });
-        
+
         $('#<?php echo $corpo;?> .btn_cancelar').click(function(){
             voltar();
         });

@@ -2,7 +2,7 @@
 
 function incluir(){
 
-    document.getElementById("modalEditais").title = "Confirmação";
+    document.getElementById("modalEditais").title = "ConfirmaÃ§Ã£o";
 
 	// modal com os ddos do dirigente
 	$("#modalEditais").dialog("destroy");
@@ -34,7 +34,7 @@ function excluir(idEdital, idAgente, cpf){
 	$("#idEdit").val(idEdital);
 	$("#idAgen").val(idAgente);
 	$("#cpf2").val(cpf);
-    document.getElementById("excluir").title = "Confirmação";
+    document.getElementById("excluir").title = "ConfirmaÃ§Ã£o";
 
     $("#excluir").dialog("destroy");
     $("#excluir").dialog
@@ -68,7 +68,7 @@ function teste(x){
 	}
 	else{
 		$(".item"+x.value).html('');
-	}	
+	}
 }
 
 $(document).ready(function(){
@@ -93,11 +93,11 @@ $(document).ready(function(){
 				}
 			});
 			if(nome == false){
-				msgnome.html('Campo nome é obrigatório!');
+				msgnome.html('Campo nome ï¿½ obrigatï¿½rio!');
 				msgnome.css("color", "red");
 			}
 			if(email == false){
-				msgemail.html('Campo email é obrigatório!');
+				msgemail.html('Campo email ï¿½ obrigatï¿½rio!');
 				msgemail.css("color", "red");
 			}
 			if(nome && email){
@@ -129,7 +129,7 @@ $(document).ready(function(){
 		<table class="tabela">
 			<tr align="center">
 				<th>Selecione</th>
-				<th>Nº Edital</th>
+				<th>Nï¿½ Edital</th>
 				<th>Nome Edital</th>
 			</tr>
 			<?php if($this->dadosEditalAvaliador){?>
@@ -142,21 +142,21 @@ $(document).ready(function(){
 						$idOrgao = $pEdital->idOrgao;
 						$nrEdital = $pEdital->NrEdital;
 						$logon = $pEdital->Logon;
-						
+
 						$nameEdital = ListareditaisDAO::buscaNomeEdital($idEdital, $idOrgao, $nrEdital, $logon);
 						//x($nameEdital);
 						$testes[$x] = Array('idEdital'=> $nameEdital[0]->idEdital, 'NrEdital'=> $nameEdital[0]->NrEdital, 'nomeEdital'=> $nameEdital[0]->nomeEdital);
 		        		$x++;
 					}
 				}
-			}	
+			}
 			?>
-			<?php 
+			<?php
 			$p = array();
         	foreach ($testes as $blas){
         		$p[] = $blas['NrEdital'];
-        	}        
-	        array_multisort($p, $testes); //Metodo de Ordenação
+        	}
+	        array_multisort($p, $testes); //Metodo de Ordenaï¿½ï¿½o
 	        //x($testes);
         	if($testes){
         		foreach ($testes as $ble){?>
@@ -184,30 +184,30 @@ $(document).ready(function(){
 	        <?php foreach($this->editais as $editais){?>
 		        <?php $dadosEdital = ManterAvaliadorDAO::buscaDadosEdital($editais->idEdital);
 //		        x($dadosEdital);
-		        
+
 		        	foreach ($dadosEdital as $nomeEdital){
 		        		$idEdital = $nomeEdital->idEdital;
 		        		$nrEdital = $nomeEdital->NrEdital;
 		        		$idOrgao = $nomeEdital->idOrgao;
 		        		$usuario = $nomeEdital->Logon;
-		        		
+
 		        		$nomeEdital = ListareditaisDAO::buscaNomeEdital($idEdital, $idOrgao, $nrEdital, $usuario);
-		        		if($nomeEdital){ 
-		        		$teste[$i] = Array('idEdital'=> $nomeEdital[0]->idEdital, 'NrEdital'=> $nomeEdital[0]->NrEdital, 'nomeEdital'=> $nomeEdital[0]->nomeEdital); 
+		        		if($nomeEdital){
+		        		$teste[$i] = Array('idEdital'=> $nomeEdital[0]->idEdital, 'NrEdital'=> $nomeEdital[0]->NrEdital, 'nomeEdital'=> $nomeEdital[0]->nomeEdital);
 		        		$i++;
 		        		}
 		        	}
 	        }?>
 	    <form id="frm2" name="frm2" action="" method="post">
 	    <table class="" width="70%">
-        <?php 
+        <?php
         $t = array();
         if($teste){
 	        foreach ($teste as $bla){
 	        	$t[] = $bla['NrEdital'];
-	        	
-	        }        
-	        array_multisort($t, $teste); //Metodo de Ordenação
+
+	        }
+	        array_multisort($t, $teste); //Metodo de Ordenaï¿½ï¿½o
 	        if($teste){
 		       	foreach ($teste as $bla){?>
 			        <tr>
@@ -225,8 +225,8 @@ $(document).ready(function(){
 	 <?php }else{?>
 	 <tr>
 			<br />
-				<div class="center" align="center">Não há Editais vinculados para "<?php echo $this->nomeAvaliador; ?>"</div>
-			<br />	
+				<div class="center" align="center">NÃ£o hï¿½ Editais vinculados para "<?php echo $this->nomeAvaliador; ?>"</div>
+			<br />
 			<br />
 	</tr>
 	 <?php }?>
@@ -237,8 +237,8 @@ $(document).ready(function(){
     </form>
     <br><br>
 </div>
-<!-- ========== FIM CONTEï¿½DO ========== -->
-<!-- ========== INï¿½CIO RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

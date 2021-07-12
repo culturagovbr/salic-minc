@@ -627,12 +627,10 @@ class Agente_Model_DbTable_Agentes extends MinC_Db_Table_Abstract
      * buscarPareceristasIphan
      *
      * @param mixed $idOrgao
-     * @param mixed $idArea
-     * @param mixed $idSegmento
      * @access public
      * @return void
      */
-    public function buscarPareceristasIphan($idOrgao, $idArea, $idSegmento)
+    public function buscarPareceristasIphan($idOrgao = null)
     {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
@@ -669,10 +667,8 @@ class Agente_Model_DbTable_Agentes extends MinC_Db_Table_Abstract
 
         $dadosWhere["v.Visao = ?"] = 209;
         $dadosWhere["n.TipoNome = ?"] = 18;
-        $dadosWhere["c.idCodigoArea = ?"] = $idArea;
-        $dadosWhere["c.idCodigoSegmento = ?"] = $idSegmento;
         $dadosWhere["u.org_superior = ?"] = 91;
-        $dadosWhere["u.usu_orgao = ?"] = $idOrgao;  // especificidade do IPHAN - puxa codigo do orgao
+       // $dadosWhere["u.usu_orgao = ?"] = $idOrgao;  // especificidade do IPHAN - puxa codigo do orgao
         $dadosWhere["NOT EXISTS(SELECT TOP 1 * FROM Agentes.dbo.tbAusencia WHERE Getdate() BETWEEN dtInicioAusencia AND dtFimAusencia AND idAgente = a.idAgente)"] = '';
 
         foreach ($dadosWhere as $coluna => $valor) {

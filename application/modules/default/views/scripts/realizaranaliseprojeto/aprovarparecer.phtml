@@ -1,63 +1,63 @@
 <?php
 /**
- * Emiss„o de Parecer (N„o Acompanhar Parecer)
+ * EmissÔøΩo de Parecer (N√£o Acompanhar Parecer)
  * @author Equipe RUP - Politec
  * @since 12/05/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicaprojeto
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 echo $this->partial('inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para An·lise do Membro da Comiss„o">An·lise do Membro da Comiss„o</a></li>
-		<li class="last">Emitir Parecer - N„o acompanhar parecer</li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para An√°lise do Membro da comiss√£o">An√°lise do Membro da comiss√£o</a></li>
+		<li class="last">Emitir Parecer - N√£o acompanhar parecer</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-	<div>Emitir Parecer - N„o acompanhar parecer <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>Emitir Parecer - N√£o acompanhar parecer <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 
 
 	<?php echo $this->partial('inc/menu_abas.inc.php', $this) // menu ?>
-	
-	<!-- ========== INÕCIO TÕTULO P¡GINA ========== -->
+
+	<!-- ========== IN√çCIO TÔøΩTULO p√°gina ========== -->
 	<table class="tabela">
-	
+
 		<?php foreach ($this->pronac as $p) : ?>
 		<tr>
 			<th>
-				<p>Emitir Parecer - N„o acompanhar parecer</p>
+				<p>Emitir Parecer - N√£o acompanhar parecer</p>
 				<p>PRONAC: <?php echo $p->IdPRONAC; ?> - <?php echo $p->NomeProjeto; ?></p>
 			</th>
 		</tr>
 		<?php endforeach; ?>
-	
+
 	</table>
-	<!-- ========== FIM TÕTULO P¡GINA ========== -->
+	<!-- ========== FIM TÔøΩTULO p√°gina ========== -->
 
 
 
-	<!-- ========== INÕCIO FORMUL¡RIO ========== -->
+	<!-- ========== IN√çCIO FORMULÔøΩRIO ========== -->
 	<form action="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'aprovarparecer')); ?>" method="post">
 		<input type="hidden" name="idPlanilha" value="<?php echo $_GET['idPlanilha']; ?>" />
 		<input type="hidden" name="idPronac" value="<?php echo $_GET['idPronac']; ?>" />
@@ -84,7 +84,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 			<p>
 				<input type="submit" class="btn" value=" Aprovar "  onclick="javascript:document.getElementById('I').disabled=true;document.getElementById('R').disabled=true;document.getElementById('N').disabled=true;" onkeypress="javascript:document.getElementById('I').disabled=true;document.getElementById('R').disabled=true;document.getElementById('N').disabled=true;" />
 				<input type="submit" class="btn" value=" Indeferir " onclick="javascript:document.getElementById('A').disabled=true;document.getElementById('R').disabled=true;document.getElementById('N').disabled=true;" onkeypress="javascript:document.getElementById('A').disabled=true;document.getElementById('R').disabled=true;document.getElementById('N').disabled=true;" />
-				<input type="submit" class="btn" value=" DiligÍnciar " onclick="javascript:document.getElementById('A').disabled=true;document.getElementById('I').disabled=true;document.getElementById('N').disabled=true;" onkeypress="javascript:document.getElementById('A').disabled=true;document.getElementById('I').disabled=true;document.getElementById('N').disabled=true;" />
+				<input type="submit" class="btn" value=" DiligÔøΩnciar " onclick="javascript:document.getElementById('A').disabled=true;document.getElementById('I').disabled=true;document.getElementById('N').disabled=true;" onkeypress="javascript:document.getElementById('A').disabled=true;document.getElementById('I').disabled=true;document.getElementById('N').disabled=true;" />
 				<input type="submit" class="btn" value=" Submeter a CNIC " onclick="javascript:document.getElementById('A').disabled=true;document.getElementById('I').disabled=true;document.getElementById('R').disabled=true;" onkeypress="javascript:document.getElementById('A').disabled=true;document.getElementById('I').disabled=true;document.getElementById('R').disabled=true;" />
 			</p>
 			<br />
@@ -92,7 +92,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-		<!-- ========== BOT’ES ========== -->
+		<!-- ========== BOTÔøΩES ========== -->
 		<br />
 		<p class="centro" style="margin-right:1%;">
 			<input type="button" class="btn_p_anterior" value=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'emitirparecer')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>');" onkeypress="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'emitirparecer')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>');" />
@@ -102,17 +102,17 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 		<br />
 
 	</form>
-	<!-- ========== FIM FORMUL¡RIO ========== -->
+	<!-- ========== FIM FORMULÔøΩRIO ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

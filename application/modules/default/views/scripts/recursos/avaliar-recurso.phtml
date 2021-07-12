@@ -3,11 +3,11 @@
         $('.btn_imprimir').click(function(){
             $('#formImpressao').submit();
         });
-        
+
         $('.btn_voltar').click(function(){
             voltar();
         });
-        
+
         $('#btn_salvar').click(function(){
             var erros = 0;
             $('.obrigatorio').each(function(){
@@ -15,7 +15,7 @@
                     erros++;
                 }
             });
-            
+
             var dsAvaliacao = CKEDITOR.instances['dsAvaliacao'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,'');
             if (dsAvaliacao == ''){
                 erros++;
@@ -37,17 +37,17 @@
                     }
                 });
                 $('.ui-dialog-titlebar-close').remove();
-            
+
             } else {
                 $('#formAvaliacao').submit();
             }
-            
+
         });
-        
+
         $('.radioAvaliacao').change(function(){
             var radio = $(this).val();
             if(radio == 'D'){
-                $('#vinculada').removeAttr('disabled'); 
+                $('#vinculada').removeAttr('disabled');
                 $('#vinculada').addClass('obrigatorio');
                 verificarVinculada();
             } else {
@@ -55,17 +55,17 @@
                 document.getElementById('destinatario').options[0].selected = true;
                 $('#vinculada').attr('disabled', true);
                 $('#destinatario').attr('disabled', true);
-                
+
                 $('#vinculada').removeClass('obrigatorio');
                 $('.asterisco_dinamico').addClass('sumir');
             }
         });
-        
+
         $('#vinculada').change(function(){
             $('#vinculada').addClass('obrigatorio');
             verificarVinculada();
         });
-        
+
         function verificarVinculada(){
             var vinculada = $('#vinculada').val();
             if(vinculada == 262 || vinculada == 400){
@@ -93,7 +93,7 @@
                     },
                     dataType : 'json'
                 });
-                
+
             } else {
                 document.getElementById('destinatario').options[0].selected = true;
                 $('.asterisco_dinamico').addClass('sumir');
@@ -101,9 +101,9 @@
                 $('#destinatario').removeClass('obrigatorio');
             }
         }
-        
+
         CKEDITOR.replace( 'dsAvaliacao', { toolbar: [] } );
-        
+
     });
 </script>
 
@@ -114,28 +114,28 @@
     }
 </style>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta"></div>
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para InÔøΩcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'index'), '', true); ?>" title="Recurso">Recurso</a></li>
-        <li>Aguardando An·lise</li>
+        <li>Aguardando An√°lise</li>
         <li class="last">Avalia&ccedil;&atilde;o de Recurso</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Avalia&ccedil;&atilde;o de Recurso <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
-<div id="conteudo">           
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
+<div id="conteudo">
     <form name="formAvaliacao" id="formAvaliacao" action="<?php echo $this->baseUrl(); ?>/recursos/salvar-avaliacao" method="post">
         <table class="tabela">
             <tr>
@@ -147,13 +147,13 @@
                 <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
             </tr>
         </table>
-        
+
         <table class="tabela">
             <tr>
                 <th colspan="4">SOLICITA&Ccedil;&Atilde;O</th>
             </tr>
             <tr>
-                <td colspan="4" class="destacar bold" align="center">DescriÁ„o do Recurso</td>
+                <td colspan="4" class="destacar bold" align="center">Descri√ß√£o do Recurso</td>
             </tr>
             <tr>
                 <td colspan="4"><?php echo $this->recurso->dsSolicitacaoRecurso; ?></td>
@@ -161,11 +161,11 @@
             <tr>
                 <td class="destacar bold w150" align="center">Tipo do Recurso</td>
                 <td><?php echo $this->recurso->tpRecursoDesc; ?></td>
-                <td class="destacar bold w150" align="center">Tipo do SolicitaÁ„o</td>
+                <td class="destacar bold w150" align="center">Tipo do Solicita√ß√£o</td>
                 <td><?php echo $this->recurso->tpSolicitacaoDesc; ?></td>
             </tr>
         </table>
-        
+
         <?php if(count($this->statusDeAvaliacao)>0){ ?>
         <table class="tabela">
             <tr>
@@ -173,13 +173,13 @@
             </tr>
             <tr>
                 <td class="destacar bold w150" align="center">Entidade Vinculada</td>
-                <td><?php echo ($this->statusDeAvaliacao[0]) ? $this->statusDeAvaliacao[0]->ParecerFavoravel : 'N„o avaliado'; ?></td>
+                <td><?php echo ($this->statusDeAvaliacao[0]) ? $this->statusDeAvaliacao[0]->ParecerFavoravel : 'N√£o avaliado'; ?></td>
                 <td class="destacar bold w100" align="center">CNIC</td>
-                <td><?php echo ($this->statusDeAvaliacao[1]) ? $this->statusDeAvaliacao[1]->ParecerFavoravel : 'N„o avaliado'; ?></td>
+                <td><?php echo ($this->statusDeAvaliacao[1]) ? $this->statusDeAvaliacao[1]->ParecerFavoravel : 'N√£o avaliado'; ?></td>
             </tr>
         </table>
         <?php } ?>
-        
+
         <table class="tabela">
             <tr>
                 <th>RESPOSTA <span class="asterisco">*</span></th>
@@ -217,7 +217,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold" width="130px;">Destinat·rio: <span class="asterisco_dinamico sumir">*</span></td>
+                <td class="destacar bold" width="130px;">Destinat√°rio: <span class="asterisco_dinamico sumir">*</span></td>
                 <td>
                     <select name="destinatario" id="destinatario" class="select_simples" disabled="disabled">
                         <option value=""> - Selecione - </option>
@@ -227,16 +227,16 @@
         </table>
         <input type="hidden" name="idRecurso" value="<?php echo $this->recurso->idRecurso; ?>">
     </form>
-    
+
     <p align="center">
         <input type="button" class="btn_salvar" name="btn_salvar" id="btn_salvar">
         <input type="button" class="btn_voltar" name="btn_voltar" id="btn_voltar">
     </p>
-    
+
     <br clear="all" />
 </div>
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

@@ -24,17 +24,17 @@ class PrestacaoContas_AmostragemController extends MinC_Controller_Action_Abstra
 
         parent::init();
     }
-    
+
     public function indexAction()
     {
         $idpronac = $this->_request->getParam('idPronac');
         $tipoAvaliacao = $this->_request->getParam('tipoAvaliacao');
 
         if (!$idPronac) {
-            throw new Exception('Não existe idPronac');
+            throw new Exception('NÃ£o existe idPronac');
         }
         if (!$tipoAvaliacao) {
-            throw new Exception('Não existe tipoAvaliacao');
+            throw new Exception('NÃ£o existe tipoAvaliacao');
         }
 
         $this->view->idPronac = $idpronac;

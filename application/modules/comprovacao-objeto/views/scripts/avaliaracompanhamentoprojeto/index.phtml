@@ -21,7 +21,7 @@
                 </td>
                 <td width="150">
                     <select name="tipoFiltro" id="tipoFiltro" class="input_simples">
-                        <option value="">Aguardando an&aacute;lise</option>
+                        <option value="">Aguardando análise</option>
                         <option
                             value="emanalise" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'emanalise') ? 'selected="selected"' : ''; ?>>
                             Em an&aacute;lise
@@ -243,7 +243,7 @@
                                             style="margin-bottom:5px;"
                                             class="btn small disabled"
                                             href="<?php printf($url, $this->urlAssinatura, $dp->idDocumentoAssinatura, $this->originAssinatura); ?>"
-                                            title="Aguardando assinatura do t&eacute;cnico">
+                                            title="Aguardando assinatura do técnico">
                                             <i class="material-icons">create</i>
                                         </a>
                                     <?php endif; ?>

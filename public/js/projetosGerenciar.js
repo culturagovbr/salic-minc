@@ -3,12 +3,12 @@ function confirmar(id){
 	$('#btn'+id).click(function (e) {
 		e.preventDefault();
 
-		confirm("Deseja realmente desabilitar o Componente da Comissão?", function () {
+		confirm("Deseja realmente desabilitar o Componente da comissÃ£o?", function () {
 			$('#form'+id).submit();
 			//window.location.href = 'http://www.tarcisioangelo.com.br';
 		});
 	});
-}	
+}
 
 	function validar(id)
 	{
@@ -17,18 +17,18 @@ function confirmar(id){
 	            // Define as regras
 	            rules:{
 	                justificativa:{
-	                    // campoNome será obrigatorio (required) e terá tamanho minimo (minLength)
+	                    // campoNome serÃ¡ obrigatorio (required) e terï¿½ tamanho minimo (minLength)
 	                    required: true, minlength: 15
 	                }
 	            },
 	            // Define as mensagens de erro para cada regra
 	            messages:{
 	                justificativa:{
-	                    required: "<br />Dados obrigatórios não informados.",
-	                    minlength: "<br />A justificativa deve conter, no mínimo, 15 caracteres"
+	                    required: "<br />Dados obrigatï¿½rios NÃ£o informados.",
+	                    minlength: "<br />A justificativa deve conter, no mï¿½nimo, 15 caracteres"
 	                }
 	            }
-	        
+
 	    	});
 	}
 
@@ -40,14 +40,14 @@ function confirmar(id){
 					width: 600,
 					modal: true
 			    });
-	
-	
+
+
 		$('#habilitar'+id_div).dialog('open');
 
 		validar(id_div+'a');
-		
+
 	};
-	
+
 	function desabilitar(id_div){
 		$('#desabilita'+id_div).dialog({
 			        //bgiframe: true,
@@ -56,13 +56,13 @@ function confirmar(id){
 					width: 600,
 					modal: true
 			    });
-	
+
 		$('#desabilita'+id_div).dialog('open');
-		
+
 		validar(id_div);
-		
+
 	};
-	
+
 	function diligenciar(){
 		$('#diligencia').dialog({
 			        //bgiframe: true,
@@ -71,7 +71,7 @@ function confirmar(id){
 					width: 600,
 					modal: true
 			    });
-	
+
 		$('#diligencia').dialog('open');
 	};
 
@@ -82,12 +82,12 @@ function confirmar(id){
 					width: 600,
 					modal: true
 			    });
-	
+
 		$('#encaminhar'+id_div).dialog('open');
-		
+
 		validar(id_div);
 	};
-	
+
 	function encaminhar2(id_div){
 		$('#encaminhar2'+id_div).dialog({
 			        //bgiframe: true,
@@ -95,10 +95,10 @@ function confirmar(id){
 					width: 600,
 					modal: true
 			    });
-	
+
 		$('#encaminhar2'+id_div).dialog('open');
 	};
-	
+
 	function reencaminhar(id_div){
 		$('#reencaminhar'+id_div).dialog({
 			        //bgiframe: true,
@@ -106,10 +106,10 @@ function confirmar(id){
 					width: 600,
 					modal: true
 			    });
-	
+
 		$('#reencaminhar'+id_div).dialog('open');
 	};
-	
+
 	function reencaminhar2(id_div){
 		$('#reencaminhar2'+id_div).dialog({
 			        //bgiframe: true,
@@ -117,11 +117,11 @@ function confirmar(id){
 					width: 600,
 					modal: true
 			    });
-	
+
 		$('#reencaminhar2'+id_div).dialog('open');
 	};
-	
-	
+
+
 	function encaminharCoordAcomp(idAcao){
         $("#mostra").dialog("destroy");
         $('#mostra').html('Deseja devolver ao MinC?');
@@ -133,7 +133,7 @@ function confirmar(id){
             resizable: false,
             closeOnEscape: false,
             buttons: {
-                'Não': function()
+                'NÃ£o': function()
                 {
                         $(this).dialog('close');
                 },
@@ -145,10 +145,10 @@ function confirmar(id){
         });
         $('.ui-dialog-titlebar-close').remove();
 	}
-	
+
 	function finalizarsolicitacaogeral(idAcao){
         $("#mostra").dialog("destroy");
-        $('#mostra').html('Deseja validar a análise realizada?');
+        $('#mostra').html('Deseja validar a AnÃ¡lise realizada?');
         $("#mostra").dialog
         ({
             height: 180,
@@ -157,7 +157,7 @@ function confirmar(id){
             resizable: false,
             closeOnEscape: false,
             buttons: {
-                'Não': function()
+                'NÃ£o': function()
                 {
                     $(this).dialog('close');
                 },
@@ -168,11 +168,11 @@ function confirmar(id){
             }
         });
 	}
-	
+
 	function stReadequacao(idPedidoAlteracao,IdPronac,valor){
             var opcao = valor.value;
             $("#mostra").dialog("destroy");
-            $('#mostra').html('Deseja alterar o status da solicitação?');
+            $('#mostra').html('Deseja alterar o status da SolicitaÃ§Ã£o?');
             $("#mostra").dialog
             ({
                 height: 180,
@@ -181,7 +181,7 @@ function confirmar(id){
                 resizable: false,
                 closeOnEscape: false,
                 buttons: {
-                    'Não': function()
+                    'NÃ£o': function()
                     {
                         document.getElementById('status').options[0].selected = true;
                         $(this).dialog('close');
@@ -197,7 +197,7 @@ function confirmar(id){
         function stReadequacaoItemdeCusto(idPedidoAlteracao,IdPronac,valor){
             var opcao = valor.value;
             $("#mostra").dialog("destroy");
-            $('#mostra').html('Deseja alterar o status da solicitação?');
+            $('#mostra').html('Deseja alterar o status da SolicitaÃ§Ã£o?');
             $("#mostra").dialog
             ({
                 height: 180,
@@ -206,7 +206,7 @@ function confirmar(id){
                 resizable: false,
                 closeOnEscape: false,
                 buttons: {
-                    'Não': function()
+                    'NÃ£o': function()
                     {
                         document.getElementById('status').options[0].selected = true;
                         $(this).dialog('close');
@@ -219,11 +219,11 @@ function confirmar(id){
             });
             $('.ui-dialog-titlebar-close').remove();
 	}
-	
-	function stProposta(idAvaliacao,IdPRONAC,valor){		
+
+	function stProposta(idAvaliacao,IdPRONAC,valor){
             var opcao = valor.value;
             $("#mostra").dialog("destroy");
-            $('#mostra').html('Deseja alterar o status da solicitação?');
+            $('#mostra').html('Deseja alterar o status da SolicitaÃ§Ã£o?');
             $("#mostra").dialog
             ({
                 height: 180,
@@ -232,7 +232,7 @@ function confirmar(id){
                 resizable: false,
                 closeOnEscape: false,
                 buttons: {
-                    'Não': function()
+                    'NÃ£o': function()
                     {var opcao = valor.value;
                                     document.getElementById('status').options[0].selected = true;
                                     $(this).dialog('close');
@@ -244,8 +244,8 @@ function confirmar(id){
                 }
             });
 	}
-		
-			
+
+
 	function visualizarhist(id_div,url){
 		$('#visualizarhist'+id_div).dialog({
 			        //bgiframe: true,
@@ -271,54 +271,54 @@ function confirmar(id){
 			}
 		});
 	};
-	
+
 
 	function abrir_fechar(id_div){
-	
+
 		$('#'+id_div).toggle('slow');
-	
+
 	};
-	
+
 	function abrir_fechar2(id_div){
-	
+
 		$('#hab'+id_div).toggle('slow');
-	
+
 	};
-	
+
 	function abrir_fechar_aguardando(){
-		
+
 		$('#aguardando').toggle('slow');
-	
+
 	};
-	
+
 	function abrir_fechar_devolvidos(){
-		
+
 		$('#devolvidos').toggle('slow');
-	
+
 	};
-	
+
 	function abrir_fechar_diligienciasresp(){
-		
+
 		$('#diligienciasresp').toggle('slow');
-	
+
 	};
-	
+
 	function abrir_fechar_projdiligienciados(){
-		
+
 		$('#projetosdiligienciados').toggle('slow');
-	
+
 	};
-	
+
 	function abrir_fechar(vdiv){
-		
+
 		$('#'+vdiv).toggle('slow');
-	
+
 	};
 
         function stAnalise(idPedidoAlteracao,IdPronac,valor,action){
             var opcao = valor.value;
             $("#mostra").dialog("destroy");
-            $('#mostra').html('Deseja alterar o status da solicitação?');
+            $('#mostra').html('Deseja alterar o status da SolicitaÃ§Ã£o?');
             $("#mostra").dialog
             ({
                 height: 180,
@@ -327,7 +327,7 @@ function confirmar(id){
                 resizable: false,
                 closeOnEscape: false,
                 buttons: {
-                    'Não': function()
+                    'NÃ£o': function()
                     {
                         document.getElementById('status').options[0].selected = true;
                         $(this).dialog('close');

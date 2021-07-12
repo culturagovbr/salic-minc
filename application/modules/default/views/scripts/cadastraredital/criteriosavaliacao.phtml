@@ -21,30 +21,30 @@ $(document).ready( function() {
 	        }else{
 	        	$("#mensagem2").html('');
 	        }
-	        
+
         	if($(".nrNotaInicio").val()==''){
 	        	$("#mensagem3").html('<font color="red"><b>Informe a Nota Inicial!</b></font>');
 	        }else{
 	        	$("#mensagem3").html('');
 	        }
-	        
+
         	if($(".nrNotaFim").val()==''){
 	        	$("#mensagem4").html('<font color="red"><b>Informe a Nota Final!</b></font>');
 	        }else{
 	        	$("#mensagem4").html('');
 	        }
-	        
+
         	if($(".nrNotaVariacao").val()==''){
 	        	$("#mensagem5").html('<font color="red"><b>Informe a Varia&ccedil;&atilde;o!</b></font>');
 	        }else{
 	        	$("#mensagem5").html('');
 	        }
         	return false;
-        }else{ 
-        var nrNotaInicio = new Number($(".nrNotaInicio").val()); 
+        }else{
+        var nrNotaInicio = new Number($(".nrNotaInicio").val());
         var nrNotaFim = new Number($(".nrNotaFim").val());
-            if(nrNotaInicio > nrNotaFim){ 
-                	
+            if(nrNotaInicio > nrNotaFim){
+
             	$("#alerta").dialog("destroy");
                 $("#alerta").dialog
                 ({
@@ -63,7 +63,7 @@ $(document).ready( function() {
 
                 $("#alerta").dialog('open');
             }else{
-                
+
         	$("#mensagem1").html('');
         	$("#mensagem2").html('');
         	$("#mensagem3").html('');
@@ -72,7 +72,7 @@ $(document).ready( function() {
         	$('#formulario').submit();
         }
         }
-		
+
 	});
 
 	$('#btn_alterar').click(function(){
@@ -95,19 +95,19 @@ $(document).ready( function() {
 	        }else{
 	        	$("#mensagem2").html('');
 	        }
-	        
+
         	if($(".nrNotaInicio").val()==''){
 	        	$("#mensagem3").html('<font color="red"><b>Informe a Nota Inicial!</b></font>');
 	        }else{
 	        	$("#mensagem3").html('');
 	        }
-	        
+
         	if($(".nrNotaFim").val()==''){
 	        	$("#mensagem4").html('<font color="red"><b>Informe a Nota Fim</b></font>');
 	        }else{
 	        	$("#mensagem4").html('');
 	        }
-	        
+
         	if($(".nrNotaVariacao").val()==''){
 	        	$("#mensagem5").html('<font color="red"><b>Informe a Varia&ccedil;&atilde;o!</b></font>');
 	        }else{
@@ -122,7 +122,7 @@ $(document).ready( function() {
         	$("#mensagem5").html('');
         	$('#formulario').submit();
         }
-		
+
 	});
 });
 
@@ -179,7 +179,7 @@ $(document).ready( function() {
             modal:true,
             buttons:
             {
-                'Não':function()
+                'NÃ£o':function()
                 {
                     $(this).dialog('close'); // fecha a modal
                 },
@@ -397,7 +397,7 @@ include_once 'inc/funcoes.inc.php';
 
     <?php echo $this->partial('cadastraredital/inc/menu.inc.php', $this);?>
 <div id="confirm" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja excluir o registro?</div>
-<div id="alerta" title="Confirma&ccedil;&atilde;o" style="display: none">Nota Inicial não pode ser maior que a Nota Final!</div>
+<div id="alerta" title="Confirma&ccedil;&atilde;o" style="display: none">Nota Inicial NÃ£o pode ser maior que a Nota Final!</div>
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>">In&iacute;cio</a></li>
@@ -405,12 +405,12 @@ include_once 'inc/funcoes.inc.php';
         <!-- <li><a href="<?php echo $this->url(array('controller' => 'cadastraredital', 'action' => 'consultaralterareditais')); ?>">Consultar/Alterar Edital</a></li>-->
         <?php //endif; ?>
         <li><a href="<?php echo $this->url(array('controller' => 'cadastraredital', 'action' => ''), '', true); ?>" title="Ir para Edital">Edital</a></li>
-        <li class="last">Critério de avalia&ccedil;&atilde;o</li>
+        <li class="last">Critï¿½rio de avalia&ccedil;&atilde;o</li>
     </ul>
 </div>
 
 <div id="titulo">
-    <div>Critério de avalia&ccedil;&atilde;o - Edital "<?php echo $this->nmEdital; ?>" <span class="voltar"><a href="javascript:voltar();" title="Página anterior">Voltar</a></span></div>
+    <div>Critï¿½rio de avalia&ccedil;&atilde;o - Edital "<?php echo $this->nmEdital; ?>" <span class="voltar"><a href="javascript:voltar();" title="pÃ¡gina anterior">Voltar</a></span></div>
 
 </div>
 
@@ -427,18 +427,18 @@ include_once 'inc/funcoes.inc.php';
                     <table class="tabela">
                         <tbody>
                             <tr>
-                                <th>Dados do Critério de Avalia&ccedil;&atilde;o</i></th>
+                                <th>Dados do Critï¿½rio de Avalia&ccedil;&atilde;o</i></th>
                             </tr>
                             <tr>
                                 <td>
-                                    <b>Critério de Avalia&ccedil;&atilde;o *: </b><br>
+                                    <b>Critï¿½rio de Avalia&ccedil;&atilde;o *: </b><br>
                                     <input type="text" value="<?php echo $criterio?>" class="input_simples required dsPergunta" title="Crit?rio de avalia??o" null="false" id="dsPergunta" name="dsPergunta" >
                                     <div id="mensagem1"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <i><b>Texto de ajuda do Critério de Avalia&ccedil;&atilde;o: (opcional)</b></i><br>
+                                    <i><b>Texto de ajuda do Critï¿½rio de Avalia&ccedil;&atilde;o: (opcional)</b></i><br>
                                     <textarea class="input_simples" rows="3" cols="150" class="campoTexto"  id="dsLabelPergunta" name="dsLabelPergunta" apagar="false"><?php echo $textoAjuda?></textarea>
                                 </td>
                             </tr>
@@ -462,28 +462,28 @@ include_once 'inc/funcoes.inc.php';
                                 <td>
 
                                         <table class="tabela">
-                                        
+
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                    	<label for="nrNotaInicio">Inicial *</label> 
+                                                    	<label for="nrNotaInicio">Inicial *</label>
                                                         <input value="<?php echo $notaInicial?>" align="right" type="text" maxlength="5" size="10" class="input_simples required nrNotaInicio" name="nrNotaInicio" id="nrNotaInicio" onblur="return completamascaraNotas(this);" onkeypress="mascaraNotas(this, event);" onkeydown="mascaraNotas(this, event);" title="Nota: Inicial" null="false">
                                                         <div id="mensagem3"></div>
                                                     </td>
                                                     <td>
-                                                    	<label for="nrNotaFim">Final *</label> 
+                                                    	<label for="nrNotaFim">Final *</label>
                                                         <input value="<?php echo $notaFinal?>"t align="right" type="text" maxlength="5" size="10" class="input_simples2 required nrNotaFim" name="nrNotaFim" id="nrNotaFim" onblur="return completamascaraNotas(this);" onkeypress="mascaraNotas(this, event);" onkeydown="mascaraNotas(this, event);" title="Nota: Final" null="false">
                                                     	<div id="mensagem4"></div>
                                                     </td>
                                                     <td>
-                                                    	<label for="nrNotaVariacao">Varia&ccedil;&atilde;o *</label> 
+                                                    	<label for="nrNotaVariacao">Varia&ccedil;&atilde;o *</label>
                                                         <input value="<?php echo $variacao?>" align="right" type="text" maxlength="5" size="10" class="input_simples required nrNotaVariacao" name="nrNotaVariacao" id="nrNotaVariacao" onblur="return completamascaraNotas(this);" onkeypress="mascaraNotas(this, event);" onkeydown="mascaraNotas(this, event);" title="Nota: Varia??o" null="false">
                                                    		<div id="mensagem5"></div>
                                                     </td>
                                                 </tr>
 
                                             </tbody>
-                                        
+
 
                                     </table>
 
@@ -496,7 +496,7 @@ include_once 'inc/funcoes.inc.php';
                                 <?php }else{?>
                                        <input type="button" value="" id="btn_salvar" class="btn_salvar" >
                                 <?php }?>
-                                    
+
                                     <input type="submit" class="botoes" style="display: none;" value="Cancelar" id="cancelarAlteracao">
                                 </td>
                             </tr>
@@ -512,7 +512,7 @@ include_once 'inc/funcoes.inc.php';
                         <input type="hidden" name="idEdital" id="idEdital" value="<?php echo $_GET['idEdital'] ?>">
                     <?php } ?>
                     <input type="hidden" name="acao" id="acao" value="2" />
-                    
+
     </form>
 
                     <div id="QuestoesAdicionadas">
@@ -570,7 +570,7 @@ include_once 'inc/funcoes.inc.php';
                                 <input type="hidden" name="acaoD" id="acaoD" value="" />
                             </form>
 
-                     
+
                             <div id="alerta"></div>
 
             </div>

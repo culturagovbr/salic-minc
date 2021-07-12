@@ -1,8 +1,8 @@
 <?php if($this->dados){ ?>
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 
-<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INÃCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 <!--
 function layout_fluido()
@@ -22,7 +22,7 @@ function layout_fluido()
 	$("#rodapeConteudo").css("margin-left", "225px");
 	$(".sanfonaDiv").css("clear", "both");
 	$(".sanfonaDiv").css("width", "91%");
-} // fecha função layout_fluido()
+} // fecha funï¿½ï¿½o layout_fluido()
 
 $(document).ready(function()
 {
@@ -35,7 +35,7 @@ $(document).ready(function()
 </script>
 <!-- ========== FIM AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 
-<!-- início: navegação local #qm0 -->
+<!-- INÃCIO: navegaï¿½ï¿½o local #qm0 -->
 <script type="text/javascript">
 $(function(){
    carregaPagina();
@@ -70,23 +70,23 @@ function carregaPagina(){
 		<div id="UC27" style="width:180px; height:280px; margin-left: 10px;"></div>
         <table style="width:16.8em; height:13em; margin: 1.5em 0em 0em 1em; border: 0;">
             <tr>
-                <th colspan="2"><span style="font-weight: normal; font-size: 10px">TIPO DE SOLICITAÇÃO</span></th>
+                <th colspan="2"><span style="font-weight: normal; font-size: 10px">TIPO DE SolicitaÃ§Ã£o</span></th>
             </tr>
             <tr>
                 <td width="1%"; style="font-size: 40px; color: blue;">&bull;</td>
-                <td width="99%" style="text-align:left;" >Readequação de itens do produto</td>
+                <td width="99%" style="text-align:left;" >Readequaï¿½ï¿½o de itens do produto</td>
             </tr>
             <tr>
                 <td style="font-size: 40px; color: green;">&bull;</td>
-                <td style="text-align:left; padding-left:3%;">Inclusão de novo produto</td>
+                <td style="text-align:left; padding-left:3%;">Inclusï¿½o de novo produto</td>
             </tr>
             <tr>
                 <td style="font-size: 40px; color: red;">&bull;</td>
-                <td style="text-align:left;">Exclusão de produto</td>
+                <td style="text-align:left;">Exclusï¿½o de produto</td>
             </tr>
             <tr>
                 <td style="font-size: 40px; color: black;">&bull;</td>
-                <td style="text-align:left; padding-left:3%;">Nenhuma solicitação de alteração</td>
+                <td style="text-align:left; padding-left:3%;">Nenhuma SolicitaÃ§Ã£o de alteraï¿½ï¿½o</td>
             </tr>
         </table>
     </div>

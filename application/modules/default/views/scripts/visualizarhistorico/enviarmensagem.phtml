@@ -1,33 +1,33 @@
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
-  
 
-<?php 
+
+<?php
 
 require_once 'menu.phtml';
 
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para Início">Início</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar Área de Trabalho">Visualizar Área de Trabalho</a></li>
-		<li class="last">Histórico</li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para INÃCIO">INÃCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar ï¿½rea de Trabalho">Visualizar ï¿½rea de Trabalho</a></li>
+		<li class="last">Histï¿½rico</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Histórico <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>Histï¿½rico <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
@@ -37,27 +37,27 @@ require_once 'menu.phtml';
   <label>  <div align="center">
   <textarea  type="text" name="descricao" id="descricao" cols="60" rows="4"><?php echo isset($this->dsMensagem) ? $this->dsMensagem : ''; ?></textarea>
 </div>
-  
 
- 
-  
-  
+
+
+
+
 
   </table>
   <table>
-  <div align="right">Encaminhar para: 
-  
+  <div align="right">Encaminhar para:
+
   <label>
 
-  
-  
+
+
   <select name="componenteComissao" id="tipoDocumento">
 				<?php foreach ($this->componentecomissao as $comboComponenteComissao) { ?>
 				<option value="<?php echo $comboComponenteComissao->nomeConselheiro; ?>"><?php echo $comboComponenteComissao->nomeConselheiro;  ?></option>
 				<?php } ?>
-			
-			</select>	
-  
+
+			</select>
+
 </label>
 <label>
 <input type="submit" class="btn_enviar" name="enviar" id="enviar" value=" " />
@@ -71,12 +71,12 @@ require_once 'menu.phtml';
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

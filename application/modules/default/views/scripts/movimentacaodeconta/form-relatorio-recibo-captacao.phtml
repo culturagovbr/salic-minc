@@ -14,10 +14,10 @@
             $("#msgErroPronac").html("");
             $("#msgErroProponente").html("");
             $("#msgErroIncentivador").html("");
-            
+
             var n = $("input:radio[name='tpPesquisa']:checked").length;
             var valor = $("input:radio[name='tpPesquisa']:checked").attr("value");
-            
+
             if(n <=0 ){
                 $("#msgErroRadio").html("Campo obrig&oacute;torio n&atilde;o informado!");
                 return false;
@@ -76,7 +76,7 @@
             $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
             $(".cmpData").datepicker($.datepicker.regional['pt-BR']);
         });
-        
+
         $(".cmpNumerico").numeric().attr("maxlength", "9");
 
         $("input[@type='radio'][name='tpPesquisa']").click(function(i) {
@@ -86,11 +86,11 @@
             $("#msgErroPronac").html("");
             $("#msgErroProponente").html("");
             $("#msgErroIncentivador").html("");
-            
+
             $(this).each(function() {
-                
+
                 var valor = $(this).val();
-                
+
                 if(valor == 1){
                     $("#trPronac").show();
                     $("#trProponente").hide();
@@ -107,10 +107,10 @@
                     $("#trIncentivador").show();
                 }
             });
-            
+
         });
     });
-    
+
     function JSTravaCampos(obj){
 
         var id = $(obj).attr("id");
@@ -122,15 +122,15 @@
             $("#dtCaptacao_Final").attr("disabled",true);
             $("#tpDtLote").attr("disabled",true);
             $("#tpDtCaptacao").attr("disabled",true);*/
-            
+
             $("#dtLote").val('');
             $("#dtLote_Final").val('');
             $("#dtCaptacao").val('');
             $("#dtCaptacao_Final").val('');
             $("#tpDtLote").val('');
             $("#tpDtCaptacao").val('');
-            
-            $('#camposDataDtLote').hide(); 
+
+            $('#camposDataDtLote').hide();
             $('#camposDataDtCaptacao').hide();
         }/*else{
             $("#dtLote").attr("disabled",false);
@@ -141,7 +141,7 @@
             $("#tpDtCaptacao").attr("disabled",false);
         }*/
     }
-    
+
     function JSLiberaCampos(){
         /*$("#dtLote").attr("disabled",false);
         $("#dtLote_Final").attr("disabled",false);
@@ -150,17 +150,17 @@
         $("#tpDtLote").attr("disabled",false);
         $("#tpDtCaptacao").attr("disabled",false);*/
     }
-    
+
     function JSResetaPesquisa(){
         $("#tblFiltros").hide();
-        $('#camposDataDtLote').hide(); 
-        $('#camposDataDtCaptacao').hide(); 
+        $('#camposDataDtLote').hide();
+        $('#camposDataDtCaptacao').hide();
     }
 </script>
 
 <?php echo $this->partial('controlarmovimentacaobancaria/inc/menu.inc.php', $this); ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -171,11 +171,11 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Recibo de capta&ccedil;&atilde;o</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div id="conteudo" align="center">
     <form action="<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'resultado-relatorio-recibo-captacao')); ?>" method="get" name="frmReciboCaptacao" id="frmReciboCaptacao">
@@ -285,11 +285,11 @@
         </table>
     </form>
 <div id="resultadoConsulta"></div>
-    
+
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

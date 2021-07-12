@@ -1,13 +1,13 @@
 <?php
 /**
- * Exemplo de UtilizaÁ„o do Layout
- * @author TarcÌsio Angelo - XTI
+ * Exemplo de UtilizaÔøΩÔøΩo do Layout
+ * @author TarcÔøΩsio Angelo - XTI
  * @since 11/01/2012
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.comunicados
  * @link http://salic.cultura.gov.br
- * @copyright © 2011 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2011 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  */
 
 echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
@@ -16,18 +16,18 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 <script type="text/javascript">
 <!--
 	/**
-	 * FunÁıes que s„o chamadas apÛs a p·gina ser carregada
+	 * FunÔøΩÔøΩes que sÔøΩo chamadas apÔøΩs a p√°gina ser carregada
 	 */
 	$(document).ready(function()
 	{
-		// m·scaras dos campos
+		// mÔøΩscaras dos campos
 		$("#periodo1, #periodo2").keyup(function()
 		{
 			mascara(this, format_data); // data
 		});
 
-		// calend·rio
-		$.datepicker.regional['pt-BR'] = 
+		// calendÔøΩrio
+		$.datepicker.regional['pt-BR'] =
 		{
 			closeText: 'Fechar',
 			prevText: '&#x3c;Anterior',
@@ -47,11 +47,11 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 		};
 		$.datepicker.setDefaults($.datepicker.regional['pt-BR']);
 
-		// id dos campos que utilizar„o o calend·rio
+		// id dos campos que utilizarÔøΩo o calendÔøΩrio
 		$("#dtInicioVigencia, #dtTerminoVigencia").datepicker($.datepicker.regional['pt-BR']);
-		
+
 		CKEDITOR.replace('comunicado');
-		
+
 	}); // fim $(document).ready()
 
 	function validaForm()
@@ -65,7 +65,7 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 		/*
 		if(dtinicio != '' && compararDataInicialDataFinal(dtinicio, dtAtual) == 0)
 	    {
-			alertar('A data inicial n„o pode ser menor que a data atual!');
+			alertar('A data inicial N√£o pode ser menor que a data atual!');
             return false;
         }
         */
@@ -81,16 +81,16 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 			alertar('A data final deve ser maior que a data atual!');
 	        return false;
 	    }
-	    
+
 	    if (comunicado.length <= 15)
 	    {
-	        alertar('O campo comunicado deve ter no mÌnimo 15 carateres!');
+	        alertar('O campo comunicado deve ter no mÔøΩnimo 15 carateres!');
 	        return false;
 	    }
-	    
+
 	    $("#formnovo").submit();
-	    
-	
+
+
 	}
 
 
@@ -98,11 +98,11 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 </script>
 
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para P·gina Inicial">InÌcio</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'index'), '', true); ?>" title="Ir para P·gina Comunicados">Comunicados</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p√°gina Inicial">IN√çCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'index'), '', true); ?>" title="Ir para p√°gina Comunicados">Comunicados</a></li>
 		<li class="last">Editar</li>
 	</ul>
 </div>
@@ -110,32 +110,32 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>
 		Editar comunicado
-		<span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span>
+		<span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span>
 	</div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 <div id="confirma"></div>
 <input type="hidden" name="dtatual" id="dtatual" value="<?php echo date("d/m/Y");?>" />
 
-	<!-- ========== INÕCIO FORMUL¡RIO 1 ========== -->
+	<!-- ========== IN√çCIO FORMULÔøΩRIO 1 ========== -->
 	<form name="formnovo" id="formnovo" action="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'salvar')); ?>" method="POST">
 	<?php foreach($this->comunicado as $c): ?>
-	
+
 	<input type="hidden" name="idComunicado" id="idComunicado" value="<?php echo $c->idcomunicado;?>" />
-	
+
 		<table class="tabela">
 			<tr>
 				<td align="center">
-					<label for="stOpcao0">OpÁ„o: </label>&nbsp;&nbsp;&nbsp;
+					<label for="stOpcao0">OpÔøΩÔøΩo: </label>&nbsp;&nbsp;&nbsp;
 					<label for="stOpcao0">SALIC</label>&nbsp;
 					<input type="radio" name="stOpcao" id="stOpcao0" value="0" class="input_simples" <?php if($c->stopcao == 0){echo 'checked="checked"';} ?> />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -152,7 +152,7 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 				</td>
 			</tr>
 		</table>
-		<table class="tabela">	
+		<table class="tabela">
 			<tr>
 				<td align="center" colspan="2">
 					<label for="comunicado">Comunicado</label><br />
@@ -161,11 +161,11 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 			</tr>
 			<tr>
 				<td align="">
-					<label for="dataInicio">In&iacute;cio de vigÍncia </label>&nbsp;
+					<label for="dataInicio">In&iacute;cio de vigÔøΩncia </label>&nbsp;
 					<input type="text" name="dtInicioVigencia" id="dtInicioVigencia" maxlength="10" class="input_simples btn_calendario" value="<?php echo $c->dtiniciovigenciapt;?>" />
 				</td>
 				<td align="">
-					<label for="dataFim">Fim de vigÍncia</label>&nbsp;
+					<label for="dataFim">Fim de vigÔøΩncia</label>&nbsp;
 					<input type="text" name="dtTerminoVigencia" id="dtTerminoVigencia" maxlength="10" class="input_simples btn_calendario" value="<?php echo $c->dtterminovigenciapt;?>" />
 				</td>
 			</tr>
@@ -178,18 +178,18 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 				</td>
 			</tr>
 		</table>
-	<?php endforeach; ?>	
+	<?php endforeach; ?>
 	</form>
-	<!-- ========== FIM FORMUL¡RIO 1 ========== -->
+	<!-- ========== FIM FORMULÔøΩRIO 1 ========== -->
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

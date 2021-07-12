@@ -3,24 +3,24 @@
         $('.btn_imprimir').click(function(){
             $('#formImpressao').submit();
         });
-        
+
         $('.btn_xls').click(function(){
             $('#formxls').submit();
         });
     });
-        
+
     function confirmaBalancear(idpronac){
-        $("#msgmodal").html("Deseja realmente enviar para o componente da comiss„o?");
+        $("#msgmodal").html("Deseja realmente enviar para o componente da comiss√£o?");
         $("#modalConfirm").dialog("destroy");
         $("#modalConfirm").dialog({
-            title :'ConfirmaÁ„o',
+            title :'Confirma√ß√£o',
             resizable: false,
             width:320,
             height:180,
             modal: true,
             autoOpen:false,
             buttons: {
-                'N„o': function(){
+                'N√£o': function(){
                     $(this).dialog('close');
                 },
                 'Sim': function(){
@@ -53,17 +53,17 @@
 		},
 		'Salvar': function(){
                     $(this).dialog('close'); // fecha a modal
-                    $("#msgmodal").html("Deseja realmente fazer a aprovaÁ„o direta?");
+                    $("#msgmodal").html("Deseja realmente fazer a aprova√ß√£o direta?");
                     $("#modalConfirm").dialog("destroy");
                     $("#modalConfirm").dialog({
-                        title :'ConfirmaÁ„o',
+                        title :'Confirma√ß√£o',
                         resizable: false,
                         width:320,
                         height:160,
                         modal: true,
                         autoOpen:false,
                         buttons: {
-                            'N„o': function(){
+                            'N√£o': function(){
                                 $(this).dialog('close');
                             },
                             'Sim': function(){
@@ -92,7 +92,7 @@
         $("#modalDevolverParaAnalise").dialog({
             width:750,
             height:470,
-            title: "Devolver para An·lise",
+            title: "Devolver para An√°lise",
             EscClose:false,
             modal:true,
             buttons: {
@@ -108,10 +108,10 @@
     }
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres T&eacute;cnicos</a></li>
         <li class="last">Principal</li>
     </ul>
@@ -119,17 +119,17 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Gerenciar Pareceres<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 <div style="display:none;" id="modalJustificativa" title="Anexar Documento" >
     <form name="formeanexo" id="" method="post" action="<?php echo $this->url(array('controller' => 'projetos', 'action' => 'aprovacaodireta'));?>" enctype="multipart/form-data">
         <table class="tabela">
             <tr align="center">
-                <td colspan="2">* Favor, anexar um documento para fazer a aprovaÁ„o direta!</td>
+                <td colspan="2">* Favor, anexar um documento para fazer a aprova√ß√£o direta!</td>
             </tr>
             <tr>
                 <td class="destacar bold">Tipo Documento <span style="color: red;">*</span></td>
@@ -142,7 +142,7 @@
                 </td>
             </tr>
             <!--<tr>
-                <td class="destacar bold">CÛdigo ECT:</td>
+                <td class="destacar bold">C√≥digo ECT:</td>
                 <td><input type="text" class="input_simples numero" name="cod_ect" id="cod_ect" value="" size="20" maxlength="20" /></td>
             </tr>-->
             <tr>
@@ -155,7 +155,7 @@
     </form>
 </div>
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <div id="modalConfirm" style="display: none;"><span id="msgmodal"></span></div>
 
@@ -170,7 +170,7 @@
     </table>
 
     <?php if(count($this->dados)>0):?>
-    <!-- ============ PAGINA«√O ============ -->
+    <!-- ============ PAGINA√á√ÇO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody><tr>
                 <td align="center">
@@ -196,12 +196,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao']; ?>'">
                     <?php } ?>
-                    P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="button" class="btn_imprimir">
@@ -218,7 +218,7 @@
         echo " de ". $this->paginacao['total'];
     ?>
     </center>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php endif; ?>
 
     <?php if($this->qtdDocumentos != 0){ ?>
@@ -229,16 +229,16 @@
             <th align="center" nowrap><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=Situacao&ordem='.$this->paginacao['novaOrdem'];?>">Situa&ccedil;&atilde;o</a></th>
             <th align="center" nowrap><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=NomeProponente&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Proponente</a></th>
             <th align="center" width="105"><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtConsolidacao&ordem='.$this->paginacao['novaOrdem'];?>">Dt Consolida&ccedil;&atilde;o</a></th>
-            <th align="center" width="160">Dados da An·lise TÈcnica</th>
+            <th align="center" width="160">Dados da An√°lise T√©cnica</th>
 
             <?php if($this->codGrupo == 103){ ?>
             <th align="center" width="160">Devolver para An&aacute;lise</th>
             <th align="center" width="200">Enviar para Comp. da Comiss&atilde;o</th>
             <th align="center" width="110">Aprova&ccedil;&atilde;o Direta</th>
             <!--<th align="center" nowrap>Enviar Mensagem</th>-->
-            <th align="center" width="80">TramitaÁ„o</th>
+            <th align="center" width="80">Tramita√ß√£o</th>
             <?php } ?>
-        </tr>	
+        </tr>
         <?php foreach($this->dados as $pc){ ?>
         <tr>
             <td align="center">
@@ -250,10 +250,10 @@
             <td align="left" style="padding-left: 20px;"><?php echo $pc->Situacao; ?></td>
             <td align="left" style="padding-left: 20px;"><?php echo $pc->NomeProponente; ?></td>
             <td align="center" nowrap><?php echo $pc->DtConsolidacao; ?></td>
-            <td align="center"><img style="cursor:pointer;" title="Dados da An·lise TÈcnica" src="<?php echo $this->baseUrl(); ?>/public/img/ico/archive.png" onclick="window.open('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'dadosdaanalisetecnica'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
+            <td align="center"><img style="cursor:pointer;" title="Dados da An√°lise T√©cnica" src="<?php echo $this->baseUrl(); ?>/public/img/ico/archive.png" onclick="window.open('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'dadosdaanalisetecnica'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
 
             <?php if($this->codGrupo == 103){ ?>
-            <td align="center"><img style="cursor:pointer;" title="Devolver para An·lise" src="<?php echo $this->baseUrl(); ?>/public/img/ico/undo.png" onclick="devolverParaAnalise('<?php echo $pc->IdPRONAC; ?>'); //redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'devolverparaanalise'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
+            <td align="center"><img style="cursor:pointer;" title="Devolver para An√°lise" src="<?php echo $this->baseUrl(); ?>/public/img/ico/undo.png" onclick="devolverParaAnalise('<?php echo $pc->IdPRONAC; ?>'); //redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'devolverparaanalise'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
             <td align="center">
                 <?php if($pc->Situacao == 'C20'){ ?>
                 <img style="cursor:pointer;" title="Balancear" src="<?php echo $this->baseUrl(); ?>/public/img/encaminhar22x22.jpg" onclick="confirmaBalancear(<?php echo $pc->IdPRONAC; ?>);" /></td>
@@ -264,15 +264,15 @@
                 <?php } ?>
             </td>
             <!--<td class="centro"><a target='_blank' href='<?php echo $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem'), '', true); ?>/idpronac/<?php echo $pc->IdPRONAC; ?>'><img src='<?php echo $this->baseUrl() ?>/public/img/buttons/sair-p.gif' title='Enviar mensagem'/></a></td>-->
-            <td align="center"><img style="cursor:pointer;" title="Visualizar TramitaÁ„o" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'tramitacaoprojeto'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
+            <td align="center"><img style="cursor:pointer;" title="Visualizar Tramita√ß√£o" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'tramitacaoprojeto'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
             <?php } ?>
         </tr>
-        <?php } ?>	
+        <?php } ?>
     </table>
 
-    <?php if(count($this->dados)>0){ ?> 
-    
-    <!-- ============ PAGINA«√O ============ -->		   
+    <?php if(count($this->dados)>0){ ?>
+
+    <!-- ============ PAGINA√á√ÇO ============ -->
     <?php if($this->qtdDocumentos > 10) { ?>
     <center>
     <?php
@@ -307,12 +307,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao']; ?>'">
                     <?php } ?>
-                    P·g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                    P√°g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="button" class="btn_imprimir">
@@ -322,10 +322,10 @@
             </tr>
         </tbody>
     </table>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
 
     <?php } } ?>
-    
+
     <form target="_blank" class="form" name="formImpressao" id="formImpressao" method="post" action='<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'imprimir-pareceres')); ?>'>
         <input type="hidden" name="pag" value="<?php echo $this->pag;?>">
         <input type="hidden" name="qtde" value="<?php echo $this->intTamPag;?>">
@@ -342,7 +342,7 @@
         <input type="hidden" name="situacaotc" value="<?php echo $this->situacaotc;?>">
         <input type="hidden" name="situacao" value="<?php echo $this->situacao;?>">
     </form>
-    
+
     <form id="formxls" action="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'xls-pareceres')); ?>" method="post">
         <input type="hidden" name="pag" value="<?php echo $this->pag;?>">
         <input type="hidden" name="qtde" value="<?php echo $this->intTamPag;?>">
@@ -359,11 +359,11 @@
         <input type="hidden" name="situacaotc" value="<?php echo $this->situacaotc;?>">
         <input type="hidden" name="situacao" value="<?php echo $this->situacao;?>">
     </form>
-    
+
 <!--    <form id="formxls" action="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'gerarxls')); ?>" method="post">
         <textarea name="html" class="sumir"><?php echo $this->html; ?></textarea>
     </form>-->
-        
+
     <?php } else { ?>
     <table class="tabela">
         <tr>
@@ -372,13 +372,13 @@
     </table>
     <?php } ?>
     <br clear="all" />
-    
+
     <div id="modalDevolverParaAnalise" class=""></div>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

@@ -315,11 +315,11 @@ describe('Projeto Mutations', () => {
         };
         diligencia = {
             diligenciaAdequacao: {
-                tipoDiligencia: 'Diligência na Análise da adequação à realidade do projeto.',
+                tipoDiligencia: 'Diligï¿½ncia na AnÃ¡lise da adequaï¿½ï¿½o ï¿½ realidade do projeto.',
                 idAvaliarAdequacaoProjeto: 1452,
             },
             diligenciaProjeto: {
-                tipoDiligencia: 'Diligência de Checklist - Análise',
+                tipoDiligencia: 'Diligï¿½ncia de Checklist - AnÃ¡lise',
                 idDiligencia: 72427,
             },
             diligenciaProposta: {

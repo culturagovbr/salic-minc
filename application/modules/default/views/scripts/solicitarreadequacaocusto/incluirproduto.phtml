@@ -9,14 +9,14 @@
         color: #000000;
     }
 </style>
-    
+
 
 <script type="text/javascript">
 
     function ufcarregar(iduf, idmun){
         var iduf = iduf;
         var idmun = idmun;
-        
+
         $.ajax({ //funcao jquery para enviar os formularios via ajax
             type: "POST",
             url:  "<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'incluirproduto')); ?>",
@@ -51,7 +51,7 @@
     function etapacarregar(idetapa, iditem){
         var idetapa = idetapa;
         var iditem = iditem;
-    
+
         $.ajax({ //funcao jquery para enviar os formularios via ajax
             type: "POST",
             url:  "<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'incluirproduto')); ?>",
@@ -110,7 +110,7 @@
                 }
             }
         });
-        
+
         $("#confirm").dialog({
             title :'Confirma',
             resizable: false,
@@ -121,21 +121,21 @@
             buttons: {
                 'OK': function() {
                     $(this).dialog('close');
-                    $('#acao').html('Solicitação de readequação realizada com sucesso! Deseja fazer nova readequação?');
+                    $('#acao').html('SolicitaÃ§Ã£o de readequaï¿½ï¿½o realizada com sucesso! Deseja fazer nova readequaï¿½ï¿½o?');
                     $('#acao').dialog('open');
                 }
             }
         });
 
         $("#acao").dialog({
-            title :'Alteração',
+            title :'Alteraï¿½ï¿½o',
             resizable: false,
             width:400,
             height:170,
             modal: true,
             autoOpen:false,
             buttons: {
-                'Não': function() {
+                'NÃ£o': function() {
                     $.ajax({ //funcao jquery para enviar os formularios via ajax
                         type: "POST",
                         url:  "<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'incluirproduto')); ?>",
@@ -162,9 +162,9 @@
         });
 
         $('#dias').keyup(function(){
-            mascara(this, format_num); // somente números
+            mascara(this, format_num); // somente nï¿½meros
         });
-        
+
         $('#qtd').priceFormat({
             limit:6,
             centsLimit: 1,
@@ -172,7 +172,7 @@
             thousandsSeparator: ""
         });
 
-        
+
         $('.soma').keyup(function(){
             var soma = 0;
             var vlunitario = $("#vUnitario").val().replace('R$','');
@@ -311,7 +311,7 @@
 
         $(".enviar").click(function(){
             carregandoModal();
-            var tipoacao = $(this).attr('tipoacao'); 
+            var tipoacao = $(this).attr('tipoacao');
             var varnull = true;
             var justificativa =  $('#justificativa').val();
             //var idaprovacao = $('#idPlanilha').val();
@@ -327,7 +327,7 @@
             }
 
             if(varnull == false){
-                $('#error').html('Dados obrigatórios não informados!');
+                $('#error').html('Dados obrigatï¿½rios NÃ£o informados!');
                 $(".ui-dialog-titlebar-close").remove();
                 $('#error').dialog('open');
                 fecharModal('carregandoModalAjax');
@@ -373,10 +373,10 @@
                         if(!data.error){
                             $('#tipoAcao').val(tipoacao);
                             if(tipoacao == 'A'){
-                                $('#confirm').html('Alteração enviada com sucesso!');
+                                $('#confirm').html('Alteraï¿½ï¿½o enviada com sucesso!');
                             }
                             else{
-                                $('#confirm').html('Solicitação enviada com sucesso!');
+                                $('#confirm').html('SolicitaÃ§Ã£o enviada com sucesso!');
                             }
                             $(".ui-dialog-titlebar-close").remove();
                             $('#confirm').dialog('open');
@@ -391,14 +391,14 @@
                 });
             }
         });
-        
+
     });
 </script>
 
 
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
 
-<?php 
+<?php
     if (!empty($this->buscastatus) && $this->buscastatus['stPedidoAlteracao'] == "A") {
     	$readonly = 'readonly="readonly"';
     } else {
@@ -407,7 +407,7 @@
 ?>
 
 <?php $etapa = ""; // menu ?>
-<!-- início: navegação local #qm0 -->
+<!-- INÃCIO: navegaï¿½ï¿½o local #qm0 -->
 
     <?php $resultado = $this->buscaprojeto;
 
@@ -417,11 +417,11 @@
         }
         else
         {
-            $tipoCusto = "Administraç&atilde;o do projeto";
+            $tipoCusto = "Administraï¿½&atilde;o do projeto";
         }
     ?>
 
-<!-- início: #breadcrumb -->
+<!-- INÃCIO: #breadcrumb -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('module'=>'default', 'controller' => 'principalproponente', 'action' => 'index')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -431,22 +431,22 @@
 </div>
 <!-- final: #breadcrumb -->
 
-<!-- início: #titulo -->
+<!-- INÃCIO: #titulo -->
 <div id="titulo">
     <div>Readequa&ccedil;&atilde;o de custo <span class="voltar"><a onclick="history.go(-1)" href="#" >Voltar</a></span></div>
 </div>
 <!-- final: #titulo -->
 
-<!-- início: área principal #conteudo -->
+<!-- INÃCIO: ï¿½rea principal #conteudo -->
 <div id="loader" class="carregando sumir" style="width:100%; height:100%;" title="Carregando..."><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" alt="carregando"><br/><br/> Carregando...</div>
 <div id="error" class="sumir" style="text-align: center;"></div>
 <div id="confirm" style="text-align: center;"></div>
 <div id="acao" style="text-align: center;"></div>
 <div id="conteudo">
-    
 
-    
-    
+
+
+
     <input id="tipoAcao" type="hidden" value=""/>
 
         <table class="tabela">
@@ -489,7 +489,7 @@
                         <div class="icn_mais trpai" idFilho="<?php echo $classPai; ?>" style="width:90%; margin-left:4%; font-size:1.4em;"><span class="orange del_link"><?php echo $tipoCusto ?></span></div>
                     </td>
                 </tr>
-                
+
                 <?php
                     $countPlan = 0;
                     $sem_planilha = 1;
@@ -497,7 +497,7 @@
                         foreach ($this->buscaetapa as $valueEtapa) {
                             $classfilho = $classPai . '_' . $valueEtapa->idPlanilhaEtapa;
                             foreach ($this->buscaprodutositens[$valueEtapa->idPlanilhaEtapa] as $valueProdutosItens) {
-                                
+
                                 if($valueProdutosItens->tpAcao == null){
                                     $cor = 'black';
                                 }
@@ -510,7 +510,7 @@
                                 }
 
                                 if ($etapa != $valueProdutosItens->Etapa) {
-                                	
+
                                 ?>
 
                                     <tr>
@@ -550,11 +550,11 @@
                                         <td><?php echo $valueProdutosItens->uf; ?></td>
                                         <td><?php echo $valueProdutosItens->Municipio; ?></td>
                                     </tr>
-                
+
                                     <?php $etapa = $valueProdutosItens->Etapa; $sem_planilha = 0; } //} ?>
 
                         <?php $countPlan = 0; }
-                        
+
                     } if ($sem_planilha == 1) { ?>
                         <tr>
                             <td colspan="10" align="center">N&atilde;o Existe(m) Item(ns) Aprovado(s) para esse produto.</td>
@@ -586,7 +586,7 @@
                     <tr class="destacar bold">
                         <td align="center">ETAPA / META</td>
                         <td align="center">ITEM</td>
-                    </tr> 
+                    </tr>
                     <tr class="linha">
                         <td align="center" width="30%">
                             <label for="sLetapa"> </label>
@@ -739,7 +739,7 @@
 
                       if ( !empty ( $this->buscaprodutositensinseridos[$valueEtapa->idPlanilhaEtapa] )  ) {
                             foreach ($this->buscaprodutositensinseridos[$valueEtapa->idPlanilhaEtapa] as $valueProdutosItens) {
-               
+
                                 if ($etapa != $valueProdutosItens->Etapa) {
                 ?>
 
@@ -823,10 +823,10 @@
             <?php $i++; } ?>
         </table>
     </div>
-               
-</div><!-- final: conteúdo principal #conteudo -->
 
-<!-- início: detalhe final da div conteudo #rodapeConteudo -->
+</div><!-- final: CONTEÃšDO principal #conteudo -->
+
+<!-- INÃCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span><br /><br /></span></div>
 <br clear="all" />
 

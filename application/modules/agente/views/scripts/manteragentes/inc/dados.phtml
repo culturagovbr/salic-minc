@@ -1,21 +1,21 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/json.js"></script>
 
 
-<!-- ========== FORMULÁRIO DADOS ========== -->
+<!-- ========== FORMULï¿½RIO DADOS ========== -->
 <table id="tabDados" width="800" align="center">
 <tr>
 		<th colspan="6">Cadastro de Agentes</th>
 	<tr>
 		<td colspan="2">
-			<label for="cpf">CPF *</label> 
+			<label for="cpf">CPF *</label>
 			<input type="text" name="cpf" id="cpf" maxlength="14" onkeyup="mascara(this, format_cpf);" onblur="buscardados();" />
 				<span id="erroCpf" class="spanError"></span>
-				
+
 		<input type="hidden" id="idAgente" name="idAgente" />
-				
+
 		</td>
 		<td colspan="2">
-			<label for="nome">Nome *</label> 
+			<label for="nome">Nome *</label>
 			<input type="text" name="nome" id="nome" maxlength="70" readonly="readonly" />
 				<span id="erroNome" class="spanError"></span>
 		</td>
@@ -23,17 +23,17 @@
 
 	<tr>
 		<td>
-			<label for="cep">CEP *</label> 
-			<input type="text" name="cep" id="cep" maxlength="10" 
-				onkeyup="mascara(this, format_cep);" 
-				onblur="buscar_cep(this.value);" 
+			<label for="cep">CEP *</label>
+			<input type="text" name="cep" id="cep" maxlength="10"
+				onkeyup="mascara(this, format_cep);"
+				onblur="buscar_cep(this.value);"
 				readonly="readonly" />
 				<span id="erroCep" class="spanError"></span>
 		</td>
 		<td>
-			<label for="uf">UF *</label> 
-			<select name="uf" id="uf" 
-					onchange="carregar_combo(this.value,'cidade','../cidade/combo',' - Selecione primeiro o UF - ');" 
+			<label for="uf">UF *</label>
+			<select name="uf" id="uf"
+					onchange="carregar_combo(this.value,'cidade','../cidade/combo',' - Selecione primeiro o UF - ');"
 					disabled="disabled">
 
 				<?php if (!isset($this->uf) || empty($this->uf)) { ?>
@@ -51,13 +51,13 @@
 			<span id="erroUf" class="spanError"></span>
 		</td>
 		<td colspan="2">
-			<label for="cidade">Cidade *</label> 
+			<label for="cidade">Cidade *</label>
 			<select name="cidade" id="cidade">
 				<option value="0"> - Selecione - </option>
 
 				<?php foreach ($this->combocidades as $combocidade): ?>
-				<option value="<?php echo $combocidade->id; ?>" 
-					id="<?php echo $combocidade->idUF; ?>" 
+				<option value="<?php echo $combocidade->id; ?>"
+					id="<?php echo $combocidade->idUF; ?>"
 					<?php if ($this->cidade == $combocidade->id) echo "selected=\"selected\""; ?>>
 					<?php echo $combocidade->descricao; ?>
 				</option>
@@ -70,7 +70,7 @@
 
 	<tr>
 		<td colspan="2">
-			<label for="tipoEndereco">Tipo de Endereço *</label> 
+			<label for="tipoEndereco">Tipo de Endereï¿½o *</label>
 			<select name="tipoEndereco" id="tipoEndereco" >
 
 				<?php if (!isset($this->tipoEndereco) || empty($this->tipoEndereco)) { ?>
@@ -88,7 +88,7 @@
 			<span id="erroTipoEndereco" class="spanError"></span>
 		</td>
 		<td colspan="2">
-			<label for="tipoLogradouro">Tipo de Logradouro *</label> 
+			<label for="tipoLogradouro">Tipo de Logradouro *</label>
 			<select name="tipoLogradouro" id="tipoLogradouro">
 
 				<?php if (!isset($this->tipoLogradouro) || empty($this->tipoLogradouro)) { ?>
@@ -109,12 +109,12 @@
 
 	<tr>
 		<td colspan="2">
-			<label for="logradouro">Logradouro *</label> 
+			<label for="logradouro">Logradouro *</label>
 			<input type="text" name="logradouro" id="logradouro" maxlength="50" readonly="readonly" />
 				<span id="erroLogradouro" class="spanError"></span>
 		</td>
 		<td colspan="2">
-			<label for="numero">Número *</label> 
+			<label for="numero">Nï¿½mero *</label>
 			<input type="text" name="numero" id="numero" maxlength="10" onkeyup="mascara(this, format_num);" readonly="readonly"/>
 				<span id="erroNumero" class="spanError"></span>
 		</td>
@@ -122,12 +122,12 @@
 
 	<tr>
 		<td colspan="2">
-			<label for="complemento">Complemento *</label> 
+			<label for="complemento">Complemento *</label>
 			<input type="text" name="complemento" id="complemento" maxlength="50" value="" readonly="readonly"/>
 				<span id="erroComplemento" class="spanError"></span>
 		</td>
 		<td colspan="2">
-			<label for="bairro">Bairro *</label> 
+			<label for="bairro">Bairro *</label>
 			<input type="text" name="bairro" id="bairro" maxlength="50" readonly="readonly" />
 				<span id="erroBairro" class="spanError"></span>
 		</td>
@@ -135,43 +135,43 @@
 
 	<tr>
 		<td colspan="2">
-			<label>Autorizo divulgar o endereço</label> 
+			<label>Autorizo divulgar o endereï¿½o</label>
 			<input type="radio" name="divulgarEndereco" id="divulgarEnderecoS" value="1" class="checkradio" />
-			<label for="divulgarEnderecoS">Sim</label> 
-			
+			<label for="divulgarEnderecoS">Sim</label>
+
 			<input type="radio" name="divulgarEndereco" id="divulgarEnderecoN" value="0" class="checkradio" checked="checked"/>
-			<label for="divulgarEnderecoN">Não</label>
+			<label for="divulgarEnderecoN">NÃ£o</label>
 		</td>
 		<td colspan="2">
-			<label>Endereço para correspondências?</label> 
-			<input type="radio" name="enderecoCorrespondencia" id="enderecoCorrespondenciaS" value="1" class="checkradio" /> 
-			<label for="enderecoCorrespondenciaS">Sim</label> 
+			<label>Endereï¿½o para correspondï¿½ncias?</label>
+			<input type="radio" name="enderecoCorrespondencia" id="enderecoCorrespondenciaS" value="1" class="checkradio" />
+			<label for="enderecoCorrespondenciaS">Sim</label>
 
 			<input type="radio" name="enderecoCorrespondencia" id="enderecoCorrespondenciaN" value="0" class="checkradio" checked="checked" />
-			<label for="enderecoCorrespondenciaN">Não</label>
+			<label for="enderecoCorrespondenciaN">NÃ£o</label>
 		</td>
 	</tr>
 	<tr>
-		<td class="titulo_tabela" colspan="4">VISÃO DO AGENTE</td>
+		<td class="titulo_tabela" colspan="4">VISï¿½O DO AGENTE</td>
 	</tr>
 	<tr>
 		<td colspan="4">
-			Informe a visão do Agente: 
+			Informe a visï¿½o do Agente:
 			<select name="visao" id="visao" onchange="verificarVisao(this.value); buscarVisao()" style="width: 200px;" >
 				<option value="0">-- Selecione --</option>
-				<option value="210">Componente da Comissão</option>
+				<option value="210">Componente da comissÃ£o</option>
 				<option value="209">Parecerista</option>
 			</select>
 			<span id="erroVisao" class="spanError"></span>
 		</td>
 	</tr>
 	</table>
-	
+
 	<table class="tabela" id="visaocomponente" style="display: none;">
-	
+
 
 	<tr class="titulo_tabela">
-		<th colspan="4">LISTA DE ÁREA</th>
+		<th colspan="4">LISTA DE ï¿½REA</th>
 		<th><span id="Q_suplentes" class="spanError"></span>
 		<span id="Q_titulares" class="spanError"></span>
 		<span id="msgAS" class="spanError"></span></th>
@@ -179,21 +179,21 @@
 	<tr>
 		<td colspan="4" class="center">
 			<input type="radio" name="titular" id="titularS" value="1" class="checkradio" />
-				 
-			<label for="titularS">Titular</label> 
+
+			<label for="titularS">Titular</label>
 			<input type="radio" name="titular" id="titularN" value="0" class="checkradio" />
-				 
+
 			<label for="titularN">Suplente</label>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<label for="areaCultural">Área Cultural *</label> 
-			<select name="areaCultural" id="areaCultural" 
-				onchange="carregar_combo(this.value, 
-					'segmentoCultural', 
-					'../segmentocultural/combo', 
-					' - Selecione uma Área Cultural - ');">
+			<label for="areaCultural">ï¿½rea Cultural *</label>
+			<select name="areaCultural" id="areaCultural"
+				onchange="carregar_combo(this.value,
+					'segmentoCultural',
+					'../segmentocultural/combo',
+					' - Selecione uma ï¿½rea Cultural - ');">
 
 				<?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
 				<option value="0"> - Selecione - </option>
@@ -210,11 +210,11 @@
 			<span id="erroAreaCultural" class="spanError"></span>
 		</td>
 		<td colspan="2">
-			<label for="segmentoCultural">Segmento Cultural *</label> 
+			<label for="segmentoCultural">Segmento Cultural *</label>
 			<select name="segmentoCultural" id="segmentoCultural" onchange="buscarareasegmento();">
 
 				<?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
-				<option value="0"> - Selecione uma Área Cultural - </option>
+				<option value="0"> - Selecione uma ï¿½rea Cultural - </option>
 				<?php } else { ?>
 
 					<?php if (!isset($this->segmentoCultural) || empty($this->segmentoCultural)) { ?>
@@ -232,7 +232,7 @@
 
 			</select>
 			<span id="erroSegmentoCultural" class="spanError"></span>
-			
+
 		</td>
 	</tr>
 

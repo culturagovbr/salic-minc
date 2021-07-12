@@ -4,7 +4,7 @@
             $('#addCampoXls').remove();
             $('#formImpressao').submit();
         });
-        
+
         $('.btn_xls').click(function(){
             $('#formImpressao').append('<input id="addCampoXls" type="hidden" name="xls" value="1">');
             $('#formImpressao').submit();
@@ -12,7 +12,7 @@
     });
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta" class="sumir"></div>
 
 <div id="breadcrumb">
@@ -25,17 +25,17 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Resultado do Relat&oacute;rio Geral de An&aacute;lise <span class="voltar"><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'geraldeanalise'), '', true); ?>">Voltar</a></span></div>
 </div>
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
-    
+
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINA«√O ============ -->
+    <!-- ============ PAGINA√á√ÇO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -60,12 +60,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl; ?>'">
                     <?php } ?>
-                    P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="pronac" value="<?php echo $this->pronac;?>">
@@ -93,7 +93,7 @@
             echo " de ". $this->paginacao['total']. " Projetos listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php } ?>
 
 
@@ -105,17 +105,17 @@
                 <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=3&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Projeto</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">Produto</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">Dt.Primeiro Envio p/ Vinculada</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">Dt.⁄ltimo Envio p/ Vinculada</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=7&ordem='.$this->paginacao['novaOrdem'];?>">Dt.DistribuiÁ„o Parecerista</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">Dt.ÔøΩltimo Envio p/ Vinculada</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=7&ordem='.$this->paginacao['novaOrdem'];?>">Dt.DistribuiÔøΩÔøΩo Parecerista</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=12&ordem='.$this->paginacao['novaOrdem'];?>">Parecerista</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=9&ordem='.$this->paginacao['novaOrdem'];?>">Qtde Dias Para Distribuir</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=10&ordem='.$this->paginacao['novaOrdem'];?>">Qtde Dias Para Parecerista Analisar</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=11&ordem='.$this->paginacao['novaOrdem'];?>">Qtde Dias Devolvidos Para Coordenador</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=16&ordem='.$this->paginacao['novaOrdem'];?>">Status da DiligÍncia</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=16&ordem='.$this->paginacao['novaOrdem'];?>">Status da DiligÔøΩncia</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=17&ordem='.$this->paginacao['novaOrdem'];?>">Unidade Vinculada</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=13&ordem='.$this->paginacao['novaOrdem'];?>">Dt.InÌcio ExecuÁ„o</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=14&ordem='.$this->paginacao['novaOrdem'];?>">Dt.Fim ExecuÁ„o</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=15&ordem='.$this->paginacao['novaOrdem'];?>">Dias vencidos ou a vencer para execuÁ„o do Projeto</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=13&ordem='.$this->paginacao['novaOrdem'];?>">Dt.IN√çCIO ExecuÔøΩÔøΩo</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=14&ordem='.$this->paginacao['novaOrdem'];?>">Dt.Fim ExecuÔøΩÔøΩo</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl.'&campo=15&ordem='.$this->paginacao['novaOrdem'];?>">Dias vencidos ou a vencer para execuÔøΩÔøΩo do Projeto</a></th>
             </tr>
         </thead>
         <tbody>
@@ -146,7 +146,7 @@
     </table>
 
     <?php if(count($this->dados)>0){ ?>
-        <!-- ============ PAGINA«√O ============ -->
+        <!-- ============ PAGINA√á√ÇO ============ -->
         <?php if($this->qtdRegistros > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -179,12 +179,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'resgeraldeanalise')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&pronac='.$this->pronac.'&nmProjeto='.$this->nmProjeto.'&unVinculada='.$this->unVinculada.'&qtDiasDistribuir='.$this->qtDiasDistribuir.'&qtDiasDistribuirVl='.$this->qtDiasDistribuirVl.'&qtDiasAnalisar='.$this->qtDiasAnalisar.'&qtDiasAnalisarVl='.$this->qtDiasAnalisarVl.'&qtDiasCoord='.$this->qtDiasCoord.'&qtDiasCoordVl='.$this->qtDiasCoordVl.'&qtDiasIniExec='.$this->qtDiasIniExec.'&qtDiasIniExecVl='.$this->qtDiasIniExecVl; ?>'">
                         <?php } ?>
-                        P·g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P√°g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="pronac" value="<?php echo $this->pronac;?>">
@@ -205,7 +205,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINA«√O ========== -->
+        <!-- ========== FIM PAGINA√á√ÇO ========== -->
 
     <?php } } ?>
 
@@ -238,7 +238,7 @@
 
 </div>
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

@@ -35,17 +35,17 @@
             history.go('-1');
         });
     });
-    
+
     $(document).ready(function(){
         $(".nomsg").click(function(){
                 alertModalPt(null, 'nomsg', null, 150);
         });
     });
 </script>
-<!-- ========== IN�CIO MENU ========== -->
-<div id='nomsg' style="display:none">Este usu�rio n�o participou da an�lise deste projeto!</div>
+<!-- ========== INÍCIO MENU ========== -->
+<div id='nomsg' style="display:none">Este usu�rio Não participou da Análise deste projeto!</div>
 <div id="menu">
-    <!-- in�cio: conte�do principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
         <div id="menuContexto">
             <div class="top"></div>

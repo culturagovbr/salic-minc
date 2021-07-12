@@ -50,7 +50,7 @@ if (count($this->readequacoes) > 0):
                     <table class='tabela'>
                         <tr class="destacar">
                             <td align="center"><b>Arquivo</b></td>
-                            <td align="center"><b>Dt. Solicitação</b></td>
+                            <td align="center"><b>Dt. SolicitaÃ§Ã£o</b></td>
                         </tr>
                         <tr>
                             <td align="center">
@@ -61,13 +61,13 @@ if (count($this->readequacoes) > 0):
                             <td align="center"><?php echo Data::tratarDataZend($r->dtSolicitacao, 'brasileira'); ?></td>
                         </tr>
                         <tr class="destacar">
-                            <td colspan="2" align="center"><b>Dados da Solicitação</b></td>
+                            <td colspan="2" align="center"><b>Dados da SolicitaÃ§Ã£o</b></td>
                         </tr>
                         <tr>
                             <td colspan="2"><?php echo $r->dsSolicitacao; ?></td>
                         </tr>
                         <tr class="destacar">
-                            <td colspan="2" align="center"><b>Justificativa da Solicitação</b></td>
+                            <td colspan="2" align="center"><b>Justificativa da SolicitaÃ§Ã£o</b></td>
                         </tr>
                         <tr>
                             <td colspan="2"><?php echo $r->dsJustificativa; ?></td>
@@ -77,15 +77,15 @@ if (count($this->readequacoes) > 0):
                     <?php if(in_array($r->siEncaminhamento, array(2,3,4,5,6,7,9,10,15))){ ?>
                     <table class="tabela">
                         <tr>
-                            <td class="destacar bold" style="width: 50%;">Situação</td>
-                            <td class="destacar bold" style="width: 50%;">Dt. Avaliação</td>
+                            <td class="destacar bold" style="width: 50%;">Situaï¿½ï¿½o</td>
+                            <td class="destacar bold" style="width: 50%;">Dt. Avaliaï¿½ï¿½o</td>
                         </tr>
                         <tr>
                             <td><?php echo $r->stAtendimento == 'I' ? 'Rejeitado' : 'Recebido'; ?></td>
                             <td><?php echo Data::tratarDataZend($r->dtAvaliador, 'Brasileira'); ?></td>
                         </tr>
                         <tr>
-                            <td class="destacar bold" colspan="2">Descrição da Avaliação</td>
+                            <td class="destacar bold" colspan="2">DescriÃ§Ã£o da Avaliaï¿½ï¿½o</td>
                         </tr>
                         <tr>
                             <td colspan="2"><?php echo $r->dsAvaliacao; ?></td>
@@ -99,13 +99,13 @@ if (count($this->readequacoes) > 0):
                     ?>
                     <table class="tabela">
                         <tr>
-                            <td align="right" class="destacar bold w150">Parecer Favorável?</td>
-                            <td><?php echo (isset($parecer->ParecerFavoravel) && ($parecer->ParecerFavoravel == 2)) ? 'Sim' : 'Não'; ?></td>
+                            <td align="right" class="destacar bold w150">Parecer Favorï¿½vel?</td>
+                            <td><?php echo (isset($parecer->ParecerFavoravel) && ($parecer->ParecerFavoravel == 2)) ? 'Sim' : 'NÃ£o'; ?></td>
                             <td align="right" class="destacar bold w150">Dt. Parecer</td>
                             <td><?php echo (isset($parecer->DtParecer) && !empty($parecer->DtParecer)) ? Data::tratarDataZend($parecer->DtParecer, 'Brasileira') : ''; ?></td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="destacar bold w150">Descriçao do Parecer - <?php echo $parecer->tpAvaliador; ?></td>
+                            <td colspan="4" class="destacar bold w150">Descriï¿½ao do Parecer - <?php echo $parecer->tpAvaliador; ?></td>
                         </tr>
                         <tr>
                             <td colspan="4"><?php echo (isset($parecer->ResumoParecer) && !empty($parecer->ResumoParecer)) ? $parecer->ResumoParecer : ''; ?></td>

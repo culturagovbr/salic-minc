@@ -1,4 +1,4 @@
-<?php 
+<?php
     $SalvarHref                 = $this->url(array('controller' => 'comprovarexecucaofinanceira', 'action' => 'cadastrarcontrato')).'?idusuario=' . $this->idusuario . '&idpronac=' . $this->idpronac;
     $ExcluirItensCustoHref      = $this->url(array('controller' => 'comprovarexecucaofinanceira', 'action' => 'excluiritenscusto')).'?idusuario=' . $this->idusuario . '&idpronac=' . $this->idpronac;
     $AnexarHref                 = $this->url(array('controller' => 'comprovarexecucaofinanceira', 'action' => 'anexar')).'?idusuario=' . $this->idusuario . '&idpronac=' . $this->idpronac;
@@ -51,7 +51,7 @@
                     <th colspan="2">Dados do Contrato</th>
                 </tr>
             </table>
-            
+
             <table class="tabela">
                 <tr>
                     <td class="destacar w200 bold" align="right">N&uacute;mero do Contrato<span style='color:red'>*</span></td>
@@ -143,7 +143,7 @@
                     </td>
                 </tr>
             </table>
-            
+
             <table id="tableItensCusto" class="tabela linhaMaior1 <?php if($verificacao) echo 'displayNone';?>">
                 <tr>
                     <td class="destacar bold" align="center">Produto</td>
@@ -153,7 +153,7 @@
                 </tr>
                 <?php foreach ($this->itensVinculados as $itensVinculados) { ?>
                 <tr>
-                    <td><?php echo $itensVinculados->dsProduto ? $itensVinculados->dsProduto : 'Administração do Projeto'; ?></td>
+                    <td><?php echo $itensVinculados->dsProduto ? $itensVinculados->dsProduto : 'Administraï¿½ï¿½o do Projeto'; ?></td>
                     <td><?php echo $itensVinculados->dsEtapa; ?></td>
                     <td><?php echo $itensVinculados->dsItem; ?></td>
                     <td>
@@ -174,9 +174,9 @@
     </div>
     <br clear="left" />
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />
 
 <div id="msgAlerta" class="sumir"></div>
@@ -200,7 +200,7 @@
                 height:160,
                 modal: true,
                 buttons : {
-                    'Não' : function(){
+                    'NÃ£o' : function(){
                         $("#msgConfirm").dialog('close');
                     },
                     'Sim' : function(){
@@ -215,7 +215,7 @@
                             success: function(dados) {
                                 obj.parent().parent().remove();
                                 $("#msgAlerta").dialog("destroy");
-                                $("#msgAlerta").html("Excluído com sucesso!");
+                                $("#msgAlerta").html("Excluï¿½do com sucesso!");
                                 $("#msgAlerta").dialog({
                                     resizable: false,
                                     title: 'Alerta!',
@@ -280,7 +280,7 @@
                 carregarSelect('<?php echo $carregarSelectHref;?>','#itens',{tpSelect:'itens',idpronac:'<?php echo $this->idpronac?>',idProduto:$('#produto').val(),idEtapa:$('#etapa').val()},'Todos');
             }
         });
-        
+
         $(corpo+' #additemcusto').click(function(){
             var info = {
                 <?php echo $idNome;?>   :   $('#<?php echo $idNome;?>').val(),
@@ -301,14 +301,14 @@
                 listaPEI(info);
             }
         });
-        
-        
+
+
            $(corpo+' #salvar').click(function(){
-        
+
              if(validarFormulario('#formularioContrato',ag1)){
                 $('#formularioContrato').submit();
             }
-        
+
             /*var info = {
                 este                :   this,
                 corpo               :   '<?php //echo $corpo;?>',
@@ -319,15 +319,15 @@
             salvar(info);
             return false;*/
         });
-        
-        
+
+
         $(corpo+ '.btn_cancelar').click(function(){
             voltar();
         });
-        
-        
-        
-        
+
+
+
+
         $('.linkArquivos').click(function(){
             var este = this;
             var nomeJanelaAlerta =   janelaObj({

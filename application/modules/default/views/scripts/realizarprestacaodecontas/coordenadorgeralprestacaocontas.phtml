@@ -1,34 +1,34 @@
-<?php 
+<?php
 /**
- * PrestaÁ„o de Contas (UC45)
+ * PrestaÔøΩÔøΩo de Contas (UC45)
  * @author Equipe RUP - Politec
  * @since 28/01/2011
  * @version 1.0
  * @subpackage application.view.scripts.prestacaodeocontas
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl (); ?>" title="InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl (); ?>" title="IN√çCIO">IN√çCIO</a></li>
         <li class="second"><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => '')); ?>" title="Ir para Presta&ccedil;&atilde;o de contas">Presta&ccedil;&atilde;o de contas</a></li>
         <li class="last">Analisar presta&ccedil;&atilde;o de contas</li>
     </ul>
 </div>
- 
-<!-- ========== INÕCIO TÕTULO ========== -->
+
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Analisar presta&ccedil;&atilde;o de contas <span class="voltar"><a href="<?php echo $this->url ( array ('controller' => 'realizarprestacaodecontas', 'action' => '' ));?>" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 <script>
-    
+
     $(document).ready(function() {
 
     });
-    
+
     function JSMostraOcultaElemento(elemento)
     {
         //$('.' + elemento).toggle('slow');
@@ -60,15 +60,15 @@
         }
         //CARREGA - PROJETOS TCE
         if(elemento == 'projetostce' && $('#projetostce_resultado').html() == ''){
-            jqAjaxForm(document.getElementById("frm4"), "projetostce_resultado");    
+            jqAjaxForm(document.getElementById("frm4"), "projetostce_resultado");
         }
         //CARREGA - PROJETOS em OUTRAS SITUACOES
         if(elemento == 'projetosoutrassituacoes' && $('#projetosoutrassituacoes_resultado').html() == ''){
             jqAjaxForm(document.getElementById("frm5"), "projetosoutrassituacoes_resultado");
         }
     }
-    
-    
+
+
     //HISTORICO DO PROJETO
     function consultahistorico() {
         $("#analisar").dialog("destroy");
@@ -88,7 +88,7 @@
             }
         });
         $('.ui-dialog-titlebar-close').open();
-    } // fecha funÁ„o logout()
+    } // fecha funÔøΩÔøΩo logout()
 
     function JSRecuperarDataSituacao(NrPronac){
 
@@ -125,14 +125,14 @@
     <?php endif;?>
 </script>
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 <?php if($this->bln_envioufiltro == 'false' && $this->totalAguardandoAnalise==0 &&  $this->totalDevolvidosAposAnalise==0 &&  $this->totalDiligenciados==0 &&  $this->totalProjetosTCE==0): ?>
 
     <div class="msgALERT">
         <div class="float_right" style="cursor: pointer;"><input type="button" class="btn_close" title="Fechar mensagem" id="msg-ALERT" onclick="$('.msgALERT').hide();" onkeypress="$('.msgALERT').hide();"/></div>
-        <div>N„o h· projetos na fase de PrestaÁ„o de Contas. <br /></div>
+        <div>N√£o hÔøΩ projetos na fase de PrestaÔøΩÔøΩo de Contas. <br /></div>
     </div>
 <?php elseif(!empty($this->parametrosBuscaPrestacaoContas['pronac']) && $this->bln_pronacValido == "false"): ?>
     <div class="msgALERT">
@@ -142,7 +142,7 @@
 <?php elseif(!empty($this->parametrosBuscaPrestacaoContas['pronac']) && $this->totalProjetosOS <= 0): ?>
     <div class="msgALERT">
         <div class="float_right" style="cursor: pointer;"><input type="button" class="btn_close" title="Fechar mensagem" id="msg-ALERT" onclick="$('.msgALERT').hide();" onkeypress="$('.msgALERT').hide();"/></div>
-        <div>Este projeto n„o est· na fase de PrestaÁ„o de Contas. <br /></div>
+        <div>Este projeto N√£o estÔøΩ na fase de PrestaÔøΩÔøΩo de Contas. <br /></div>
     </div>
 <?php else: ?>
     <?php if( !empty($this->parametrosBuscaPrestacaoContas['pronac']) || !empty($this->parametrosBuscaPrestacaoContas['situacao'])): //so mostra as 4 grids se nao enviar Pronac e Situacao no filtro?>
@@ -172,7 +172,7 @@
                 <?php endforeach; ?>
             </form>
     <?php else: ?>
-    
+
     <!-- ===================================================================== -->
     <!-- ================= AGUARDANDO ANALISE ================================ -->
     <!-- ===================================================================== -->
@@ -207,7 +207,7 @@
         <table class="tabela">
             <tr>
 
-                <td><input type="button" id="devolvidosaposanalise" class="btn_adicionar"  onclick="JSMostraOcultaElemento('devolvidosaposanalise')" />DEVOLVIDOS AP”S AN¡LISE</td>
+                <td><input type="button" id="devolvidosaposanalise" class="btn_adicionar"  onclick="JSMostraOcultaElemento('devolvidosaposanalise')" />DEVOLVIDOS APÔøΩS An√°lise</td>
                 <td width="100" align="right" >Quantidade: <?php echo $this->totalDevolvidosAposAnalise;?></td>
             </tr>
         </table>
@@ -288,7 +288,7 @@
         <?php if ((isset($this->parametrosBuscaPrestacaoContas['tpPeriodoExecucao']) && !empty($this->parametrosBuscaPrestacaoContas['tpPeriodoExecucao'])) || !empty($this->parametrosBuscaPrestacaoContas['pronac']) || !empty($this->parametrosBuscaPrestacaoContas['NomeProjeto']) || !empty($this->parametrosBuscaPrestacaoContas['uf']) || !empty($this->parametrosBuscaPrestacaoContas['mecanismo']) || !empty($this->parametrosBuscaPrestacaoContas['situacao'])){ ?>
             <table class="tabela">
                 <tr>
-                    <td><input type="button" id="projetosoutrassituacoes" class="btn_adicionar" onclick="JSMostraOcultaElemento('projetosoutrassituacoes')"/>OUTRAS SITUA«’ES</td>
+                    <td><input type="button" id="projetosoutrassituacoes" class="btn_adicionar" onclick="JSMostraOcultaElemento('projetosoutrassituacoes')"/>OUTRAS SITUAÔøΩÔøΩES</td>
                     <td width="100" align="right" >Quantidade: <?php echo $this->totalProjetosOS; ?></td>
                 </tr>
             </table>
@@ -314,7 +314,7 @@
 
 </div><!-- fecha div conteudo -->
 
-<!-- inÌcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 <br clear="all" />

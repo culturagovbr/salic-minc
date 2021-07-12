@@ -59,7 +59,7 @@ function JSDevolverParaChefeDivisao(idPronac,idOrgaoDestino,ocultarJustificativa
         type : 'post'
     });
 
-    var title = 'Devolver Projeto para Chefe de Divisão';
+    var title = 'Devolver Projeto para Chefe de Divisï¿½o';
     $("#divDinamica").dialog({
         resizable: true,
         width:750,
@@ -110,7 +110,7 @@ function JSEncaminharParaConsultoriaDI(idPronac,idOrgaoDestino)
     }else if(idOrgaoDestino == 12){
         title = 'Consultoria - CONJUR';
     }else{
-        title = 'Encaminhar Projeto para Análise';
+        title = 'Encaminhar Projeto para AnÃ¡lise';
     }
     $("#divDinamica").dialog({
         resizable: true,

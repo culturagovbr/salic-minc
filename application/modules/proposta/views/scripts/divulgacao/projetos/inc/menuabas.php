@@ -10,7 +10,7 @@ foreach ($this->consultaReuniao as $value) {
         validardados(<?php echo $this->consultaProjetosPautaReuniao[0]->NumeroReuniao; ?>);
     }, 1000);
 
-    
+
     function validardados(idNrReuniao)
     {
         $.ajax({
@@ -41,21 +41,21 @@ foreach ($this->consultaReuniao as $value) {
         echo "<div id='teste'></div>";
         echo "<table>";
         echo "<tr>";
-        echo "<td>Status da Reunião: </td>";
+        echo "<td>Status da Reuniï¿½o: </td>";
         if ($value->stEstado == 0 and Data::CompararDatas($value->DtFechamento) >= 0) {
-            echo "<td>Reunião em andamento</td>";
+            echo "<td>Reuniï¿½o em andamento</td>";
         }
-        
+
         if (Data::CompararDatas($value->DtFechamento) <= 0 and $value->stEstado <= 0) {
             echo "<td>Aguardando fechamento da Pauta</td>";
         }
         echo "</tr>";
         echo "<tr >";
-        echo "<td>Período para inclusão de projetos:</td>";
+        echo "<td>Perï¿½odo para inclusï¿½o de projetos:</td>";
         echo "<td>" . $value->DtInicio . " a " . $value->DtFechamento . "</td>";
         echo "</tr>";
         echo "<tr >";
-        echo "<td>Total de projetos submetidos a Plenária:</td>";
+        echo "<td>Total de projetos submetidos a Plenï¿½ria:</td>";
         if (isset($submetidosPlenaria)) {
             echo "<td>$submetidosPlenaria</td>";
         } else {
@@ -63,7 +63,7 @@ foreach ($this->consultaReuniao as $value) {
         }
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Total de projetos não submetidos a Plenária:</td>";
+        echo "<td>Total de projetos NÃ£o submetidos a Plenï¿½ria:</td>";
         if (isset($naoSubmetidosPauta)) {
             echo "<td>$naoSubmetidosPauta</td>";
         } else {
@@ -87,14 +87,14 @@ foreach ($this->consultaReuniao as $value) {
                 echo "'>";
                 echo "<input type='hidden' value='encerrar' name='reuniao'>";
                 echo "<td></td>";
-                echo "<td><input type='submit' size='30' value='Encerrar Reunião'></td>";
+                echo "<td><input type='submit' size='30' value='Encerrar Reuniï¿½o'></td>";
             } else {
                 echo "<input name='idReuniao' type='hidden' value='";
                 echo $this->consultaProjetosPautaReuniao[0]->NumeroReuniao;
                 echo "'>";
                 echo "<input type='hidden' value='iniciar' name='reuniao'>";
                 echo "<td></td>";
-                echo "<td><input type='submit' size='30' value='Fechar pauta/iniciar reunião'></td>";
+                echo "<td><input type='submit' size='30' value='Fechar pauta/iniciar reuniï¿½o'></td>";
             }
         }
         echo "</form>";

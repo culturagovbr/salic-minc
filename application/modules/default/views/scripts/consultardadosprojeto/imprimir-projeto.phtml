@@ -156,11 +156,11 @@
     <div class="paginaA4">
 
         <div align="center">
-            <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério da Cidadania"/>
-            <br clear="all" /><span class="TituloMinC">Ministério da Cidadania</span>
+            <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministï¿½rio da Cidadania"/>
+            <br clear="all" /><span class="TituloMinC">Ministï¿½rio da Cidadania</span>
             <br clear="all" /><span class="TituloDoDocumento">PRONAC: <?php echo empty($this->NrProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->NrProjeto; ?> - <?php echo empty($this->NomeProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->NomeProjeto; ?></span>
             <br clear="all" /><span class="TituloDoDocumento">Proponente: <?php echo empty($this->NomeProponente) ? '<em>Dados n&atilde;o informados!</em>' : $this->NomeProponente; ?></span>
-            <!--<br clear="all" /><span class="DataDoDocumento">Data da impressão: <?php //echo date('d/m/Y - H:i:s'); ?></span>-->
+            <!--<br clear="all" /><span class="DataDoDocumento">Data da impressï¿½o: <?php //echo date('d/m/Y - H:i:s'); ?></span>-->
         </div>
 
 
@@ -384,7 +384,7 @@
                                         <tr class="destacar" align="left">
                                             <td class="centro"><b>UF</b></td>
                                             <td class="centro"><b>Mecanismo</b></td>
-                                            <td class="centro"><b>Área Cultural</b></td>
+                                            <td class="centro"><b>ï¿½rea Cultural</b></td>
                                             <td class="centro"><b>Segmento</b></td>
                                             <td class="centro"><b>Processo</b></td>
                                             <td class="centro"><b>Enquadramento</b></td>
@@ -403,7 +403,7 @@
                             <legend>Localiza&ccedil;&atilde;o atual do Projeto</legend>
                             <table class="tabela">
                                 <tr class="destacar">
-                                    <td class="centro"><b>Localiza&ccedil;&atilde;o</b><br>(<font size="1em">A localização atual do projeto só será alterada após o recebimento do projeto na unidade destino.</font>)</td>
+                                    <td class="centro"><b>Localiza&ccedil;&atilde;o</b><br>(<font size="1em">A localizaï¿½ï¿½o atual do projeto sï¿½ serÃ¡ alterada apï¿½s o recebimento do projeto na unidade destino.</font>)</td>
                                 </tr>
                                 <tr>
                                     <td align="left">
@@ -416,8 +416,8 @@
                             <legend>Situa&ccedil;&atilde;o</legend>
                             <table class="tabela">
                                 <tr class="destacar">
-                                    <td align="center"><b>Dt.Situação</b></td>
-                                    <td align="center"><b>Situação</b></td>
+                                    <td align="center"><b>Dt.Situaï¿½ï¿½o</b></td>
+                                    <td align="center"><b>Situaï¿½ï¿½o</b></td>
                                     <td align="left"><b>Provid&ecirc;ncia Tomada</b></td>
                                 </tr>
                                 <tr>
@@ -529,7 +529,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Democratizaç&atilde;o de Acesso</legend>
+                    <legend>Democratizaï¿½&atilde;o de Acesso</legend>
                     <table class="tabela">
                         <tr>
                             <td><?php echo (trim(strip_tags(!empty($this->proposta->DemocratizacaoDeAcesso))))?strip_tags($this->proposta->DemocratizacaoDeAcesso,"<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>"):"<em>Dados n&atilde;o informados!</em>";  ?></td>
@@ -547,7 +547,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Ficha Técnica</legend>
+                    <legend>Ficha TÃ©cnica</legend>
                     <table class="tabela">
 
                         <tr>
@@ -577,7 +577,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Especificaç&otilde;es técnicas do produto</legend>
+                    <legend>Especificaï¿½&otilde;es TÃ©cnicas do produto</legend>
                     <table class="tabela">
 
                         <tr>
@@ -587,7 +587,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Outras Informaç&otilde;es</legend>
+                    <legend>Outras Informaï¿½&otilde;es</legend>
                     <table class="tabela">
 
                         <tr>
@@ -1020,7 +1020,7 @@
                                         </table>
                                         <table class="tabela">
                                             <tr>
-                                                <th>SOLICITAÇÃO</th>
+                                                <th>SolicitaÃ§Ã£o</th>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -1098,7 +1098,7 @@
                                         </table>
                                         <table class="tabela">
                                             <tr>
-                                                <th>SOLICITAÇÃO</th>
+                                                <th>SolicitaÃ§Ã£o</th>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -1163,7 +1163,7 @@
                         <tr class="destacar">
                             <td><b>Enquadramento</b></td>
                             <td><b>Tipo do Parecer</b></td>
-                            <td><b>Parecer Favorável?</b></td>
+                            <td><b>Parecer Favorï¿½vel?</b></td>
                             <td><b>Dt. Parecer</b></td>
                             <td><b>Sugerido Real</b></td>
                         </tr>
@@ -1192,15 +1192,15 @@
                             <td align="right"><span style="color: blue; font-weight: bold;"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->ValorProposta); ?></span></td>
                         </tr>
                         <tr class="destacar">
-                            <td align="right"><b>Valor do Parecer Técnico (D)</b></td>
+                            <td align="right"><b>Valor do Parecer Tï¿½cnico (D)</b></td>
                             <td align="right"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->ValorParecer); ?></td>
                         </tr>
                         <tr class="destacar">
-                            <td align="right"><b>Valor de Elaboração e Agenciamento (E)</b></td>
+                            <td align="right"><b>Valor de Elaboraï¿½ï¿½o e Agenciamento (E)</b></td>
                             <td align="right"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->Elaboracao); ?></td>
                         </tr>
                         <tr class="destacar">
-                            <td align="right"><b>Valor Sugerido para Aprovação (F = D + E)</b></td>
+                            <td align="right"><b>Valor Sugerido para aprovaÃ§Ã£o (F = D + E)</b></td>
                             <td align="right"><span style="font-weight: bold;"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->ValorSugerido); ?></span></td>
                         </tr>
                     </table>
@@ -1233,7 +1233,7 @@
                     <?php if(count($this->identificacaoParecerConsolidado)>0){ ?>
                     <table class="tabela">
                         <tr class="destacar">
-                            <td align="center"><b>Parecer Técnico</b></td>
+                            <td align="center"><b>Parecer Tï¿½cnico</b></td>
                         </tr>
                         <tr class="destacar">
                             <td style="text-align: justify;"><?php echo $this->identificacaoParecerConsolidado[0]->ResumoParecer; ?></td>
@@ -1245,7 +1245,7 @@
                     <?php if(count($this->parecerDoComponenteComissao)>0){ ?>
                     <table class="tabela">
                         <tr class="destacar">
-                            <td width="20%"><b>Nº Reuni&atilde;o</b></td>
+                            <td width="20%"><b>Nï¿½ Reuni&atilde;o</b></td>
                             <td width="20%"><b>Dt. Reuni&atilde;o</b></td>
                             <td width="20%"><b>Parecer</b></td>
                             <td width="20%"><b>Enviado &agrave; Plen&aacute;ria?</b></td>
@@ -1254,8 +1254,8 @@
                         <tr>
                             <td><?php echo $this->parecerDoComponenteComissao[0]->NrReuniao; ?></td>
                             <td><?php echo Data::tratarDataZend($this->parecerDoComponenteComissao[0]->DtFinal, 'Brasileira'); ?></td>
-                            <td><?php echo ($this->parecerDoComponenteComissao[0]->ParecerFavoravel == 1) ? 'Desfavorável' : 'Favorável'; ?></td>
-                            <td><?php echo ($this->parecerDoComponenteComissao[0]->stEnvioPlenario == 'N') ? 'Não' : 'Sim'; ?></td>
+                            <td><?php echo ($this->parecerDoComponenteComissao[0]->ParecerFavoravel == 1) ? 'Desfavorï¿½vel' : 'Favorï¿½vel'; ?></td>
+                            <td><?php echo ($this->parecerDoComponenteComissao[0]->stEnvioPlenario == 'N') ? 'NÃ£o' : 'Sim'; ?></td>
                             <td><?php echo $this->formatarReal($this->parecerDoComponenteComissao[0]->valor); ?></td>
                         </tr>
                         <tr class="destacar">
@@ -1293,7 +1293,7 @@
     <!-- PLANILHA ORCAMENTARIA -->
     <?php if(isset($this->arrConteudoImpressao) && in_array('planilhaorcamentaria',$this->arrConteudoImpressao)): ?>
     <?php
-    //MONTANDO A PLANILHA DO TIPO 1 = Planilha Orçamentária do Proponente
+    //MONTANDO A PLANILHA DO TIPO 1 = Planilha Orï¿½amentï¿½ria do Proponente
     if($this->tipoPlanilha == 1){ ?>
     <table class="tabela">
         <?php
@@ -1457,7 +1457,7 @@
     </table>
 
     <?php }
-    //MONTANDO A PLANILHA DO TIPO 2 = Planilha Orçamentária do Parecerista
+    //MONTANDO A PLANILHA DO TIPO 2 = Planilha Orï¿½amentï¿½ria do Parecerista
     else if($this->tipoPlanilha == 2){ ?>
 
     <table class="tabela">
@@ -1654,7 +1654,7 @@
 
 
     <?php }
-    //MONTANDO A PLANILHA DO TIPO 3 = Planilha Orçamentária Aprovada Ativa
+    //MONTANDO A PLANILHA DO TIPO 3 = Planilha Orï¿½amentï¿½ria Aprovada Ativa
     else if($this->tipoPlanilha == 3){ ?>
     <table class="tabela">
         <?php
@@ -1879,11 +1879,11 @@
                 <?php if(count($this->certidoes)>0){ ?>
                     <table id="lista" class="tabela">
                         <tr>
-                            <th>Certidões</th>
-                            <th>Data de Emissão</th>
+                            <th>Certidï¿½es</th>
+                            <th>Data de Emissï¿½o</th>
                             <th>Data de Validade</th>
                             <th>PRONAC</th>
-                            <th>Situação</th>
+                            <th>Situaï¿½ï¿½o</th>
                         </tr>
                         <?php foreach($this->certidoes as $certidao){ ?>
                         <tr>
@@ -1944,8 +1944,8 @@
                     <tr>
                         <td class="destacar bold" align="center">PRONAC</td>
                         <td class="destacar bold" align="center">NOME DO PROJETO</td>
-                        <td class="destacar bold" align="center">ÓRGÃO</td>
-                        <td class="destacar bold" align="center">OBSERVAÇÃO</td>
+                        <td class="destacar bold" align="center">ï¿½RGï¿½O</td>
+                        <td class="destacar bold" align="center">OBSERVAï¿½ï¿½O</td>
                     </tr>
                     <?php foreach ($this->regularidadeproponente as $r){ ?>
                     <tr>
@@ -2028,21 +2028,21 @@
                     <legend>Recursos do Projeto</legend>
                     <?php if (count($this->projetosRecurso) > 0) : ?>
 
-                            <!-- ========== INÍCIO RECURSOS DO PRONAC ========== -->
+                            <!-- ========== INÃCIO RECURSOS DO PRONAC ========== -->
                             <table class="tabela">
                                     <tr>
                                             <th colspan="5">Recursos do Projeto</th>
                                     </tr>
                                     <tr>
-                                            <td colspan="5" class="centro"><?php echo count($this->recursos) > 0 ? '&nbsp;' : '<em>Não existe Recurso solicitado para esse Projeto!</em>'; ?></td>
+                                            <td colspan="5" class="centro"><?php echo count($this->recursos) > 0 ? '&nbsp;' : '<em>NÃ£o existe Recurso solicitado para esse Projeto!</em>'; ?></td>
                                     </tr>
 
-                                    <?php $cont = 1; // conta as linhas (servirá para abrir e fechar as avaliações) ?>
+                                    <?php $cont = 1; // conta as linhas (servirï¿½ para abrir e fechar as avaliaï¿½ï¿½es) ?>
                                     <?php if (count($this->recursos) > 0) : // caso tenha recursos ?>
 
                                             <?php
                                             // arrays que servem para armazenar os elementos, e, posteriormente,
-                                            // verificar se o elemento já encontra-se no array e evitar a sua "impressão" duplicada na tela
+                                            // verificar se o elemento jï¿½ encontra-se no array e evitar a sua "impressï¿½o" duplicada na tela
                                             $arrayIdRecurso = array();
                                             ?>
 
@@ -2053,11 +2053,11 @@
                                             <?php $RecursoPosterior = isset($this->recursos[$cont]->idRecurso) ? $this->recursos[$cont]->idRecurso : null; ?>
                                             <?php if (!in_array($comparadorIdRecurso, $arrayIdRecurso)) : ?>
                                             <tr class="titulo_tabela">
-                                                    <th class="w150">Data de Solicitação</th>
+                                                    <th class="w150">Data de SolicitaÃ§Ã£o</th>
                                                     <th>Justificativa do Proponente</th>
                                                     <th>Proponente</th>
                                                     <th class="w150">Avaliado pelo Ministro</th>
-                                                    <th>Tipo de Solicitação</th>
+                                                    <th>Tipo de SolicitaÃ§Ã£o</th>
                                             </tr>
                                             <tr align="center">
                                                     <td class="centro">
@@ -2065,7 +2065,7 @@
                                                     </td>
                                                     <td>
                                                             <?php
-                                                            // caso seja prazo de execução ou captação, retira a data da justificativa
+                                                            // caso seja prazo de execuï¿½ï¿½o ou captaï¿½ï¿½o, retira a data da justificativa
                                                             if ($r->tpSolicitacao == 'PE' || $r->tpSolicitacao == 'PP')
                                                             {
                                                                     $dsSolicitacaoRecurso = explode(" - ", Seguranca::tratarVarHTML($r->dsSolicitacaoRecurso), 2);
@@ -2081,10 +2081,10 @@
                                                             <?php if (!empty($r->Proponente) && !empty($r->CNPJCPFProponente)) { ?>
                                                             <?php echo $r->Proponente; ?> - [ <?php echo Validacao::mascaraCPFCNPJ($r->CNPJCPFProponente); ?> ]
                                                             <?php } else { ?>
-                                                            <em>Não informado</em>
+                                                            <em>NÃ£o informado</em>
                                                             <?php } ?>
                                                     </td>
-                                                    <td class="centro <?php echo $r->stAtendimento == 'N' ? 'red' : 'blue'; ?>"><?php echo $r->stAtendimento == 'N' ? 'Não' : 'Sim'; ?></td>
+                                                    <td class="centro <?php echo $r->stAtendimento == 'N' ? 'red' : 'blue'; ?>"><?php echo $r->stAtendimento == 'N' ? 'NÃ£o' : 'Sim'; ?></td>
                                                     <td class="centro"><?php echo $this->tipoSolicitacaoRecurso($r->tpSolicitacao); ?></td>
                                             </tr>
 
@@ -2093,13 +2093,13 @@
                                                     <td colspan="5">
                                                             <table class="tabela">
                                                                     <tr>
-                                                                            <td class="w100 destacar"><b>Avaliação</b></td>
+                                                                            <td class="w100 destacar"><b>Avaliaï¿½ï¿½o</b></td>
                                                                             <td class="w100 centro <?php echo $r->stAtendimento == 'D' ? 'blue' : 'red'; ?>"><?php echo ($r->tpSolicitacao == 'OR' && $r->stAtendimento == 'D') ? 'Avaliado': $this->tipoAtendimentoRecurso($r->stAtendimento); ?></td>
-                                                                            <td class="w150 destacar"><b>Data da Avaliação</b></td>
+                                                                            <td class="w150 destacar"><b>Data da Avaliaï¿½ï¿½o</b></td>
                                                                             <td class="w150 centro">
                                                                                     <?php
-                                                                                    $r->dtAvaliacao = trim($r->dtAvaliacao); // necessário, pois, caso venha vazio, a mesma está vindo com 2 espaços
-                                                                                    echo !empty($r->dtAvaliacao) ? $r->dtAvaliacao : '<em>Não informado</em>';
+                                                                                    $r->dtAvaliacao = trim($r->dtAvaliacao); // necessï¿½rio, pois, caso venha vazio, a mesma estï¿½ vindo com 2 espaï¿½os
+                                                                                    echo !empty($r->dtAvaliacao) ? $r->dtAvaliacao : '<em>NÃ£o informado</em>';
                                                                                     ?>
                                                                             </td>
                                                                             <td class="w150 destacar"><b>Avaliado pelo Ministro</b></td>
@@ -2107,13 +2107,13 @@
                                                                                     <?php if (!empty($r->Ministro) && !empty($r->CNPJCPFMinistro)) { ?>
                                                                                     <?php echo $r->Ministro; ?> - [ <?php echo Validacao::mascaraCPFCNPJ($r->CNPJCPFMinistro); ?> ]
                                                                                     <?php } else { ?>
-                                                                                    <em>Não informado</em>
+                                                                                    <em>NÃ£o informado</em>
                                                                                     <?php } ?>
                                                                             </td>
                                                                     </tr>
 
                                                                     <?php
-                                                                    /* ========== INÍCIO ORÇAMENTO ========== */
+                                                                    /* ========== INÃCIO ORï¿½AMENTO ========== */
                                                                     if ($r->tpSolicitacao == 'OR')
                                                                     {
                                                                     ?>
@@ -2121,17 +2121,17 @@
                                                                             <td colspan="6">&nbsp;</td>
                                                                     </tr>
                                                                     <tr>
-                                                                            <td colspan="6" class="destacar centro"><b>Itens da Planilha de Orçamento Aprovada com Solicitação de Reintegração</b></td>
+                                                                            <td colspan="6" class="destacar centro"><b>Itens da Planilha de Orï¿½amento Aprovada com SolicitaÃ§Ã£o de Reintegraï¿½ï¿½o</b></td>
                                                                     </tr>
                                                                     <tr class="destacar">
                                                                             <td class="centro bold">Item</td>
                                                                             <td colspan="2" class="centro bold" width="30%">Justificativa do Proponente</td>
                                                                             <td colspan="2" class="centro bold" width="30%">Justificativa do Ministro</td>
-                                                                            <td class="centro bold">Avaliação do Ministro</td>
+                                                                            <td class="centro bold">Avaliaï¿½ï¿½o do Ministro</td>
                                                                     </tr>
                                                                     <?php
                                                                     // arrays que servem para armazenar os elementos, e, posteriormente,
-                                                                    // verificar se o elemento já encontra-se no array e evitar a sua "impressão" duplicada na tela
+                                                                    // verificar se o elemento jï¿½ encontra-se no array e evitar a sua "impressï¿½o" duplicada na tela
                                                                     $arrayIdPlanilha = array();
                                                                     ?>
                                                                     <?php foreach ($this->recursosPlanilha as $rPlanilha) : ?>
@@ -2139,7 +2139,7 @@
                                                                     <?php if (!in_array($comparadorIdPlanilha, $arrayIdPlanilha) && $rPlanilha->idRecurso == $r->idRecurso) : ?>
                                                                     <tr class="linha" align="left">
                                                                             <td><?php echo $rPlanilha->Item; ?></td>
-                                                                            <td colspan="2"><?php echo !empty($rPlanilha->dsJustificativaProponente) ? Seguranca::tratarVarHTML($rPlanilha->dsJustificativaProponente) : '<div align="center"><em>Não informado</em></div>'; ?></td>
+                                                                            <td colspan="2"><?php echo !empty($rPlanilha->dsJustificativaProponente) ? Seguranca::tratarVarHTML($rPlanilha->dsJustificativaProponente) : '<div align="center"><em>NÃ£o informado</em></div>'; ?></td>
                                                                             <td colspan="2">
                                                                                     <?php
                                                                                     $dsMinistro = array();
@@ -2150,12 +2150,12 @@
                                                                                     }
                                                                                     else
                                                                                     {
-                                                                                            echo '<div align="center"><em>Não informado</em></div>';
+                                                                                            echo '<div align="center"><em>NÃ£o informado</em></div>';
                                                                                     }
                                                                                     ?>
                                                                             </td>
                                                                             <td class="w100 centro <?php echo (isset($dsMinistro[0]) && !empty($dsMinistro[0])) ? (trim($dsMinistro[0]) == 'Deferido' ? 'blue' : 'red') : ''; ?>">
-                                                                                    <?php echo (isset($dsMinistro[0]) && !empty($dsMinistro[0])) ? $dsMinistro[0] : '<div align="center"><em>Não informado</em></div>'; ?>
+                                                                                    <?php echo (isset($dsMinistro[0]) && !empty($dsMinistro[0])) ? $dsMinistro[0] : '<div align="center"><em>NÃ£o informado</em></div>'; ?>
                                                                             </td>
                                                                     </tr>
                                                                     <?php endif; ?>
@@ -2163,11 +2163,11 @@
                                                                     <?php endforeach; ?>
                                                                     <?php
                                                                     }
-                                                                    /* ========== FIM ORÇAMENTO ========== */
+                                                                    /* ========== FIM ORï¿½AMENTO ========== */
                                                                     ?>
 
                                                                     <?php
-                                                                    /* ========== INÍCIO PRAZO DE EXECUÇÃO ========== */
+                                                                    /* ========== INÃCIO PRAZO DE EXECUï¿½ï¿½O ========== */
                                                                     if ($r->tpSolicitacao == 'PE')
                                                                     {
                                                                     ?>
@@ -2175,20 +2175,20 @@
                                                                             <td colspan="6">&nbsp;</td>
                                                                     </tr>
                                                                     <tr>
-                                                                            <td colspan="6" class="destacar centro"><b>Período de Execução Solicitado</b></td>
+                                                                            <td colspan="6" class="destacar centro"><b>Perï¿½odo de Execuï¿½ï¿½o Solicitado</b></td>
                                                                     </tr>
                                                                     <tr>
                                                                             <td colspan="6" class="centro">
-                                                                                    <?php echo Seguranca::tratarVarHTML(str_replace("Período de Execução: ", "", $dsSolicitacaoRecurso[0])); ?>
+                                                                                    <?php echo Seguranca::tratarVarHTML(str_replace("Perï¿½odo de Execuï¿½ï¿½o: ", "", $dsSolicitacaoRecurso[0])); ?>
                                                                             </td>
                                                                     </tr>
                                                                     <?php
                                                                     }
-                                                                    /* ========== FIM PRAZO DE EXECUÇÃO ========== */
+                                                                    /* ========== FIM PRAZO DE EXECUï¿½ï¿½O ========== */
                                                                     ?>
 
                                                                     <?php
-                                                                    /* ========== INÍCIO PRAZO DE CAPTAÇÃO ========== */
+                                                                    /* ========== INÃCIO PRAZO DE CAPTAï¿½ï¿½O ========== */
                                                                     if ($r->tpSolicitacao == 'PP')
                                                                     {
                                                                     ?>
@@ -2196,19 +2196,19 @@
                                                                             <td colspan="6">&nbsp;</td>
                                                                     </tr>
                                                                     <tr>
-                                                                            <td colspan="6" class="destacar centro"><b>Período de Captação Solicitado</b></td>
+                                                                            <td colspan="6" class="destacar centro"><b>Perï¿½odo de Captaï¿½ï¿½o Solicitado</b></td>
                                                                     </tr>
                                                                     <tr>
                                                                             <td colspan="6" class="centro">
-                                                                                    <?php echo Seguranca::tratarVarHTML(str_replace("Período de Captação: ", "", $dsSolicitacaoRecurso[0])); ?>
+                                                                                    <?php echo Seguranca::tratarVarHTML(str_replace("Perï¿½odo de Captaï¿½ï¿½o: ", "", $dsSolicitacaoRecurso[0])); ?>
                                                                             </td>
                                                                     </tr>
                                                                     <?php
                                                                     }
-                                                                    /* ========== FIM PRAZO DE CAPTAÇÃO ========== */
+                                                                    /* ========== FIM PRAZO DE CAPTAï¿½ï¿½O ========== */
                                                                     ?>
 
-                                                                    <?php if ($r->tpSolicitacao != 'OR') : // orçamento não tem justificativa geral ?>
+                                                                    <?php if ($r->tpSolicitacao != 'OR') : // orï¿½amento NÃ£o tem justificativa geral ?>
                                                                     <tr>
                                                                             <td colspan="6">&nbsp;</td>
                                                                     </tr>
@@ -2216,7 +2216,7 @@
                                                                         <td colspan="6" class="destacar centro"><b>Justificativa do Ministro</b></td>
                                                                     </tr>
                                                                     <tr>
-                                                                            <td colspan="6"><?php echo !empty($r->dsAvaliacao) ? Seguranca::tratarVarHTML($r->dsAvaliacao) : '<div align="center"><em>Não informado</em></div>'; ?></td>
+                                                                            <td colspan="6"><?php echo !empty($r->dsAvaliacao) ? Seguranca::tratarVarHTML($r->dsAvaliacao) : '<div align="center"><em>NÃ£o informado</em></div>'; ?></td>
                                                                     </tr>
                                                                     <?php endif; ?>
                                                             </table>
@@ -2238,7 +2238,7 @@
                             <th>Recursos do Projeto</th>
                         </tr>
                         <tr>
-                            <td class="centro"><em>Não existe Recurso solicitado para esse Projeto!</em></td>
+                            <td class="centro"><em>NÃ£o existe Recurso solicitado para esse Projeto!</em></td>
                         </tr>
                     </table>
                     <?php endif; // projetos ?>
@@ -2473,7 +2473,7 @@
                                         <br>
                                         <!-- ANALISE DE CONTEUDO - INICIAL -->
                                         <fieldset>
-                                            <legend>Análise de Conte&uacute;do </legend>
+                                            <legend>AnÃ¡lise de Conte&uacute;do </legend>
                                             <?php if(is_array($this->dadosAnaliseInicial) && count($this->dadosAnaliseInicial) > 0) :
                                                 foreach($this->dadosAnaliseInicial as $analise): ?>
                                                 <table class="tabela">
@@ -2525,7 +2525,7 @@
                                         <br>
                                         <!-- ANALISE DE CUSTO - INICIAL -->
                                         <fieldset>
-                                            <legend>Análise de Custo </legend>
+                                            <legend>AnÃ¡lise de Custo </legend>
                                             <table class="tabela">
                                             <?php
                                             $nrfonte = 0;
@@ -2813,7 +2813,7 @@
                                         <br>
                                         <!-- ANALISE DE CONTEUDO - CNIC -->
                                         <fieldset>
-                                            <legend>Análise de Conte&uacute;do </legend>
+                                            <legend>AnÃ¡lise de Conte&uacute;do </legend>
                                             <?php if(is_object($this->dadosAnaliseCnic) && count($this->dadosAnaliseCnic) > 0):
                                                 foreach($this->dadosAnaliseCnic as $analise): ?>
                                                 <table class="tabela">
@@ -2869,7 +2869,7 @@
                                         <br>
                                         <!-- ANALISE DE CUSTO - CNIC -->
                                         <fieldset>
-                                            <legend>Análise de Custo </legend>
+                                            <legend>AnÃ¡lise de Custo </legend>
                                             <table class="tabela" id="planilhaOrcamentaria">
                                             <?php
                                             $nrfonte = 0;
@@ -3173,7 +3173,7 @@
                                         <br>
                                         <!-- ANALISE DE CONTEUDO - PLENARIA -->
                                         <fieldset>
-                                            <legend>Análise de Conte&uacute;do </legend>
+                                            <legend>AnÃ¡lise de Conte&uacute;do </legend>
                                             <?php if(is_object($this->dadosAnalisePlenaria) && count($this->dadosAnalisePlenaria) > 0):
                                                 foreach($this->dadosAnalisePlenaria as $analise): ?>
                                                 <table class="tabela">
@@ -3229,7 +3229,7 @@
                                         <br>
                                         <!-- ANALISE DE CUSTO - PLENARIA -->
                                         <fieldset>
-                                            <legend>Análise de Custo </legend>
+                                            <legend>AnÃ¡lise de Custo </legend>
                                             <table class="tabela">
                                             <?php
                                             $nrfonte = 0;
@@ -3606,7 +3606,7 @@
                                                         $PeriodoData = mktime(24*$dias, 0, 0, $mes, $dia, $ano);
                                                         $dataFormatada = date('d/m/Y',$PeriodoData);
                                                         $PeriodoData = $dataFormatada;
-                                                        echo " até ".$PeriodoData;
+                                                        echo " atï¿½ ".$PeriodoData;
                                                     ?>
                                                 </td>
                                                 <td align="center"><?php echo Data::tratarDataZend($DadosAnteriores->dtCadastro, 'Brasileira'); ?></td>
@@ -4067,10 +4067,10 @@
                             <td class="destacar" colspan="2" align="center"><b>Tem fins lucrativos</b></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><?php if (is_object($this->movel[0]) && $this->movel[0]->stFinsLucrativos == 1) echo 'Sim'; else echo 'Não';?></td>
+                            <td colspan="2"><?php if (is_object($this->movel[0]) && $this->movel[0]->stFinsLucrativos == 1) echo 'Sim'; else echo 'NÃ£o';?></td>
                         </tr>
                         <tr>
-                            <td class="destacar" colspan="2" align="center"><b>Nome do Beneficiário</b></td>
+                            <td class="destacar" colspan="2" align="center"><b>Nome do Beneficiï¿½rio</b></td>
                         </tr>
                         <tr>
                             <td colspan="2"><?php if(!empty($this->beneficiario)){ echo $this->beneficiario->dsBeneficiario; } ?></td>
@@ -4318,7 +4318,7 @@
                                                                 <?php if ($infoProjeto[0]->dtInicioFiscalizacaoProjeto != '') {
                                                                         echo date('d/m/Y', strtotime($infoProjeto[0]->dtInicioFiscalizacaoProjeto));
                                                                     } else {
-                                                                            echo 'Não informado';
+                                                                            echo 'NÃ£o informado';
                                                                     } ?>
                                                             </td>
                                                             <td>
@@ -4326,7 +4326,7 @@
                                                                 <?php if ($infoProjeto[0]->dtFimFiscalizacaoProjeto != '') {
                                                                         echo date('d/m/Y', strtotime($infoProjeto[0]->dtFimFiscalizacaoProjeto));
                                                                     } else {
-                                                                            echo 'Não informado';
+                                                                            echo 'NÃ£o informado';
                                                                     } ?>
                                                             </td>
                                                         </tr>
@@ -4347,7 +4347,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2" class="destacar" align="center"><b>Identificaç&atilde;o do T&eacute;cnico</b></td>
+                                                            <td colspan="2" class="destacar" align="center"><b>Identificaï¿½&atilde;o do T&eacute;cnico</b></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -4361,7 +4361,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2"><b>Dados para Fiscaliza&ccedil;&atilde;o</b><br>
-                                                                <?php echo !empty($infoProjeto[0]->dsFiscalizacaoProjeto) ? $infoProjeto[0]->dsFiscalizacaoProjeto : 'Não informado'; ?>
+                                                                <?php echo !empty($infoProjeto[0]->dsFiscalizacaoProjeto) ? $infoProjeto[0]->dsFiscalizacaoProjeto : 'NÃ£o informado'; ?>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -4376,7 +4376,7 @@
                                                                  <?php
                                                                     if ($value->CNPJCPF) { ?>
                                                                             <tr>
-                                                                                <td colspan="2" class="destacar" align="center"><b>Identificaç&atilde;o do Parecerista</b></td>
+                                                                                <td colspan="2" class="destacar" align="center"><b>Identificaï¿½&atilde;o do Parecerista</b></td>
                                                                             </tr>
                                                                         <tr>
                                                                             <td>
@@ -4395,7 +4395,7 @@
 
                                                                 <tr>
                                                                     <td colspan="2"><b>Observa&ccedil;&atilde;o</b><br>
-                                                                        <?php echo !empty($value->dsObservacao) ? $value->dsObservacao : 'Não informado'; ?>
+                                                                        <?php echo !empty($value->dsObservacao) ? $value->dsObservacao : 'NÃ£o informado'; ?>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -4410,54 +4410,54 @@
                                             if (count($relatorio)) { ?>
                                                 <table class="tabela">
                                                     <tr>
-                                                        <td class="destacar" align="center"><b>Fiscalizaç&atilde;o Conclu&iacute;da para Parecer</b></td>
+                                                        <td class="destacar" align="center"><b>Fiscalizaï¿½&atilde;o Conclu&iacute;da para Parecer</b></td>
                                                     </tr>
                                                 </table>
                                                 <table class="tabela">
-                                                    <!-- ************************************** Resumo da Execuç&atilde;o ************************************ -->
+                                                    <!-- ************************************** Resumo da Execuï¿½&atilde;o ************************************ -->
                                                     <tr>
-                                                        <td colspan="4" class="destacar" align="center"><b>Resumo da Execuç&atilde;o</b></td>
+                                                        <td colspan="4" class="destacar" align="center"><b>Resumo da Execuï¿½&atilde;o</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4">
                                                             <fieldset>
-                                                                <legend>Aç&otilde;es Programadas</legend>
+                                                                <legend>Aï¿½&otilde;es Programadas</legend>
                                                                 <table class="tabela"><tr><td>
                                                                     <?php if (isset($relatorio->dsAcoesProgramadas))
-                                                                            echo !empty($relatorio->dsAcoesProgramadas) ? $relatorio->dsAcoesProgramadas : 'Não informado';
+                                                                            echo !empty($relatorio->dsAcoesProgramadas) ? $relatorio->dsAcoesProgramadas : 'NÃ£o informado';
                                                                             echo $relatorio->dsAcoesProgramadas ; ?>
                                                                 </td></tr></table>
                                                             </fieldset>
                                                             <fieldset>
-                                                                <legend>Aç&otilde;es Executadas</legend>
+                                                                <legend>Aï¿½&otilde;es Executadas</legend>
                                                                 <table class="tabela"><tr><td>
                                                                     <?php if (isset($relatorio->dsAcoesExecutadas))
-                                                                    echo !empty($relatorio->dsAcoesExecutadas) ? $relatorio->dsAcoesExecutadas : 'Não informado'; ?>
+                                                                    echo !empty($relatorio->dsAcoesExecutadas) ? $relatorio->dsAcoesExecutadas : 'NÃ£o informado'; ?>
                                                                 </td></tr></table>
                                                             </fieldset>
                                                             <fieldset>
-                                                                <legend>Benef&iacute;cios Alcançados</legend>
+                                                                <legend>Benef&iacute;cios Alcanï¿½ados</legend>
                                                                 <table class="tabela"><tr><td>
                                                                     <?php if (isset($relatorio->dsBeneficioAlcancado))
-                                                                    echo !empty($relatorio->dsBeneficioAlcancado) ? $relatorio->dsBeneficioAlcancado : 'Não informado'; ?>
+                                                                    echo !empty($relatorio->dsBeneficioAlcancado) ? $relatorio->dsBeneficioAlcancado : 'NÃ£o informado'; ?>
                                                                 </td></tr></table>
                                                             </fieldset>
                                                             <fieldset>
                                                                 <legend>Dificuldades Encontradas</legend>
                                                                 <table class="tabela"><tr><td>
                                                                     <?php if (isset($relatorio->dsDificuldadeEncontrada))
-                                                                    echo !empty($relatorio->dsDificuldadeEncontrada) ? $relatorio->dsDificuldadeEncontrada : 'Não informado'; ?>
+                                                                    echo !empty($relatorio->dsDificuldadeEncontrada) ? $relatorio->dsDificuldadeEncontrada : 'NÃ£o informado'; ?>
                                                                 </td></tr></table>
                                                             </fieldset>
 
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <!-- ************************************** Situaç&atilde;o do Conv&ecirc;nio na Realizaç&atilde;o da Fiscalizaç&atilde;o ************************************ -->
-                                                        <td colspan="4" class="destacar" align="center"><b>Situaç&atilde;o do Conv&ecirc;nio na Realizaç&atilde;o da Fiscalizaç&atilde;o</b></td>
+                                                        <!-- ************************************** Situaï¿½&atilde;o do Conv&ecirc;nio na Realizaï¿½&atilde;o da Fiscalizaï¿½&atilde;o ************************************ -->
+                                                        <td colspan="4" class="destacar" align="center"><b>Situaï¿½&atilde;o do Conv&ecirc;nio na Realizaï¿½&atilde;o da Fiscalizaï¿½&atilde;o</b></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Situaç&atilde;o SIAFI </td>
+                                                        <td colspan="2">Situaï¿½&atilde;o SIAFI </td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stSiafi))
                                                                     $selected = $relatorio->stSiafi; ?>
@@ -4472,7 +4472,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Prestaç&atilde;o de Contas Apresentada?</td>
+                                                        <td colspan="2">Prestaï¿½&atilde;o de Contas Apresentada?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stPrestacaoContas))
                                                                 $selected = $relatorio->stPrestacaoContas; ?>
@@ -4502,7 +4502,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Foi cumprido o prazo para entrega da prestaç&atilde;o de contas?</td>
+                                                        <td colspan="2">Foi cumprido o prazo para entrega da prestaï¿½&atilde;o de contas?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stCumpridoPrazo))
                                                             $selected = $relatorio->stCumpridoPrazo; ?>
@@ -4517,11 +4517,11 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <!-- ****************************************** Utilizaç&atilde;o de Recursos ************************************************************* -->
-                                                        <td colspan="4" class="destacar" align="center"><b>Utilizaç&atilde;o de Recursos</b></td>
+                                                        <!-- ****************************************** Utilizaï¿½&atilde;o de Recursos ************************************************************* -->
+                                                        <td colspan="4" class="destacar" align="center"><b>Utilizaï¿½&atilde;o de Recursos</b></td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Foi apurado por unidade fiscalizadora ou auditora a aplicaç&atilde;o irregular de recursos?</td>
+                                                        <td colspan="2">Foi apurado por unidade fiscalizadora ou auditora a aplicaï¿½&atilde;o irregular de recursos?</td>
                                                         <td colspan="2" >
                                                             <?php if (isset($relatorio->stApuracaoUFiscalizacao))
                                                             $selected = $relatorio->stApuracaoUFiscalizacao; ?>
@@ -4536,7 +4536,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Comprovou a correta utilizaç&atilde;o dos recursos da contrapartida?</td>
+                                                        <td colspan="2">Comprovou a correta utilizaï¿½&atilde;o dos recursos da contrapartida?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stComprovacaoUtilizacaoRecurso))
                                                                 $selected = $relatorio->stComprovacaoUtilizacaoRecurso; ?>
@@ -4551,7 +4551,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">H&aacute; compatibilidade entre o desembolso e a evoluç&atilde;o?</td>
+                                                        <td colspan="2">H&aacute; compatibilidade entre o desembolso e a evoluï¿½&atilde;o?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stCompatibilidadeDesembolsoEvo))
                                                             $selected = $relatorio->stCompatibilidadeDesembolsoEvo; ?>
@@ -4566,7 +4566,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Ocorreu despesas com multas, juros, taxas banc&aacute;rias ou correç&atilde;o monet&aacute;ria?</td>
+                                                        <td colspan="2">Ocorreu despesas com multas, juros, taxas banc&aacute;rias ou correï¿½&atilde;o monet&aacute;ria?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stOcorreuDespesas))
                                                                 $selected = $relatorio->stOcorreuDespesas; ?>
@@ -4596,7 +4596,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Ocorreu despesa com taxa de administraç&atilde;o?</td>
+                                                        <td colspan="2">Ocorreu despesa com taxa de administraï¿½&atilde;o?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stDespesaAdministracao))
                                                                 $selected = $relatorio->stDespesaAdministracao; ?>
@@ -4611,7 +4611,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">H&aacute; transfer&ecirc;ncia de recurso para clubes/associaç&otilde;es ou outras entidades cong&ecirc;neres?</td>
+                                                        <td colspan="2">H&aacute; transfer&ecirc;ncia de recurso para clubes/associaï¿½&otilde;es ou outras entidades cong&ecirc;neres?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stTransferenciaRecurso))
                                                                     $selected = $relatorio->stTransferenciaRecurso; ?>
@@ -4626,7 +4626,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">H&aacute; despesas com publicidade, salvo as de car&aacute;ter educativo, informativo ou de orientaç&atilde;o social?</td>
+                                                        <td colspan="2">H&aacute; despesas com publicidade, salvo as de car&aacute;ter educativo, informativo ou de orientaï¿½&atilde;o social?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stDespesasPublicidade))
                                                                     $selected = $relatorio->stDespesasPublicidade; ?>
@@ -4641,7 +4641,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Ocorreu aditamento prevendo alteraç&atilde;o de objeto?</td>
+                                                        <td colspan="2">Ocorreu aditamento prevendo alteraï¿½&atilde;o de objeto?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stOcorreuAditamento))
                                                                     $selected = $relatorio->stOcorreuAditamento; ?>
@@ -4671,7 +4671,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Ocorreu aplicaç&atilde;o de recursos em outra finalidade que n&atilde;o a do objeto pactuado?</td>
+                                                        <td colspan="2">Ocorreu aplicaï¿½&atilde;o de recursos em outra finalidade que n&atilde;o a do objeto pactuado?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stAplicacaoRecursosFinalidade))
                                                                     $selected = $relatorio->stAplicacaoRecursosFinalidade; ?>
@@ -4686,7 +4686,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">Ocorreu saldo após o encerramento do projeto?</td>
+                                                        <td colspan="2">Ocorreu saldo apï¿½s o encerramento do projeto?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stSaldoAposEncerramento))
                                                                     $selected = $relatorio->stSaldoAposEncerramento; ?>
@@ -4734,7 +4734,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">A documentaç&atilde;o est&aacute; completa e arquivada?</td>
+                                                        <td colspan="2">A documentaï¿½&atilde;o est&aacute; completa e arquivada?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stDocumentacaoCompleta))
                                                                     $selected = $relatorio->stDocumentacaoCompleta; ?>
@@ -4809,7 +4809,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="2">As despesas coincidem com as informadas na relaç&atilde;o de pagamentos?</td>
+                                                        <td colspan="2">As despesas coincidem com as informadas na relaï¿½&atilde;o de pagamentos?</td>
                                                         <td colspan="2">
                                                             <?php if (isset($relatorio->stDespesaCoincidem))
                                                                     $selected = $relatorio->stDespesaCoincidem; ?>
@@ -4910,7 +4910,7 @@
                                                                     <td class="destacar" colspan="2" align="center"><b>Execu&ccedil;&atilde;o</b></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Alcançou a finalidade esperada?</td>
+                                                                    <td>AlcaNÃ£ou a finalidade esperada?</td>
                                                                     <td>
                                                                         <?php if (isset($relatorio->stFinalidadeEsperada))
                                                                                 $selected = $relatorio->stFinalidadeEsperada; ?>
@@ -4940,7 +4940,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>A execuç&atilde;o respeitou o aprovado?</td>
+                                                                    <td>A execuï¿½&atilde;o respeitou o aprovado?</td>
                                                                     <td>
                                                                         <?php if (isset($relatorio->stExecucaoAprovado))
                                                                                 $selected = $relatorio->stExecucaoAprovado; ?>
@@ -4990,21 +4990,21 @@
                                                                 <legend>Evid&ecirc;ncias</legend>
                                                                 <table class="tabela"><tr><td>
                                                                     <?php if (isset($relatorio->dsEvidencia))
-                                                                    echo !empty($relatorio->dsEvidencia) ? $relatorio->dsEvidencia : 'Não informado'; ?>
+                                                                    echo !empty($relatorio->dsEvidencia) ? $relatorio->dsEvidencia : 'NÃ£o informado'; ?>
                                                                 </td></tr></table>
                                                             </fieldset>
                                                             <fieldset>
-                                                                <legend>Recomendaç&otilde;es da Equipe</legend>
+                                                                <legend>Recomendaï¿½&otilde;es da Equipe</legend>
                                                                 <table class="tabela"><tr><td>
                                                                     <?php if (isset($relatorio->dsRecomendacaoEquipe))
-                                                                    echo !empty($relatorio->dsRecomendacaoEquipe) ? $relatorio->dsRecomendacaoEquipe : 'Não informado'; ?>
+                                                                    echo !empty($relatorio->dsRecomendacaoEquipe) ? $relatorio->dsRecomendacaoEquipe : 'NÃ£o informado'; ?>
                                                                 </td></tr></table>
                                                             </fieldset>
                                                             <fieldset>
                                                                 <legend>Conclus&atilde;o da Equipe</legend>
                                                                 <table class="tabela"><tr><td>
                                                                     <?php if (isset($relatorio->dsConclusaoEquipe))
-                                                                    echo !empty($relatorio->dsConclusaoEquipe) ? $relatorio->dsConclusaoEquipe : 'Não informado'; ?>
+                                                                    echo !empty($relatorio->dsConclusaoEquipe) ? $relatorio->dsConclusaoEquipe : 'NÃ£o informado'; ?>
                                                                 </td></tr></table>
                                                             </fieldset>
                                                         </td>
@@ -5015,7 +5015,7 @@
                                                                 <legend>Parecer do Coordenador</legend>
                                                                 <table class="tabela"><tr><td>
                                                                     <?php if (isset($relatorio->dsParecerTecnico))
-                                                                    echo !empty($relatorio->dsParecerTecnico) ? $relatorio->dsParecerTecnico : 'Não informado'; ?>
+                                                                    echo !empty($relatorio->dsParecerTecnico) ? $relatorio->dsParecerTecnico : 'NÃ£o informado'; ?>
                                                                 </td></tr></table>
                                                             </fieldset>
 
@@ -5024,7 +5024,7 @@
                                                                   <legend>Justificativa do Coordenador</legend>
                                                                   <table class="tabela"><tr><td>
                                                                         <?php if (isset($relatorio->dsParecer))
-                                                                        echo !empty($relatorio->dsParecer) ? $relatorio->dsParecer : 'Não informado'; ?>
+                                                                        echo !empty($relatorio->dsParecer) ? $relatorio->dsParecer : 'NÃ£o informado'; ?>
                                                                   </td></tr></table>
                                                                </fieldset>
                                                               <?php } ?>
@@ -5057,7 +5057,7 @@
                                                    <?php }
                                                     } else {
                                                        ?>
-                                                        <tr><td style="color:red;" colspan="2">Não há arquivos anexados!</td></tr>
+                                                        <tr><td style="color:red;" colspan="2">NÃ£o hï¿½ arquivos anexados!</td></tr>
                                                     <?php
                                                     }
                                                //FIM - RELATORIO FISCALIZACAO
@@ -5105,7 +5105,7 @@
                     <?php if(is_object($this->parecerCoordenador) && count($this->parecerCoordenador)>0):?>
                         <table cellspacing="1" class="tabela">
                             <tr>
-                                <td class="destacar" align="center"><b>Parecer Técnico</b></td>
+                                <td class="destacar" align="center"><b>Parecer Tï¿½cnico</b></td>
                             </tr>
                             <tr>
                                 <td><?php echo !empty($this->parecerTecnico)? $this->parecerTecnico->meRelatorio : 'Dados n&atilde;o informados'; ?></td>
@@ -5126,9 +5126,9 @@
 
                         <table cellspacing="1" class="tabela">
                             <tr>
-                                <td class="destacar" align="center" width="50%"><b>Conforme IN nº 1 de 05/10/2010.&nbsp;&nbsp;Seção III Art. 76 a Art. 80</b></td>
+                                <td class="destacar" align="center" width="50%"><b>Conforme IN nï¿½ 1 de 05/10/2010.&nbsp;&nbsp;Seï¿½ï¿½o III Art. 76 a Art. 80</b></td>
                                 <?php if(!empty($this->tipoInabilitacao)) { ?>
-                                    <td class="destacar" align="center"><b>Conforme IN nº 1 de 05/10/2010. Art. 88</b></td>
+                                    <td class="destacar" align="center"><b>Conforme IN nï¿½ 1 de 05/10/2010. Art. 88</b></td>
                                 <?php } ?>
                             </tr>
                             <tr>

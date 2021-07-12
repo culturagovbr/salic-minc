@@ -1,7 +1,7 @@
 <?php echo $this->partial("realizarprestacaodecontas/inc/menu.inc.php", $this) ?>
 <div id="breadcrumb">
     <ul>
-	<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">Início</a></li>
+	<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">INÃCIO</a></li>
         <?php if($this->codGrupo == 132){ ?>
             <li><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas'));?>">Presta&ccedil;&atilde;o de contas</a></li>
         <?php }else if($this->codGrupo == 124): ?>
@@ -9,11 +9,11 @@
         <?php else: ?>
             <li><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'coordenadorgeralprestacaocontas'));?>">Presta&ccedil;&atilde;o de contas</a></li>
         <?php endif; ?>
-	<li class="last">Relatório de Comprovação do Objeto</li>
+	<li class="last">Relatï¿½rio de Comprovaï¿½ï¿½o do Objeto</li>
     </ul>
 </div>
 <div id="titulo">
-    <div>Relatório de Comprovação do Objeto <span class="voltar" style="float:right;"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+    <div>Relatï¿½rio de Comprovaï¿½ï¿½o do Objeto <span class="voltar" style="float:right;"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <div id="conteudo">
 <?php if(is_object($this->relatorio) && count($this->relatorio)>0): ?>
@@ -204,10 +204,10 @@
             <td class="destacar" colspan="2" align="center"><b>Tem fins lucrativos</b></td>
         </tr>
         <tr>
-            <td colspan="2"><?php if (is_object($this->movel[0]) && $this->movel[0]->stFinsLucrativos == 1) echo 'Sim'; else echo 'Não';?></td>
+            <td colspan="2"><?php if (is_object($this->movel[0]) && $this->movel[0]->stFinsLucrativos == 1) echo 'Sim'; else echo 'NÃ£o';?></td>
         </tr>
         <tr>
-            <td class="destacar" colspan="2" align="center"><b>Nome do Beneficiário</b></td>
+            <td class="destacar" colspan="2" align="center"><b>Nome do Beneficiï¿½rio</b></td>
         </tr>
         <tr>
             <td colspan="2"><?php if(!empty($this->beneficiario)){ echo $this->beneficiario->dsBeneficiario; } ?></td>

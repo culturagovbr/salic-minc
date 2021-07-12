@@ -5,7 +5,7 @@
                 nr = $(this).attr('nr');
 
             $("#pergunta").dialog("destroy");
-            $("#pergunta").html('Deseja realmente devolver o relatÛrio para o Coordenador de Acompanhamento?');
+            $("#pergunta").html('Deseja realmente devolver o relatÔøΩrio para o Coordenador de Acompanhamento?');
             $("#pergunta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -13,7 +13,7 @@
                 height:180,
                 modal: true,
                 buttons : {
-                    'N„o' : function(){
+                    'N√£o' : function(){
                         $("#pergunta").dialog('close');
                     },
                     'Sim' : function(){
@@ -39,7 +39,7 @@
                                     $('.ui-dialog-titlebar-close').remove();
                                     window.setTimeout('location.reload()', 1000);
                                 } else {
-                                    alertaModal("N„o foi possÌvel devolver o relatÛrio.");
+                                    alertaModal("N√£o foi possÔøΩvel devolver o relatÔøΩrio.");
                                 }
                             },
                             dataType : 'json'
@@ -89,7 +89,7 @@
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="index.html" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
-        <li class="last">Lista de RelatÛrios</li>
+        <li class="last">Lista de RelatÔøΩrios</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
@@ -97,7 +97,7 @@
 
 <div id="titulo">
     <div>
-        Lista de RelatÛrios <span class="voltar"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index')); ?>">Voltar</a></span>
+        Lista de RelatÔøΩrios <span class="voltar"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index')); ?>">Voltar</a></span>
     </div>
 </div>
 
@@ -110,12 +110,12 @@
                 <input type="text" class="input_simples" id="campoPesquisa" maxlength="10" value="<?php echo $this->pronacProjeto;?>" />
                 <input type="button" class="btn_localizar" name="name" value="" style="margin-left: 5px;" />
             </td>
-            <td align="center"><?php if($this->qtdRelatorios != 0){echo $this->qtdRelatorios.' relatÛrios listados';}else{ echo 'Nenhum registro encontrado!';}?></td>
+            <td align="center"><?php if($this->qtdRelatorios != 0){echo $this->qtdRelatorios.' relatÔøΩrios listados';}else{ echo 'Nenhum registro encontrado!';}?></td>
         </tr>
     </table>
 
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINA«√O ============ -->
+    <!-- ============ PAGINA√á√ÇO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -142,12 +142,12 @@
                     <input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&campo='.$this->campo; ?>'">
                     <?php } ?>
-                    P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto;?>">
@@ -164,7 +164,7 @@
 	    echo " Projetos Listados"
         ?>
     </center>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php } ?>
 
 
@@ -172,9 +172,9 @@
     <table class="tabela tablesorter">
         <tr class="titulo_tabela">
             <th colspan="2">&nbsp;</th>
-            <th colspan="2">PerÌodo de ExecuÁ„o</th>
+            <th colspan="2">PerÔøΩodo de ExecuÔøΩÔøΩo</th>
             <th>Dt. Cadastro</th>
-            <th colspan="2">PerÌodo do RelatÛrio</th>
+            <th colspan="2">PerÔøΩodo do RelatÔøΩrio</th>
             <th colspan="2">&nbsp;</th>
         </tr>
         <tr>
@@ -182,10 +182,10 @@
 
             <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=2&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">Pronac</a></td>
             <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=3&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">Nome Projeto</a></td>
-            <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=7&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">Dt. InÌcio</a></td>
+            <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=7&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">Dt. IN√çCIO</a></td>
             <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=8&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">Dt. Final</a></td>
-            <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=9&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">RelatÛrio</a></td>
-            <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=10&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">Dt. InÌcio</a></td>
+            <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=9&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">RelatÔøΩrio</a></td>
+            <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=10&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">Dt. IN√çCIO</a></td>
             <td class="destacar bold"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico' , 'action' => 'index'));?><?php echo "?campo=11&ordem=$this->novaOrdem"; echo '&qtde='.$this->paginacao['qtde']; echo "&pag=$this->pag";?>">Dt. Final</a></td>
             <td class="destacar bold" align="center">Avaliar</td>
             <td class="destacar bold" align="center" width="1%">Devolver</td>
@@ -211,7 +211,7 @@
 
     <?php if(count($this->dados)>0){ ?>
 
-        <!-- ============ PAGINA«√O ============ -->
+        <!-- ============ PAGINA√á√ÇO ============ -->
         <?php if($this->qtdRelatorios > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -246,12 +246,12 @@
                         <input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'analisarexecucaofisicatecnico', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao']."&campo=".$this->campo ?>'">
                         <?php } ?>
-                        P·g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P√°g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto;?>">
@@ -260,7 +260,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINA«√O ========== -->
+        <!-- ========== FIM PAGINA√á√ÇO ========== -->
 
     <?php } } ?>
 
@@ -276,7 +276,7 @@
 
 
 </div>
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

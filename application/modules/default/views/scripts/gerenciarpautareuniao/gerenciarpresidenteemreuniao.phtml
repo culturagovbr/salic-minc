@@ -10,7 +10,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
         setTimeout(function(){
             window.location.reload();
         }, '500000');
-               
+
         /**** PROJETOS SUBMETIDOS A PLENARIA ******/
         <?php if($this->plenaria == "true"): ?>
             jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenaria');
@@ -18,11 +18,11 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             setTimeout(function(){
                 jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'grid' => 'planoanual', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenariaPlanoAnual');
             }, '1000');
-            
+
             setTimeout(function(){
                 jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'grid' => 'recurso', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenariaRecurso');
             }, '2000');
-            
+
             setTimeout(function(){
                 jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'grid' => 'readequacao', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenariaReadequacao');
             }, '3000');
@@ -38,7 +38,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'grid' => 'naoPauta', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'naoPauta');
             }, '1000');
         <?php endif;?>
-        
+
         $("#abrir_fechar_analisados").click(function(){
             $('#pautaplenaria').toggle('slow');
         });
@@ -111,7 +111,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             }
         });
     }
-    
+
     var votacao =  setInterval(function(){
         verificainiciocnic()
     }, '3000');
@@ -132,7 +132,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
         }, '3000');
     }
 
-    /*** função mantida para historico  ********
+    /*** funï¿½ï¿½o mantida para historico  ********
     function JSVerificaArquivosVotacao(){
         $.ajax({
             async: true,
@@ -153,14 +153,14 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
 
     //function verificavotacao(arrPronacs){
     function verificavotacao(){
-        
+
         var verificarjanela = $("#reuniaoaberta").val();
-        
+
          //loop sobre todos os pronacs em votacao
          //$.each(arrPronacs, function(chave, valor) {
-            
+
             //setTimeout(function(){
-                
+
                 $.ajax({
                     async: true,
                     type: "post",
@@ -179,17 +179,17 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                         else{
                             if(verificarjanela == 'true'){
                                 $("#reuniaoaberta").val('false');
-                                //jqAjaxLink('<?php //echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenaria');    
+                                //jqAjaxLink('<?php //echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenaria');
                             }
                         }
-                        
+
                         if(data.status == 'naoiniciada' && verificarjanela == 'true'){
-                        
+
                             var qtdeVotacoesConsolidadas = $("#qtdeVotacoesConsolidadas").val();
                                 qtdeVotacoesConsolidadas = parseInt(qtdeVotacoesConsolidadas)+1;
                                 //qtdeVotacoesConsolidadas = qtdeVotacoesConsolidadas+1;
                             $("#qtdeVotacoesConsolidadas").val(qtdeVotacoesConsolidadas);
-                            
+
                             if(qtdeVotacoesConsolidadas == 3){
                                 $("#qtdeVotacoesConsolidadas").val('0');
                                 window.location.reload();
@@ -213,12 +213,12 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                     }
                     ,dataType : 'json'
                 });
-                
+
             //}, '5000');//intervalo para verificar votacao
-            
+
         //});//fecha each (loop)
     }
-    
+
     function verificainiciocnic(){
         $.ajax({
             async: true,
@@ -237,7 +237,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                             var qtdeVerificacoesInicioPlenaria = $("#qtdeVerificacoesInicioPlenaria").val();
                                 qtdeVerificacoesInicioPlenaria = parseInt(qtdeVerificacoesInicioPlenaria)+1;
                             $("#qtdeVerificacoesInicioPlenaria").val(qtdeVerificacoesInicioPlenaria);
-                            
+
                             if(qtdeVerificacoesInicioPlenaria == 15){
                                 clearInterval(votacao);
                                 $("#qtdeVerificacoesInicioPlenaria").val('0');
@@ -281,7 +281,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             ,dataType : 'json'
         });
     }
-    
+
     function JSMostraOcultaElemento(elemento)
     {
         $('.' + elemento).toggle();
@@ -297,30 +297,30 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 $('#' + elemento).removeClass('btn_remover');
         }
     }
-    
+
     /**** CONTEUDO MIGRADO DE DENTRO DA VIEW - GRID ******/
-    
+
     function JSIniciarVotacao(obj){
-        
+
         var idpronac = $(obj).prop('idpronac');
         var pronac   = $(obj).prop('pronac');
         var acao = $(obj).prop('acao');
         var tipo = $(obj).prop('tipo'); //readequacao, recurso, inicial
         //var votacaoEmAndamento = '<?php echo $this->pronacvotacaoatual ? 'true' : 'false' ?>';
         var votacaoEmAndamento = $("#reuniaoaberta").val();
-        
+
         var idtiporeadequacao = 0;
         if(tipo == 'readequacao'){
             idtiporeadequacao = $(obj).prop('idtiporeadequacao');
         }
-        
+
         if(votacaoEmAndamento == 'true' && acao=='iniciar'){
             $('#alert').html('J&aacute; existe uma vota&ccedil;&atildeo em aberto. Favor aguardar o fim ou cancelar a vota&ccedil;&atildeo atual');
             alerta(function(){$("#alert").dialog('close')})
             $("#alert").dialog('open');
             return false;
         }
-        
+
         $.ajax({
             async: true,
             type: "post",
@@ -335,15 +335,15 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             beforeSend: function(){
                 //$("#load").dialog('open');
                 var texto = null
-                if(acao == 'iniciar') 
+                if(acao == 'iniciar')
                     texto = 'Iniciando';
                 else
                     texto = 'Cancelando';
-                
+
                 if(tipo == 'readequacao'){
-                    $("#loadingbtnvotacao_"+idpronac+"_"+idtiporeadequacao).html('<center>'+texto+' votação...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
+                    $("#loadingbtnvotacao_"+idpronac+"_"+idtiporeadequacao).html('<center>'+texto+' votaï¿½ï¿½o...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
                 } else {
-                    $("#loadingbtnvotacao_"+idpronac).html('<center>'+texto+' votação...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
+                    $("#loadingbtnvotacao_"+idpronac).html('<center>'+texto+' votaï¿½ï¿½o...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
                 }
             },
             complete: function(){
@@ -375,7 +375,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                         $(objImg).prop('acao','iniciar');
                         message('Vota&ccedil;&atilde;o do projeto n&ordm; '+ pronac + ' foi cancelada!', 'CONFIRM');
                     }
-                    
+
                     /*alerta(
                         function(){
                             $("#alert").dialog('close');
@@ -387,19 +387,19 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 }else{
                     $("#reuniaoaberta").val("false");
                     var texto = null
-                    if(acao == 'iniciar') 
+                    if(acao == 'iniciar')
                         texto = 'iniciar';
                     else
                         texto = 'cancelar';
-                    message('Erro! Não foi possível '+texto+' a votação do projeto '+ pronac + '. <br>'+data.descricao, 'ERROR');
+                    message('Erro! NÃ£o foi possï¿½vel '+texto+' a votaï¿½ï¿½o do projeto '+ pronac + '. <br>'+data.descricao, 'ERROR');
                 }
             }
             , dataType : 'json'
         });
-      
+
     }
 
-    
+
     function JSRetornarProjeto(idPronac){
         //var pronac = $(this).prop('pronac');
         var pronac = idPronac;
@@ -488,7 +488,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
         <!--<div id="pautaPlenariaVotados"></div>-->
         <!-- FIM - PROJETO VOTADOS -->
         <?php endif; ?>
-        
+
         <?php if($this->plenaria != "true"): ?>
         <!-- INICIO - PROJETO NAO SUBMETIDOS A PLENARIA -->
         <div id="pautaNaoPlenaria"></div>

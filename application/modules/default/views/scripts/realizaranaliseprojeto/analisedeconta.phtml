@@ -1,6 +1,6 @@
 <?php echo $this->partial('realizaranaliseprojeto/inc/menu.inc.php', $this) ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -12,15 +12,15 @@
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>An&aacute;lise de Cortes Sugeridos <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
@@ -58,7 +58,7 @@
             $(".linkplanilha").click(function(){
                 $('.fundo_linha4').removeClass('fundo_linha4');
                 var idplanilhaaprovacao = $(this).attr('idPlanilhaAprovacao');
-                $("#form" + idplanilhaaprovacao).each(function() // necessário para resetar o formulário, pois, quando a modal é fechada o mesmo não é resetado
+                $("#form" + idplanilhaaprovacao).each(function() // necessï¿½rio para resetar o formulï¿½rio, pois, quando a modal ï¿½ fechada o mesmo NÃ£o ï¿½ resetado
                 {
                     this.reset();
                     calcular_planilha_projeto(idplanilhaaprovacao); // recalcula o valor total do produto
@@ -86,7 +86,7 @@
                             }
                             else
                             {
-                                $("#form" + idplanilhaaprovacao).submit(); // envia o formulário
+                                $("#form" + idplanilhaaprovacao).submit(); // envia o formulï¿½rio
                             }
                         }
                     }
@@ -143,7 +143,7 @@
             <div>Os campos ter&atilde;o seus valores redefinidos!</div>
         </div>
     </div>
-    <!-- ========== INÍCIO TÍTULO PÁGINA ========== -->
+    <!-- ========== INÃCIO Tï¿½TULO pÃ¡gina ========== -->
     <table class="tabela">
 
         <tr>
@@ -154,11 +154,11 @@
         </tr>
 
     </table>
-    <!-- ========== FIM TÍTULO PÁGINA ========== -->
+    <!-- ========== FIM Tï¿½TULO pÃ¡gina ========== -->
 
 
 
-    <!-- ========== INÍCIO TABELA DE CORTES SUGERIDOS ========== -->
+    <!-- ========== INÃCIO TABELA DE CORTES SUGERIDOS ========== -->
     <table class="tabela">
         <tr>
             <th colspan="8" align="center">Cortes Sugeridos</th>
@@ -166,7 +166,7 @@
 
 
 
-        <!-- ========== INÍCIO ITEM REDUZIDO ========== -->
+        <!-- ========== INÃCIO ITEM REDUZIDO ========== -->
         <?php
         if (count($this->itemReduzido) == 0) {
             echo "<tr>";
@@ -192,12 +192,12 @@
             </tr>
 
             <?php
-            $totalValRed = (float) 0; // valor total da página
-            $totalItensRed = (int) 0; // total itens da página
+            $totalValRed = (float) 0; // valor total da pÃ¡gina
+            $totalItensRed = (int) 0; // total itens da pÃ¡gina
             // caso tenha projetos
             if (count($this->analiseReduzido) > 0) {
                 foreach ($this->analiseReduzido as $resposta) :
-                    $i = $resposta['idPlanilhaAprovacao']; // criará id únido
+                    $i = $resposta['idPlanilhaAprovacao']; // criarï¿½ id ï¿½nido
                     ?>
 
                     <tr onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);"
@@ -392,7 +392,7 @@
 
 
 
-            <!-- ========== INÍCIO ITEM RETIRADO ========== -->
+            <!-- ========== INÃCIO ITEM RETIRADO ========== -->
             <?php if ($this->itemRetirado) : ?>
                 <tr>
                     <td colspan="8">&nbsp;</td>
@@ -411,12 +411,12 @@
                 </tr>
 
                 <?php
-                $totalValRet = (float) 0; // valor total da página
-                $totalItensRet = (int) 0; // total itens da página
+                $totalValRet = (float) 0; // valor total da pÃ¡gina
+                $totalItensRet = (int) 0; // total itens da pÃ¡gina
                 // caso tenha projetos
                 if (count($this->analiseRetirado) > 0) {
                     foreach ($this->analiseRetirado as $resposta) :
-                        $i = $resposta['idPlanilhaAprovacao']; // criará id únido
+                        $i = $resposta['idPlanilhaAprovacao']; // criarï¿½ id ï¿½nido
                         ?>
                         <tr onmouseover="over_tr(this);" onmouseout="out_tr(this);" onclick="click_tr(this);" class="red">
                             <td><a <?php echo $resposta['nrFonteRecurso'] == 109 ? "class='linkplanilha' valor='" . $resposta['idPlanilhaAprovacao'] . "' style='text-decoration: underline; cursor:pointer;'" : '' ?> idPlanilhaAprovacao ="<?php echo $resposta['idPlanilhaAprovacao']; ?>" ><?php echo $resposta['item']; ?></a>
@@ -601,7 +601,7 @@
 
 
 
-    <!-- ========== BOTÕES ========== -->
+    <!-- ========== BOTï¿½ES ========== -->
     <br />
     <p class="centro">
         <input type="button" class="btn_p_anterior" value=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado')); ?>')" onkeypress="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado')); ?>');"/>
@@ -613,12 +613,12 @@
 <input id="valorpossivel" value="<?php echo $this->totalproponente - $this->totalcomponente;?>" type="hidden"/>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

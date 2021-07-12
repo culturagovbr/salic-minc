@@ -2,31 +2,31 @@
     <?php echo $this->partial('agentes/inc/menu.inc.php', $this) ?>
     <div class="col s12 m10 l10">
 
-        <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="#" title="Ir para Início">Início</a></li>
-                <li><a href="#" title="Tramitação de Documentos">Manter Agentes</a></li>
+                <li class="first"><a href="#" title="Ir para INÃCIO">INÃCIO</a></li>
+                <li><a href="#" title="TramitaÃ§Ã£o de Documentos">Manter Agentes</a></li>
                 <li class="last">Principal</li>
             </ul>
         </div>
         <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-        <!-- ========== INÍCIO TÍTULO ========== -->
+        <!-- ========== INÃCIO Tï¿½TULO ========== -->
         <div id="titulo">
             <div>Dirigentes<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
         </div>
-        <!-- ========== FIM TÍTULO ========== -->
+        <!-- ========== FIM Tï¿½TULO ========== -->
 
 
-        <!-- ========== INÍCIO CONTEÚDO ========== -->
+        <!-- ========== INÃCIO CONTEÃšDO ========== -->
         <div id="conteudo">
 
             <table class="tabela">
                 <tr>
                     <th style="font-size: 14px; font-family: sans-serif;">Dirigentes da
-                        instituição: <?php echo $this->dados[0]->nome; ?>
+                        instituiï¿½ï¿½o: <?php echo $this->dados[0]->nome; ?>
                         CNPJ: <?php echo Mascara::addMaskCNPJ($this->dados[0]->cnpjcpf); ?></th>
                 </tr>
             </table>
@@ -45,7 +45,7 @@
                 <tr>
                     <th width="130">CPF</th>
                     <th>NOME</th>
-                    <th width="120">AÇÃO</th>
+                    <th width="120">Aï¿½ï¿½O</th>
                 </tr>
                 <?php if ($this->dirigentes) : ?>
                     <?php foreach ($this->dirigentes as $d): ?>

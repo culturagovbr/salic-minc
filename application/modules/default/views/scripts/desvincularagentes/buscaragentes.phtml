@@ -6,33 +6,33 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.desvincularagentes
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true);?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true);?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Agentes Vinculados</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Pesquisa de Agentes Vinculados</div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
-    <!-- ========== FORMUL¡RIO PARA BUSCAR OS DADOS DOS AGENTES ========== -->
+    <!-- ========== FORMULÔøΩRIO PARA BUSCAR OS DADOS DOS AGENTES ========== -->
     <form id="formBuscar" name="formBuscar" method="post" action="<?php echo $this->url(array('controller' => 'desvincularagentes', 'action' => 'buscaragentesvinculados')); ?>">
-        <table class="tabela" style="margin:1% auto; width:50%;" summary="Esta tabela contÈm o campo para pesquisa de Agentes Vinculados a InstituiÁ„o. Para que a pesquisa tenha efeito È necess·rio que seja feita atravÈs do CNPJ ou o nome da InstituiÁ„o que consta nos campos abaixo">
+        <table class="tabela" style="margin:1% auto; width:50%;" summary="Esta tabela contÔøΩm o campo para pesquisa de Agentes Vinculados a InstituiÔøΩÔøΩo. Para que a pesquisa tenha efeito ÔøΩ necessÔøΩrio que seja feita atravÔøΩs do CNPJ ou o nome da InstituiÔøΩÔøΩo que consta nos campos abaixo">
             <th colspan="2" tabindex="1">PESQUISAR AGENTES</th>
             <tr>
                 <td class="destacar bold" align="right" width="10%" tabindex="2">CNPJ/CPF:</td>
@@ -51,10 +51,10 @@
                 <td class="destacar bold" align="right" width="20%" tabindex="4">NOME:</td>
                 <td>
                     <input type="text" name="nome" id="nome" tabindex="5" maxlength="70"
-                           onclick="limpar_campo(this, 'Nome da InstiuiÁ„o');" value=" "
+                           onclick="limpar_campo(this, 'Nome da InstiuiÔøΩÔøΩo');" value=" "
                            onkeypress=" "
-                           onblur="restaurar_campo(this, 'Nome da InstiuiÁ„o');"
-                           onmouseout="restaurar_campo(this, 'Nome da InstiuiÁ„o');"
+                           onblur="restaurar_campo(this, 'Nome da InstiuiÔøΩÔøΩo');"
+                           onmouseout="restaurar_campo(this, 'Nome da InstiuiÔøΩÔøΩo');"
                            class="input w300 input_simples"
                        />
                 </td>
@@ -65,12 +65,12 @@
             <input type="reset" title=" Cancelar " tabindex="7" class="btn_cancelar" value=" " />
         <p>
     </form>
-    <!-- ========== FIM FORMUL¡RIO DE BUSCA DOS DADOS DOS AGENTES========== -->
+    <!-- ========== FIM FORMULÔøΩRIO DE BUSCA DOS DADOS DOS AGENTES========== -->
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

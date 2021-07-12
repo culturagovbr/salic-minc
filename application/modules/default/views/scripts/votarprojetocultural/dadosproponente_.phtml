@@ -132,7 +132,7 @@
                 </tr>
             <?php foreach ($this->dirigentes as $tbdirigentes): ?>
                 <tr>
-                    <td align="center"><?php echo $this->escape(empty($tbdados->CPFCNPJ) ? 'Dados não informados!' : $tbdados->CPFCNPJ); ?>
+                    <td align="center"><?php echo $this->escape(empty($tbdados->CPFCNPJ) ? 'Dados NÃ£o informados!' : $tbdados->CPFCNPJ); ?>
                     <td align="center"><?php echo $this->escape($tbdirigentes->Descricao); ?></td>
                 </tr>
             <?php endforeach; ?>
@@ -315,7 +315,7 @@
             <?php } ?>
                   </table>
             </div>
-             
+
 <script>
 
     $('#abrir_fechar').click(function(){

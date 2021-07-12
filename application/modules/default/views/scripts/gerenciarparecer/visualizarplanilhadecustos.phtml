@@ -6,15 +6,15 @@ $(document).ready(function()
 
 	divMsg.css('color','').fadeIn(1000);
 
-	
+
 	idpronac = $('#idpronac').val();
-	
+
 	$.ajax({
         type: 'POST',
         url: '<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'planilhadecustos')); ?>',
         data:{
         	idpronac: idpronac
-        	
+
         },
         success: function(data)
         {
@@ -25,7 +25,7 @@ $(document).ready(function()
         },
         error: function (data)
 		{
-        	divMsg.html("Falha na recuperaÁ„o dos dados.\nN„o foi possÌvel carregar agente!");
+        	divMsg.html("Falha na recuperaÔøΩÔøΩo dos dados.\nN√£o foi possÔøΩvel carregar agente!");
 		}
     });
 
@@ -34,11 +34,11 @@ $(document).ready(function()
 
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Gerenciar Parecerer">GerÍnciar Parecerer</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Gerenciar Parecerer">GerÔøΩnciar Parecerer</a></li>
 		<li class="last">Planilha de Custos</li>
 	</ul>
 </div>
@@ -46,31 +46,31 @@ $(document).ready(function()
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>Planilha de Custos<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 <br />
 
 <input type="hidden" value="<?php echo $this->idPronac; ?>" id="idpronac" />
 
 	<center><div id="divMsg" class="sumir"><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /><br />Carregando...</div></center>
-	
+
 	<div id="tabela" class="sumir"></div>
-<br />	
+<br />
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

@@ -55,7 +55,7 @@ function buscar_cep(cep)
             // divide a string para colocar cada uma em seu campo
             var s = ajax.responseText;
 
-            if (s == "") // caso os dados retornem vazios ou o cep n�o exista
+            if (s == "") // caso os dados retornem vazios ou o cep Não exista
             {
                 logradouro.value               = " ";
                 tipoLogradouro.options[0].text = " - Selecione - ";
@@ -347,7 +347,7 @@ function buscardadosdirigente()
         value = value.replace("/","");
         cpf = value.replace("-","");
 
-        // pega o c�digo do agente
+        // pega o Código do agente
         idAgenteGeral = document.getElementById('idAgenteGeral').value;
 
         // faz a verifica��o do dirigente via post
@@ -444,7 +444,7 @@ function buscardadosdirigente()
             },
             error: function (data)
             {
-                alert("Falha na recupera��o dos dados.\nN�o foi poss�vel carregar dirigente!");
+                alert("Falha na recupera��o dos dados.\nNão foi poss�vel carregar dirigente!");
             }
         }); // fecha $.ajax
 
@@ -511,7 +511,7 @@ function buscarEnderecos()
         error: function(data)
         {
             if (data[0].msgCPF == 'ok'){
-                alert('Falha na recupera��o dos dados.\nN�o foi poss�vel carregar os endere�os!');
+                alert('Falha na recupera��o dos dados.\nNão foi poss�vel carregar os endere�os!');
             }
         }
     });
@@ -566,7 +566,7 @@ function buscarEmails()
         },
         error: function(data)
         {
-            alert('Falha na recupera��o dos dados.\nN�o foi poss�vel carregar os e-mails!');
+            alert('Falha na recupera��o dos dados.\nNão foi poss�vel carregar os e-mails!');
         }
     });
 } // fecha fun��o buscarEmails()
@@ -628,7 +628,7 @@ function buscarTelefones()
         },
         error: function(data)
         {
-            alert('Falha na recupera��o dos dados.\nN�o foi poss�vel carregar os telefones!');
+            alert('Falha na recupera��o dos dados.\nNão foi poss�vel carregar os telefones!');
         }
     });
 } // fecha fun��o buscarTelefones()
@@ -659,7 +659,7 @@ function buscarareasegmento()
     $("#Q_titulares").html('');
     $("#msgAS").html('');
     $("#TitularSuplente").html('');
-    var TitularSuplente = '<p><strong>COMPONENTE(S) DA COMISS�O CADASTRADO(S):</strong>';
+    var TitularSuplente = '<p><strong>COMPONENTE(S) DA comissão CADASTRADO(S):</strong>';
 
     $.ajax({
         type: "POST",
@@ -732,7 +732,7 @@ function buscarareasegmento()
         },
         error: function(data)
         {
-            alert('Falha na recupera��o dos dados.\nN�o foi poss�vel carregar �reas e seguimentos culturais!');
+            alert('Falha na recupera��o dos dados.\nNão foi poss�vel carregar �reas e seguimentos culturais!');
         }
     });
 } // fecha fun��o buscarareasegmento()

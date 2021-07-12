@@ -1,13 +1,13 @@
 <?php
 /**
- * PrestaÁ„o de Contas (UC45) - Tecnico PrestaÁ„o de Contas
+ * PrestaÔøΩÔøΩo de Contas (UC45) - Tecnico PrestaÔøΩÔøΩo de Contas
  * @author Equipe RUP - Politec
  * @since 27/12/2010
  * @version 1.0
  * @subpackage application.view.scripts.tecnicoprestacaocontas
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
- * 
+ *
  */
 ?>
 <div align="right">
@@ -18,7 +18,7 @@
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN√çCIO</a></li>
         <li class="last">Analisar presta&ccedil;&atilde;o de contas</li>
     </ul>
 </div>
@@ -29,19 +29,19 @@ sembarra {
 	}
 </style>
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 
 <div id="titulo">
-<div>Analisar presta&ccedil;&atilde;o de contas 
+<div>Analisar presta&ccedil;&atilde;o de contas
 	<span class="voltar" style="float:right;"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
 </div>
 <span class="sembarra"></span>
- 
+
 </div>
 
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 
 <script>
 function areadetrabalho()
@@ -62,7 +62,7 @@ function areadetrabalho()
     $('#abrir_fechar4').click(function(){
         $('#fechartce').toggle('slow');
     });
-    
+
 }
 window.onload = function() {areadetrabalho();};
 </script> <!-- MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
@@ -104,7 +104,7 @@ window.onload = function() {areadetrabalho();};
     	$("#Pronac").html(Pronac);
     	$("#nomeProjeto").html(nomeProjeto);
     	$("#idPronac").val(idPronac);
-    	
+
 	$("#encaminhar2").dialog({
          title : 'Historico de Encaminhamento do Projetos',
          resizable: false,
@@ -122,8 +122,8 @@ window.onload = function() {areadetrabalho();};
  }
 
     $(document).ready(function(){
-	    $('#passaValor').change(function(){		
-		    	
+	    $('#passaValor').change(function(){
+
 	        var idorgao = $('#passaValor').val();
 	        $.ajax({
                 url : '<?php echo $this->url(array('controller' => 'RealizarPrestacaoDeContas', 'action' => 'prestacaodecontas')); ?>',
@@ -135,7 +135,7 @@ window.onload = function() {areadetrabalho();};
                 success: function(data){
                         //$('#encaminhar').find('.AgentePerfil').val('');
                         var recebe = $('#encaminhar2').find('#recebeValor');
-                        
+
                         if(data.resposta){
                             recebe.html('');
                             recebe.append("<option value=''>Selecione o agente</option>");
@@ -151,19 +151,19 @@ window.onload = function() {areadetrabalho();};
                 },
                 type : 'post'
                 ,dataType : 'json'
-                 
+
             });
-	        
+
 	    });
 
 	    $('#encaminhar2').find('#recebeValor').change(function(){
-  			
+
             var perfil = $(this).val().split('/');
             $('#encaminhar2').find('.AgentePerfil').val(perfil[1]);
             $('#encaminhar2').find('.AgenteId').val(perfil[0]);
-	
+
         });
-        
+
     });
 </script>
 
@@ -175,32 +175,32 @@ window.onload = function() {areadetrabalho();};
 
 <!-- FIM DO MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
 
-<div style="display: none;" id="historicoEncaminhamento" title="Encaminhar projeto para an·lise"></div>
- 
+<div style="display: none;" id="historicoEncaminhamento" title="Encaminhar projeto para An√°lise"></div>
+
 <div id="conteudo">
         <table class="tabela">
                 <tr>
                         <td><input type="button" id="abrir_fechar" class="btn_adicionar" />AGUARDANDO
-                        AN¡LISE</td>
+                        An√°lise</td>
                 <td width="100" align="right" >Quantidade:
                         <?php echo "0".count($this->PareceristaPresContas);?></td>
                 </tr>
         </table>
         <div id="pautaplenaria">
-        <!-- Se est· contando o PareceristaPresContas, porque est· fazendo referÍncia com o TecPresContas vou deixar os dois   -->
+        <!-- Se estÔøΩ contando o PareceristaPresContas, porque estÔøΩ fazendo referÔøΩncia com o TecPresContas vou deixar os dois   -->
         <?php //if (count ( $this->TecPresContas ) > 0) { ?>
         <?php if (count($this->PareceristaPresContas) > 0 || count($this->TecPresContas) > 0) { ?>
         <table class="tabela tablesorter">
             <thead>
                     <tr class="titulo_tabela">
-                            <th width="60">N˙mero</th>
+                            <th width="60">NÔøΩmero</th>
                             <th width="60">Pronac</th>
                             <th width="100">Nome do Projeto</th>
-                            <th width="220">¡rea / Segmento</th>
+                            <th width="220">ÔøΩrea / Segmento</th>
                             <th width="60">Data de Recebimento</th>
                             <th width="60">Cidade</th>
                             <th width="30">Mecanismo</th>
-                            <th width="130">Analisar PrestaÁ„o de Contas</th>
+                            <th width="130">Analisar PrestaÔøΩÔøΩo de Contas</th>
                             <!--<th width="130">Qtd Dias</th>	-->
                             <th width="60">Controle</th>
                     </tr>
@@ -227,7 +227,7 @@ window.onload = function() {areadetrabalho();};
 		<img style="cursor: pointer;" src="../public/img/user_gray.png" alt="Encaminhar" /></a>
 		</td>
 		<!--<td class="centro"><?php echo "10"; ?></td>-->
-		<td align="center"> 
+		<td align="center">
                 <?php
                     $dias = data::CompararDatas($prescontas->dtInicioEncaminhamento);
                     $dias = (round($dias));
@@ -241,7 +241,7 @@ window.onload = function() {areadetrabalho();};
                 ?>
                 </td>
 	</tr>
-               
+
 <?php $i ++;
 	endforeach; ?>
         </table>
@@ -250,7 +250,7 @@ window.onload = function() {areadetrabalho();};
 									?>
 <table class="tabela">
 	<tr>
-		<th>VocÍ n„o possui projetos Aguardando An·lise.</th>
+		<th>VocÔøΩ N√£o possui projetos Aguardando An√°lise.</th>
 	</tr>
 </table>
 <?php } ?>
@@ -259,7 +259,7 @@ window.onload = function() {areadetrabalho();};
 	<tr>
 		<td><input type="button" id="abrir_fechar2" class="btn_adicionar" />PROJETOS DILIGENCIADOS
 		</td>
-		<td width="100" align="right" >Quantidade: 
+		<td width="100" align="right" >Quantidade:
 		<?php echo "0".count($this->TecPresContasDiligenciados);?></td>
 	</tr>
 </table>
@@ -315,7 +315,7 @@ window.onload = function() {areadetrabalho();};
         <?php   } else { ?>
         <table class="tabela">
                 <tr>
-                        <th>VocÍ n„o possui projetos DILIG NCIADOS.</th>
+                        <th>VocÔøΩ N√£o possui projetos DILIGÔøΩNCIADOS.</th>
                 </tr>
         </table>
 <?php
@@ -324,7 +324,7 @@ window.onload = function() {areadetrabalho();};
       </div>
 </div>
 
-<!-- inÌcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 <br clear="all" />

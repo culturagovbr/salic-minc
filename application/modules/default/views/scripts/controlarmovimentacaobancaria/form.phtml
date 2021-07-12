@@ -1,5 +1,5 @@
 <?php
-/* inclui o menu lateral caso não venha através do proponente */
+/* inclui o menu lateral caso NÃ£o venha atravï¿½s do proponente */
 if (!isset($this->dadosProjeto) && !empty($this->arrayGrupoProponente)) :
 	echo $this->partial('controlarmovimentacaobancaria/inc/menu.inc.php', $this);
 
@@ -9,7 +9,7 @@ else :
 endif;
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $urlInicio; ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -21,15 +21,15 @@ endif;
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 	<div>Relat&oacute;rio da conta movimenta&ccedil;&atilde;o</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 	<div id="dialog-data1" class="sumir">No per&iacute;odo fixo, a Data Final, quando preenchida, deve ser <strong>maior ou igual</strong> a Data Inicial!</div>
@@ -38,7 +38,7 @@ endif;
 	<script type="text/javascript">
 	<!--
 	/**
-	 * Função para mostrar/ocultar a faixa de período fixo
+	 * Funï¿½ï¿½o para mostrar/ocultar a faixa de perï¿½odo fixo
 	 */
 	function alterar_periodo(periodo)
 	{
@@ -50,12 +50,12 @@ endif;
 		{
 			$('#faixa_de_periodo').hide();
 		}
-	} // fecha função alterar_periodo()
+	} // fecha funï¿½ï¿½o alterar_periodo()
 
 
 
 	/**
-	 * Função para verificar se a data final é menor que a data inicial
+	 * Funï¿½ï¿½o para verificar se a data final ï¿½ menor que a data inicial
 	 */
 	function verificar_data()
 	{
@@ -80,19 +80,19 @@ endif;
 		{
 			return true;
 		}
-	} // fecha função validar_data()
+	} // fecha funï¿½ï¿½o validar_data()
 
 
 
 	/**
-	 * Funções que são chamadas após a página ser carregada
+	 * Funï¿½ï¿½es que sï¿½o chamadas apï¿½s a pÃ¡gina ser carregada
 	 */
 	$(document).ready(function()
 	{
-		// máscaras dos campos
+		// mï¿½scaras dos campos
 		$('#nr_pronac').keyup(function()
 		{
-			mascara(this, format_num); // somente números
+			mascara(this, format_num); // somente nï¿½meros
 		});
 		$('#periodo1, #periodo2').keyup(function()
 		{
@@ -100,14 +100,14 @@ endif;
 		});
 
 
-		// alteração de período
+		// alteraï¿½ï¿½o de perï¿½odo
 		$('#periodo').change(function()
 		{
 			alterar_periodo(this.value);
 		});
 
 
-		// passa para o período final assim que o período inicial for preenchido
+		// passa para o perï¿½odo final assim que o perï¿½odo inicial for preenchido
 		$('#periodo1').keyup(function()
 		{
 			if (document.getElementById('periodo1').value.length == '10')
@@ -117,10 +117,10 @@ endif;
 		});
 
 
-		// validações antes do envio do formulário
+		// validaï¿½ï¿½es antes do envio do formulï¿½rio
 		$('#enviar').click(function()
 		{
-			// validação do período fixo
+			// validaï¿½ï¿½o do perï¿½odo fixo
 			if (!verificar_data())
 			{
 				return false;
@@ -133,7 +133,7 @@ endif;
 		});
 
 
-		// calendário
+		// calendï¿½rio
 		$.datepicker.regional['pt-BR'] =
 		{
 			closeText: 'Fechar',
@@ -161,7 +161,7 @@ endif;
 
 
 
-	<!-- ========== INÍCIO FORMULÁRIO DE CONSULTA ========== -->
+	<!-- ========== INÃCIO FORMULï¿½RIO DE CONSULTA ========== -->
 	<form name="formBuscar" id="formBuscar" method="post"
 		action="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'pesquisar')); ?>"
 		enctype="multipart/form-data">
@@ -230,17 +230,17 @@ endif;
 		</table>
 
 	</form>
-	<!-- ========== FIM FORMULÁRIO DE CONSULTA ========== -->
+	<!-- ========== FIM FORMULï¿½RIO DE CONSULTA ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

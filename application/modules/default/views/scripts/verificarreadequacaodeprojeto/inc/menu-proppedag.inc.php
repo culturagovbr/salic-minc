@@ -1,9 +1,9 @@
 <?php if ($this->dados) {
     ?>
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 
-<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INÃCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
     function layout_fluido(){
         var janela         = $(window).width();
@@ -21,7 +21,7 @@
         $("#rodapeConteudo").css("margin-left", "225px");
         $(".sanfonaDiv").css("clear", "both");
         $(".sanfonaDiv").css("width", "91%");
-    } // fecha função layout_fluido()
+    } // fecha funï¿½ï¿½o layout_fluido()
 
     $(document).ready(function(){
 	$('a.sanfona').click(function(){
@@ -31,7 +31,7 @@
 </script>
 <!-- ========== FIM AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 
-<!-- início: navegação local #qm0 -->
+<!-- INÃCIO: navegaï¿½ï¿½o local #qm0 -->
 <script type="text/javascript">
     $(function(){
         carregaPagina();

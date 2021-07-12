@@ -3,7 +3,7 @@
 $portaria = trim($this->projetos->PortariaAprovacao);
 ?>
 <script type="text/javascript">
-    
+
     $(document).ready(function(){
         $('input, textarea, select').css('color','#444');
         jqAjaxLinkSemLoading('<?php echo $this->url(array('controller' => 'checarregularidade', 'action' => 'index')); ?>?CgcCpf=<?php echo retiraMascara($this->projetos->CgcCpf); ?>', '', 'regularidadeProponente');
@@ -15,13 +15,13 @@ $portaria = trim($this->projetos->PortariaAprovacao);
         segmento(area,null);
     });
     function segmento(cdarea, segmento){
-        
+
         if(cdarea != ''){
             $("#segmento").find('option').remove();
             $("#segmento").append("<option value=''> carregando... </option>");
         }else{
             $("#segmento").find('option').remove();
-            $("#segmento").append("<option value=''> - Selecione uma ·rea - </option>");
+            $("#segmento").append("<option value=''> - Selecione uma ÔøΩrea - </option>");
             return false;
         }
         $.ajax({
@@ -52,69 +52,69 @@ $portaria = trim($this->projetos->PortariaAprovacao);
             ,dataType:'json'
         });
     }
-    
+
     $('#dataCaptacaoIni').keyup(function(){
         var data = $(this).val();
         JSTratarDataInicioCaptacao(data);
     });
-    
+
     $('#dtfimexecucao').keyup(function(){
         var data = $(this).val();
         JSTratarDataFimCaptacao(data);
     });
-    
+
     function JSTratarDataInicioCaptacao(dtInicial){
-        
+
         if(dtInicial.length >= 10)
         {
-            var arrInicio = dtInicial.split("/");    
+            var arrInicio = dtInicial.split("/");
             dtInicial = arrInicio[2]+arrInicio[1]+arrInicio[0];
             var anoInicial = arrInicio[2];
-            
+
             var dtFinal = $("#dataCaptacaoFim").val();
-            var arrFinal = dtFinal.split("/");    
+            var arrFinal = dtFinal.split("/");
             dtFinal = arrFinal[2]+arrFinal[1]+arrFinal[0];
             var anoFinal = arrFinal[2];
-            
+
             if(anoInicial > anoFinal || dtInicial > dtFinal){
                 JSMostrarModalMensagem('ERROR','Datas equivocadas, favor ajustar');
                 $('#dataCaptacaoIni').val('<?php echo (!empty($portaria)) ? Data::tratarDataZend($this->projetos->DtInicioCaptacaoGravada, "brasileiro") : Data::tratarDataZend($this->projetos->DtInicioCaptacao, "brasileiro") ?>');
             }
-            
+
             var anoAtual = '<?php echo date("Y");?>';
             if(anoInicial < anoAtual){
                 JSMostrarModalMensagem('ERROR','Datas equivocadas, favor ajustar');
                 $('#dataCaptacaoIni').val('<?php echo (!empty($portaria)) ? Data::tratarDataZend($this->projetos->DtInicioCaptacaoGravada, "brasileiro") : Data::tratarDataZend($this->projetos->DtInicioCaptacao, "brasileiro") ?>');
             }
-            
+
         }
     }
-    
+
     function JSTratarDataFimCaptacao(dtFimExecucao){
-        
+
         if(dtFimExecucao.length >= 10)
         {
-            var arrFimExecucao = dtFimExecucao.split("/");    
+            var arrFimExecucao = dtFimExecucao.split("/");
             var dtFimExecucaoLimpa = arrFimExecucao[2]+arrFimExecucao[1]+arrFimExecucao[0];
             var anoFimExecucao = arrFimExecucao[2];
-            
+
             var dtInicioExecucao = $("#dtinicioexecucao").val();
-            var arrInicioExecucao = dtInicioExecucao.split("/");    
+            var arrInicioExecucao = dtInicioExecucao.split("/");
             var dtInicioExecucao = arrInicioExecucao[2]+arrInicioExecucao[1]+arrInicioExecucao[0];
             var anoInicioExecucao = arrInicioExecucao[2];
-            
+
             var dtFinalCaptacao = $("#dataCaptacaoFim").val();
-            var arrFinalCaptacao = dtFinalCaptacao.split("/");    
+            var arrFinalCaptacao = dtFinalCaptacao.split("/");
             dtFinalCaptacao = arrFinalCaptacao[2]+arrFinalCaptacao[1]+arrFinalCaptacao[0];
             var anoFinalCaptacao = arrFinalCaptacao[2];
-            
+
             var dtInicioCaptacao = $("#dataCaptacaoIni").val();
-            var arrInicioCaptacao = dtInicioCaptacao.split("/");    
+            var arrInicioCaptacao = dtInicioCaptacao.split("/");
             dtInicioCaptacao = arrInicioCaptacao[2]+arrInicioCaptacao[1]+arrInicioCaptacao[0];
             var anoInicioCaptacao = arrInicioCaptacao[2];
-            
+
             var anoAtual = '<?php echo date("Y");?>';
-            
+
             if(anoFimExecucao < anoAtual){
                 JSMostrarModalMensagem('ERROR','Datas equivocadas, favor ajustar');
                 $('#dtfimexecucao').val('<?php echo Data::tratarDataZend($this->projetos->DtFimExecucao, "brasileiro");?>');
@@ -160,7 +160,7 @@ $portaria = trim($this->projetos->PortariaAprovacao);
     <input name="gravar" type="hidden" value="ok"/>
     <input name="idAprovacao" type="hidden" value="<?php echo $this->projetos->idAprovacao;?>"/>
     <input id="idpronac" name="idpronac" type="hidden" value="<?php echo $this->idpronac;?>"/>
-    
+
         <table class="tabela">
             <tr>
                 <th colspan="3">Editar dados do Projeto</th>
@@ -188,10 +188,10 @@ $portaria = trim($this->projetos->PortariaAprovacao);
 
         <table class="tabela">
             <tr>
-                <th colspan="2">¡rea/Segmento</th>
+                <th colspan="2">ÔøΩrea/Segmento</th>
             </tr>
             <tr>
-                <td class="destacar bold w200">¡rea Cultural:</td>
+                <td class="destacar bold w200">ÔøΩrea Cultural:</td>
                 <td class="destacar bold">Segmento</td>
             </tr>
             <tr>
@@ -210,7 +210,7 @@ $portaria = trim($this->projetos->PortariaAprovacao);
                 </td>
                 <td>
                     <select name="segmento" id="segmento" class="input_simples">
-                        <option value="">- Selecione uma ·rea -</option>
+                        <option value="">- Selecione uma ÔøΩrea -</option>
                     </select>
                 </td>
             </tr>
@@ -240,12 +240,12 @@ $portaria = trim($this->projetos->PortariaAprovacao);
         </table>
         <table class="tabela">
             <tr>
-                <th colspan="3">PerÌodo de CaptaÁ„o</th>
+                <th colspan="3">PerÔøΩodo de CaptaÔøΩÔøΩo</th>
             </tr>
             <tr>
-                <td class="destacar bold">Data InÌcio</td>
+                <td class="destacar bold">Data IN√çCIO</td>
                 <td class="destacar bold">Data Fim</td>
-                <td class="destacar bold">N∫ Portaria</td>
+                <td class="destacar bold">NÔøΩ Portaria</td>
             </tr>
             <tr>
                 <td><input id="dataCaptacaoIni" onkeyup="mascara(this, format_data);" maxlength="10" class="input_simples" name="dataCaptacaoIni" <?php echo (!empty($portaria)) ? "readonly" : "" ?> value="<?php echo (!empty($portaria)) ? Data::tratarDataZend($this->projetos->DtInicioCaptacaoGravada, "brasileiro") : Data::tratarDataZend($this->projetos->DtInicioCaptacao, "brasileiro") ?>"></td>
@@ -262,10 +262,10 @@ $portaria = trim($this->projetos->PortariaAprovacao);
         </table>
         <table class="tabela">
             <tr>
-                <th colspan="2">PerÌodo de ExecuÁ„o</th>
+                <th colspan="2">PerÔøΩodo de ExecuÔøΩÔøΩo</th>
             </tr>
             <tr>
-                <td class="destacar bold">Data InÌcio</td>
+                <td class="destacar bold">Data IN√çCIO</td>
                 <td class="destacar bold">Data Fim</td>
             </tr>
             <tr>

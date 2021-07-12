@@ -1,7 +1,7 @@
 <?php
 echo $this->partial('consultarpareceristas/inc/menu.inc.php', $this);
 ?>
-<!-- ========== INÍCIO BREACRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREACRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para Inicio">In&iacute;cio</a></li>
@@ -82,7 +82,7 @@ echo $this->partial('consultarpareceristas/inc/menu.inc.php', $this);
 					    	<?php if ($produto->idPronac == $projetos['IdPRONAC']):?>
 								<tr style='text-align: center;'>
                                     <td><?php echo $produto->Descricao; ?></td>
-				        			<td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'Nâo'; }  ?></td>
+				        			<td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'NÃ£o'; }  ?></td>
 							        <td><?php echo $produto->siPagamento; ?></td>
 							        <td><?php echo $this->formatarReal($produto->vlPagamento); ?></td>
 							        <td><?php echo $produto->OrdemPagamento; ?></td>
@@ -154,7 +154,7 @@ echo $this->partial('consultarpareceristas/inc/menu.inc.php', $this);
 	                PRODUTO PRINCIPAL
 	            </th>
 	            <th>
-	                SITUAÇÃO DO PAGAMENTO
+	                SITUAï¿½ï¿½O DO PAGAMENTO
 	            </th>
 	            <th>
 	                VALOR PAGAMENTO
@@ -165,9 +165,9 @@ echo $this->partial('consultarpareceristas/inc/menu.inc.php', $this);
 	        </tr>
 		    <?php foreach ($this->produtos as $produto):?>
 		    	<?php if ($produto->idPronac == $projetos['IdPRONAC']):?>
-					<tr style='text-align: center;'>        
+					<tr style='text-align: center;'>
 				        <td><?php echo $produto->Descricao; ?></td>
-				        <td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'Nâo'; }  ?></td>
+				        <td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'NÃ£o'; }  ?></td>
 				        <td><?php echo $produto->siPagamento; ?></td>
 				        <td><?php echo $this->formatarReal($produto->vlPagamento); ?></td>
 				        <td><?php echo $produto->dtPagamento; ?></td>
@@ -200,8 +200,8 @@ echo $this->partial('consultarpareceristas/inc/menu.inc.php', $this);
 <?php } ?>
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

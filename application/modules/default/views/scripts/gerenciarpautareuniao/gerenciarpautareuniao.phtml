@@ -6,12 +6,12 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
 <script src="<?php echo $this->baseUrl(); ?>/public/js/gerenciarpautareuniao.js"></script>
 <script>
     $(document).ready(function(){
-        
+
         //realiza refresh na pagina a cada 5min
         setTimeout(function(){
             window.location.reload();
         }, '500000');
-        
+
         /**** PROJETOS SUBMETIDOS A PLENARIA ******/
         <?php if($this->plenaria == "true"): ?>
             jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenaria');
@@ -19,11 +19,11 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             setTimeout(function(){
                 jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'grid' => 'planoanual', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenariaPlanoAnual');
             }, '1000');
-            
+
             setTimeout(function(){
                 jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'grid' => 'recurso', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenariaRecurso');
             }, '2000');
-            
+
             setTimeout(function(){
                 jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'grid' => 'readequacao', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'pautaPlenariaReadequacao');
             }, '3000');
@@ -39,7 +39,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 jqAjaxLink('<?php echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'listaprojetoscnic', 'stenvioplenaria' => 'S', 'grid' => 'naoPauta', 'readequacao' => $this->readequacao, 'plenaria' => $this->plenaria)) ?>', '', 'naoPauta');
             }, '1000');
         <?php endif;?>
-        
+
         $("#tela").dialog({
             resizable: false,
             width:1024,
@@ -75,7 +75,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             modal: true,
             autoOpen:false,
             resizable :false,
-            draggable: false 
+            draggable: false
         });
 
     });
@@ -127,12 +127,12 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
     }
 
     var votacao =  setInterval(function(){verificainiciocnic()}, '5000');
-    
+
     var telavotacao =  null;
     var bln_verificarvotacao =  true;
-    
+
     setaIntervaloVerificaVotacao();
-    
+
     function setaIntervaloVerificaVotacao(){
         telavotacao = setInterval(function(){
             if($("#statusreuniao").val() == 'aberto' && $('#cronometro #minu').html()*1 == 0 && $('#cronometro #seg').html()*1 ==0){
@@ -140,7 +140,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             }
         }, '5000');
     }
-    
+
     var idPronac = null;
     var tpVoto = null;
     var ct = 0;
@@ -157,7 +157,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 if(data.tpvoto){tpVoto = data.tpvoto;}else{tpVoto = null} //verifica e seta o voto do componente
                 if(!data.error){
                     //if(data.status == 'aberta' && verificarjanela != 'true'){
-                        
+
                         //MONTA E ESCREVE BOTOES
                         if(bln_verificarvotacao){
                             if(data.bln_liberarvoto){ //verifica se o agente esta cadastrado como votante nessa reuniao
@@ -171,7 +171,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                                 }
                             }
                         }
-                        
+
                         //DEFINE ACAO DOS BOTOES
                         $("#btnaprovar_"+idPronac).click(function(){
                             //clearTimeout(telavotacao);
@@ -189,7 +189,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                             bln_verificarvotacao = false; //seta falso para deixar que apenas o metodo JSSalvarVoto dispare novamente o metodo verificavotacao
                             if(tpVoto != "B"){ JSSalvarVoto('B',idPronac); }
                         });
-                        
+
                         if(!data.stvoto){
                             $("#reuniaoaberta").val("true");
                             //$.post('../votarprojetocultural/votacao',{idpronac:data.idpronac},function(data){
@@ -208,7 +208,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 }
                 if(data.status == 'naoiniciada' && verificarjanela == 'true'){
                     $("#reuniaoaberta").val("false");
-                    
+
                     var qtdeVotacoesConsolidadas = $("#qtdeVotacoesConsolidadas").val();
                         qtdeVotacoesConsolidadas = parseInt(qtdeVotacoesConsolidadas)+1;
                     $("#qtdeVotacoesConsolidadas").val(qtdeVotacoesConsolidadas);
@@ -237,7 +237,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 }
             },
             complete: function(){
-                
+
             },
             dataType : 'json'
         });
@@ -260,7 +260,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                             var qtdeVerificacoesInicioPlenaria = $("#qtdeVerificacoesInicioPlenaria").val();
                                 qtdeVerificacoesInicioPlenaria = parseInt(qtdeVerificacoesInicioPlenaria)+1;
                             $("#qtdeVerificacoesInicioPlenaria").val(qtdeVerificacoesInicioPlenaria);
-                            
+
                             if(qtdeVerificacoesInicioPlenaria == 10){
                                 clearInterval(votacao);
                                 $("#qtdeVerificacoesInicioPlenaria").val('0');
@@ -309,7 +309,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             ,dataType : 'json'
         });
     }
-    
+
     function JSMostraOcultaElemento(elemento)
     {
         $('.' + elemento).toggle();
@@ -325,7 +325,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 $('#' + elemento).removeClass('btn_remover');
         }
     }
-    
+
     function JSSalvarVoto(voto,idPronac)
     {
         $("#botoesvoto_"+idPronac).html('<center>Aguarde, registrando voto ...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
@@ -334,7 +334,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             $("#botoesvoto_"+idPronac).html(botoesvoto);
             $("#botoesvoto_"+idPronac).append('<span id="processando"><center>processando voto ...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center></span>');
         }, '1000');
-        
+
         $.ajax({
             async: true,
             type: "post",
@@ -345,17 +345,17 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 //dsjustificativa : dsjustificativa
             },
             success: function(data)
-            {   
+            {
                 //MONTA E ESCREVE BOTOES
                 //var botoesvoto = JSMontaBotoes(voto,idPronac);
                 //$("#botoesvoto_"+idPronac).html(botoesvoto);
-                
+
                 if(!data.error){
                     message('Voto registrado com sucesso', 'CONFIRM');
                 }else{
                     var botoesvoto = JSMontaBotoes('',idPronac);
                     $("#botoesvoto_"+idPronac).html(botoesvoto);
-                    message('Ocorreu um erro ao tentar salvar os dados. O seu voto não foi registrado. '+data.descricao, 'ERROR');
+                    message('Ocorreu um erro ao tentar salvar os dados. O seu voto NÃ£o foi registrado. '+data.descricao, 'ERROR');
                 }
                 $("#processando").html('');
                 //direciona o usuario ate a mensagem na tela
@@ -366,7 +366,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             error: function(data) {
                 var botoesvoto = JSMontaBotoes('',idPronac);
                 $("#botoesvoto_"+idPronac).html(botoesvoto);
-                message('Ocorreu um erro ao tentar salvar os dados. O seu voto não foi registrado. '+data.descricao, 'ERROR');
+                message('Ocorreu um erro ao tentar salvar os dados. O seu voto NÃ£o foi registrado. '+data.descricao, 'ERROR');
                 $("#processando").html('');
             },
             complete: function(){
@@ -375,9 +375,9 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 setaIntervaloVerificaVotacao();
             },
             dataType : 'json'
-        });        
+        });
     }
-    
+
     function JSMontaBotoes(tpVoto,idPronac){
         var botoes = "";
         if(tpVoto != "" && tpVoto != "null" && tpVoto != null){
@@ -385,12 +385,12 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 botoes = "<span style='color: green;' id='btnaprovar_"+idPronac+"'> [ <img src='<?php echo $this->baseUrl(); ?>/public/img/passed.gif' alt='Voto registrado' title='Voto registrado' width='12px' height='12px' align='absmiddle'> Aprovado]</span> ";
                 botoes +="| <span style='color: blue; cursor:pointer;' id='btnindeferir_"+idPronac+"'>[Indeferir]</span> ";
                 botoes +="| <span style='color: blue; cursor:pointer;' id='btnabster_"+idPronac+"'>[Abster]</span> ";
-                
+
             }else if(tpVoto == "I"){
                 botoes = "<span style='color: blue; cursor:pointer;' id='btnaprovar_"+idPronac+"'>[Aprovar]</span> ";
                 botoes +="| <span style='color: green;' id='btnindeferir_"+idPronac+"'> [ <img src='<?php echo $this->baseUrl(); ?>/public/img/passed.gif'  alt='Voto registrado' title='Voto registrado' width='12px' height='12px' align='absmiddle'> Indeferido]</span> ";
                 botoes +="| <span style='color: blue; cursor:pointer;' id='btnabster_"+idPronac+"'>[Abster]</span> ";
-                
+
             }else if(tpVoto == "B"){
                 botoes = "<span style='color: blue; cursor:pointer;' id='btnaprovar_"+idPronac+"'>[Aprovar]</span> ";
                 botoes +="| <span style='color: blue; cursor:pointer;' id='btnindeferir_"+idPronac+"'>[Indeferir]</span> ";
@@ -442,7 +442,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
         <!--<div id="pautaPlenariaVotados"></div>-->
         <!-- FIM - PROJETO VOTADOS -->
         <?php endif; ?>
-        
+
         <?php if($this->plenaria != "true"): ?>
         <!-- INICIO - PROJETO NAO SUBMETIDOS A PLENARIA -->
         <div id="pautaNaoPlenaria"></div>

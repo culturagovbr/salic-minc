@@ -5,7 +5,7 @@ class CaptacaoController extends MinC_Controller_Action_Abstract
     public function init()
     {
         //recupera ID do pre projeto (proposta)
-        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -126,7 +126,7 @@ class CaptacaoController extends MinC_Controller_Action_Abstract
             $agenteModel = new Agente_Model_DbTable_Agentes();
             $agentes = $agenteModel->buscar(array('CNPJCPF = ?' => $post->cpf));
             if (!$agentes->count()) {
-                parent::message("CNPJ/CPF n�o existe na tabela Interessado!", "captacao/index", "ALERT");
+                parent::message("CNPJ/CPF Não existe na tabela Interessado!", "captacao/index", "ALERT");
             }
 
             $agente = $agentes->current();

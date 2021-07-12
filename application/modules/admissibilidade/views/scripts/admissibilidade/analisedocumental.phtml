@@ -17,7 +17,7 @@ $excluirDocumento = $this->url(array('module' => 'admissibilidade', 'controller'
     <textarea name="html" id="conteudoImprimir"></textarea>
 </form>
 <div id="titulo">
-    <div>Admissibilidade de propostas - An�lise documental <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+    <div>Admissibilidade de propostas - Análise documental <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <div id="conteudo">
     <form id="formDocumento" method="post" action="<?php echo $inserirDocumento ?>?idPreProjeto=<?php echo $this->idPreProjeto;?>">
@@ -65,8 +65,8 @@ $excluirDocumento = $this->url(array('module' => 'admissibilidade', 'controller'
     <table class="tabela">
     <tr>
     <td class="centro">
-		<input type="button" class="btn_novo sumir" title="Novo" value=" " id="novo" onclick="redirecionar('<?php echo $novo ?>');" /> 
-		<input type="button" class="btn_salvar salvar" title="Salvar" value=" " /> 
+		<input type="button" class="btn_novo sumir" title="Novo" value=" " id="novo" onclick="redirecionar('<?php echo $novo ?>');" />
+		<input type="button" class="btn_salvar salvar" title="Salvar" value=" " />
 		<input type="button" class="btn_imprimir" title="Imprimir" value=" " onclick='$("#conteudoImprimir").val($(".conteudoImprimivel").html()); $("#formGerarPdf").submit();' />
     </td>
     </tr>

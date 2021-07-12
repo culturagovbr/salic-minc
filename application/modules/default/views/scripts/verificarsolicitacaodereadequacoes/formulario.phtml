@@ -40,7 +40,7 @@
                     }
                 });
                 $("#ok").dialog('open');
-            
+
             } else {
                 $("#alertaDecisao").dialog({
                     resizable: true,
@@ -82,19 +82,19 @@
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'verificarsolicitacaodereadequacoes', 'action' => 'index')); ?>" title="InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'verificarsolicitacaodereadequacoes', 'action' => 'index')); ?>" title="IN√çCIO">IN√çCIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'verificarsolicitacaodereadequacoes', 'action' => 'planilhaaprovada')); ?>?idPronac=<?php echo $_GET['idPronac']?>" title="Consulta">Planilha aprovada</a></li>
         <li class="last"><a href="<?php echo $this->url(array('controller' => 'verificarsolicitacaodereadequacoes', 'action' => 'planilhasolicitada')); ?>?idPronac=<?php echo $_GET['idPronac']?>" title="Requerente">Planilha solicitada</a></li>
     </ul>
 </div> <!-- final: #breadcrumb -->
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Verificar solicita&ccedil;&atilde;o de readequa&ccedil;&otilde;es <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
-<!-- inÌcio: ·rea principal #conteudo -->
+<!-- IN√çCIO: ÔøΩrea principal #conteudo -->
 <div id="conteudo">
     <div id="mostra"></div>
     <div id="erro" title="ERRO"  style="display:none"></div>
@@ -108,7 +108,7 @@
         <table class="tabela">
             <thead>
                 <tr>
-                    <th align="center">N∫ PRONAC:</th>
+                    <th align="center">NÔøΩ PRONAC:</th>
                     <th align="center">Nome do Projeto:</th>
 
                 </tr>
@@ -172,9 +172,9 @@
                         <th colspan="6">Identificadores</th>
                     </tr>
                     <tr class="destacar bold">
-                        <td align="center" colspan="3">FÌsicos</td>
+                        <td align="center" colspan="3">FÔøΩsicos</td>
                         <td align="center" colspan="2">Financeiros</td>
-                        <td align="center">Tempo de DuraÁ„o</td>
+                        <td align="center">Tempo de DuraÔøΩÔøΩo</td>
                     </tr>
                     <tr class="linha">
                         <td align="left" class='off w100'>
@@ -190,11 +190,11 @@
                             <input disabled value="<?php echo $item->qtItem; ?>"  onblur="mult(), restaurar_campo(this, '0');" onclick="limpar_campo(this, '0');" class="input_simples w80"  type="text" name="qtd" id="qtd" onKeyPress="validaDigito(event)" onKeyDown="validaDigito(event)" onKeyUP="validaDigito(event)">
                         </td>
                         <td align="left" class='off w80'>
-                            <label for="ocorrencia">OcorrÍncia*</label><br />
+                            <label for="ocorrencia">OcorrÔøΩncia*</label><br />
                             <input disabled value=" <?php echo $item->nrOcorrencia; ?>"  onblur="mult(), restaurar_campo(this, '0');" onclick="limpar_campo(this, '0');" null="false" class="input_simples w80" maxlength="4" type="text" name="ocorrencia" id="ocorrencia" onKeyPress="validaDigito(event)" onKeyDown="validaDigito(event)" onKeyUP="validaDigito(event)">
                         </td>
                         <td align="center" class='off w100'>
-                            <label for="vUnitario">Valor Unit·rio*</label><br />
+                            <label for="vUnitario">Valor UnitÔøΩrio*</label><br />
                             <input disabled value="<?php echo $item->vlUnitario; ?>" onclick="limpar_campo(this, '0');" null="false" class="input_simples" type="text" name="vUnitario" id="vUnitario" onblur="mult(), restaurar_campo(this, '0');" onKeyPress="validaDigito(event)" onKeyDown="validaDigito(event)" onKeyUP="validaDigito(event)"></td>
                         <td align="left" class='off w100'>
                             <label for="total">Total</label><br />
@@ -213,7 +213,7 @@
                     </tr>
                     <tr class="destacar bold">
                         <td align="center">Despesas</td>
-                        <td align="center">LocalizaÁ„o de Despesas</td>
+                        <td align="center">LocalizaÔøΩÔøΩo de Despesas</td>
                     </tr>
                     <tr class="linha">
                         <td align="left">
@@ -267,7 +267,7 @@
                         </td>
                     </tr>
                 </table>
-                    
+
                 <table class="tabela">
                     <tr>
                         <th>Justificativa</th>
@@ -295,7 +295,7 @@
                 <table class="tabela">
                     <tbody>
                         <tr>
-                            <th>Decis„o</th>
+                            <th>DecisÔøΩo</th>
                         </tr>
                         <tr>
                             <td>Este item j&aacute; foi analisado. (<?php echo (trim($this->itemAvaliado->stAvaliacaoSubItemPedidoAltera) == 'D') ? 'Deferido' : 'Indeferido'; ?>)</td>
@@ -307,7 +307,7 @@
                 <table class="tabela">
                     <tbody>
                         <tr>
-                            <th colspan="2">Decis„o</th>
+                            <th colspan="2">DecisÔøΩo</th>
                         </tr>
                         <tr>
                             <td>Deferir
@@ -331,14 +331,14 @@
                     </tr>
                 </table>
                <?php } ?>
-                
+
             </form>
         <?php } ?>
-        </div><!-- final: conte˙do principal #conteudo -->
+        </div><!-- final: CONTE√öDO principal #conteudo -->
     </div>
 </div>
 
-<!-- inÌcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

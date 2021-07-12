@@ -5,22 +5,22 @@ class HistoricoController extends MinC_Controller_Action_Abstract
     public function historicoAction()
     {
     }
-    
+
     public function init()
     {
-        // Visualização do título da página
-        $this->view->title = "Visualização dos Históricos dos Projetos";
+        // Visualizaï¿½ï¿½o do tï¿½tulo da pÃ¡gina
+        $this->view->title = "Visualizaï¿½ï¿½o dos Histï¿½ricos dos Projetos";
 
         parent::init();
     }
-    
+
     public function indexAction()
     {
         $get = Zend_Registry::get('get');
         $pronac = $get->pronac;
 
         $mens = new HistoricoDAO();
-        
+
         $tbprojeto = $mens->buscaProjeto($pronac);
         $this->view->projeto = $tbprojeto;
 

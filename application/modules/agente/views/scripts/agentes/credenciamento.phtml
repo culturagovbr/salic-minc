@@ -2,31 +2,31 @@
     <?php echo $this->partial('agentes/inc/menu.inc.php', $this); ?>
     <div class="col s12 m10 l10">
 
-        <!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="#" title="Ir para InÌcio">InÌcio</a></li>
-                <li><a href="#" title="TramitaÁ„o de Documentos">Manter Agentes</a></li>
+                <li class="first"><a href="#" title="Ir para IN√çCIO">IN√çCIO</a></li>
+                <li><a href="#" title="Tramita√ß√£o de Documentos">Manter Agentes</a></li>
                 <li class="last">Principal</li>
             </ul>
         </div>
         <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-        <!-- ========== INÕCIO TÕTULO ========== -->
+        <!-- ========== IN√çCIO TÔøΩTULO ========== -->
         <div id="titulo">
             <div>Credenciamento <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
         </div>
-        <!-- ========== FIM TÕTULO ========== -->
+        <!-- ========== FIM TÔøΩTULO ========== -->
 
 
-        <!-- ========== INÕCIO CONTE⁄DO ========== -->
+        <!-- ========== IN√çCIO CONTE√öDO ========== -->
         <div id="conteudo">
             <?php echo $this->partial('agentes/inc/cabecalho.php', $this) ?>
             <?php if (($this->grupoativo == "137")): ?>
                 <table class="tabela">
                     <tr>
-                        <td>Para credenciar uma nova ·rea e segmento, clique em novo ao lado!</td>
+                        <td>Para credenciar uma nova ÔøΩrea e segmento, clique em novo ao lado!</td>
                         <th width="150"><input type="button" class="btn_novo" value=" " onclick="novo();"/></th>
                     </tr>
                 </table>
@@ -35,7 +35,7 @@
             <table class="tabela sumir">
                 <tr>
                     <td class="fundo_linha3" style="font-size: 14px; font-weight: bold;">O Parecerista
-                        tem <?php echo $this->anosexperiencia; ?> ano(s) de experiÍncia profissional.
+                        tem <?php echo $this->anosexperiencia; ?> ano(s) de experiÔøΩncia profissional.
                     </td>
 
                 </tr>
@@ -47,11 +47,11 @@
                       method="post">
                     <table class="tabela">
                         <tr class="titulo_tabela">
-                            <th colspan="6">LISTA DE ¡REA</th>
+                            <th colspan="6">LISTA DE ÔøΩREA</th>
                         </tr>
                         <tr>
                             <td colspan="2" valign="top" width="33%" align="center">
-                                <label for="areaCultural">¡rea Cultural *</label>
+                                <label for="areaCultural">ÔøΩrea Cultural *</label>
                                 <select class="input_simples" name="areaCultural" id="areaCultural">
                                     <?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
                                         <option value="0"> - Selecione -</option>
@@ -74,7 +74,7 @@
                                 <select name="segmentoCultural" id="segmentoCultural" class="input_simples">
 
                                     <?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
-                                        <option value="0"> - Selecione uma ¡rea Cultural -</option>
+                                        <option value="0"> - Selecione uma ÔøΩrea Cultural -</option>
                                     <?php } else { ?>
 
                                         <?php if (!isset($this->segmentoCultural) || empty($this->segmentoCultural)) { ?>
@@ -93,9 +93,9 @@
                                 &nbsp; <span id="erroSegmentoCultural" class="spanError"></span>
                             </td>
                             <td colspan="2" valign="top" align="center">
-                                <label for="nivel">NÌvel *</label>
+                                <label for="nivel">NÔøΩvel *</label>
                                 <select name="nivel" id="nivel" class="input_simples">
-                                    <option value="0"> - Selecione um NÌvel -</option>
+                                    <option value="0"> - Selecione um NÔøΩvel -</option>
                                     <?php foreach ($this->Niveis as $nivel) { ?>
                                         <option
                                             value="<?php echo $nivel->idVerificacao; ?>"><?php echo $nivel->Descricao; ?></option>
@@ -117,12 +117,12 @@
             <?php if (count($this->credenciados) != 0) { ?>
                 <table id="salvos" class="tabela">
                     <tr>
-                        <th colspan="4">¡reas e segmentos j· credenciado</th>
+                        <th colspan="4">ÔøΩreas e segmentos jÔøΩ credenciado</th>
                     </tr>
                     <tr>
-                        <td class="destacar bold" align="center">¡rea</td>
+                        <td class="destacar bold" align="center">ÔøΩrea</td>
                         <td class="destacar bold" align="center"><b>Segmento</b></td>
-                        <td class="destacar bold" align="center"><b>NÌvel</b></td>
+                        <td class="destacar bold" align="center"><b>NÔøΩvel</b></td>
                         <td class="destacar bold" align="center" width="130"><b></b></td>
                     </tr>
                     <?php foreach ($this->credenciados as $c) { ?>
@@ -139,7 +139,7 @@
             <?php } else { ?>
                 <table class="tabela" id="salvos">
                     <tr>
-                        <td>O Parecerista n„o est· credenciado!</td>
+                        <td>O Parecerista N√£o estÔøΩ credenciado!</td>
                     </tr>
                 </table>
             <?php } ?>
@@ -176,7 +176,7 @@
         var nivel = $('#nivel').find('option').filter(':selected').val();
 
         if ((area == 0) || (segmento == 0) || (nivel == 0)) {
-            alertar('Favor preencher os dados obrigatÛrios!');
+            alertar('Favor preencher os dados obrigatÔøΩrios!');
         } else {
             $("#form").submit();
         }

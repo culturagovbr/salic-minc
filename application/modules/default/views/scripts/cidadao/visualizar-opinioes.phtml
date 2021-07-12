@@ -1,19 +1,19 @@
 <?php if(!$this->usuarioInterno){ ?>
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para InÔøΩcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="second"><a href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => '')); ?>" title="Ir para Lista de Projetos">Lista de Projetos</a></li>
-        <li class="last">Visualizar Opiniıes</li>
+        <li class="last">Visualizar OpiniÔøΩes</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 <?php } ?>
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Visualizar Opiniıes 
+    <div>Visualizar OpiniÔøΩes
         <?php if(!$this->usuarioInterno){ ?>
         <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
         <?php } ?>
@@ -32,23 +32,23 @@
             <td><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
         </tr>
     </table>
-    
+
     <table class="tabela">
         <tr class="destacar bold centro">
-            <td>Tem relev‚ncia cultural?</td>
+            <td>Tem relevÔøΩncia cultural?</td>
             <td>Deve ser aprovado?</td>
-            <td>O custo est· adequado?</td>
+            <td>O custo estÔøΩ adequado?</td>
         </tr>
         <tr class="centro">
-            <td>Sim <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst1s); ?></span> x <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst1n); ?></span> N„o</td>
-            <td>Sim <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst2s); ?></span> x <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst2n); ?></span> N„o</td>
-            <td>Sim <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst3s); ?></span> x <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst3n); ?></span> N„o</td>
+            <td>Sim <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst1s); ?></span> x <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst1n); ?></span> N√£o</td>
+            <td>Sim <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst2s); ?></span> x <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst2n); ?></span> N√£o</td>
+            <td>Sim <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst3s); ?></span> x <span class="red bold" style="margin: 0 5px;"><?php echo count($this->qst3n); ?></span> N√£o</td>
         </tr>
     </table>
 
     <table class="tabela">
         <tr>
-            <th>Opiniıes (<?php echo count($this->dados); ?>)</th>
+            <th>OpiniÔøΩes (<?php echo count($this->dados); ?>)</th>
         </tr>
     </table>
 
@@ -58,20 +58,20 @@
     <table class="tabela">
         <tr>
             <td class="destacar bold" style="width: 1%;" rowspan="3"><?php echo $x; ?></td>
-            <td class="w150 destacars bolds">Tem relev‚ncia cultural? <?php if($d->stQuestionamento_1 == 2){ echo 'N„o'; } else if($d->stQuestionamento_1 == 1){ echo 'Sim'; } else { echo 'Sem resposta'; } ?></td>
-            <td class="w150 destacars bolds">Deve ser aprovado? <?php if($d->stQuestionamento_2 == 2){ echo 'N„o'; } else if($d->stQuestionamento_2 == 1){ echo 'Sim'; } else { echo 'Sem resposta'; } ?></td>
-            <td class="w150 destacars bolds">O custo est· adequado? <?php if($d->stQuestionamento_3 == 2){ echo 'N„o'; } else if($d->stQuestionamento_3 == 1){ echo 'Sim'; } else { echo 'Sem resposta'; } ?></td>
+            <td class="w150 destacars bolds">Tem relevÔøΩncia cultural? <?php if($d->stQuestionamento_1 == 2){ echo 'N√£o'; } else if($d->stQuestionamento_1 == 1){ echo 'Sim'; } else { echo 'Sem resposta'; } ?></td>
+            <td class="w150 destacars bolds">Deve ser aprovado? <?php if($d->stQuestionamento_2 == 2){ echo 'N√£o'; } else if($d->stQuestionamento_2 == 1){ echo 'Sim'; } else { echo 'Sem resposta'; } ?></td>
+            <td class="w150 destacars bolds">O custo estÔøΩ adequado? <?php if($d->stQuestionamento_3 == 2){ echo 'N√£o'; } else if($d->stQuestionamento_3 == 1){ echo 'Sim'; } else { echo 'Sem resposta'; } ?></td>
             <td class="w150">Cadastrada em <?php echo Data::tratarDataZend($d->dtOpiniao, 'Brasileira', true); ?></td>
         </tr>
         <tr>
-            <td class="w150 destacar bold centro" colspan="4">Coment·rio</td>
+            <td class="w150 destacar bold centro" colspan="4">ComentÔøΩrio</td>
         </tr>
         <tr>
             <td colspan="4"><?php echo $d->dsComentario; ?> <?php if($this->usuarioInterno){ echo (!empty($d->dsEmail)) ? '<br />E-mail: '.$d->dsEmail : ''; } ?></td>
         </tr>
     </table>
     <br clear="all" />
-    
+
     <?php $x--; } } else { ?>
     <table class="tabela">
         <tr>
@@ -79,11 +79,11 @@
         </tr>
     </table>
     <?php } ?>
-        
+
 </div>
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

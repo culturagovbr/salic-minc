@@ -29,7 +29,7 @@
                         modal: true,
                         autoOpen:false,
                         buttons: {
-                            'Não': function() {
+                            'NÃ£o': function() {
                                 $(this).dialog('close');
                             },
                             'Sim': function() {
@@ -49,7 +49,7 @@
                                 }
                                 else{
                                     clearInterval(telaacompanhamentopresidente);
-                                    $("#corfirma").html('<br><br><center>Encerrando votação...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
+                                    $("#corfirma").html('<br><br><center>Encerrando votaï¿½ï¿½o...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
                                     var idNrReuniao = $("input[name='idReuniao']").val();
                                     //jqAjaxLinkSemLoading('<?php //echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'pa-encerrar-cnic'))?>?idReuniao=' + idNrReuniao, '', 'corfirma');
                                     $("form[name='form']").submit();
@@ -85,12 +85,12 @@
                 ?>
                     <!--<a class="no_seta last" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciaradministrativo')); ?>" title="Ir para Projetos em Pauta">Projetos em Pauta</a>-->
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'exibirvotantes')); ?>" title="Ir para Votantes">Votantes</a>
-                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciaradministrativo', 'readequacao' => 'false', 'plenaria' => 'true')); ?>" title="Ir para Plenária -  submetidos à plenária">Plenária - submetidos à plenária</a>
-                    <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciaradministrativo', 'readequacao' => 'true', 'plenaria' => 'true')); ?>" title="Ir para Plenária -  readequação">Plenária - readequação</a>-->
-                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciaradministrativo', 'readequacao' => 'false', 'plenaria' => 'false')); ?>" title="Ir para Não submetidos -  análise inicial">Não submetidos - análise inicial</a>
-                    <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciaradministrativo', 'readequacao' => 'true', 'plenaria' => 'false')); ?>" title="Ir para Não submetidos -  readequação">Não submetidos - readequação</a>-->
-                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'recursos-nao-submetidos')); ?>" title="Ir para Não submetidos - recursos">Não submetidos - recursos</a>
-                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'readequacoes-nao-submetidas')); ?>" title="Ir para Não submetidos - readequa&ccedil;&otilde;es">Não submetidos - readequa&ccedil;&otilde;es</a>
+                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciaradministrativo', 'readequacao' => 'false', 'plenaria' => 'true')); ?>" title="Ir para Plenï¿½ria -  submetidos ï¿½ plenï¿½ria">Plenï¿½ria - submetidos ï¿½ plenï¿½ria</a>
+                    <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciaradministrativo', 'readequacao' => 'true', 'plenaria' => 'true')); ?>" title="Ir para Plenï¿½ria -  readequaï¿½ï¿½o">Plenï¿½ria - readequaï¿½ï¿½o</a>-->
+                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciaradministrativo', 'readequacao' => 'false', 'plenaria' => 'false')); ?>" title="Ir para NÃ£o submetidos -  AnÃ¡lise inicial">NÃ£o submetidos - AnÃ¡lise inicial</a>
+                    <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciaradministrativo', 'readequacao' => 'true', 'plenaria' => 'false')); ?>" title="Ir para NÃ£o submetidos -  readequaï¿½ï¿½o">NÃ£o submetidos - readequaï¿½ï¿½o</a>-->
+                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'recursos-nao-submetidos')); ?>" title="Ir para NÃ£o submetidos - recursos">NÃ£o submetidos - recursos</a>
+                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'readequacoes-nao-submetidas')); ?>" title="Ir para NÃ£o submetidos - readequa&ccedil;&otilde;es">NÃ£o submetidos - readequa&ccedil;&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'paineisdareuniao')); ?>" title="Ir para Painel de Reuni&otilde;es">Painel de Reuni&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">Projetos Votados</a>
 <?php
@@ -99,21 +99,21 @@
                 if ($this->grupoAtivo == 118 or $this->grupoAtivo == 133) { //118 = componente da comissao  133 = membros natos
                 ?>
                     <!--<a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao')); ?>" title="Ir para Projetos em Pauta">Projetos em Pauta</a>-->
-                    <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao', 'readequacao' => 'false', 'plenaria' => 'true')); ?>" title="Ir para Plenária - análise inicial">Plenária - análise inicial</a>
-                    <!--<a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao' , 'readequacao' => 'true', 'plenaria' => 'true')); ?>" title="Ir para Plenária - readequação">Plenária - readequação</a>-->
-                    <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao', 'readequacao' => 'false', 'plenaria' => 'false')); ?>" title="Ir para Não submetidos - análise inicial">Não submetidos - análise inicial</a>
-                    <!--<a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao', 'readequacao' => 'true', 'plenaria' => 'false')); ?>" title="Ir para Não submetidos - readequação">Não submetidos - readequação</a>-->
-                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'recursos-nao-submetidos')); ?>" title="Ir para Não submetidos - recursos">Não submetidos - recursos</a>
-                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'readequacoes-nao-submetidas')); ?>" title="Ir para Não submetidos - readequa&ccedil;&otilde;es">Não submetidos - readequa&ccedil;&otilde;es</a>
+                    <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao', 'readequacao' => 'false', 'plenaria' => 'true')); ?>" title="Ir para Plenï¿½ria - AnÃ¡lise inicial">Plenï¿½ria - AnÃ¡lise inicial</a>
+                    <!--<a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao' , 'readequacao' => 'true', 'plenaria' => 'true')); ?>" title="Ir para Plenï¿½ria - readequaï¿½ï¿½o">Plenï¿½ria - readequaï¿½ï¿½o</a>-->
+                    <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao', 'readequacao' => 'false', 'plenaria' => 'false')); ?>" title="Ir para NÃ£o submetidos - AnÃ¡lise inicial">NÃ£o submetidos - AnÃ¡lise inicial</a>
+                    <!--<a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao', 'readequacao' => 'true', 'plenaria' => 'false')); ?>" title="Ir para NÃ£o submetidos - readequaï¿½ï¿½o">NÃ£o submetidos - readequaï¿½ï¿½o</a>-->
+                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'recursos-nao-submetidos')); ?>" title="Ir para NÃ£o submetidos - recursos">NÃ£o submetidos - recursos</a>
+                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'readequacoes-nao-submetidas')); ?>" title="Ir para NÃ£o submetidos - readequa&ccedil;&otilde;es">NÃ£o submetidos - readequa&ccedil;&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'paineisdareuniao')); ?>" title="Ir para Painel de Reuni&otilde;es">Painel de Reuni&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">Projetos Votados</a>
                     <span class="no_seta last">&nbsp;</span>
             <?php } ?>
             <?php if ($this->grupoAtivo == 119) { //presidente CNIC ?>
-                    <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao', 'readequacao' => 'false', 'plenaria' => 'true')); ?>" title="Ir para Plenária - análise inicial">Plenária - análise inicial</a>
-                    <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao', 'readequacao' => 'false', 'plenaria' => 'false')); ?>" title="Ir para Não submetidos - análise inicial">Não submetidos - análise inicial</a>
-                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'recursos-nao-submetidos')); ?>" title="Ir para Não submetidos - recursos">Não submetidos - recursos</a>
-                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'readequacoes-nao-submetidas')); ?>" title="Ir para Não submetidos - readequa&ccedil;&otilde;es">Não submetidos - readequa&ccedil;&otilde;es</a>
+                    <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao', 'readequacao' => 'false', 'plenaria' => 'true')); ?>" title="Ir para Plenï¿½ria - AnÃ¡lise inicial">Plenï¿½ria - AnÃ¡lise inicial</a>
+                    <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao', 'readequacao' => 'false', 'plenaria' => 'false')); ?>" title="Ir para NÃ£o submetidos - AnÃ¡lise inicial">NÃ£o submetidos - AnÃ¡lise inicial</a>
+                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'recursos-nao-submetidos')); ?>" title="Ir para NÃ£o submetidos - recursos">NÃ£o submetidos - recursos</a>
+                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'readequacoes-nao-submetidas')); ?>" title="Ir para NÃ£o submetidos - readequa&ccedil;&otilde;es">NÃ£o submetidos - readequa&ccedil;&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'paineisdareuniao')); ?>" title="Ir para Painel de Reuni&otilde;es">Painel de Reuni&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">Projetos Votados</a>
                     <form name='form' action="<?php $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao')) ?>" method='post'>

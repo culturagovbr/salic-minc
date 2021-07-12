@@ -1,23 +1,23 @@
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
-        <li class="last">Incluir LocalizaÁ„o</li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
+        <li class="last">Incluir LocalizaÔøΩÔøΩo</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Incluir LocalizaÁ„o <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+    <div>Incluir LocalizaÔøΩÔøΩo <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 <table class="tabela"  >
@@ -26,31 +26,31 @@
             	<td align="center" class="titulo_tabela">Projeto Cultural</td>
             </tr>
             <tr align="center">
-            	<th>Incluir LocalizaÁ„o</th>
+            	<th>Incluir LocalizaÔøΩÔøΩo</th>
             </tr>
-           
+
 </table>
  <table class="tabela"  >
             <tr>
-                <td class="titulo_tabela">IdentificaÁ„o</td>
-                                
+                <td class="titulo_tabela">IdentificaÔøΩÔøΩo</td>
+
             </tr>
-            
+
 </table>
- <table class="tabela"  >            
-           
+ <table class="tabela"  >
+
             	<?php foreach ($this->resposta as $resposta) {?>
-                <td><strong>Pronac:</strong> 
+                <td><strong>Pronac:</strong>
                 <?php echo $this->escape($resposta->idPronac); ?></td>
                 <td><strong>Nome do Projeto:</strong> <br><?php echo $this->escape($resposta->NomeProjeto); ?></td>
-            
+
             </tr>
-                     
+
            <tr>
                 <td><strong>CNPJ / CPF:</strong> <br>
-                <?php 
-                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3); 
-                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"]; 
+                <?php
+                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3);
+                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"];
                 ?>
                 </td>
                 <td><strong>Proponente:</strong> <br><?php echo $this->escape($resposta->Nome); ?></td>
@@ -59,10 +59,10 @@
 </table>
  <table class="tabela"  >
   			<tr>
-            	<td align="center" class="titulo_tabela">AlteraÁ„o do Local de RealizaÁ„o - Dados Atuais</td>
+            	<td align="center" class="titulo_tabela">AlteraÔøΩÔøΩo do Local de RealizaÔøΩÔøΩo - Dados Atuais</td>
             </tr>
-	            
-	                       
+
+
 </table>
  <table class="tabela"  >
 	            <tr>
@@ -70,11 +70,11 @@
 	            	<td></td>
 	            	<td></td>
 	            	<td></td>
-	            	<td colspan="5">+ Incluir Novo</td>	            	
+	            	<td colspan="5">+ Incluir Novo</td>
 	            </tr>
-	            
+
 	            <tr>
-	            	<td bgcolor="#cccccc">PaÌs</td>
+	            	<td bgcolor="#cccccc">PaÔøΩs</td>
 	            	<td bgcolor="#cccccc">UF</td>
 	            	<td bgcolor="#cccccc">Cidade</td>
 	            	<td bgcolor="#cccccc">Editar</td>
@@ -86,21 +86,21 @@
 	            	<td bgcolor="#f4f4f4">Brasilia</td>
 	            	<td bgcolor="#f4f4f4">Editar</td>
 	            	<td bgcolor="#f4f4f4">Excluir</td>
-	            </tr>	
+	            </tr>
 	            <tr>
 	            	<td>Brasil</td>
 	            	<td>RS</td>
-	            	<td>BagÈ</td>
+	            	<td>BagÔøΩ</td>
 	            	<td>Editar</td>
 	            	<td>Excluir</td>
-	            </tr>	
+	            </tr>
 	            <tr>
-	            	<td bgcolor="#f4f4f4">FranÁa</td>
+	            	<td bgcolor="#f4f4f4">FranÔøΩa</td>
 	            	<td bgcolor="#f4f4f4"></td>
 	            	<td bgcolor="#f4f4f4"></td>
 	            	<td bgcolor="#f4f4f4">Editar</td>
 	            	<td bgcolor="#f4f4f4">Excluir</td>
-	            </tr>	            
+	            </tr>
 </table>
 
 <form action="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/incluirnovolocalrealizacao" method="post" enctype="multipart/form-data">
@@ -110,76 +110,76 @@
 	            	<td></td>
 	            </tr>
 	            <tr>
-	            	<td align="center" class="titulo_tabela">Local da RealizaÁ„o</td>
+	            	<td align="center" class="titulo_tabela">Local da RealizaÔøΩÔøΩo</td>
 	            </tr>
-	           
+
 	            <tr>
-	            	<td>*PaÌs: 
+	            	<td>*PaÔøΩs:
 		            	<select name="pais" onChange="testePais(this.value);">
 						    <option value="31">Brasil</option>
 						    <?php foreach($this->pais as $pais){?>
 							<option value="<?php echo $this->escape($pais->idPais);?>"><?php echo $this->escape($pais->Descricao);?></option>
-							<?php } ?>						  
+							<?php } ?>
 						</select>
 					    <label for="uf">*UF: </label>
 						<select name="uf" id="uf" onChange="carregar_cidades(this.value);">
-							<option 
+							<option
 								value="
 									<?php
-									if (isset($_POST['uf'])) { echo $_POST['uf']; } 
-									else { echo "0"; } 
+									if (isset($_POST['uf'])) { echo $_POST['uf']; }
+									else { echo "0"; }
 									?>
 									">
 									<?php
 									if (isset($_POST['ufNome'])) { echo $_POST['ufNome']; }
-									else { echo "--"; } 
+									else { echo "--"; }
 									?>
 							</option>
 							<?php foreach($this->uf as $uf){?>
 							<option value="<?php echo $this->escape($uf->idUF);?>"><?php echo $this->escape($uf->Sigla);?></option>
 							<?php } ?>
-						</select>					
+						</select>
 						<label for="cidade">*Cidade: </label>
 						<select name="cidade" id="cidade">
-							<option id="opcoesCidade" 
+							<option id="opcoesCidade"
 								value="
-									<?php 
+									<?php
 									if (isset($_POST['cidade'])) { echo $_POST['cidade']; }
 									else { echo "0"; }
 									?>
 									">
-									<?php 
-									if (isset($_POST['cidadeNome'])) { echo $_POST['cidadeNome']; } 
+									<?php
+									if (isset($_POST['cidadeNome'])) { echo $_POST['cidadeNome']; }
 									else { echo " - Selecione primeiro o UF - "; }
 									?>
 								</option>
 						</select>
 					</td></tr>
-	           
+
 	            <tr>
-	            	<td align="center" class="titulo_tabela">AlteraÁ„o do Local de RealizaÁ„o - Dados Atuais</td>
-	            </tr> 
-	            
+	            	<td align="center" class="titulo_tabela">AlteraÔøΩÔøΩo do Local de RealizaÔøΩÔøΩo - Dados Atuais</td>
+	            </tr>
+
 	            <tr>
 	            	<td >*Justificativa<br /><textarea name="justificativa" id="justificativa" cols="70"  rows="10" maxlength="600"></textarea></td>
-	            </tr>     
+	            </tr>
 	            <tr><td><input type="submit" title="Confirmar" value="Confirmar"/>&nbsp;&nbsp;&nbsp;<input type="button" title="Cancelar" value="Cancelar" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/index')"/>
 	            <?php foreach ($this->resposta as $resposta) {?>
 	            <input type="hidden" name="pron" value="<?php echo $this->escape($resposta->idPronac); ?>">
 	            <input type="hidden" name="prop" value="<?php echo $this->escape($resposta->CgcCpf); ?>">
 	            <?php } ?>
-	            </td></tr>      
-	</table>	
+	            </td></tr>
+	</table>
 </form>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />
 

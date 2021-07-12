@@ -17,7 +17,7 @@
             height:180,
             modal:true,
             buttons: {
-                'Não': function(){
+                'NÃ£o': function(){
                     $("#msgAlerta").dialog("destroy");
                 },
                 'Sim': function() {
@@ -47,7 +47,7 @@
                                 }, 1000);
                             } else {
                                 $("#msgAlerta").dialog("destroy");
-                                $("#msgAlerta").html('Ocorreu um erro durante a operação. Contate o administrador do sistema!');
+                                $("#msgAlerta").html('Ocorreu um erro durante a operaï¿½ï¿½o. Contate o administrador do sistema!');
                                 $("#msgAlerta").dialog({
                                     resizable:false,
                                     title:'Alerta!',
@@ -189,7 +189,7 @@
                 <td align="right" nowrap><?php echo 'R$ '.@number_format($projeto['vlCaptado'], 2, ",", "."); ?></td>
                 <td align="center" >
                     <?php /*if(($projeto['Inabilitado'] == 'SIM') || ($projeto['Certidao'] == 'VENCIDA') || ($projeto['Cadin'] == "CADIN PENDENTE")){
-                        $arrPrazo = $this->prazoRespostaDiligencia($projeto['IdPRONAC'], 183); 
+                        $arrPrazo = $this->prazoRespostaDiligencia($projeto['IdPRONAC'], 183);
                         $icone = $arrPrazo['iconeDiligencia']['icone'];
                         $title = $arrPrazo['iconeDiligencia']['title'];
                     */?>

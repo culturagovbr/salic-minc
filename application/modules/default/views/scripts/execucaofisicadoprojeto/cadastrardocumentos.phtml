@@ -6,37 +6,37 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicadoprojeto
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="last">Comprovação de Execução Física do Projeto</li>
+		<li class="last">Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Comprovação de Execução Física do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'buscardocumentos')); ?>?pronac=<?php echo $_GET['pronac']; ?>');">Voltar</a></span></div>
+	<div>Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'buscardocumentos')); ?>?pronac=<?php echo $_GET['pronac']; ?>');">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
 
-	<!-- ========== INÍCIO FORMULÁRIO DE CADASTRO ========== -->
-	<form name="formCadastrar" id="formCadastrar" method="post" 
-		action="<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'cadastrardocumentos')); ?>?pronac=<?php echo $_GET['pronac']; ?>" 
+	<!-- ========== INÃCIO FORMULï¿½RIO DE CADASTRO ========== -->
+	<form name="formCadastrar" id="formCadastrar" method="post"
+		action="<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'cadastrardocumentos')); ?>?pronac=<?php echo $_GET['pronac']; ?>"
 		enctype="multipart/form-data">
 
 	<table class="tabela">
@@ -60,29 +60,29 @@
 			<td>
 				<select class="select_simples w600" name="tipoDocumento" id="tipoDocumento">
 					<option value=""> - Selecione - </option>
-	
+
 					<?php foreach ($this->combotipodocumento as $comboTipoDocumento) : ?>
 					<option value="<?php echo $comboTipoDocumento->idTipoDocumento ?>" <?php echo (isset($this->tipoDocumento) && $this->tipoDocumento == $comboTipoDocumento->idTipoDocumento) ? 'selected="selected"' : ''; ?>><?php echo $comboTipoDocumento->dsTipoDocumento ?></option>
 					<?php endforeach; ?>
-	
+
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<th><label for="titulos">Título</label></th>
+			<th><label for="titulos">Tï¿½tulo</label></th>
 			<td>
-				<input class="input_simples w600" type="text" name="titulo" id="titulos" maxlength="100" 
-					value="<?php echo isset($this->titulo) ? $this->titulo : 'Digite o título do comprovante...'; ?>" 
-					onclick="limpar_campo(this, 'Digite o título do comprovante...');" onkeypress=" " 
-					onblur="restaurar_campo(this, 'Digite o título do comprovante...');" onmouseout=" " />
+				<input class="input_simples w600" type="text" name="titulo" id="titulos" maxlength="100"
+					value="<?php echo isset($this->titulo) ? $this->titulo : 'Digite o tï¿½tulo do comprovante...'; ?>"
+					onclick="limpar_campo(this, 'Digite o tï¿½tulo do comprovante...');" onkeypress=" "
+					onblur="restaurar_campo(this, 'Digite o tï¿½tulo do comprovante...');" onmouseout=" " />
 			</td>
 		</tr>
 		<tr>
-			<th><label for="descricao">Descrição</label></th>
+			<th><label for="descricao">DescriÃ§Ã£o</label></th>
 			<td>
-				<textarea class="textarea_simples w600" type="text" name="descricao" id="descricao" cols="60" rows="4" <?php echo $this->contadorTextarea('form.descricao', 'form.exibirContadorTextarea', 500); ?> 
-					onclick="limpar_campo(this, 'Digite o texto do comprovante...');" onkeypress=" " onmousedown=" " 
-					onblur="restaurar_campo(this, 'Digite o texto do comprovante...');" onmouseout=" " 
+				<textarea class="textarea_simples w600" type="text" name="descricao" id="descricao" cols="60" rows="4" <?php echo $this->contadorTextarea('form.descricao', 'form.exibirContadorTextarea', 500); ?>
+					onclick="limpar_campo(this, 'Digite o texto do comprovante...');" onkeypress=" " onmousedown=" "
+					onblur="restaurar_campo(this, 'Digite o texto do comprovante...');" onmouseout=" "
 					><?php echo isset($this->descricao) ? $this->descricao : 'Digite o texto do comprovante...'; ?></textarea>
 				<?php echo $this->exibirContadorTextarea('exibirContadorTextarea', 3, 500, strlen($this->descricao)); ?>
 			</td>
@@ -98,37 +98,37 @@
 
 
 
-	<!-- ========== BOTÕES DE CADASTRO E ETC ========== -->
+	<!-- ========== BOTï¿½ES DE CADASTRO E ETC ========== -->
 	<table class="tabela">
 		<tr>
 			<td>
 				<div class="float_left">
-					<input type="button" class="btn_voltar" title=" Página Anterior "
-						onkeypress=" " 
+					<input type="button" class="btn_voltar" title=" pÃ¡gina Anterior "
+						onkeypress=" "
 						onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'buscardocumentos')); ?>?pronac=<?php echo $_GET['pronac']; ?>');" />
 				</div>
-	
+
 				<div class="float_right">
 					<input type="submit" title="Salvar" class="btn_salvar" value=" " />
 				</div>
 			</td>
 		</tr>
 	</table>
-	
-	
-	
+
+
+
 	</form>
-	<!-- ========== FIM FORMULÁRIO DE CADASTRO ========== -->
+	<!-- ========== FIM FORMULï¿½RIO DE CADASTRO ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

@@ -80,21 +80,21 @@ class Pronac extends Zend_Db_Table
 
 
     /**
-     * M�todo para buscar o PRONAC com a an�lise de conte�do
+     * M�todo para buscar o PRONAC com a Análise de CONTEÚDO
      * @access public
      * @param integer $id
      * @return object $db->fetchAll($sql)
      */
     public static function buscarPronacAnaliseConteudo($idPRONAC = null, $idPRODUTO = null)
     {
-        $sql = "SELECT proj.IdPRONAC 
+        $sql = "SELECT proj.IdPRONAC
 					,proj.NomeProjeto
 					,prod.Descricao AS DescricaoProduto
 				FROM SAC.dbo.Produto prod
 					,SAC.dbo.tbAnaliseConteudoConselheiro ana
 					,BDCORPORATIVO.scSAC.Projetos proj
 
-				WHERE prod.Codigo = ana.idProduto 
+				WHERE prod.Codigo = ana.idProduto
 					AND ana.IdPRONAC = proj.IdPRONAC ";
 
         if (!empty($idPRONAC)) { // busca de acordo com um id do pronac

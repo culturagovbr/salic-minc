@@ -12,7 +12,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -27,9 +27,9 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 121;  // T�cnico de Acompanhamento
             $PermissoesGrupo[] = 129;  // T�cnico de Acompanhamento
             $PermissoesGrupo[] = 94;  // Parecerista
-            $PermissoesGrupo[] = 103; // Coordenador de An�lise
-            $PermissoesGrupo[] = 110; // T�cnico de An�lise
-            $PermissoesGrupo[] = 118; // Componente da Comiss�o
+            $PermissoesGrupo[] = 103; // Coordenador de Análise
+            $PermissoesGrupo[] = 110; // T�cnico de Análise
+            $PermissoesGrupo[] = 118; // Componente da comissão
             $PermissoesGrupo[] = 126; // Coordenador Geral de Presta��o de Contas
             $PermissoesGrupo[] = 125; // Coordenador de Presta��o de Contas
             $PermissoesGrupo[] = 124; // T�cnico de Presta��o de Contas
@@ -40,7 +40,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 138; // Coordenador de Avalia�ao
             $PermissoesGrupo[] = 139; // T�cnico de  Avalia�ao
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -60,15 +60,15 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
             $this->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
-        } else { // caso o usu�rio n�o esteja autenticado
+        } else { // caso o usu�rio Não esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
-        
+
         //busca orgao superior
         $orgaoSup = new Orgaos();
         $this->secretaria = $orgaoSup->codigoOrgaoSuperior($this->orgaoAtivo);
         $this->secretaria = $this->secretaria[0]->Superior;
-        
+
         parent::init(); // chama o init() do pai GenericControllerNew
     }
 
@@ -157,7 +157,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
         /* Perfil de Coordenador de Parecerista / Parecerista  */
         $DistribuirParecerDAO = new Parecer_Model_DbTable_TbDistribuirParecer();
         $atores = $DistribuirParecerDAO->buscarPareceristaCoordParecer($idpronac);
-        
+
         foreach ($atores as $ator) {
             $encaminha[$num]['idAgente'] = $ator->idAgente;
             $encaminha[$num]['nome'] = $ator->Nome;
@@ -166,9 +166,9 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
             $encaminha[$num]['TipoUsuario'] = $ator->Perfil;
             $num++;
         }
-        
+
         /* FIM Perfil de Coordenador de Parecerista / Parecerista  */
-        /* Perfil de componente da comiss�o  */
+        /* Perfil de componente da comissão  */
         $tbTitulacaoConselheiroDAO = new tbTitulacaoConselheiro();
         $sql = $tbTitulacaoConselheiroDAO->buscarTitulacao(true);
         $tbDistribuicaoProjetoComissaoDAO = new tbDistribuicaoProjetoComissao();
@@ -181,7 +181,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
             $encaminha[$num]['perfil'] = '118';
             $num++;
         }
-        /* FIM Perfil de componente da comiss�o  */
+        /* FIM Perfil de componente da comissão  */
         /* Perfil de Acompanhamento Readequa�?o */
         $tbPedidoAlteracaoProjetoDAO = new tbPedidoAlteracaoProjeto();
         $atores = $tbPedidoAlteracaoProjetoDAO->buscarAtoresReadequacao($idpronac, $usu_codigo);
@@ -265,7 +265,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
             $encaminha[$num]['TipoUsuario'] = $ator->Perfil;
             $num++;
         }
-        
+
         /* FIM Perfil de Acompanhamento Fiscalizacao */
 
         /* Perfil de Modulo Presta�?o de Contas */
@@ -314,7 +314,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
     public function consultarmensagemAction()
     {
         $idpronac = $this->_request->getParam('idpronac');
-        
+
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $grupologado = $GrupoAtivo->codGrupo;
         $usuario = new Autenticacao_Model_DbTable_Usuario();
@@ -352,7 +352,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
         /* Perfil de Coordenador e T�cnico de Adminissibilidade  */
         $movimentacaoDAO = new Proposta_Model_DbTable_TbMovimentacao();
         $atores = $movimentacaoDAO->buscarTecCoordAdmissibilidade($idpronac, $usu_codigo);
-        
+
         foreach ($atores as $ator) {
             $encaminha[$num]['idAgente'] = $ator->idAgente;
             $encaminha[$num]['nome'] = $ator->Nome;
@@ -402,7 +402,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
             }
         }
         /* FIM Perfil de Coordenador de Parecerista / Parecerista  */
-        /* Perfil de componente da comiss�o  */
+        /* Perfil de componente da comissão  */
         $tbTitulacaoConselheiroDAO = new tbTitulacaoConselheiro();
         $sql = $tbTitulacaoConselheiroDAO->buscarTitulacao(true);
         $tbDistribuicaoProjetoComissaoDAO = new tbDistribuicaoProjetoComissao();
@@ -415,7 +415,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
             $encaminha[$num]['perfil'] = '118';
             $num++;
         }
-        /* FIM Perfil de componente da comiss�o  */
+        /* FIM Perfil de componente da comissão  */
         /* Perfil de Acompanhamento Readequa�?o */
         $tbPedidoAlteracaoProjetoDAO = new tbPedidoAlteracaoProjeto();
         $atores = $tbPedidoAlteracaoProjetoDAO->buscarAtoresReadequacao($idpronac, $usu_codigo);

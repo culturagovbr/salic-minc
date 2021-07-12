@@ -94,7 +94,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
 
         $fnVerificarProjetoAprovadoIN2017 = new fnVerificarProjetoAprovadoIN2017();
         $this->view->IN2017 = $fnVerificarProjetoAprovadoIN2017->verificar($idpronac);
-        
+
         $this->view->idpronac = $idpronac;
         $this->view->projeto = $buscarPronac;
         //define tipo de planilha a ser utilizada baseado na ultima planilha criada
@@ -151,7 +151,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
 
         $this->view->ResultProduto = $produtos;
         $this->view->enquadramento = RealizarAnaliseProjetoDAO::verificaEnquadramento($idpronac, $tpPlanilha, true);
-        
+
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         $idagente = GerenciarPautaReuniaoDAO::consultaAgenteUsuario($auth->getIdentity()->usu_codigo);
         $idagente = $idagente['idAgente'];
@@ -1049,7 +1049,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
     {
         $this->redirect("/parecer/analise-cnic/emitirparecer");
     }
-    
+
     public function gerarpdfAction()
     {
         $this->_helper->layout->disableLayout();
@@ -1339,7 +1339,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                     }
                 }
             } else {
-                parent::message("N�o existe CNIC aberta no momento. Favor aguardar!", "principal/index", "ERROR");
+                parent::message("Não existe CNIC aberta no momento. Favor aguardar!", "principal/index", "ERROR");
             }
         } // fecha else
     } // fecha Metodo analisedecontaAction()

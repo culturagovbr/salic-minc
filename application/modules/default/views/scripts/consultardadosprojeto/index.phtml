@@ -77,7 +77,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
 
         <table class="tabela">
             <tr class="destacar">
-                <td class="centro"><b>N∫ Proposta</b></td>
+                <td class="centro"><b>NÔøΩ Proposta</b></td>
                 <td class="centro"><b>Data Fixa</b></td>
                 <td class="centro"><b>Processo</b></td>
                 <td class="centro"><b>Prorroga&ccedil;&atilde;o autom&aacute;tica</b></td>
@@ -116,7 +116,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
                 <td class="centro"><b>Dt. In&iacute;cio</b></td>
                 <td class="centro"><b>Dt. Final</b></td>
                 <td class="centro"><b>Tipo de portaria</b></td>
-                <td class="centro"><b>N∫ Portaria</b></td>
+                <td class="centro"><b>NÔøΩ Portaria</b></td>
                 <td class="centro"><b>Dt. Publica&ccedil;&atilde;o</b></td>
             </tr>
             <tr>
@@ -149,8 +149,8 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
                 <td align="center" colspan="5"><b>Informa&ccedil;&otilde;es banc&aacute;rias</b></td>
             </tr>
             <tr class="destacar">
-                <td class="centro" rowspan="2"><b>AgÍncia</b></td>
-                <td class="centro" colspan="2"><b>N˙meros das Contas</b></td>
+                <td class="centro" rowspan="2"><b>AgÔøΩncia</b></td>
+                <td class="centro" colspan="2"><b>NÔøΩmeros das Contas</b></td>
                 <td class="centro" rowspan="2"><b>Conta Liberada</b></td>
                 <td class="centro" rowspan="2"><b>Dt. Libera&ccedil;&atilde;o</b></td>
             </tr>
@@ -186,7 +186,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
         <?php else : ?>
             <table class="tabela">
                 <tr class="destacar">
-                    <td align="center" colspan="4"><b>SituaÁ„o do projeto</b></td>
+                    <td align="center" colspan="4"><b>SituaÔøΩÔøΩo do projeto</b></td>
                 </tr>
                 <tr class="destacar">
                     <td align="center"><b>Dt.Situa&ccedil;&atilde;o</b></td>
@@ -209,7 +209,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
             </tr>
             <tr class="destacar">
                 <td class="left-align"><b>Fase</b></td>
-                <td align="center"><b>Dt. inÌcio</b></td>
+                <td align="center"><b>Dt. IN√çCIO</b></td>
             </tr>
             <tr>
                 <td class="left-align"><?= $this->projeto->FaseProjeto; ?></td>
@@ -237,7 +237,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
             <legend>Valores em R$</legend>
             <table class="tabela">
                 <tr class="destacar">
-                    <td align="center" colspan="5"><b>SolicitaÁ„o da proposta original</b></td>
+                    <td align="center" colspan="5"><b>Solicita√ß√£o da proposta original</b></td>
                 </tr>
                 <tr class="destacar">
                     <td class="right-align"><b>Vl. Solicitado (A)</b></td>
@@ -280,16 +280,16 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
                         <b><?= @number_format(($this->projeto->vlAutorizadoOutrasFontes), 2, ",", "."); ?></b></td>
                     <td class="right-align"><b>
                         <?php if ($this->projeto->vlTotalAutorizado > 0): ?>
-                            <?= "<a 
-                                href='#' 
+                            <?= "<a
+                                href='#'
                                 onclick=\"carregaDados('" . $this->url(
                                 array(
                                     'module' => 'default',
                                     'controller' => 'consultardadosprojeto',
                                     'action' => 'planilha-orcamentaria-aprovada'
-                                )) . "?idPronac=" . $this->idPronac . "','conteudo'); 
-                                    return false\" 
-                                title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> 
+                                )) . "?idPronac=" . $this->idPronac . "','conteudo');
+                                    return false\"
+                                title=\"Ir para Planilha or&ccedil;ament&aacute;ria\">
                                 <font color=\"#0000FF\">" . @number_format(($this->projeto->vlTotalAutorizado), 2, ",", ".") . "</font>
                             </a>"; ?>
                         <?php else : ?>
@@ -301,7 +301,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
 
             <table class="tabela">
                 <tr class="destacar">
-                    <td align="center" colspan="3"><b>Adequado ‡ realidade de execuÁ„o pelo proponente</b></td>
+                    <td align="center" colspan="3"><b>Adequado ÔøΩ realidade de execuÔøΩÔøΩo pelo proponente</b></td>
                 </tr>
                 <tr class="destacar">
                     <td class="right-align"><b>Adequado (G)</b></td>
@@ -311,16 +311,16 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
                 <tr>
                     <td class="right-align"><b>
                             <?php if ($this->projeto->vlAdequadoIncentivo > 0): ?>
-                                <?= "<a 
-                                    href='#' 
+                                <?= "<a
+                                    href='#'
                                     onclick=\"carregaDados('" . $this->url(
                                     array(
                                         'module' => 'default',
                                         'controller' => 'consultardadosprojeto',
                                         'action' => 'planilha-orcamentaria-aprovada'
-                                    )) . "?idPronac=" . $this->idPronac . "','conteudo'); 
-                                        return false\" 
-                                    title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> 
+                                    )) . "?idPronac=" . $this->idPronac . "','conteudo');
+                                        return false\"
+                                    title=\"Ir para Planilha or&ccedil;ament&aacute;ria\">
                                     <font color=\"#0000FF\">" . @number_format(($this->projeto->vlAdequadoIncentivo), 2, ",", ".") . "</font>
                                 </a>"; ?>
                             <?php else : ?>
@@ -347,16 +347,16 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
                 <tr>
                     <td class="right-align"><b>
                             <?php if ($this->projeto->vlHomologadoIncentivo > 0): ?>
-                                <?= "<a 
-                                    href='#' 
+                                <?= "<a
+                                    href='#'
                                     onclick=\"carregaDados('" . $this->url(
                                     array(
                                         'module' => 'default',
                                         'controller' => 'consultardadosprojeto',
                                         'action' => 'planilha-orcamentaria-aprovada'
-                                    )) . "?idPronac=" . $this->idPronac . "','conteudo'); 
-                                        return false\" 
-                                    title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> 
+                                    )) . "?idPronac=" . $this->idPronac . "','conteudo');
+                                        return false\"
+                                    title=\"Ir para Planilha or&ccedil;ament&aacute;ria\">
                                     <font color=\"#0000FF\">" . @number_format(($this->projeto->vlHomologadoIncentivo), 2, ",", ".") . "</font>
                                 </a>"; ?>
                             <?php else : ?>
@@ -383,16 +383,16 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
                 <tr>
                     <td class="right-align"><b>
                             <?php if ($this->projeto->vlReadequadoIncentivo > 0): ?>
-                                <?= "<a 
-                                    href='#' 
+                                <?= "<a
+                                    href='#'
                                     onclick=\"carregaDados('" . $this->url(
                                     array(
                                         'module' => 'default',
                                         'controller' => 'consultardadosprojeto',
                                         'action' => 'planilha-orcamentaria-aprovada'
-                                    )) . "?idPronac=" . $this->idPronac . "','conteudo'); 
-                                        return false\" 
-                                    title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> 
+                                    )) . "?idPronac=" . $this->idPronac . "','conteudo');
+                                        return false\"
+                                    title=\"Ir para Planilha or&ccedil;ament&aacute;ria\">
                                     <font color=\"#0000FF\">" . @number_format(($this->projeto->vlReadequadoIncentivo), 2, ",", ".") . "</font>
                                 </a>"; ?>
                             <?php else : ?>
@@ -462,7 +462,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=" . Seguranca::encrypt($this-
                                         'controller' => 'consultardadosprojeto',
                                         'action' => 'dados-relacao-pagamentos'
                                     )
-                                ) . "?idPronac=" . $this->idPronac . "','conteudo'); return false\" 
+                                ) . "?idPronac=" . $this->idPronac . "','conteudo'); return false\"
                                 title=\"Ir para Rela&ccedil;&atilde;o de Pagamentos\">
                                 <font color=\"#0000FF\">" . @number_format($this->projeto->vlComprovado, 2, ",", ".") . "</font>
                                 </a>" ?>

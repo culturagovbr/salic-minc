@@ -2,7 +2,7 @@ Vue.component('agente-form', {
     template: `
     <form id="formulario" >
         <h4>Novo Fornecedor</h4>
-        <div v-if="css == true " class="erro"> <h6>Os campos com '*' são obrigatorios!</h6></div>
+        <div v-if="css == true " class="erro"> <h6>Os campos com '*' sï¿½o obrigatorios!</h6></div>
         <fieldset>
             <legend>DADOS PRINCIPAIS</legend>
             <div class="row">
@@ -35,7 +35,7 @@ Vue.component('agente-form', {
             </div>
         </fieldset>
         <fieldset>
-            <legend>NOVO ENDERÇO</legend>
+            <legend>NOVO ENDERï¿½O</legend>
             <div class="row">
                 <div class="input-field col s3">
                     <input
@@ -83,7 +83,7 @@ Vue.component('agente-form', {
                 <div class="input-field col s6">
                     <input :class="[Erro.Numero ? 'erro': '']" @input="inputValidacao($event.target.value)" type="text"
                     id="last_name" class="validate" v-model="Numero">
-                    <label :class="[Erro.Numero ? 'erro': '']" for="last_name">Número *</label>
+                    <label :class="[Erro.Numero ? 'erro': '']" for="last_name">Nï¿½mero *</label>
                 </div>
                 <div class="input-field col s6">
                     <input type="text" id="last_name" class="validate" v-model="Complemento">
@@ -129,7 +129,7 @@ Vue.component('agente-form', {
             </div>
             <div class="row">
                 <div class="col s3">
-                    <label :class="[Erro.TipoEndereco ? 'erro': '']">Tipo de Endereço *</label>
+                    <label :class="[Erro.TipoEndereco ? 'erro': '']">Tipo de Endereï¿½o *</label>
                     <select :class="[Erro.TipoEndereco ? 'erro': '']" class="browser-default" v-model="TipoDeEndereco">
                         <option v-for="(endereco, index) in TiposEnderecos" :value="endereco.id" >{{endereco.descricao}}</option>
                     </select>
@@ -140,7 +140,7 @@ Vue.component('agente-form', {
                         <input class="with-gap" type="radio" id="sim" value="1" v-model="Autorizar" />
                         <label for="sim">Sim</label>
                         <input class="with-gap" type="radio" id="nao" value="0" v-model="Autorizar"/>
-                        <label for="nao">Não</label>
+                        <label for="nao">NÃ£o</label>
                     </div>
                 </div>
             </div>
@@ -200,7 +200,7 @@ Vue.component('agente-form', {
     props:['cpfcnpj'],
     mounted: function () {
         this.carregarInfoFornecedores();
-        this.inputCNPJCPF(this.cpfcnpj); 
+        this.inputCNPJCPF(this.cpfcnpj);
 
         if (this.cpfcnpj.length == 11) {
            this.TipoPessoa = "0";
@@ -524,7 +524,7 @@ Vue.component('agente-form', {
                         }
                     });
 
-                } 
+                }
             }
         },
     }

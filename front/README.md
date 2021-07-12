@@ -5,7 +5,7 @@
 `npm install`
 ### Para desenvolvimento
 
-`npm run watch` 
+`npm run watch`
 
 Possui reload automático da página(BrowserSync).
 
@@ -16,7 +16,7 @@ Possui reload automático da página(BrowserSync).
 ## Utilizando Docker para construir a aplica&ccedil;&atilde;o
 
 ```
-  docker run -t --rm --name salic-front-build -v "$PWD":/home/node/app -w /home/node/app node:9 sh -c "npm install --silent && npm run build
+  docker run -t --rm --name salic-front-build -v "$PWD":/home/node/app -w /home/node/app node:9 sh -c "npm install --silent && npm run build"
 ```
 
 ## Guia de estilo
@@ -29,11 +29,11 @@ A estrutura inicial definida é a seguinte:
 ```
 app
 ├── package.json
-├── public 
+├── public
 │   └── dist (gerado no build)
 │        ├── js
 │        └── css
-├── front 
+├── front
 │   ├── README.md
 │   ├── src
 │   │   ├── store.js (arquivo principal do vuex)
@@ -88,10 +88,10 @@ app
 │   │   │   │   │   │     └── PlanilhaProposta.vue (chama os componentes de @/componentes/planilha)
 │   │   │   │   │   └── Index.vue (possui a barra lateral e route view para visualizacao)
 │   │   │   │   ├── store (actions e getters) - apenas se usar o vuex
-│   │   │   │   │   ├── actions.js 
-│   │   │   │   │   ├── getters.js 
-│   │   │   │   │   ├── index.js 
-│   │   │   │   │   ├── mutations.js 
+│   │   │   │   │   ├── actions.js
+│   │   │   │   │   ├── getters.js
+│   │   │   │   │   ├── index.js
+│   │   │   │   │   ├── mutations.js
 │   │   │   │   │   └── types.js
 │   │   │   │   ├── config.js (sync da rota com a store vuex)
 │   │   │   │   ├── index.js
@@ -121,7 +121,7 @@ app
 ## Criando novo módulo
 
 Ao criar um novo módulo você deve:
- 
+
 1 - criar a estrutura de pastas no diretório `src/modules`;
 
 2 - atualizar o arquivo `webpack.base.conf.js` no diretório `build` com informações do novo módulo, conforme exemplo abaixo;

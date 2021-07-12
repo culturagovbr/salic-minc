@@ -64,22 +64,22 @@ if (empty($_GET['acao'])) {
         }
         else if (Tipo == 0 && value.length != 14)
         {
-            $('#erroCpf').html('CPF inválido!');
+            $('#erroCpf').html('CPF invï¿½lido!');
         }
         else if (Tipo == 1 && value.length != 18)
         {
-            $('#erroCpf').html('CNPJ inválido!');
+            $('#erroCpf').html('CNPJ invï¿½lido!');
         }
         else
         {
             $('#erroCpf').html('');
-            // retira as máscaras do cpf/cnpj
+            // retira as mï¿½scaras do cpf/cnpj
             value = value.replace(".","");
             value = value.replace(".","");
             value = value.replace("/","");
             cpf = value.replace("-","");
 
-            // faz a verificação do agente via post
+            // faz a verificaï¿½ï¿½o do agente via post
             $.ajax({
                 type: "POST",
                 dataType: 'json',
@@ -102,7 +102,7 @@ if (empty($_GET['acao'])) {
                     }
                     else if (data[0].msgCPF == 'invalido')
                     {
-                        $('#erroCpf').html('CPF/CNPJ Inválido');
+                        $('#erroCpf').html('CPF/CNPJ Invï¿½lido');
                     }
                     else if (data[0].msgCPF == 'novo')
                     {
@@ -122,7 +122,7 @@ if (empty($_GET['acao'])) {
                 },
                 error: function (data)
                 {
-                    alert("Falha na recuperação dos dados.\nNão foi possível carregar agente!");
+                    alert("Falha na recuperaï¿½ï¿½o dos dados.\nNÃ£o foi possï¿½vel carregar agente!");
                 }
             });
 
@@ -144,7 +144,7 @@ if (empty($_GET['acao'])) {
         {
             if (cep.length != 10)
             {
-                $('#erroCep').html("O CEP informado é inválido!");
+                $('#erroCep').html("O CEP informado ï¿½ invï¿½lido!");
             }
             else
             {
@@ -174,14 +174,14 @@ if (empty($_GET['acao'])) {
                 // divide a string para colocar cada uma em seu campo
                 var s = ajax.responseText;
 
-                if (s == "") // caso os dados retornem vazios ou o cep não exista
+                if (s == "") // caso os dados retornem vazios ou o cep NÃ£o exista
                 {
                     logradouro.value               = " ";
                     tipoLogradouro.options[0].text = " - Selecione - ";
                     bairro.value                   = " ";
                     cidade.options[0].text         = " - Selecione - ";
                     uf.options[0].text             = " -- ";
-                    $('#erroCep').html("O CEP informado é inválido!");
+                    $('#erroCep').html("O CEP informado ï¿½ invï¿½lido!");
                 }
                 else // caso o cep exista
                 {
@@ -217,12 +217,12 @@ if (empty($_GET['acao'])) {
 
 
                     // tipoLogradouro
-                    // seleciona o combo de acordo com a lista existente no formulário
+                    // seleciona o combo de acordo com a lista existente no formulï¿½rio
                     for (i = 0; i < tipoLogradouro.options.length; i++)
                     {
                         if (txtTipoLogradouro == tipoLogradouro.options[i].text)
                         {
-                            // seleciona o ítem igual
+                            // seleciona o ï¿½tem igual
                             tipoLogradouro.options[i].selected = true;
                         }
                     }
@@ -244,12 +244,12 @@ if (empty($_GET['acao'])) {
 
 
                     // uf
-                    // seleciona o combo de acordo com a lista existente no formulário
+                    // seleciona o combo de acordo com a lista existente no formulï¿½rio
                     for (i = 0; i < uf.options.length; i++)
                     {
                         if (txtUF == uf.options[i].text)
                         {
-                            // seleciona o ítem igual
+                            // seleciona o ï¿½tem igual
                             uf.options[i].selected = true;
                         }
                     }
@@ -270,7 +270,7 @@ if (empty($_GET['acao'])) {
                     // preenche o combo com a cidade
                     else
                     {
-                        // deixa apenas um elemento no combo, os outros são excluídos
+                        // deixa apenas um elemento no combo, os outros sï¿½o excluï¿½dos
                         document.getElementById("cidade").options.length = 0;
 
                         // cria um novo option
@@ -287,7 +287,7 @@ if (empty($_GET['acao'])) {
 
         ajax.send(null);
 
-    } // fecha função buscar_cep()
+    } // fecha funï¿½ï¿½o buscar_cep()
 
 
     $(document).ready(function() {
@@ -389,12 +389,12 @@ if (empty($_GET['acao'])) {
                 </tr>
             </table>
 
-            <!-- ========== INÍCIO LISTA DE ÁREA ABERTA DE ACORDO COM A VISÃO ========== -->
+            <!-- ========== INÃCIO LISTA DE ï¿½REA ABERTA DE ACORDO COM A VISï¿½O ========== -->
             <div id="visaocomponente" class="sumir">
 
                 <table id="tbvisaocomponente"  class="tabela sumir">
                     <tr class="titulo_tabela">
-                        <th colspan="4">LISTA DE ÁREA</th>
+                        <th colspan="4">LISTA DE ï¿½REA</th>
                     </tr>
                     <tr>
                         <td colspan="4" align="center">
@@ -407,8 +407,8 @@ if (empty($_GET['acao'])) {
                     </tr>
                     <tr>
                         <td colspan="2" valign="top">
-                            <label for="areaCultural">Área Cultural *</label>
-                            <select name="areaCultural" id="areaCultural" onchange="carregar_combo(this.value, 'segmentoCultural', '<?php echo $this->url(array('controller' => 'segmentocultural', 'action' => 'combo')); ?>', ' - Selecione uma Área Cultural - '), buscarareasegmento();" class="input_simples" style="width: 200px;">
+                            <label for="areaCultural">ï¿½rea Cultural *</label>
+                            <select name="areaCultural" id="areaCultural" onchange="carregar_combo(this.value, 'segmentoCultural', '<?php echo $this->url(array('controller' => 'segmentocultural', 'action' => 'combo')); ?>', ' - Selecione uma ï¿½rea Cultural - '), buscarareasegmento();" class="input_simples" style="width: 200px;">
 
                                 <?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
                                     <option value="0"> - Selecione - </option>
@@ -434,7 +434,7 @@ if (empty($_GET['acao'])) {
                             <select name="segmentoCultural" id="segmentoCultural" onchange="buscarareasegmento();" class="input_simples" style="width: 200px;">
 
                                 <?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
-                                    <option value="0"> - Selecione uma Área Cultural - </option>
+                                    <option value="0"> - Selecione uma ï¿½rea Cultural - </option>
                                 <?php } else { ?>
 
                                     <?php if (!isset($this->segmentoCultural) || empty($this->segmentoCultural)) { ?>
@@ -456,11 +456,11 @@ if (empty($_GET['acao'])) {
 
                 </table>
             </div>
-            <!-- ========== FIM LISTA DE ÁREA ABERTA DE ACORDO COM A VISÃO ========== -->
+            <!-- ========== FIM LISTA DE ï¿½REA ABERTA DE ACORDO COM A VISï¿½O ========== -->
 
 
 
-            <!-- ========== INÍCIO FORMULÁRIO ENDERECO ========== -->
+            <!-- ========== INÃCIO FORMULï¿½RIO ENDERECO ========== -->
             <table id="tabEndereco" class="tabela">
                 <tr>
                     <th colspan="3">Novo Endere&ccedil;o</th>
@@ -582,7 +582,7 @@ if (empty($_GET['acao'])) {
                 </tr>
             </table>
 
-            <!-- ========== FIM FORMULÁRIO ENDERECO ========== -->
+            <!-- ========== FIM FORMULï¿½RIO ENDERECO ========== -->
 
             <table class="tabela">
                 <tr>
