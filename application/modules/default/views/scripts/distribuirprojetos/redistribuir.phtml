@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright ? 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ? 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -41,10 +41,10 @@
 include_once 'scripts/distribuirprojetos/inc/menu.inc.php';
 //}
 ?>
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para P·gina Inicial">InÌcio</a></li>
+        <li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p√°gina Inicial">IN√çCIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'distribuirprojeto', 'action' => ''), '', true); ?>" title="Ir para Distribuir Projeto">Distribuir Projeto</a></li>
         <li class="last">Redistribuir Projeto</li>
     </ul>
@@ -55,9 +55,9 @@ include_once 'scripts/distribuirprojetos/inc/menu.inc.php';
 
 <!-- ========== BUTTON VOLTAR ========== -->
 <div id="titulo">
-    <div>Redistribuir projetos <span class="voltar"><a href="javascript:voltar();" title="P·gina inicial">Voltar</a></span></div>
+    <div>Redistribuir projetos <span class="voltar"><a href="javascript:voltar();" title="p√°gina inicial">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 <!-- ========== GRID NOME DA PROPOSTA ========== -->
@@ -106,11 +106,11 @@ include_once 'scripts/distribuirprojetos/inc/menu.inc.php';
                     // Define as regras
                     rules:{
                         idEdital:{
-                            // idEdital ser· obrigatÛrio (required) e ter· tamanho mÌnimo (minLength)
+                            // idEdital ser√° obrigatÔøΩrio (required) e terÔøΩ tamanho mÔøΩnimo (minLength)
                             required: true
                         },
                         idAvaliador:{
-                            // Avaliadores ser· obrigatÛrio (required) e precisar· ser um e-mail v·lido (email)
+                            // Avaliadores ser√° obrigatÔøΩrio (required) e precisarÔøΩ ser um e-mail vÔøΩlido (email)
                             required: true
                         }
 
@@ -118,11 +118,11 @@ include_once 'scripts/distribuirprojetos/inc/menu.inc.php';
                     // Define as mensagens de erro para cada regra
                     messages:{
                         idEdital:{
-                            required: "<br>Dados obrigatÛrios n&atilde;o informados"
+                            required: "<br>Dados obrigatÔøΩrios n&atilde;o informados"
 
                         },
                         idAvaliador:{
-                            required: "<br>Dados obrigatÛrios n&atilde;o informados"
+                            required: "<br>Dados obrigatÔøΩrios n&atilde;o informados"
 
                         }
                     }
@@ -138,7 +138,7 @@ include_once 'scripts/distribuirprojetos/inc/menu.inc.php';
                         height:220,
                         modal: true,
                         buttons : {
-                            'N„o' : function(){
+                            'N√£o' : function(){
                                 $(this).dialog('close');
                             },
                             'Sim' : function(){
@@ -347,7 +347,7 @@ include_once 'scripts/distribuirprojetos/inc/menu.inc.php';
 
 
 
-<!-- in?≠cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- in?ÔøΩcio: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

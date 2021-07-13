@@ -47,9 +47,9 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
         if (empty($urlCallback)) {
             $urlCallback = "readequacao/readequacoes/index?idPronac=" . $this->idPronacHash;
         }
-        
+
         if ($this->_existeSolicitacaoEmAnalise) {
-            parent::message('Já existe uma solicita&ccedil;ao de readequa&ccedil;&atilde;o em an&aacute;lise!', $urlCallback, "ERROR");
+            parent::message('Jï¿½ existe uma solicita&ccedil;ao de readequa&ccedil;&atilde;o em an&aacute;lise!', $urlCallback, "ERROR");
         }
 
 
@@ -147,12 +147,12 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
     }
 
     /*
-     * Essa função é usada para carregar os dados do locais de realização do projeto.
+     * Essa funï¿½ï¿½o ï¿½ usada para carregar os dados do locais de realizaï¿½ï¿½o do projeto.
      */
     public function carregarLocaisDeRealizacaoAction()
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessï¿½o com o grupo ativo
         $this->view->idPerfil = $GrupoAtivo->codGrupo;
 
         if (isset($_POST['iduf'])) {
@@ -203,12 +203,12 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
     }
 
     /*
-     * Essa função é usada para carregar os dados do locais de realização do projeto.
+     * Essa funï¿½ï¿½o ï¿½ usada para carregar os dados do locais de realizaï¿½ï¿½o do projeto.
      */
     public function carregarLocaisDeRealizacaoReadequacoesAction()
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessï¿½o com o grupo ativo
         $this->view->idPerfil = $GrupoAtivo->codGrupo;
 
         $idPronac = $this->_request->getParam("idPronac");
@@ -253,7 +253,7 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
             $idPronac = Seguranca::dencrypt($idPronac);
         }
 
-        //VERIFICA SE JA POSSUI AS ABRANGENCIAS NA TABELA tbAbrangencia (READEQUACAO), SE NÃO TIVER, COPIA DA ORIGINAL, E DEPOIS INCLUI O ITEM DESEJADO.
+        //VERIFICA SE JA POSSUI AS ABRANGENCIAS NA TABELA tbAbrangencia (READEQUACAO), SE NÃ£o TIVER, COPIA DA ORIGINAL, E DEPOIS INCLUI O ITEM DESEJADO.
         $tbAbrangencia = new Readequacao_Model_DbTable_TbAbrangencia();
         $readequacaoLR = $tbAbrangencia->buscar(array('idPronac=?'=>$idPronac, 'stAtivo=?'=>'S'));
         $locaisAtivos = $tbAbrangencia->buscarLocaisParaReadequacao($idPronac);
@@ -274,7 +274,7 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
 
         if ($_POST['newPaisLR'] == 31) {
             if (empty($_POST['newUFLR']) && empty($_POST['newMunicipioLR'])) {
-                $msg = utf8_encode('Ao escolher o Brasil, os campos de UF e Município se tornam obrigatórios no cadastro!');
+                $msg = utf8_encode('Ao escolher o Brasil, os campos de UF e Municï¿½pio se tornam obrigatï¿½rios no cadastro!');
                 $this->_helper->json(array('resposta'=>false, 'msg'=>$msg));
                 $this->_helper->viewRenderer->setNoRender(true);
             }
@@ -284,7 +284,7 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
         }
 
         if (count($verificaLocalRepetido)==0) {
-            /* DADOS DO ITEM PARA INCLUSÃO DA READEQUAÇÃO */
+            /* DADOS DO ITEM PARA INCLUSï¿½O DA READEQUAï¿½ï¿½O */
             $dadosInclusao = array();
             $dadosInclusao['idReadequacao'] = null;
             $dadosInclusao['idPais'] = $_POST['newPaisLR'];
@@ -301,14 +301,14 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
                 $this->_helper->json(array('resposta'=>false));
             }
         } else {
-            $msg = utf8_encode('Esse local de realização já foi cadastrado!');
+            $msg = utf8_encode('Esse local de realizaï¿½ï¿½o jï¿½ foi cadastrado!');
             $this->_helper->json(array('resposta'=>false, 'msg'=>$msg));
         }
         $this->_helper->viewRenderer->setNoRender(true);
     }
 
     /*
-     * Esse função é usada pelo proponente para solicitar a exclusão de um local de realização.
+     * Esse funï¿½ï¿½o ï¿½ usada pelo proponente para solicitar a exclusï¿½o de um local de realizaï¿½ï¿½o.
      */
     public function excluirLocalDeRealizacaoAction()
     {
@@ -322,7 +322,7 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
         $tbAbrangencia = new Readequacao_Model_DbTable_TbAbrangencia();
         $readequacaoLR = $tbAbrangencia->buscar(array('idPronac=?'=>$idPronac, 'stAtivo=?'=>'S'));
 
-        //VERIFICA SE JA POSSUI AS ABRANGENCIAS NA TABELA tbAbrangencia (READEQUACAO), SE NÃO TIVER, COPIA DA ORIGINAL, E DEPOIS INCLUI O ITEM DESEJADO.
+        //VERIFICA SE JA POSSUI AS ABRANGENCIAS NA TABELA tbAbrangencia (READEQUACAO), SE NÃ£o TIVER, COPIA DA ORIGINAL, E DEPOIS INCLUI O ITEM DESEJADO.
         $locaisAtivos = $tbAbrangencia->buscarLocaisParaReadequacao($idPronac);
         if (count($readequacaoLR)==0) {
             $locaisCopiados = array();
@@ -338,7 +338,7 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
             }
         }
 
-        /* DADOS DO ITEM PARA EXCLUSAO LÓGICA DO ITEM DA READEQUACAO */
+        /* DADOS DO ITEM PARA EXCLUSAO Lï¿½GICA DO ITEM DA READEQUACAO */
         $dados = array();
         $dados['tpSolicitacao'] = 'E';
 

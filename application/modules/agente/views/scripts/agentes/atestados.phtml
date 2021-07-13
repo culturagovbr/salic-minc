@@ -2,12 +2,12 @@
     <?php echo $this->partial('agentes/inc/menu.inc.php', $this) ?>
     <div class="col s12 m10 l10">
 
-        <!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
                 <li class="first"><a
                         href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'), '', true); ?>"
-                        title="Ir para InÌcio">InÌcio</a></li>
+                        title="Ir para IN√çCIO">IN√çCIO</a></li>
                 <li>Manter Agentes</li>
                 <li class="last">Principal</li>
             </ul>
@@ -15,14 +15,14 @@
         <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-        <!-- ========== INÕCIO TÕTULO ========== -->
+        <!-- ========== IN√çCIO TÔøΩTULO ========== -->
         <div id="titulo">
             <div>Atestados do Parecerista <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
         </div>
-        <!-- ========== FIM TÕTULO ========== -->
+        <!-- ========== FIM TÔøΩTULO ========== -->
 
 
-        <!-- ========== INÕCIO CONTE⁄DO ========== -->
+        <!-- ========== IN√çCIO CONTE√öDO ========== -->
         <div id="conteudo">
             <?php echo $this->partial('agentes/inc/cabecalho.php', $this) ?>
             <?php if (($this->grupoativo == "94")) { ?>
@@ -38,12 +38,12 @@
 
                 <center>
                     <div id="impactosim" class="msgALERT sumir" style="width: 96%;">
-                        <div style="float: left;">Todos os projetos dentro deste prazo ser„o retirados de sua
-                            responsabilidade e vocÍ n„o receber· por eles!
+                        <div style="float: left;">Todos os projetos dentro deste prazo ser√°o retirados de sua
+                            responsabilidade e vocÔøΩ N√£o receberÔøΩ por eles!
                         </div>
                     </div>
                     <div id="impactonao" class="msgALERT" style="width: 96%;">
-                        <div style="float: left;">VocÍ continuar· com os projetos se comprometer a entregar no dia!
+                        <div style="float: left;">VocÔøΩ continuarÔøΩ com os projetos se comprometer a entregar no dia!
                         </div>
                     </div>
                 </center>
@@ -54,7 +54,7 @@
                     <input type="hidden" value="<?php echo date('d/m/Y'); ?>" id="dtatual" name="dtatual"/>
                     <table class="tabela">
                         <tr>
-                            <th colspan="4">ATESTADO M…DICO</th>
+                            <th colspan="4">ATESTADO MÔøΩDICO</th>
                         </tr>
                         <tr>
                             <td colspan="4">
@@ -68,11 +68,11 @@
                                        checked="checked"
                                        style="background: none; border: 0%; float:none; clear:auto; display:inline;"
                                        onclick="msgImpacto('nao');"/>
-                                <label for="impactoN">N„o</label>
+                                <label for="impactoN">N√£o</label>
                             </td>
                         </tr>
                         <tr>
-                            <td width="200"><span style="color: red; font-weight: bold;">*</span> Data saÌda:</td>
+                            <td width="200"><span style="color: red; font-weight: bold;">*</span> Data saÔøΩda:</td>
                             <td width="300"><input type="text" name="dtinicio" id="dtinicio" class="input_simples w100"
                                                    maxlength="10" value="" onkeyup="mascara(this, format_data);"
                                                    onclick="limpar_campo(this, '');"></td>
@@ -99,7 +99,7 @@
             <?php if (count($this->atestados) != 0) { ?>
                 <table class="tabela" id="salvos">
                     <tr>
-                        <th colspan="5">Atestados mÈdicos cadastrados</th>
+                        <th colspan="5">Atestados mÔøΩdicos cadastrados</th>
                     </tr>
                     <tr>
                         <td width="130" align="center"><b>Dias de atestado</b></td>
@@ -113,7 +113,7 @@
                             <td align="center"><?php echo $at->qtddias; ?></td>
                             <td align="center"><?php echo $at->dtinicio; ?></td>
                             <td align="center"><?php echo $at->dtfim; ?></td>
-                            <td align="center"><?php echo $at->stImpacto == 1 ? 'SIM' : 'N√O'; ?></td>
+                            <td align="center"><?php echo $at->stImpacto == 1 ? 'SIM' : 'N√£o'; ?></td>
                             <td>
                                 <a href="<?php echo $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'abrirarquivo'), '', true); ?>?id=<?php echo $at->idArquivo; ?>"><?php echo $at->nmArquivo; ?></a>
                             </td>
@@ -128,7 +128,7 @@
                 </table>
             <?php } ?>
         </div>
-        <!-- ========== FIM CONTE⁄DO ========== -->
+        <!-- ========== FIM CONTE√öDO ========== -->
 
     </div>
 </div>
@@ -185,10 +185,10 @@
             alertar('A data final deve ser maior que a data inicial!');
             return false;
         } else if (dtinicio < dtAtual) {
-            alertar('O perÌodo n„o pode ser inferior a data de hoje!');
+            alertar('O perÔøΩodo N√£o pode ser inferior a data de hoje!');
             return false;
         } else if ((arquivo == '')) {
-            alertar("Dados obrigatÛrios n„o preenchidos!");
+            alertar("Dados obrigatÔøΩrios N√£o preenchidos!");
         } else {
             $("#form").submit();
         }

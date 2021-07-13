@@ -29,7 +29,7 @@
                     </tr>
                 </table>
 
-                <br /><label for="solicitacao">Solicitação:</label><br />
+                <br /><label for="solicitacao">SolicitaÃ§Ã£o:</label><br />
                 <textarea name="solicitacao" id="solicitacao" rows="6" class="input_simples" cols="170" style="width:100%;"></textarea>
 
                 <input type="hidden" name="IdPronac" value="<?php echo $dados->IdPRONAC; ?>" />
@@ -43,12 +43,12 @@
         <!-- FIM DO MODAL DILIGENCIAR -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <form name="formfinalizar"  id="formfinalizar" action="<?php echo $this->url(array('controller' => 'verificarreadequacaodeprojeto', 'action' => 'finalizaproppedag')); ?>" method="post" >
 <div id="titulo">
-    <div>READEQUAÇÃO: PROPOSTA PEDAGÓGICA
+    <div>READEQUAï¿½ï¿½O: PROPOSTA PEDAGï¿½GICA
         <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
-    
+
         <?php foreach ($this->dados as $dados): ?>
 		<?php $dados = (object) $dados; ?>
         <span style="vertical-align: middle;">
@@ -57,12 +57,12 @@
                 $dados = (object) $dados;
                 if ($dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stProposta('.$this->dados[0]['idAvaliacao']. ','. $this->dados[0]['IdPRONAC']. ',this)">';
-                    echo "<option value='0' selected='selected'>Aguardando Análise</option>
-                          <option value='1'>Em Análise</option>";
+                    echo "<option value='0' selected='selected'>Aguardando AnÃ¡lise</option>
+                          <option value='1'>Em AnÃ¡lise</option>";
                     echo '</select>';
                 } else if ($dados->stAvaliacaoItemPedidoAlteracao == "EA") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar()">';
-                    echo "<option value='1' selected='selected'>Em Análise</option>
+                    echo "<option value='1' selected='selected'>Em AnÃ¡lise</option>
                           <option value='2'>Aprovado</option>
                           <option value='3'>Indeferido</option>";
                     echo '</select>';
@@ -76,7 +76,7 @@
         {
             if( $("#editor1").val() == '' && $("#editor2").val() == ''){
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('Favor preencher os campos relacionados a Análise da Proposta de Readequaç&atilde;o.');
+                    $('#mostra').html('Favor preencher os campos relacionados a AnÃ¡lise da Proposta de Readequaï¿½&atilde;o.');
                     $("#mostra").dialog
                     ({
                         height: 180,
@@ -98,7 +98,7 @@
                 } else {
 
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('O projeto será finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
+                    $('#mostra').html('O projeto serÃ¡ finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
                     $("#mostra").dialog
                     ({
                         height: 220,
@@ -108,7 +108,7 @@
                         resizable: false,
                         closeOnEscape: false,
                         buttons: {
-                            'Não': function()
+                            'NÃ£o': function()
                             {
                                 document.getElementById('status').options[0].selected = true;
                                 $(this).dialog('close');
@@ -124,19 +124,19 @@
             }
         }
     </script>
-    
+
     </div>
-    <!-- ========== FIM TÍTULO ========== -->
+    <!-- ========== FIM Tï¿½TULO ========== -->
 
     <div id="conteudo">
         <script type='text/javascript' src='<?php echo $this->baseUrl(); ?>/public/js/projetosGerenciar.js'></script>
 
 
-        
+
        <table class="tabela">
                 <thead>
                     <tr>
-                        <th align="center">Nº PRONAC:</th>
+                        <th align="center">Nï¿½ PRONAC:</th>
                         <th align="center">Nome do Projeto:</th>
                     </tr>
                 </thead>
@@ -163,34 +163,34 @@
                 <th colspan="2">CURSOS APROVADOS</th>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">ESPECIFICAÇÃO TÉCNICA</td>
+                <td colspan="2" class="destacar bold">ESPECIFICAï¿½ï¿½O TÃ©cnica</td>
             </tr>
             <tr>
-                <td colspan="2"><center><textarea name="especificacaoAprovada" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo empty($dados->EspecificacaoTecnica) ? strip_tags("Não Aplicável") : strip_tags($dados->EspecificacaoTecnica); ?></textarea></center></td>
+                <td colspan="2"><center><textarea name="especificacaoAprovada" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo empty($dados->EspecificacaoTecnica) ? strip_tags("NÃ£o Aplicï¿½vel") : strip_tags($dados->EspecificacaoTecnica); ?></textarea></center></td>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">ESTRATÉGIA DE EXECUÇÃO</td>
+                <td colspan="2" class="destacar bold">ESTRATï¿½GIA DE EXECUï¿½ï¿½O</td>
             </tr>
             <tr>
-                <td colspan="2"><center><textarea name="estrategiaAprovada" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo empty($dados->EstrategiadeExecucao) ? strip_tags("Não Aplicável") : strip_tags($dados->EstrategiadeExecucao); ?></textarea></center></td>
+                <td colspan="2"><center><textarea name="estrategiaAprovada" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo empty($dados->EstrategiadeExecucao) ? strip_tags("NÃ£o Aplicï¿½vel") : strip_tags($dados->EstrategiadeExecucao); ?></textarea></center></td>
             </tr>
             <tr>
                 <th colspan="2">SOLICITADO PELO PROPONENTE</th>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">NOVA ESPECIFICAÇÃO TÉCNICA</td>
+                <td colspan="2" class="destacar bold">NOVA ESPECIFICAï¿½ï¿½O TÃ©cnica</td>
             </tr>
             <tr>
                 <td colspan="2"><center><textarea name="especificacaoSolicitada" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo strip_tags($dados->dsEspecificacaoTecnica); ?></textarea></center></td>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">NOVA ESTRATÉGIA DE EXECUÇÃO</td>
+                <td colspan="2" class="destacar bold">NOVA ESTRATï¿½GIA DE EXECUï¿½ï¿½O</td>
             </tr>
             <tr>
                 <td colspan="2"><center><textarea name="estrategiaSolicitada" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo strip_tags($dados->dsEstrategiaExecucao); ?></textarea></center></td>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">JUSTIFICATIVA DA SOLICITAÇÃO DE ALTERAÇÃO</td>
+                <td colspan="2" class="destacar bold">JUSTIFICATIVA DA SolicitaÃ§Ã£o DE ALTERAï¿½ï¿½O</td>
             </tr>
             <tr>
                 <td colspan="2"><center><textarea name="justificativaProponente" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo strip_tags($dados->dsJustificativa); ?></textarea></center></td>
@@ -199,10 +199,10 @@
 
             <?php if ($dados->stAvaliacaoItemPedidoAlteracao != "AG") { ?>
             <tr>
-                <th colspan="2">ANÁLISE DA PROPOSTA DE READEQUAÇÃO</th>
+                <th colspan="2">AnÃ¡lise DA PROPOSTA DE READEQUAï¿½ï¿½O</th>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">ANÁLISE TÉCNICA DA SOLICITAÇÃO</td>
+                <td colspan="2" class="destacar bold">AnÃ¡lise TÃ©cnica DA SolicitaÃ§Ã£o</td>
             </tr>
             <tr>
                 <td colspan="2"><center><textarea name="justificativaTecnico" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100"></textarea></center></td>
@@ -224,7 +224,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">ANÁLISE DA ESPECIFICAÇÃO TÉCNICA</td>
+                <td colspan="2" class="destacar bold">AnÃ¡lise DA ESPECIFICAï¿½ï¿½O TÃ©cnica</td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -269,21 +269,21 @@
 
 <?php } else { ?>
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>READEQUAÇÃO: PROPOSTA PEDAGÓGICA
+    <div>READEQUAï¿½ï¿½O: PROPOSTA PEDAGï¿½GICA
         <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
     </div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 <div id="conteudo">
     <div style="float: left; margin-right: 15px; padding: 25px; font-size: 16px; color: red;">N&atilde;o foi encontrado os dados da readequa&ccedil;&atilde;o!</div>
 </div>
 
 <?php } ?>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

@@ -190,12 +190,12 @@
                 </tr>
                 <?php foreach ($this->itensVinculados as $itensVinculados) { ?>
                 <tr>
-                    <td><?php echo $itensVinculados->dsProduto ? $itensVinculados->dsProduto : 'Administração do Projeto'; ?></td>
+                    <td><?php echo $itensVinculados->dsProduto ? $itensVinculados->dsProduto : 'Administraï¿½ï¿½o do Projeto'; ?></td>
                     <td><?php echo $itensVinculados->dsEtapa; ?></td>
                     <td><?php echo $itensVinculados->dsItem; ?></td>
                     <td>
-                        <span class="btnExcluirItem" idlicitacao="<?php echo $itensVinculados->idLicitacao; ?>" 
-                            idetapa="<?php echo $itensVinculados->idEtapa; ?>" 
+                        <span class="btnExcluirItem" idlicitacao="<?php echo $itensVinculados->idLicitacao; ?>"
+                            idetapa="<?php echo $itensVinculados->idEtapa; ?>"
                             idItem="<?php echo $itensVinculados->idPlanilhaAprovacao; ?>" idpronac="<?php echo $this->idpronac; ?>">
                             <center><img border="0" src="<?php echo $this->baseUrl(); ?>/public/img/buttons/excluir.gif" title="Excluir" style="cursor: pointer;"></center>
                         </span>
@@ -237,14 +237,14 @@
                     </td>
                 </tr>
             </table>
-            
+
             <div style="text-align: center; margin: 8px;">
                 <a href="<?php  echo $SalvarFornecedorHref;?>" padrao="false" id="btIncluir" >
                     <img border="0" title="Incluir" src="<?php echo $this->baseUrl(); ?>/public/img/buttons/incluir.gif" style="cursor: pointer"/>
                 </a>
             </div>
         </form>
-        
+
         <table id="tbFornecedores" style="text-align: left; margin-left: auto; margin-right: auto;" class="tabela <?php if($verificacao) echo 'displayNone';?>">
             <tr>
                 <td class="destacar bold" align="center">Vencedor</td>
@@ -264,13 +264,13 @@
                     <?php echo $fornecedor->Descricao;?>
                 </td>
                 <td class="centro">
-                    <a class="linkFornecedor" href="<?php echo $ExcluirFornecedorHref; ?>" 
+                    <a class="linkFornecedor" href="<?php echo $ExcluirFornecedorHref; ?>"
                         idAgente="<?php echo $fornecedor->idAgente; ?>" padrao="false" complemento="trFornecedor">
                         <img border="0" title="Excluir" src="<?php echo $this->baseUrl(); ?>/public/img/buttons/excluir.gif">
                     </a>
                 </td>
             </tr>
-            <?php 
+            <?php
             }
             if(!count($this->fornecedores)) {
             ?>
@@ -286,9 +286,9 @@
 
 <iframe id="anexarArquivo" name="anexarArquivo" src="#" style="width: 300px;height: 300px;display: none;"></iframe>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />
 
 <div id="msgAlerta" class="sumir"></div>
@@ -321,7 +321,7 @@
                 height:160,
                 modal: true,
                 buttons : {
-                    'Não' : function(){
+                    'NÃ£o' : function(){
                         $("#msgConfirm").dialog('close');
                     },
                     'Sim' : function(){
@@ -336,7 +336,7 @@
                             success: function(dados) {
                                 obj.parent().parent().remove();
                                 $("#msgAlerta").dialog("destroy");
-                                $("#msgAlerta").html("Excluído com sucesso!");
+                                $("#msgAlerta").html("Excluï¿½do com sucesso!");
                                 $("#msgAlerta").dialog({
                                     resizable: false,
                                     title: 'Alerta!',
@@ -369,17 +369,17 @@
                 acaoLink(this);
                 return false;
             }
-        });        
+        });
 
         //carregarPgHtml('<?php echo $carregarSelectHref;?>','#produto',{tpSelect:'produto',idpronac:'<?php //echo $this->idpronac?>'});
-        
+
         var idProduto = carregarSelect('<?php echo $carregarSelectHref;?>','#produto',{tpSelect:'produto',idpronac:'<?php echo $this->idpronac?>'},'Selecione');
         if(idProduto != undefined){
             var idEtapa = carregarSelect('<?php echo $carregarSelectHref;?>','#etapa',{tpSelect:'etapa',idpronac:'<?php echo $this->idpronac?>',idProduto:idProduto},'Selecione');
             if(idEtapa != undefined){
                 carregarSelect('<?php echo $carregarSelectHref;?>','#itens',{tpSelect:'itens',idpronac:'<?php echo $this->idpronac?>',idProduto:idProduto,idEtapa:idEtapa},'Selecione');
                 buscarDadosItens();
-            }  
+            }
         }
 
         $('#produto').change(function (){
@@ -421,18 +421,18 @@
             }
         });
         $('#<?php echo $corpo;?> #salvar').click(function(){
-        
+
             if(validarFormulario('#formularioLicitacao',ag1)){
                 $('#formularioLicitacao').submit();
             }
         });
-        
-        
+
+
         $('#<?php echo $corpo;?> .btn_cancelar').click(function(){
             voltar();
         });
-        
-        
+
+
         $('#<?php echo $corpo;?> #btIncluir').click(function(){
             var dados = $('#formfornecedores').serialize();
             dados+= '&idlicitacao='+$('#<?php echo $corpo;?> #<?php echo $idNome;?>').val();

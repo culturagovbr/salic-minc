@@ -29,7 +29,7 @@ class AvaliacaoResultados_DashboardController extends MinC_Controller_Rest_Abstr
 
         $this->renderJsonResponse(
             [
-                'Em Analise' =>
+                'Em Análise' =>
                 [
                     'valor' => $emAndamento->toArray()['quantidade'],
                     'url'=>'#/painel/aba-em-analise'

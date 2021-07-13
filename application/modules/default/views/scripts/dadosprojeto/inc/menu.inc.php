@@ -1,4 +1,4 @@
-<!-- ========== IN�CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     var votacao = window.setInterval(
@@ -38,7 +38,7 @@
                                                 }
                                             }
                                         });
-                                        $("#alertar").html('Em 15 Minutos a Plen�ria ser� iniciada. Favor encerrar as suas atividades!');
+                                        $("#alertar").html('Em 15 Minutos a Plen�ria será iniciada. Favor encerrar as suas atividades!');
                                         $("#alertar").dialog('open');
                                         $('#cronometro').css('display','');
                                         $("#minu").html(valor[0]);
@@ -181,10 +181,10 @@
 
 
 
-    <!-- in�cio: conte�do principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
 
-        <!-- in�cio: navega��o local #qm0 -->
+        <!-- INÍCIO: navega��o local #qm0 -->
 
         <?php
         $getPronac = $this->idpronac;
@@ -202,12 +202,12 @@
             <div class="bottom">
             </div>
             <div id="cronometro" style="background: #f8f8f8; display: none; font-size: 1.8em; padding-top: 2em; text-align: center; color: red; font-weight: 800; padding-left: 0.3em;" >
-                In�cio da Plen�ria em <br/><br/> <span id="minu"></span>' : <span id="seg" ></span>"
+                INÍCIO da Plen�ria em <br/><br/> <span id="minu"></span>' : <span id="seg" ></span>"
             </div>
             <div id="space_menu">
             </div>
         </div>
-        <div id="iniciareuniao" class="sumir">Plen�ria Iniciada. Voc� ser� redirecionado</div>
+        <div id="iniciareuniao" class="sumir">Plen�ria Iniciada. Voc� será redirecionado</div>
 
         <script type="text/javascript">
 

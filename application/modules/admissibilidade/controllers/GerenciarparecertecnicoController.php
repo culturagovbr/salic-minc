@@ -21,7 +21,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -38,7 +38,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $PermissoesGrupo[] = 122; // Coordenador de Acompanhamento
             $PermissoesGrupo[] = 103;
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -49,7 +49,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
         } // fecha if
-        else { // caso o usu�rio n�o esteja autenticado
+        else { // caso o usu�rio Não esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -69,17 +69,17 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
         //$idorgao = $auth->getIdentity()->usu_orgao;
-            
+
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
             //$codGrupo = $GrupoAtivo->codGrupo; //  Grupo ativo na sess�o
             $codOrgao = $GrupoAtivo->codOrgao; //  �rg�o ativo na sess�o
-            
+
             $this->view->codOrgao = $codOrgao;
         $this->view->idUsuarioLogado = $idusuario;
         //$this->view->idorgao = $idorgao;
             /******************************************************************/
     }
-    
+
     public function parecertecnicoAction()
     {
     }
@@ -103,12 +103,12 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                 $listaparecer = $parecer->listar_parecer($arrBusca);
                 $this->view->parecer = $listaparecer;
             } else {
-                parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+                parent::message("PRONAC Não localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
             }
         }
     }
-  
-    
+
+
     public function imprimiretiquetaAction()
     {
         $pronac = null;
@@ -139,7 +139,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             }
         }
     }
-    
+
     public function dadosetiquetaAction()
     {
         //ini_set('max_execution_time', 500);
@@ -226,7 +226,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $rst = $projetosDAO->buscarDadosUC75($idPronac);
             $this->view->projeto = $rst[0];
 
-            //UNIDADES DE AN�LISE
+            //UNIDADES DE Análise
             $vwProjetoDistribuidoVinculada = new vwProjetoDistribuidoVinculada();
             $this->view->unidadesAnalise = $vwProjetoDistribuidoVinculada->buscarUnidades(array('Pronac = ?'=>$pronac), array('Produto','DescricaoAnalise'));
 
@@ -327,7 +327,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                 $this->view->respostas = $arrRespostas;
             }
         }
-        
+
         if (isset($_POST['html']) && isset($_POST['pronac'])&& isset($_POST['caminho'])) {
             ini_set('max_execution_time', 500);
             $this->_helper->layout->disableLayout();
@@ -360,28 +360,28 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             echo $pdf->gerarRelatorio();*/
         }
     }
-    
+
     public function gerarcodigodebarrasAction()
     {
         //$this->_helper->layout->disableLayout();
-        
+
         $pronac = $_GET['pronac'];
         $barcodeOptions = array('text' => $pronac);
         $rendererOptions = array();
 
-   
+
         $codigo = Zend_Barcode::factory(
                 'code39',
-   
+
              'image',
-   
+
              $barcodeOptions,
-   
+
              $rendererOptions
             )->draw();
         copy($codigo, 'D:/imagem');
     }
-    
+
     public function imprimirparecertecnicoAction()
     {
         if (isset($_POST['vpronac'])) {
@@ -393,12 +393,12 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                 $this->redirect('/admissibilidade/gerenciarparecertecnico/dadoshtml?pronac='.$pronac);
             }
         }
-        
-         
+
+
 //     	echo $_POST['html'];
 //      die();
     }
-    
+
     public function dadoshtmlAction()
     {
         if (isset($_GET['pronac'])) {
@@ -406,7 +406,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
 
             $parecer = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::ParecerTecnico($pronac);
             $this->view->ParecerTecnico = $parecer;
-            
+
             $analise = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::AnaliseConteudo($pronac);
             $this->view->AnaliseConteudo = $analise;
 
@@ -414,20 +414,20 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $this->view->FonteRecurso = $fonte;
             $produto = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Produto($pronac);
             $this->view->Produto = $produto;
-            
+
             $etapa = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Etapa($pronac);
             $this->view->Etapa = $etapa;
-            
+
             $uf = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Uf($pronac);
             $this->view->Uf = $uf;
-            
+
             $item = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Item($pronac);
             $this->view->Item = $item;
-            
+
             $unidade = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Unidade($pronac);
             $this->view->Unidade = $unidade;
         }
-        
+
         if (isset($_POST['html'])) {
             //echo ($_POST['html']);die;
 
@@ -435,10 +435,10 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
 
             $this->_helper->layout->disableLayout();
             $this->_helper->viewRenderer->setNoRender();
-    
+
             $pdf = new PDF($html, 'pdf');
             $pdf->gerarRelatorio();
-        
+
             //$this->_redirect('/gerenciarparecertecnico/imprimirparecertecnico');
         }
     }
@@ -495,17 +495,17 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                     parent::message("Ocorreu error em salvar Parecer", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
                 }
             } else {
-                parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+                parent::message("PRONAC Não localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
             }
         } else {
-            parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+            parent::message("PRONAC Não localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
         }
     }
 
     public function listaparecerAction()
     {
         $pronac = 0;
-        
+
         if (!empty($_GET['pronac'])) {
             $pronac = addslashes($_GET['pronac']);
         } else {
@@ -515,7 +515,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                 parent::message("Informe o PRONAC", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ALERT");
             }
         }
-        
+
         if ((int)$pronac > 0) {
             $ano = substr($pronac, 0, 2);
             $sequencial = addslashes(substr($pronac, 2, strlen($pronac)));
@@ -530,7 +530,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                 $listaparecer = $parecer->listar_parecer($arrBusca);
                 $this->view->listaparecer = $listaparecer;
             } else {
-                parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+                parent::message("PRONAC Não localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
             }
         }
     }
@@ -550,7 +550,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $exibeparecer = $parecer->listar_parecer($arrBusca);
             $this->view->dados = $exibeparecer;
         } else {
-            parent::message("Parecer n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+            parent::message("Parecer Não localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
         }
     }
 
@@ -649,7 +649,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $pdf = new PDF($html, "pdf");
             xd($pdf->gerarRelatorio());
         } else {
-            parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+            parent::message("PRONAC Não localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
         }
     }
 }

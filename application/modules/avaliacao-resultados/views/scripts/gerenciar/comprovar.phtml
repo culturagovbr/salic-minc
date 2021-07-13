@@ -245,7 +245,7 @@
                                         </div>
                                     </fieldset>
 
-                                    <!-- Identificação Nacional -->
+                                    <!-- Identificaï¿½ï¿½o Nacional -->
                                     <div id="bodyTabelaComprovante">
                                         <fieldset>
                                             <legend>Dados da Comprova&ccedil;&atilde;o de Pagamento</legend>
@@ -367,7 +367,7 @@
                                         </fieldset>
                                     </div>
 
-                                    <!-- Comprovação internacional-->
+                                    <!-- Comprovaï¿½ï¿½o internacional-->
                                     <div id="bodyTabelaComprovanteInternacional">
                                         <fieldset>
                                             <legend>Dados da Comprova&ccedil;&atilde;o de Pagamento</legend>
@@ -542,11 +542,11 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        // adiciona zeros a n&uacute;meros que n¿o tem todos os d¿gitos depois do zero (sen¿o quebra)
+        // adiciona zeros a n&uacute;meros que NÃ£o tem todos os dï¿½gitos depois do zero (seNÃ£o quebra)
         $('#vlComprovado').val(parseFloat($('#vlComprovado').val()).toFixed(2));
         $('#vlComprovadoInternacional').val(parseFloat($('#vlComprovadoInternacional').val()).toFixed(2));
 
-        // inicializa formata¿¿o de pre¿o
+        // inicializa formataï¿½ï¿½o de preï¿½o
         $('#vlComprovado').priceFormat({limit: 8});
         $('#vlComprovadoInternacional').priceFormat({limit: 8});
     });

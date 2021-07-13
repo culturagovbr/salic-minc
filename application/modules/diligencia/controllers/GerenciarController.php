@@ -1,6 +1,6 @@
 <?php
 
-class Diligencia_GerenciarController extends MinC_Controller_Action_Abstract 
+class Diligencia_GerenciarController extends MinC_Controller_Action_Abstract
 {
     public function init()
     {
@@ -18,7 +18,7 @@ class Diligencia_GerenciarController extends MinC_Controller_Action_Abstract
         $planilhaAprovacaoModel = new PlanilhaAprovacao();
         $planilhaItemModel = new PlanilhaItem();
 
-        /* $resposta   = $planilhaAprovacaoModel->buscarItensPagamento($this->view->idpronac); //Alysson - Altera��o da Query para n�o mostrar os itens excluidos */
+        /* $resposta   = $planilhaAprovacaoModel->buscarItensPagamento($this->view->idpronac); //Alysson - Altera��o da Query para Não mostrar os itens excluidos */
 
         $resposta = $planilhaAprovacaoModel->planilhaAprovada($this->view->idpronac);
 

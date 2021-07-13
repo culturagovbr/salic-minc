@@ -4,10 +4,10 @@
             var tecnico = $(this).parent().parent().find('select').val(),
                 pronac = $(this).attr('pronac'),
                 nr = $(this).attr('nr');
-                
+
             if(tecnico==''){
                 $("#alerta").dialog("destroy");
-                $("#alerta").html('Favor selecionar o tÈcnico!');
+                $("#alerta").html('Favor selecionar o tÔøΩcnico!');
                 $("#alerta").dialog({
                     resizable: false,
                     title: 'Alerta!',
@@ -44,7 +44,7 @@
                             $('.ui-dialog-titlebar-close').remove();
                             window.setTimeout('location.reload()', 1000);
                         } else {
-                            alertaModal("N„o foi possÌvel encaminhar o relatÛrio.");
+                            alertaModal("N√£o foi possÔøΩvel encaminhar o relatÔøΩrio.");
                         }
                     },
                     dataType : 'json'
@@ -57,7 +57,7 @@
                 nr = $(this).attr('nr');
 
             $("#pergunta").dialog("destroy");
-            $("#pergunta").html('Deseja realmente finalizar o relatÛrio?');
+            $("#pergunta").html('Deseja realmente finalizar o relatÔøΩrio?');
             $("#pergunta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -65,7 +65,7 @@
                 height:160,
                 modal: true,
                 buttons : {
-                    'N„o' : function(){
+                    'N√£o' : function(){
                         $("#pergunta").dialog('close');
                     },
                     'Sim' : function(){
@@ -91,7 +91,7 @@
                                     $('.ui-dialog-titlebar-close').remove();
                                     window.setTimeout('location.reload()', 1000);
                                 } else {
-                                    alertaModal("N„o foi possÌvel finalizar o relatÛrio.");
+                                    alertaModal("N√£o foi possÔøΩvel finalizar o relatÔøΩrio.");
                                 }
                             },
                             dataType : 'json'
@@ -135,7 +135,7 @@
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'), '', true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
-        <li class="last">Analisar RelatÛrios Trimestrais</li>
+        <li class="last">Analisar RelatÔøΩrios Trimestrais</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
@@ -143,7 +143,7 @@
 
 <div id="titulo">
     <div>
-        Analisar RelatÛrios Trimestrais <span class="voltar"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisica', 'action' => 'filtroconsulta')); ?>">Voltar</a></span>
+        Analisar RelatÔøΩrios Trimestrais <span class="voltar"><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisica', 'action' => 'filtroconsulta')); ?>">Voltar</a></span>
     </div>
 </div>
 
@@ -156,12 +156,12 @@
                 <input type="text" class="input_simples" id="campoPesquisa" maxlength="10" value="<?php echo $this->pronacProjeto;?>" />
                 <input type="button" class="btn_localizar" name="name" value=" " style="margin-left: 5px;" />
             </td>
-            <td align="center"><?php if($this->qtdRelatorios != 0){echo $this->qtdRelatorios.' relatÛrios listados';}else{ echo 'Nenhum registro encontrado!';}?></td>
+            <td align="center"><?php if($this->qtdRelatorios != 0){echo $this->qtdRelatorios.' relatÔøΩrios listados';}else{ echo 'Nenhum registro encontrado!';}?></td>
         </tr>
     </table>
 
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINA«√O ============ -->
+    <!-- ============ PAGINA√á√ÇO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -188,12 +188,12 @@
                     <input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'analisarexecucaofisica', 'action' => 'projetos')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&pronac='.$this->pronacProjeto; ?>'">
                     <?php } ?>
-                    P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto;?>">
@@ -209,7 +209,7 @@
             echo " de ". $this->paginacao['total'];
         ?>
     </center>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php } ?>
 
 
@@ -217,22 +217,22 @@
     <table class="tabela tablesorter">
         <tr class="titulo_tabela">
             <th colspan="2">&nbsp;</th>
-            <th colspan="2">PerÌodo de ExecuÁ„o</th>
+            <th colspan="2">PerÔøΩodo de ExecuÔøΩÔøΩo</th>
             <th>Dt. Cadastro</th>
-            <th colspan="2">PerÌodo do RelatÛrio</th>
+            <th colspan="2">PerÔøΩodo do RelatÔøΩrio</th>
             <th colspan="3">&nbsp;</th>
         </tr>
         <tr>
             <td class="destacar bold">Pronac</td>
             <td class="destacar bold">Nome Projeto</td>
-            <td class="destacar bold">Dt. InÌcio</td>
+            <td class="destacar bold">Dt. IN√çCIO</td>
             <td class="destacar bold">Dt. Final</td>
-            <td class="destacar bold">RelatÛrio</td>
-            <td class="destacar bold">Dt. InÌcio</td>
+            <td class="destacar bold">RelatÔøΩrio</td>
+            <td class="destacar bold">Dt. IN√çCIO</td>
             <td class="destacar bold">Dt. Final</td>
-            <td class="destacar bold" align="center">TÈcnico</td>
+            <td class="destacar bold" align="center">TÔøΩcnico</td>
             <td class="destacar bold" align="center">Visualizar</td>
-            <td class="destacar bold" align="center" width="200">AÁ„o</td>
+            <td class="destacar bold" align="center" width="200">AÔøΩÔøΩo</td>
         </tr>
         <?php foreach($this->dados as $dp){ ?>
         <tr>
@@ -270,7 +270,7 @@
 
     <?php if(count($this->dados)>0){ ?>
 
-        <!-- ============ PAGINA«√O ============ -->
+        <!-- ============ PAGINA√á√ÇO ============ -->
         <?php if($this->qtdRelatorios > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -305,12 +305,12 @@
                         <input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'analisarexecucaofisica', 'action' => 'projetos')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&pronac='.$this->pronacProjeto; ?>'">
                         <?php } ?>
-                        P·g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P√°g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto;?>">
@@ -319,7 +319,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINA«√O ========== -->
+        <!-- ========== FIM PAGINA√á√ÇO ========== -->
 
     <?php } } ?>
 
@@ -335,7 +335,7 @@
 
 
 </div>
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

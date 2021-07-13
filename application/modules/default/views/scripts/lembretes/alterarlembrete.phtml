@@ -1,26 +1,26 @@
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para InÌcio">InÌcio</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar ¡rea de Trabalho">Visualizar ¡rea de Trabalho</a></li>
-		<li class="last">An·lise de Cortes Sugeridos</li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar ÔøΩrea de Trabalho">Visualizar ÔøΩrea de Trabalho</a></li>
+		<li class="last">An√°lise de Cortes Sugeridos</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-	<div>An·lise de Cortes Sugeridos <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>An√°lise de Cortes Sugeridos <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 
@@ -42,7 +42,7 @@
 
 
 
-	
+
 
 
 
@@ -51,8 +51,8 @@
 
 <table class="tabela" align="center" valign = "middle">
 
-    <form name="formBuscar" id="formBuscar" method="post" 
-	action="<?php echo $this->url(array('controller' => 'lembretes','action' => 'alterarlembrete')); ?>">	
+    <form name="formBuscar" id="formBuscar" method="post"
+	action="<?php echo $this->url(array('controller' => 'lembretes','action' => 'alterarlembrete')); ?>">
 
 
 
@@ -65,17 +65,17 @@
   </tr>
  <?php foreach($this->lembretes as $tblembretes): ?>
    <tr>
- 
+
        <td><?php echo $this->escape($tblembretes->dtlembrete);?></td>
    <td><textarea type="text" name="descricao" id="descricao" cols="125" rows="4" ><?php echo $this->escape($tblembretes->lembrete);?></textarea></td>
 
  </tr> </table>
 <table class="tabela" align="center" valign = "middle">
   <td></td>
-	 
+
 	            <td class="right">	<input type="submit"  class="btn_salvar" name=" " title=" " value="  " />
 	            					<input type="button"  class="btn_salvar" name=" " title=" Cancelar " value="  "/>
-         
+
 </td>
 
   <?php endforeach;?>
@@ -98,14 +98,14 @@
 
 <table class="tabela" align="center" valign = "middle">
   <tr>
-  
+
 		<td class="center" >
      <a href="javascript:window.print()"><img src="<?php echo $this->baseUrl(); ?>/public/img/imprimir.gif" />
-   
+
 			</td>
  </td>
   </tr>
- 
+
 </table>
 
 			<div class="float_left">
@@ -115,12 +115,12 @@
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

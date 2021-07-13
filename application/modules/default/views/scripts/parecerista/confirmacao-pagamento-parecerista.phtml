@@ -1,18 +1,18 @@
 <?php echo $this->partial('parecerista/inc/menu-parecerista.inc.php', $this); ?>
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Meus Pagamentos</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Meus Pagamentos <span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span></div>
+    <div>Meus Pagamentos <span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span></div>
 </div>
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 
 <div id="conteudo">
 
@@ -24,7 +24,7 @@
         <table class="tabela">
             <tr>
                 <td colspan="5" class="fundo_linha2" style="font-size: 15px;">
-                    N∫ Despacho: <strong><?php echo $pa['nrDespacho']; ?></strong>
+                    NÔøΩ Despacho: <strong><?php echo $pa['nrDespacho']; ?></strong>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     Parecerista: <strong><?php echo $pa['nmParecerista']; ?></strong>
                 </td>
@@ -75,9 +75,9 @@
         <br />
     </form>
     <?php endforeach; ?>
-    <!-- ========== PAGINA«√O ========== -->
+    <!-- ========== PAGINA√á√ÇO ========== -->
     <?php if($this->qtdlistaDePagamentos > 10){ echo "<p>" . $this->listaDePagamentos . "</p>"; } ?>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php else: ?>
         <table class="tabela">
             <tr>
@@ -87,11 +87,11 @@
     <?php endif; ?>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 <div id="dialog"></div>
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script>
@@ -106,7 +106,7 @@
 
         if($('#rpa_'+id).is(":empty")){
             $('#rpa_'+id).css('border','solid 1px red');
-            $('#label_'+id).html('… preciso fazer o Upload do RPA assinado! &nbsp; &nbsp; &nbsp;');
+            $('#label_'+id).html('ÔøΩ preciso fazer o Upload do RPA assinado! &nbsp; &nbsp; &nbsp;');
 //            return false;
         }
 
@@ -118,9 +118,9 @@
             draggable: false,
             resizable: false,
             closeOnEscape: false,
-            title: 'ConfirmaÁ„o',
+            title: 'Confirma√ß√£o',
             buttons: {
-                N„o:function() {
+                N√£o:function() {
                     $(this).dialog('close');
                 },
                 Sim:function() {

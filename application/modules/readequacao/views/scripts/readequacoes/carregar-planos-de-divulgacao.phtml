@@ -1,25 +1,25 @@
 <?php if($this->idPerfil == 1111){ ?>
 <table class="tabela">
     <tr>
-        <td><input type="button" class="btn_incluir" id="adicionarPlanosDeDivulgacao" title="Adicionar Planos de Divulgação" /></td>
+        <td><input type="button" class="btn_incluir" id="adicionarPlanosDeDivulgacao" title="Adicionar Planos de Divulgaï¿½ï¿½o" /></td>
     </tr>
 </table>
 <?php } ?>
 
 <table class="tabela">
     <tr>
-        <th>Peça</th>
-        <th>Veículo</th>
-        <th style="width: 150px;">Solicitação Proponente</th>
+        <th>Peï¿½a</th>
+        <th>Veï¿½culo</th>
+        <th style="width: 150px;">SolicitaÃ§Ã£o Proponente</th>
         <?php if(in_array($this->siEncaminhamento, array(4,5,6,7,9,10))){ ?>
-        <th style="width: 150px;">Avaliação Técnica</th>
+        <th style="width: 150px;">Avaliaï¿½ï¿½o TÃ©cnica</th>
         <?php } ?>
-        
+
         <?php if(in_array($this->siEncaminhamento, array(7,9))){ ?>
-        <th style="width: 150px;">Avaliação Conselheiro</th>
+        <th style="width: 150px;">Avaliaï¿½ï¿½o Conselheiro</th>
         <?php } ?>
     </tr>
-    
+
     <?php foreach ($this->planosDeDivulgacao as $p){
         $corLinha = '';
         switch ($p['tpSolicitacao']) {
@@ -46,7 +46,7 @@
         <td class="centro">
             <?php if($this->idPerfil == 1111){
                     if($p['tpSolicitacao'] == 'E'){
-                        echo '<span style="margin: 10px;">Item excluído</span>';
+                        echo '<span style="margin: 10px;">Item excluï¿½do</span>';
                         echo '<img src="'.$this->baseUrl().'/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItemPlanoDivulgacao" tipo="'.$p['tpSolicitacao'].'" idPlanoDivulgacao="'.$p['idPlanoDivulgacao'].'" title="restaurar item"/>';
                     } else {  ?>
                         <input type="button" class="btn_excluir btnExcluirPDD" idPlanoDivulgacao="<?php echo $p->idPlanoDivulgacao; ?>">
@@ -55,12 +55,12 @@
                     $title = '';
                     switch ($p['tpSolicitacao']) {
                         case 'E':
-                            echo 'Excluído';
-                            $title = 'restaurar plano de divulgação excluído';
+                            echo 'Excluï¿½do';
+                            $title = 'restaurar plano de divulgaï¿½ï¿½o excluï¿½do';
                             break;
                         case 'I':
-                            echo 'Incluído';
-                            $title = 'recusar inclusão de plano de divulgação';
+                            echo 'Incluï¿½do';
+                            $title = 'recusar inclusï¿½o de plano de divulgaï¿½ï¿½o';
                             break;
                         case 'A':
                             echo 'Alterado';
@@ -80,7 +80,7 @@
                     <?php }*/ ?>
                 <?php } ?>
         </td>
-        
+
         <?php if(in_array($this->siEncaminhamento, array(4))){ ?>
         <td class="centro">
             <?php if($p->tpSolicitacao != 'N'){ ?>
@@ -92,7 +92,7 @@
             <?php } ?>
         </td>
         <?php } ?>
-        
+
         <?php if(in_array($this->siEncaminhamento, array(5,6,7,9,10))){ ?>
         <td class="centro">
             <?php
@@ -109,7 +109,7 @@
             } ?>
         </td>
         <?php } ?>
-        
+
         <?php if(in_array($this->siEncaminhamento, array(7))){ ?>
         <td class="centro">
             <?php if($p->tpSolicitacao != 'N'){ ?>
@@ -121,7 +121,7 @@
             <?php } ?>
         </td>
         <?php } ?>
-        
+
         <?php if(in_array($this->siEncaminhamento, array(9))){ ?>
         <td class="centro">
             <?php
@@ -138,7 +138,7 @@
             } ?>
         </td>
         <?php } ?>
-        
+
     </tr>
     <?php } ?>
 </table>
@@ -146,8 +146,8 @@
 <div id="modalInclusaoPDD" class="sumir">
     <table class="tabela">
         <tr>
-            <td class="destacar bold" style="width: 50%">Peça</td>
-            <td class="destacar bold" style="width: 50%">Veículo</td>
+            <td class="destacar bold" style="width: 50%">Peï¿½a</td>
+            <td class="destacar bold" style="width: 50%">Veï¿½culo</td>
         </tr>
         <tr>
             <td>
@@ -176,10 +176,10 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#adicionarPlanosDeDivulgacao').click(function(){
-            
+
             $("#modalInclusaoPDD").dialog({
                 resizable: false,
-                title: 'Inclusão de Plano de Divulgação!',
+                title: 'Inclusï¿½o de Plano de Divulgaï¿½ï¿½o!',
                 width: 550,
                 modal: true,
                 buttons : {
@@ -189,7 +189,7 @@
                     'Salvar' : function(){
                         var idPeca = $('#newPeca').val(),
                             idVeiculo = $('#newVeiculo').val();
-                    
+
                         $.ajax({
                             type: 'POST',
                             url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'incluir-planos-de-divulgacao'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>',
@@ -201,7 +201,7 @@
                                 $("#modalInclusaoPDD").dialog('destroy');
                                 $("#modalInclusaoPDD").html('');
                                 $("#modalInclusaoPDD").dialog( "widget" ).remove();
-                                
+
                                 if(!data.resposta){
                                     $("#alertaPDD").dialog("destroy");
                                     $("#alertaPDD").html(data.msg);
@@ -227,13 +227,13 @@
             });
             $('.ui-dialog-titlebar-close').remove();
         });
-        
+
         $('.btnExcluirPDD').click(function(){
             var idPlanoDivulgacao = $(this).attr('idPlanoDivulgacao');
-                
-            //ABRE O MODAL DE CONFIRMAÇÃO DA AÇÃO REALIZADA
+
+            //ABRE O MODAL DE ConfirmaÃ§Ã£o DA Aï¿½ï¿½O REALIZADA
             $("#alertaPDD").dialog("destroy");
-            $("#alertaPDD").html('Tem certeza que deseja excluir o plano de divulgação?');
+            $("#alertaPDD").html('Tem certeza que deseja excluir o plano de divulgaï¿½ï¿½o?');
             $("#alertaPDD").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -241,7 +241,7 @@
                 height:160,
                 modal: true,
                 buttons : {
-                    'Não' : function(){
+                    'NÃ£o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -263,18 +263,18 @@
             });
             $('.ui-dialog-titlebar-close').remove();
         });
-        
+
         $('.restaurarItemPlanoDivulgacao').click(function(){
             var idPlanoDivulgacao = $(this).attr('idPlanoDivulgacao'),
                 tpAcao = $(this).attr('tipo'),
                 msg = '';
-                
+
             if(tpAcao == 'I'){
-                msg = 'Tem certeza que deseja excluir o plano de divulgação adicionado?';
+                msg = 'Tem certeza que deseja excluir o plano de divulgaï¿½ï¿½o adicionado?';
             } else {
-                msg = 'Tem certeza que deseja restaurar o plano de divulgação excluído?';
+                msg = 'Tem certeza que deseja restaurar o plano de divulgaï¿½ï¿½o excluï¿½do?';
             }
-            
+
             $("#alertaPDD").dialog("destroy");
             $("#alertaPDD").html(msg);
             $("#alertaPDD").dialog({
@@ -283,7 +283,7 @@
                 modal: true,
                 title: 'Alerta!',
                 buttons : {
-                    'Não' : function(){
+                    'NÃ£o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -309,12 +309,12 @@
             });
             $('.ui-dialog-titlebar-close').remove();
         });
-        
+
         $('.comboPlanoDeDivulgacao').change(function(){
             var tpAcao = $(this).val(),
                 idPlanoDivulgacao = $(this).attr('idpldd'),
                 select = $(this);
-                
+
             if(tpAcao != ''){
                 $("#alertaPDD").dialog("destroy");
                 $("#alertaPDD").html('Deseja realmente avaliar o item?');
@@ -324,7 +324,7 @@
                     modal: true,
                     title: 'Alerta!',
                     buttons : {
-                        'Não' : function(){
+                        'NÃ£o' : function(){
                             $(this).dialog('close');
                             select.val('');
                         },

@@ -1,7 +1,7 @@
 
-<!-- ========== IN�CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 
-<!-- ========== IN�CIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
  <style type="text/css">
             /*demo page css*/
             .demoHeaders { margin-top: 2em; }
@@ -231,7 +231,7 @@
                             break;
 
                     }
-                    //$("#numCategoriaMod_" + numModulo).val(numCategoriaMod); 
+                    //$("#numCategoriaMod_" + numModulo).val(numCategoriaMod);
 
                     var conteudo = '<div id="qm0" class="qmmc sanfona">';
                     conteudo += '<a href="#" class="nomeCategoria" onclick="JSSanfona($(this)); return false;">Categoria ' + numCategoriaMod + ' - <b>' + nomeCategoria + '</b></a>';
@@ -392,7 +392,7 @@
 
 <div id="boxCriarModulo" style="display: none;">
     <form id="formularioModulo" action="<?php echo $this->url(array('controller' => 'edital', 'action' => 'salvarmodulo')); ?>" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="idEdital" value="<?php echo $this->idEdital;?>" />    
+    <input type="hidden" name="idEdital" value="<?php echo $this->idEdital;?>" />
         <table class="tabela">
             <tr>
                 <td class="destacar bold w150 esquerdo">Nome do M�dulo <span style="color: red;">*</span></td>
@@ -403,7 +403,7 @@
                 <td> <img src="public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th> </td>
             </tr>
         </table>
-    </form>    
+    </form>
 </div>
 
 
@@ -419,7 +419,7 @@
                 Reutilizar Categoria
             </td>
             <td>
-                <img src="public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th>  
+                <img src="public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th>
             </td>
         </tr>
     </table>

@@ -44,7 +44,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
     public function indexAction()
     {
         Zend_Layout::startMvc(array('layout' => 'layout'));
-        
+
         if (isset($_REQUEST['idPronac'])) {
             $idPronac = $_GET['idPronac'];
             if (strlen($idPronac) > 7) {
@@ -485,7 +485,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             /* nunca esteve na situacao E10 e nao ha registros na tabela captacao, os projetos por edital nao podem ser inclusos nessa condicao
              * para diferenciar pre-projetos de edital e fiscal quando o projeto nao tiver idProjeto deve-se utilizar o Mecanismo = 1
              * situacoes dessa fase = B11,B14,C10,C20,C30,D03,D11,D27
-             * ENTENDIMENTO ATUAL - N�o ha registro na tabela aprovacao
+             * ENTENDIMENTO ATUAL - Não ha registro na tabela aprovacao
              */
 
             //FASE DE EXECUCAO
@@ -804,7 +804,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
         $buscarProponente = $Projetos->buscarProjetoXProponente(array('p.IdPRONAC = ?' => $idPronac))->current();
         $this->view->dadosProjeto = $buscarProponente; // manda as informa��es para a vis�o
 
-        // busca os dados aprovados da ficha t�cnica e da proposta pedag�gica
+        // busca os dados aprovados da ficha Técnica e da proposta pedag�gica
         $buscarPedido = $PreProjeto->buscar(array('idPreProjeto = ?' => $this->idPreProjeto))->current();
         $this->view->dadosPedido = $buscarPedido; // manda as informa��es para a vis�o
 
@@ -1136,7 +1136,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
 
         // erro ao abrir o arquivo
         if (!$resultado) {
-            $this->view->message      = 'N�o foi poss�vel abrir o arquivo!';
+            $this->view->message      = 'Não foi poss�vel abrir o arquivo!';
             $this->view->message_type = 'ERROR';
         } else {
             // l� os cabe�alhos formatado
@@ -1246,7 +1246,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             $this->view->intTamPag     = $this->intTamPag;
         } else {
             $idPronacCriptado = Seguranca::encrypt($idPronac);
-            parent::message("N�o foi encontrado nenhum projeto!", "verprojetos?idPronac=$idPronacCriptado", "ERROR");
+            parent::message("Não foi encontrado nenhum projeto!", "verprojetos?idPronac=$idPronacCriptado", "ERROR");
         }
     }
 
@@ -2977,10 +2977,10 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                     } elseif ($verificaEnquadramento->Enquadramento == '1') {
                         $this->view->enquadramento = 'Artigo 26';
                     } else {
-                        $this->view->enquadramento = 'N�o Enquadrado';
+                        $this->view->enquadramento = 'Não Enquadrado';
                     }
                 } else {
-                    $this->view->enquadramento = 'N�o Enquadrado';
+                    $this->view->enquadramento = 'Não Enquadrado';
                 }
             }
             //CNIC
@@ -3063,10 +3063,10 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                     } elseif ($verificaEnquadramento[0]->stArtigo26 == true) {
                         $this->view->enquadramento = 'Artigo 26';
                     } else {
-                        $this->view->enquadramento = 'N�o Enquadrado';
+                        $this->view->enquadramento = 'Não Enquadrado';
                     }
                 } else {
-                    $this->view->enquadramento = 'N�o Enquadrado';
+                    $this->view->enquadramento = 'Não Enquadrado';
                 }
             }
             //PLENARIA
@@ -3146,10 +3146,10 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                     } elseif ($verificaEnquadramento[0]->stArtigo26 == true) {
                         $this->view->enquadramento = 'Artigo 26';
                     } else {
-                        $this->view->enquadramento = 'N�o Enquadrado';
+                        $this->view->enquadramento = 'Não Enquadrado';
                     }
                 } else {
-                    $this->view->enquadramento = 'N�o Enquadrado';
+                    $this->view->enquadramento = 'Não Enquadrado';
                 }
             }
         }
@@ -4715,11 +4715,11 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             } catch (Zend_Exception $e) {
                 $url = Zend_Controller_Front::getInstance()->getBaseUrl()."/listarprojetos/listarprojetos";
                 $this->_helper->viewRenderer->setNoRender(true);
-                $this->_helper->flashMessenger->addMessage("N�o foi poss�vel realizar concluir a opera��o para impress�o do projeto.".$e->getMessage());
+                $this->_helper->flashMessenger->addMessage("Não foi poss�vel realizar concluir a opera��o para impress�o do projeto.".$e->getMessage());
                 $this->_helper->flashMessengerType->addMessage("ERROR");
                 JS::redirecionarURL($url);
                 $this->_helper->viewRenderer->setNoRender(true);
-                //parent::message("N�o foi poss�vel realizar a opera��o!".$ex->getMessage(), "/manterpropostaincentivofiscal/index?idPreProjeto=" . $idPreProjeto, "ERROR");
+                //parent::message("Não foi poss�vel realizar a opera��o!".$ex->getMessage(), "/manterpropostaincentivofiscal/index?idPreProjeto=" . $idPreProjeto, "ERROR");
             }
         }
     }
@@ -4756,11 +4756,11 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
         if ($this->intFaseProjeto=='0' || $this->intFaseProjeto=='1') {
             $qtdePag = 1;
         }
-        $msg = "O retatorio contem 1(uma) p�gina, deseja imprimi-la?";
+        $msg = "O retatorio contem 1(uma) página, deseja imprimi-la?";
         if ($this->intFaseProjeto=='2' || $this->intFaseProjeto=='3' || $this->intFaseProjeto=='4') {
             $qtdePag = 3;
         }
-        $msg = "O retatorio contem 3(tr�s) p�ginas, deseja imprimir a {$numPagina} pagina?";
+        $msg = "O retatorio contem 3(tr�s) páginas, deseja imprimir a {$numPagina} pagina?";
 
         $this->view->msgImpressao =  $msg;
         $this->view->qtdePagImpressao =  $qtdePag;
@@ -5510,11 +5510,11 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             } catch (Zend_Exception $e) {
                 $url = Zend_Controller_Front::getInstance()->getBaseUrl()."/listarprojetos/listarprojetos";
                 $this->_helper->viewRenderer->setNoRender(true);
-                $this->_helper->flashMessenger->addMessage("N�o foi poss�vel realizar concluir a opera��o para impress�o do projeto.".$e->getMessage());
+                $this->_helper->flashMessenger->addMessage("Não foi poss�vel realizar concluir a opera��o para impress�o do projeto.".$e->getMessage());
                 $this->_helper->flashMessengerType->addMessage("ERROR");
                 JS::redirecionarURL($url);
                 $this->_helper->viewRenderer->setNoRender(true);
-                //parent::message("N�o foi poss�vel realizar a opera��o!".$ex->getMessage(), "/manterpropostaincentivofiscal/index?idPreProjeto=" . $idPreProjeto, "ERROR");
+                //parent::message("Não foi poss�vel realizar a opera��o!".$ex->getMessage(), "/manterpropostaincentivofiscal/index?idPreProjeto=" . $idPreProjeto, "ERROR");
             }
         }
     }
@@ -5559,7 +5559,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
             $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
             die("N&atilde;o existe o arquivo especificado");
-            $this->view->message = 'N�o foi poss�vel abrir o arquivo!';
+            $this->view->message = 'Não foi poss�vel abrir o arquivo!';
             $this->view->message_type = 'ERROR';
         } else {
             // l� os cabe�alhos formatado

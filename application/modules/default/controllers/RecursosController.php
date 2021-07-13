@@ -31,10 +31,10 @@ class RecursosController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 93; // Coordenador de Parecer
         $PermissoesGrupo[] = 94; // Parecerista
-        $PermissoesGrupo[] = 103; // Coordenador de An&aacute;lise
+        $PermissoesGrupo[] = 103; // Coordenador de Análise
         $PermissoesGrupo[] = 110; // Tecnico de Analise
         $PermissoesGrupo[] = 118; // Componente da Comiss&atilde;o
-        $PermissoesGrupo[] = 127; // Coordenador - Geral de An&aacute;lise (Ministro)
+        $PermissoesGrupo[] = 127; // Coordenador - Geral de Análise (Ministro)
 
         $PermissoesGrupo[] = 131; // Coordenador - Geral de Admissibilidade.
         $PermissoesGrupo[] = 92; // Coordenador - Tecnico de Admissibilidade.
@@ -54,7 +54,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     {
         //FUN&Ccedil;&Atilde;O ACESSADA SOMENTE PELOS PERFIS DE COORD. GERAL DE AN&Aacute;LISE E COORD. DE AN&Aacute;LISE.Coordenado Admissibilidade
         if ($this->idPerfil != 103 && $this->idPerfil != 127 && $this->idPerfil != 131 && $this->idPerfil != 92) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa área do sistema!", "principal", "ALERT");
         }
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
@@ -111,7 +111,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                     $where['c.stEstado = ?'] = '0';
                     $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
                     $where['a.siRecurso in (?)'] = array(3,4); // // 3=Encaminhado do MinC para a  Unidade de Analise; 4=Encaminhado para Parecerista
-                    $this->view->nmPagina = 'Em An&aacute;lise';
+                    $this->view->nmPagina = 'Em Análise';
                     break;
                 case 'analisados':
                     $where['a.stEstado = ?'] = '0'; // 0=Atual; 1=Historico
@@ -127,7 +127,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                     break;
             }
         } else {
-            $this->view->nmPagina = 'Aguardando An&aacute;lise';
+            $this->view->nmPagina = 'Aguardando Análise';
             $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
             $where['a.siRecurso = ?'] = 1; // 1=Solicitado pelo proponente
         }
@@ -234,8 +234,8 @@ class RecursosController extends MinC_Controller_Action_Abstract
                     break;
                 case 'emanalise':
                     $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
-                    $where['a.siRecurso in (?)'] = array(3,4,7); // // 3=Encaminhado do MinC para a  Unidade de An&aacute;lise; 4=Encaminhado para Parecerista /  T&eacute;cnico; 7=Encaminhado para o Componente da Comiss&atilde;o
-                    $this->view->nmPagina = 'Em An&aacute;lise';
+                    $where['a.siRecurso in (?)'] = array(3,4,7); // // 3=Encaminhado do MinC para a  Unidade de Análise; 4=Encaminhado para Parecerista /  T&eacute;cnico; 7=Encaminhado para o Componente da Comiss&atilde;o
+                    $this->view->nmPagina = 'Em Análise';
                     break;
                 case 'analisados':
                     $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
@@ -244,7 +244,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                     break;
             }
         } else {
-            $this->view->nmPagina = 'Aguardando An&aacute;lise';
+            $this->view->nmPagina = 'Aguardando Análise';
             $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
             $where['a.siRecurso = ?'] = 1; // 1=Solicitado pelo proponente
         }
@@ -328,7 +328,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 $Projetos->update($w, $where);
             } else {
                 if ($_POST['vinculada'] == Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI) {
-                    $objRecurso->siRecurso = Recurso_Model_TbRecurso::SI_RECURSO_PARA_ANALISE_TECNICA; //4=Enviado para An�lise T�cnica (SEFIC)
+                    $objRecurso->siRecurso = Recurso_Model_TbRecurso::SI_RECURSO_PARA_ANALISE_TECNICA; //4=Enviado para Análise Técnica (SEFIC)
                 } elseif ($_POST['vinculada'] == Orgaos::ORGAO_CNIC) {
                     $stEstado = 1;
                     $stFecharAnalise = 1;
@@ -503,7 +503,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
             case 'emanalise':
                 $where['d.siRecurso = ?'] = 4;
                 $where['a.idAvaliador IS NOT NULL'] = '';
-                $this->view->nmPagina = 'Em an&aacute;lise';
+                $this->view->nmPagina = 'Em análise';
                 break;
             case 'analisados':
                 $where['d.siRecurso = ?'] = 5;
@@ -511,7 +511,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 break;
             }
         } else {
-            $this->view->nmPagina = 'Aguardando An&aacute;lise';
+            $this->view->nmPagina = 'Aguardando Análise';
             if ($this->idPerfil == 93) {
                 $where['d.siRecurso = ?'] = 3;
                 $where['a.idAvaliador IS NULL'] = '';
@@ -619,7 +619,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     public function visualizarRecursoAction()
     {
         if ($this->idPerfil != 93 && $this->idPerfil != 94 && $this->idPerfil != 103 && $this->idPerfil != 127) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa área do sistema!", "principal", "ALERT");
         }
 
         $get = Zend_Registry::get('get');
@@ -689,7 +689,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     public function encaminharRecursoChecklistAction()
     {
         if ($this->idPerfil != 93 && $this->idPerfil != 94 && $this->idPerfil != 103 && $this->idPerfil != 127) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa área do sistema!", "principal", "ALERT");
         }
 
         $get = Zend_Registry::get('get');
@@ -791,7 +791,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     {
         //ESSA FUNCAO TAMBEM E UTILIZADA A MESMA FUNCAO PARA AVALIAR O ENQUADRAMENTO DO PROJETO.
         if ($this->idPerfil != 94 && $this->idPerfil != 110) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa área do sistema!", "principal", "ALERT");
         }
 
         $auth = Zend_Auth::getInstance();
@@ -890,7 +890,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                     $whereDP = "idDistribuirProjeto = ".$dDP[0]->idDistribuirProjeto;
 
                     $outrasVinculadas = array(91, 92, 93, 94, 95, 335); // Vinculadas exceto superintend�ncias IPHAN
-                    // se estiver com uma vinculada do IPHAN, retorna para IPHAN central. Sen�o, permanece na unidade
+                    // se estiver com uma vinculada do IPHAN, retorna para IPHAN central. SeNão, permanece na unidade
                     $perfilCoordenadorVinculada = 93;
                     if (!in_array($this->idOrgao, $outrasVinculadas) && $this->idPerfil == $perfilCoordenadorVinculada) {
                         $dadosDP['idUnidade'] = 91; // retorna para IPHAN (topo)
@@ -923,7 +923,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     public function componenteComissaoSalvarEnquadramentoAction()
     {
         if ($this->idPerfil != 118) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa área do sistema!", "principal", "ALERT");
         }
 
         $auth = Zend_Auth::getInstance();
@@ -1210,7 +1210,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     public function analisarRecursosCnicAction()
     {
         if ($this->idPerfil != 118) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa área do sistema!", "principal", "ALERT");
         }
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
@@ -1260,7 +1260,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
 
         $where = array();
         $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
-        $where['a.siRecurso = ?'] = 7; // 7=Encaminhar para ao Componente da Comiss�o
+        $where['a.siRecurso = ?'] = 7; // 7=Encaminhar para ao Componente da comissão
         $where['a.idAgenteAvaliador = ?'] = $idagente;
 //        $where['a.idNrReuniao = ?'] = $raberta['idNrReuniao'];
 
@@ -1369,7 +1369,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     public function cnicSalvarEnquadramentoAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::COMPONENTE_COMISSAO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa área do sistema!", "principal", "ALERT");
         }
 
         $auth = Zend_Auth::getInstance();
@@ -1381,12 +1381,12 @@ class RecursosController extends MinC_Controller_Action_Abstract
         $enquadramentoProjeto = $_POST['enquadramentoProjeto'];
         $parecerProjeto = $_POST['parecerProjeto'];
         $dsParecer = $_POST['dsParecer'];
-        
+
         try {
             //ATUALIAZA A SITUACAO, AREA E SEGMENTO DO PROJETO
             $d = array();
             $d['situacao'] = 'D20';
-            $d['ProvidenciaTomada'] = 'Recurso em an&aacute;lise pela Comiss&atilde;o Nacional de Incentivo &agrave; Cultura - CNIC.';
+            $d['ProvidenciaTomada'] = 'Recurso em análise pela Comiss&atilde;o Nacional de Incentivo &agrave; Cultura - CNIC.';
             $d['dtSituacao'] = new Zend_Db_Expr('GETDATE()');
             $d['Area'] = $areaCultural;
             $d['Segmento'] = $segmentoCultural;
@@ -1395,7 +1395,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
             $Projetos->update($d, $where);
 
             $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?'=>$idPronac));
-            
+
             if (count($dadosProjeto)>0) {
                 //CADASTRA OU ATUALIZA O ENQUADRAMENTO DO PROJETO
                 $enquadramentoDAO = new Admissibilidade_Model_Enquadramento();
@@ -1419,7 +1419,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 }
                 $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
 
-                //CADASTRA OU ATUALIZA O PARECER DO COMPONENTE DA COMISS�O
+                //CADASTRA OU ATUALIZA O PARECER DO COMPONENTE DA comissão
                 $parecerDAO = new Parecer_Model_DbTable_Parecer();
                 $dadosParecer = array(
                     'idPRONAC' => $idPronac,
@@ -1457,7 +1457,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                     $insereParecer = $parecerDAO->inserir($dadosParecer);
                 }
             }
-            
+
             if (isset($_POST['finalizarAvaliacao']) && $_POST['finalizarAvaliacao'] == 1) {
                 $idNrReuniao = null;
                 $dados = array();
@@ -1473,11 +1473,11 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 $reuniao = new Reuniao();
                 $raberta = $reuniao->buscarReuniaoAberta();
                 $idNrReuniao = $raberta['idNrReuniao'];
-                
+
                 $dados['siRecurso'] = $campoSiRecurso;
                 $dados['idNrReuniao'] = $idNrReuniao;
                 $dados['stAnalise'] = ($parecerProjeto == 1) ? 'IC' : 'AC';
-                
+
                 $where = "idRecurso = $idRecurso";
                 $tbRecurso = new tbRecurso();
                 $tbRecurso->update($dados, $where);
@@ -1494,7 +1494,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     public function salvarAnaliseDeConteudoAction()
     {
         if ($this->idPerfil != 94 && $this->idPerfil != 110) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa área do sistema!", "principal", "ALERT");
         }
 
         $idPronac = $_POST['idPronac'];
@@ -1569,7 +1569,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     public function cnicSalvarAnaliseDeConteudoAction()
     {
         if ($this->idPerfil != 118) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa área do sistema!", "principal", "ALERT");
         }
         $idPronac = $_POST['idPronac'];
         $idProduto = $_POST['idProduto'];
@@ -1776,7 +1776,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
         $dados['idUsuario'] = isset($auth->getIdentity()->usu_codigo) ? $auth->getIdentity()->usu_codigo : 0;
         $vlTotal = @number_format(($_POST['Quantidade']*$_POST['Ocorrencia']*$dados['vlUnitario']), 2, '', '');
 
-        //O valor total dos valores n�o podem ultrapassar o valor solicitado na proposta.
+        //O valor total dos valores Não podem ultrapassar o valor solicitado na proposta.
         if ($vlTotal > $_POST['valorSolicitado']) {
             $this->_helper->json(array('resposta'=>false, 'msg'=> utf8_decode('O valor total n&atilde;o pode ser maior do que '.$_POST['valorSolicitado'].'.')));
         } else {
@@ -1810,7 +1810,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
         $dados['idAgente'] = $idagente;
         $vlTotal = @number_format(($_POST['Quantidade']*$_POST['Ocorrencia']*$dados['vlUnitario']), 2, '', '');
 
-        //O valor total dos valores n�o podem ultrapassar o valor solicitado na proposta.
+        //O valor total dos valores Não podem ultrapassar o valor solicitado na proposta.
         if ($vlTotal > $_POST['valorSolicitado']) {
             $this->_helper->json(array('resposta'=>false, 'msg'=> utf8_decode('O valor total n&atilde;o pode ser maior do que '.$_POST['valorSolicitado'].'.')));
         } else {
@@ -1826,7 +1826,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
     }
 
     /**
-     * Metodo com a Solicita��o de Recurso
+     * Metodo com a Solicitação de Recurso
      * @access public
      * @param void
      * @return void
@@ -2108,7 +2108,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 // busca todos os dados da planilha
                 $buscar = RecursoDAO::buscarPlanilhaAprovacao($idPlanilha);
 
-                // insere o novo registro na planilha de aprova��o (Ministro)
+                // insere o novo registro na planilha de aprovação (Ministro)
                 $dadosPlanilha = array(
                     'tpPlanilha'             => 'MI',
                     'dtPlanilha'             => new Zend_Db_Expr('GETDATE()'),
@@ -2158,7 +2158,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
 
             try {
                 if (!isset($idPronac) || empty($idPronac)) {
-                    JS::exibirMSG("&Eacute; necess&aacute;rio o n&uacute;mero do PRONAC para acessar essa p&aacute;gina!");
+                    JS::exibirMSG("&Eacute; necessário o n&uacute;mero do PRONAC para acessar essa página!");
                     JS::redirecionarURL("../");
                 } else {
                 } // fecha else

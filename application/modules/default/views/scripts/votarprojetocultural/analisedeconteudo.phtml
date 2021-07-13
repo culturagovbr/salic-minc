@@ -2,11 +2,11 @@
 
  <?php foreach ($this->dados as $p): ?>
 
-        <!-- ========== IN�CIO TABELA CONSELHEIRO ========== -->
+        <!-- ========== INÍCIO TABELA CONSELHEIRO ========== -->
 
 
         <table class="tabela">
-            <!-- ========== IN�CIO T�TULO P�GINA ========== -->
+            <!-- ========== INÍCIO T�TULO página ========== -->
             <tr>
                 <th colspan="6">
                     <p>An&aacute;lise de Conte&uacute;do</p>
@@ -14,12 +14,12 @@
                     <p <?php if($p->stPrincipal == 1){ echo 'style="color: red"'; } ?> >Produto <?php if($p->stPrincipal == 1){ echo ' Principal'; } ?>: <?php echo $p->produto; ?></p>
                 </th>
             </tr>
-            <!-- ========== FIM T�TULO P�GINA ========== -->
+            <!-- ========== FIM T�TULO página ========== -->
             <tr>
                 <td colspan="3">
 
 
-                    <!-- ========== IN�CIO MODAL ========== -->
+                    <!-- ========== INÍCIO MODAL ========== -->
                     <div id="dialog-modal" class="sumir" title="An&aacute;lise de Conte&uacute;do do Projeto">
                         <form name="form" id="form" action="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconteudo')); ?>?idPronac=<?php echo $_GET['idPronac'] ?>" method="post">
                             <input type="hidden" name="IdPRONAC" value="<?php echo $this->dadosprojeto['IdPRONAC']; ?>" />
@@ -266,7 +266,7 @@
 
 
 
-                                                                <!-- ========== IN�CIO TABELA PARECERISTA ========== -->
+                                                                <!-- ========== INÍCIO TABELA PARECERISTA ========== -->
 
                                                                 <table class="tabela sumir" id="parecerista">
                                                                     <tr>

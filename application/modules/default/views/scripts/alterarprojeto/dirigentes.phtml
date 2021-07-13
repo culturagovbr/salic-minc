@@ -9,11 +9,11 @@
 </script>
 <?php  echo $this->partial('alterarprojeto/inc/menu.inc.php', $this) ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="#" title="Ir para Início">Início</a></li>
-        <li><a href="#" title="Tramitação de Documentos">Manter Agentes</a></li>
+        <li class="first"><a href="#" title="Ir para INÃCIO">INÃCIO</a></li>
+        <li><a href="#" title="TramitaÃ§Ã£o de Documentos">Manter Agentes</a></li>
         <li class="last">Principal</li>
     </ul>
 </div>
@@ -21,22 +21,22 @@
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Dirigentes<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
     <table class="tabela">
         <tr>
-            <th style="font-size: 14px; font-family: sans-serif;">Dirigentes da instituição: <?php echo $this->dados[0]->Nome; ?> CNPJ: <?php echo Mascara::addMaskCNPJ($this->dados[0]->CNPJCPF); ?></th>
+            <th style="font-size: 14px; font-family: sans-serif;">Dirigentes da instituiï¿½ï¿½o: <?php echo $this->dados[0]->Nome; ?> CNPJ: <?php echo Mascara::addMaskCNPJ($this->dados[0]->CNPJCPF); ?></th>
         </tr>
-    </table>	
+    </table>
 
     <table class="tabela">
         <tr>
@@ -49,8 +49,8 @@
         <tr>
             <th width="130">CPF</th>
             <th>NOME</th>
-            <th width="120">AÇÃO</th>
-        </tr>	
+            <th width="120">Aï¿½ï¿½O</th>
+        </tr>
         <?php
         if(count($this->dirigentes) > 0):
             foreach ($this->dirigentes as $d):
@@ -59,7 +59,7 @@
                 <td align="center"><a href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'visualizadirigente', 'id' => $this->id, 'idDirigente' => $d->idAgente)); ?>"><?php echo Mascara::addMaskCpf($d->CNPJCPF); ?></a></td>
                 <td><?php echo $d->Nome; ?></td>
                 <td align="center"><input type="button" class="btn_exclusao" value=" " onclick="confirmaExclusao('Deseja realmente desvincular o dirigente?', '<?php echo $this->url(array("controller" => "alterarprojeto", "action" => "desvinculadirigente", "id" => $this->id, 'idDirigente' => $d->idAgente)); ?>');" /></td>
-            </tr>	
+            </tr>
         <?php
             endforeach;
         endif;

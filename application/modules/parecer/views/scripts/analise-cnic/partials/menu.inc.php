@@ -1,4 +1,4 @@
-<!-- ========== IN�CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     function carregaDados(url,divRetorno){
@@ -160,9 +160,9 @@
         });
     });
 </script>
-<!-- in�cio: conte�do principal #container -->
+<!-- INÍCIO: CONTEÚDO principal #container -->
 <div id="menu">
-    <!-- in�cio: navega��o local #qm0 -->
+    <!-- INÍCIO: navega��o local #qm0 -->
     <?php $getPronac = $this->idpronac; ?>
 
     <div id="menuContexto">
@@ -173,7 +173,7 @@
             <a class="no_seta" href="<?php echo $this->url(array('module' => 'default', 'controller' => 'proponente', 'action' => 'index')); ?>" title="Ir para Dados do Proponente">Dados do Proponente</a>
             <a class="no_seta" href="<?php echo $this->url(array('module' => 'default', 'controller' => 'anexardocumentos', 'action' => 'index')); ?>" title="Ir para Documentos anexados">Documentos anexados</a>
             <a class="no_seta last" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'), '', true); ?>?idPronac=<?php echo $this->idpronac;?>&situacao=C30&tpDiligencia=126" title="Ir para Diligenciar Proponente">Dilig&ecirc;ncias</a>
-            
+
         </div>
         <div class="bottom">
         </div>

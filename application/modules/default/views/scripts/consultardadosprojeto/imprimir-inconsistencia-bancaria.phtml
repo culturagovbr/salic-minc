@@ -117,15 +117,15 @@
     }
 </style>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div class="paginaA4">
 
     <div align="center">
-        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério da Cidadania"/>
-        <br clear="all" /><span class="TituloMinC">Ministério da Cidadania</span>
+        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministï¿½rio da Cidadania"/>
+        <br clear="all" /><span class="TituloMinC">Ministï¿½rio da Cidadania</span>
         <br clear="all" /><span class="TituloDoDocumento">Inconsist&ecirc;ncia Banc&aacute;ria</span>
         <br clear="all" /><span class="TituloDoDocumento">PRONAC: <?php echo $this->projeto->AnoProjeto.$this->projeto->Sequencial; ?> - <?php echo $this->projeto->NomeProjeto; ?></span>
-        <br clear="all" /><span class="DataDoDocumento">Data da impressão: <?php echo date('d/m/Y - H:i:s'); ?></span>
+        <br clear="all" /><span class="DataDoDocumento">Data da impressï¿½o: <?php echo date('d/m/Y - H:i:s'); ?></span>
         <br clear="all" /><br clear="all" /><span class="QntdRegistros"><?php echo count($this->dados).' Registros listados'; ?></span>
     </div>
 
@@ -148,7 +148,7 @@
                  <th colspan="2">Fornecedor</th>
                  <th colspan="3">Dados do Pagamento</th>
                  <th>&nbsp;</th>
-                 <th colspan="3">Informações do Banco do Brasil</th>
+                 <th colspan="3">Informaï¿½ï¿½es do Banco do Brasil</th>
                  <th>&nbsp;</th>
              </tr>
             <tr class="titulo_tabela">
@@ -170,7 +170,7 @@
 
                  $style= "";
 
-                 if ($d->dsLancamento==="SEM INFORMAÇÕES BANCÁRIAS") {
+                 if ($d->dsLancamento==="SEM INFORMAï¿½ï¿½ES BANCï¿½RIAS") {
                      $d->vlDiferenca = "<center>-</center>";
                      $d->vlDebitado = "<center>-</center>";
                      $d->dtLancamento = "<center>-</center>";

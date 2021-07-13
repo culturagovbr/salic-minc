@@ -103,7 +103,7 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
 					,CAST(doc.dsJustificativaCoordenador AS TEXT) AS dsJustificativaCoordenador
 					,CONVERT(CHAR(10), doc.dtJustificativaCoordenador,103) + ' ' + CONVERT(CHAR(8), doc.dtJustificativaCoordenador,108) AS dtJustificativaCoordenador
 					,doc.idCoordenador
-					,doc.idComprovanteAnterior 
+					,doc.idComprovanteAnterior
 
 				FROM BDCORPORATIVO.scSAC.tbComprovanteExecucao doc
 					,SAC.dbo.tbTipoDocumento tipodoc
@@ -111,11 +111,11 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
 					,BDCORPORATIVO.scCorp.tbArquivoImagem arqimg
 					,SAC.dbo.Projetos proj
 
-				WHERE doc.idPRONAC = proj.IdPRONAC 
-					AND doc.idTipoDocumento = tipodoc.idTipoDocumento 
-					AND doc.idArquivo     = arq.idArquivo 
-					AND arq.idArquivo     = arqimg.idArquivo 
-					AND doc.stComprovante = 'A' 
+				WHERE doc.idPRONAC = proj.IdPRONAC
+					AND doc.idTipoDocumento = tipodoc.idTipoDocumento
+					AND doc.idArquivo     = arq.idArquivo
+					AND arq.idArquivo     = arqimg.idArquivo
+					AND doc.stComprovante = 'A'
 					AND arq.stAtivo       = 'A'";
 
         if (!empty($idPRONAC)) { // restringe pelo id do projeto
@@ -174,7 +174,7 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
 					,doc.dsJustificativaCoordenador
 					,CONVERT(CHAR(10), doc.dtJustificativaCoordenador,103) + ' ' + CONVERT(CHAR(8), doc.dtJustificativaCoordenador,108) AS dtJustificativaCoordenador
 					,doc.idCoordenador
-					,doc.idComprovanteAnterior 
+					,doc.idComprovanteAnterior
 
 				FROM BDCORPORATIVO.scSAC.tbComprovanteExecucao doc
 					,SAC.dbo.tbTipoDocumento tipodoc
@@ -183,13 +183,13 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
 					,(SELECT idComprovanteAnterior, MAX(dtEnvioComprovante) dtEnvioComprovante
 					  FROM BDCORPORATIVO.scSAC.tbComprovanteExecucao
 					  WHERE stComprovante = 'A'
-					  GROUP BY idComprovanteAnterior) AS tmp 
+					  GROUP BY idComprovanteAnterior) AS tmp
 
-				WHERE doc.idTipoDocumento      = tipodoc.idTipoDocumento 
-					AND doc.idArquivo          = arq.idArquivo 
+				WHERE doc.idTipoDocumento      = tipodoc.idTipoDocumento
+					AND doc.idArquivo          = arq.idArquivo
 					AND arq.idArquivo          = arqimg.idArquivo
-					AND doc.dtEnvioComprovante = tmp.dtEnvioComprovante  
-					AND doc.stComprovante      = 'A' 
+					AND doc.dtEnvioComprovante = tmp.dtEnvioComprovante
+					AND doc.stComprovante      = 'A'
 					AND arq.stAtivo            = 'A'";
 
         if (!empty($idPRONAC)) { // restringe pelo id do projeto
@@ -248,19 +248,19 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
 					,doc.dsJustificativaCoordenador
 					,CONVERT(CHAR(10), doc.dtJustificativaCoordenador,103) + ' ' + CONVERT(CHAR(8), doc.dtJustificativaCoordenador,108) AS dtJustificativaCoordenador
 					,doc.idCoordenador
-					,doc.idComprovanteAnterior 
+					,doc.idComprovanteAnterior
 
 				FROM BDCORPORATIVO.scSAC.tbComprovanteExecucao doc
 					,SAC.dbo.tbTipoDocumento tipodoc
 					,BDCORPORATIVO.scCorp.tbArquivo arq
 					,BDCORPORATIVO.scCorp.tbArquivoImagem arqimg
 
-				WHERE doc.idTipoDocumento         = tipodoc.idTipoDocumento 
-					AND doc.idArquivo             = arq.idArquivo 
+				WHERE doc.idTipoDocumento         = tipodoc.idTipoDocumento
+					AND doc.idArquivo             = arq.idArquivo
 					AND arq.idArquivo             = arqimg.idArquivo
-					AND doc.stComprovante         = 'A' 
+					AND doc.stComprovante         = 'A'
 					AND arq.stAtivo               = 'A'
-					AND doc.idComprovanteAnterior = {$idComprovanteAnterior} 
+					AND doc.idComprovanteAnterior = {$idComprovanteAnterior}
 					AND doc.idComprovante         <> {$idComprovante} ";
 
         if (!empty($idProponente)) { // restringe pelo id do proponente
@@ -275,7 +275,7 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
 
 
     /**
-     * Busca os projetos com os status 'Aguardando Avalia��o', 'Em Avalia��o', 'Em Aprova��o' e 'Avaliado'
+     * Busca os projetos com os status 'Aguardando Avalia��o', 'Em Avalia��o', 'Em aprovação' e 'Avaliado'
      * @access public
      * @param string $pronac
      * @param string $status
@@ -307,8 +307,8 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
 					  WHERE stComprovante = 'A'
 					  GROUP BY idPronac) AS tmp
 
-				WHERE doc.idPRONAC = pro.IdPRONAC 
-					AND doc.dtEnvioComprovante = tmp.dtEnvioComprovante 
+				WHERE doc.idPRONAC = pro.IdPRONAC
+					AND doc.dtEnvioComprovante = tmp.dtEnvioComprovante
 					AND stComprovante = 'A' ";
 
         // consulta pelo pronac
@@ -324,7 +324,7 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
             }
 
             // se o projeto tiver pelo menos um comprovante
-            // com o status 'Em Aprova��o'
+            // com o status 'Em aprovação'
             if ($status == "EA") {
                 $sql.= "AND doc.stParecerComprovante = 'EA' ";
             }
@@ -335,8 +335,8 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
                 $sql.= "AND doc.stParecerComprovante = 'AV' ";
             }
 
-            // se o projeto n�o tiver comprovantes
-            // com os status 'Aguardando Avalia��o', 'Em Aprova��o' em 'Em Avalia��o'
+            // se o projeto Não tiver comprovantes
+            // com os status 'Aguardando Avalia��o', 'Em aprovação' em 'Em Avalia��o'
             if ($status == "AA") {
                 $sql.= "AND doc.stParecerComprovante <> 'AG' ";
                 $sql.= "AND doc.stParecerComprovante <> 'EA' ";
@@ -402,21 +402,21 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
 					,doc.dsJustificativaCoordenador
 					,CONVERT(CHAR(10), doc.dtJustificativaCoordenador,103) + ' ' + CONVERT(CHAR(8), doc.dtJustificativaCoordenador,108) AS dtJustificativaCoordenador
 					,doc.idCoordenador
-					,doc.idComprovanteAnterior 
+					,doc.idComprovanteAnterior
 
 				FROM BDCORPORATIVO.scSAC.tbComprovanteExecucao doc
 					,SAC.dbo.tbTipoDocumento tipodoc
 					,BDCORPORATIVO.scCorp.tbArquivo arq
-					,BDCORPORATIVO.scCorp.tbArquivoImagem arqimg 
+					,BDCORPORATIVO.scCorp.tbArquivoImagem arqimg
 
-				WHERE doc.idTipoDocumento         = tipodoc.idTipoDocumento 
-					AND doc.idArquivo             = arq.idArquivo 
-					AND arq.idArquivo             = arqimg.idArquivo 
-					AND doc.idPRONAC              = {$idPRONAC}  
-					AND doc.stParecerComprovante  = 'AD' 
-					AND doc.idComprovante         <> {$idComprovante} 
+				WHERE doc.idTipoDocumento         = tipodoc.idTipoDocumento
+					AND doc.idArquivo             = arq.idArquivo
+					AND arq.idArquivo             = arqimg.idArquivo
+					AND doc.idPRONAC              = {$idPRONAC}
+					AND doc.stParecerComprovante  = 'AD'
+					AND doc.idComprovante         <> {$idComprovante}
 					AND doc.idComprovanteAnterior = {$idComprovanteAnterior}";
 
         return $db->fetchAll($sql);
     }
-} 
+}

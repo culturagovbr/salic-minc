@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -9,15 +9,15 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Visualizar Parecer T&eacute;cnico Consolidado</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <script type="text/javascript">
 
@@ -26,9 +26,9 @@
         }
 
         function diligencias(){
-            
+
             $('#diligencias').toggle();
-            
+
             if( $('#diligencias').is(':visible') ) {
                 $('#b4').removeClass('btn_adicionar').addClass('btn_remover');
             }else{
@@ -38,15 +38,15 @@
 
         function planilha(){
             $('#planilha').toggle();
-            
+
             if( $('#planilha').is(':visible') ) {
                 $('#b3').removeClass('btn_adicionar').addClass('btn_remover');
             }else{
                 $('#b3').removeClass('btn_remover').addClass('btn_adicionar');
             }
-            
+
             var divMsg = $('#divMsg2');
-            
+
             if(divMsg.html() != ""){
                 return false;
             }
@@ -76,7 +76,7 @@
 
         function dadosconsolidados(){
             $('#dadosconsolidados').toggle();
-            
+
             if( $('#dadosconsolidados').is(':visible') ) {
                 $('#b1').removeClass('btn_adicionar').addClass('btn_remover');
             }else{
@@ -84,7 +84,7 @@
             }
 
             var divMsg = $('#divMsg1');
-            
+
             if(divMsg.html() != ""){
                 return false;
             }
@@ -112,13 +112,13 @@
 
         function parecertecnicos(){
             $('#pareceres').toggle();
-            
+
             if( $('#pareceres').is(':visible') ) {
                 $('#b2').removeClass('btn_adicionar').addClass('btn_remover');
             }else{
                 $('#b2').removeClass('btn_remover').addClass('btn_adicionar');
             }
-            
+
             var divMsg = $('#divMsg3');
 
             if(divMsg.html() != ""){
@@ -300,15 +300,15 @@
             }
         }
     </script>
-    
+
     <form id="formpdf" name="formpdf" action="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'gerarpdf')); ?>" method="post">
         <textarea name="html" id="htmlpdf" class="sumir"></textarea>
     </form>
-    
+
     <form id="formxls" name="formxls" action="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'gerarxls')); ?>" method="post">
         <textarea name="html" id="htmlxls" class="sumir"></textarea>
     </form>
-    
+
     <div id="modalConfirm" style="display: none;"><label id="msgmodal"></label></div>
 
     <input type="hidden" value="<?php echo $this->idpronac; ?>" id="idpronac" name="idpronac" />
@@ -325,44 +325,44 @@
         </tr>
     </table>
     <?php } $ct++; } ?>
-    
+
     <table class="tabela">
         <tr>
             <td width="20">
                 <input type="checkbox" value="1" name="print[]" class="cinput" title="Marcar para Imprimir" onchange="if($('#dadosconsolidados').html() == ''){dadosconsolidados();}" />
             <td width="300">
                 <input id="b1" type="button" class="btn_adicionar" value=" " onclick="dadosconsolidados();"/>
-			Parecer Técnico Consolidado
+			Parecer Tï¿½cnico Consolidado
             </td>
             <td align="center"><div id="divMsg1"></div></td>
         </tr>
     </table>
     <div id="dadosconsolidados" class="sumir"></div>
-    
+
     <table class="tabela">
         <tr>
             <td width="20"><input type="checkbox" value="2" name="print[]" class="cinput" title="Marcar para Imprimir" onclick="if($('#pareceres').html() == ''){parecertecnicos();}"/> </td>
             <td width="300">
                 <input id="b2" type="button" class="btn_adicionar" value=" " onclick="parecertecnicos();"/>
-			Análise de Conteúdo
+			AnÃ¡lise de CONTEÃšDO
             </td>
             <td align="center"><div id="divMsg3"></div></td>
         </tr>
     </table>
     <div id="pareceres" class="sumir"></div>
-    
+
     <table class="tabela">
         <tr>
             <td width="20"><input type="checkbox" value="3" name="print[]" class="cinput" title="Marcar para Imprimir" onclick="if($('#planilha').html() == ''){planilha();}"/> </td>
             <td width="300">
                 <input id="b3" type="button" class="btn_adicionar" value=" " onclick="planilha();"/>
-			Análise Custo
+			AnÃ¡lise Custo
             </td>
             <td align="center"><div id="divMsg2"></div></td>
         </tr>
     </table>
     <div id="planilha" class="sumir"></div>
-    
+
     <table class="tabela">
         <tr>
             <td width="20"><input type="checkbox" value="4" name="print[]" class="cinput" title="Marcar para Imprimir"  onclick="diligencias();"/> </td>
@@ -373,12 +373,12 @@
             <td align="center"><div id="divMsg4"></div></td>
         </tr>
     </table>
-    
+
     <div id="diligencias" class="sumir">
         <table class="tabela">
             <?php foreach($this->diligencias as $item3){ ?>
             <tr class="destacar">
-                <td align="center">Data Solicitação</td>
+                <td align="center">Data SolicitaÃ§Ã£o</td>
                 <td align="center">Data Resposta</td>
             </tr>
             <tr>
@@ -386,7 +386,7 @@
                 <td align="center"><?php echo $item3->DtResposta?></td>
             </tr>
             <tr class="destacar">
-                <td colspan="2">Solicitação</td>
+                <td colspan="2">SolicitaÃ§Ã£o</td>
             </tr>
             <tr>
                 <td colspan="2"><?php echo $item3->Solicitacao;?></td>
@@ -409,12 +409,12 @@
     <br />
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 <div id="relatorioAnaliseConteudo" style="display:none"></div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

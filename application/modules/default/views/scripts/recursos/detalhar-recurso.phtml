@@ -1,46 +1,46 @@
 <?php
 /**
- * SolicitaÁ„o de Recurso
+ * Solicita√ß√£o de Recurso
  * @author Equipe RUP - Politec
  * @since 20/07/2010
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.recurso
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Detalhar Recurso</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Detalhar Recurso <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <?php foreach ($this->dadosRecurso as $dadosRecurso) { ?>
     <table class="tabela">
         <tr>
-            <th colspan="2">SolicitaÁ„o</th>
+            <th colspan="2">Solicita√ß√£o</th>
         </tr>
         <tr>
             <td class="destacar bold" align="right" width="100">Data do Recurso</td>
             <td><?php echo Data::tratarDataZend($dadosRecurso->dtSolicitacaoRecurso, 'Brasileiro'); ?></td>
         </tr>
         <tr>
-            <td class="destacar bold" align="right">SolicitaÁ„o</td>
+            <td class="destacar bold" align="right">Solicita√ß√£o</td>
             <td><textarea class="textarea_simples" readonly="readonly" rows="" cols="" style="width: 99%"><?php echo strip_tags(trim($dadosRecurso->dsSolicitacaoRecurso)); ?></textarea></td>
         </tr>
     </table>
@@ -58,11 +58,11 @@
 
     <?php } ?>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

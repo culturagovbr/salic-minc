@@ -22,7 +22,7 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
     public function indexAction()
     {
         $idPronac = $_GET['idPronac'];
-        
+
         $auth = Zend_Auth::getInstance();
         //$idSolicitante = $auth->getIdentity()->usu_codigo;
         $buscaprojeto = new ReadequacaoProjetos();
@@ -144,7 +144,7 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         $resultado = $buscaprojeto->buscarProjetos($idPronac);
         $this->view->buscaprojeto = $resultado;
 
-        // ========== IN�CIO MENSAGEM DE REDU��O, COMPLEMENTO OU REMANEJAMENTO ==========
+        // ========== INÍCIO MENSAGEM DE REDU��O, COMPLEMENTO OU REMANEJAMENTO ==========
         $buscaProjetoProduto = new SolicitarReadequacaoCustoDAO();
         $verificarReadequacao = $buscaProjetoProduto->verificarreadequacao($idPronac);
 
@@ -153,9 +153,9 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         $totalPlanilhaSolicitada = !empty($totalPlanilhaAprovada) ? number_format(($totalPlanilhaAprovada + $totalPlanilhaSolicitada) - $verificarReadequacao[0]['totalSolicitadoExcluido'], 2, '.', '') : $totalPlanilhaSolicitada;
 
         if ($totalPlanilhaAprovada > $totalPlanilhaSolicitada) :
-            $this->view->tipoReadeq = 'Solicita��o de Redu��o'; elseif ($totalPlanilhaAprovada < $totalPlanilhaSolicitada) :
-            $this->view->tipoReadeq = 'Solicita��o de Complementa��o'; else :
-            $this->view->tipoReadeq = 'Solicita��o de Remanejamento';
+            $this->view->tipoReadeq = 'Solicitação de Redu��o'; elseif ($totalPlanilhaAprovada < $totalPlanilhaSolicitada) :
+            $this->view->tipoReadeq = 'Solicitação de Complementa��o'; else :
+            $this->view->tipoReadeq = 'Solicitação de Remanejamento';
         endif;
         // ========== FIM MENSAGEM DE REDU��O, COMPLEMENTO OU REMANEJAMENTO ==========
 
@@ -191,9 +191,9 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         $this->view->status = $stAvaliacaoItemPedidoAlteracao;
 
         if ($stAvaliacaoItemPedidoAlteracao == "AG") {
-            $this->view->statusAnalise = "Aguardando An�lise";
+            $this->view->statusAnalise = "Aguardando Análise";
         } elseif ($stAvaliacaoItemPedidoAlteracao == "EA") {
-            $this->view->statusAnalise = "Em An�lise";
+            $this->view->statusAnalise = "Em Análise";
         } elseif ($stAvaliacaoItemPedidoAlteracao == "AP") {
             $this->view->statusAnalise = "Aprovado";
         } elseif ($stAvaliacaoItemPedidoAlteracao == "IN") {
@@ -358,7 +358,7 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
 
                     parent::message("Dados analisados e atualizados com sucesso!", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$idPronac", "CONFIRM");
                 }
-               
+
                 if ($_POST['tpAcao'] == "N" || empty($_POST['tpAcao'])) {
                     parent::message("N&atilde;o h� solicita�&atilde;o de readequa�&atilde;o para este item.", "/verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$idPronac", "ALERT");
                 }

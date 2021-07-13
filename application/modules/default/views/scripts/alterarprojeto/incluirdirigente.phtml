@@ -19,18 +19,18 @@ function buscaragente(cpf)
     }
     else if (value.length != 14)
     {
-        $('#erroCpf').html('CPF inv·lido!');
+        $('#erroCpf').html('CPF invÔøΩlido!');
     }
     else
     {
         $('#erroCpf').html('');
-        // retira as m·scaras do cpf/cnpj
+        // retira as mÔøΩscaras do cpf/cnpj
         value = value.replace(".","");
         value = value.replace(".","");
         value = value.replace("/","");
         cpf = value.replace("-","");
 
-        // faz a verificaÁ„o do agente via post
+        // faz a verificaÔøΩÔøΩo do agente via post
         $.ajax({
             type: "POST",
             dataType: 'json',
@@ -53,7 +53,7 @@ function buscaragente(cpf)
                 }
                 else if (data[0].msgCPF == 'invalido')
                 {
-                    $('#erroCpf').html('CPF/CNPJ Inv·lido');
+                    $('#erroCpf').html('CPF/CNPJ InvÔøΩlido');
                 }
                 else if (data[0].msgCPF == 'novo')
                 {
@@ -64,7 +64,7 @@ function buscaragente(cpf)
             },
             error: function (data)
             {
-                alert("Falha na recuperaÁ„o dos dados.\nN„o foi possÌvel carregar agente!");
+                alert("Falha na recuperaÔøΩÔøΩo dos dados.\nN√£o foi possÔøΩvel carregar agente!");
             }
         });
 
@@ -88,7 +88,7 @@ function buscarcep(cep)
     {
         if (cep.length != 10)
         {
-            $('#erroCep').html("O CEP informado È inv·lido!");
+            $('#erroCep').html("O CEP informado ÔøΩ invÔøΩlido!");
         }
         else
         {
@@ -118,14 +118,14 @@ function buscarcep(cep)
             // divide a string para colocar cada uma em seu campo
             var s = ajax.responseText;
 
-            if (s == "") // caso os dados retornem vazios ou o cep n„o exista
+            if (s == "") // caso os dados retornem vazios ou o cep N√£o exista
             {
                 logradouro.value               = " ";
                 tipoLogradouro.options[0].text = " - Selecione - ";
                 bairro.value                   = " ";
                 cidade.options[0].text         = " - Selecione - ";
                 uf.options[0].text             = " -- ";
-                $('#erroCep').html("O CEP informado È inv·lido!");
+                $('#erroCep').html("O CEP informado ÔøΩ invÔøΩlido!");
             }
             else // caso o cep exista
             {
@@ -161,12 +161,12 @@ function buscarcep(cep)
 
 
                 // tipoLogradouro
-                // seleciona o combo de acordo com a lista existente no formul·rio
+                // seleciona o combo de acordo com a lista existente no formulÔøΩrio
                 for (i = 0; i < tipoLogradouro.options.length; i++)
                 {
                     if (txtTipoLogradouro == tipoLogradouro.options[i].text)
                     {
-                        // seleciona o Ìtem igual
+                        // seleciona o ÔøΩtem igual
                         tipoLogradouro.options[i].selected = true;
                     }
                 }
@@ -188,12 +188,12 @@ function buscarcep(cep)
 
 
                 // uf
-                // seleciona o combo de acordo com a lista existente no formul·rio
+                // seleciona o combo de acordo com a lista existente no formulÔøΩrio
                 for (i = 0; i < uf.options.length; i++)
                 {
                     if (txtUF == uf.options[i].text)
                     {
-                        // seleciona o Ìtem igual
+                        // seleciona o ÔøΩtem igual
                         uf.options[i].selected = true;
                     }
                 }
@@ -214,7 +214,7 @@ function buscarcep(cep)
                 // preenche o combo com a cidade
                 else
                 {
-                    // deixa apenas um elemento no combo, os outros s„o excluÌdos
+                    // deixa apenas um elemento no combo, os outros sÔøΩo excluÔøΩdos
                     document.getElementById("cidade").options.length = 0;
 
                     // cria um novo option
@@ -231,17 +231,17 @@ function buscarcep(cep)
 
     ajax.send(null);
 
-} // fecha funÁ„o buscar_cep()
+} // fecha funÔøΩÔøΩo buscar_cep()
 
 
 
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="#" title="Ir para InÌcio">InÌcio</a></li>
-		<li><a href="#" title="TramitaÁ„o de Documentos">Manter Agentes</a></li>
+		<li class="first"><a href="#" title="Ir para IN√çCIO">IN√çCIO</a></li>
+		<li><a href="#" title="Tramita√ß√£o de Documentos">Manter Agentes</a></li>
 		<li class="last">Principal</li>
 	</ul>
 </div>
@@ -249,22 +249,22 @@ function buscarcep(cep)
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div id="novo">Incluir Dirigente<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 <div id="carregando" class="sumir">
 	<table class="tabela">
 		<tr>
 			<td align="center" style="font-size: 18px;">
 				<img alt="" src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /><br /><br />
-				Agente j· cadastrado, aguarde...
+				Agente jÔøΩ cadastrado, aguarde...
 			</td>
 		</tr>
 	</table>
@@ -304,10 +304,10 @@ function buscarcep(cep)
 				    &nbsp; <span id="erroNome" class="spanError"></span>
 			    </td>
 				<td align="center">
-					<label for="visao"> Informe a vis„o do Agente: </label>
+					<label for="visao"> Informe a visÔøΩo do Agente: </label>
 
 					<select name="visao" id="visao" onchange="verificarVisao(this.value, <?php echo $this->grupoAtivo;?>);" class="input_simples" style="width: 250px;">
-						<option value="198" selected="selected">Dirigente de instituiÁ„o</option>
+						<option value="198" selected="selected">Dirigente de instituiÔøΩÔøΩo</option>
 					</select>
 					&nbsp; <span id="erroVisao" class="spanError"></span>
 					&nbsp; <span id="spanVisao"></span>
@@ -316,10 +316,10 @@ function buscarcep(cep)
 		</table>
 
 
-		<!-- ========== INÕCIO FORMUL¡RIO ENDERECO ========== -->
+		<!-- ========== IN√çCIO FORMULÔøΩRIO ENDERECO ========== -->
 		<table id="tabEndereco" class="tabela">
 				<tr>
-					<th colspan="3">Novo EndereÁo</th>
+					<th colspan="3">Novo EndereÔøΩo</th>
 				</tr>
 				<tr>
 					<td width="30%">
@@ -371,7 +371,7 @@ function buscarcep(cep)
 				</tr>
 				<tr>
 					<td>
-						<label for="tipoEndereco">Tipo de EndereÁo *</label> <br />
+						<label for="tipoEndereco">Tipo de EndereÔøΩo *</label> <br />
 						<select name="tipoEndereco" id="tipoEndereco" class="input_simples" style="width: 250px;">
 
 							<?php if (!isset($this->tipoEndereco) || empty($this->tipoEndereco)) { ?>
@@ -415,7 +415,7 @@ function buscarcep(cep)
 				<tr>
 
 					<td>
-						<label for="numero">N˙mero *</label> <br />
+						<label for="numero">NÔøΩmero *</label> <br />
 						<input class="input_simples" type="text" name="numero" id="numero" maxlength="10" size="30" />
 						<span id="erroNumero" class="spanError"></span>
 					</td>
@@ -432,19 +432,19 @@ function buscarcep(cep)
 				</tr>
 				<tr>
 					<td colspan="3">
-						<label>Autorizo divulgar o endereÁo</label>
+						<label>Autorizo divulgar o endereÔøΩo</label>
 						<input type="radio" name="divulgarEndereco" id="divulgarEnderecoS" value="1" class="checkradio"  style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
 						<label for="divulgarFoneS">Sim</label>
 						<input type="radio" name="divulgarEndereco" id="divulgarEnderecoN" value="0" class="checkradio" checked="checked"  style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
-						<label for="divulgarFoneN">N„o</label>
+						<label for="divulgarFoneN">N√£o</label>
 					</td>
 				</tr>
 			</table>
-		<!-- ========== FIM FORMUL¡RIO ENDERECO ========== -->
+		<!-- ========== FIM FORMULÔøΩRIO ENDERECO ========== -->
 
 
 
-		<!-- ========== INÕCIO FORMUL¡RIO FONE ========== -->
+		<!-- ========== IN√çCIO FORMULÔøΩRIO FONE ========== -->
 		<table id="tabFone" class="tabela">
 				<tr>
 					<th colspan="5">TELEFONE</th>
@@ -502,7 +502,7 @@ function buscarcep(cep)
 						<input type="radio" name="divulgarFone" id="divulgarFoneS" value="1" class="checkradio"  style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
 						<label for="divulgarFoneS">Sim</label>
 						<input type="radio" name="divulgarFone" id="divulgarFoneN" value="0" class="checkradio" checked="checked"  style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
-						<label for="divulgarFoneN">N„o</label>
+						<label for="divulgarFoneN">N√£o</label>
 					</td>
 				</tr>
 
@@ -542,12 +542,12 @@ function buscarcep(cep)
 							<input type="radio" name="divulgarEmail" id="divulgarEmailS" value="1" style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
 							<label for="divulgarEmailS">Sim</label>
 							<input type="radio" name="divulgarEmail" id="divulgarEmailN" value="0" class="checkradio" checked="checked"   style="background: none; border: 0%; float:none; clear:auto; display:inline;"/>
-							<label for="divulgarEmailN">N„o</label>
+							<label for="divulgarEmailN">N√£o</label>
 						</td>
 					</tr>
 
 		</table>
-		<!-- ========== FIM FORMUL¡RIO E-MAIL ========== -->
+		<!-- ========== FIM FORMULÔøΩRIO E-MAIL ========== -->
 
 		<table class="tabela">
 			<tr>
@@ -561,12 +561,12 @@ function buscarcep(cep)
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

@@ -3,26 +3,26 @@
     <div class="col s12 m10 l10">
 
 
-        <!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="#" title="Ir para InÌcio">InÌcio</a></li>
+                <li class="first"><a href="#" title="Ir para IN√çCIO">IN√çCIO</a></li>
                 <li><a href="#" title="Agentes">Manter Agentes</a></li>
-                <li class="last">InformaÁıes Profissionais</li>
+                <li class="last">InformaÔøΩÔøΩes Profissionais</li>
             </ul>
         </div>
         <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-        <!-- ========== INÕCIO TÕTULO ========== -->
+        <!-- ========== IN√çCIO TÔøΩTULO ========== -->
         <div id="titulo">
-            <div>InformaÁıes Profissionais<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
+            <div>InformaÔøΩÔøΩes Profissionais<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
             </div>
         </div>
-        <!-- ========== FIM TÕTULO ========== -->
+        <!-- ========== FIM TÔøΩTULO ========== -->
 
 
-        <!-- ========== INÕCIO CONTE⁄DO ========== -->
+        <!-- ========== IN√çCIO CONTE√öDO ========== -->
         <div id="conteudo">
 
             <?php echo $this->partial('agentes/inc/cabecalho.php', $this) ?>
@@ -30,7 +30,7 @@
             <?php if (($this->grupoativo == "137")): ?>
                 <table class="tabela">
                     <tr>
-                        <td>Para adicionar uma nova formaÁ„o, clique em novo ao lado!</td>
+                        <td>Para adicionar uma nova formaÔøΩÔøΩo, clique em novo ao lado!</td>
                         <th width="150"><input type="button" class="btn_novo" value=" " onclick="novo();"/></th>
                     </tr>
                 </table>
@@ -46,10 +46,10 @@
 
                     <table class="tabela">
                         <tr>
-                            <th colspan="4">FORMA«√O PROFISSIONAL</th>
+                            <th colspan="4">FORMAÔøΩÔøΩO PROFISSIONAL</th>
                         </tr>
                         <tr>
-                            <td width="200"><span style="color: red; font-weight: bold;">*</span> Profiss„o:</td>
+                            <td width="200"><span style="color: red; font-weight: bold;">*</span> ProfissÔøΩo:</td>
                             <td colspan="3"><input type="text" name="profissao" id="profissao" value=""
                                                    class="input_simples" style="width: 190px;"/></td>
                         </tr>
@@ -59,7 +59,7 @@
                                                    style="width: 190px;"/></td>
                         </tr>
                         <tr>
-                            <td><span style="color: red; font-weight: bold;">*</span> EndereÁo:</td>
+                            <td><span style="color: red; font-weight: bold;">*</span> EndereÔøΩo:</td>
                             <td colspan="3"><input type="text" name="endereco" id="endereco" value=""
                                                    class="input_simples" style="width: 300px;"/></td>
                         </tr>
@@ -68,7 +68,7 @@
                             <td><input type="text" name="dtentrada" id="dtentrada" class="input_simples w100"
                                        maxlength="10" value="" onkeyup="mascara(this, format_data);"
                                        onclick="limpar_campo(this, '');"></td>
-                            <td width="100">Data SaÌda:</td>
+                            <td width="100">Data SaÔøΩda:</td>
                             <td><input type="text" name="dtsaida" id="dtsaida" class="input_simples w100" maxlength="10"
                                        value="" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');">
                             </td>
@@ -91,14 +91,14 @@
             <?php if (count($this->formacoes) != 0): ?>
                 <table class="tabela" id="salvos">
                     <tr>
-                        <th colspan="6">INFORMA«’ES PROFISSIONAIS CADASTRADAS</th>
+                        <th colspan="6">INFORMAÔøΩÔøΩES PROFISSIONAIS CADASTRADAS</th>
                     </tr>
                     <tr>
-                        <td width="140" align="center"><b>PROFISS√O</b></td>
+                        <td width="140" align="center"><b>PROFISSÔøΩO</b></td>
                         <td width="140" align="center"><b>CARGO</b></td>
-                        <td width="170" align="center"><b>ENDERE«O</b></td>
+                        <td width="170" align="center"><b>ENDEREÔøΩO</b></td>
                         <td width="120" align="center"><b>DATA ENTRADA</b></td>
-                        <td width="120" align="center"><b>DATA SAÕDA</b></td>
+                        <td width="120" align="center"><b>DATA SAÔøΩDA</b></td>
                         <td align="center"><b>DOCUMENTO</b></td>
                     </tr>
                     <?php foreach ($this->formacoes as $f): ?>
@@ -186,12 +186,12 @@
             return false;
         }
         else if (dtinicio < dtAtual) {
-            alertar('O perÌodo n„o pode ser inferior a data de hoje!');
+            alertar('O perÔøΩodo N√£o pode ser inferior a data de hoje!');
 
             return false;
         }
         else if ((instituicao == '') || (curso == '') || (endereco == '')) {
-            alertar("Dados obrigatÛrios n„o preenchidos!");
+            alertar("Dados obrigatÔøΩrios N√£o preenchidos!");
         }
         else {
             $("#form").submit();

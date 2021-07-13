@@ -21,14 +21,14 @@ class PDFCreator {
 
     /**
      * @param $quebra_linha
-     * auto: � o valor padr�o. S� coloca a quebra de p�gina se for necess�rio;
+     * auto: � o valor padr�o. S� coloca a quebra de página se for necess�rio;
      * always: coloca sempre uma quebra de linha, depois ou antes do elemento;
      * avoid: evita colocar uma quebra de linha antes ou depois;
-     * left: insere uma ou duas quebras de p�gina, de modo que se possa assegurar que a seguinte p�gina seja uma p�gina esquerda (page-break-after)
-     * 		ou para assegurar que a p�gina onde se come�a o elemento seja uma p�gina esquerda (page-break-before).
-     * 		Imaginemos um livro aberto, que tem p�ginas � esquerda e � direita para saber ao que se refere uma p�gina esquerda.
-	 * right: insere uma ou duas quebras de p�gina, para assegurar que se possa inserir o elemento ao princ�pio de uma p�gina de direita (page-break-before)
-	 * 		ou para assegurar que depois do elemento comece uma p�gina direita (page-break-after).
+     * left: insere uma ou duas quebras de página, de modo que se possa assegurar que a seguinte página seja uma página esquerda (page-break-after)
+     * 		ou para assegurar que a página onde se come�a o elemento seja uma página esquerda (page-break-before).
+     * 		Imaginemos um livro aberto, que tem páginas � esquerda e � direita para saber ao que se refere uma página esquerda.
+	 * right: insere uma ou duas quebras de página, para assegurar que se possa inserir o elemento ao princ�pio de uma página de direita (page-break-before)
+	 * 		ou para assegurar que depois do elemento comece uma página direita (page-break-after).
      */
     public function gerarPdf($quebra_linha = 'avoid') {
 

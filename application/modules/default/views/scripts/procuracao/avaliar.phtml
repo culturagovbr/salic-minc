@@ -13,7 +13,7 @@
                 }
             },
             submitHandler: function(form) {
-                form.submit(); 
+                form.submit();
             }
         });
     });
@@ -21,15 +21,15 @@
     function aprovacao(idDocumento, tipoaprovacao) {
         var msg = "";
         if(tipoaprovacao == 1) {
-            msg = "Deseja aprovar a procuraÁ„o?";
+            msg = "Deseja aprovar a procuraÔøΩÔøΩo?";
             $("#situacao").val("1");
         } else {
-            msg = "Deseja rejeitar a procuraÁ„o?";
+            msg = "Deseja rejeitar a procuraÔøΩÔøΩo?";
             $("#situacao").val("0");
         }
 
         if($('#justificativa').val().length > 300){
-            $("#error").html('O campo justificativa deve ter no m·ximo 300 caracteres.');
+            $("#error").html('O campo justificativa deve ter no mÔøΩximo 300 caracteres.');
             $("#error").dialog({
                 resizable: true,
                 width:320,
@@ -56,7 +56,7 @@
                 closeOnEscape : false,
                 title : 'Alerta!',
                 buttons: {
-                    'N„o': function() {
+                    'N√£o': function() {
                         $("#confirm").dialog('close');
                     },
                     'Sim': function() {
@@ -69,35 +69,35 @@
         }
     }
 </script>
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'analisar')); ?>" title="Ir para InÌcio">InÌcio</a></li>
-        <li class="last">Analisar procuraÁ„o</li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'analisar')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
+        <li class="last">Analisar procuraÔøΩÔøΩo</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Analisar procuraÁ„o <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+    <div>Analisar procuraÔøΩÔøΩo <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <div id="confirm" class="sumir"></div>
     <div id="error" class="sumir"></div>
     <form id="formaprovacao" action="<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'aprovacao')); ?>" method="post">
         <table class="tabela">
             <tr>
-                <th colspan="2">ProcuraÁ„o n∫ <?php echo $this->procuracao[0]->idDocumento; ?> </th>
+                <th colspan="2">ProcuraÔøΩÔøΩo nÔøΩ <?php echo $this->procuracao[0]->idDocumento; ?> </th>
             </tr>
             <tr>
-                <td width="130">Visualizar procuraÁ„o </td>
+                <td width="130">Visualizar procuraÔøΩÔøΩo </td>
                 <td><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $this->procuracao[0]->idArquivo; ?>"><img src="<?php echo $this->baseUrl(); ?>/public/img/btn_busca.jpg"/></a></td>
             </tr>
             <tr>
-                <th colspan="2" align="left">RESPONS¡VEL</th>
+                <th colspan="2" align="left">RESPONSÔøΩVEL</th>
             </tr>
             <tr>
                 <td colspan="2"><?php echo $this->procuracao[0]->NomeResponsavel; ?></td>
@@ -109,13 +109,13 @@
                 <td colspan="2"><?php echo $this->procuracao[0]->NomeProponente; ?></td>
             </tr>
             <tr>
-                <th colspan="2">OBSERVA«√O</th>
+                <th colspan="2">OBSERVAÔøΩÔøΩO</th>
             </tr>
             <tr>
                 <td colspan="2"><?php echo $this->procuracao[0]->dsObservacao; ?></td>
             </tr>
             <tr>
-                <th colspan="2">PROJETOS SELECIONADOS PARA A PROCURA«√O</th>
+                <th colspan="2">PROJETOS SELECIONADOS PARA A PROCURAÔøΩÔøΩO</th>
             </tr>
             <tr>
                 <td class="titulo_tabela">PRONAC</td>
@@ -156,10 +156,10 @@
     </form>
 </div>
 
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

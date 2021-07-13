@@ -14,10 +14,10 @@ class ProjetoExtratoRestController extends Minc_Controller_AbstractRest
     public function postAction()
     {
     }
-    
+
     public function indexAction()
     {
-        # Parametros da Pagina��o.
+        # Parametros da PAGINAÇÂO.
         $next = $this->_request->getParam('next');
         $offset = $this->_request->getParam('offset');
         $total = $this->_request->getParam('total');
@@ -50,7 +50,7 @@ class ProjetoExtratoRestController extends Minc_Controller_AbstractRest
         # Resposta da autentica��o
         $this->getResponse()->setHttpResponseCode(200)->setBody(json_encode((object) array('list' => $listaExtrato, 'total' => $total)));
     }
-    
+
     public function getAction()
     {
     }

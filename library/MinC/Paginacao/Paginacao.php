@@ -1,12 +1,12 @@
 <?php
 /**
- * Classe para paginação de dados
+ * Classe para PAGINAÃ‡Ã‚O de dados
  * @author Equipe RUP - Politec
  * @since 29/03/2010
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Paginacao
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 

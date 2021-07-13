@@ -6,9 +6,9 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
      * @access private
      * @var integer (idAgente do usu�rio logado)
      */
-    private $getIdUsuario = 0; // c�digo do usu�rio logado
-    private $getIdGrupo   = 0; // c�digo do grupo logado
-    private $getIdOrgao   = 0; // c�digo do �rg�o logado
+    private $getIdUsuario = 0; // Código do usu�rio logado
+    private $getIdGrupo   = 0; // Código do grupo logado
+    private $getIdOrgao   = 0; // Código do �rg�o logado
 
 
 
@@ -45,9 +45,9 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
      */
     public function init()
     {
-        $this->view->title = 'Salic - Sistema de Apoio �s Leis de Incentivo � Cultura'; // t�tulo da p�gina
+        $this->view->title = 'Salic - Sistema de Apoio �s Leis de Incentivo � Cultura'; // t�tulo da página
 
-        /* ========== IN�CIO PERFIL ========== */
+        /* ========== INÍCIO PERFIL ========== */
         // define os grupos que tem acesso
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 121; // T�cnico de Acompanhamento
@@ -74,13 +74,13 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
         /* ========== FIM PERFIL ==========*/
 
 
-        /* ========== IN�CIO �RG�O ========== */
+        /* ========== INÍCIO �RG�O ========== */
         $GrupoAtivo   = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $this->getIdGrupo = $GrupoAtivo->codGrupo; // id do grupo ativo
         $this->getIdOrgao = $GrupoAtivo->codOrgao; // id do �rg�o ativo
 
         if (isset($auth->getIdentity()->usu_codigo) && $this->getIdOrgao != 251 && $this->getIdOrgao != 272 && $this->getIdOrgao != 166) { // aceita somente o �rg�o SEFIC/SACAV
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
         }
         /* ========== FIM �RG�O ========== */
 
@@ -123,7 +123,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
 
     /**
      * Gera o extrato banc�rio de acordo com o filtro na pesquisa.
-     * Esse m�todo s� � executado quando � feita uma solicita��o via POST.
+     * Esse m�todo s� � executado quando � feita uma Solicitação via POST.
      * @access public
      * @param void
      * @return void
@@ -136,12 +136,12 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
         if ($this->getRequest()->isPost()) {
             // recebe os dados via post
             $post            = Zend_Registry::get('post');
-                        
+
             if ($post->relPaginacao) {
                 $this->_helper->layout->disableLayout(); // desabilita o layout
             }
-                        
-                        
+
+
             $id_pronac       = $post->id_pronac;
             $pronac          = $post->nr_pronac;
             $conta_rejeitada = isset($post->conta_rejeitada) ? true : false;
@@ -178,7 +178,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
                     if ($total->total > 0) {
                         //Controla a pagincao
                         $this->intTamPag = 500;
-                                        
+
                         if (isset($post->pag)) {
                             $pag = $post->pag;
                         }
@@ -196,15 +196,15 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
 
                         // busca os dados no banco e manda para a vis�o
 
-                                        
+
                         $dados = $this->tbMovimentacaoBancaria->buscarDados($pronac, $conta_rejeitada, $periodo, $operacao, $tamanho, $inicio, null);
                     }
-                                    
+
                     $this->view->dados            = $dados;
                     $this->view->total            = $total->total;
                     $this->view->periodo          = $periodo;
                     $this->view->conta_rejeitada  = $conta_rejeitada;
-                                    
+
                     $this->view->pag = $pag;
                     $this->view->inicio = ($inicio+1);
                     $this->view->fim = $fim;
@@ -247,7 +247,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
     public function uploadAction()
     {
         if ($this->getIdGrupo != 121 && $this->getIdGrupo != 122 && $this->getIdGrupo != 129) { // s� T�cnico de Acompanhamento que pode acessar
-            parent::message('Voc� n�o tem permiss�o para acessar essa �rea do sistema!', 'principal/index', 'ALERT');
+            parent::message('Voc� Não tem permiss�o para acessar essa �rea do sistema!', 'principal/index', 'ALERT');
         }
 
         // caso o formul�rio seja enviado via post
@@ -285,7 +285,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
                 }
                 //				else if ($arquivoTamanho > 14680064) // tamanho m�ximo do arquivo: 14MB
                 //				{
-                //					throw new Exception('O arquivo n�o pode ser maior do que <strong>14MB</strong>!');
+                //					throw new Exception('O arquivo Não pode ser maior do que <strong>14MB</strong>!');
                 //				}
                 //				else if ($arquivoTamanho <= 150) // tamanho m�nimo do arquivo: 150 bytes
                 //				{
@@ -309,7 +309,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
                         if (move_uploaded_file($arquivoTemp, $dir . '/' . $arquivoNome)) {
                             // abre o diret�rio
                             if (($abrir = opendir($dir)) === false) {
-                                throw new Exception('N�o foi poss�vel abrir o diret�rio <strong>' . $dir . '</strong>!');
+                                throw new Exception('Não foi poss�vel abrir o diret�rio <strong>' . $dir . '</strong>!');
                             }
 
                             // busca todos os arquivos do diret�rio
@@ -334,10 +334,10 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
                                         $nr_banco               = substr($linha_header, 76, 3);  // N�MERO DO BANCO
                                         $nm_arquivo             = substr($linha_header, 11, 15); // NOME DO ARQUIVO
                                         $dt_arquivo             = substr($linha_header, 181, 8); // DATA DA GERA��O DO ARQUIVO
-//										$dt_inicio_movimentacao = substr($linha_header, 52, 8); // DATA DE IN�CIO DA MOVIMENTA��O BANC�RIA
+//										$dt_inicio_movimentacao = substr($linha_header, 52, 8); // DATA DE INÍCIO DA MOVIMENTA��O BANC�RIA
 //										$dt_fim_movimentacao    = substr($linha_header, 60, 8); // DATA FINAL DA MOVIMENTA��O BANC�RIA
-                                        
-                                        
+
+
                                         // faz a valida��o do arquivo pelo header
                                         // verifica pelo header se o arquivo j� existe
                                         if (substr($linha_header, 0, 1) == 0) {
@@ -353,7 +353,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
                                                 throw new Exception('O layout do arquivo enviado � inv�lido!');
                                             }
 
-                                            // busca a data de gera��o do arquivo para evitar inser��o de registros duplicados
+                                            // busca a data de gera��o do arquivo para evitar inserá�o de registros duplicados
                                             $dataGeracaoArquivo = Data::dataAmericana(Mascara::addMaskDataBrasileira($dt_arquivo));
 
                                             // verifica se o arquivo j� est� cadastrado no banco de dados
@@ -383,24 +383,24 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
                             } // fecha while
 
                             // caso exista arquivo(s) .txt ou .ret no diret�rio:
-                            // 	1. Varre o conte�do de cada arquivo
-                            // 	2. Grava o conte�do de cada linha no banco
+                            // 	1. Varre o CONTEÚDO de cada arquivo
+                            // 	2. Grava o CONTEÚDO de cada linha no banco
                             // 	3. Deleta o arquivo do diret�rio
                             if (isset($arquivos) && count($arquivos) > 0) {
-                                // ========== IN�CIO - VARRE O ARQUIVO DETALHADAMENTE ==========
+                                // ========== INÍCIO - VARRE O ARQUIVO DETALHADAMENTE ==========
                                 foreach ($arquivos as $arquivoTXT) :
 
                                     // abre o arquivo para leitura
                                     $abrir_arquivo = fopen($arquivoTXT, 'r');
 
-                                // in�cio while de leitura do arquivo linha por linha
+                                // INÍCIO while de leitura do arquivo linha por linha
                                 $i = 0;
                                 $dsInformacao = array();
                                 while (!feof($abrir_arquivo)) {
                                     // pega a linha do arquivo
                                     $linha = fgets($abrir_arquivo, 4096);
 
-                                    // caso a linha n�o seja vazia e o primeiro caractere for num�rico
+                                    // caso a linha Não seja vazia e o primeiro caractere for num�rico
                                     if (!empty($linha) && is_numeric(substr($linha, 0, 1))) {
                                         // armazena as linhas do arquivo em um array
                                         $dsInformacao[$i] = trim($linha);
@@ -424,10 +424,10 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
 
                                 endforeach;
                                 // ========== FIM - VARRE O ARQUIVO DETALHADAMENTE ==========
-                                                                
+
                                 //$this->tbDepositoIdentificadoMovimentacao->DepositoIdentificadoMovimentacao();
                             } // fecha if
-                                                        
+
 
                             parent::message('Arquivo enviado com sucesso!', 'controlarmovimentacaobancaria/upload', 'CONFIRM');
                         } // fecha if upload
@@ -487,7 +487,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
      * toda vez que acessar aqui, verificar se o arquivo do BB existe,
      * caso o arquivo exista, grava os dados no banco e exclui o arquivo.
      * ****************************************************************************************************
-     * OBS: Por enquanto foi substitu�do pela TRIGGER/SP, mas, � bom n�o retir�-lo para o caso de precisar
+     * OBS: Por enquanto foi substitu�do pela TRIGGER/SP, mas, � bom Não retir�-lo para o caso de precisar
      * ****************************************************************************************************
      * @access public
      * @param void
@@ -502,7 +502,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
 
         // abre o diret�rio
         if (($abrir = opendir($dir)) === false) {
-            throw new Exception('N�o foi poss�vel abrir o diret�rio ' . $dir . '!');
+            throw new Exception('Não foi poss�vel abrir o diret�rio ' . $dir . '!');
         }
 
         // busca todos os arquivos do diret�rio
@@ -516,12 +516,12 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
 
 
         // caso exista arquivo(s) .txt no diret�rio:
-        // 	1. Varre o conte�do de cada arquivo
-        // 	2. Grava o conte�do de cada arquivo no banco
+        // 	1. Varre o CONTEÚDO de cada arquivo
+        // 	2. Grava o CONTEÚDO de cada arquivo no banco
         // 	3. Deleta o arquivo do diret�rio
         if (isset($arquivos) && count($arquivos) > 0) {
 
-            // ========== IN�CIO - VARRE O ARQUIVO DETALHADAMENTE ==========
+            // ========== INÍCIO - VARRE O ARQUIVO DETALHADAMENTE ==========
             foreach ($arquivos as $arquivoTXT) :
 
                 // abre o arquivo para leitura
@@ -544,19 +544,19 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
 
                 $erros = array(); // verificador de erros
 
-            // in�cio while de leitura do arquivo linha por linha
+            // INÍCIO while de leitura do arquivo linha por linha
             while (!feof($abrir_arquivo)) {
                 // pega a linha do arquivo
                 $linha = fgets($abrir_arquivo, 4096);
                 //echo $linha . '<br />';
 
 
-                // ========== IN�CIO CONSTANTE 1 (HEADER) ==========
+                // ========== INÍCIO CONSTANTE 1 (HEADER) ==========
                 if (substr($linha, 0, 1) == 1) :
                         $movimentacao1['nr_banco'][$cont1]               = substr($linha, 1, 3); // N�MERO DO BANCO
                         $movimentacao1['nm_arquivo'][$cont1]             = substr($linha, 4, 40); // NOME DO ARQUIVO
                         $movimentacao1['dt_arquivo'][$cont1]             = substr($linha, 44, 8); // DATA DA GERA��O DO ARQUIVO
-                        $movimentacao1['dt_inicio_movimentacao'][$cont1] = substr($linha, 52, 8); // DATA DE IN�CIO DA MOVIMENTA��O BANC�RIA
+                        $movimentacao1['dt_inicio_movimentacao'][$cont1] = substr($linha, 52, 8); // DATA DE INÍCIO DA MOVIMENTA��O BANC�RIA
                         $movimentacao1['dt_fim_movimentacao'][$cont1]    = substr($linha, 60, 8); // DATA FINAL DA MOVIMENTA��O BANC�RIA
 
                         // gravar no banco os dados do arquivo
@@ -575,13 +575,13 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
                 // ========== FIM CONSTANTE 1 (HEADER) ==========
 
 
-                // ========== IN�CIO CONSTANTE 2 ==========
+                // ========== INÍCIO CONSTANTE 2 ==========
                 if (substr($linha, 0, 1) == 2) :
                         $movimentacao2['agencia'][$cont2]           = substr($linha, 1, 4); // PREFIXO DA AG�NCIA
                         $movimentacao2['dv_agencia'][$cont2]        = substr($linha, 5, 1); // DIGITO VERIFICADOR DA AG�NCIA
                         $movimentacao2['conta'][$cont2]             = substr($linha, 6, 9); // N�MERO DA CONTA CORRENTE
                         $movimentacao2['dv_conta'][$cont2]          = substr($linha, 15, 1); // DIGITO VERIFICADOR DA CONTA CORRENTE
-                        $movimentacao2['titulo_razao'][$cont2]      = substr($linha, 16, 12); // C�DIGO T�TULO RAZ�O DA CONTA CORRENTE
+                        $movimentacao2['titulo_razao'][$cont2]      = substr($linha, 16, 12); // Código T�TULO RAZ�O DA CONTA CORRENTE
                         $movimentacao2['nome_abreviado'][$cont2]    = substr($linha, 28, 30); // NOME ABREVIADO
                         $movimentacao2['dt_abertura'][$cont2]       = substr($linha, 58, 8); // DATA DA ABERTURA DA CONTA CORRENTE
                         $movimentacao2['cnpj_cpf'][$cont2]          = substr($linha, 66, 14); // CNPJ OU CPF DA CONTA CORRENTE
@@ -678,14 +678,14 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
                 // ========== FIM CONSTANTE 2 ==========
 
 
-                // ========== IN�CIO CONSTANTE 3 ==========
+                // ========== INÍCIO CONSTANTE 3 ==========
                 if (substr($linha, 0, 1) == 3) :
                         $movimentacao3['agencia'][$cont3]            = substr($linha, 1, 4); // PREFIXO DA AG�NCIA
                         $movimentacao3['dv_agencia'][$cont3]         = substr($linha, 5, 1); // DIGITO VERIFICADOR DA AG�NCIA
                         $movimentacao3['conta'][$cont3]              = substr($linha, 6, 9); // N�MERO DA CONTA CORRENTE
                         $movimentacao3['dv_conta'][$cont3]           = substr($linha, 15, 1); // DIGITO VERIFICADOR DA CONTA CORRENTE
                         $movimentacao3['dt_movimento'][$cont3]       = substr($linha, 16, 8); // DATA DO MOVIMENTO NA CONTA CORRENTE
-                        $movimentacao3['cod_historico'][$cont3]      = substr($linha, 24, 4); // C�DIGO DO HIST�RICO DO BANCO
+                        $movimentacao3['cod_historico'][$cont3]      = substr($linha, 24, 4); // Código DO HIST�RICO DO BANCO
                         $movimentacao3['historico'][$cont3]          = substr($linha, 28, 15); // HIST�RICO DO BANCO
                         $movimentacao3['nr_documento'][$cont3]       = substr($linha, 43, 10); // N�MERO DO DOCUMENTO PARA O BANCO
                         $movimentacao3['valor_movimento'][$cont3]    = (float) substr($linha, 53, 18); // VALOR DO MOVIMENTO NA CONTA CORRENTE
@@ -782,7 +782,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
                 // ========== FIM CONSTANTE 3 ==========
 
 
-                // ========== IN�CIO CONSTANTE 9 ==========
+                // ========== INÍCIO CONSTANTE 9 ==========
                 if (substr($linha, 0, 1) == 9) :
                         $movimentacao9['qtd_registros'][$cont9] = substr($linha, 1, 7); // QUANTIDADE DE REGISTROS
                         $cont9++; //incrementa o contador

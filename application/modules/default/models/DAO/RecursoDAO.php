@@ -380,8 +380,8 @@ class RecursoDAO extends Zend_Db_Table
     }
 
     /**
-     * M�todo para recuperar os projetos em an�lise. (CONSELHEIRO)
-     * S� efetua a busca se as fontes de recursos estiverem de acordo com o C�digo 109 � Incentivo Fiscal Federal,
+     * M�todo para recuperar os projetos em Análise. (CONSELHEIRO)
+     * S� efetua a busca se as fontes de recursos estiverem de acordo com o Código 109 � Incentivo Fiscal Federal,
      * conforme Lei 8.313 de 1991.
      * @access public
      * @static
@@ -498,7 +498,7 @@ class RecursoDAO extends Zend_Db_Table
     } // fecha m�todo analiseDeCustosBuscarProduto()
 
     /**
-     * M�todo que busca as etapas dos projetos da an�lise de custos
+     * M�todo que busca as etapas dos projetos da Análise de custos
      * @access public
      * @static
      * @param integer $idPronac
@@ -574,7 +574,7 @@ class RecursoDAO extends Zend_Db_Table
     }
 
     /**
-     * Cadastra na planilha de aprova��o
+     * Cadastra na planilha de aprovação
      */
     public static function cadastrarPlanilhaAprovacao($dados)
     {
@@ -591,7 +591,7 @@ class RecursoDAO extends Zend_Db_Table
     }
 
     /**
-     * desativa a planilha de aprova��o
+     * desativa a planilha de aprovação
      */
     public static function desativarPlanilhaAprovacao($dados, $id)
     {
@@ -608,7 +608,7 @@ class RecursoDAO extends Zend_Db_Table
     }
 
     /**
-     * seleciona todos os dados da planilha de aprova��o
+     * seleciona todos os dados da planilha de aprovação
      */
     public static function buscarPlanilhaAprovacao($id)
     {
@@ -635,5 +635,5 @@ class RecursoDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } 
+    }
 }

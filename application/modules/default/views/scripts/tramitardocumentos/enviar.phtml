@@ -103,7 +103,7 @@
 
     function Caracteres(objeto){
         var limite = 300;
-        var erro = "Você ultrapassou o limite de caracteres.";
+        var erro = "Vocï¿½ ultrapassou o limite de caracteres.";
 
         tamanho = objeto.value.length;
         if (tamanho>limite) {
@@ -117,7 +117,7 @@
 
 <?php echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -127,15 +127,15 @@
 </div>
 <!-- ========== FIM BRADCRUMB (LINKS TOPO) ========== -->
 
-<div id="confirm1" title="Confirma&ccedil;&atilde;o" style="display: none">Dados obrigatórios não informados!</div>
+<div id="confirm1" title="Confirma&ccedil;&atilde;o" style="display: none">Dados obrigatï¿½rios NÃ£o informados!</div>
 <div id="confirm2" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja excluir o registro?</div>
 <div id="confirm" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja excluir o registro?</div>
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Enviar documentos cadastrados <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 <div style="display:none;" id="modalJustificativa" title="Justificativa de Recusa do Projeto" >
     <form name="formencaminhar" id="" method="post">
         <table class="tabela">
@@ -149,12 +149,12 @@
             </tr>
        	</table>
 
-       	* Por favor informe uma justificativa para a solicitação de cancelamento:
+       	* Por favor informe uma justificativa para a SolicitaÃ§Ã£o de cancelamento:
        	<br />	<br><label for="justificativa">Justificativa</label><br>
 
        	<textarea name="justificativa" id="justificativa" rows="6" cols="50" style="width:100%;" onclick="limpar_campo(this, 'Digite a justificativa...');"
                   onblur="restaurar_campo(this, 'Digite a justificativa...');" onkeydown=Caracteres(this) onkeyup=Caracteres(this)>Digite a justificativa...</textarea>
-        <font>Limite: 300 • Restantes: </font>
+        <font>Limite: 300 ï¿½ Restantes: </font>
         <span id="restantes" style="estilos...">300</span>
        	<br />
        	<br />
@@ -175,7 +175,7 @@
 </div>
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
     <form id="formhtml" action="<?php echo $this->url(array(' controller' => 'tramitardocumentos', 'action' => 'gerarguia')); ?>" method="post">
@@ -205,8 +205,8 @@
                 <th width="120">Documento</th>
                 <th width="70">Data</th>
                 <th>Arquivo</th>
-                <th>Situação</th>
-                <!--<th>Usuário</th>
+                <th>Situaï¿½ï¿½o</th>
+                <!--<th>Usuï¿½rio</th>
                 <th width="70">Data</th>-->
                 <th width="70">Excluir</th>
             </tr>
@@ -233,7 +233,7 @@
         <table class="tabela">
             <tr>
                 <td class="centro">
-                                Não há Documento para ser enviado!
+                                NÃ£o hï¿½ Documento para ser enviado!
                 </td>
             </tr>
         </table>
@@ -241,11 +241,11 @@
     </fieldset>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

@@ -17,7 +17,7 @@
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center" width="30%">Nï¿½ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -65,7 +65,7 @@
                     } else if($relCadastrados->siComprovanteTrimestral == 2) {
                         $msg = 'Enviado';
                     } else if($relCadastrados->siComprovanteTrimestral == 3 || $relCadastrados->siComprovanteTrimestral == 4 || $relCadastrados->siComprovanteTrimestral == 5) {
-                        $msg = 'Em análise';
+                        $msg = 'Em AnÃ¡lise';
                     } else if($relCadastrados->siComprovanteTrimestral == 6) {
                         $msg = 'Analisado';
                     }
@@ -91,7 +91,7 @@
                 ?>
             </td>
             <td>-</td>
-            <td><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/etapas-de-trabalho?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>">Não cadastrado</a></td>
+            <td><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/etapas-de-trabalho?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>">NÃ£o cadastrado</a></td>
         </tr>
         <?php } ?>
         <!-- ***FIM - ESSA PARTE SO SERA HABILITADA PARA UM NOVO CADASTRO*** -->
@@ -102,7 +102,7 @@
 </div>
 
 
-<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÃCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

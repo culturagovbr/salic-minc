@@ -30,7 +30,7 @@
             var pronac = $(this).attr('pronac')
             var nome = $(this).attr('nome')
             var area = $(this).attr('area')
-            
+
             $.ajax({
                 type: "POST",
                 url:  "<?php echo $this->url(array('controller' => 'projetosgerenciar', 'action' => 'index')); ?>",
@@ -48,7 +48,7 @@
                 },
                 dataType : 'json'
             });
-            
+
             $("#frmEncaminharProjeto").attr('action', '<?php echo $this->baseUrl(); ?>/projetosgerenciar/encaminharprojeto');
             $("#nrpronac").html(pronac);
             $("#nome").html(nome);
@@ -64,7 +64,7 @@
             )
             $(".tela[id='encaminharprojeto']").dialog('open')
         })
-        
+
         $(".expandir").click(function(){
             var idagente = $(this).attr('idagente');
             if($(".projetos[idagente='"+idagente+"']").attr('aberto') == 'false'){
@@ -78,14 +78,14 @@
                 $(this).attr('src', '<?php echo $this->baseUrl(); ?>/public/img/buttons/btn_adicionar.gif')
             }
         })
-        
+
         $('.justificativastatus').keyup(function(){
             if($(this).val().length < 15){
                 $(".errojustificativa").removeClass('sumir');
-                $(".ui-button-text:contains('Salvar')").addClass('ui-state-disabled').parent().attr('disabled',true); 
+                $(".ui-button-text:contains('Salvar')").addClass('ui-state-disabled').parent().attr('disabled',true);
             }
             else{
-                $(".ui-button-text:contains('Salvar')").removeClass('ui-state-disabled').parent().removeAttr('disabled'); 
+                $(".ui-button-text:contains('Salvar')").removeClass('ui-state-disabled').parent().removeAttr('disabled');
                 $(".errojustificativa").addClass('sumir');
             }
         })
@@ -94,8 +94,8 @@
             $("#frmStatusComponente").each(function(){
                 this.reset();
             })
-            var idagente = $(this).attr('idagente'); 
-            var status = $(this).attr('status'); 
+            var idagente = $(this).attr('idagente');
+            var status = $(this).attr('status');
             if(status == 'desabilitar'){
                 $("#frmStatusComponente").attr('action', '<?php echo $this->baseUrl(); ?>/projetosgerenciar/desabilitarcomponente');
                 $(".acao").html('desabilitar')
@@ -118,7 +118,7 @@
             $(".tela[id='statuscomponente']").dialog('open')
         })
     })
-    
+
     function confirma(functionsim, functionnao, id){
         $(".tela[id='"+id+"']").dialog({
             resizable: false,
@@ -130,7 +130,7 @@
                 'Salvar': functionsim
             }
         });
-        $(".ui-button-text:contains('Salvar')").addClass('ui-state-disabled').parent().attr("disabled",true); 
+        $(".ui-button-text:contains('Salvar')").addClass('ui-state-disabled').parent().attr("disabled",true);
     }
 
     //DEVOLVE PROJETO PARA ANALISE TECNICA - PARECERISTA
@@ -143,7 +143,7 @@
         $("#devolverprojeto").dialog({
             width:750,
             height:450,
-            title: "Devolver projeto para análise técnica",
+            title: "Devolver projeto para AnÃ¡lise TÃ©cnica",
             EscClose:false,
             modal:true,
             buttons: {
@@ -231,7 +231,7 @@
                         height: 200,
                         title: 'Confirma&ccedil;&atilde;o',
                         buttons: {
-                            Não: function(){
+                            NÃ£o: function(){
                                 fecharModal('cancelar-retirar-pauta');
                                 fecharModal('carregandoModalAjax');
                             },
@@ -260,7 +260,7 @@
 <div id="conteudo">
 	<!-- ========== INICIO FORMULARIO PARA CANCELAR A RETIRADA DE PAUTA ========== -->
 	<div id="cancelar-retirar-pauta" class="sumir">
-		Tem certeza que deseja cancelar solicita&ccedil;&atilde;o de retirada de pauta? 
+		Tem certeza que deseja cancelar solicita&ccedil;&atilde;o de retirada de pauta?
 		O Projeto ser&aacute; liberado novamente para o componente.
 	</div>
 	<!-- ========== FIM FORMULARIO PARA CANCELAR A RETIRADA DE PAUTA ========== -->
@@ -418,11 +418,11 @@
                                     <td class="centro"><img style="cursor: pointer;" class="encaminharprojeto" src='<?php echo $this->baseUrl(); ?>/public/img/user_gray.png' idpronac="<?php echo $projetos['idPRONAC'] ?>" nome="<?php echo $projetos['NomeProjeto'] ?>" pronac="<?php echo $projetos['PRONAC'] ?>"/></td>
                                     <td class="centro">
 	                                    <?php if ( isset($this->statusRetirarDePauta($projetos['idPRONAC'])->idRetirarDePauta) && ($this->statusRetirarDePauta($projetos['idPRONAC'])->tpAcao == '1') ) { ?>
-										<img style="cursor: pointer;" class="devolverprojeto" src="<?php echo $this->baseUrl(); ?>/public/img/ico/enviar.png" 
-											onclick="retirarDePauta('<?php echo $projetos['idPRONAC']; ?>', 
-												'<?php echo $projetos['PRONAC']; ?>', 
-												'<?php echo $this->escape($projetos['NomeProjeto']); ?>', 
-												'<?php echo $this->statusRetirarDePauta($projetos['idPRONAC'])->idRetirarDePauta; ?>', 
+										<img style="cursor: pointer;" class="devolverprojeto" src="<?php echo $this->baseUrl(); ?>/public/img/ico/enviar.png"
+											onclick="retirarDePauta('<?php echo $projetos['idPRONAC']; ?>',
+												'<?php echo $projetos['PRONAC']; ?>',
+												'<?php echo $this->escape($projetos['NomeProjeto']); ?>',
+												'<?php echo $this->statusRetirarDePauta($projetos['idPRONAC'])->idRetirarDePauta; ?>',
 												'<?php echo $this->escape($this->motivoRetirarDePauta($this->statusRetirarDePauta($projetos['idPRONAC'])->MotivoRetirada)); ?>');" />
 	                                    <div class="sumir" id="justificativa<?php echo $projetos['idPRONAC']; ?>"><?php echo nl2br($this->escape($this->statusRetirarDePauta($projetos['idPRONAC'])->dsJustificativa)); ?></div>
 	                                    <?php } else { ?>
@@ -436,7 +436,7 @@
                         } else {
                             ?>
                             <tr>
-                                <td colspan="6" class="centro">N&atilde;o há projetos para esse componente!</td>
+                                <td colspan="6" class="centro">N&atilde;o hï¿½ projetos para esse componente!</td>
                             </tr>
                         <?php } ?>
                     </table>

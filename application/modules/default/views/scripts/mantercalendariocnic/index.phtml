@@ -13,17 +13,17 @@
 
 
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="In�cio">In�cio</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="INÍCIO">INÍCIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')); ?>">Calend�rio CNIC</a></li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <script>
 $(function()
     {
@@ -173,7 +173,7 @@ function adicionar_nova_reuniao()
 
 function Alterar_reuniao(idNrReuniao,NrReuniao,DtInicio,DtFinal,DtFechamento,Mecanismo)
 {
-    
+
     if(idNrReuniao > 1){
         document.getElementById("modalAlterarReuniao").title = "ALTERAR REUNI&Atilde;O";
         document.getElementById("idNrReuniao").value = idNrReuniao;
@@ -261,7 +261,7 @@ function validarForm(){
      if(document.getElementById("NrReuniao").value == ""){
          alert("Numero da Reuni?o � um campo de preenchimento obrigat�rio");
      }else if(document.getElementById("DtInicio").value == "" || document.getElementById("DtInicio").value == "00/00/0000"){
-         alert("Data In�cio � um campo de preenchimento obrigat�rio");
+         alert("Data INÍCIO � um campo de preenchimento obrigat�rio");
      }else if(document.getElementById("DtFinal").value == "" || document.getElementById("DtFinal").value == "00/00/0000"){
         alert("Data Final � um campo de preenchimento obrigat�rio");
      }else if(document.getElementById("DtFechamento").value == "" || document.getElementById("DtFechamento").value == "00/00/0000"){
@@ -297,7 +297,7 @@ function validarForm(){
                         </td>
                     </tr>
                     <tr>
-                        <td>Data In�cio</td>
+                        <td>Data INÍCIO</td>
                         <td><input type="text" name="DtInicio" id="DtInicio" class="input_simples w200" maxlength="10" value="" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '00/00/0000');" onblur="restaurar_campo(this, '00/00/0000');" type="text"></td>
                     </tr>
                     <tr>
@@ -344,7 +344,7 @@ function validarForm(){
                                                     <select class="select w150" name="colunas[]" id="visao" multiple="multiple" size="7">
 
                                                             <option value="N.Reuniao">N. Reuni?o</option>
-                                                            <option value="Dt.Inicio">Dt. In�cio </option>
+                                                            <option value="Dt.Inicio">Dt. INÍCIO </option>
                                                             <option value="Dt.Final">Dt. Final</option>
                                                             <option value="Dt.Fechamento">Dt. Fechamento</option>
                                                             <option value="Mecanismo">Mecanismo </option>
@@ -384,7 +384,7 @@ function validarForm(){
 
 <div id="titulo"><div>Reuni&atilde;o da CNIC<span class="voltar"><a href="#">Voltar</a></span></div></div></form><div id="conteudo">
     <div id="cronometro" style="display: none; font-size: 2em; margin-top: 0.5em; text-align: center; color: red;" >
-        Tempo restante para in�cio da Plen�ria = <span id="minu" ></span>' : <span id="seg" ></span>"
+        Tempo restante para INÍCIO da Plen�ria = <span id="minu" ></span>' : <span id="seg" ></span>"
     </div>
 
     <div id="miolo">
@@ -402,12 +402,12 @@ function validarForm(){
                             echo '<a href="'.$this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?campo=NrReuniao&ordem=DESC">';
                         }?>
                                 N. Reuni&atilde;o
-                                
+
                             </a>
                     </th>
                 <?php }elseif(strcmp ("Dt.Inicio", $this->ordem[$i]) == 0){ ?>
                     <th>
-                        <?php if(strcmp($ordemlista, "DESC")==0){ 
+                        <?php if(strcmp($ordemlista, "DESC")==0){
                             echo '<a href="'.$this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?campo=DtInicio&ordem=ASC">';
                         }else{
                             echo '<a href="'.$this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?campo=DtInicio&ordem=DESC">';
@@ -417,9 +417,9 @@ function validarForm(){
                     </th>
                 <?php }elseif(strcmp ("Dt.Final", $this->ordem[$i]) == 0){ ?>
                     <th>
-                        <?php if(strcmp($ordemlista, "DESC") == 0){ 
+                        <?php if(strcmp($ordemlista, "DESC") == 0){
                             echo '<a href="'.$this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?campo=DtFinal&ordem=ASC">';
-                         }else{ 
+                         }else{
                             echo '<a href="'.$this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?campo=DtFinal&ordem=DESC">';
                          } ?>
                                 Dt. Final
@@ -427,9 +427,9 @@ function validarForm(){
                     </th>
                 <?php }elseif(strcmp ("Dt.Fechamento",$this->ordem[$i]) == 0){ ?>
                     <th>
-                        <?php if(strcmp($ordemlista, "DESC")==0){ 
+                        <?php if(strcmp($ordemlista, "DESC")==0){
                             echo '<a href="'.$this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?campo=DtFechamento&ordem=ASC">';
-                        }else{ 
+                        }else{
                             echo '<a href="'.$this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?campo=DtFechamento&ordem=DESC">';
                         } ?>
                                 Dt. Fechamento
@@ -447,9 +447,9 @@ function validarForm(){
                     </th>
                <?php }elseif(strcmp ("Status", $this->ordem[$i]) == 0){ ?>
                     <th>
-                        <?php if(strcmp($ordemlista, "DESC") == 0){ 
+                        <?php if(strcmp($ordemlista, "DESC") == 0){
                             echo '<a href="'.$this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?campo=Status&ordem=ASC">';
-                         }else{ 
+                         }else{
                             echo '<a href="'.$this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?campo=Status&ordem=DESC">';
                          } ?>
                                 Status
@@ -501,7 +501,7 @@ function validarForm(){
                 </tr>
                 <?php } ?>
 
-               
+
 
                 </table>
 
@@ -519,7 +519,7 @@ function validarForm(){
                 <td align="center">
                     <?php if($this->paginacao['pag']>1){ ?>
 
-                          
+
                     <input style="width: 88px;" lass="btn_inicio" id="btn_inicio" type="button"
                                class="btn_inicio"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')).'?pag=1'; ?>'"
@@ -568,8 +568,8 @@ function validarForm(){
     </div>
 
             </div>
-            
-        
+
+
     </div>
 
 </div><!-- final: conte??do principal #conteudo -->

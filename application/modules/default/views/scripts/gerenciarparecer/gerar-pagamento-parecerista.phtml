@@ -1,9 +1,9 @@
 <?php include_once 'scripts/gerenciarparecer/inc/menu-parecerista.inc.php'; ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Gerar Pagamento de Parecerista</li>
     </ul>
 </div>
@@ -12,11 +12,11 @@
 <div id="modal"></div>
 <div id="confirma"></div>
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Gerar Pagamento de Parecerista <span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span></div>
+    <div>Gerar Pagamento de Parecerista <span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span></div>
 </div>
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 
 <div id="conteudo">
 
@@ -51,12 +51,12 @@
                 <td><?php echo $pag['UnidadeAnalise']; ?></td>
                 <td style="text-align: right;"><?php echo $this->formatarReal($pag['vlPagamento']); ?></td>
             </tr>
-            
+
             <?php $nmProjeto = $pag['NomeProjeto'];?>
             <?php $nmPronac = $pag['pronac'];?>
             <?php $i++; ?>
             <?php endforeach; ?>
-            
+
             <tr>
                 <td style="text-align: right;" colspan="5">Total:</td>
                 <td style="text-align: right;"><?php echo $this->formatarReal($total); ?></td>
@@ -65,7 +65,7 @@
                 <td width="200" colspan="5" style="text-align: right;">
                     <input type="hidden" name="vlTotal" id="vlTotal_<?php echo $pa['idParecerista']; ?>" value="<?php echo $total; ?>" />
                     <input type="hidden" name="idParecerista" value="<?php echo $pa['idParecerista']; ?>" />
-                    <label for="nrDespacho">N∫ Despacho</label>
+                    <label for="nrDespacho">NÔøΩ Despacho</label>
                     <input type="text" name="nrDespacho" id="nrDespacho_<?php echo $pa['idParecerista']; ?>"  class="input_simples" />
                 </td>
                 <td align="center" colspan="0">
@@ -84,33 +84,33 @@
         </table>
     <?php endif; ?>
 
-    <!-- ========== PAGINA«√O ========== -->
+    <!-- ========== PAGINA√á√ÇO ========== -->
     <?php if($this->qtdDocumentos > 5){ echo "<p>" . $this->dadospainel . "</p>"; } ?>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script>
 
     function gerarDespacho(id){
-        
+
         var nrDespacho = $('#nrDespacho_'+id).val();
         var vlTotal = $('#vlTotal_'+id).val();
-        
+
         if(nrDespacho == '' || vlTotal == ''){
             $('#nrDespacho_'+id).css('border','solid 1px red');
             return false;
         }
-        
+
         $('#form_'+id).submit();
-        
-        
+
+
     }
 
 </script>

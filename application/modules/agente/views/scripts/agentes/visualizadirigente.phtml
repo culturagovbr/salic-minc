@@ -5,10 +5,10 @@
     } // menu lateral
     ?>
     <div class="col s12 m10 l10">
-        <!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
+                <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
                 <li class="last">Manter Agentes</li>
             </ul>
         </div>
@@ -18,7 +18,7 @@
             function excluir(idAgentexVerificacao) {
 
                 var dados = '<?php echo $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'excluirmandato'));?>/idAgentexVerificacao/' + idAgentexVerificacao;
-                confirmaExclusao('VocÍ tem certeza que deseja excluir o mandato?', dados)
+                confirmaExclusao('VocÔøΩ tem certeza que deseja excluir o mandato?', dados)
 
             }
 
@@ -29,39 +29,39 @@
                 var dtfim = $("#dtTerminoVigencia").val();
                 var arquivo = $("#idArquivo").val();
 
-                //validaÁ„o campos do mandato
+                //validaÔøΩÔøΩo campos do mandato
                 if (documento == 0) {
-                    $("#lbTipoDocumento").html("Dados obrigatÛrios n„o informados!");
+                    $("#lbTipoDocumento").html("Dados obrigatÔøΩrios N√£o informados!");
                     return false;
                 } else {
                     $("#lbTipoDocumento").html("");
                 }
                 if (documento == "") {
-                    $("#lbTipoDocumento").html("Dados obrigatÛrios n„o informados!");
+                    $("#lbTipoDocumento").html("Dados obrigatÔøΩrios N√£o informados!");
                     return false;
                 } else {
                     $("#lbTipoDocumento").html("");
                 }
                 if (numeroDocumento == "") {
-                    $("#lbNumeroDoc").html("Dados obrigatÛrios n„o informados!");
+                    $("#lbNumeroDoc").html("Dados obrigatÔøΩrios N√£o informados!");
                     return false;
                 } else {
                     $("#lbNumeroDoc").html("");
                 }
                 if (dtinicio == "") {
-                    $("#lbPeriodo").html("Dados obrigatÛrios n„o informados!");
+                    $("#lbPeriodo").html("Dados obrigatÔøΩrios N√£o informados!");
                     return false;
                 } else {
                     $("#lbPeriodo").html("");
                 }
                 if (dtfim == "") {
-                    $("#lbPeriodo").html("Dados obrigatÛrios n„o informados!");
+                    $("#lbPeriodo").html("Dados obrigatÔøΩrios N√£o informados!");
                     return false;
                 } else {
                     $("#lbPeriodo").html("");
                 }
                 if ((!validarData(dtinicio)) || (!validarData(dtfim))) {
-                    $("#lbPeriodo").html("Data inv·lida!");
+                    $("#lbPeriodo").html("Data invÔøΩlida!");
                     return false;
                 } else {
                     $("#lbPeriodo").html("");
@@ -73,7 +73,7 @@
                     $("#lbPeriodo").html("");
                 }
                 if (arquivo == "") {
-                    $("#lbDocumentoAnexo").html("Dados obrigatÛrios n„o informados!");
+                    $("#lbDocumentoAnexo").html("Dados obrigatÔøΩrios N√£o informados!");
                     return false;
                 } else {
                     $("#lbDocumentoAnexo").html("");
@@ -85,12 +85,12 @@
 
             $(document).ready(function () {
 
-                // m·scaras dos campos
+                // mÔøΩscaras dos campos
                 $("#periodo1, #periodo2").keyup(function () {
                     mascara(this, format_data); // data
                 });
 
-                // calend·rio
+                // calendÔøΩrio
                 $.datepicker.regional['pt-BR'] =
                 {
                     closeText: 'Fechar',
@@ -111,26 +111,26 @@
                 };
                 $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
 
-                // id dos campos que utilizar„o o calend·rio
+                // id dos campos que utilizarÔøΩo o calendÔøΩrio
                 $("#dtInicioVigencia, #dtTerminoVigencia").datepicker($.datepicker.regional['pt-BR']);
 
 
             }); // fim $(document).ready()
         </script>
 
-        <!-- ========== INÕCIO TÕTULO ========== -->
+        <!-- ========== IN√çCIO TÔøΩTULO ========== -->
         <div id="titulo">
             <div>Visualiza Dirigente <span class="voltar"><a href="#" onclick="voltar();">Voltar</a>	</span></div>
         </div>
-        <!-- ========== FIM TÕTULO ========== -->
+        <!-- ========== FIM TÔøΩTULO ========== -->
 
-        <!-- ========== INÕCIO CONTE⁄DO ========== -->
+        <!-- ========== IN√çCIO CONTE√öDO ========== -->
         <div id="conteudo">
             <div id="confirma"></div>
             <?php if ($this->vinculado == 'sim'): ?>
                 <center>
                     <div class="msgALERT" style="width: 96%;">
-                        <div style="float: left;">Dirigente j· vinculado a instituiÁ„o!</div>
+                        <div style="float: left;">Dirigente jÔøΩ vinculado a instituiÔøΩÔøΩo!</div>
                     </div>
                 </center>
             <?php endif; ?>
@@ -145,7 +145,7 @@
                             <?php endif; ?>
                         </td>
                         <td width="250"><b>NOME:</b> <?php echo $this->dadosD[0]->nome; ?></td>
-                        <td><b>VIS’ES:</b><?php
+                        <td><b>VISÔøΩES:</b><?php
                             foreach ($this->visoesD as $v) {
                                 echo " | " . $v->Descricao;
                             }
@@ -154,7 +154,7 @@
                 </table>
                 <table id="tabEndereco" class="tabela ">
                     <tr>
-                        <th colspan="5">ENDERE«OS</th>
+                        <th colspan="5">ENDEREÔøΩOS</th>
                     </tr>
                     <tr>
                         <td><label>CEP:</label> <?php echo Mascara::addMaskCep($this->dadosD[0]->cep); ?></td>
@@ -162,24 +162,24 @@
                         <td><label>Cidade:</label> <?php echo $this->dadosD[0]->dscidade; ?></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><label>Tipo de EndereÁo:</label> <?php echo $this->dadosD[0]->dstipoendereco; ?>
+                        <td colspan="2"><label>Tipo de EndereÔøΩo:</label> <?php echo $this->dadosD[0]->dstipoendereco; ?>
                         </td>
                         <td><label>Tipo de Logradouro:</label> <?php echo $this->dadosD[0]->dstipologradouro; ?></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label>Logradouro:</label> <?php echo $this->dadosD[0]->logradouro; ?></td>
-                        <td><label>N˙mero:</label> <?php echo $this->dadosD[0]->numero; ?></td>
+                        <td><label>NÔøΩmero:</label> <?php echo $this->dadosD[0]->numero; ?></td>
                     </tr>
                     <tr>
                         <td colspan="2"><label>Complemento:</label> <?php echo $this->dadosD[0]->complemento; ?></td>
                         <td><label>Bairro:</label> <?php echo $this->dadosD[0]->bairro; ?></td>
                     </tr>
                     <tr>
-                        <td><label>EndereÁo para
-                                correspondÍncia:</label> <?php echo $this->dadosD[0]->status == "1" ? "SIM" : "N√O"; ?>
+                        <td><label>EndereÔøΩo para
+                                correspondÔøΩncia:</label> <?php echo $this->dadosD[0]->status == "1" ? "SIM" : "N√£o"; ?>
                         </td>
                         <td colspan="2"><label>Autorizo divulgar o
-                                endereÁo:</label> <?php echo $this->dadosD[0]->divulgarendereco == "1" ? "SIM" : "N√O"; ?>
+                                endereÔøΩo:</label> <?php echo $this->dadosD[0]->divulgarendereco == "1" ? "SIM" : "N√£o"; ?>
                         </td>
                     </tr>
                 </table>
@@ -200,7 +200,7 @@
                             <td align="center"><?php echo $t->ufsigla; ?></td>
                             <td align="center"><?php echo $t->ddd; ?></td>
                             <td><?php echo $t->numero; ?></td>
-                            <td><?php echo $t->divulgar == "1" ? "SIM" : "N√O"; ?></td>
+                            <td><?php echo $t->divulgar == "1" ? "SIM" : "N√£o"; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </table>
@@ -212,18 +212,18 @@
                         <td><label>Tipo</label></td>
                         <td><label>E-mail</label></td>
                         <td><label>Divulgar?</label></td>
-                        <td><label>Para correpondÍncia?</label></td>
+                        <td><label>Para correpondÔøΩncia?</label></td>
                     </tr>
                     <?php foreach ($this->emailsD as $e): ?>
                         <tr>
                             <td><?php echo $e->tipo; ?></td>
                             <td><?php echo $e->descricao; ?></td>
-                            <td><?php echo $e->divulgar == "1" ? "SIM" : "N√O"; ?></td>
-                            <td><?php echo $e->status == "1" ? "SIM" : "N√O"; ?></td>
+                            <td><?php echo $e->divulgar == "1" ? "SIM" : "N√£o"; ?></td>
+                            <td><?php echo $e->status == "1" ? "SIM" : "N√£o"; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </table>
-                <!-- ========== INICIO DO FORMUL¡RIO DE MANDATO ========== -->
+                <!-- ========== INICIO DO FORMULÔøΩRIO DE MANDATO ========== -->
                 <form name="formmandato" id="formmandato" enctype="multipart/form-data"
                       action="<?php echo $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'mandato')); ?>"
                       method="POST">
@@ -238,11 +238,11 @@
                             <td class="destacar bold">Tipo de Documento<p><span class="red" id="lbTipoDocumento"></span>
                             </td>
                             <td class="destacar bold">Num. Documento<p><span class="red" id="lbNumeroDoc"></span></td>
-                            <td class="destacar bold">PerÌodo de VigÍncia<p><span class="red" id="lbPeriodo"></span>
+                            <td class="destacar bold">PerÔøΩodo de VigÔøΩncia<p><span class="red" id="lbPeriodo"></span>
                             </td>
                             <td class="destacar bold">Documento anexo<p><span class="red" id="lbDocumentoAnexo"></span>
                             </td>
-                            <td class="destacar bold">AÁ„o</td>
+                            <td class="destacar bold">AÔøΩÔøΩo</td>
                         </tr>
                         <!--?php foreach ($this->mandatoM as $m): ?-->
                         <tr>
@@ -264,7 +264,7 @@
                             <td align="">
                                 <input class="select_simples" type="text" name="dtInicioVigencia" id="dtInicioVigencia"
                                        maxlength="10" class="input_simples btn_calendario"
-                                       onkeypress="mascara(this,format_num)" style="width: 5em"> ‡
+                                       onkeypress="mascara(this,format_num)" style="width: 5em"> ÔøΩ
                                 <input class="select_simples" type="text" name="dtTerminoVigencia"
                                        id="dtTerminoVigencia" maxlength="10" class="input_simples btn_calendario"
                                        onkeypress="mascara(this,format_num)" style="width: 5em">
@@ -291,7 +291,7 @@
                             <tr>
                                 <td><?php echo $m->Descricao; ?></td>
                                 <td><?php echo $m->dsNumeroDocumento; ?></td>
-                                <td><?php echo date('d/m/Y', strtotime($m->dtInicioMandato)) . ' ‡ ' . date('d/m/Y', strtotime($m->dtFimMandato)); ?></td>
+                                <td><?php echo date('d/m/Y', strtotime($m->dtInicioMandato)) . ' ÔøΩ ' . date('d/m/Y', strtotime($m->dtFimMandato)); ?></td>
                                 <td href="#"><a
                                         href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $m->idArquivo; ?>"><?php echo $m->nmArquivo ?>
                                 </td>

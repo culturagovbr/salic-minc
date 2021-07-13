@@ -1,7 +1,7 @@
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('module'=>'default', 'controller' => 'principalproponente', 'action' => 'index')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
-        <li class="last">Localização Física</li>
+        <li class="last">Localizaï¿½ï¿½o Fï¿½sica</li>
     </ul>
 </div>
 
@@ -14,13 +14,13 @@
         <table  class="tabela">
             <tbody>
                 <tr>
-                    <td colspan="2" align="center" class="fundo_linha3"><span class="red bold">*</span> Para Localizar um Projeto, selecione o tipo de pesquisa, preencha o campo e clique no botão Localizar.</td>
+                    <td colspan="2" align="center" class="fundo_linha3"><span class="red bold">*</span> Para Localizar um Projeto, selecione o tipo de pesquisa, preencha o campo e clique no botï¿½o Localizar.</td>
                 </tr>
                 <tr class="notHide">
                     <td width="10%" class="destacar bold" align="right">Pesquisar:</td>
                     <td>
                         <label style="margin: 0px 10px 0px 0px;"><input type="radio" name="filtro" value="pronac" <?php echo ('pronac' == $this->filtro) ? 'checked="checked"' : null; ?> />PRONAC</label>
-                        <label style="margin: 0px 10px 0px 5px;"><input type="radio" name="filtro" value="tecnico" <?php echo ('tecnico' == $this->filtro) ? 'checked="checked"' : null; ?> />Técnico</label>
+                        <label style="margin: 0px 10px 0px 5px;"><input type="radio" name="filtro" value="tecnico" <?php echo ('tecnico' == $this->filtro) ? 'checked="checked"' : null; ?> />Tï¿½cnico</label>
                         <label style="margin: 0px 10px 0px 5px;"><input type="radio" name="filtro" value="vinculada" <?php echo ('vinculada' == $this->filtro) ? 'checked="checked"' : null; ?> />Unidade (Setor)</label>
                     </td>
                 </tr>
@@ -29,7 +29,7 @@
                     <td><input type="text" name="pronac" id="pronac" class="input_simples" value="<?php echo $this->pronac; ?>"/></td>
                 </tr>
                 <tr class="hideable">
-                    <td width="10%" class="destacar bold" align="right">Técnico:</td>
+                    <td width="10%" class="destacar bold" align="right">Tï¿½cnico:</td>
                     <td>
                         <select name="tecnico" id="tecnico" class="input_simples">
                             <option>Selecione</option>
@@ -62,7 +62,7 @@
     </form>
 
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINAÃ‡Ã‚O ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -87,12 +87,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'localizacao-fisica', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&filtro='.$this->filtro.'&pronac='.$this->pronac.'&tecnico='.$this->tecnico.'&vinculada='.$this->vinculada; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    PÃ¡g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="4" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por pÃ¡gina:<input type="text" size="4" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="filtro" value="<?php echo $this->filtro;?>">
@@ -113,10 +113,10 @@
             echo " de ". $this->paginacao['total']. " Projetos listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
     <?php } ?>
-    
-    
+
+
     <?php if($this->qtdRegistros > 0){ ?>
     <table class="tabela tablesorter">
         <thead>
@@ -126,9 +126,9 @@
                 <th><a href="<?php echo $this->url(array('controller' => 'localizacao-fisica', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=3&ordem='.$this->paginacao['novaOrdem'].'&filtro='.$this->filtro.'&pronac='.$this->pronac.'&tecnico='.$this->tecnico.'&vinculada='.$this->vinculada; ?>">Nome do Projeto</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'localizacao-fisica', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=4&ordem='.$this->paginacao['novaOrdem'].'&filtro='.$this->filtro.'&pronac='.$this->pronac.'&tecnico='.$this->tecnico.'&vinculada='.$this->vinculada; ?>">CPF / CNPJ</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'localizacao-fisica', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=7&ordem='.$this->paginacao['novaOrdem'].'&filtro='.$this->filtro.'&pronac='.$this->pronac.'&tecnico='.$this->tecnico.'&vinculada='.$this->vinculada; ?>">Proponente</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'localizacao-fisica', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=6&ordem='.$this->paginacao['novaOrdem'].'&filtro='.$this->filtro.'&pronac='.$this->pronac.'&tecnico='.$this->tecnico.'&vinculada='.$this->vinculada; ?>">Localização</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'localizacao-fisica', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=5&ordem='.$this->paginacao['novaOrdem'].'&filtro='.$this->filtro.'&pronac='.$this->pronac.'&tecnico='.$this->tecnico.'&vinculada='.$this->vinculada; ?>">Técnico</a></th>
-                <th>Ação</th>
+                <th><a href="<?php echo $this->url(array('controller' => 'localizacao-fisica', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=6&ordem='.$this->paginacao['novaOrdem'].'&filtro='.$this->filtro.'&pronac='.$this->pronac.'&tecnico='.$this->tecnico.'&vinculada='.$this->vinculada; ?>">Localizaï¿½ï¿½o</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'localizacao-fisica', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=5&ordem='.$this->paginacao['novaOrdem'].'&filtro='.$this->filtro.'&pronac='.$this->pronac.'&tecnico='.$this->tecnico.'&vinculada='.$this->vinculada; ?>">Tï¿½cnico</a></th>
+                <th>Aï¿½ï¿½o</th>
             </tr>
         </thead>
         <tbody>
@@ -153,10 +153,10 @@
             <?php $x++; } ?>
         </tbody>
     </table>
-    
-    
+
+
     <?php if(count($this->dados)>0){ ?>
-        <!-- ============ PAGINAÇÃO ============ -->
+        <!-- ============ PAGINAÃ‡Ã‚O ============ -->
         <?php if($this->qtdRegistros > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -189,12 +189,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'localizacao-fisica', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&filtro='.$this->filtro.'&pronac='.$this->pronac.'&tecnico='.$this->tecnico.'&vinculada='.$this->vinculada; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        PÃ¡g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por pÃ¡gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="filtro" value="<?php echo $this->filtro;?>">
@@ -208,7 +208,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINAÇÃO ========== -->
+        <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
     <?php } } ?>
 
 
@@ -254,7 +254,7 @@
                         width: 780,
                         height: 300,
                         modal: true,
-                        title: 'Incluir Localização Física do Projeto',
+                        title: 'Incluir Localizaï¿½ï¿½o Fï¿½sica do Projeto',
                         resizable: true
                     });
                 });
@@ -268,18 +268,18 @@
                         width: 780,
                         height: 400,
                         modal: true,
-                        title: 'Histórico de Localização Física do Projeto',
+                        title: 'Histï¿½rico de Localizaï¿½ï¿½o Fï¿½sica do Projeto',
                         resizable: true
                     });
                 });
             });
         });
-        
+
         $('.btn_imprimir').click(function(){
             $('#addCampoXls').remove();
             $('#formImpressao').submit();
         });
-        
+
         $('.btn_xls').click(function(){
             $('#addCampoXls').remove();
             $('#formImpressao').append('<input id="addCampoXls" type="hidden" name="xls" value="1">');

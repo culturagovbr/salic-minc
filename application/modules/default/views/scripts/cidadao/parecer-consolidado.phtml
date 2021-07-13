@@ -52,7 +52,7 @@
                 $(this).addClass('fundo_linha4');
             }
         });
-        
+
     });
     function mostraOcultaElemento(elemento){
         $('.' + elemento).toggle();
@@ -64,18 +64,18 @@
             $('#' + elemento).removeClass('btn_remover');
         }
     }
-    
-    
+
+
 </script>
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Parecer consolidado</div>
 </div>
 
 
 <div id="conteudo" align="center">
-    
+
     <?php if(count($this->identificacaoParecerConsolidado)>0){ ?>
     <table class="tabela">
         <tr class="destacar">
@@ -126,7 +126,7 @@
             <td align="right"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->Elaboracao); ?></td>
         </tr>
         <tr>
-            <td align="right" class="destacar bold">Valor Sugerido para Aprova��o (F = D + E)</td>
+            <td align="right" class="destacar bold">Valor Sugerido para aprovação (F = D + E)</td>
             <td align="right">
                 <!--<img class="btnMais" src="<?php echo $this->baseUrl(); ?>/public/img/icn_mais.gif"/>-->
                 <input type="button" class="btn_adicionar" id="planilha" onclick="mostraOcultaElemento('planilha');" />
@@ -135,7 +135,7 @@
         </tr>
         <tr class="sumir planilha">
             <td colspan="2">
-                
+
                 <table class="tabela">
                     <?php
                     $nrfonte = 0;
@@ -269,7 +269,7 @@
                                         </table>
                                     </td>
                                 </tr>
-                                <?php 
+                                <?php
                                 $nretapa++;
                             } //fechaForeachetapa
                             ?>
@@ -286,7 +286,7 @@
                                     </table>
                                 </td>
                             </tr>
-                            <?php $nrproduto++; 
+                            <?php $nrproduto++;
                         } //fechaForeachproduto
                         ?>
                         <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
@@ -325,7 +325,7 @@
                     </tr>
                     <?php endif; ?>
                 </table>
-                
+
             </td>
         </tr>
     </table>
@@ -365,11 +365,11 @@
         </tr>
     </table>
     <?php } ?>
-    
+
 </div>
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />

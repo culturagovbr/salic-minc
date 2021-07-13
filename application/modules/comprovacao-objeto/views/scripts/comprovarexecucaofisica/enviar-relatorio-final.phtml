@@ -2,7 +2,7 @@
     $(document).ready(function(){
         $('#btn_confirmar').click(function(){
             $("#modalPerguntas").dialog("destroy");
-            $("#modalPerguntas").html("Deseja realmente enviar as comprovações?");
+            $("#modalPerguntas").html("Deseja realmente enviar as comprovaï¿½ï¿½es?");
             $("#modalPerguntas").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -10,7 +10,7 @@
                 //height:180,
                 modal: true,
                 buttons : {
-                    'Não' : function() {
+                    'NÃ£o' : function() {
                         $(this).dialog('close');
                     },
                     'Sim' : function() {
@@ -36,7 +36,7 @@
     <ul>
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
-        <li class="second">Comprovar Realização do Objeto</li>
+        <li class="second">Comprovar Realizaï¿½ï¿½o do Objeto</li>
         <li class="last">Enviar Comprova&ccedil;&atilde;o Financeira e do Objeto</li>
     </ul>
 </div>
@@ -49,7 +49,7 @@
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center" width="30%">Nï¿½ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -70,7 +70,7 @@
 
     <table class="tabela">
         <tr align="center">
-            <td class="destacar bold" colspan="2">Informações do Relatório</td>
+            <td class="destacar bold" colspan="2">Informaï¿½ï¿½es do Relatï¿½rio</td>
         </tr>
         <?php $i=0; foreach ($this->Resultado as $dsResultado) { ?>
         <tr>
@@ -96,7 +96,7 @@
 </div>
 
 
-<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÃCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

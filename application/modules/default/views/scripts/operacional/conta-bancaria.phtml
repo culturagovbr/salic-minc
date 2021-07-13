@@ -1,19 +1,19 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        
+
         $("#dtInicioLtCap, #dtFimLtCap").keyup(function(){
             mascara(this, format_data);
         });
-        
+
         $(".btn_pesquisar").click(function(){
             if($('#tpDtLtCap').val() != ''){
                 var dtInicio = $('#dtInicioLtCap').val(),
                     dtFim = $('#dtFimLtCap').val();
-                    
+
                 if($('#tpDtLtCap').val() == 'entre'){
                     if(dtInicio == '' || dtFim == ''){
                         $("#alerta").dialog("destroy");
-                        $("#alerta").html('É necessário informar as duas datas para realizarmos a pesquisa!');
+                        $("#alerta").html('ï¿½ necessï¿½rio informar as duas datas para realizarmos a pesquisa!');
                         $("#alerta").dialog({
                             title: 'Alerta!',
                             resizable: false,
@@ -31,7 +31,7 @@
                 } else {
                     if(dtInicio == ''){
                         $("#alerta").dialog("destroy");
-                        $("#alerta").html('É necessário informar a data para realizarmos a pesquisa!');
+                        $("#alerta").html('ï¿½ necessï¿½rio informar a data para realizarmos a pesquisa!');
                         $("#alerta").dialog({
                             title: 'Alerta!',
                             resizable: false,
@@ -50,7 +50,7 @@
             }
             $("#form").submit();
         });
-        
+
         $("#tpDtPedido").change(function(){
             if($("#spanDtPedido").css("display")=="none" && $(this).val() == "entre"){
                 $("#spanDtPedido").show();
@@ -67,7 +67,7 @@
             } else {
                 $('#dtInicioLtCap').focus();
             }
-            
+
             if($("#spanDtInicioLtCap").css("display")=="none" && vl == "entre"){
                 $("#spanDtInicioLtCap").show();
             }else{
@@ -108,7 +108,7 @@
         <li class="last">Conta Banc&aacute;ria</li>
     </ul>
 </div>
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="alerta"></div>
 <div id="titulo">
     <div>Conta Banc&aacute;ria<span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
@@ -134,13 +134,13 @@
                 <td align="left">
                     <select name="tpPessoa" id="tpPessoa" class="select_simples">
                         <option value=""> - Selecione - </option>
-                        <option value="0">Pessoa Física</option>
-                        <option value="1">Pessoa Jurídica</option>
+                        <option value="0">Pessoa Fï¿½sica</option>
+                        <option value="1">Pessoa Jurï¿½dica</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold">Dt. Lote Remessa Captação</td>
+                <td class="destacar bold">Dt. Lote Remessa Captaï¿½ï¿½o</td>
                 <td width="220" align="center">
                     <select name="tpDtLtCap" id="tpDtLtCap" class="select_simples">
                         <option value=""> - Selecione - </option>
@@ -158,32 +158,32 @@
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold">Ocorrência Captação</td>
+                <td class="destacar bold">Ocorrï¿½ncia Captaï¿½ï¿½o</td>
                 <td width="220" align="center">Exatamente Igual</td>
                 <td align="left">
                     <select name="ocorrencia" id="ocorrencia" class="select_simples">
                         <option value="000"> - Selecione - </option>
-                        <option value="001">Tipo de pessoa inválido</option>
-                        <option value="002">Tipo de CPF/CNPJ inválido</option>
-                        <option value="003">CPF/CNPJ inválido</option>
-                        <option value="004">Data de nascimento inválida</option>
-                        <option value="005">Nome cliente inválido</option>
-                        <option value="006">Agência inválida</option>
+                        <option value="001">Tipo de pessoa invï¿½lido</option>
+                        <option value="002">Tipo de CPF/CNPJ invï¿½lido</option>
+                        <option value="003">CPF/CNPJ invï¿½lido</option>
+                        <option value="004">Data de nascimento invï¿½lida</option>
+                        <option value="005">Nome cliente invï¿½lido</option>
+                        <option value="006">Agï¿½ncia invï¿½lida</option>
                         <option value="007">Mais de 5 clientes cadastrado p/o CPF informado</option>
-                        <option value="008">Cliente BB-Campus fora da faixa etária (16 a 28 anos)</option>
-                        <option value="009">Cliente BB-Campus não titular do CPF</option>
-                        <option value="010">Dados pessoa física divergentes</option>
-                        <option value="011">Dados pessoa jurídica divergentes</option>
-                        <option value="013">Cliente BB-Campus não  titular do CPF</option>
-                        <option value="014">Perfil agência incompatível com tipo de pessoa</option>
-                        <option value="015">Tipo de pessoa incompatível  com natureza jurídica</option>
-                        <option value="016">Tipo de repasse inválido</option>
-                        <option value="017">Tipo de pessoa não permitido para esse processo/tipo de repasse</option>
+                        <option value="008">Cliente BB-Campus fora da faixa etï¿½ria (16 a 28 anos)</option>
+                        <option value="009">Cliente BB-Campus NÃ£o titular do CPF</option>
+                        <option value="010">Dados pessoa fï¿½sica divergentes</option>
+                        <option value="011">Dados pessoa jurï¿½dica divergentes</option>
+                        <option value="013">Cliente BB-Campus NÃ£o  titular do CPF</option>
+                        <option value="014">Perfil agï¿½ncia incompatï¿½vel com tipo de pessoa</option>
+                        <option value="015">Tipo de pessoa incompatï¿½vel  com natureza jurï¿½dica</option>
+                        <option value="016">Tipo de repasse invï¿½lido</option>
+                        <option value="017">Tipo de pessoa NÃ£o permitido para esse processo/tipo de repasse</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold">Estado Conta Captação</td>
+                <td class="destacar bold">Estado Conta Captaï¿½ï¿½o</td>
                 <td width="220" align="center">Exatamente Igual</td>
                 <td align="left">
                     <select name="estadoConta" id="estadoConta" class="select_simples">
@@ -205,8 +205,8 @@
     </form>
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

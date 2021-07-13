@@ -1,19 +1,19 @@
 <?php
 /**
- * Helper para verificar o status da diligência do projeto
+ * Helper para verificar o status da diligï¿½ncia do projeto
  * @author Equipe RUP - Politec
  * @since 11/10/2011
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_ChecarDiligencia
 {
     /**
-     * Método para verificar o status da diligencia do projeto
+     * Mï¿½todo para verificar o status da diligencia do projeto
      * @access public
      * @param integer $idPronac
      * @param integer $idProduto
@@ -29,7 +29,7 @@ class Zend_View_Helper_ChecarDiligencia
         $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
 
 
-        // busca a diligência
+        // busca a diligï¿½ncia
         $where = array('idPronac = ?' => $idPronac);
         $order = array('DtSolicitacao DESC');
 
@@ -38,7 +38,7 @@ class Zend_View_Helper_ChecarDiligencia
                 $where = array_merge($where, array('idProduto = ?' => $idProduto));
         endif;
 
-        // filtra por tipos de diligências
+        // filtra por tipos de diligï¿½ncias
         if (count($idTipoDiligencia) > 0) :
                 $where = array_merge($where, array('idTipoDiligencia IN (?)' => $idTipoDiligencia));
         endif;
@@ -77,9 +77,9 @@ class Zend_View_Helper_ChecarDiligencia
         $TmpDtDistribuicao = !empty($DtDistribuicao) ? (round(Data::CompararDatas($DtDistribuicao))) : 0;
 
         if ($DtSolicitacao != null && $TmpDtDistribuicao > $TmpFimDiligencia) :
-                return 3; // Diligência não respondida
+                return 3; // Diligï¿½ncia NÃ£o respondida
         elseif ($DtSolicitacao != null && $DtResposta != null) :
-                return 2; // Diligência respondida
+                return 2; // Diligï¿½ncia respondida
         elseif ($DtSolicitacao != null && $DtResposta == null && $stEnviado == 'S') :
                 return 1; // Diligenciado
         else :
@@ -87,5 +87,5 @@ class Zend_View_Helper_ChecarDiligencia
         endif; else :
             return 0; // A diligenciar
         endif;
-    } // fecha método checarDiligencia()
+    } // fecha mï¿½todo checarDiligencia()
 } // fecha class

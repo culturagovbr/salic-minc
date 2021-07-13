@@ -15,9 +15,9 @@
 
 <table class="tabela">
     <tr>
-        <th colspan="3">SOLICITA��O DO PROPONENTE</th>
+        <th colspan="3">Solicitação DO PROPONENTE</th>
     </tr>
-    
+
     <?php
     $tiposReadequacoesComInfo = array(3,4,5,6,7,8,10,12,13,15,16,17,18,19,20,21);
     if(in_array($this->dados->idTipoReadequacao, $tiposReadequacoesComInfo)){ ?>
@@ -28,9 +28,9 @@
         <td colspan="3"><?php echo $this->dados->dsSolicitacao; ?></td>
     </tr>
     <?php } ?>
-            
+
     <tr>
-        <td class="destacar bold" colspan="3">Justificativa da Solicita��o</td>
+        <td class="destacar bold" colspan="3">Justificativa da Solicitação</td>
     </tr>
     <tr>
         <td colspan="3"><?php echo $this->dados->dsJustificativa; ?></td>
@@ -66,22 +66,22 @@
         <?php /****** FIM VALOR ENTRE AS PLANILHAS ATIVA E READEQUADA ******/ ?>
 
         <?php /***** CARREGA A PLANILHA ORCAMENTARIA *****/ ?>
-        <script type="text/javascript"> 
+        <script type="text/javascript">
             jqAjaxLinkSemLoading('<?php echo $this->Url(array('controller' => 'index', 'action' => 'montar-planilha-orcamentaria')) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&tipoPlanilha=6', '', 'planilhaOrcamentariaMontada');
         </script>
         <div id="planilhaOrcamentariaMontada"></div>
         <?php /****** FIM DA PLANILHA ORCAMENTARIA ******/ ?>
     <?php } ?>
-        
+
     <?php if($this->dados->idTipoReadequacao == 9){ ?>
         <?php /***** CARREGA LOCAIS DE REALIZA��O *****/ ?>
-        <script type="text/javascript"> 
+        <script type="text/javascript">
             jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'carregar-locais-de-realizacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'locaisParaRealizacao');
         </script>
         <div id="locaisParaRealizacao"></div>
         <?php /****** FIM LOCAIS DE REALIZA��O ******/ ?>
     <?php } ?>
-        
+
     <?php if($this->dados->idTipoReadequacao == 11){ ?>
         <?php /***** CARREGA PLANOS DE DISTRIBUI��O *****/ ?>
         <script type="text/javascript">
@@ -90,7 +90,7 @@
         <div id="planosDistribuicao"></div>
         <?php /****** FIM CARREGA PLANOS DE DISTRIBUI��O ******/ ?>
     <?php } ?>
-        
+
     <?php if($this->dados->idTipoReadequacao == 14){ ?>
         <?php /***** CARREGA PLANOS DE DIVULGA��O *****/ ?>
         <script type="text/javascript">
@@ -105,7 +105,7 @@
         <th colspan="2">AVALIA��O DO COORDENADOR</th>
     </tr>
     <tr>
-        <td class="destacar bold" colspan="2">Descri��o da Avalia��o</td>
+        <td class="destacar bold" colspan="2">Descrição da Avalia��o</td>
     </tr>
     <tr>
         <td colspan="2"><?php echo $this->dados->dsAvaliacao; ?></td>
@@ -138,7 +138,7 @@
     </tr>
     <tr>
         <td><?php echo Data::tratarDataZend($parecer->DtParecer, 'Brasileira'); ?></td>
-        <td><?php echo ($parecer->ParecerFavoravel == 2) ? 'Sim' : 'N�o'; ?></td>
+        <td><?php echo ($parecer->ParecerFavoravel == 2) ? 'Sim' : 'Não'; ?></td>
         <td><?php echo $parecer->Avaliador; ?></td>
     </tr>
 </table>

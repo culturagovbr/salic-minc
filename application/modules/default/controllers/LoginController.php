@@ -275,7 +275,7 @@ class LoginController extends MinC_Controller_Action_Abstract
     {
         // autentica��o proponente (Novo Salic)
 
-        /* ========== IN�CIO ID DO USU�RIO LOGADO ========== */
+        /* ========== INÍCIO ID DO USU�RIO LOGADO ========== */
         $auth    = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
@@ -283,7 +283,7 @@ class LoginController extends MinC_Controller_Action_Abstract
         // verifica se o usu�rio logado � agente
         $idUsuario = $Usuario->getIdUsuario(null, $auth->getIdentity()->Cpf);
         if ($idUsuario) {
-            // caso n�o tenha idAgente, atribui o idUsuario
+            // caso Não tenha idAgente, atribui o idUsuario
             $this->getIdUsuario = ($idUsuario) ? $idUsuario['idAgente'] : $auth->getIdentity()->IdUsuario;
             $this->getIdUsuario = empty($this->getIdUsuario) ? 0 : $this->getIdUsuario;
             /* ========== FIM ID DO USU�RIO LOGADO ========== */
@@ -400,7 +400,7 @@ class LoginController extends MinC_Controller_Action_Abstract
         parent::perfil(0);
         // autentica��o proponente (Novo Salic)
 
-        /* ========== IN�CIO ID DO USU�RIO LOGADO ========== */
+        /* ========== INÍCIO ID DO USU�RIO LOGADO ========== */
         $auth    = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
@@ -408,7 +408,7 @@ class LoginController extends MinC_Controller_Action_Abstract
         $idUsuario = $Usuario->getIdUsuario(null, $auth->getIdentity()->usu_identificacao);
         if (isset($auth->getIdentity()->usu_identificacao)) {
 
-            // caso n�o tenha idAgente, atribui o idUsuario
+            // caso Não tenha idAgente, atribui o idUsuario
             $this->getIdUsuario = ($idUsuario) ? $idUsuario['idAgente'] : $auth->getIdentity()->usu_codigo;
             //$this->getIdUsuario = empty($this->getIdUsuario) ? 0 : $this->getIdUsuario;
             /* ========== FIM ID DO USU�RIO LOGADO ========== */
@@ -549,14 +549,14 @@ class LoginController extends MinC_Controller_Action_Abstract
         // autentica��o proponente (Novo Salic)
         parent::perfil(4);
 
-        /* ========== IN�CIO ID DO USU�RIO LOGADO ========== */
+        /* ========== INÍCIO ID DO USU�RIO LOGADO ========== */
         $auth    = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
         // verifica se o usu�rio logado � agente
         $idUsuario = $Usuario->getIdUsuario(null, $auth->getIdentity()->Cpf);
 
-        // caso n�o tenha idAgente, atribui o idUsuario
+        // caso Não tenha idAgente, atribui o idUsuario
         $this->getIdUsuario = ($idUsuario) ? $idUsuario['idAgente'] : $auth->getIdentity()->IdUsuario;
         $this->getIdUsuario = empty($this->getIdUsuario) ? 0 : $this->getIdUsuario;
         /* ========== FIM ID DO USU�RIO LOGADO ========== */

@@ -1,22 +1,22 @@
 <?php echo $this->partial('parecerista/inc/menu-coordenador.inc.php', $this); ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Finalizar Pagamento de Parecerista</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
- 
-<!-- ========== INÕCIO TÕTULO ========== -->
+
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Finalizar Pagamento de Parecerista <span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span></div>
+    <div>Finalizar Pagamento de Parecerista <span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span></div>
 </div>
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 
 <div id="conteudo">
-    
+
     <?php if(count($this->dados) > 0):?>
 
         <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
@@ -43,12 +43,12 @@
                             <input class="btn_ultimo" id="btn_ultimo" type="button"
                                    onclick="location.href='<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'finalizar-pagamento-parecerista')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'];?>'">
                         <?php } ?>
-                        P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                        P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                                 <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     </form>
@@ -64,7 +64,7 @@
             ?>
         </center>
 
-        <!-- ========== FIM PAGINA«√O ========== -->
+        <!-- ========== FIM PAGINA√á√ÇO ========== -->
 
         <table class="tabela">
             <tr>
@@ -101,7 +101,7 @@
                         </tr>
                         <?php $i = 1;?>
                         <?php foreach($pa['Projetos'] as $pag):?>
-                        <tr> 
+                        <tr>
                             <td style="text-align: center;"><?php echo $i; ?></td>
                             <td style="text-align: center;"><a target="_blank" href="<?php echo $this->url(array('controller' => '', 'action' => 'consultardadosprojeto')); ?>?idPronac=<?php echo $pag['idPronac']; ?>"><?php echo $pag['pronac']; ?></a></td>
                             <td><?php echo $pag['NomeProjeto']; ?></td>
@@ -115,11 +115,11 @@
                             <td style="text-align: right;"><?php echo $this->formatarReal($pa['vlTotalPagamento']); ?></td>
                         </tr>
                         <tr>
-                            <td colspan="2">N∫ da ordem banc·ria:</td>
+                            <td colspan="2">NÔøΩ da ordem bancÔøΩria:</td>
                             <td colspan="3"><?php echo $pa['nrOrdemBancaria']; ?></td>
                         </tr>
                         <tr>
-                            <td colspan="2">Data da ordem banc·ria:</td>
+                            <td colspan="2">Data da ordem bancÔøΩria:</td>
                             <td colspan="3"><?php echo $pa['dtOrdemBancaria']; ?></td>
                         </tr>
                         <tr>
@@ -128,11 +128,11 @@
                         <tr>
                             <td colspan="5"><a title="Visualizar RPA Assinado pelo parecerista" href="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'abrir-arquivo', 'id' => $pa['Arquivos'][1]->idArquivo)); ?>">RPA assinado pelo parecerista</a></td>
                         </tr>
-                        
+
                     </table>
                 </td>
             </tr>
-            </form>     
+            </form>
     <?php endforeach; ?>
 
             <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
@@ -159,12 +159,12 @@
                                 <input class="btn_ultimo" id="btn_ultimo" type="button"
                                        onclick="location.href='<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'finalizar-pagamento-parecerista')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'];?>'">
                             <?php } ?>
-                            P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                            P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                                 <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                                     <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                                 <?php endfor; ?>
                             </select>
-                            &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                            &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                             <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                             <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         </form>
@@ -180,7 +180,7 @@
                 ?>
             </center>
 
-            <!-- ========== FIM PAGINA«√O ========== -->
+            <!-- ========== FIM PAGINA√á√ÇO ========== -->
 
     <?php else: ?>
         <table class="tabela">
@@ -189,36 +189,36 @@
             </tr>
         </table>
     <?php endif; ?>
-    
-    
-    
-    
+
+
+
+
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 <div id="dialog"></div>
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script>
 
     $(document).ready(function(){
-       
+
     });
-    
+
     function concluirPagamento(id){
-        
+
         var retorno = true;
-        
-        //Mandar um alerta de confirmaÁ„o
+
+        //Mandar um alerta de Confirma√ß√£o
 //        return false;
 
         if(retorno){
-            
+
             $("#dialog").html('Deseja finalizar o pagamento?');
-        
+
             $("#dialog").dialog("destroy");
             $("#dialog").dialog({
                 width: '400px',
@@ -226,9 +226,9 @@
                 draggable: false,
                 resizable: false,
                 closeOnEscape: false,
-                title: 'ConfirmaÁ„o',
-                buttons: { 
-                    N„o:function() {
+                title: 'Confirma√ß√£o',
+                buttons: {
+                    N√£o:function() {
                         $(this).dialog('close');
                     },
                     Sim:function() {
@@ -238,13 +238,13 @@
             });
 
             $('.ui-dialog-titlebar-close').remove();
-            
+
         }
-        
-        
-        
+
+
+
     }
-    
+
     function visualizarPagamentos(id){
         $('tr.pagamento').addClass('sumir');
         $('#tr_'+id).toggleClass('sumir');

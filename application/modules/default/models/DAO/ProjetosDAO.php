@@ -163,9 +163,9 @@ class ProjetosDAO extends Zend_Db_Table
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-            $sqlProjetoAreaSegmento = "SELECT Pr.idPRONAC, 
+            $sqlProjetoAreaSegmento = "SELECT Pr.idPRONAC,
         ar.Codigo as area,
-        sg.Codigo as segmento 
+        sg.Codigo as segmento
         FROM SAC.dbo.Projetos Pr
         left JOIN SAC.dbo.Area ar on ar.Codigo = pr.Area
         left JOIN SAC.dbo.Segmento sg on sg.Codigo = pr.Segmento
@@ -184,12 +184,12 @@ class ProjetosDAO extends Zend_Db_Table
                C.cdArea,
                C.cdSegmento,
                C.stTitular
-               FROM AGENTES.dbo.tbTitulacaoConselheiro C 
+               FROM AGENTES.dbo.tbTitulacaoConselheiro C
                WHERE C.stConselheiro = 'A' AND C.cdArea = " . $areaP;
-        
+
             $AAS = $db->fetchAll($sqlComponenteAreaSegmento);
 
-            // Se n�o tiver componente com a Area e Segmento do projeto ele faz...
+            // Se Não tiver componente com a Area e Segmento do projeto ele faz...
             if (count($ASS)==0) {
 
             //aqui j� est� buscando o id do agente que tem a menor quantidade de projetos
@@ -253,7 +253,7 @@ class ProjetosDAO extends Zend_Db_Table
     }
 
     /*     * ************************************************************************************************************************
-     * Altera a situa��o do projeto para C10 para n�o aparecer na tela
+     * Altera a situa��o do projeto para C10 para Não aparecer na tela
      * Situa��o de enviado para o componente
      * *********************************************************************************************************************** */
 

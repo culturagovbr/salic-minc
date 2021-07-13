@@ -146,7 +146,7 @@ class AnexardocumentosmincController extends MinC_Controller_Action_Abstract
             }
         } else {
             $dados = array();
-            $dados['msg'] = utf8_encode('<span style="color:red;">Projeto n�o encontrado.</span>');
+            $dados['msg'] = utf8_encode('<span style="color:red;">Projeto Não encontrado.</span>');
             $jsonEncode = json_encode($dados);
             $this->_helper->json(array('resposta'=>false,'conteudo'=>$dados));
         }

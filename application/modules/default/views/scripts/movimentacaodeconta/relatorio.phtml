@@ -1,6 +1,6 @@
 <?php echo $tihs->partial('controlarmovimentacaobancaria/inc/menu.inc.php', $this) ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'), '', true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -11,14 +11,14 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Relat&oacute;rio de inconsist&ecirc;ncias de conta capta&ccedil;&atilde;o</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
     <div id="dialog-data1" class="sumir">Na Data do Recibo, a Data Final, quando preenchida, deve ser <strong>maior ou igual</strong> &agrave; Data Inicial!</div>
@@ -26,7 +26,7 @@
 
     <script type="text/javascript">
         /**
-         * Função para verificar se a data final é menor que a data inicial
+         * Funï¿½ï¿½o para verificar se a data final ï¿½ menor que a data inicial
          */
         function verificar_data(x){
             if (x == 1){ // data do recibo
@@ -60,15 +60,15 @@
             } else {
                 return true;
             }
-        } // fecha função validar_data()
+        } // fecha funï¿½ï¿½o validar_data()
 
         /**
-         * Funções que são chamadas após a página ser carregada
+         * Funï¿½ï¿½es que sï¿½o chamadas apï¿½s a pÃ¡gina ser carregada
          */
         $(document).ready(function(){
-            // máscaras dos campos
+            // mï¿½scaras dos campos
             $('#nr_pronac').keyup(function(){
-                mascara(this, format_num); // somente números
+                mascara(this, format_num); // somente nï¿½meros
             });
             $('#data1, #data2, #data3, #data4').keyup(function(){
                 mascara(this, format_data); // data
@@ -89,15 +89,15 @@
                 }
             });
 
-            // validações antes do envio do formulário
+            // validaï¿½ï¿½es antes do envio do formulï¿½rio
             $('#enviar').click(function(){
-                // validação da data final meno que a inicial
+                // validaï¿½ï¿½o da data final meno que a inicial
                 if (!verificar_data(1) || !verificar_data(2)){
                     return false;
                 }
             });
 
-            // calendário
+            // calendï¿½rio
             $.datepicker.regional['pt-BR'] = {
                 closeText: 'Fechar',
                 prevText: '&#x3c;Anterior',
@@ -122,7 +122,7 @@
 
     <br />
 
-    <!-- ========== INÍCIO FORMULÁRIO DE CONSULTA ========== -->
+    <!-- ========== INÃCIO FORMULï¿½RIO DE CONSULTA ========== -->
     <form name="formBuscar" id="formBuscar" method="post"
           action="<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'listar-inconsistencias')); ?>"
           enctype="multipart/form-data">
@@ -154,7 +154,7 @@
                 </td>
             </tr>-->
             <tr>
-                <td class="destacar bold w150" align="left"><label for="data_credito">Dt. Crédito</label></td>
+                <td class="destacar bold w150" align="left"><label for="data_credito">Dt. Crï¿½dito</label></td>
                 <td>
                     <label for="data3">De</label> <input type="text" class="select_simples btn_calendario" name="data_credito[]" id="data3" maxlength="10" title="Selecione uma data v&aacute;lida!" />
                     <label for="data4">a</label> <input type="text" class="select_simples btn_calendario" name="data_credito[]" id="data4" maxlength="10" title="Selecione uma data v&aacute;lida!" />
@@ -165,23 +165,23 @@
         <table class="tabela w700">
             <tr>
                 <td align="center">
-                    <input type="submit" id="enviar" title="Gerar Relatório de Captações não Identificadas" class="btn_localizar" value=" " /> &nbsp;
+                    <input type="submit" id="enviar" title="Gerar Relatï¿½rio de Captaï¿½ï¿½es NÃ£o Identificadas" class="btn_localizar" value=" " /> &nbsp;
                     <input type="reset" title="Limpar" class="btn_limpar" value=" " />
                 </td>
             </tr>
         </table>
 
     </form>
-    <!-- ========== FIM FORMULÁRIO DE CONSULTA ========== -->
+    <!-- ========== FIM FORMULï¿½RIO DE CONSULTA ========== -->
 
     <br />
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

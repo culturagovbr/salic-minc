@@ -10,14 +10,14 @@ $(document).ready( function() {
 
     });*/
 	$("#btn_imprimir").click(function(){
-		
+
 		$("#conteudoImprimir").val($("#conteudoImprimivel").html());
-		$("#formGerarPdf").attr('target', '_blank');    
-        $("#formGerarPdf").submit(); 
+		$("#formGerarPdf").attr('target', '_blank');
+        $("#formGerarPdf").submit();
     });
 });
-	
-	
+
+
 </script>
 <div id="breadcrumb">
     <ul>
@@ -25,23 +25,23 @@ $(document).ready( function() {
         <li class="last">Consultar Tabelas</li>
     </ul>
 </div>
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Resultado de Itens da planilha de custo do produto<span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div id="conteudo" align="center">
 	<div id="conteudoImprimivel">
 		<table class="tabela">
-		    <tbody>	        
+		    <tbody>
 				<?php
 					$auxEtapa   = '';
 					$auxProduto = '';
-					foreach($this->dados as $dado): 			
+					foreach($this->dados as $dado):
 			           	if($auxProduto != $dado->Produto ){
 			           		$auxProduto = $dado->Produto;
-	           	?>		           	
+	           	?>
 				<tr>
 					<th valign="middle" align="center" bgcolor="#abda5d"><?php echo $dado->Produto;?></th>
 				</tr>
@@ -54,11 +54,11 @@ $(document).ready( function() {
 			           	if($auxEtapa != $dado->Etapa ){
 			        		$auxEtapa = $dado->Etapa;
 			        		echo '<th valign="middle" align="center" bgcolor="#abda5d"> ' . $auxEtapa . ' </td>';
-			        		echo '<tr><td valign="middle" align="center"> ' . $dado->Item . ' </td></tr>';			        		        		
+			        		echo '<tr><td valign="middle" align="center"> ' . $dado->Item . ' </td></tr>';
 			        	} else {
 			        		echo '<td colspan="2" valign="middle" align="center"> ' . $dado->Item . ' </td>';
 			        	}
-			        ?>  
+			        ?>
 		        </tr>
 		        <?php endforeach; ?>
 		    </tbody>
@@ -75,14 +75,14 @@ $(document).ready( function() {
 	        </td>
 	    </tr>
 	</table>
-	
+
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

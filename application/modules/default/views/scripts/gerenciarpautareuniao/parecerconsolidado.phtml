@@ -37,16 +37,16 @@
     </tr>
     <tr>
         <td class="center-align"><?php echo $this->escape($this->enquadramento); ?></td>
-        <td class="center-align"><?php if($this->ResultRealizarAnaliseProjeto['TipoParecer'] == '2'){ 
-                        echo 'COMPLEMENTAÇÃO';
+        <td class="center-align"><?php if($this->ResultRealizarAnaliseProjeto['TipoParecer'] == '2'){
+                        echo 'COMPLEMENTAï¿½ï¿½O';
                    }elseif($this->ResultRealizarAnaliseProjeto['TipoParecer'] == '4'){
-                        echo 'REDUÇÃO';
+                        echo 'REDUï¿½ï¿½O';
                    }else{
-                        echo 'APROVAÇÃO INICIAL';
+                        echo 'aprovaÃ§Ã£o INICIAL';
                    }
             ?>
         </td>
-        <td class="center-align"><?php echo $this->ResultRealizarAnaliseProjeto['ParecerFavoravel'] == '2' ? 'SIM' : 'NÃO'; ?></td>
+        <td class="center-align"><?php echo $this->ResultRealizarAnaliseProjeto['ParecerFavoravel'] == '2' ? 'SIM' : 'NÃ£o'; ?></td>
         <td class="center-align"><?php echo Data::tratarDataZend($this->ResultRealizarAnaliseProjeto['DtParecer'], 'brasileiro'); ?></td>
         <td class="center-align"><?php echo $this->escape($this->formatarReal($this->valorcomponente)); ?></td>
     </tr>
@@ -122,7 +122,7 @@
     </tr>
     <tr>
         <th>
-            Área 
+            ï¿½rea
         </th>
         <th>
             Segmento

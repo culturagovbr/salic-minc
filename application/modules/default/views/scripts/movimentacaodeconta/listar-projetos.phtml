@@ -102,7 +102,7 @@
             modal: true,
             autoOpen:true,
             draggable:false,
-            title: 'Manter conta bancária',
+            title: 'Manter conta bancï¿½ria',
             buttons: {
                 'Cancelar': function() {
                     $("#divDinamicaManterConta").remove();
@@ -129,7 +129,7 @@
             success: function(data){
                 if (data.existe)
                 {
-                    $('#'+idColunaBotaoCorrigir).find('.corrigir').replaceWith("<font color='green'>[Correção enviada]</font>");
+                    $('#'+idColunaBotaoCorrigir).find('.corrigir').replaceWith("<font color='green'>[Correï¿½ï¿½o enviada]</font>");
                 }
             },
             complete: function(){
@@ -145,7 +145,7 @@
 <table class="tabela">
     <?php if ($this->registros->count() <= 0) : ?>
     <tr>
-        <td align="center" ><em>Consulta efetuada com sucesso, por&eacute;m, n&atilde;o existem contas com captações identificadas para o filtro solicitado!</em></td>
+        <td align="center" ><em>Consulta efetuada com sucesso, por&eacute;m, n&atilde;o existem contas com captaï¿½ï¿½es identificadas para o filtro solicitado!</em></td>
     </tr>
     <?php else: ?>
         <?php $ct=1; $arrProjeto =array(); $arrIncentivador =array();
@@ -184,8 +184,8 @@
                     <?php } ?>
                 </td>
                 <td align="center"><?php echo Validacao::mascaraCPFCNPJ($projeto->nrCpfCnpjProponente); ?></td>
-                <td align="center"><?php echo !empty($projeto->Agencia) ? $projeto->Agencia : '<em>Não informada</em>'; ?></td>
-                <td align="center"><?php echo !empty($projeto->ContaBloqueada) ? $projeto->ContaBloqueada : '<em>Não informada</em>'; ?></td>
+                <td align="center"><?php echo !empty($projeto->Agencia) ? $projeto->Agencia : '<em>NÃ£o informada</em>'; ?></td>
+                <td align="center"><?php echo !empty($projeto->ContaBloqueada) ? $projeto->ContaBloqueada : '<em>NÃ£o informada</em>'; ?></td>
                 <td align="center"><?php echo Validacao::mascaraCPFCNPJ($projeto->nrCpfCnpjIncentivador); ?></td>
                 <td align="center"><?php echo $projeto->dtCredito; ?></td>
                 <td align="right" class="<?php echo ($projeto->vlValorCredito == 'D') ? 'red' : 'blue' ; ?>"><?php echo $this->formatarReal($projeto->vlValorCredito); ?></td>

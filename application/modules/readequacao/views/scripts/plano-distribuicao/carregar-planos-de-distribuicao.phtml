@@ -141,7 +141,7 @@
 
                 if(!preenchimento){
                     i++;
-                    erros = erros + i+' - Favor preencher os campos obrigatórios.';
+                    erros = erros + i+' - Favor preencher os campos obrigatï¿½rios.';
                 }
 
                 if(i>0){
@@ -192,7 +192,7 @@
                             }
 
                             if (data.resposta == true) {
-                                mensagem = "<div>Plano de distribuição alterado.</div>";
+                                mensagem = "<div>Plano de distribuiï¿½ï¿½o alterado.</div>";
                                 $('.mensagem-' + idProduto).addClass('msgCONFIRM');
                             } else {
                                 mensagem = "<div>" + data.msg + "</div>";
@@ -276,7 +276,7 @@
             $('#'+idDestino).val(soma_valores).priceFormat();
         }
 
-        // abre produtos do plano de distribuiçao e fecha o que estiver aberto
+        // abre produtos do plano de distribuiï¿½ao e fecha o que estiver aberto
         function mostraOcultaElemento(elemento) {
             $('.produtos').each(
                 function() {
@@ -331,7 +331,7 @@
                 <tr class="sumir produtos" id="tr-produto-<?php echo $planoDistribuicao->idProduto;?>" align="left">
                     <td>
                         <form name="frmPlanoDistribuicao-<?php echo $planoDistribuicao->idProduto; ?>" id="frmPlanoDistribuicao-<?php echo $planoDistribuicao->idProduto; ?>" method="post">
-                            <?php /* define idPlanoDistribuicao como novo se planos forem cópia */ ?>
+                            <?php /* define idPlanoDistribuicao como novo se planos forem cï¿½pia */ ?>
                             <?php $idPlanoDistribuicao = ($this->planoDistribuicaoCopia[$planoDistribuicao->idProduto]) ? 'copia' : $planoDistribuicao->idPlanoDistribuicao; ?>
 
                             <input type="hidden" name="idPlanoDistribuicao" id="idPlanoDistribuicao-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo $idPlanoDistribuicao; ?>">
@@ -340,7 +340,7 @@
                             <input type="hidden" name="pronac" id="pronac-<?php echo $planoDistribuicao->idProduto;?>" value="<?php echo $this->pronac; ?>">
                             <input type="hidden" name="newPosicaoLogomarca" id="newPosicaoLogomarca-<?php echo $planoDistribuicao->idProduto;?>" value="<?php echo $planoDistribuicao->idPosicaoDaLogo; ?>">
 
-                            <!-- ========== INÍCIO TABELA DADOS ========== -->
+                            <!-- ========== INÃCIO TABELA DADOS ========== -->
                             <table  class="tabela">
                                 <tr>
                                     <th colspan="4" align="center">Nome do Evento / Produto</th>

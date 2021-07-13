@@ -236,7 +236,7 @@ class ComprovantePagamento extends MinC_Db_Table_Abstract
             throw new Exception('A data do documento deve estar dentro do per&iacute;odo de execu&ccedil;&atilde;o do projeto.');
         }
 
-        // caso seja comprova��o de pagamento a empresa do exterior, n�o precisa comprovar
+        // caso seja comprova��o de pagamento a empresa do exterior, Não precisa comprovar
         if (!$exterior) {
             if (!$this->comprovanteTipo) {
                 throw new Exception('Forma de pagamento inv&aacute;lida.');
@@ -413,7 +413,7 @@ class ComprovantePagamento extends MinC_Db_Table_Abstract
 
     /**
      * Author: Alysson Vicu�a de Oliveira
-     * Descri��o: Altera��o realizada por pedido da �rea Finalistica em 16/02/2016 as 11:33
+     * Descrição: Altera��o realizada por pedido da �rea Finalistica em 16/02/2016 as 11:33
      * @param $item
      * @return array
      */

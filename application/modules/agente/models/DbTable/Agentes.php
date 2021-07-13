@@ -671,8 +671,7 @@ class Agente_Model_DbTable_Agentes extends MinC_Db_Table_Abstract
         $dadosWhere["n.TipoNome = ?"] = 18;
         $dadosWhere["c.idCodigoArea = ?"] = $idArea;
         $dadosWhere["c.idCodigoSegmento = ?"] = $idSegmento;
-        $dadosWhere["u.org_superior = ?"] = 91;
-        $dadosWhere["u.usu_orgao = ?"] = $idOrgao;  // especificidade do IPHAN - puxa codigo do orgao
+        $dadosWhere["u.uog_orgao = ?"] = $idOrgao;  // especificidade do IPHAN - puxa codigo do orgao
         $dadosWhere["NOT EXISTS(SELECT TOP 1 * FROM Agentes.dbo.tbAusencia WHERE Getdate() BETWEEN dtInicioAusencia AND dtFimAusencia AND idAgente = a.idAgente)"] = '';
 
         foreach ($dadosWhere as $coluna => $valor) {

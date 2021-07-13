@@ -9,12 +9,12 @@
 </div>
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>READEQUAÇÃO: PRODUTOS
+    <div>READEQUAï¿½ï¿½O: PRODUTOS
         <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
         <span style="vertical-align: middle;">
-            <?php 
+            <?php
                 foreach ($this->stResult as $stResult){
                     echo '<select name="status" id="status" style="float: right; width: 7em;" class="select_simples" disabled="disabled">';
                     if($stResult->stAvaliacaoItemPedidoAlteracao == 'AP') {
@@ -28,7 +28,7 @@
         </span>
     </div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <style type="text/css">
     .pvermelho { color: red; font-weight: bold; }
@@ -60,7 +60,7 @@
     <table class="tabela">
         <thead>
             <tr>
-                <th align="center">Nº PRONAC:</th>
+                <th align="center">Nï¿½ PRONAC:</th>
                 <th align="center">Nome do Projeto:</th>
             </tr>
         </thead>
@@ -122,7 +122,7 @@
                                         if($dados->tpPlanoDistribuicao == 'AP'){
                                             echo "APROVADO";
                                         } elseif($dados->tpPlanoDistribuicao == 'SR'){
-                                            echo "SOLICITAÇÃO DE READEQUAÇÃO";
+                                            echo "SolicitaÃ§Ã£o DE READEQUAï¿½ï¿½O";
                                         } elseif($dados->tpPlanoDistribuicao == 'AT'){ ?>
 
                                             <span style="float: right;">
@@ -134,9 +134,9 @@
                                             </span>
 
                                         <?php
-                                            echo "ANÁLISE TÉCNICA";
+                                            echo "AnÃ¡lise TÃ©cnica";
                                         } elseif($dados->tpPlanoDistribuicao == 'CO'){
-                                            echo "COMPONENTE DA COMISSÃO";
+                                            echo "COMPONENTE DA comissÃ£o";
                                         }
                                     ?>
                                 </b>
@@ -159,14 +159,14 @@
                                                     <td>
                                                         <b>Produto Principal?</b><br>
                                                         <?php if ($dados->PrdotudoPrincpal == 0) {
-                                                                  echo "Não";
+                                                                  echo "NÃ£o";
                                                               } else {
                                                                   echo "Sim";
                                                               }
                                                           ?>
                                                     </td>
                                                     <td>
-                                                        <b>Área</b><br>
+                                                        <b>ï¿½rea</b><br>
                                                         <?php echo $dados->Area; ?>
                                                     </td>
                                                     <td>
@@ -293,7 +293,7 @@
 
                                     <?php if(!empty($dados->dsAvaliacao)){ ?>
                                     <tr>
-                                        <td align='center' width="20%" class="destacar"><b>Análise Técnica do Produto</b></td>
+                                        <td align='center' width="20%" class="destacar"><b>AnÃ¡lise TÃ©cnica do Produto</b></td>
                                     </tr>
                                     <tr>
                                         <td width="80%"><?php echo $dados->dsAvaliacao;?></td>
@@ -329,8 +329,8 @@
 
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

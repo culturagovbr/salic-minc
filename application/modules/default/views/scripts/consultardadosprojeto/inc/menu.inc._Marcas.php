@@ -1,5 +1,5 @@
-<!-- ========== INÍCIO MENU ========== --> 
- 
+<!-- ========== INÃCIO MENU ========== -->
+
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
@@ -15,10 +15,10 @@
         });
     </script>
 
-    <!-- início: conteúdo principal #container -->
+    <!-- INÃCIO: CONTEÃšDO principal #container -->
     <div id="container">
 
-        <!-- início: navegaç?o local #qm0 -->
+        <!-- INÃCIO: navegaï¿½?o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {
@@ -36,7 +36,7 @@
                 $("#rodape").css("width",fluidRodape);
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }
-            
+
             function carregaDados(url,divRetorno)
             {
                 //$("#titulo").html('');
@@ -100,7 +100,7 @@
                     $('#msgErroImpressao').html("");
                     $('#frmOpcoesImpressao').submit();
                 }else{
-                    $('#msgErroImpressao').html("<center><font color='red'>É obrigatório selecionar ao menos uma informação para impressão.</font></center>");
+                    $('#msgErroImpressao').html("<center><font color='red'>ï¿½ obrigatï¿½rio selecionar ao menos uma informaï¿½ï¿½o para impressï¿½o.</font></center>");
                 }
             }
 
@@ -151,16 +151,16 @@
               $diasExecutados = round(Data::CompararDatas($resp->DtInicioExecucao));
               $qtdHabilitado = ceil($diasExecutados/90); */
 //                        x('Dt Inicio = '.$resp->DtInicioExecucao.' e Dt Fim = '.$resp->DtFimExecucao);
-//                        x('Qtd de relatórios esperados para o projeto = '.$qtdRelatorioEsperado);
-//                        x('Qtd de dias após o início da execuç?o = '.$diasExecutados);
-//                        x('Qtd de relatórios habilitados para o cadastro = '.$qtdHabilitado);
-//                        x('Qtd de relatórios cadastrados = '.count($totalReg));
+//                        x('Qtd de relatï¿½rios esperados para o projeto = '.$qtdRelatorioEsperado);
+//                        x('Qtd de dias apï¿½s o INÃCIO da execuï¿½?o = '.$diasExecutados);
+//                        x('Qtd de relatï¿½rios habilitados para o cadastro = '.$qtdHabilitado);
+//                        x('Qtd de relatï¿½rios cadastrados = '.count($totalReg));
         }
         ?>
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
-            
+
                 <!-- CONSULTAR DADOS DO PROJETO  -->
                 <a href="#" title="Abrir menu Consultar" class="ancoraDadosdoprojeto" onclick="return false;">Consultar dados do projeto</a>
                 <div style="display: none;">
@@ -193,7 +193,7 @@
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'providencia-tomada')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Provid&ecirc;ncia tomada">Provid&ecirc;ncia tomada</a>
                 </div>
                 <!-- FIM - CONSULTAR DADOS DO PROJETO  -->
-				
+
 <?php //if(($this->respProponente == 'P') && ($this->inabilitado == 'N') OR (($this->respProponente == 'R') && ($this->procuracaoValida == 'S') && ($this->inabilitado == 'N') && ($this->intFaseProjeto == 2))):?>
 <?php if ($this->inabilitado == 'N'): ?>
 
@@ -294,12 +294,12 @@
                 <?php endif; ?>
                 <!-- FIM - COMPROVACAO FISICA -->
 
-                
+
 
                 <!--  ======================= PROCURACAO =======================  -->
                 <?php if ($this->blnProponente) {
                     ?>
-                    <!-- 
+                    <!--
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'index')); ?>?idPreProjeto=<?php echo $this->idprojeto; ?>">Procura&ccedil;&atilde;o</a>
                      -->
                 <?php
@@ -325,10 +325,10 @@
                         <a class="no_seta" href="<?php echo $this->url(array('controller' => 'dadobancario', 'action' => 'liberacaodeconta')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>">Libera&ccedil;&atilde;o de Conta</a>
                         <a class="no_seta" href="<?php echo $this->url(array('controller' => 'dadobancario', 'action' => 'pedidodeprorrogacao')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>">Pedido de prorroga&ccedil;&atilde;o</a>
                     </div>-->
-                    
+
 
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'listarprojetos', 'action' => 'listarprojetos')); ?>">Listar Projetos</a>
-                
+
                 <?php
                 } ?>
                 <!--<a class="no_seta" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'imprimir-projeto')); ?><?php echo $codPronac;?>' target="_blank" title="Ir Imprimir Projeto">Imprimir Projeto</a>-->
@@ -339,25 +339,25 @@
                     <!--<a class="no_seta" href="<?php //echo $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem', 'idpronac' => $this->idPronac), '', true);?>">Mensagens</a>-->
                 <?php
                 } ?>
-            <!-- <a class="no_seta" href="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => '')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>">Extrato de Movimentaç?o Bancária</a> -->
+            <!-- <a class="no_seta" href="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => '')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>">Extrato de Movimentaï¿½?o Bancï¿½ria</a> -->
             <!-- <a class="no_seta" href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'form-enviar-arquivo-marca')); ?><?php echo $codPronac; ?>">Marcas</a> -->
-                    
+
              <!-- Manter Mensagens -->
-            <?php 
+            <?php
                 $perfisMensagens  = array(131,92,93,122,123,121,129,94,103,110,118,126,125,124,132,136,134,135,138,139);
                 if (in_array($this->grupoAtivo, $perfisMensagens)) {
                     ?>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem', 'idpronac' => $this->idPronac), '', true); ?>">Mensagens</a>
             <?php
                 } ?>
-             
-                    
-                    
+
+
+
             </div>
             <div class="bottom"></div>
             <div id="space_menu"></div>
         </div>
-        <!-- final: navegaç?o local #qm0 -->
+        <!-- final: navegaï¿½?o local #qm0 -->
     </div>
 </div>
 <div id="menu_comp_exec" style="display: none;"></div>

@@ -93,14 +93,14 @@
     }
 </style>
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div class="paginaA4">
 
     <div align="center">
-        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="MinistÈrio da Cidadania"/>
-        <br clear="all" /><span class="TituloMinC">MinistÈrio da Cidadania</span>
-        <br clear="all" /><span class="TituloDoDocumento">CheckList para PublicaÁ„o - <?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An·lise Documental'; ?></span>
-        <br clear="all" /><span class="DataDoDocumento">Data da impress„o: <?php echo date('d/m/Y - H:i:s'); ?></span>
+        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Minist√©rio da Cidadania"/>
+        <br clear="all" /><span class="TituloMinC">Minist√©rio da Cidadania</span>
+        <br clear="all" /><span class="TituloDoDocumento">CheckList para Publica√ß√£o - <?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An√°lise Documental'; ?></span>
+        <br clear="all" /><span class="DataDoDocumento">Data da impress√£o: <?php echo date('d/m/Y - H:i:s'); ?></span>
         <br clear="all" /><br clear="all" /><span class="QntdRegistros"><?php echo count($this->dados).' projetos listados'; ?></span>
     </div>
 
@@ -110,9 +110,9 @@
             <tr class="titulo_tabela">
                 <th>PRONAC</th>
                 <th>Nome do Projeto</th>
-                <th>¡rea / Segmento Cultural</th>
+                <th>√Årea / Segmento Cultural</th>
                 <th>Enquadramento</th>
-                <th>PerÌodo de Execu&ccedil;&atilde;o</th>
+                <th>PerÔøΩodo de Execu&ccedil;&atilde;o</th>
                 <th>Vl. Aprovado&nbsp;(R$)</th>
                 <th>N&ordm; Reuni&atilde;o</th>
                 <th>T&eacute;cnico</th>
@@ -135,7 +135,7 @@
                 <td><?php echo $d->NomeProjeto; ?></td>
                 <td><?php echo $d->dsArea.' / '.$d->dsSegmento; ?></td>
                 <td align="center"><?php echo 'Art. '.$d->enquadramento; ?></td>
-                <td align="center" <?php echo $classRed; ?>><?php echo Data::tratarDataZend($d->DtInicioExecucao, 'Brasileira'); ?> ‡ <?php echo Data::tratarDataZend($d->DtFimExecucao, 'Brasileira'); ?></td>
+                <td align="center" <?php echo $classRed; ?>><?php echo Data::tratarDataZend($d->DtInicioExecucao, 'Brasileira'); ?> ÔøΩ <?php echo Data::tratarDataZend($d->DtFimExecucao, 'Brasileira'); ?></td>
                 <td align="right" nowrap><?php echo @number_format(($d->ValorAprovado), 2, ",", "."); ?></td>
                 <td align="center"><?php echo $d->nrreuniao; ?></td>
                 <td><?php echo $d->Tecnico; ?></td>

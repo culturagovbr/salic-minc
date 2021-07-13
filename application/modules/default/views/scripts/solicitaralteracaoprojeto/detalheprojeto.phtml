@@ -1,23 +1,23 @@
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
-        <li class="last">Solicitar AlteraÁ„o Projeto</li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
+        <li class="last">Solicitar AlteraÔøΩÔøΩo Projeto</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div> Solicitar AlteraÁ„o Projeto     <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+    <div> Solicitar AlteraÔøΩÔøΩo Projeto     <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 
@@ -26,31 +26,31 @@
             <tr>
             	<td class="titulo_tabela">Projeto Cultural</td>
             	 <tr>
-            	 
+
             </tr>
-      
+
             <tr>
             	<th>Detalhe do projeto</th>
             </tr>
-            
+
 </table>
 <table class="tabela"  >
             <table class="tabela"  >
           <tr>
-            	 <?php foreach ($this->resposta as $resposta) {?>    
-            	<th >Proponente: 
-            	<a href="alterarproponente/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">Nome do Proponente</a> | 
-            	<a href="alterarrazao/prop/<?php echo $this->escape($resposta->CgcCpf); ?>"">Raz„o Social</a></th>
-            	 <?php } ?>
-            </tr>            
-</table>
-<table class="tabela"  >           
-            <tr>
-            	<td class="titulo_dentro">Projeto 
             	 <?php foreach ($this->resposta as $resposta) {?>
-            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/fichatecnica/prop/<?php echo $this->escape($resposta->CgcCpf); ?>/pron/<?php echo $this->escape($resposta->idPronac); ?>">Ficha TÈcnica</a> | 
-            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/localrealizacao/prop/<?php echo $this->escape($resposta->CgcCpf); ?>/pron/<?php echo $this->escape($resposta->idPronac); ?>">Local de RealizaÁ„o</a> | 
-            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/alterarnomeprojeto/prop/<?php echo $this->escape($resposta->CgcCpf); ?>/pron/<?php echo $this->escape($resposta->idPronac); ?>">Nome do Projeto</a> | 
+            	<th >Proponente:
+            	<a href="alterarproponente/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">Nome do Proponente</a> |
+            	<a href="alterarrazao/prop/<?php echo $this->escape($resposta->CgcCpf); ?>"">RazÔøΩo Social</a></th>
+            	 <?php } ?>
+            </tr>
+</table>
+<table class="tabela"  >
+            <tr>
+            	<td class="titulo_dentro">Projeto
+            	 <?php foreach ($this->resposta as $resposta) {?>
+            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/fichatecnica/prop/<?php echo $this->escape($resposta->CgcCpf); ?>/pron/<?php echo $this->escape($resposta->idPronac); ?>">Ficha T√©cnica</a> |
+            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/localrealizacao/prop/<?php echo $this->escape($resposta->CgcCpf); ?>/pron/<?php echo $this->escape($resposta->idPronac); ?>">Local de RealizaÔøΩÔøΩo</a> |
+            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/alterarnomeprojeto/prop/<?php echo $this->escape($resposta->CgcCpf); ?>/pron/<?php echo $this->escape($resposta->idPronac); ?>">Nome do Projeto</a> |
             	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/prorrogacaoprazo/prop/<?php echo $this->escape($resposta->CgcCpf); ?>/pron/<?php echo $this->escape($resposta->idPronac); ?>">Prorrogar Prazos</a>
             	<?php } ?>
             	</td>
@@ -59,20 +59,20 @@
 
 <table class="tabela" >
             <tr>
-                <td class="titulo_dentro">IdentificaÁ„o</td>                
+                <td class="titulo_dentro">IdentificaÔøΩÔøΩo</td>
             </tr>
             <?php foreach ($this->resposta as $resposta) {?>
             <tr>
                 <td><strong>Pronac:</strong> <br>         <?php echo $this->escape($resposta->idPronac); ?></td>
                 <td><strong>Nome do Projeto:</strong> <br><?php echo $this->escape($resposta->NomeProjeto); ?></td>
             </tr>
-           
-                     
+
+
            <tr>
                 <td><strong>CNPJ / CPF:</strong> <br>
-               <?php 
-                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3); 
-                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"]; 
+               <?php
+                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3);
+                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"];
                 ?>
                 </td>
                 <td><strong>Proponente:</strong> <br><?php echo $this->escape($resposta->Nome); ?></td>
@@ -86,12 +86,12 @@
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

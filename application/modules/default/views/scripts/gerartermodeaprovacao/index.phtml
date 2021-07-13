@@ -1,11 +1,11 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        
+
         //sumete a pagina quando clicar no ENTER do teclado
         $(window).bind('keypress', function(e) {
             if(e.keyCode == 13){ //codigo da tecla ENTER do teclado
                 if($("#nrreuniao").val() == ""){
-                    $("#msgErroReuniao").html("<font color='red'>Campo obrigatório não informado.</font><br />");
+                    $("#msgErroReuniao").html("<font color='red'>Campo obrigatï¿½rio NÃ£o informado.</font><br />");
                 return false;
                 }else{
                     $("#msgErroReuniao").html("");
@@ -16,24 +16,24 @@
 
         $(".btn_pesquisar").click(function(){
             if($("#nrreuniao").val() == ""){
-                $("#msgErroReuniao").html("<font color='red'>Campo obrigatório não informado.</font><br />");
+                $("#msgErroReuniao").html("<font color='red'>Campo obrigatï¿½rio NÃ£o informado.</font><br />");
                 return false;
             }else{
                 $("#msgErroReuniao").html("");
                 $("#formBuscar").submit();
             }
         });
-        
+
         $("#btsubmit").click(function(){
             var n = $("input:checked").length;
             if(n >= 1){
                 $("#msgErro").html("");
                 $("#formPDF").submit();
             }else{
-                $("#msgErro").html("<font color='red'>É necessário informar ao menos um Projeto para gerar o termo.</font><br />");
+                $("#msgErro").html("<font color='red'>ï¿½ necessï¿½rio informar ao menos um Projeto para gerar o termo.</font><br />");
             }
         });
-        
+
         $("#selecionar").change(function(){
             if($(this).attr('checked') == true){
                 $('.idpronac').attr('checked',true);
@@ -43,10 +43,10 @@
             }
 
         });
-        
+
         $('#nomeSecretario').val('<?php echo $this->nomeSecretario;?>');
         $('#nomeOrgao').val('<?php echo $this->nomeOrgao;?>');
-        
+
     });
 </script>
 
@@ -54,12 +54,12 @@
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="#" title="InIn&iacute;ciocio">In&iacute;cio</a></li>
-        <li class="last">Gerar Termo de Decisão</li>
+        <li class="last">Gerar Termo de Decisï¿½o</li>
     </ul>
 </div> <!-- final: #breadcrumb -->
-<div id="titulo"><div>Gerar Termo de Decisão</div>
-</div>  
-<div id="conteudo"> 
+<div id="titulo"><div>Gerar Termo de Decisï¿½o</div>
+</div>
+<div id="conteudo">
     <div id="miolo">
         <form name="formBuscar" id="formBuscar" method="post" action="<?php echo $this->url(array('controller' => 'gerartermodeaprovacao', 'action' => 'index')); ?>">
             <fieldset><legend>Gerar Termo de Aprova&ccedil;&atilde;o</legend>
@@ -68,7 +68,7 @@
                         <tr>
                             <td>
                                 <div style="float: left; padding-right: 1em; font-weight: bold">
-                                    * N&uacute;mero da reunião Plen&aacute;ria:&nbsp;
+                                    * N&uacute;mero da reuniï¿½o Plen&aacute;ria:&nbsp;
                                     <input type="text" name="NrReuniao" id="nrreuniao" maxlength="5" size="5" value ="<?php echo  $this->ultimaCNIC  ?>" class="input_simples"/>
                                     &nbsp;&nbsp;&nbsp;
                                     PRONAC:&nbsp;
@@ -119,11 +119,11 @@
                                         $i++;
                                         $linha++;
                                     }
-                                 else: ?> 
+                                 else: ?>
                                 <tr>
-                                    <td colspan="5" class="centro"><em>Nenhum projeto encontrado com os parâmentros de pesquisa informados.</em></td>
-                                </tr> 
-                        <?php endif;?> 
+                                    <td colspan="5" class="centro"><em>Nenhum projeto encontrado com os parï¿½mentros de pesquisa informados.</em></td>
+                                </tr>
+                        <?php endif;?>
                         <tr>
 
                             <th colspan="4" align="right"  ><b>Total de Projetos Encontrados</b></th>
@@ -138,9 +138,9 @@
                             <td class="centro">
                                 <center>
                                     <div style="width: 800px;">
-                                        <div style="width: 210px; float: left; text-align: right; vertical-align: bottom">Secretário(a): </div>
+                                        <div style="width: 210px; float: left; text-align: right; vertical-align: bottom">Secretï¿½rio(a): </div>
                                         <div style="width: 400px; padding-bottom: 4px"><input type="text" name="nomeSecretario" id="nomeSecretario" class="input_simples" style="width: 370px"></div>
-                                        <div style="width: 210px; float: left; text-align: right">Órgão: </div>
+                                        <div style="width: 210px; float: left; text-align: right">ï¿½rgï¿½o: </div>
                                         <div style="width: 400px;"><input type="text" name="nomeOrgao" id="nomeOrgao" class="input_simples" style="width: 370px"></div>
                                     </div>
                                 </center>
@@ -164,6 +164,6 @@
     <!-- final: conteudo principal #conteudo -->
 </div>
 <!-- inicio: detalhe final da div conteudo #rodapeConteudo -->
-<div id="rodapeConteudo"><span></span></div>  
-<!-- final: detalhe final da div conteudo #rodapeConteudo -->  
+<div id="rodapeConteudo"><span></span></div>
+<!-- final: detalhe final da div conteudo #rodapeConteudo -->
 <br clear="all" />

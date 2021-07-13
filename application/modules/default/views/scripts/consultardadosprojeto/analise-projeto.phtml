@@ -1,8 +1,8 @@
 <script type="text/javascript">
     $(document).ready(function(){
         //ATUALIZA TITULO DA PAGINA
-        window.parent.$("#titulo").html("<div>Análise do Projeto</div>");
-        window.parent.$("#caminhoLocalAtual").html("Análise do Projeto");
+        window.parent.$("#titulo").html("<div>AnÃ¡lise do Projeto</div>");
+        window.parent.$("#caminhoLocalAtual").html("AnÃ¡lise do Projeto");
 
        //CARREGA DADOS DA CAPTACAO DO PROJETO
        //$("#resultCaptacao").html('<br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br>');
@@ -87,7 +87,7 @@
             error: function (data)
             {
                 alert(data);
-                divRetorno.html("Falha na recuperação dos dados.\nNão foi possível carregar agente!");
+                divRetorno.html("Falha na recuperaï¿½ï¿½o dos dados.\nNÃ£o foi possï¿½vel carregar agente!");
             }
         });
     }
@@ -144,7 +144,7 @@
                 <tr>
                     <td>
                         <input type="button" id="parecerTecnicoInicial" class="btn_adicionar" value=" " onclick="dadosDaAnalise('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-parecer-tecnico-consolidado')); ?>','inicial','parecerTecnicoInicial','retornoParecerInicial');"/>
-                        Parecer Técnico Consolidado
+                        Parecer Tï¿½cnico Consolidado
                     </td>
                 </tr>
                 <tr class="parecerTecnicoInicial sumir">
@@ -155,7 +155,7 @@
                 <tr>
                     <td>
                         <input type="button" id="analiseConteudoInicial" class="btn_adicionar" value=" " onclick="dadosDaAnalise('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-de-conteudo')); ?>','inicial','analiseConteudoInicial','retornoAnaliseConteudoInicial');"/>
-                        Análise de Conteúdo
+                        AnÃ¡lise de CONTEÃšDO
                     </td>
                 </tr>
                 <tr class="analiseConteudoInicial sumir">
@@ -166,7 +166,7 @@
                 <tr>
                     <td>
                         <input type="button" id="analiseCustoInicial" class="btn_adicionar" value=" " onclick="dadosDaAnalise('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-de-custo')); ?>','inicial','analiseCustoInicial','retornoAnaliseCustoInicial');"/>
-                        Análise de Custo
+                        AnÃ¡lise de Custo
                     </td>
                 </tr>
                 <tr class="analiseCustoInicial sumir">
@@ -182,7 +182,7 @@
                 <tr>
                     <td>
                         <input type="button" id="parecerTecnicoCnic" class="btn_adicionar" value=" " onclick="dadosDaAnalise('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-parecer-tecnico-consolidado')); ?>','cnic','parecerTecnicoCnic','retornoParecerCnic');"/>
-                        Parecer Técnico Consolidado
+                        Parecer Tï¿½cnico Consolidado
                     </td>
                 </tr>
                 <tr class="parecerTecnicoCnic sumir">
@@ -193,7 +193,7 @@
                 <tr>
                     <td>
                         <input type="button" id="analiseConteudoCnic" class="btn_adicionar" value=" " onclick="dadosDaAnalise('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-de-conteudo')); ?>','cnic','analiseConteudoCnic','retornoAnaliseConteudoCnic');"/>
-                        Análise de Conteúdo
+                        AnÃ¡lise de CONTEÃšDO
                     </td>
                 </tr>
                 <tr class="analiseConteudoCnic sumir">
@@ -204,7 +204,7 @@
                 <tr>
                     <td>
                         <input type="button" id="analiseCustoCnic" class="btn_adicionar" value=" " onclick="dadosDaAnalise('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-de-custo')); ?>','cnic','analiseCustoCnic','retornoAnaliseCustoCnic');"/>
-                        Análise de Custo
+                        AnÃ¡lise de Custo
                     </td>
                 </tr>
                 <tr class="analiseCustoCnic sumir">
@@ -220,7 +220,7 @@
                 <tr>
                     <td>
                         <input type="button" id="parecerTecnicoPlenaria" class="btn_adicionar" value=" " onclick="dadosDaAnalise('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-parecer-tecnico-consolidado')); ?>','plenaria','parecerTecnicoPlenaria','retornoParecerPlenaria');"/>
-                        Parecer Técnico Consolidado
+                        Parecer Tï¿½cnico Consolidado
                     </td>
                 </tr>
                 <tr class="parecerTecnicoPlenaria sumir">
@@ -231,7 +231,7 @@
                 <tr>
                     <td>
                         <input type="button" id="analiseConteudoPlenaria" class="btn_adicionar" value=" " onclick="dadosDaAnalise('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-de-conteudo')); ?>','plenaria','analiseConteudoPlenaria','retornoAnaliseConteudoPlenaria');"/>
-                        Análise de Conteúdo
+                        AnÃ¡lise de CONTEÃšDO
                     </td>
                 </tr>
                 <tr class="analiseConteudoPlenaria sumir">
@@ -242,7 +242,7 @@
                 <tr>
                     <td>
                         <input type="button" id="analiseCustoPlenaria" class="btn_adicionar" value=" " onclick="dadosDaAnalise('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-de-custo')); ?>','plenaria','analiseCustoPlenaria','retornoAnaliseCustoPlenaria');"/>
-                        Análise de Custo
+                        AnÃ¡lise de Custo
                     </td>
                 </tr>
                 <tr class="analiseCustoPlenaria sumir">

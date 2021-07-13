@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicaprojeto
- * @copyright © 2010 - Ministário da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 echo $this->partial('inc/menu.inc.php', $this) // menu
@@ -43,17 +43,17 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
                     modal:true,
                     buttons:
                         {
-                        'Não':function()
+                        'NÃ£o':function()
                         {
                             $(this).dialog('close'); // fecha a modal
                         },
                         'Sim':function()
                         {
-                            $("#formulario").submit(); // envia o formulário
+                            $("#formulario").submit(); // envia o formulï¿½rio
                         }
                     }
                 });
-                $("#Confirma").html('Deseja enviar a diligência para o proponente?')
+                $("#Confirma").html('Deseja enviar a diligï¿½ncia para o proponente?')
                 $("#Confirma").dialog('open')
             }
         });
@@ -61,11 +61,11 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
     });
 </script>
 <div id="Confirma" style="display: none;"></div>
-<div id="erro" style="display: none;">Dados Obrigatórios n&atilde;o preenchidos</div>
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<div id="erro" style="display: none;">Dados Obrigatï¿½rios n&atilde;o preenchidos</div>
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para Início">In&iacute;cio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para INÃCIO">In&iacute;cio</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Realizar an&aacute;lise">Realizar an&aacute;lise</a></li>
         <li class="last">Diligenciar Proponente</li>
     </ul>
@@ -74,20 +74,20 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Diligenciar Proponente <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
 
-    <!-- ========== INÍCIO TÍTULO PÁGINA ========== -->
+    <!-- ========== INÃCIO Tï¿½TULO pÃ¡gina ========== -->
     <table class="tabela">
 
         <?php foreach ($this->pronac as $p) : ?>
@@ -120,11 +120,11 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
             <?php } ?>
         </table>
         <?php } ?>
-        <!-- ========== FIM TÍTULO PÁGINA ========== -->
+        <!-- ========== FIM Tï¿½TULO pÃ¡gina ========== -->
 
 
 
-        <!-- ========== INÍCIO FORMULÁRIO ========== -->
+        <!-- ========== INÃCIO FORMULï¿½RIO ========== -->
         <form id="formulario" action="<?php echo $this->url(array('controller' => 'diligenciarproponente', 'action' => 'index')); ?>" method="post">
             <input type="hidden" name="idPronac" value="<?php echo $this->idpronac?>" />
 
@@ -144,7 +144,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-        <!-- ========== BOTÕES ========== -->
+        <!-- ========== BOTï¿½ES ========== -->
         <br />
         <p class="centro" style="margin-right:10px;">
             <input type="button" class="btn_enviar" value=" " />
@@ -153,17 +153,17 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
         <br />
 
     </form>
-    <!-- ========== FIM FORMULÁRIO ========== -->
+    <!-- ========== FIM FORMULï¿½RIO ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

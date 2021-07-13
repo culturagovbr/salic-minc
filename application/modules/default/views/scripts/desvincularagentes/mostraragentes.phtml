@@ -1,7 +1,7 @@
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 			<div id="breadcrumb">
 				<ul>
-					<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In�cio">In&iacute;cio</a></li>
+					<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para INÍCIO">In&iacute;cio</a></li>
 					<li class="last">Agentes Vinculados</li>
 				</ul>
 			</div>
@@ -9,7 +9,7 @@
 
 
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 				<div id="titulo">
 					<div>Agentes Vinculados<span>ID #23A</span> <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller'=>'desvincularagentes', 'action'=>'index')); ?>');">Voltar</a></span></div>
 				</div>
@@ -17,11 +17,11 @@
 
 
 
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 	<div id="conteudo">
 
 
-<!-- ========== IN�CIO DO SCRIPT PARA CONFIRMA��O DE EXCLUS�O ========== -->
+<!-- ========== INÍCIO DO SCRIPT PARA Confirmação DE EXCLUS�O ========== -->
 
 				<script language="javascript">
 				function confirmaExclusao(idAgente, idVunculoPrincipal, cnpjcpf)
@@ -34,17 +34,17 @@
 				</script>
 
 
-<!-- ========== FIM DO SCRIPT PARA CONFIRMA��O DE EXCLUS�O ========== -->
+<!-- ========== FIM DO SCRIPT PARA Confirmação DE EXCLUS�O ========== -->
 
 
 <?php foreach($this->entidade as $tbentidade): ?>
-<!-- ========== INICIO DA TABELA DOS DADOS CONTENDO AS INFORMA��ES DA INSTITUI��O ========== -->	
+<!-- ========== INICIO DA TABELA DOS DADOS CONTENDO AS INFORMA��ES DA INSTITUI��O ========== -->
 		<table class="tabela" summary="Esta tabela cont�m os dados da Institui��o que cont�m os agentes que podem ser desvinculados">
-					
 
 
 
-			
+
+
 				  		<tr>
 				    				<td class="titulo_tabela" tabindex="1"><strong style="color:black">CNPJ/CPF:<?php echo $this->escape($tbentidade->CNPJCPF);?></strong> </td>
                                                                 <?php $cpfCnpj =  trim(strlen($this->escape($tbentidade->CNPJCPF)))?>
@@ -54,24 +54,24 @@
                                                                         <td class="titulo_tabela" tabindex="2"><strong >Nome da Institui&ccedil;&atilde;o: <?php echo $this->escape($tbentidade->nomeentidade);?></strong></td>
                                                                 <?php }?>
 				 		</tr>
-					
+
 		</table>
 
-<!-- ========== FIM DA TABELA DOS DADOS CONTENDO AS INFORMA��ES DA INSTITUI��O ========== -->	
+<!-- ========== FIM DA TABELA DOS DADOS CONTENDO AS INFORMA��ES DA INSTITUI��O ========== -->
 
 
 
-<!-- ========== INICIO DA TABELA DOS DADOS CONTENDO AS INFORMA��ES DOS AGENTES QUE PODEM SER DESVINCULADOS DA INSTITUI��O ========== -->	
+<!-- ========== INICIO DA TABELA DOS DADOS CONTENDO AS INFORMA��ES DOS AGENTES QUE PODEM SER DESVINCULADOS DA INSTITUI��O ========== -->
 <form id="formCadastrar" name="formCadastrar" method="post" action="<?php echo $this->url(array('controller' => 'desvincularagentes','action' => 'desvincularagentes')); ?>?cpf=<?php echo $this->escape($tbvinculoagente->CNPJCPF);?>">
-   		
-   
+
+
 	<table class="tabela" summary="Esta tabela cont�m os dados dos Agentes pertencentes � Institui��oe e que podem ser desvinculados">
 		<tr>
 				<td colspan="5" class="titulo_tabela" style="color:black" tabindex="3">AGENTES VINCULADOS</td>
 		</tr>
 		<?php $VinculadoPrincipal = $this->escape($tbentidade->idVinculoPrincipal); ?>
 		<?php $pro = DesvincularagentesDAO::agentesvinculados($VinculadoPrincipal); ?>
-		
+
 
                 <?php if ( !empty ( $pro ) ){ ?>
 
@@ -87,25 +87,25 @@
 
 		<tr onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);">
 					<td tabindex="8"><?php echo $this->escape($tbvinculoagente->CNPJCPF);?></td>
-					<td tabindex="9"><?php echo $this->escape($tbvinculoagente->NomeAgente);?></td>			
-					<td tabindex="10"><?php echo $this->escape($tbvinculoagente->vinculo);?></td>	
-					<td tabindex="11" class="centro"><a href="javascript:confirmaExclusao('<?php echo $tbvinculoagente->idAgente; ?>', '<?php echo $tbentidade->idVinculoPrincipal;?>','<?php echo $this->escape($tbentidade->CNPJCPF);?>');">Excluir</a></td>			
+					<td tabindex="9"><?php echo $this->escape($tbvinculoagente->NomeAgente);?></td>
+					<td tabindex="10"><?php echo $this->escape($tbvinculoagente->vinculo);?></td>
+					<td tabindex="11" class="centro"><a href="javascript:confirmaExclusao('<?php echo $tbvinculoagente->idAgente; ?>', '<?php echo $tbentidade->idVinculoPrincipal;?>','<?php echo $this->escape($tbentidade->CNPJCPF);?>');">Excluir</a></td>
 		</tr>
-	
+
 		<?php endforeach;?>
 	</table>
 	<br />
 <?php endforeach;?>
-<!-- ========== FIM DA TABELA DOS DADOS CONTENDO AS INFORMA��ES DOS AGENTES QUE PODEM SER DESVINCULADOS DA INSTITUI��O ========== -->	
-			<!-- ========== PAGINA��O ========== -->
+<!-- ========== FIM DA TABELA DOS DADOS CONTENDO AS INFORMA��ES DOS AGENTES QUE PODEM SER DESVINCULADOS DA INSTITUI��O ========== -->
+			<!-- ========== PAGINAÇÂO ========== -->
 	<?php if ($this->qtdEntidade > 1) { echo $this->entidade; } ?>
-	
+
 	</div>
-<!-- ========== FIM CONTE�DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 	<div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 			<br clear="all" />

@@ -59,7 +59,7 @@
                             $('.ui-dialog-titlebar-close').remove();
                             window.setTimeout('location.reload()', 1000);
                         } else {
-                            alertaModal("N�o foi poss�vel encaminhar o recurso.");
+                            alertaModal("Não foi poss�vel encaminhar o recurso.");
                         }
                     },
                     dataType : 'json'
@@ -72,7 +72,7 @@
                 idRecurso = $(this).attr('idRecurso');
 
             $("#alerta").dialog("destroy");
-            $("#alerta").html('Deseja realmente finalizar a análise do recurso?<br /><br />Ao finalizar o recurso ser� devolvido ao MinC.');
+            $("#alerta").html('Deseja realmente finalizar a análise do recurso?<br /><br />Ao finalizar o recurso será devolvido ao MinC.');
             $("#alerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -123,7 +123,7 @@
     });
 </script>
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta" class="sumir"></div>
 
 <div id="breadcrumb">
@@ -291,17 +291,17 @@
                 $dadosProjetos = $p->buscar(array('IdPRONAC = ?'=>$d->IdPRONAC))->current();
                 if(count($dadosProjetos)>0){
                     $outrasVinculadas = array(92, 93, 94, 95, 335); // Vinculadas exceto IPHAN
-                    if ($this->idOrgao == 91) { // especificidade do IPHAN
-                        $o = new Orgaos();
-                        $superindendencias = $o->buscarSuperintendencias();
-                    } else if (!in_array($this->idOrgao, $outrasVinculadas)) {
-                        $a = new  Agente_Model_DbTable_Agentes();
-                        $Pareceristas = array();
-                    $Pareceristas = $a->buscarPareceristasIphan($this->idOrgao, $dadosProjetos->Area, $dadosProjetos->Segmento);
-                    } else {
-                        $Pareceristas = array();
-                        $spSelecionarParecerista = new Parecer_Model_DbTable_SpSelecionarParecerista();
-                        $Pareceristas = $spSelecionarParecerista->exec($this->idOrgao, $dadosProjetos->Area, $dadosProjetos->Segmento, $dadosProjetos->SolicitadoReal);
+                        if ($this->idOrgao == 91) { // especificidade do IPHAN
+                            $o = new Orgaos();
+                            $superindendencias = $o->buscarSuperintendencias();
+                        } else if (!in_array($this->idOrgao, $outrasVinculadas)) {
+                            $a = new  Agente_Model_DbTable_Agentes();
+                            $Pareceristas = array();
+                            $Pareceristas = $a->buscarPareceristasIphan($this->idOrgao, $dadosProjetos->Area, $dadosProjetos->Segmento);
+                } else {
+                    $Pareceristas = array();
+                    $spSelecionarParecerista = new Parecer_Model_DbTable_SpSelecionarParecerista();
+                    $Pareceristas = $spSelecionarParecerista->exec($this->idOrgao, $dadosProjetos->Area, $dadosProjetos->Segmento, $dadosProjetos->SolicitadoReal);
                     }
                 }
 
@@ -315,9 +315,9 @@
 			        <?php else: ?>
                         <?php foreach ($Pareceristas as $Parecerista): ?>
                                 <?php if (isset($Parecerista->idParecerista)) { ?>
-                                            <option value="<?php echo $Parecerista->idParecerista; ?>" <?php echo ($d->idAgente == $Parecerista->idParecerista) ? 'selected="selected"' : ''; ?>><?php echo $Parecerista->nome; ?></option>
+                                            <option value="<?php echo $Parecerista->idParecerista; ?>" <?php echo ($d->idAgente == $Parecerista->idParecerista) ? 'selected="selected"' : ''; ?>><?php echo strtoupper($Parecerista->nome); ?></option>
                                 <?php } else { ?>
-                                            <option value="<?php echo $Parecerista->id; ?>" <?php echo ($d->idAgente == $Parecerista->id) ? 'selected="selected"' : ''; ?>><?php echo $Parecerista->nome; ?></option>
+                                            <option value="<?php echo $Parecerista->id; ?>" <?php echo ($d->idAgente == $Parecerista->id) ? 'selected="selected"' : ''; ?>><?php echo strtoupper($Parecerista->nome); ?></option>
                                 <?php } ?>
                         <?php endforeach; ?>
                     <?php endif; ?>

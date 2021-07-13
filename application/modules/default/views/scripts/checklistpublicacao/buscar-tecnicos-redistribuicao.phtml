@@ -20,7 +20,7 @@
             }
         }
     });
-    
+
     function ordenar(campo, tipo){
         $("#ordenacao").val(campo);
         $("#tipoOrdenacao").val(tipo);
@@ -33,7 +33,7 @@
         $("#resultadoPesquisa").html("");
         $('#resultadoPesquisa').html('<br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br>');
     }
-    
+
     $("#selecionar").change(function(){
         $("#erro").html("");
         if($(this).attr('checked') == true){
@@ -44,23 +44,23 @@
         }
 
     });
-    
+
     $("#salvar").click(function(){
-        
+
         var n = $("input:checkbox:checked").length;
         var novoTecnico = $("#novoTecnico").val();
-        
+
         $("#erro").html("");
         if(n <=0 || novoTecnico == ""){
             $("#erro").html("<font color='red'>Campos obrigat&oacute;rios n&atilde;o preenchidos!</font><br /><br />");
         }else{
-            
+
             //CONFIRMAR  REDISTRIBUICAO
             $('html').css('overflow', 'hidden');
             $("body").append("<div id='divDinamica'></div>");
-            $("#divDinamica").html("Confirma a redistribuição dos projeto(s) selecionado(s)?");
+            $("#divDinamica").html("Confirma a redistribuiï¿½ï¿½o dos projeto(s) selecionado(s)?");
             $("#divDinamica").dialog({
-                title: "Confirmação",
+                title: "ConfirmaÃ§Ã£o",
                 resizable: true,
                 width:350,
                 height:220,
@@ -68,7 +68,7 @@
                 autoOpen:true,
                 draggable:false,
                 buttons: {
-                    'Não': function() {
+                    'NÃ£o': function() {
                         $("#divDinamica").remove();
                         $(this).dialog('close');
                         $('html').css('overflow', 'auto');
@@ -90,7 +90,7 @@
         <table class="tabela tablesorter" id="regularAP" tipo="regularAP">
             <?php if (count($this->projetos) <= 0) : ?>
             <tr>
-                    <td align="center" colspan="<?php if (!empty($this->coordenador)){ echo 18; } else { echo 16; }?>"><em>Nenhum projeto encontrado com os parâmentros de pesquisa informados.</em></td>
+                    <td align="center" colspan="<?php if (!empty($this->coordenador)){ echo 18; } else { echo 16; }?>"><em>Nenhum projeto encontrado com os parï¿½mentros de pesquisa informados.</em></td>
             </tr>
             <?php else: ?>
             <thead>
@@ -99,11 +99,11 @@
                     <th><input type="checkbox" value="Selecionar todos" class="btn" id='selecionar'></th>
                     <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="1">pronac</a></th>
                     <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="2">Nome do Projeto</a></th>
-                    <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="24">N° da Reunião</a></th>
+                    <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="24">Nï¿½ da Reuniï¿½o</a></th>
                     <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="32">Dt. Recebimento</a></th>
-                    <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="31">Tempo de Análise</a></th>
+                    <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="31">Tempo de AnÃ¡lise</a></th>
                     <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="29">Status</a></th>
-                    <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="28">Técnico</a></th>
+                    <th><a href="#resultadoPesquisa" class="orderBy" valorOrdenacao="28">Tï¿½cnico</a></th>
                 </tr>
             </thead>
             <tbody>

@@ -4,10 +4,10 @@
 //echo $this->partial('inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres T&eacute;cnicos</a></li>
 		<li class="last">Pareceres a Consolidar</li>
 	</ul>
@@ -16,15 +16,15 @@
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>Pareceres a Consolidar<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 	<table class="tabela">
@@ -43,11 +43,11 @@
 		<tr>
 			<th width="70" align="center">PRONAC</th>
 			<th width="" align="left">Nome do Projeto</th>
-			<th width="180" align="left">Unidade de An·lise</th>
+			<th width="180" align="left">Unidade de An√°lise</th>
 			<th width="350" align="left">Produto</th>
-			<th width="180" align="left">DescriÁ„o da An·lise</th>
+			<th width="180" align="left">Descri√ß√£o da An√°lise</th>
 			<th width="70" align="center">Devolver</th>
-			<th width="70" align="center">TramitaÁ„o</th>
+			<th width="70" align="center">Tramita√ß√£o</th>
 		</tr>
 		<?php $copy = ''; ?>
 		<?php foreach($this->dados as $d): ?>
@@ -57,25 +57,25 @@
 			<td><?php echo $d->Orgao; ?></td>
 			<td><?php echo $d->Produto; ?></td>
 			<td><?php echo $d->Estado; ?></td>
-			<td align="center"><img style="cursor:pointer;" title="Devolver An·lise de Projeto para a Entidade Vinculada" src="<?php echo $this->baseUrl(); ?>/public/img/ico/undo.png" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'desconsolidarparecer')); ?>/idproduto/<?php echo $d->idProduto; ?>/tipoanalise/<?php echo $d->TipoAnalise;?>/idpronac/<?php echo $d->IdPRONAC; ?>');" /></td>
-			<td align="center"><img style="cursor:pointer;" title="Visualizar TramitaÁ„o" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'pcvisualizartramitacao')); ?>/idproduto/<?php echo $d->idProduto; ?>/tipoanalise/<?php echo $d->TipoAnalise;?>/idpronac/<?php echo $d->IdPRONAC; ?>');"/></td>
+			<td align="center"><img style="cursor:pointer;" title="Devolver An√°lise de Projeto para a Entidade Vinculada" src="<?php echo $this->baseUrl(); ?>/public/img/ico/undo.png" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'desconsolidarparecer')); ?>/idproduto/<?php echo $d->idProduto; ?>/tipoanalise/<?php echo $d->TipoAnalise;?>/idpronac/<?php echo $d->IdPRONAC; ?>');" /></td>
+			<td align="center"><img style="cursor:pointer;" title="Visualizar Tramita√ß√£o" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'pcvisualizartramitacao')); ?>/idproduto/<?php echo $d->idProduto; ?>/tipoanalise/<?php echo $d->TipoAnalise;?>/idpronac/<?php echo $d->IdPRONAC; ?>');"/></td>
 		</tr>
 		<?php $copy = $d->PRONAC; ?>
 		<?php endforeach; ?>
 	</table>
-	
-	<!-- ============ PAGINA«√O ============ -->		   
+
+	<!-- ============ PAGINA√á√ÇO ============ -->
 	<?php if ($this->qtdDocumentos > 20) { echo $this->dados; } ?>
-	<!-- ========== FIM PAGINA«√O ========== -->
-	
+	<!-- ========== FIM PAGINA√á√ÇO ========== -->
+
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

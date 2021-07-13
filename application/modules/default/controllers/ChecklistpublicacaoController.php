@@ -59,7 +59,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
                 $this->getIdAgenteLogado = $rsAgente->idAgente;
             }
         } // fecha if
-        else { // caso o usu�rio n�o esteja autenticado
+        else { // caso o usu�rio Não esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -458,7 +458,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
             $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
             $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
         }
-        
+
         $projetosAprovadosInic = $projetos->buscarProjetosCheckList($arrBusca);
         $arrProjetosAprovadosInic = $projetosAprovadosInic->toArray();
         $this->view->BuscarAprovadosRegularesAprovadosInic = $arrProjetosAprovadosInic;
@@ -1073,7 +1073,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $post = Zend_Registry::get('post');
         $arrPronacs = $post->idpronac;
         $idTecnico = $post->novoTecnico;
-        
+
 
         $tblVerificaProjeto = new tbVerificaProjeto();
         try {

@@ -60,11 +60,11 @@ $relatorio = $this->relatorioFiscalizacao;
                 </td>
                 <td align="center">
                     <?php if ($infoProjeto->dtInicioFiscalizacaoProjeto != '') {
-                            echo date('d/m/Y', strtotime($infoProjeto->dtInicioFiscalizacaoProjeto));} else { echo 'Não informado';} ?>
+                            echo date('d/m/Y', strtotime($infoProjeto->dtInicioFiscalizacaoProjeto));} else { echo 'NÃ£o informado';} ?>
                 </td>
                 <td align="center">
                     <?php if ($infoProjeto->dtFimFiscalizacaoProjeto != '') {
-                            echo date('d/m/Y', strtotime($infoProjeto->dtFimFiscalizacaoProjeto));} else {echo 'Não informado';}?>
+                            echo date('d/m/Y', strtotime($infoProjeto->dtFimFiscalizacaoProjeto));} else {echo 'NÃ£o informado';}?>
                 </td>
                 <td>
                     <?php echo Validacao::mascaraCPFCNPJ($infoProjeto->cpfTecnico); ?> - <?php echo $infoProjeto->nmTecnico; ?>

@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright (c) 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright (c) 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 $menuX = !empty($_GET['menu']) ? $_GET['menu'] : 0;
@@ -15,11 +15,11 @@ if ($menuX != 1) {
 }
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">Início</a></li>
-        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="Início"-->Manuten&ccedil;&atilde;o<!--/a--></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">INÃCIO</a></li>
+        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="INÃCIO"-->Manuten&ccedil;&atilde;o<!--/a--></li>
         <li><a href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'consultarprojeto')); ?>" title="Ir para alterar projeto">Alterar projeto</a></li>
         <li class="last">Alterar situa&ccedil;&atilde;o</li>
     </ul>
@@ -31,7 +31,7 @@ if ($menuX != 1) {
 <div id="titulo">
     <div>Alterar situa&ccedil;&atilde;o <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 <!-- ========== GRID NOME DA PROPOSTA ========== -->
@@ -41,21 +41,21 @@ if ($menuX != 1) {
             // Define as regras
             rules:{
                 Situacao:{
-                    // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                    // campoNome serÃ¡ obrigatï¿½rio (required) e terï¿½ tamanho mï¿½nimo (minLength)
                     required: true
                 },
                 justificativa:{
-                    // campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
+                    // campoEmail serÃ¡ obrigatï¿½rio (required) e precisarï¿½ ser um e-mail vï¿½lido (email)
                     required: true
                 }
             },
             // Define as mensagens de erro para cada regra
             messages:{
                 Situacao:{
-                    required: "<br>Dados obrigatórios n&atilde;o informados"
+                    required: "<br>Dados obrigatï¿½rios n&atilde;o informados"
                 },
                 justificativa:{
-                    required: "<br>Dados obrigatórios n&atilde;o informados"
+                    required: "<br>Dados obrigatï¿½rios n&atilde;o informados"
                 }
             }
         });
@@ -116,7 +116,7 @@ if ($menuX != 1) {
 
         <table class="tabela">
             <tr>
-                <th>Providência Tomada<span style="color: red;">*</span></th>
+                <th>Providï¿½ncia Tomada<span style="color: red;">*</span></th>
             </tr>
             <tr>
                 <td>
@@ -185,9 +185,9 @@ if ($menuX != 1) {
     </form>
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />
 <iframe name="enviar_arquivo" id="enviar_arquivo" style="height: 20px; display: none;"></iframe>

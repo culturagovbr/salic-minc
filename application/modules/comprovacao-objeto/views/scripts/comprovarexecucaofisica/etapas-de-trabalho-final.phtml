@@ -1,7 +1,7 @@
 <?php $idPronac = Seguranca::encrypt($this->idPronac); ?>
 <script type="text/javascript" src="<?php echo $this->baseUrl();?>/public/js/tinymce/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
- 
+
   //Contador e limitadores de caracteres
 
 
@@ -16,7 +16,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 
         document.getElementById("contador" + fieldName).innerHTML = "Caracteres: "+ countChars+ "";
 
-        //mudança de cor caso ultrapasse o numero de caracteres
+        //mudanï¿½a de cor caso ultrapasse o numero de caracteres
             if (countChars <= minchar){
                 document.getElementById("contador" + fieldName).style.color = "red";
             }else{
@@ -24,7 +24,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
             }
 }
 
-   $(document).ready(function(){    
+   $(document).ready(function(){
        uploadMaxSize = '<?php echo file_upload_max_size(); ?>';
 
        tamanhoSubido = function() {
@@ -34,16 +34,16 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                    tamanhoUpload += $('input:file')[inputIndex].files[0].size;
                }
            });
-           
+
            return tamanhoUpload;
        }
-       
+
        // adiciona verificador de tamanho de upload
        $('input:file').each(function(inputIndex) {
            $('#' + $('input:file')[inputIndex].id).change(function() {
-               
+
                if (tamanhoSubido() > uploadMaxSize) {
-                   $('#' + $('input:file')[inputIndex].id).before('<span class="messages" style="color: red; font-size: 14px">Você ultrapassou o limite de upload, que é de <?php echo ini_get('post_max_size'); ?><br/></span>');
+                   $('#' + $('input:file')[inputIndex].id).before('<span class="messages" style="color: red; font-size: 14px">Vocï¿½ ultrapassou o limite de upload, que ï¿½ de <?php echo ini_get('post_max_size'); ?><br/></span>');
                } else {
                    $('.messages').hide();
                }
@@ -51,8 +51,8 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
        });
 
        // ao salvar, verificar se estourou o tamanho
-       
-        //inicializao e configuração do editor tinyMCE
+
+        //inicializao e configuraï¿½ï¿½o do editor tinyMCE
 
         tinymce.init({
 	    plugins:"paste,textcolor",
@@ -70,7 +70,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 		        });
             }
         });
-        
+
         tinymce.init({
 	    plugins:"paste,textcolor",
         language: "pt_BR",
@@ -142,8 +142,8 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 
 
     });
-    
-    //Onde é feita a contagem do elemento do contador
+
+    //Onde ï¿½ feita a contagem do elemento do contador
     function CountCharacters(contador) {
         var body = tinymce.get(contador).getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
@@ -164,7 +164,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 //                    height:160,
                 modal: true,
                 buttons : {
-                    'Não' : function() {
+                    'NÃ£o' : function() {
                         $(this).dialog('close');
 
                     },
@@ -269,9 +269,9 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
             // verifica tamanho
             uploadMaxSize = '<?php echo file_upload_max_size(); ?>';
             if (tamanhoSubido() > uploadMaxSize) {
-                var uploadEstourado = true;                
+                var uploadEstourado = true;
             }
-            
+
             if(medidasAcessibilidade >= 20) {
                 if ($('#arquivoAcessibilidadeFisica').val().length > 0 ){
                     if ($('#arquivoAcessibilidadeFisica').val() != null) {
@@ -333,7 +333,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 if(!preenchimento) {
                     $("#camposObrigatorios").html("Favor preencher corretamente os campos obrigat&oacute;rios!");
                 } else if (uploadEstourado) {
-                    $("#camposObrigatorios").html("Você ultrapassou o limite de upload, que é de <?php echo ini_get('post_max_size'); ?>");
+                    $("#camposObrigatorios").html("Vocï¿½ ultrapassou o limite de upload, que ï¿½ de <?php echo ini_get('post_max_size'); ?>");
                 }else{
                     $("#camposObrigatorios").html("Favor inserir o arquivo nos campos preenchidos!!");
                 }
@@ -377,7 +377,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
     <ul>
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $idPronac; ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
-        <li class="second">Comprovar Realização do Objeto</li>
+        <li class="second">Comprovar Realizaï¿½ï¿½o do Objeto</li>
         <li class="last">Etapas de Trabalho</li>
     </ul>
 </div>
@@ -391,7 +391,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center" width="30%">Nï¿½ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -431,8 +431,8 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
             </tr>
             <tr>
                 <td>
-                    (Descrever os objetivos e metas realizadas e discorrer sobre os resultados 
-                    do projeto junto à sociedade. Em caso de divergências com o previsto, justificar)
+                    (Descrever os objetivos e metas realizadas e discorrer sobre os resultados
+                    do projeto junto ï¿½ sociedade. Em caso de divergï¿½ncias com o previsto, justificar)
                 </td>
             </tr>
             <tr>
@@ -448,7 +448,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 </td>
             </tr>
             <tr align="center">
-                <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE, NOS TERMOS DA PORTARIA DE APROVAÇÃO <span style="color: red;">*</span></td>
+                <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE, NOS TERMOS DA PORTARIA DE aprovaÃ§Ã£o <span style="color: red;">*</span></td>
             </tr>
             <tr>
                 <td>(acesso /lugares adaptados para pessoas portadoras de necessidades especiais)</td>
@@ -498,10 +498,10 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 </td>
             </tr>
             <tr align="center">
-                <td class="destacar bold">MEDIDAS DE DEMOCRATIZAÇÃO DO ACESSO, NOS TERMOS DA PORTARIA DE APROVAÇÃO <span style="color: red;">*</span></td>
+                <td class="destacar bold">MEDIDAS DE DEMOCRATIZAï¿½ï¿½O DO ACESSO, NOS TERMOS DA PORTARIA DE aprovaÃ§Ã£o <span style="color: red;">*</span></td>
             </tr>
             <tr>
-                <td>(realização em local de fácil acesso, transporte / atividade / distribuição, entrada franqueada e divulgação)</td>
+                <td>(realizaï¿½ï¿½o em local de fï¿½cil acesso, transporte / atividade / distribuiï¿½ï¿½o, entrada franqueada e divulgaï¿½ï¿½o)</td>
             </tr>
             <tr>
                 <td>
@@ -597,7 +597,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 </td>
             </tr>
             <tr align="center">
-                <td class="destacar bold">EMPREGOS E QUALIFICAÇÕES DECORRENTES DO PROJETO <span style="color: red;">*</span></td>
+                <td class="destacar bold">EMPREGOS E QUALIFICAï¿½ï¿½ES DECORRENTES DO PROJETO <span style="color: red;">*</span></td>
             </tr>
             <tr>
                 <td>
@@ -650,7 +650,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 </div>
 
 
-<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÃCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

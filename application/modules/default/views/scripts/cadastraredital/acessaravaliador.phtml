@@ -7,7 +7,7 @@ function TirarMarcara(cpf){
 	cpf2 = cpf2.replace(".", "");
 	cpf2 = cpf2.replace(".", "");
 	cpf2 = cpf2.replace("-", "");
-	
+
 	$("#cpf").val(cpf2);
 }
 
@@ -17,13 +17,13 @@ $(document).ready(function(){
 		recebe = $('#orgaoERROR');
 		var numeros, digitos, soma, i, resultado, digitos_iguais;
 	    digitos_iguais = 1;
-	    if (cpf.length == 0){ 
+	    if (cpf.length == 0){
 	    	recebe.html('Digite o CPF!');
 	    	recebe.css("color", "red");
 	          return false;
 	    }
-	    if (cpf.length < 11){ 
-	    	recebe.html('CPF Inválido.');
+	    if (cpf.length < 11){
+	    	recebe.html('CPF Invï¿½lido.');
 	    	recebe.css("color", "red");
 	          return false;
 	    }
@@ -42,7 +42,7 @@ $(document).ready(function(){
 	                soma += numeros.charAt(10 - i) * i;
 	          resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
 	          if (resultado != digitos.charAt(0)){
-	        	  recebe.html('CPF Inválido.');
+	        	  recebe.html('CPF Invï¿½lido.');
 	        	  recebe.css("color", "red");
 	                return false;
 	          }
@@ -51,14 +51,14 @@ $(document).ready(function(){
 	          for (i = 11; i > 1; i--)
 	                soma += numeros.charAt(11 - i) * i;
 	          resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-	          if (resultado != digitos.charAt(1)){ 
-	        	  recebe.html('CPF Inválido.');
+	          if (resultado != digitos.charAt(1)){
+	        	  recebe.html('CPF Invï¿½lido.');
 	        	  recebe.css("color", "red");
 	                return false;}
 	          return true;
 	          }
 	    else
-	    	recebe.html('CPF Inválido.');
+	    	recebe.html('CPF Invï¿½lido.');
 	    	recebe.css("color", "red");
 	          return false;
 	});
@@ -106,12 +106,12 @@ $(document).ready(function(){
 
         </tr>
     </table>
-    
+
     </form>
     <br><br>
 </div>
-<!-- ========== FIM CONTEï¿½DO ========== -->
-<!-- ========== INï¿½CIO RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

@@ -1252,7 +1252,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $GrupoUsuario = $GrupoAtivo->codGrupo;
 
-        if ($GrupoUsuario != 126 && $GrupoUsuario != 151 && $GrupoUsuario != 148) { //Se o perfil for diferente de Coord. Geral de Presta&ccedil;&atilde;o de Contas, n�o permite o acesso dessa funcionalidade.
+        if ($GrupoUsuario != 126 && $GrupoUsuario != 151 && $GrupoUsuario != 148) { //Se o perfil for diferente de Coord. Geral de Presta&ccedil;&atilde;o de Contas, Não permite o acesso dessa funcionalidade.
             parent::message('Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa funcionalidade.', "principal", 'ALERT');
         }
 

@@ -4,10 +4,10 @@
             <tr>
                 <th>PRONAC</th>
                 <th>Nome do Projeto</th>
-                <th>Situação</th>
-                <th>Área / Segmento</th>
+                <th>Situaï¿½ï¿½o</th>
+                <th>ï¿½rea / Segmento</th>
                 <th>Mecanismo</a></th>
-                <th>Encaminhar para Análise</th>
+                <th>Encaminhar para AnÃ¡lise</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@
                     <td><?php $mecanismo = $projeto->Mecanismo; if ($mecanismo == 'Mecenato'){ echo "Incentivo Fiscal"; }else{ echo $projeto->Mecanismo;}?></td>
                     <td>
                         <button class="btn" onclick="return JSEncaminharParaAnalise('<?php echo $projeto->idPronac; ?>','<?php echo $this->codOrgao; ?>','<?php echo (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) ? $_GET['tipoFiltro'] : 0; ?>',true)" alt="Encaminhar">
-                            <i class=" tiny material-icons">assignment_ind</i> 
+                            <i class=" tiny material-icons">assignment_ind</i>
                         </button>
                     </td>
                 </tr>

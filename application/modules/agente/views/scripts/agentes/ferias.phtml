@@ -1,12 +1,12 @@
 <div class="row">
     <?php echo $this->partial('agentes/inc/menu.inc.php', $this) ?>
     <div class="col s12 m10 l10">
-        <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
                 <li class="first"><a
                         href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'), '', true); ?>"
-                        title="Ir para Início">Início</a></li>
+                        title="Ir para INÃCIO">INÃCIO</a></li>
                 <li>Manter Agentes</li>
                 <li class="last">Principal</li>
             </ul>
@@ -14,14 +14,14 @@
         <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-        <!-- ========== INÍCIO TÍTULO ========== -->
+        <!-- ========== INÃCIO Tï¿½TULO ========== -->
         <div id="titulo">
-            <div>Férias do Parecerista <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
+            <div>Fï¿½rias do Parecerista <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
         </div>
-        <!-- ========== FIM TÍTULO ========== -->
+        <!-- ========== FIM Tï¿½TULO ========== -->
 
 
-        <!-- ========== INÍCIO CONTEÚDO ========== -->
+        <!-- ========== INÃCIO CONTEÃšDO ========== -->
         <div id="conteudo">
             <input type="hidden" name="dtatual" id="dtatual" value="<?php echo Date("d/m/Y"); ?>"/>
             <input type="hidden" name="dias" id="dias" value="<?php echo $this->totalDias; ?>"/>
@@ -30,10 +30,10 @@
             <?php echo $this->partial('agentes/inc/cabecalho.php', $this) ?>
             <table class="tabela">
                 <tr>
-                    <th colspan="2">Solicitação de Férias / Alteração</th>
+                    <th colspan="2">SolicitaÃ§Ã£o de Fï¿½rias / Alteraï¿½ï¿½o</th>
                 </tr>
                 <tr>
-                    <td><b>Quantidade de dias já tirados: <?php echo $this->totalDias; ?> do total de 60</b></td>
+                    <td><b>Quantidade de dias jï¿½ tirados: <?php echo $this->totalDias; ?> do total de 60</b></td>
                     <?php if ($this->grupoativo == "94") { ?>
                         <?php if (((int)$this->totalDias) < 60) { ?>
                             <td width="100"><input type="button" class="btn_novo" value="" size="20" maxlength="10"
@@ -51,16 +51,16 @@
 
                     <table class="tabela">
                         <tr>
-                            <th colspan="7">Nova solicitação</th>
+                            <th colspan="7">Nova SolicitaÃ§Ã£o</th>
                         </tr>
                         <tr>
                             <td width="250">Quantidade de dias: <span id="qtdDias">0</span></td>
-                            <td width="150" align="center">Data das férias:</td>
+                            <td width="150" align="center">Data das fï¿½rias:</td>
                             <td>
                                 <input type="text" name="dtinicio" id="dtinicio" class="input_simples w100"
                                        maxlength="10" value="" onkeyup="mascara(this, format_data);"
                                        onclick="limpar_campo(this, '');" onchange="verDias();" type="text">
-                                à
+                                ï¿½
                                 <input type="text" name="dtfim" id="dtfim" class="input_simples w100" maxlength="10"
                                        value="" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');"
                                        onchange="verDias();" type="text">
@@ -102,9 +102,9 @@
                         <tr>
                             <td width="180">Quantidade de dias: <span id="qtdDias"><?php echo $d->qtddias; ?></span>
                             </td>
-                            <td align="center">Data das férias:</td>
+                            <td align="center">Data das fï¿½rias:</td>
                             <td width="150" align="center"><?php echo $d->dtinicio; ?></td>
-                            <td width="10" align="center">à</td>
+                            <td width="10" align="center">ï¿½</td>
                             <td width="150" align="center"><?php echo $d->dtfim; ?></td>
                             <td width="50" align="center" style="background: white;"><img
                                     src="<?php echo $this->baseUrl(); ?>/public/img/<?php echo $siAusencia; ?>.gif"
@@ -114,7 +114,7 @@
                                     <?php if (($d->siAusencia != 2) && ($d->siAusencia != 3) && ($d->siAusencia != 4)) { ?>
                                         <img style="cursor:pointer;"
                                              src="<?php echo $this->baseUrl(); ?>/public/img/buttons/cancelar-p.gif"
-                                             title="Alterar férias"
+                                             title="Alterar fï¿½rias"
                                              onclick="remarcarferias('<?php echo $d->idAusencia; ?>','<?php echo $d->qtddias; ?>');"/>
                                     <?php } ?>
                                 <?php } ?>
@@ -147,7 +147,7 @@
                             <td colspan="3" align="center">
                                 <input type="radio" value="0" id="alt1" name="tipoalteracao" checked="checked"
                                        onchange="cancelamentoferias(this.value);"/>
-                                <label for="alt1">Alteração</label>
+                                <label for="alt1">Alteraï¿½ï¿½o</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="radio" value="1" id="alt2" name="tipoalteracao"
                                        onchange="cancelamentoferias(this.value);"/>
@@ -156,7 +156,7 @@
                         </tr>
                         <tr id="camposdatas">
                             <td align="center">QTD dias: <span id="qtdDiasAlteracao">0</span></td>
-                            <td align="center">Data das férias:</td>
+                            <td align="center">Data das fï¿½rias:</td>
                             <td align="center">
                                 <input type="text" name="dtinicioalteracao" id="dtinicioalteracao" class="input_simples"
                                        style="width: 90px;" maxlength="10" value=""
@@ -177,7 +177,7 @@
                 </form>
             </div>
         </div>
-        <!-- ========== FIM CONTEÚDO ========== -->
+        <!-- ========== FIM CONTEÃšDO ========== -->
 
         <?php if ($this->message_type == 'ALERT') { ?>
             <script type="text/javascript">
@@ -188,9 +188,9 @@
         <?php } ?>
 
 
-        <!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+        <!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
         <div id="rodapeConteudo"><span></span></div>
-        <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+        <!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
         <br clear="all"/>
 
@@ -318,7 +318,7 @@
             alertar('A data final deve ser maior que a data inicial!');
             return false;
         } else if (dtInicio < dtAtual) {
-            alertar('O período não pode ser inferior a data de hoje!');
+            alertar('O perï¿½odo NÃ£o pode ser inferior a data de hoje!');
             return false;
         } else {
             $("#form").submit();
@@ -330,7 +330,7 @@
         if (texto.length > 0) {
             $('#justificativa').val(CKEDITOR.instances['justificativa'].getData());
         } else {
-            alertar('O Campo justificativa é obrigatório');
+            alertar('O Campo justificativa ï¿½ obrigatï¿½rio');
             return false;
         }
 
@@ -374,7 +374,7 @@
                 alertar('A data final deve ser maior que a data inicial!');
                 return false;
             } else if (dtInicio < dtAtual) {
-                alertar('O período não pode ser inferior a data de hoje!');
+                alertar('O perï¿½odo NÃ£o pode ser inferior a data de hoje!');
                 return false;
             }
         }

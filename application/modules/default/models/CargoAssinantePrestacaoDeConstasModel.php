@@ -32,7 +32,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
      */
     public function __construct()
     {
-        //Gambiarra escrota porque eu não quero herdar do GenericModel para poder conectar ao banco que preciso (SAC)
+        //Gambiarra escrota porque eu NÃ£o quero herdar do GenericModel para poder conectar ao banco que preciso (SAC)
         new CertidoesNegativas();
         $this->table = new CargoAssinantePrestacaoDeContasTable();
     }
@@ -79,7 +79,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
         if (empty($id)) {
             return $this->table->fetchAll($this->table->select());
         }
-        throw new Exception('Não iplementado');
+        throw new Exception('NÃ£o iplementado');
     }
 
     /**
@@ -89,7 +89,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
      */
     public function deletar($id)
     {
-        throw new Exception('Não implementado');
+        throw new Exception('NÃ£o implementado');
     }
 
     /**
@@ -110,7 +110,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
      */
     public function atualizar()
     {
-        throw new Exception('Não implementado');
+        throw new Exception('NÃ£o implementado');
     }
 
     /**
@@ -121,7 +121,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
     {
         $cargo = $this->getCargo();
         if (empty($cargo)) {
-            throw new InvalidArgumentException('Cargo obrigatório');
+            throw new InvalidArgumentException('Cargo obrigatï¿½rio');
         }
     }
 }

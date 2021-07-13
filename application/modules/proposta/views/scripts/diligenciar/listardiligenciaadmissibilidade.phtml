@@ -204,7 +204,7 @@ if($this->idPreProjeto)
                         $prazo = date('Y-m-d-H-i',strtotime($value->dataSolicitacao.' +'.$qtdia.' day'));
                         ?>
                         <?php
-                    
+
                             if( $this->verificarStatusDiligencia (null, $value->idDiligencia) == 'D')
                                 {?><img class="alterar" idDiligencia="<?php echo $value->idDiligencia;?>" src="<?php echo $this->baseUrl(); ?>/public/img/ico/edit.png" width="20" style="cursor: pointer;"/>  <?php  }
                                 else {
@@ -296,9 +296,9 @@ if($this->idPreProjeto)
     </tr>
 </table>
 
-        
+
 </form>
-</div><!-- final: conteúdo principal #conteudo -->
+</div><!-- final: CONTEÃšDO principal #conteudo -->
 <div id="rodapeConteudo" ><span></span></div>
 
 <br clear="all" />

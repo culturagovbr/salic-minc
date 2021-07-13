@@ -7,7 +7,7 @@ class AvaliarprojetoscomissaoController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -24,7 +24,7 @@ class AvaliarprojetoscomissaoController extends MinC_Controller_Action_Abstract
             }
 
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -37,7 +37,7 @@ class AvaliarprojetoscomissaoController extends MinC_Controller_Action_Abstract
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
         } // fecha if
         else {
-            // caso o usu�rio n�o esteja autenticado
+            // caso o usu�rio Não esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -152,7 +152,7 @@ class AvaliarprojetoscomissaoController extends MinC_Controller_Action_Abstract
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        
+
         if (isset($get->pag)) {
             $pag = $get->pag;
         }
@@ -175,7 +175,7 @@ class AvaliarprojetoscomissaoController extends MinC_Controller_Action_Abstract
         //==== campo de ordenacao  ======//
         if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
-            
+
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
         } else {

@@ -16,9 +16,9 @@ function DropDownMes($nome, $valor, $locale='pt_BR')
 {
 	global $nomedomes;
 	nome_do_mes(0, $locale);
-	
+
 	echo '<SELECT NAME="'.$nome.'">';
-	echo '<OPTION VALUE="0">---  mês  ---</OPTION>';
+	echo '<OPTION VALUE="0">---  mï¿½s  ---</OPTION>';
 	foreach($nomedomes as $n=>$nome)
 	{
 		echo '<OPTION VALUE="'.$n.'"';
@@ -52,10 +52,10 @@ function periodo($data1, $data2, $locale='pt_BR')
 
 	global $nomedomes;
 	nome_do_mes(0, $locale);
-	
+
 	$timestamp1=ConverteData($data1, 8);
 	$timestamp2=ConverteData($data2, 8);
-	
+
 	if(date("Ymd",$timestamp1)==date("Ymd",$timestamp2))
 	{
 		$saida='Dia '.date("d ",$timestamp1).' de '.ConverteData($timestamp1, 18).' de '.date("Y",$timestamp2);
@@ -78,7 +78,7 @@ function periodo($data1, $data2, $locale='pt_BR')
 			$saida='De '.date("d ",$timestamp1).' de '.ConverteData($timestamp1, 18).' de '.date("Y",$timestamp1).' a '.date("d ",$timestamp2).' de '.ConverteData($timestamp2, 18).' de '.date("Y",$timestamp2);
 		}
 	}
-	
+
 	return $saida;
 }
 
@@ -87,7 +87,7 @@ function nome_do_mes($mes, $locale='pt_BR')
 {
 	global $nomedomes;
 	global $nomediasemana;
-	
+
 	$mes=substr('0'.$mes, -2);
 	switch($locale)
 	{
@@ -95,20 +95,20 @@ function nome_do_mes($mes, $locale='pt_BR')
 			$nomedomes = array('01'=>'january','02'=>'february','03'=>'march','04'=>'april','05'=>'may','06'=>'june','07'=>'july','08'=>'august','09'=>'september','10'=>'october','11'=>'november','12'=>'december');
 			$nomediasemana=array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
 		break;
-		
+
 		case 'pt_BR':
 			$nomedomes=array('01'=>"janeiro",'02'=>"fevereiro",'03'=>"mar&ccedil;o",'04'=>"abril",'05'=>"maio",'06'=>"junho",'07'=>"julho",'08'=>"agosto",'09'=>"setembro",'10'=>"outubro",'11'=>"novembro",'12'=>"dezembro");
-			$nomediasemana=array("Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado");
+			$nomediasemana=array("Domingo","Segunda-feira","Terï¿½a-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sï¿½bado");
 		break;
 	}
-	
+
 	if(($mes>=1)&&($mes<=12)) return $nomedomes[$mes];
 }
 
 
 function ultimo_dia_mes($mes, $ano)
 {
-	$lastday=mktime(0,0,0,($mes+1),0,$ano); 
+	$lastday=mktime(0,0,0,($mes+1),0,$ano);
 	return strftime("%d", $lastday);
 }
 
@@ -118,15 +118,15 @@ function parse_data($data, $locale='pt_BR')
 	global $nomedomes;
 	global $nomediasemana;
 	nome_do_mes(0);
-		
+
 	setlocale(LC_ALL, $locale);
 	$saida=array(0,0,0,0,0,0,0);
-		
+
 //	echo 'data: '.$data.'<br>';
 	do {
 		if(preg_match('/\A(\d{10})\Z/is', $data, $results))
 		{
-			// A data encontrada é provavelmente um UNIX timestamp
+			// A data encontrada ï¿½ provavelmente um UNIX timestamp
 			$saida[6]=date('s', $results[1]);
 			$saida[5]=date('i', $results[1]);
 			$saida[4]=date('H', $results[1]);
@@ -135,35 +135,35 @@ function parse_data($data, $locale='pt_BR')
 			$saida[1]=date('Y', $results[1]);
 			break;
 		}
-			
+
 		if(preg_match('/\A(\d{4})-?(\d{2})-?(\d{2})\Z/is', $data, $saida))
 		{
-			// A data encontrada está no formato YYYYMMDD ou YYYY-MM-DD
+			// A data encontrada estï¿½ no formato YYYYMMDD ou YYYY-MM-DD
 			$saida[4]=12;
 			break;
 		}
-			
+
 		if(preg_match('/\A(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})\Z/is', $data, $saida))
 		{
-			// A data encontrada está no formato YYYYMMDDHHMMSS
+			// A data encontrada estï¿½ no formato YYYYMMDDHHMMSS
 			if (!isset($saida[4])) $saida[4]="00";
 			if (!isset($saida[5])) $saida[5]="00";
 			if (!isset($saida[6])) $saida[6]="00";
 			break;
 		}
-			
+
 		if(preg_match('/\A(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})\Z/is', $data, $saida))
 		{
-			// A data encontrada está no formato YYYY-MM-DD HH:MM:SS
+			// A data encontrada estï¿½ no formato YYYY-MM-DD HH:MM:SS
 			if (!isset($saida[4])) $saida[4]="00";
 			if (!isset($saida[5])) $saida[5]="00";
 			if (!isset($saida[6])) $saida[6]="00";
 			break;
 		}
-			
+
 		if(preg_match('/\A(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})\Z/is', $data, $saida))
 		{
-			// A data encontrada está no formato DD/MM/YYYY HH:MM:SS
+			// A data encontrada estï¿½ no formato DD/MM/YYYY HH:MM:SS
 			$t = $saida[1];
 			$saida[1]=$saida[3];
 			$saida[3]=$t;
@@ -173,12 +173,12 @@ function parse_data($data, $locale='pt_BR')
 			break;
 		}
 
-			
+
 		$eval_line='$saida=parse_data_'.$locale."('".$data."');";
 		//echo "<p>$eval_line</p>";
 		eval($eval_line);
-		if($saida) 
-		{	
+		if($saida)
+		{
 			break;
 		}
 		else
@@ -209,11 +209,11 @@ function parse_data($data, $locale='pt_BR')
 		nome_do_mes(0, 'pt_BR');
 		setlocale(LC_ALL,'pt_BR');
 		$saida[4]=12;
-		
+
 	do {
 			if(preg_match('|(\d{1,2})[\/\.\-](\d{1,2})[\/\.\-](\d{2,4})\b|is', $data, $results))
 			{
-				// A data encontrada está no formato DD/MM/YYYY
+				// A data encontrada estï¿½ no formato DD/MM/YYYY
 				$saida[1]=$results[3];
 				$saida[2]=$results[2];
 				$saida[3]=$results[1];
@@ -226,15 +226,15 @@ function parse_data($data, $locale='pt_BR')
 				{
 					$saida[3]=substr('0'.$results[1],-2);
 					$saida[2]=$mes_num;
-					
+
 					if(preg_match('|(.*?)(\d{1,2})[:h](\d{2})[:]?(\d{2})?\s?([PA]M)?|is',$results[3], $results))
 					{
 						$saida[4]=$results[2];
 						$saida[5]=$results[3];
 						$saida[6]=$results[4];
-						
+
 						if(trim(strtoupper($results[5]))=='PM') $saida[4]+=12;
-						
+
 						if(preg_match('|.*?(\d{2,4})|is',$results[1], $results))
 						{
 							$saida[1]=$results[1];
@@ -244,11 +244,11 @@ function parse_data($data, $locale='pt_BR')
 					{
 						$saida[1]=date('Y');
 					}
-					
+
 					break 2;
 				}
 			}
-			
+
 			if (preg_match('#(\d{2})\|(\d{2})\|(\d{4})#', $data, $results )) {
 				// formato incomum: dd|mm|yyyy
 				$saida[1]=$results[3];
@@ -256,20 +256,20 @@ function parse_data($data, $locale='pt_BR')
 				$saida[3]=$results[1];
 				break;
 			}
-			
+
 			return false;
 		} while(0);
 
-		
+
 		if(preg_match('|(.*?)(\d{1,2})[:h](\d{2})[:]?(\d{2})?\s?([PA]M)?|is',$data, $results))
 		{
 			$saida[4]=$results[2];
 			$saida[5]=$results[3];
 			if (isset($results[4])) $saida[6]=$results[4];
-			if (isset($results[5])) 
+			if (isset($results[5]))
 				if(trim(strtoupper($results[5]))=='PM') $saida[4]+=12;
 		}
-		
+
 		return $saida;
 	}
 
@@ -279,20 +279,20 @@ function parse_data_en_US($data)
 		global $nomedomes;
 		global $nomediasemana;
 		nome_do_mes(0, 'en_US');
-		
+
 		setlocale(LC_ALL,'en_US');
 //		$saida=array(0,0,0,0,0,0,0);
 
 	do {
 			if(preg_match('|(\d{1,2})[\/\.](\d{1,2})[\/\.](\d{2,4})\b|is', $data, $results))
 			{
-				// A data encontrada está no formato MM/DD/YYYY
+				// A data encontrada estï¿½ no formato MM/DD/YYYY
 				$saida[1]=$results[3];
 				$saida[2]=$results[1];
 				$saida[3]=$results[2];
 				break;
 			}
-			
+
 			foreach($nomedomes as $mes_num=>$mes_comp)
 			{
 				$re = '#('.substr($mes_comp, 0, 3);
@@ -302,29 +302,29 @@ function parse_data_en_US($data)
 				{
 					$saida[3]=substr('0'.$results[2],-2);
 					$saida[2]=$mes_num;
-					
+
 					//by dan:
 					if(preg_match('|^.*?(\d{2,4})|is',$results[3], $res_ano))
 						$saida[1]=$res_ano[1];
-					else 
+					else
 						$saida[1]=date('Y');
 					// fim
-					
+
 					if(preg_match('|(.*?)(\d{1,2})[:h](\d{2})[:]?(\d{2})?\s?([PA]M)?.*|is', $results[3], $results))
 					{
 						$saida[4]=$results[2];
 						$saida[5]=$results[3];
 						$saida[6]=$results[4];
-						
+
 						if(trim(strtoupper($results[5]))=='PM') $saida[4]+=12;
-						
+
 						/*
 						if(preg_match('|.*?(\d{2,4})|is',$results[1], $results))
 						{
 							$saida[1]=$results[1];
 						} else $saida[1]=date('Y');
 						*/
-						
+
 						//break 2;
 					}
 					break 2;
@@ -332,7 +332,7 @@ function parse_data_en_US($data)
 			}
 			return false;
 		} while(0);
-		
+
 		if(preg_match('|(.*?)(\d{1,2})[:h](\d{2})[:]?(\d{2})?\s?([PA]M)?|is',$data, $results))
 		{
 			$saida[4]=$results[2];
@@ -340,7 +340,7 @@ function parse_data_en_US($data)
 			$saida[6]=$results[4];
 			if(trim(strtoupper($results[5]))=='PM') $saida[4]+=12;
 		}
-		
+
 		return $saida;
 	}
 
@@ -360,38 +360,38 @@ function format_data_str($data, $formato, $locale='pt_BR')
 			return false;
 }
 
-	
+
 function format_data($timestamp, $formato)
 	{
 		global $nomedomes;
 		global $nomediasemana;
 		nome_do_mes(0);
-		
+
 		switch ($formato)
 		{
 			case '?':
-				// Faz todas as interações abaixo com output
-			
+				// Faz todas as interaï¿½ï¿½es abaixo com output
+
 			case 1:
 				//         01/02/2001 - 12:00
 				$return=date('d/m/Y - H:i', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-			
+
 			case 2:
 				//         01 de fevereiro de 2001
 				$return= date('d', $timestamp)." de ".nome_do_mes(date('m', $timestamp))." de ".date('Y', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-			
+
 			case 3:
 				//         01 de fevereiro de 2001 - 12:00
 				$return= date('d', $timestamp)." de ".nome_do_mes(date('m', $timestamp))." de ".date('Y', $timestamp)." - ".date('H:i', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 4:
-				//         01 de fevereiro de 2001 às 12h00
-				$return= date('d', $timestamp)." de ".$nomedomes[date('m', $timestamp)]." de ".date('Y', $timestamp)." às ".date('H', $timestamp).'h'.date('i', $timestamp);
+				//         01 de fevereiro de 2001 ï¿½s 12h00
+				$return= date('d', $timestamp)." de ".$nomedomes[date('m', $timestamp)]." de ".date('Y', $timestamp)." ï¿½s ".date('H', $timestamp).'h'.date('i', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-			
+
 			case 5:
 				//        01/02/2001
 				$return= date('d/m/Y', $timestamp);
@@ -407,27 +407,27 @@ function format_data($timestamp, $formato)
 				//        Domingo, 01 de fevereiro de 2001
 				$return= $nomediasemana[date("w", $timestamp)].", ".date('d', $timestamp)." de ".$nomedomes[date('m', $timestamp)]." de ".date('Y', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-			
+
 			case 8:
 				//        Retorna Timestamp
 				$return=$timestamp;
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-			
+
 			case 9:
 				//     dia da semana:   Seg
 				$return= substr($nomediasemana[date("w",$timestamp)],0,3);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 10:
-				//     dia do mês
+				//     dia do mï¿½s
 				$return= date('d', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 11:
 				//     dia da semana:   Segunda
 				$return= $nomediasemana[date("w", $timestamp)];
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 12:
 				//     12h00
 				$return=date('H', $timestamp).'h'.date('i', $timestamp);
@@ -437,55 +437,55 @@ function format_data($timestamp, $formato)
 				//     2001-02-31
 				$return= date('Y-m-d', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-			
+
 			case 14:
 				//     Domingo, 21
 				$return= $nomediasemana[date("w",$timestamp)].', '.date('d', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 15:
 				// 20010231125959
 				$return= date('YmdHis', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 16:
 				// 20010231
 				$return= date('Ymd', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 17:
-				// Número de dias no mês
+				// Nï¿½mero de dias no mï¿½s
 				$return=ultimo_dia_mes(date('m', $timestamp), date('Y', $timestamp));
 	//			$return=daysInMonth($timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 18:
-				//     Nome do mês
+				//     Nome do mï¿½s
 				$return= $nomedomes[date('m', $timestamp)];
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 19:
 				//	Dezembro de 2002
 				$return= $nomedomes[date('m', $timestamp)]." de ".date('Y', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 20:
-				//	Dia da semana do primeiro dia do mês
+				//	Dia da semana do primeiro dia do mï¿½s
 				$return= date('w', $timestamp - ((date('d', $timestamp)-1) * 86400));
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
 
 			case 21:
-				//	Dia da semana do ï¿½ltimo dia do mês
+				//	Dia da semana do ï¿½ltimo dia do mï¿½s
 				$return= date('w', mktime(0,0,0,date('m', $timestamp)+1,0,date('Y', $timestamp)));
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 22:
 				//	Se a data for dia de semana retorna 1 se for final de semana retorna 0
 				if((date("w", $timestamp)==0)||(date("w", $timestamp)==6))
 					$return=0;
 					else $return=1;
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 23:
 				//	GMT para meta tag expires
 				// Exemplo: '<meta HTTP-EQUIV="Expires" CONTENT="Wed, 26 Mar 2003 23:59:59 GMT">'
@@ -511,7 +511,7 @@ function format_data($timestamp, $formato)
 				//         YYYYMMDDHHMM00 - Usado no Sistema
 				$return= date('YmdHis', $timestamp);
 				if($formato=='?') { $formato_out++; echo $formato_out.': '.$return.'<BR>'; } else break;
-				
+
 			case 28:
 				//  YYYY/MM/DD - Formato para Paths indexados por data
 				$return= date ('Y/m/d', $timestamp);
@@ -532,10 +532,10 @@ function format_data($timestamp, $formato)
 					exit;
 					else if($return) return $return;
 	}
-	
-	
+
+
 function getmicrotime()
-	{ 
+	{
 	    list($sec, $usec) = explode(" ", microtime());
 	    return ($sec + $usec);
     	}
@@ -543,27 +543,27 @@ function getmicrotime()
 
 function formatar_duracao($segundos, $detalhe=1)
 	{
-		
+
 		$def=array(31536000, 2628000, 604800, 86400, 3600, 60, 1);
 		$formatos[0]=array(' ano', ' mes', ' semana', ' dia', ' hora', ' minuto', ' segundo');
 		$formatos[1]=array(' ano', ' mes', ' semana', ' dia', ' hora', ' min', ' seg');
 		$formatos[2]=array(' ano', ' mes', ' semana', 'D', 'H', '"', "'");
-		
+
 		$plural='s';
 		if($detalhe==2) $plural='';
 		$segundos_ini=$segundos;
-		
+
 		foreach($def as $k=>$n)
 		{
 			$var=floor($segundos / $n);
 			if($var<10)
 				$vartxt='0'.$var;
 				else $vartxt=$var;
-			
+
 			if(($var>0)||($segundos_ini>=$n))
 			{
 				$txt=$formatos[$detalhe][$k];
-				
+
 				if($var>1)
 				{
 					if($txt=='mes')
@@ -575,19 +575,19 @@ function formatar_duracao($segundos, $detalhe=1)
 			}
 		}
 
-		
+
 		return $return;
 
 	}
-	
+
 
 function dataset_ok($dataset, $data=false) {
-	//Diz se uma $data é contemplada por um $dataset (true) ou não (false)
+	//Diz se uma $data ï¿½ contemplada por um $dataset (true) ou NÃ£o (false)
 	if ($data===false) $data=time();
 	$data=trim($data);
 	$timestamp=ConverteData($data, 8);
-	$cron_items=array(0=>'i', 1=>'H', 2=>'d', 3=>'m', 4=>'w' ); 
-	
+	$cron_items=array(0=>'i', 1=>'H', 2=>'d', 3=>'m', 4=>'w' );
+
 	$ds = preg_split('/\s+/', trim($dataset));
 	if (count($ds)==5) {
 		$found=array();
@@ -597,7 +597,7 @@ function dataset_ok($dataset, $data=false) {
 			$found[$k]=false;
 			$ranges = explode (',' , trim($v));
 			$procurado=intval(date($cron_items[$k], $timestamp));
-			
+
 			while ((list($kr,$r) = each ($ranges)) && $found[$k]==false) {
 				if ($r=='*') {
 					// asterisco
@@ -613,10 +613,10 @@ function dataset_ok($dataset, $data=false) {
 					// numero
 					if ($debug) echo  '... numero';
 					if (intval($tmp[1])==$procurado) $found[$k]=true;
-					
+
 				} elseif (preg_match('#^(\d+)/(\d+)$#' , $r , $tmp)) {
-					//iteração
-					if ($debug) echo  '... iteração';
+					//iteraï¿½ï¿½o
+					if ($debug) echo  '... iteraï¿½ï¿½o';
 					$tmpsoma=intval($tmp[1]);
 					if (intval($tmp[2])==0) {
 						if ($tmpsoma==$procurado) $found[$k]=true;
@@ -631,12 +631,12 @@ function dataset_ok($dataset, $data=false) {
 				if ($debug) echo  " (procurando $r em ".$procurado.") ";
 				if ($found[$k]==true) {if ($debug) echo  ' <font color=blue><strong>...ok...</strong></font> ';} else {if ($debug) echo  ' <font color=red>...nops...</font>';}
 			}
-			
+
 			if ($debug) echo  '<br>';
 		}
-		
-		// o dia da semana e o dia do mês têm uma relação de "OR" entre si.
-		// ou seja, se um for achado, não faz diferença se o outro não o foi.
+
+		// o dia da semana e o dia do mï¿½s tï¿½m uma relaï¿½ï¿½o de "OR" entre si.
+		// ou seja, se um for achado, NÃ£o faz diferenï¿½a se o outro NÃ£o o foi.
 		// (desde que ambos tenham sido especificados)
 		// o if abaixo simula esse comportamento:
 		if ($ds[2]!=='*' && $ds[4]!=='*') {
@@ -648,10 +648,10 @@ function dataset_ok($dataset, $data=false) {
 		foreach ($found as $v) {
 			if ($v!==true) $ok=false;
 		}
-		
+
 		return $ok;
 	} else {
-		echo  '<p>ERRO: dataset invalido: tem ' . count($ds) . ' ítens (esperados: 5)</p>';
+		echo  '<p>ERRO: dataset invalido: tem ' . count($ds) . ' ï¿½tens (esperados: 5)</p>';
 		return false;
 	}
 }
@@ -659,7 +659,7 @@ function dataset_ok($dataset, $data=false) {
 function mostra_diasdasemana($dataset)
 {
 	$split=preg_split('/\s+/', $dataset);
-	$dias=array('Dom','Seg','Ter','Qua','Qui','Sex','Sáb');
+	$dias=array('Dom','Seg','Ter','Qua','Qui','Sex','Sï¿½b');
 	if(count($split)==5)
 	{
 		if($split[4]=='*')
@@ -673,10 +673,10 @@ function mostra_diasdasemana($dataset)
 				$validos[$val]=true;
 			}
 		}
-		
+
 		if(count($validos)==7)
 		{
-			$return.='Diário';
+			$return.='Diï¿½rio';
 		}
 			else
 		{
@@ -690,5 +690,5 @@ function mostra_diasdasemana($dataset)
 	}
 	return $return;
 }
-	
+
 ?>

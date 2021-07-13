@@ -8,7 +8,7 @@
 </div>
 
 <div id="mostra"></div>
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <?php
 if ($this->resultAbrangencia) {
     $i = 1;
@@ -62,8 +62,8 @@ if ($this->resultAbrangencia) {
 $nomeForm = "'solaltlocrel'";
 if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stAnalise(' . $this->stResult[0]->idAvaliacaoItemPedidoAlteracao . ',' . $this->escape($this->idpedidoalteracao) . ',this , ' . $nomeForm . ' )">';
-    echo "<option value='0' selected='selected'>Aguardando An�lise</option>
-                      <option value='1'>Em An�lise</option>";
+    echo "<option value='0' selected='selected'>Aguardando Análise</option>
+                      <option value='1'>Em Análise</option>";
     echo '</select>';
 } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "EA") {
 
@@ -91,19 +91,19 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
         if ($todosVerdadeiros == 2) {
             //Deferido
             echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar()">';
-            echo "<option value='1' selected='selected'>Em An�lise</option>
+            echo "<option value='1' selected='selected'>Em Análise</option>
                                       <option value='2'>Finalizar</option>";
             echo '</select>';
         } else {
             //Indeferido
             echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar()">';
-            echo "<option value='1' selected='selected'>Em An�lise</option>
+            echo "<option value='1' selected='selected'>Em Análise</option>
                                       <option value='3'>Finalizar</option>";
             echo '</select>';
         }
     } else {
         echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" disabled="disabled">';
-        echo "<option value='1' selected='selected'>Em An�lise</option>";
+        echo "<option value='1' selected='selected'>Em Análise</option>";
         echo '</select>';
     }
 }
@@ -117,7 +117,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
 
                 if( $("#editor1").val() == '' ){
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('Favor preencher a An�lise da Proposta e Altera�&atilde;o.');
+                    $('#mostra').html('Favor preencher a Análise da Proposta e Altera�&atilde;o.');
                     $("#mostra").dialog
                     ({
                         height: 180,
@@ -137,7 +137,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
 
                 } else {
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('O projeto ser� finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
+                    $('#mostra').html('O projeto será finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
                     $("#mostra").dialog
                     ({
                         height: 250,
@@ -147,7 +147,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                         resizable: false,
                         closeOnEscape: false,
                         buttons: {
-                            'N�o': function()
+                            'Não': function()
                             {
                                 document.getElementById('status').options[0].selected = true;
                                 $(this).dialog('close');
@@ -210,9 +210,9 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
             }
 
             function fim()
-            { 
+            {
                 var atilde = "atilde";
-                
+
                 $.ajax({ //funcao jquery para enviar os formularios via ajax
                     type: "POST",
                     url:  "<?php echo $this->url(array('controller' => 'Verificaralteracaotecnico', 'action' => 'planilhasolicitada')); ?>?v=fim",
@@ -225,7 +225,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                     , success: function(data) {
                         $("#justificativaencaminha").dialog('close');
                         $("#justificativaencaminha").dialog("destroy");
-                        $("#modal-validacao").html('A an�lise do Local de Realiza��o foi realizada com sucesso!');
+                        $("#modal-validacao").html('A Análise do Local de Realiza��o foi realizada com sucesso!');
                         $("#modal-validacao").dialog({
                             height: 160,
                             width: 360,
@@ -284,7 +284,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                             });
 
                             if ( dsAvaliacao == '' || valida==0 ) {
-                                $("#erroAvaliar" + i).html('Dados obrigat�rios n�o preenchidos!');
+                                $("#erroAvaliar" + i).html('Dados obrigat�rios Não preenchidos!');
                             } else {
                                 $("#formlocalidade" + i).submit(); // envia o formul�rio
                             }
@@ -393,7 +393,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                         <td align="center" class="destacar bold">Avalia&ccedil;&atilde;o</td>
                         <!--<td align="center" class="destacar bold">Status da An&aacute;lise</td> -->
                         <td align="center" class="destacar bold">Justificativa da Exclus&atilde;o</td>
-                        <td align="center" class="destacar bold">An&aacute;lise T�cnica</td>
+                        <td align="center" class="destacar bold">An&aacute;lise Técnica</td>
                     </tr>
                     <?php
                         $antpais = "";
@@ -489,7 +489,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                                 /*if (isset($locarel->dsAvaliacao) && !empty($locarel->dsAvaliacao)) {
                                     echo "<em>Avaliado.</em>";
                                 } else {
-                                    echo "<em>N�o avaliado.</em>";
+                                    echo "<em>Não avaliado.</em>";
                                 }*/
                             ?>
                         </td>
@@ -513,7 +513,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="2">JUSTIFICATIVA DA SOLICITA��O DE ALTERA��O</th>
+                    <th colspan="2">JUSTIFICATIVA DA Solicitação DE ALTERA��O</th>
                 </tr>
                 <tr>
                     <td align="left" colspan="2"><textarea cols="" rows="5"  class="textarea_simples" style="width: 99%" readonly="readonly" ><?php echo strip_tags($this->resultAbrangencia[0]->dsjustificativa) ?></textarea></td>
@@ -527,14 +527,14 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                             <td style="width: 25%; padding-left: 5%; text-decoration: underline;" colspan="2"><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivo->idArquivo; ?>"><?php echo $arquivo->nmarquivo ?></a></td>
                         </tr>
                     <?php }
-                } else { echo '<tr><td colspan="2"><span style="color: red;">N�o h� arquivos anexados!</span></td></tr>'; } ?>
+                } else { echo '<tr><td colspan="2"><span style="color: red;">Não h� arquivos anexados!</span></td></tr>'; } ?>
 
                 <?php
                     if ($this->dados->stAvaliacaoItemPedidoAlteracao != 'AG') {
                         if ($verificarAvaliados) { ?>
                         <tr>
                             <th colspan="2">
-                                AN�LISE DA PROPOSTA E ALTERA��O
+                                Análise DA PROPOSTA E ALTERA��O
                             </th>
                         </tr>
                         <tr>
@@ -567,7 +567,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                     </div>
                 </form>
 
-                <!-- ========== FIM CONTE�DO ========== -->
+                <!-- ========== FIM CONTEÚDO ========== -->
 
 
                 <!-- MODAL DILIGENCIAR -->
@@ -583,7 +583,7 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                                 <td><?php echo $this->resultConsulta['NomeProjeto']; ?></td>
                             </tr>
                         </table>
-                        <br /><label for="solicitacao">Solicita��o:</label><br />
+                        <br /><label for="solicitacao">Solicitação:</label><br />
                         <textarea name="solicitacao" id="solicitacao" rows="6" class="input_simples" cols="170" style="width:100%;"></textarea>
                         <input type="hidden" name="IdPronac" value="<?php echo $this->dados->IdPRONAC; ?>" />
         <p align="left" style="margin-top:1%;">
@@ -594,8 +594,8 @@ if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
 <!-- FIM DO MODAL DILIGENCIAR -->
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

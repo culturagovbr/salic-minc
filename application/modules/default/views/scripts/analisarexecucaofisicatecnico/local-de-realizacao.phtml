@@ -21,7 +21,7 @@
             $('.ui-dialog-titlebar-close').remove();
             return false;
         });
-        
+
     });
 
     function alertaModal(msg){
@@ -50,21 +50,21 @@
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
-        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="Lista de Relatórios">Lista de Relatórios</a></li>
-        <li class="last">Local de Realização</li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="Lista de Relatï¿½rios">Lista de Relatï¿½rios</a></li>
+        <li class="last">Local de Realizaï¿½ï¿½o</li>
     </ul>
 </div>
 
 
 <div id="titulo">
-    <div>Local de Realização <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="Voltar">Voltar</a></span></div>
+    <div>Local de Realizaï¿½ï¿½o <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="Voltar">Voltar</a></span></div>
 </div>
 
 
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center" width="30%">Nï¿½ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -85,15 +85,15 @@
 
     <table class="tabela">
         <tr align="center">
-            <th colspan="7">Local de Realização</th>
+            <th colspan="7">Local de Realizaï¿½ï¿½o</th>
         </tr>
         <tr align="center">
-            <td class="destacar bold">País</td>
+            <td class="destacar bold">Paï¿½s</td>
             <td class="destacar bold">UF</td>
-            <td class="destacar bold">Município</td>
+            <td class="destacar bold">Municï¿½pio</td>
             <td class="destacar bold" width="120px">Realizado</td>
-            <td class="destacar bold" width="120px" nowrap>Dt.&nbsp;Início Realização</td>
-            <td class="destacar bold" width="120px" nowrap>Dt.&nbsp;Fim Realização</td>
+            <td class="destacar bold" width="120px" nowrap>Dt.&nbsp;INÃCIO Realizaï¿½ï¿½o</td>
+            <td class="destacar bold" width="120px" nowrap>Dt.&nbsp;Fim Realizaï¿½ï¿½o</td>
             <td class="destacar bold" width="120px">Justificativa</td>
         </tr>
         <?php foreach ($this->LocaisDeRealizacao as $LocaisDeRealizacao) { ?>
@@ -104,9 +104,9 @@
             <td nowrap>
                 <?php
                     if($LocaisDeRealizacao->siAbrangencia == 0) {
-                        echo 'Sem Informação';
+                        echo 'Sem Informaï¿½ï¿½o';
                     } else if($LocaisDeRealizacao->siAbrangencia == 1) {
-                        echo 'Não Realizado';
+                        echo 'NÃ£o Realizado';
                     } else if($LocaisDeRealizacao->siAbrangencia == 2) {
                         echo 'Realizado';
                     } else if($LocaisDeRealizacao->siAbrangencia == 3) {
@@ -136,12 +136,12 @@
 </div>
 
 
-<!-- MODAL DE VISUALIZAÇÃO DA JUSTIFICATIVA ### -->
+<!-- MODAL DE VISUALIZAï¿½ï¿½O DA JUSTIFICATIVA ### -->
 <div id="justificativaModalVisualizar" class="sumir"></div>
-<!-- FIM MODAL DE VISUALIZAÇÃO DA JUSTIFICATIVA ### -->
+<!-- FIM MODAL DE VISUALIZAï¿½ï¿½O DA JUSTIFICATIVA ### -->
 
 
-<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÃCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

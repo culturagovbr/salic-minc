@@ -44,7 +44,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     {
         $tbPedidoAlteracaoProjeto = new tbPedidoAlteracaoProjeto();
 
-        // busca os id do �ltimo pedido de readequa��o n�o finalizado
+        // busca os id do �ltimo pedido de readequa��o Não finalizado
         $wherePedido                    = array('IdPRONAC = ?' => $idPronac, 'siVerificacao IN (?)' => array(0, 1), 'stPedidoAlteracao = ?' => 'I');
         $orderPedido                    = array('idPedidoAlteracao DESC');
         $buscarPedidoAlteracao          = $tbPedidoAlteracaoProjeto->buscar($wherePedido, $orderPedido)->current();
@@ -181,13 +181,13 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         // ========== DEFINE QUAIS PROJETOS DETERMINADOS PERFIS PODER�O VISUALIZAR ==========
         // S� quem visualiza os Projetos s�o os Coordenadores de Acompanhamento da SAV/CGAV/CAP e da SEFIC/GEAR/SACAV.
         // Caso o �rg�o logado seja SAV/CGAV/CAP (166) pega somente os projetos da �rea de Audiovisual (2).
-        // Sen�o, quando o �rg�o for SEFIC/GEAR/SACAV (272), busca os Projetos das �reas que n�o seja a de Audiovisual.
+        // SeNão, quando o �rg�o for SEFIC/GEAR/SACAV (272), busca os Projetos das �reas que Não seja a de Audiovisual.
         // O �rg�o/unidade � passada atrav�s de $this->getIdOrgao
         $unidade_autorizada = ($this->getIdOrgao == 166 || $this->getIdOrgao == 272) ? $this->getIdOrgao : 0;
 
 
 
-        //LISTAS - POR TIPO DE ALTERA��O -- AGUARDANDO AN�LISE
+        //LISTAS - POR TIPO DE ALTERA��O -- AGUARDANDO Análise
 
         $sqlAguardAnalise1 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 1, $unidade_autorizada); //Nome do proponente
         $AguardAnalise1 = $db->fetchAll($sqlAguardAnalise1);
@@ -195,7 +195,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $sqlAguardAnalise2 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 2, $unidade_autorizada); //Troca de Agente
         $AguardAnalise2 = $db->fetchAll($sqlAguardAnalise2);
 
-        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 3, $unidade_autorizada); //Ficha t�cnica
+        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 3, $unidade_autorizada); //Ficha Técnica
         $AguardAnalise3 = $db->fetchAll($sqlAguardAnalise3);
 
         $sqlAguardAnalise4 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 4, $unidade_autorizada); //Local de realiza��o
@@ -224,7 +224,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
         $AguardAnaliseQNTD = count($AguardAnalise1)+count($AguardAnalise2)+count($AguardAnalise3)+count($AguardAnalise4)+count($AguardAnalise5)+count($AguardAnalise6)+count($AguardAnalise7)+count($AguardAnalise8)+count($AguardAnalise9)+count($AguardAnalise10);
 
-        //LISTAS - POR TIPO DE ALTERA��O -- DEVOLVIDOS AP�S AN�LISE
+        //LISTAS - POR TIPO DE ALTERA��O -- DEVOLVIDOS AP�S Análise
 
         $sqlDevolvAnalise1 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 1, $unidade_autorizada); //Nome do proponente
         $DevolvAnalise1 = $db->fetchAll($sqlDevolvAnalise1);
@@ -232,7 +232,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $sqlDevolvAnalise2 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 2, $unidade_autorizada); //Raz�o social
         $DevolvAnalise2 = $db->fetchAll($sqlDevolvAnalise2);
 
-        $sqlDevolvAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 3, $unidade_autorizada); //Ficha t�cnica
+        $sqlDevolvAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 3, $unidade_autorizada); //Ficha Técnica
         $DevolvAnalise3 = $db->fetchAll($sqlDevolvAnalise3);
 
         $sqlDevolvAnalise4 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 4, $unidade_autorizada); //Local de realiza��o
@@ -340,7 +340,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
         $AguardAnaliseQNTD = /*count($AguardAnalise6)+*/count($AguardAnalise10);
 
-        //LISTAS - POR TIPO DE ALTERA��O -- DEVOLVIDOS AP�S AN�LISE
+        //LISTAS - POR TIPO DE ALTERA��O -- DEVOLVIDOS AP�S Análise
         $sqlDevolvAnalise6 = ReadequacaoProjetos::retornaSQLCP("sqlCoordPareceristaDev", 6, $this->getIdUsuario); //Proposta Pedag�gica
         $DevolvAnalise6 = $db->fetchAll($sqlDevolvAnalise6);
 
@@ -450,7 +450,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $AguardAnalise2 = $db->fetchAll($sqlAguardAnalise2);
 
 
-        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 3, $this->getIdUsuario, $this->getIdOrgao); //Ficha t�cnica
+        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 3, $this->getIdUsuario, $this->getIdOrgao); //Ficha Técnica
         $AguardAnalise3 = $db->fetchAll($sqlAguardAnalise3);
 
         $sqlAguardAnalise4 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 4, $this->getIdUsuario, $this->getIdOrgao); //Local de realiza��o
@@ -497,7 +497,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Proposta Pedag�giga - VISUALIZA��O (perfil coordenador de acompanhamento - AGUARDANDO AN�LISE)
+    * Fun��o que chama a view Proposta Pedag�giga - VISUALIZA��O (perfil coordenador de acompanhamento - AGUARDANDO Análise)
     * ************************************************************************************************************************/
     public function propostapedagogicaAction()
     {
@@ -526,7 +526,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Proposta Pedag�giga - VISUALIZA��O (perfil coordenador de acompanhamento - DEVOLVIDOS AP�S AN�LISE)
+    * Fun��o que chama a view Proposta Pedag�giga - VISUALIZA��O (perfil coordenador de acompanhamento - DEVOLVIDOS AP�S Análise)
     * ************************************************************************************************************************/
     public function propostapedagogicadevAction()
     {
@@ -574,7 +574,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlpropostaeditar", $id_Pronac, null, null, $resultadoDadosProposta['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
         $idPedidoAlt = $dados[0]['idAvaliacao'];
-        //VERIFICA O STATUS DA SOLICITA��O
+        //VERIFICA O STATUS DA Solicitação
         $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
         $stResult = $db->fetchAll($sqlStatusReadequacao);
 
@@ -617,7 +617,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             $dados = $db->fetchAll($sqlDiligenciarproposta);
             parent::message("Dilig�ncia enviada com sucesso!", "verificarreadequacaodeprojeto/propostapedagogicaeditar?id=$IdPronac", "CONFIRM");
         } catch (Zend_Exception $e) {
-            parent::message("Erro ao diligenciar a solicita��o", "verificarreadequacaodeprojeto/propostapedagogicaeditar?id=$IdPronac", "ERROR");
+            parent::message("Erro ao diligenciar a Solicitação", "verificarreadequacaodeprojeto/propostapedagogicaeditar?id=$IdPronac", "ERROR");
         }
     }
 
@@ -659,13 +659,13 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
             parent::message("Situa��o alterada com sucesso!", "verificarreadequacaodeprojeto/propostapedagogicaeditar?id=$idPronac", "CONFIRM");
         } catch (Zend_Exception $e) {
-            parent::message("Erro ao alterar o status da solicita��o", "verificarreadequacaodeprojeto/propostapedagogicaeditar?id=$idPronac", "ERROR");
+            parent::message("Erro ao alterar o status da Solicitação", "verificarreadequacaodeprojeto/propostapedagogicaeditar?id=$idPronac", "ERROR");
         }
     }
 
 
     /**************************************************************************************************************************
-    * FUN��O QUE SALVA A AN�LISE DA PROPOSTA PEDAG�GICA
+    * FUN��O QUE SALVA A Análise DA PROPOSTA PEDAG�GICA
     * ************************************************************************************************************************/
     // 	public function salvaproppedagAction(){
 //
@@ -697,7 +697,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * FUN��O QUE FINALIZA A AN�LISE DA PROPOSTA PEDAG�GICA
+    * FUN��O QUE FINALIZA A Análise DA PROPOSTA PEDAG�GICA
     * ************************************************************************************************************************/
     public function finalizaproppedagAction()
     {
@@ -1083,7 +1083,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $this->view->menumsg = 'true';
         //****************************************************
 
-        //VERIFICA O STATUS DA SOLICITA��O
+        //VERIFICA O STATUS DA Solicitação
         $sqlStatusReadequacao = new tbAvaliacaoItemPedidoAlteracao();
         $stResult = $sqlStatusReadequacao->buscar(array('idPedidoAlteracao = ?'=> $this->_idPedidoAlteracao, 'tpAlteracaoProjeto = ?' => 7, 'idAvaliacaoItemPedidoAlteracao = ?' => $dados[0]->idAvaliacaoItemPedidoAlteracao));
         $this->view->stResult = $stResult;
@@ -1140,7 +1140,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $this->view->idPronac = $idPronac;
         $this->view->menumsg = 'true';
 
-        //VERIFICA O STATUS DA SOLICITA��O
+        //VERIFICA O STATUS DA Solicitação
         $sqlStatusReadequacao = new tbAvaliacaoItemPedidoAlteracao();
         $stResult = $sqlStatusReadequacao->buscar(array('idPedidoAlteracao = ?'=> $this->_idPedidoAlteracao, 'tpAlteracaoProjeto = ?' => 7, 'idAvaliacaoItemPedidoAlteracao = ?' => $dados[0]->idAvaliacaoItemPedidoAlteracao));
         $this->view->stResult = $stResult;
@@ -1475,7 +1475,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * Fun��o que altera o status da solicita��o na view Readequa��o de Produtos
+    * Fun��o que altera o status da Solicitação na view Readequa��o de Produtos
     * ************************************************************************************************************************/
     public function readequacaoprodutoseditarAction()
     {
@@ -1521,7 +1521,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $this->view->menumsg = 'true';
         //****************************************************
 
-        //VERIFICA O STATUS DA SOLICITA��O
+        //VERIFICA O STATUS DA Solicitação
         $sqlStatusReadequacao = new tbAvaliacaoItemPedidoAlteracao();
         $stResult = $sqlStatusReadequacao->buscar(array('idPedidoAlteracao = ?'=> $this->_idPedidoAlteracao, 'tpAlteracaoProjeto = ?' => 7));
         $this->view->stResult = $stResult;
@@ -1529,7 +1529,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * Fun��o que altera o status da solicita��o na view Readequa��o de Produtos
+    * Fun��o que altera o status da Solicitação na view Readequa��o de Produtos
     * ************************************************************************************************************************/
     public function readequacaoitensdecustoeditarAction()
     {
@@ -1581,7 +1581,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $this->view->menumsg = 'true';
         //****************************************************
 
-        //VERIFICA O STATUS DA SOLICITA��O
+        //VERIFICA O STATUS DA Solicitação
         $sqlStatusReadequacao = new tbAvaliacaoItemPedidoAlteracao();
         $stResult = $sqlStatusReadequacao->buscar(array('idPedidoAlteracao = ?'=> $this->_idPedidoAlteracao, 'tpAlteracaoProjeto = ?' => 7, 'stAvaliacaoItemPedidoAlteracao != ?' => 'AP'));
         $this->view->stResult = $stResult;
@@ -1703,7 +1703,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 //		$idPedidoAlt = isset($dados[0]->idAvaliacaoItemPedidoAlteracao) ? $dados[0]->idAvaliacaoItemPedidoAlteracao : 0;
 //		$iframe      = isset($dados[0]->CNPJCPF) ? $dados[0]->CNPJCPF : 0;
 //
-//		//VERIFICA O STATUS DA SOLICITA��O
+//		//VERIFICA O STATUS DA Solicitação
 //
 //		$sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 //		$stResult = $db->fetchAll($sqlStatusReadequacao);
@@ -1781,7 +1781,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $this->view->menumsg = 'true';
         //****************************************************
 
-        //VERIFICA O STATUS DA SOLICITA��O
+        //VERIFICA O STATUS DA Solicitação
         $sqlStatusReadequacao = new tbAvaliacaoItemPedidoAlteracao();
         $stResult = $sqlStatusReadequacao->buscar(array('idPedidoAlteracao = ?'=> $this->_idPedidoAlteracao, 'tpAlteracaoProjeto = ?' => 7, 'stAvaliacaoItemPedidoAlteracao not in (?)' => array('AG','EA')));
         $this->view->stResult = $stResult;
@@ -1872,10 +1872,10 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     {
         $IdPronac = $_GET['IdPronac'];
         if (!isset($IdPronac) || empty($IdPronac)) {
-            parent::message("Projeto n�o encontrado.", "principal", "ERROR");
+            parent::message("Projeto Não encontrado.", "principal", "ERROR");
         }
         if ($_GET['opcao'] != '1') {
-            parent::message("Erro ao alterar o status da solicita��o", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$IdPronac", "ERROR");
+            parent::message("Erro ao alterar o status da Solicitação", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$IdPronac", "ERROR");
         }
 
         $verificaIdPedidoAlteracao = VerificarSolicitacaodeReadequacoesDAO::verificaPedidoAlteracao($IdPronac);
@@ -1892,7 +1892,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $idAgente = $agente['idAgente'];
 
         $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM AN�LISE
+            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
 
             $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
@@ -1907,7 +1907,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $whereProdutoAT = array('idPedidoAlteracao = ?' => $reg[0]->idPedidoAlteracao, 'tpPlanoDistribuicao = ?' => 'AT');
         $listaProdutosAT = $this->tbPlanoDistribuicao->buscar($whereProdutoAT);
 
-        //VERIFICA SE J� POSSUI PLANO DE DISTRIBUI��O DO TIPO AT PARA N�O GERAR OUTRA C�PIA DE AN�LISE T�CNICA
+        //VERIFICA SE J� POSSUI PLANO DE DISTRIBUI��O DO TIPO AT PARA Não GERAR OUTRA C�PIA DE Análise Técnica
         if (count($listaProdutosAT) <= 0) {
             foreach ($listaProdutosSR as $d) {
                 if ($d->tpAcao != 'N') {
@@ -1930,7 +1930,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                                 ,'tpPlanoDistribuicao'   => 'AT'
                                 ,'dtPlanoDistribuicao'   => new Zend_Db_Expr('GETDATE()')
                         );
-                    //INSERE UMA C�PIA QUE SER� ALTERADA PELO T�CNICO DE ACOMPANHAMENTO - AT
+                    //INSERE UMA C�PIA QUE será ALTERADA PELO T�CNICO DE ACOMPANHAMENTO - AT
                     $this->tbPlanoDistribuicao->inserir($dadosCopia);
                 }
             }
@@ -1964,9 +1964,9 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             }
         } catch (Zend_Exception $e) {
             if (isset($_GET['itemDeCusto']) && $_GET['itemDeCusto']) {
-                parent::message("Erro ao alterar o status da solicita��o", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$IdPronac", "ERROR");
+                parent::message("Erro ao alterar o status da Solicitação", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$IdPronac", "ERROR");
             } else {
-                parent::message("Erro ao alterar o status da solicita��o", "verificarreadequacaodeprojeto/readequacaoprodutoseditar?id=$IdPronac", "ERROR");
+                parent::message("Erro ao alterar o status da Solicitação", "verificarreadequacaodeprojeto/readequacaoprodutoseditar?id=$IdPronac", "ERROR");
             }
         }
     }
@@ -1983,7 +1983,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $idAgente = $agente['idAgente'];
 
         $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-        $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM AN�LISE
+        $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
         $IdPronac = $_GET['IdPronac'];
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -2014,7 +2014,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
             parent::message("Situa��o alterada com sucesso!", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$IdPronac", "CONFIRM");
         } catch (Zend_Exception $e) {
-            parent::message("Erro ao alterar o status da solicita��o", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$IdPronac", "ERROR");
+            parent::message("Erro ao alterar o status da Solicitação", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$IdPronac", "ERROR");
         }
     }
 
@@ -2069,7 +2069,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
- * FUN��O QUE FINALIZA A SOLICITA��O (GERAL - TELA DE COORDENADOR DE ACOMPANHAMENTO)
+ * FUN��O QUE FINALIZA A Solicitação (GERAL - TELA DE COORDENADOR DE ACOMPANHAMENTO)
  * ************************************************************************************************************************/
     public function finalizageralAction()
     {
@@ -2206,7 +2206,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                                             ,'dtVinculo'         => new Zend_Db_Expr('GETDATE()'));
 
                     $tbVinculo->alterar($dadosVinculo, $whereVinculo); else :
-                                    parent::message("O usu�rio informado n�o � Proponente ou o Projeto n�o est� vinculado a uma Proposta!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
+                                    parent::message("O usu�rio informado Não � Proponente ou o Projeto Não est� vinculado a uma Proposta!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
                     endif;
 
                     /**
@@ -2215,7 +2215,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                      * ==============================================================
                      */
                 } elseif ($tpAlt == 3) {
-                    //FICHA T�CNICA
+                    //FICHA Técnica
                     $fichatecAtual = FichaTecnicaDAO::buscarFichaTecnicaFinal($idPronac, $idPedidoAlt);
                     $Atual = $fichatecAtual[0]->FichaTecnica;
                     $idPreProjeto = $fichatecAtual[0]->idPreProjeto;
@@ -2325,7 +2325,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                             'Sequencial' => $DadosProj[0]->Sequencial,
                             'TipoAprovacao' => 3,
                             'DtAprovacao' => new Zend_Db_Expr('GETDATE()'),
-                            // 'ResumoAprovacao' => 'Solicita��o de Readequa��o',
+                            // 'ResumoAprovacao' => 'Solicitação de Readequa��o',
                             'DtInicioCaptacao' => $datas['dtInicioNovoPrazo'],
                             'DtFimCaptacao' => $datas['dtFimNovoPrazo'],
                             'Logon' => $idagente
@@ -2382,7 +2382,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
                     foreach ($PlanilhasSolicitadas as $dadosP) {
                         if (!empty($dadosP->idPedidoAlteracao)) {
-                            // busca a a��o a ser executada conforme solicita��o de readequa��o
+                            // busca a a��o a ser executada conforme Solicitação de readequa��o
                             //$_idPlanilhaProjeto      = empty($dadosP->idPlanilhaProjeto) ? ('idPlanilhaProjeto ? ' => new Zend_Db_Expr('IS NULL')) : ('idPlanilhaProjeto = ? ' => $dadosP->idPlanilhaProjeto);
                             //$_idPlanilhaProposta     = empty($dadosP->idPlanilhaProposta) ? ('idPlanilhaProposta ? ' => new Zend_Db_Expr('IS NULL')) : ('idPlanilhaProposta = ? ' => $dadosP->idPlanilhaProposta);
                             //$_idPlanilhaAprovacaoPai = empty($dadosP->idPlanilhaAprovacaoPai) ? ('idPlanilhaAprovacaoPai ? ' => new Zend_Db_Expr('IS NULL')) : ('idPlanilhaAprovacaoPai = ? ' => $dadosP->idPlanilhaAprovacaoPai);
@@ -2931,7 +2931,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-     * Fun��o que desabilita o componente da comiss�o para receber projetos
+     * Fun��o que desabilita o componente da comissão para receber projetos
      * e faz o rebalanceamento de todos os projetos do mesmo quando ativos
      * ************************************************************************************************************************/
 
@@ -2946,9 +2946,9 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $dados = ProjetosGerenciarDAO::desativarComponente($idAgente, $justificativa);
 
         if ($dados) {
-            parent::message("O Componente da Comiss�o foi desabilitado com sucesso!", "projetosgerenciar/projetosgerenciar", "CONFIRM");
+            parent::message("O Componente da comissão foi desabilitado com sucesso!", "projetosgerenciar/projetosgerenciar", "CONFIRM");
         } else {
-            parent::message("Erro ao desabilitar o Componente da Comiss�o", "projetosgerenciar/projetosgerenciar", "ERROR");
+            parent::message("Erro ao desabilitar o Componente da comissão", "projetosgerenciar/projetosgerenciar", "ERROR");
         }
     }
 
@@ -3001,7 +3001,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-     * Fun��o que habilita o componente da comiss�o para receber projetos
+     * Fun��o que habilita o componente da comissão para receber projetos
      * ************************************************************************************************************************/
 
     public function habilitarcomponenteAction()
@@ -3020,9 +3020,9 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
         if ($dados) {
-            parent::message("O Componente da Comiss�o foi habilitado com sucesso!", "projetosgerenciar/projetosgerenciar", "CONFIRM");
+            parent::message("O Componente da comissão foi habilitado com sucesso!", "projetosgerenciar/projetosgerenciar", "CONFIRM");
         } else {
-            parent::message("Erro ao habilitar o Componente da Comiss�o", "projetosgerenciar/projetosgerenciar", "ERROR");
+            parent::message("Erro ao habilitar o Componente da comissão", "projetosgerenciar/projetosgerenciar", "ERROR");
         }
     }
 
@@ -3039,7 +3039,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             $dsJustificativa = $_POST['justificativaPropRead'];
 
 
-            // ========== IN�CIO PLANO DE DISTRIBUI��O ==========
+            // ========== INÍCIO PLANO DE DISTRIBUI��O ==========
             // busca o Plano de Distribui��o do Proponente
             $b = PlanoDistribuicaoDAO::buscar($idPlano);
 
@@ -3089,7 +3089,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             // ========== FIM PLANO DE DISTRIBUI��O ==========
 
 
-            // ========== IN�CIO: cadastro de avalia��o do produto ==========
+            // ========== INÍCIO: cadastro de avalia��o do produto ==========
             $dados_produtos = array(
                     'idAvaliacaoItemPedidoAlteracao'     => $_POST['idAvaliacaoItemPedidoAlteracao']
                     ,'stAvaliacaoSubItemPedidoAlteracao' => $avaliacao
@@ -3112,7 +3112,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             if (!$cadastrar_avaliacao) {
                 throw new Exception("Erro ao tentar avaliar o Produto!");
             } else {
-                parent::message("Solicita��o enviada com sucesso!", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=".$idPronac, "CONFIRM");
+                parent::message("Solicitação enviada com sucesso!", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=".$idPronac, "CONFIRM");
             }
         } // fecha try
         catch (Exception $e) {
@@ -3255,7 +3255,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             } // fecha if
 
 
-            // ========== IN�CIO: cadastro de avalia��o do produto ==========
+            // ========== INÍCIO: cadastro de avalia��o do produto ==========
             $dados_produtos = array(
                     'idAvaliacaoItemPedidoAlteracao'     => $_POST['idAvaliacaoItemPedidoAlteracao']
                     ,'stAvaliacaoSubItemPedidoAlteracao' => $avaliacao
@@ -3286,9 +3286,9 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                 throw new Exception("Erro ao tentar avaliar o Produto!");
             } else {
                 if (isset($_GET['itemDeCusto']) && $_GET['itemDeCusto']) {
-                    parent::message("Solicita��o enviada com sucesso!", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$idPronac", "CONFIRM");
                 } else {
-                    parent::message("Solicita��o enviada com sucesso!", "verificarreadequacaodeprojeto/readequacaoprodutoseditar?id=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "verificarreadequacaodeprojeto/readequacaoprodutoseditar?id=$idPronac", "CONFIRM");
                 }
             }
         } // fecha try
@@ -3563,10 +3563,10 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $stAvaliacaoSubItemPedidoAlteracao = $verificaSubItemPedidoAlteracao[0]->stAvaliacao;
 
         if ($stAvaliacaoSubItemPedidoAlteracao == "AG") {
-            $this->view->statusAnalise = "Aguardando An�lise";
+            $this->view->statusAnalise = "Aguardando Análise";
         }
         if ($stAvaliacaoSubItemPedidoAlteracao == "EA") {
-            $this->view->statusAnalise = "Em An�lise";
+            $this->view->statusAnalise = "Em Análise";
         }
         if ($stAvaliacaoSubItemPedidoAlteracao == "AP") {
             $this->view->statusAnalise = "Aprovado";

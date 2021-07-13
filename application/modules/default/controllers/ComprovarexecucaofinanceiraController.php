@@ -56,7 +56,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
 
             parent::init(); // chama o init() do pai GenericControllerNew
         } else {
-            $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da p�gina
+            $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
 
             $Usuario = new UsuarioDAO(); // objeto usu�rio
             $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -103,7 +103,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
             ->addActionContext('cadastrarcomprovacaopagamento', 'json')
             ->initContext()
         ;
-    } 
+    }
 
     public function indexAction()
     {
@@ -197,7 +197,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
         $planilhaAprovacaoModel = new PlanilhaAprovacao();
         $planilhaItemModel = new PlanilhaItem();
 
-        /* $resposta = $planilhaAprovacaoModel->buscarItensPagamento($this->view->idpronac); //Alysson - Altera��o da Query para n�o mostrar os itens excluidos */
+        /* $resposta = $planilhaAprovacaoModel->buscarItensPagamento($this->view->idpronac); //Alysson - Altera��o da Query para Não mostrar os itens excluidos */
 
         $resposta = $planilhaAprovacaoModel->planilhaAprovada($this->view->idpronac);
 
@@ -337,7 +337,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
 
             // validar item
             if (!$post->produto) {
-                throw new Exception('Item n�o selecionado ou inv�lido.');
+                throw new Exception('Item Não selecionado ou inv�lido.');
             }
 
             //cadastro cotacao inicio
@@ -818,7 +818,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                 if ($_FILES['arquivo']['name'] != '') {
                     $comprovantePagamentoModel->atualizar(4, true);
                 } else {
-                    // nao atualiza arquivo se n�o houver novo upload
+                    // nao atualiza arquivo se Não houver novo upload
                     $comprovantePagamentoModel->atualizar(4);
                 }
 
@@ -854,7 +854,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                 if ($_FILES['arquivoInternacional']['name'] != '') {
                     $comprovantePagamentoModel->atualizar(4, true);
                 } else {
-                    // nao atualiza arquivo se n�o houver novo upload
+                    // nao atualiza arquivo se Não houver novo upload
                     $comprovantePagamentoModel->atualizar(4);
                 }
             }
@@ -2303,7 +2303,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                 $arrResultado = $wsServico->consultarPessoaFisicaReceitaFederal($cnpjcpf);
 
                 if (empty($arrResultado)) {
-                    $retorno['error'] = utf8_encode('Pessoa n�o encontrada!');
+                    $retorno['error'] = utf8_encode('Pessoa Não encontrada!');
                     $erro = 1;
                     $this->view->fornecedor = array('retorno'=>false, 'CNPJCPF'=>$cnpjcpf);
                 }
@@ -2312,7 +2312,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                     $retorno['error'] = '';
                     $this->view->fornecedor = array('retorno'=>true,'idAgente'=>$arrResultado['idPessoaFisica'],'descricao'=>utf8_encode($arrResultado['nmPessoaFisica']));
                 } else {
-                    $retorno['error'] = utf8_encode('Pessoa n�o encontrada!!');
+                    $retorno['error'] = utf8_encode('Pessoa Não encontrada!!');
                     $this->view->fornecedor = array('retorno'=>false, 'CNPJCPF'=>$cnpjcpf);
                 }
             }
@@ -2323,7 +2323,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
             } else {
                 $arrResultado = $wsServico->consultarPessoaJuridicaReceitaFederal($cnpjcpf);
                 if (empty($arrResultado)) {
-                    $retorno['error'] = utf8_encode('Pessoa n�o encontrada!!');
+                    $retorno['error'] = utf8_encode('Pessoa Não encontrada!!');
                     $erro = 1;
                     $this->view->fornecedor = array('retorno'=>false, 'CNPJCPF'=>$cnpjcpf);
                 }
@@ -2332,7 +2332,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                     $retorno['error'] = '';
                     $this->view->fornecedor = array('retorno'=>true,'idAgente'=>$arrResultado['idPessoaJuridica'],'descricao'=>utf8_encode($arrResultado['nmRazaoSocial']));
                 } else {
-                    $retorno['error'] = utf8_encode('Pessoa n�o encontrada!');
+                    $retorno['error'] = utf8_encode('Pessoa Não encontrada!');
                     $this->view->fornecedor = array('retorno'=>false, 'CNPJCPF'=>$cnpjcpf);
                 }
             }
@@ -2426,7 +2426,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
             $this->_helper->flashMessenger->addMessage('Licita��o excluida com sucesso.');
             $this->_helper->flashMessengerType->addMessage('CONFIRM');
         } catch (Zend_Db_Statement_Exception $e) {
-            $this->_helper->flashMessenger->addMessage('Licita��o em uso, n�o ser� poss�vel excluir.');
+            $this->_helper->flashMessenger->addMessage('Licita��o em uso, Não será poss�vel excluir.');
             $this->_helper->flashMessengerType->addMessage('ERROR');
         }
         $url = $this->view->url(array(
@@ -2477,7 +2477,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
         } catch (Exception $e) {
             $message = $e->getMessage();
             if (strpos($e->getMessage(), 'DateTime::__construct()') !== false) {
-                $message = 'N�o foi poss�vel enviar os comprovantes de pagamento!';
+                $message = 'Não foi poss�vel enviar os comprovantes de pagamento!';
             }
             $this->view->message = $message;
             $this->view->message_type = 'ERROR';

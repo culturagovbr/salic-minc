@@ -259,7 +259,7 @@ function linhaPEI(info){
                                         }
                                         else{
                                             $(tr).remove();
-                                            janelaAlerta('ExcluÌdo com sucesso!');
+                                            janelaAlerta('ExcluÔøΩdo com sucesso!');
                                         }
 
                                         $(this).dialog('close');
@@ -418,7 +418,7 @@ function listaPEI(info){
     carregarPgHtml('<?php echo $carregarSelectHref;?>','#itens',{tpSelect:'itens',idpronac:'<?php echo $this->idpronac?>',idProduto:$('#produto').val(),idEtapa:$('#etapa').val(),contrato:info.contrato,ckItens:info.ckItens});
     if(info.cotacao)
         $('#vlComprovado').val('');
-    
+
 }
 function janelaAlerta(mensagem,funcaoAdcional, fechar){
     if(funcaoAdcional==undefined){
@@ -469,7 +469,7 @@ function buscarNumeroSelect(id,valor){
         else{
             if($(this).val() == $(id).val())
                 valorRetorno = contador;
-        }     
+        }
         contador++;
     });
     return valorRetorno;
@@ -527,7 +527,7 @@ function carregarPgHtml(pagina,idSelect,dados,textoIni){
     var idRetorno = undefined;
     if(textoIni == undefined)
         textoIni = 'Todos';
-    
+
     var resposta    = buscarJson(pagina,dados);
     var cont = 0;
     for(var j in resposta){
@@ -674,7 +674,7 @@ function buscarFornecedor(este){
 }
 function validarFormulario(form,mensagem){
     var validar = false;
-    
+
     var contador = 0;
     $('.linhaMaior1 tr').each(function(){
         contador++;
@@ -711,7 +711,7 @@ function validarFormulario(form,mensagem){
                     validar     =   true;
                     mensagem    +=   '<br />A "'+$(this).attr('title')+'" deve ser menor que a "'+$(menorid).attr('title')+'"';
                 }
-            }            
+            }
         }
         if($(this).attr('maiorque')!=undefined){
             var maiorid     =   '#'+$(this).attr('maiorque');
@@ -724,7 +724,7 @@ function validarFormulario(form,mensagem){
             }
         }
     });
-    
+
     $(form).find('[null=false]').each(function(){
         if($(this).attr('type')=='radio'){
             var validaRadio = true;
@@ -752,15 +752,15 @@ function validarFormulario(form,mensagem){
 
 function requisicaoAjaxObj(){
     var ajaxObj={
-        pagina          :   '',                     
+        pagina          :   '',
         parametros      :   {},
-        type            :   'post',                
-        dataType        :   '',                     
-        resposta        :   '#conteudo',           
-        async           :   true,                   
+        type            :   'post',
+        dataType        :   '',
+        resposta        :   '#conteudo',
+        async           :   true,
         funcaoRetorno   :   function (resposta){
             $(this.resposta).html(resposta);
-        }, 
+        },
         executar        :   function(dados){
             this.refineParametrosObj(dados);
             var esteObj = this;
@@ -780,7 +780,7 @@ function requisicaoAjaxObj(){
         refineParametrosObj : function(data){
             if(data!= undefined)
                 for(var j in data){
-                    
+
                     this[j]=data[j];
                 }
         }
@@ -797,7 +797,7 @@ function janelaObj(dados){
         parametros : {autoOpen: false},
         iniciarJanela : function(dados){
             this.refineParametrosObj(dados);
-            
+
             this.divConteudo.dialog(this.parametros);
         },
         abrirJanela:function(){
@@ -883,16 +883,16 @@ function fornecedores(){
         <div id="breadcrumb">
           <ul>
 			<li class="last">
-                            
-                                <a href="<?php echo $this->link_menu_lateral; ?>" title="InÌcio">InÌcio</a>
-                                
+
+                                <a href="<?php echo $this->link_menu_lateral; ?>" title="IN√çCIO">IN√çCIO</a>
+
                         </li>
           </ul>
         </div> <!-- final: #breadcrumb -->
         <?php
         }
         ?>
-        <!-- inÌcio: #titulo -->
+        <!-- IN√çCIO: #titulo -->
         <div id="titulo">
             <div>
                 Comprovar Execu&ccedil;&atilde;o Financeira
@@ -900,7 +900,7 @@ function fornecedores(){
                             <?php
                             if(!empty ($this->link_menu_lateral)){
                                 ?>
-                                <a href="<?php echo $this->link_menu_lateral; ?>" title="InÌcio">Voltar</a>
+                                <a href="<?php echo $this->link_menu_lateral; ?>" title="IN√çCIO">Voltar</a>
                                 <?php
                             }
                             else{
@@ -911,25 +911,25 @@ function fornecedores(){
                             ?>
 
                 </span>
-            </div>		
+            </div>
         </div>
         <!-- final: #titulo -->
-        <!-- inÌcio: ·rea principal #conteudo -->
+        <!-- IN√çCIO: ÔøΩrea principal #conteudo -->
         <div id="conteudo">
 
-        </div><!-- final: conte˙do principal #conteudo -->
+        </div><!-- final: CONTE√öDO principal #conteudo -->
         <br clear="left"/>
         <div id="imagemRodape" ><span></span></div>
-        <!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+        <!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
     </div>
     <br clear="all" />
 </div>
 <iframe id="anexarArquivo" name="anexarArquivo" src="#" style="width: 300px;height: 300px;display: none;"></iframe>
 
 <script type="text/javascript">
-    var me71 = 'Esse projeto n„o possui itens de custo para comprovaÁ„o financeira. Favor incluir todos os itens de custo para inclus„o de comprovaÁ„o financeira.';
-    var me72 = 'Deseja realmente finalizar esse processo? Com essa confirmaÁ„o vocÍ n„o poder· mais alterar os dados desse processo.';
-    var ag1  = 'Dados obrigatÛrios n„o informados.';
+    var me71 = 'Esse projeto N√£o possui itens de custo para comprovaÔøΩÔøΩo financeira. Favor incluir todos os itens de custo para inclusÔøΩo de comprovaÔøΩÔøΩo financeira.';
+    var me72 = 'Deseja realmente finalizar esse processo? Com essa Confirma√ß√£o vocÔøΩ N√£o poderÔøΩ mais alterar os dados desse processo.';
+    var ag1  = 'Dados obrigatÔøΩrios N√£o informados.';
     var ag4  = 'Deseja realmente excluir dados?';
     var sg1  = '';
     var sg2  = '';
@@ -941,9 +941,9 @@ function fornecedores(){
     var me89 = '';
     var me90 = '';
     var me72 = '';
-    var me99 = '';    
+    var me99 = '';
     $(document).ready(function(){
-        
+
         $.datepicker.regional['pt-BR'] = {
             closeText: 'Fechar',
             prevText: '&#x3c;Anterior',
@@ -961,8 +961,8 @@ function fornecedores(){
             showMonthAfterYear: false,
             yearSuffix: ''};
         $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
-        
-       
+
+
         //var pagina = requisicaoAjaxObj();
         //var menuAjax = requisicaoAjaxObj();
 

@@ -1,37 +1,37 @@
 <?php
 /**
- * Projetos Deferidos - OrÁamento
+ * Projetos Deferidos - OrÔøΩamento
  * @author Equipe RUP - Politec
  * @since 20/07/2010
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.recurso
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
 		<li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'index')); ?>" title="Ir para Recurso">Recurso</a></li>
-		<li class="last">Projetos Deferidos - OrÁamento</li>
+		<li class="last">Projetos Deferidos - OrÔøΩamento</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-	<div>Projetos Deferidos - OrÁamento <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>Projetos Deferidos - OrÔøΩamento <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 
@@ -42,7 +42,7 @@
 
 	<table class="tabela">
 
-	
+
 	<tr>
 		<th>Pronac</th>
 		<th>Nome do Projeto</th>
@@ -50,14 +50,14 @@
 
 	<?php foreach($this->recursoorcamento as $recursoorcamento): ?>
 	<tr>
-	  
+
 <td><?php echo $this->escape($recursoorcamento->pronac);?></td>
 <td><?php echo $this->escape($recursoorcamento->NomeProjeto);?></td>
 </tr>
-<?php endforeach;?>	
-	
-	
-	
+<?php endforeach;?>
+
+
+
 	<tr>
 		<th>CNPJ/CPF</th>
 		<th>Proponente</th>
@@ -73,31 +73,31 @@
 				}
 				else
 				{
-					echo "<em>N„o informado.</em>";
+					echo "<em>N√£o informado.</em>";
 				}
 				?>
 </td>
 <td><?php echo $this->escape($recursoorcamento->NomeProponente);?></td>
 </tr>
-<?php endforeach;?>	
+<?php endforeach;?>
 
 	</table>
 
 
 
-	
+
 	<table class="tabela">
-	
+
 		<tr>
 			<th colspan = "2">Recurso</th>
 		</tr>
-		
+
 		 <?php foreach($this->recursoorcamento as $recursoorcamento): ?>
-		<tr>						
-			 
+		<tr>
+
 			<td><?php echo  html_entity_decode($recursoorcamento->dsSolicitacaoRecurso);?></td>
 		</tr>
-			<?php endforeach;?>	
+			<?php endforeach;?>
 	</table>
 	<!-- ========== FIM TABELA RECURSO ========== -->
 
@@ -111,7 +111,7 @@
 
 	<br />
 
-	<!-- ========== INÕCIO TABELA RECURSO ========== -->
+	<!-- ========== IN√çCIO TABELA RECURSO ========== -->
 
 
 
@@ -136,13 +136,13 @@
 
 
 
-	
 
 
-								
+
+
 		<table class="tabela">
 
-			<!-- ========== INÕCIO BUSCA POR PRODUTO ========== -->
+			<!-- ========== IN√çCIO BUSCA POR PRODUTO ========== -->
 			<?php
 			$item = 1; // contador para os itens
 			$contadorProd  = 0;
@@ -161,15 +161,15 @@
 
 
 
-				<!-- ========== INÕCIO BUSCA POR ETAPA ========== -->
+				<!-- ========== IN√çCIO BUSCA POR ETAPA ========== -->
 				<?php
 				foreach (RecursoDAO::analiseDeCustosBuscarEtapa($buscarProd->IdPRONAC, $buscarProd->idProduto, true) as $buscarEtapa) :
 				?>
-	
+
 				<tr class="IFF IFF_PRODUTO<?php echo $contadorProd; ?>">
 					<td colspan="12">
 						<strong style="margin-left:2%;">
-							<?php foreach ($this->planilhaEtapa as $etapa) : // Nome ou DescriÁ„o da Etapa ?>
+							<?php foreach ($this->planilhaEtapa as $etapa) : // Nome ou Descri√ß√£o da Etapa ?>
 								<?php if ($buscarEtapa->idEtapa == $etapa->idPlanilhaEtapa) : ?>
 									<div id="icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>" class="sumir"><a href="#icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>" onclick="$('#icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>, .IFF_ETAPA<?php echo $contadorEtapa; ?>').show(); $('#icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>').hide();" onkeypress=" "><div class="icn_mais" style="width:90%; margin-left:4%;"><span class="orange del_link"><?php echo $buscarEtapa->idEtapa; ?> - <?php echo $etapa->Descricao; ?></span></div></a></div>
 									<div id="icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>"><a href="#icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>" onclick="$('#icn_maisIFF_ETAPA<?php echo $contadorEtapa; ?>').show(); $('#icn_menosIFF_ETAPA<?php echo $contadorEtapa; ?>, .IFF_ETAPA<?php echo $contadorEtapa; ?>').hide();" onkeypress=" "><div class="icn_menos" style="width:90%; margin-left:4%;"><span class="orange del_link"><?php echo $buscarEtapa->idEtapa; ?> - <?php echo $etapa->Descricao; ?></span></div></a></div>
@@ -178,36 +178,36 @@
 						</strong>
 					</td>
 				</tr>
-	
-	
-	
-					<!-- ========== INÕCIO BUSCA POR UF ========== -->
+
+
+
+					<!-- ========== IN√çCIO BUSCA POR UF ========== -->
 					<?php
 					//foreach (RealizarAnaliseProjetoDAO::analiseDeCustosBuscarUF($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, true) as $buscarUF) :
 					?>
-	
-	
-	
-						<!-- ========== INÕCIO ÕTENS ========== -->
+
+
+
+						<!-- ========== IN√çCIO ÔøΩTENS ========== -->
 					    <tr class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?>">
 							<th width="18%">Nome do Item</th>
 					        <th width="11%">Valor Solicitado</th>
 					        <th width="11%">Valor Aprovado</th>
 					        <th width="30%">Justificativa Proponente</th>
-					        <th width="30%">Justificativa TÈcnica</th>
+					        <th width="30%">Justificativa T√©cnica</th>
 					    </tr>
-	
+
 						<?php
 						// caso tenha projetos
 						$totalItens = 0;
 						if (count(RecursoDAO::analiseDeConta($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, null, null, true)) > 0)
 						{
 							foreach (RecursoDAO::analiseDeConta($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, null, null, true) as $resposta) :
-								$i = $resposta->idPlanilhaAprovacao; // criar· id ˙nido
+								$i = $resposta->idPlanilhaAprovacao; // criarÔøΩ id ÔøΩnido
 						?>
-	
-					    <tr onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);" 
-					    	class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?> 
+
+					    <tr onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);"
+					    	class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?>
 					    		<?php
 					    		if ($i == $_GET['Ativo'])
 					    		{
@@ -224,12 +224,12 @@
 					    		$totalItens--;
 					    		?>">
 					        <td>
-	
 
 
 
 
-						<!-- ========== INÕCIO MODAL ========== -->
+
+						<!-- ========== IN√çCIO MODAL ========== -->
 						<div id="dialog-modalparec<?php echo $item; ?>" title="Justificativa" class="sumir">
 
 						<!-- ========== EDITOR ========== -->
@@ -250,11 +250,11 @@
 										    $('#form').submit(function()
 											{
 												var texto = CKEDITOR.instances['justificativa'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,'');
-						
+
 												if (texto.length > 0 && texto != 'Digiteseutextoaqui...')
 												{
-													// verifica se o usu·rio clicou no bot„o
-													 
+													// verifica se o usuÔøΩrio clicou no botÔøΩo
+
 													$('#justificativa').val(CKEDITOR.instances['justificativa'].getData());
 												}
 												else
@@ -266,7 +266,7 @@
 														draggable: false,
 														resizable: false,
 														closeOnEscape: false,
-														title: 'Dados obrigatÛrios n„o informados!',
+														title: 'Dados obrigatÔøΩrios N√£o informados!',
 														buttons:
 														{
 															Ok:function()
@@ -285,25 +285,25 @@
 										<input type="hidden" name="idRecurso" id="idRecurso" value="<?php echo $resposta->idRecurso ?>" />
 										<br />
 										<p align="center">
-											<input type="radio" name="stAtendimento" id="D" value="D" checked="checked" /> <label for="D">Deferir</label> &nbsp;&nbsp;&nbsp; 
+											<input type="radio" name="stAtendimento" id="D" value="D" checked="checked" /> <label for="D">Deferir</label> &nbsp;&nbsp;&nbsp;
 											<input type="radio" name="stAtendimento" id="I" value="I" /> <label for="I">Indeferir</label>
 										</p>
 										<br />
 										<p>
-											<input type="submit" class="btn" value=" Salvar " /> &nbsp; 
+											<input type="submit" class="btn" value=" Salvar " /> &nbsp;
 											<input type="hidden" name="idPronac" id="idPronac" value="<?php echo $_GET['idPronac']; ?>" />
-											<input type="reset" class="btn Close" value=" Cancelar " /> &nbsp; 
+											<input type="reset" class="btn Close" value=" Cancelar " /> &nbsp;
 										</p>
 									</td>
 								</tr>
 							</table>
-						
+
 							<script type="text/javascript">
 							<!--
 							/* $('#form').submit(function()
 							{
 								justificativa = document.getElementById('justificativa').value.toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,'');
-						
+
 								if (justificativa == '' || justificativa == 'Digiteseutextoaqui...')
 								{
 									$("#dialog").dialog("destroy");
@@ -313,7 +313,7 @@
 										draggable: false,
 										resizable: false,
 										closeOnEscape: false,
-										title: 'Dados obrigatÛrios n„o informados!',
+										title: 'Dados obrigatÔøΩrios N√£o informados!',
 										buttons:
 										{
 											Ok:function()
@@ -342,10 +342,10 @@
 								<?php echo $this->escape($resposta->Item); ?>
 							<?php }?>
 					        </td>
-					        
-					
-	
-					      
+
+
+
+
 					        <td class="direita"><?php echo $this->formatarReal($this->escape($resposta->VlSolicitado)); ?></td>
 					        <td class="direita"><?php echo $this->formatarReal($this->escape($resposta->VlSugeridoParecerista)); ?></td>
 							<td>
@@ -372,42 +372,42 @@
 								}
 								?>
 							</td>
-	
-					
-						</tr>	
-	
-	
+
+
+						</tr>
+
+
 						<?php
 								$item++; // incrementa o contador de itens
-							endforeach; // fecha foreach itens		
+							endforeach; // fecha foreach itens
 						} // fecha if (caso tenha projetos)
 						?>
-						<!-- ========== FIM ÕTENS ========== -->
-	
-	
-	
+						<!-- ========== FIM ÔøΩTENS ========== -->
+
+
+
 						<?php $contadorUF++; ?>
 					<?php // endforeach; ?>
 					<!-- ========== FIM BUSCA POR UF ========== -->
-	
-	
-	
+
+
+
 				<?php
 					$contadorEtapa++;
 				endforeach;
 				?>
 				<!-- ========== FIM BUSCA POR ETAPA ========== -->
-	
-	
-	
+
+
+
 			<?php $contadorProd++; ?>
 			<?php endforeach; ?>
 			<!-- ========== FIM BUSCA POR PRODUTO ========== -->
 
-	
+
 			<tr>
 				<td colspan="10">
-	
+
 					<div class="float_right">
 						<!-- <input type="submit" class="btn_salvar" value=" " onclick="return valida()" /></input> -->
 						<input type="hidden" name="idProduto" value="<?php echo $resposta->idProduto; ?>" /></input>
@@ -419,17 +419,17 @@
 			</tr>
 		</table>
 
-	
+
 
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

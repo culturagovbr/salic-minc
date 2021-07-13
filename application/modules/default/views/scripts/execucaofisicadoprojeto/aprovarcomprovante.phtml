@@ -1,43 +1,43 @@
 <?php
 /**
- * Aprovação de comprovantes (Acesso: COORDENADORES)
+ * aprovaÃ§Ã£o de comprovantes (Acesso: COORDENADORES)
  * @author Equipe RUP - Politec
  * @since 28/04/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicadoprojeto
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="last">Comprovação de Execução Física do Projeto</li>
+		<li class="last">Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Comprovação de Execução Física do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'comprovantesemaprovacao')); ?>?pronac=<?php echo $_GET['pronac']; ?>');">Voltar</a></span></div>
+	<div>Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'comprovantesemaprovacao')); ?>?pronac=<?php echo $_GET['pronac']; ?>');">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
 
-	<!-- ========== INÍCIO FORMULÁRIO APROVAÇÃO ========== -->
-	<form name="formAlterar" id="formAlterar" method="post" 
+	<!-- ========== INÃCIO FORMULï¿½RIO aprovaÃ§Ã£o ========== -->
+	<form name="formAlterar" id="formAlterar" method="post"
 		action="<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'aprovarcomprovante')); ?>?pronac=<?php echo $_GET['pronac']; ?>&doc=<?php echo $_GET['doc']; ?>">
-	
+
 	<table class="tabela" colspan="2" class="titulo_tabela">
 
 		<?php foreach ($this->buscarPronac as $p): ?>
@@ -54,7 +54,7 @@
 		<?php foreach ($this->buscarDoc as $d): ?>
 
 		<?php
-		// CASO TENHA COMPROVANTES SUBSTITUÍDOS (HISTÓRICO)
+		// CASO TENHA COMPROVANTES SUBSTITUï¿½DOS (HISTï¿½RICO)
 		if ($this->buscarComprovanteSubstituido)
 		{
 		?>
@@ -73,11 +73,11 @@
 							<td><?php echo $s->dsTipoDocumento; ?></td>
 						</tr>
 						<tr>
-							<th>TÍTULO</th>
+							<th>Tï¿½TULO</th>
 							<td><?php echo $s->nmComprovante; ?></td>
 						</tr>
 						<tr>
-							<th>DESCRIÇÃO</th>
+							<th>DescriÃ§Ã£o</th>
 							<td><?php echo $s->dsComprovante; ?></td>
 						</tr>
 						<tr>
@@ -87,21 +87,21 @@
 						<?php endforeach; ?>
 					</table>
 
-					<!-- ========== SOLICITAÇÃO DE ALTERAÇÃO ========== -->
+					<!-- ========== SolicitaÃ§Ã£o DE ALTERAï¿½ï¿½O ========== -->
 					<table style="width:48%; float:left;">
 						<tr class="titulo_tabela centro">
-							<th colspan="2">SOLICITAÇÃO DE ALTERAÇÃO - <?php echo $d->dtEnvioComprovante; ?></th>
+							<th colspan="2">SolicitaÃ§Ã£o DE ALTERAï¿½ï¿½O - <?php echo $d->dtEnvioComprovante; ?></th>
 						</tr>
 						<tr>
 							<th width="20%">TIPO DE DOCUMENTO</th>
 							<td <?php if ($d->dsTipoDocumento != $s->dsTipoDocumento) echo "class=\"red\""; ?>><?php echo $d->dsTipoDocumento; ?></td>
 						</tr>
 						<tr>
-							<th>TÍTULO</th>
+							<th>Tï¿½TULO</th>
 							<td <?php if ($d->nmComprovante != $s->nmComprovante) echo "class=\"red\""; ?>><?php echo $d->nmComprovante; ?></td>
 						</tr>
 						<tr>
-							<th>DESCRIÇÃO</th>
+							<th>DescriÃ§Ã£o</th>
 							<td <?php if ($d->dsComprovante != $s->dsComprovante) echo "class=\"red\""; ?>><?php echo $d->dsComprovante; ?></td>
 						</tr>
 						<tr>
@@ -119,7 +119,7 @@
 
 		<?php
 		} // fecha if
-		// SEM COMPROVANTE SUBSTITUÍDO (HISTÓTICO)
+		// SEM COMPROVANTE SUBSTITUï¿½DO (HISTï¿½TICO)
 		else
 		{
 		?>
@@ -129,11 +129,11 @@
 				<td><?php echo $d->dsTipoDocumento; ?></td>
 			</tr>
 			<tr>
-				<th>TÍTULO</th>
+				<th>Tï¿½TULO</th>
 				<td><?php echo $d->nmComprovante; ?></td>
 			</tr>
 			<tr>
-				<th>DESCRIÇÃO</th>
+				<th>DescriÃ§Ã£o</th>
 				<td><?php echo $d->dsComprovante; ?></td>
 			</tr>
 			<tr>
@@ -144,10 +144,10 @@
 		<?php
 		} // fecha else
 		?>
-	
+
 		<tr>
 			<td colspan="2" style="border:none; background:#ffc;" class="centro">
-				<p>Autor do Parecer: João da Silva - Analista MinC</p>
+				<p>Autor do Parecer: Joï¿½o da Silva - Analista MinC</p>
 				<br />
 				<p><?php echo $d->dsParecerComprovante; ?></p>
 			</td>
@@ -169,8 +169,8 @@
 				<input type="hidden" name="pronac" id="pronac" value="<?php echo $d->pronac; ?>" />
 				<input type="hidden" name="doc" id="doc" value="<?php echo $d->idComprovante; ?>" />
 				<input type="hidden" name="idComprovanteAnterior" id="idComprovanteAnterior" value="<?php echo $d->idComprovanteAnterior; ?>" />
-				<textarea class="textarea_simples w600" type="text" name="parecer" id="descricao" cols="60" rows="4" <?php echo $this->contadorTextarea('form.descricao', 'form.exibirContadorTextarea', 500); ?> 
-					onclick="limpar_campo(this, 'Digite a justificativa...');" onmousedown=" " onkeypress=" " 
+				<textarea class="textarea_simples w600" type="text" name="parecer" id="descricao" cols="60" rows="4" <?php echo $this->contadorTextarea('form.descricao', 'form.exibirContadorTextarea', 500); ?>
+					onclick="limpar_campo(this, 'Digite a justificativa...');" onmousedown=" " onkeypress=" "
 					onblur="restaurar_campo(this, 'Digite a justificativa...');"><?php echo isset($this->parecer) ? $this->parecer : 'Digite a justificativa...'; ?></textarea>
 				<?php echo $this->exibirContadorTextarea('exibirContadorTextarea', 3, 500, strlen($this->parecer)); ?>
 			</td>
@@ -184,13 +184,13 @@
 
 
 
-	<!-- ========== BOTÕES VOLTAR E ETC ========== -->
+	<!-- ========== BOTï¿½ES VOLTAR E ETC ========== -->
 	<table class="tabela">
 		<tr>
 			<td>
 				<div class="float_left">
-					<input type="button" class="btn_voltar" title=" Página Anterior "
-						onkeypress=" " 
+					<input type="button" class="btn_voltar" title=" pÃ¡gina Anterior "
+						onkeypress=" "
 						onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'comprovantesemaprovacao')); ?>?pronac=<?php echo $_GET['pronac']; ?>');" />
 				</div>
 				<div class="float_right">
@@ -201,17 +201,17 @@
 	</table>
 
 	</form>
-	<!-- ========== FIM FORMULÁRIO APROVAÇÃO ========== -->
+	<!-- ========== FIM FORMULï¿½RIO aprovaÃ§Ã£o ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

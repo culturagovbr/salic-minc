@@ -94,7 +94,7 @@ class Inabilitado extends MinC_Db_Table_Abstract
                          	AND Sequencial 	= '".$dados['Sequencial']."'";
 
 
-        //Retirado, n�o pode ter mais de um registro de um �nico projeto
+        //Retirado, Não pode ter mais de um registro de um �nico projeto
         //AND CgcCpf 		= '".$dados['CgcCpf']."'
 
 

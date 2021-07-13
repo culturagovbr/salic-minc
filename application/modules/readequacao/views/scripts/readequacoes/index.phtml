@@ -2,7 +2,7 @@
  $(document).ready(function () {
      $3('.editarReadequacaoDevolvida').on('click', function() {
          var idTipoReadequacao = parseInt($(this).attr('idTipoReadequacao'));
-         
+
          switch(idTipoReadequacao) {
              case 1:
                  var url = '/readequacao/remanejamento-menor/index/?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>';
@@ -25,7 +25,7 @@
                  break;
          }
      });
-     
+
         $('.comboReadequacoes').change(function () {
             var valor = $(this).val(),
                 solicitacoesSimples = new Array(3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21);
@@ -229,7 +229,7 @@
                 });
                 $('.ui-dialog-titlebar-close').remove();
             } else {
-                // tipos de readequacao que n�o pedem confirma��o
+                // tipos de readequacao que Não pedem Confirmação
                 if ($.inArray(tipoRead, naoPedeConfirmacao)) {
                     enviarformulario();
                 } else {
@@ -470,7 +470,7 @@
                     }
 
                     CKEDITOR.instances['descJustificativa'].setData(data.readequacao.dsJustificativa);
-                    
+
                     jqAjaxLinkSemLoading(
                         '<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'criar-campo-tipo-readequacao'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>&tpReadequacao=' + tpReadequacao,
                         '',
@@ -482,7 +482,7 @@
                     );
                 } else {
                     $3('#readequacaoEdicao').addClass('sumir');
-                    jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'criar-campo-tipo-readequacao'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>&tpReadequacao=' + tpReadequacao, '', 'campoCriadoTipoReadequacao'); 
+                    jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'criar-campo-tipo-readequacao'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>&tpReadequacao=' + tpReadequacao, '', 'campoCriadoTipoReadequacao');
                 }
             }
         });

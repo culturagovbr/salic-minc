@@ -6,24 +6,24 @@
     });
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>" title="Consultar dados projeto">Consultar dados projeto</a></li>
-        <li class="last">Histórico encaminhamento</li>
+        <li class="last">Histï¿½rico encaminhamento</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>Histórico encaminhamento <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
+    <div>Histï¿½rico encaminhamento <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr class="destacar">
@@ -35,15 +35,15 @@
             <td align="center"><?php echo $this->DadosProjeto->nomeProjeto; ?></td>
         </tr>
     </table>
-    
-    
+
+
     <?php if(count($this->dados) > 0){ ?>
     <table class="tabela tablesorter">
         <thead>
             <tr class="titulo_tabela">
                 <th>Produto</th>
                 <th>Unidade</th>
-                <th>Observação</th>
+                <th>Observaï¿½ï¿½o</th>
                 <th>Dt. Envio</th>
                 <th>Dt. Retorno</th>
                 <th>Qt. Dias</th>
@@ -62,9 +62,9 @@
             <?php $prod=$d->Produto; $unidade=$d->Unidade; } ?>
         </tbody>
     </table>
-    
+
     <br clear="all" />
-    
+
     <p class="centro"><input type="button" class="btn_imprimir" /></p>
 
 
@@ -82,7 +82,7 @@
     </form>
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

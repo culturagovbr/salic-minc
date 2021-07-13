@@ -1,19 +1,19 @@
 <?php
 /**
- * Helper para verificar o status da diligência
+ * Helper para verificar o status da diligï¿½ncia
  * @author Equipe RUP - Politec
  * @since 16/09/2011
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_StatusDiligencia
 {
     /**
-     * Método para verificar o status da diligencia
+     * Mï¿½todo para verificar o status da diligencia
      * @access public
      * @param integer $idPronac
      * @return string
@@ -34,7 +34,7 @@ class Zend_View_Helper_StatusDiligencia
         $buscar 	= $Diligencia->buscar($where);
 
         foreach ($buscar as $d):
-        
+
             if ($d[0]->DtSolicitacao && $d[0]->DtResposta == null) {
                 $diligencias['img'] = "notice.png";
                 $diligencias['msg'] = "Diligenciado";
@@ -43,14 +43,14 @@ class Zend_View_Helper_StatusDiligencia
                 $diligencias['msg'] = "Diligencia respondida";
             } elseif ($d[0]->DtSolicitacao && round(data::CompararDatas($d[0]->DtDistribuicao)) > $d[0]->tempoFimDiligencia) {
                 $diligencias['img'] = "notice2.png";
-                $diligencias['msg'] = "Diligencia não respondida";
+                $diligencias['msg'] = "Diligencia NÃ£o respondida";
             } else {
                 $diligencias['img'] = "notice1.png";
                 $diligencias['msg'] = "A Diligenciar";
             }
-                
+
         endforeach;
-               
-        return 'Não terminei';
-    } // fecha método verificarStatusDiligencia()
+
+        return 'NÃ£o terminei';
+    } // fecha mï¿½todo verificarStatusDiligencia()
 } // fecha class

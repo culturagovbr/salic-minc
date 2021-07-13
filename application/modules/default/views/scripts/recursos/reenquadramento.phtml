@@ -6,15 +6,15 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.recurso
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'recurso')); ?>" title="Ir para Recurso">Recurso</a></li>
         <li class="last">Projetos Deferidos - Reenquadramento</li>
     </ul>
@@ -22,14 +22,14 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Projetos Deferidos - Reenquadramento <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
     <table class="tabela">
@@ -49,7 +49,7 @@
         </tr>
         <tr>
             <td>
-                <?php echo (!empty($tbreenquadramento[0]->CgcCpf)) ? Validacao::mascaraCPFCNPJ($this->escape($tbreenquadramento[0]->CgcCpf)) : "<em>N„o informado.</em>"; ?>
+                <?php echo (!empty($tbreenquadramento[0]->CgcCpf)) ? Validacao::mascaraCPFCNPJ($this->escape($tbreenquadramento[0]->CgcCpf)) : "<em>N√£o informado.</em>"; ?>
             </td>
             <td><?php echo $this->escape($tbreenquadramento[0]->NomeProponente);?></td>
         </tr>
@@ -67,7 +67,7 @@
 
     <br clear="all" />
 
-    <!-- ========== INÕCIO FORMUL¡RIO JUSTIFICATIVA ========== -->
+    <!-- ========== IN√çCIO FORMULÔøΩRIO JUSTIFICATIVA ========== -->
     <div id="dialog-alert" class="sumir">Por favor, digite sua justificativa!</div>
     <form name="form" id="form" action="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'reenquadramento')); ?>?idPronac=<?php echo $this->escape($tbreenquadramento->IdPRONAC);?>" method="post">
         <table class="tabela">
@@ -81,7 +81,7 @@
                         <input type="radio" name="enquadramento" id="Artigo18" value="2" <?php if ($tbreenquadramento[0]->Enquadramento == 1) {
                             echo " checked=\"checked\"";
                         }?> /> <label for="Artigo18">Artigo 18</label> &nbsp;&nbsp;&nbsp;
-                        
+
                         <input type="radio" name="enquadramento" id="Artigo26" value="1" <?php if ($tbreenquadramento[0]->Enquadramento == 2) {
                             echo " checked=\"checked\"";
                         }?> /> <label for="Artigo26">Artigo 26</label>
@@ -110,7 +110,7 @@
 
                                         if (texto.length > 0 && texto != 'Digiteseutextoaqui...')
                                         {
-                                            // verifica se o usu·rio clicou no bot„o 'ReintegraÁ„o'
+                                            // verifica se o usuÔøΩrio clicou no botÔøΩo 'ReintegraÔøΩÔøΩo'
 
                                             $('#dsRecurso').val(CKEDITOR.instances['dsRecurso'].getData());
                                         }
@@ -123,7 +123,7 @@
                                                 draggable: false,
                                                 resizable: false,
                                                 closeOnEscape: false,
-                                                title: 'Dados obrigatÛrios n„o informados!',
+                                                title: 'Dados obrigatÔøΩrios N√£o informados!',
                                                 buttons:
                                                     {
                                                     Ok:function()
@@ -156,7 +156,7 @@
                     </p>
                     <br clear="all" />
                     <p>
-                        <input type="button" class="btn" value=" An·lise do Projeto " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado', 'idpronac' => $_GET['idPronac'])); ?>');" onkeypress=" " /> &nbsp;
+                        <input type="button" class="btn" value=" An√°lise do Projeto " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado', 'idpronac' => $_GET['idPronac'])); ?>');" onkeypress=" " /> &nbsp;
                         <input type="submit" class="btn" value=" Salvar " /> &nbsp;
                         <input type="reset" class="btn" value=" Cancelar " onclick="redirecionar('<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'index')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>');" onkeypress=" " /> &nbsp;
                     </p>
@@ -164,15 +164,15 @@
             </tr>
         </table>
     </form>
-    <!-- ========== FIM FORMUL¡RIO JUSTIFICATIVA ========== -->
+    <!-- ========== FIM FORMULÔøΩRIO JUSTIFICATIVA ========== -->
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

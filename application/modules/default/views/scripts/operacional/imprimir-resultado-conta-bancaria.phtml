@@ -96,13 +96,13 @@
 </style>
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div class="paginaA4">
     <div align="center">
-        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério da Cidadania"/>
-        <br clear="all" /><span class="TituloMinC">Ministério da Cultura</span>
-        <br clear="all" /><span class="TituloDoDocumento">Conta Bancária - Resultado</span>
-        <br clear="all" /><span class="DataDoDocumento">Data da impressão: <?php echo date('d/m/Y - H:i:s'); ?></span>
+        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministï¿½rio da Cidadania"/>
+        <br clear="all" /><span class="TituloMinC">Ministï¿½rio da Cultura</span>
+        <br clear="all" /><span class="TituloDoDocumento">Conta Bancï¿½ria - Resultado</span>
+        <br clear="all" /><span class="DataDoDocumento">Data da impressï¿½o: <?php echo date('d/m/Y - H:i:s'); ?></span>
         <br clear="all" /><br clear="all" /><span class="QntdRegistros"><?php echo count($this->dados).' projetos listados'; ?></span>
     </div>
 
@@ -112,21 +112,21 @@
             <tr class="titulo_tabela">
                 <th>PRONAC</th>
                 <th>Nome do Projeto</th>
-                <th>Área</th>
-                <th>Situação</th>
+                <th>ï¿½rea</th>
+                <th>Situaï¿½ï¿½o</th>
                 <th>CNPJ/CPF</th>
                 <th>Proponente</th>
                 <th>Tipo de Pessoa</th>
                 <th>N&ordm; Portaria</th>
-                <th>Dt. Publicação Portaria</th>
-                <th>Dt. Início Captação</th>
-                <th>Dt. Fim Captação</th>
+                <th>Dt. Publicaï¿½ï¿½o Portaria</th>
+                <th>Dt. INÃCIO Captaï¿½ï¿½o</th>
+                <th>Dt. Fim Captaï¿½ï¿½o</th>
                 <th>Dt. Nascimento</th>
-                <th>Agência</th>
-                <th>Conta Captação</th>
+                <th>Agï¿½ncia</th>
+                <th>Conta Captaï¿½ï¿½o</th>
                 <th>Conta Movimento</th>
                 <th>Dt. Lote Remessa</th>
-                <th>Ocorrência</th>
+                <th>Ocorrï¿½ncia</th>
             </tr>
         </thead>
         <tbody>
@@ -138,7 +138,7 @@
                 <td align="center"><?php echo $d->Situacao; ?></td>
                 <td align="center"><?php echo (strlen($d->CgcCpf) > 11) ? Mascara::addMaskCNPJ($d->CgcCpf) : Mascara::addMaskCPF($d->CgcCpf); ?></td>
                 <td><?php echo $d->Proponente; ?></td>
-                <td><?php echo ($d->TipoPessoa == 1) ? 'Pessoa Jurídica' : 'Pessoa Física'; ?></td>
+                <td><?php echo ($d->TipoPessoa == 1) ? 'Pessoa Jurï¿½dica' : 'Pessoa Fï¿½sica'; ?></td>
                 <td><?php echo $d->NrPortaria; ?></td>
                 <td align="center"><?php echo !empty($d->DtPublicacaoPortaria) ? Data::tratarDataZend($d->DtPublicacaoPortaria, 'Brasileira') : ''; ?></td>
                 <td align="center"><?php echo !empty($d->DtInicioCaptacao) ? Data::tratarDataZend($d->DtInicioCaptacao, 'Brasileira') : ''; ?></td>
@@ -181,52 +181,52 @@
                         if($d->OcorrenciaCB != '000'){
                             switch ($d->OcorrenciaCB) {
                                 case '001':
-                                    echo 'Tipo de pessoa inválido';
+                                    echo 'Tipo de pessoa invï¿½lido';
                                     break;
                                 case '002':
-                                    echo 'Tipo de CPF/CNPJ inválido';
+                                    echo 'Tipo de CPF/CNPJ invï¿½lido';
                                     break;
                                 case '003':
-                                    echo 'CPF/CNPJ inválido';
+                                    echo 'CPF/CNPJ invï¿½lido';
                                     break;
                                 case '004':
-                                    echo 'Data de nascimento inválida';
+                                    echo 'Data de nascimento invï¿½lida';
                                     break;
                                 case '005':
-                                    echo 'Nome cliente inválido';
+                                    echo 'Nome cliente invï¿½lido';
                                     break;
                                 case '006':
-                                    echo 'Agência inválida';
+                                    echo 'Agï¿½ncia invï¿½lida';
                                     break;
                                 case '007':
                                     echo 'Mais de 5 clientes cadastrado p/o CPF informado';
                                     break;
                                 case '008':
-                                    echo 'Cliente BB-Campus fora da faixa etária (16 a 28 anos)';
+                                    echo 'Cliente BB-Campus fora da faixa etï¿½ria (16 a 28 anos)';
                                     break;
                                 case '009':
-                                    echo 'Cliente BB-Campus não titular do CPF';
+                                    echo 'Cliente BB-Campus NÃ£o titular do CPF';
                                     break;
                                 case '010':
-                                    echo 'Dados pessoa física divergentes';
+                                    echo 'Dados pessoa fï¿½sica divergentes';
                                     break;
                                 case '011':
-                                    echo 'Dados pessoa jurídica divergentes';
+                                    echo 'Dados pessoa jurï¿½dica divergentes';
                                     break;
                                 case '013':
-                                    echo 'Cliente BB-Campus não  titular do CPF';
+                                    echo 'Cliente BB-Campus NÃ£o  titular do CPF';
                                     break;
                                 case '014':
-                                    echo 'Perfil agência incompatível com tipo de pessoa';
+                                    echo 'Perfil agï¿½ncia incompatï¿½vel com tipo de pessoa';
                                     break;
                                 case '015':
-                                    echo 'Tipo de pessoa incompatível  com natureza jurídica';
+                                    echo 'Tipo de pessoa incompatï¿½vel  com natureza jurï¿½dica';
                                     break;
                                 case '016':
-                                    echo 'Tipo de repasse inválido';
+                                    echo 'Tipo de repasse invï¿½lido';
                                     break;
                                 case '017':
-                                    echo 'Tipo de pessoa não permitido para esse processo/tipo de repasse';
+                                    echo 'Tipo de pessoa NÃ£o permitido para esse processo/tipo de repasse';
                                     break;
                                 default:
                                     echo '';
@@ -252,8 +252,8 @@
     <br clear="all" />
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

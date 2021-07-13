@@ -4,13 +4,13 @@
 //echo $this->partial('inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres T&eacute;cnicos</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'pareceresaconsolidar'),'',true); ?>" title="Gerenciar Pareceres">Pareceres a Consolidar</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'pcvisualizartramitacao'),'',true); ?>" title="Gerenciar Pareceres">Visualizar TramitaÁ„o</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'pcvisualizartramitacao'),'',true); ?>" title="Gerenciar Pareceres">Visualizar Tramita√ß√£o</a></li>
 		<li class="last">Localizar Pareceres</li>
 	</ul>
 </div>
@@ -18,82 +18,82 @@
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>Localizar Pareceres<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 <form action="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'pcvisualizartramitacao')); ?>" method="post">
 <table class="tabela">
-	<tr>	
+	<tr>
 		<td width="120">idPronac</td>
 		<td width="220" align="center">Exatamente igual</td>
 		<td><input type="text" class="input_simples" name="idpronac" value="" /></td>
 	</tr>
-	<tr>	
+	<tr>
 		<td>idProduto</td>
 		<td align="center">Exatamente igual</td>
 		<td><input type="text" class="input_simples" name="idproduto" value="" /></td>
 	</tr>
-	<tr>	
+	<tr>
 		<td>Produto</td>
 		<td align="center">
 			<select name="produtotc" style="width: 200px;" class="input_simples">
 				<option value="1">Exatamente igual</option>
-				<option value="2">InÌcio igual</option>
-				<option value="3">Que contenha</option>												
-				<option value="4">Diferente</option>												
+				<option value="2">IN√çCIO igual</option>
+				<option value="3">Que contenha</option>
+				<option value="4">Diferente</option>
 			</select>
 		</td>
 		<td><input type="text" class="input_simples" name="produto" value="" /></td>
 	</tr>
-	<tr>	
+	<tr>
 		<td>Tipo de Analise</td>
 		<td align="center">
 			<select name="tipoanalisetc" style="width: 200px;" class="input_simples">
 				<option value="1">Exatamente igual</option>
-				<option value="1">InÌcio igual</option>
-				<option value="2">Que contenha</option>												
-				<option value="3">Diferente</option>												
+				<option value="1">IN√çCIO igual</option>
+				<option value="2">Que contenha</option>
+				<option value="3">Diferente</option>
 			</select>
 		</td>
 		<td><input type="text" class="input_simples" name="tipoanalise" value="" /></td>
 	</tr>
-	<tr>	
-		<td>”rgao</td>
+	<tr>
+		<td>ÔøΩrgao</td>
 		<td align="center">
 			<select name="orgaotc" style="width: 200px;" class="input_simples">
 				<option value="1">Exatamente igual</option>
-				<option value="2">Diferente</option>												
+				<option value="2">Diferente</option>
 			</select>
 		</td>
 		<td>
 			<select name="orgao" style="width: 200px;" class="input_simples">
 				<option value="">Selecione</option>
-				<option value="0">ContÈudo</option>
+				<option value="0">ContÔøΩudo</option>
 				<option value="1">Custo do Produto</option>
-				<option value="2">Custo Administrativo</option>																								
-			</select>			
+				<option value="2">Custo Administrativo</option>
+			</select>
 		</td>
 	</tr>
-	<tr>	
+	<tr>
 		<td>Unidade</td>
 		<td align="center">
 			<select name="unidadetc" style="width: 200px;" class="input_simples">
 				<option value="1">Exatamente igual</option>
-				<option value="2">InÌcio igual</option>
-				<option value="3">Que contenha</option>												
-				<option value="4">Diferente</option>												
+				<option value="2">IN√çCIO igual</option>
+				<option value="3">Que contenha</option>
+				<option value="4">Diferente</option>
 			</select>
 		</td>
 		<td><input type="text" class="input_simples" name="unidade" value="" /></td>
 	</tr>
-	<tr>	
+	<tr>
 		<td colspan="3" align="center">
 			<input type="submit" class="btn_localizar" name="name" value=" " />
 			<input type="reset" class="btn_limpar" name="name" value=" " />
@@ -106,12 +106,12 @@
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

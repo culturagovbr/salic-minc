@@ -89,7 +89,7 @@ class ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjetoXArquivo extends MinC_D
         $arquivoModel = new ArquivoModel();
         $cumprimentoObjetoArquivo = $this;
         array_walk($_FILES, function ($file, $filename) use ($idCumprimentoDoObjeto, $arquivoModel, $cumprimentoObjetoArquivo) {
-            // Se n�o houve nenhum erro pode persistir o arquivo no banco
+            // Se Não houve nenhum erro pode persistir o arquivo no banco
             if (UPLOAD_ERR_OK === $file['error']) {
                 $arquivoModel->cadastrar($filename);
                 $cumprimentoObjetoArquivoRow = $cumprimentoObjetoArquivo->createRow();
@@ -119,7 +119,7 @@ class ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjetoXArquivo extends MinC_D
             case 'imagensImpactosAmbientais':
                 return self::IMPACTOS_AMBIENTAIS;
             default:
-                throw new InvalidArgumentException("Tipo do arquivo do cumprimento do objeto ('{$filename}') n�o existe");
+                throw new InvalidArgumentException("Tipo do arquivo do cumprimento do objeto ('{$filename}') Não existe");
         }
     }
 
@@ -133,7 +133,7 @@ class ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjetoXArquivo extends MinC_D
             $select->where('idPosicao = ?', $this->getPosicao());
         }
         if (0 === count($select->getPart(Zend_Db_Select::WHERE))) {
-            throw new BadMethodCallException('N�o foi usado nenhum filtro');
+            throw new BadMethodCallException('Não foi usado nenhum filtro');
         }
 
         $imagensDoObjeto = new ArrayObject();
@@ -156,10 +156,10 @@ class ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjetoXArquivo extends MinC_D
     public function apagarArquivo()
     {
         if (null === $this->getIdCumprimentoObjeto()) {
-            throw new BadMethodCallException('Cumprimento do objeto n�o encontrado');
+            throw new BadMethodCallException('Cumprimento do objeto Não encontrado');
         }
         if (null === $this->getArquivo()) {
-            throw new BadMethodCallException('Arquivo n�o encontrado');
+            throw new BadMethodCallException('Arquivo Não encontrado');
         }
         parent::apagar(array(
             'idCumprimentoObjeto = ?' => $this->getIdCumprimentoObjeto(),

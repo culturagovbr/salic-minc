@@ -87,18 +87,18 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
         if ($this->getIdOrgao == 166) {
             $where['b.Area = ?'] = 2;  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
         } elseif ($this->getIdOrgao == 272) {
-            $where['b.Area <> ?'] = 2; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
+            $where['b.Area <> ?'] = 2; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que Não sejam de Audiovisual
         } else {
             $where['b.Area = ?'] = 0;  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
         }
 
-        $stCombo = 'A'; //Aguardando An�lise
+        $stCombo = 'A'; //Aguardando Análise
         if (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) {
             $comboView = explode(':', $_GET['tipoFiltro']);
             $this->view->filtro = $_GET['tipoFiltro'];
             $where['e.tpAlteracaoProjeto = ?'] = $comboView[0];
             if ($comboView[1] == 'd') {
-                $stCombo = 'D'; //Devolvidos Ap�s An�lise
+                $stCombo = 'D'; //Devolvidos Ap�s Análise
             }
         }
 
@@ -513,7 +513,7 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
                                 ,'dtVinculo'         => new Zend_Db_Expr('GETDATE()'));
 
                     $tbVinculo->alterar($dadosVinculo, $whereVinculo); else :
-                        parent::message("O usu�rio informado n�o � Proponente ou o Projeto n�o est� vinculado a uma Proposta!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
+                        parent::message("O usu�rio informado Não � Proponente ou o Projeto Não est� vinculado a uma Proposta!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
                     endif;
 
                     /**
@@ -522,7 +522,7 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
                      * ==============================================================
                      */
                 } elseif ($tpAlt == 3) {
-                    //FICHA T�CNICA
+                    //FICHA Técnica
                     $fichatecAtual = FichaTecnicaDAO::buscarFichaTecnicaFinal($idPronac, $idPedidoAlt);
                     $Atual = $fichatecAtual[0]->FichaTecnica;
                     $idPreProjeto = $fichatecAtual[0]->idPreProjeto;
@@ -632,7 +632,7 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
                             'Sequencial' => $DadosProj[0]->Sequencial,
                             'TipoAprovacao' => 3,
                             'DtAprovacao' => new Zend_Db_Expr('GETDATE()'),
-                            // 'ResumoAprovacao' => 'Solicita��o de Readequa��o',
+                            // 'ResumoAprovacao' => 'Solicitação de Readequa��o',
                             'DtInicioCaptacao' => $datas['dtInicioNovoPrazo'],
                             'DtFimCaptacao' => $datas['dtFimNovoPrazo'],
                             'Logon' => $idagente

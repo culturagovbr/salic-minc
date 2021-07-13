@@ -5,73 +5,73 @@ class LembretesController extends MinC_Controller_Action_Abstract
     public function LembretesAction()
     {
     }
-    
+
     /**
-     * Reescreve o método init()
+     * Reescreve o mï¿½todo init()
      * @access public
      * @param void
      * @return void
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio às Leis de Incentivo à Cultura"; // título da página
-        $auth              = Zend_Auth::getInstance(); // pega a autenticação
-        $Usuario           = new UsuarioDAO(); // objeto usuário
-        $GrupoAtivo        = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
+        $this->view->title = "Salic - Sistema de Apoio ï¿½s Leis de Incentivo ï¿½ Cultura"; // tï¿½tulo da pÃ¡gina
+        $auth              = Zend_Auth::getInstance(); // pega a autenticaï¿½ï¿½o
+        $Usuario           = new UsuarioDAO(); // objeto usuï¿½rio
+        $GrupoAtivo        = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessï¿½o com o grupo ativo
 
-        if ($auth->hasIdentity()) { // caso o usuário esteja autenticado
-            // verifica as permissões
+        if ($auth->hasIdentity()) { // caso o usuï¿½rio esteja autenticado
+            // verifica as permissï¿½es
             $PermissoesGrupo = array();
-            $PermissoesGrupo[] = 118; // Componente da Comissão
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo está no array de permissões
-                parent::message("Você não tem permissão para acessar essa área do sistema!", "principal/index", "ALERT");
+            $PermissoesGrupo[] = 118; // Componente da comissÃ£o
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo estï¿½ no array de permissï¿½es
+                parent::message("Vocï¿½ NÃ£o tem permissï¿½o para acessar essa ï¿½rea do sistema!", "principal/index", "ALERT");
             }
 
-            // pega as unidades autorizadas, orgãos e grupos do usuário (pega todos os grupos)
+            // pega as unidades autorizadas, orgï¿½os e grupos do usuï¿½rio (pega todos os grupos)
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
 
-            // manda os dados para a visão
-            $this->view->usuario     = $auth->getIdentity(); // manda os dados do usuário para a visão
-            $this->view->arrayGrupos = $grupos; // manda todos os grupos do usuário para a visão
-            $this->view->grupoAtivo  = $GrupoAtivo->codGrupo; // manda o grupo ativo do usuário para a visão
-            $this->view->orgaoAtivo  = $GrupoAtivo->codOrgao; // manda o órgão ativo do usuário para a visão
+            // manda os dados para a visï¿½o
+            $this->view->usuario     = $auth->getIdentity(); // manda os dados do usuï¿½rio para a visï¿½o
+            $this->view->arrayGrupos = $grupos; // manda todos os grupos do usuï¿½rio para a visï¿½o
+            $this->view->grupoAtivo  = $GrupoAtivo->codGrupo; // manda o grupo ativo do usuï¿½rio para a visï¿½o
+            $this->view->orgaoAtivo  = $GrupoAtivo->codOrgao; // manda o ï¿½rgï¿½o ativo do usuï¿½rio para a visï¿½o
         } // fecha if
-        else { // caso o usuário não esteja autenticado
+        else { // caso o usuï¿½rio NÃ£o esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
         parent::init(); // chama o init() do pai GenericControllerNew
-    } 
-    
+    }
+
     public function indexAction()
     {
-        // caso o formulário seja enviado via post
+        // caso o formulï¿½rio seja enviado via post
         if ($this->getRequest()->isPost()) {
             $post = Zend_Registry::get('post');
             $contador  = $post->Contador;
             $lembrete  = $post->descricao;
             $idPronac  = $post->pronac;
             $databusca = $post->databusca;
-            
-        
+
+
             $mens = new LembretesDAO();
             $mens->alterarlembrete($contador, $lembrete);
-            parent::message("Alteração efetuada com sucesso!", "lembretes/index?pronac=".$idPronac."&databusca=".$databusca);
+            parent::message("Alteraï¿½ï¿½o efetuada com sucesso!", "lembretes/index?pronac=".$idPronac."&databusca=".$databusca);
         }
         $get = Zend_Registry::get('get');
         $pronac    = $get->pronac;
         $dtlembrete = $get->databusca;
-            
+
         $this->view->lembretesprojeto 	= LembretesDAO::buscaProjeto($pronac);
         //$this->view->lembretes 			= LembretesDAO::buscaLembrete($pronac);
         $this->view->lembretes 			= LembretesDAO::pesquisaLembrete($pronac, $dtlembrete);
     }
-        
+
     public function inserirlembreteAction()
     {
         $get = Zend_Registry::get('get');
         $pronac = $get->pronac;
-        
+
 
         $tblembretesprojeto = LembretesDAO::buscaProjeto($pronac);
         $this->view->lembretesprojeto = $tblembretesprojeto;
@@ -82,14 +82,14 @@ class LembretesController extends MinC_Controller_Action_Abstract
         $this->view->anoprojeto = $tblembretesprojeto[0]->AnoProjeto;
         $this->view->sequencial = $tblembretesprojeto[0]->Sequencial;
 
-        // caso o formulário seja enviado via post
+        // caso o formulï¿½rio seja enviado via post
         if ($this->getRequest()->isPost()) {
             $post 		= Zend_Registry::get('post');
             $pronac     = $post->pronac;
             $lembrete   = $post->descricao;
             $anoprojeto = $post->AnoProjeto;
             $sequencial = $post->Sequencial;
-            
+
             try {
                 if (empty($lembrete)) {
                     throw new Exception("Por favor, informe o lembrete!");
@@ -107,11 +107,11 @@ class LembretesController extends MinC_Controller_Action_Abstract
             }
         }
     }
-        
 
 
-    
-    
+
+
+
     public function excluirAction()
     {
         $contador  = $_GET['id'];
@@ -119,11 +119,11 @@ class LembretesController extends MinC_Controller_Action_Abstract
         $databusca = $_GET['databusca'];
 
         $resultado = LembretesDAO::exluirlembrete($contador);
-            
+
         if ($resultado) {
             parent::message("Erro ao excluir lembrete!", "lembretes/index?pronac=".$pronac."&databusca=".$databusca, "CONFIRM");
         } else {
-            parent::message("Lembrete excluído com sucesso!", "lembretes/index?pronac=".$pronac."&databusca=".$databusca, "CONFIRM");
+            parent::message("Lembrete excluï¿½do com sucesso!", "lembretes/index?pronac=".$pronac."&databusca=".$databusca, "CONFIRM");
         }
     }
 
@@ -157,31 +157,31 @@ public function alterarlembreteAction()
 
     public function buscalembreteAction()
     {
-        // caso o formulário seja enviado via post
+        // caso o formulï¿½rio seja enviado via post
         if ($this->getRequest()->isPost()) {
             // recebe o pronac e data do lembrete via post
             $post   = Zend_Registry::get('post');
             $pronac = (int) $post->pronac;
-            
+
             $dtlembrete =  $post->dtlembrete;
-            
+
             try {
                 // verifica se a data dolembrete veio vazio
                 if (empty($dtlembrete) && !Data::validarData($dtlembrete)) {
-                    throw new Exception("A Data é inválida!");
+                    throw new Exception("A Data ï¿½ invï¿½lida!");
                 }
                 // busca o pronac no banco
                 else {
-                    // integração MODELO e VISÃO
+                    // integraï¿½ï¿½o MODELO e VISï¿½O
 
                     $resultado = LembretesDAO::pesquisaLembrete($pronac, $dtlembrete);
 
-                    // caso o Lembrete não esteja cadastrado
+                    // caso o Lembrete NÃ£o esteja cadastrado
                     if (!$resultado) {
-                        throw new Exception("Registro não encontrado!");
+                        throw new Exception("Registro NÃ£o encontrado!");
                     }
                     // caso o Lembrete esteja cadastrado,
-                    // vai para a página dos Lembretes
+                    // vai para a pÃ¡gina dos Lembretes
                     else {
                         // redireciona a data para o lembrete
                         $this->redirect("lembretes/index?pronac=" . $pronac ."&databusca=".$dtlembrete);
@@ -195,12 +195,12 @@ public function alterarlembreteAction()
         $get = Zend_Registry::get('get');
         $pronac = $get->pronac;
         $dtlembrete = $get->dtlembrete;
-        
+
         $mens = new LembretesDAO();
-        
+
         $tblembretesprojeto = $mens->buscaProjeto($pronac);
         $this->view->lembretesprojeto = $tblembretesprojeto;
-        
+
         $tblembretes = $mens->buscaLembrete($pronac);
         $this->view->lembretes = $tblembretes;
     }

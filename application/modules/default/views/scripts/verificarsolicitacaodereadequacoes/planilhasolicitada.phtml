@@ -11,7 +11,7 @@
             modal: true,
             autoOpen:false,
             buttons: {
-                'Não': functionnao
+                'NÃ£o': functionnao
                 ,
                 'Sim': functionsim
             }
@@ -24,12 +24,12 @@
             modal: true,
             autoOpen:false,
             buttons: {
-                'Não': function(){
+                'NÃ£o': function(){
                     $(this).dialog('close');
                 }
             }
         });
-        
+
         $("#alert").dialog('open');
         $(".ui-dialog-titlebar-close").remove();
     }
@@ -37,9 +37,9 @@
     function envia()
     {
         dsObservacao = $('#justificativaencaminha').val();
-        if ( dsObservacao == "Digite a observação..." || dsObservacao == "") {
+        if ( dsObservacao == "Digite a observaï¿½ï¿½o..." || dsObservacao == "") {
             $("#alert").dialog("destroy");
-            $("#alert").html('Preencha a observação');
+            $("#alert").html('Preencha a observaï¿½ï¿½o');
             $("#alert").dialog({
                 height: 170,
                 width: 300,
@@ -93,7 +93,7 @@
                     return valida;
                 }
 
-                $("#alert").html('Deseja finalizar a Análise?')
+                $("#alert").html('Deseja finalizar a AnÃ¡lise?')
                 analise(function(){
                     $("#encaminhar").dialog({
                         resizable: true,
@@ -112,17 +112,17 @@
                     }).dialog('open');
                     $(this).dialog('close');
                     $(".ui-dialog-titlebar-close").remove();
-                
+
                     }, function() {
                         $("#analise").find("option[value='2']").attr('selected','selected');
                         $(this).dialog('close');
                     }
                 );
                 $("#alert").dialog('open');
-            
+
             } else if($(this).val() == 2){
                 $("#alert").dialog("destroy");
-                $("#alert").html('Deseja alterar o status da solicitaç&atilde;o?');
+                $("#alert").html('Deseja alterar o status da solicitaï¿½&atilde;o?');
                 $("#alert").dialog({
                     height: 170,
                     width: 300,
@@ -132,7 +132,7 @@
                     resizable: false,
                     closeOnEscape: false,
                     buttons: {
-                        'Não': function() {
+                        'NÃ£o': function() {
                             $("#analise").find("option[value='1']").attr('selected','selected');
                             $(this).dialog('close');
                         },
@@ -154,22 +154,22 @@
 
 <div id="alert"></div>
 <div id="ok"></div>
-<div id="alertStatus" style="display: none">Analise todos os itens orçamentários antes de finalizar!</div>
+<div id="alertStatus" style="display: none">Analise todos os itens orï¿½amentï¿½rios antes de finalizar!</div>
 <div id="alertaObs" class="sumir"></div>
 
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li>Acompanhamento</li>
-        <li class="last">Readequaç&atilde;o: itens de custo</li>
+        <li class="last">Readequaï¿½&atilde;o: itens de custo</li>
     </ul>
 </div>
 
-<div style="display:none;" id="encaminhar" title="Observaç&otilde;es de Encaminhamento" >
-    <textarea name="justificativa" id="justificativaencaminha" rows="6" cols="50" style="width:95%;" onclick="limpar_campo(this, 'Digite a observação...');" onkeypress=" " onblur="restaurar_campo(this, 'Digite a observação...');">Digite a observação...</textarea>
+<div style="display:none;" id="encaminhar" title="Observaï¿½&otilde;es de Encaminhamento" >
+    <textarea name="justificativa" id="justificativaencaminha" rows="6" cols="50" style="width:95%;" onclick="limpar_campo(this, 'Digite a observaï¿½ï¿½o...');" onkeypress=" " onblur="restaurar_campo(this, 'Digite a observaï¿½ï¿½o...');">Digite a observaï¿½ï¿½o...</textarea>
 </div>
 
-<!-- inãcio: #titulo -->
+<!-- INÃCIO: #titulo -->
 <div id="titulo">
     <div>Readequa&ccedil;&atilde;o: itens de custo
         <span class="voltar">
@@ -180,7 +180,7 @@
 <!-- final: #titulo -->
 
 
-<!-- inãcio: ãrea principal #conteudo -->
+<!-- INÃCIO: ï¿½rea principal #conteudo -->
 <div id="conteudo">
     <div id="miolo">
         <?php
@@ -191,7 +191,7 @@
         <table class="tabela">
             <thead>
                 <tr>
-                    <th align="center">Nº PRONAC</th>
+                    <th align="center">Nï¿½ PRONAC</th>
                     <th align="center">Nome do Projeto</th>
                 </tr>
             </thead>
@@ -226,7 +226,7 @@
         	<tr>
                     <?php $cols = 11;
                         if( !empty ( $this->AvaliacaoAnalise ) ) {
-                            $cols = 12; 
+                            $cols = 12;
                         } ?>
                     <th colspan="<?php echo $cols; ?>">
                         <span style="float:right; text-align:right;">
@@ -237,16 +237,16 @@
                             <?php } else { ?>
                             <select id="analise" class="select_simples">
                                 <?php if ($this->status == "EA") { ?>
-                                    <option value="2">Em Análise</option>
+                                    <option value="2">Em AnÃ¡lise</option>
                                     <option value="3">Finalizar</option>
                                 <?php } else { ?>
-                                    <option value="1">Aguardando Análise</option>
-                                    <option value="2">Em Análise</option>
+                                    <option value="1">Aguardando AnÃ¡lise</option>
+                                    <option value="2">Em AnÃ¡lise</option>
                                 <?php } ?>
                             </select>
                             <?php } ?>
                         </span>
-                        Planilha Orçamentária
+                        Planilha Orï¿½amentï¿½ria
                     </th>
         	</tr>
 
@@ -262,7 +262,7 @@
                                     echo "<td style='color:red; font-size:1.4em; text-align:center;' colspan='11'>";
                                 }
                                 echo "<div id='abrir_fechar' class='icn_mais' style='width:175px; float:right; text-align:right;'><a href='#' onclick='abrirFecharFilhos();' style='font-size:0.8em;'>Expandir/Recolher Planilha</a></div>";
-                                echo $this->tipoReadeq; // complementação, redução ou remanejamento
+                                echo $this->tipoReadeq; // complementaï¿½ï¿½o, reduï¿½ï¿½o ou remanejamento
                                 echo "</td>";
                             }
                         ?>
@@ -275,7 +275,7 @@
                         }
                     ?>
                     <td colspan="<?php echo $cols; ?>">
-                        <div class="icn_mais trpai" idFilho="<?php echo $classPai; ?>" style="width:90%; margin-left:4%; font-size:1.4em;"><span class="orange del_link">Administração do Projeto</span></div>
+                        <div class="icn_mais trpai" idFilho="<?php echo $classPai; ?>" style="width:90%; margin-left:4%; font-size:1.4em;"><span class="orange del_link">Administraï¿½ï¿½o do Projeto</span></div>
                     </td>
                 </tr>
                 <?php
@@ -335,14 +335,14 @@
                             echo '</th>';
                             if ( !empty ( $this->AvaliacaoAnalise ) ){
                                 echo '<th>';
-                                 echo 'Justificativa Técnica';
+                                 echo 'Justificativa TÃ©cnica';
                                 echo '</th>';
                             }
                             echo '<th>';
                             echo 'Status';
                             echo '</th>';
                             echo '<th>';
-                            echo 'Acão';
+                            echo 'Acï¿½o';
                             echo '</th>';
                             echo '</tr>';
                         }
@@ -392,7 +392,7 @@
                                             echo '</td>';
                                         }
                                     }
-                                    
+
                                     $verificaAnalise = VerificarSolicitacaodeReadequacoesDAO::verificaAnalise($itens->idPlanilhaAprovacao);
                                     ?><td class="required" stAvaliacao="<?php echo (!empty( $verificaAnalise[0]->stAvaliacao ) )? $verificaAnalise[0]->stAvaliacao:"" ?>">
                                     <?php
@@ -400,20 +400,20 @@
                                         echo (trim($verificaAnalise[0]->stAvaliacao) == 'D') ? 'Deferido' : 'Indeferido';
                                     } else {
                                     	if ($this->status == 'EA') {
-                                        	echo "Em análise";
+                                        	echo "Em AnÃ¡lise";
                                     	} else {
-                                    		echo "Aguardando análise";
+                                    		echo "Aguardando AnÃ¡lise";
                                     	}
                                     }
                                     echo '</td>';
                                     echo '<td>';
 
                                     if ($itens->tpAcao == "A") {
-                                        echo '<img src="../public/img/bola_verde.gif" alt="< 10 dias de atraso no recebimento da solicitação (data inicial)" />';
+                                        echo '<img src="../public/img/bola_verde.gif" alt="< 10 dias de atraso no recebimento da SolicitaÃ§Ã£o (data inicial)" />';
                                     } elseif ($itens->tpAcao == "I") {
-                                        echo '<img src="../public/img/bola_amarelo.gif" alt=">= 10 e < 20 dias de atraso no recebimento da solicitação (data inicial)" />';
+                                        echo '<img src="../public/img/bola_amarelo.gif" alt=">= 10 e < 20 dias de atraso no recebimento da SolicitaÃ§Ã£o (data inicial)" />';
                                     } elseif ($itens->tpAcao == "E") {
-                                        echo '<img src="../public/img/bola_vermelho.gif" alt=">= 20 dias de atraso no recebimento da solicitação (data inicial)" />';
+                                        echo '<img src="../public/img/bola_vermelho.gif" alt=">= 20 dias de atraso no recebimento da SolicitaÃ§Ã£o (data inicial)" />';
                                     }
                                     else
                                     {
@@ -526,14 +526,14 @@
                                                 echo '</th>';
                                                 if ( !empty ( $this->AvaliacaoAnalise ) ){
                                                     echo '<th>';
-                                                     echo 'Justificativa Técnica';
+                                                     echo 'Justificativa TÃ©cnica';
                                                     echo '</th>';
                                                 }
                                                 echo '<th>';
                                                 echo 'Status';
                                                 echo '</th>';
                                                 echo '<th>';
-                                                echo 'Acão';
+                                                echo 'Acï¿½o';
                                                 echo '</th>';
                                                 echo '</tr>';
                                             }
@@ -596,19 +596,19 @@
                                                 echo (trim($verificaAnalise[0]->stAvaliacao) == 'D') ? 'Deferido' : 'Indeferido';
                                             } else {
                                             	if ($this->status == 'EA') {
-                                                	echo "Em análise";
+                                                	echo "Em AnÃ¡lise";
                                             	} else {
-                                            		echo "Aguardando análise";
+                                            		echo "Aguardando AnÃ¡lise";
                                             	}
                                             }
                                             echo '</td>';
                                         echo '<td>';
                                          if ($itens->tpAcao == "A") {
-                                        echo '<img src="../public/img/bola_verde.gif" alt="< 10 dias de atraso no recebimento da solicitação (data inicial)" />';
+                                        echo '<img src="../public/img/bola_verde.gif" alt="< 10 dias de atraso no recebimento da SolicitaÃ§Ã£o (data inicial)" />';
                                     } elseif ($itens->tpAcao == "I") {
-                                        echo '<img src="../public/img/bola_amarelo.gif" alt=">= 10 e < 20 dias de atraso no recebimento da solicitação (data inicial)" />';
+                                        echo '<img src="../public/img/bola_amarelo.gif" alt=">= 10 e < 20 dias de atraso no recebimento da SolicitaÃ§Ã£o (data inicial)" />';
                                     } elseif ($itens->tpAcao == "E") {
-                                        echo '<img src="../public/img/bola_vermelho.gif" alt=">= 20 dias de atraso no recebimento da solicitação (data inicial)" />';
+                                        echo '<img src="../public/img/bola_vermelho.gif" alt=">= 20 dias de atraso no recebimento da SolicitaÃ§Ã£o (data inicial)" />';
                                     }
                                     else
                                     {
@@ -703,12 +703,12 @@
     }
     //-->
 </script>
-<!-- ========== FIM CONTEãDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INãCIO RODAPã DO CONTEãDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPã DO CONTEãDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

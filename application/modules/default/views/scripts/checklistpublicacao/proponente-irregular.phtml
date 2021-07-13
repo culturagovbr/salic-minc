@@ -1,8 +1,8 @@
-<script> 
+<script>
     $(document).ready(function(){
          JSVisualizarProjetoDaGrid();
     }); //fecha document.read
-    
+
     $(".orderByPI").click(function(){
         var campo = $(this).attr("valorOrdenacaoPI");
 
@@ -24,7 +24,7 @@
             }
         }
     });
-    
+
     function ordenarPI(campo, tipo){
         $("#ordenacaoPI").val(campo);
         $("#tipoOrdenacaoPI").val(tipo);
@@ -51,27 +51,27 @@
         <tr>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="1">pronac</a></th>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="2">Nome do Projeto</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="20">Área Cultural/Segmento</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="20">ï¿½rea Cultural/Segmento</a></th>
             <th>Resumo</th>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="9">UF</a></th>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="22">Art.</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="12">Período de Capta&ccedil;&atilde;o</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="10">Período de Execu&ccedil;&atilde;o</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="12">Perï¿½odo de Capta&ccedil;&atilde;o</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="10">Perï¿½odo de Execu&ccedil;&atilde;o</a></th>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="19">Valor Aprovado</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="25">N° da Reunião</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="25">Nï¿½ da Reuniï¿½o</a></th>
             <?php if (!empty ($this->coordenador ) ){?>
-                <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="28">Técnico</a></th>
+                <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="28">Tï¿½cnico</a></th>
             <?php }?>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="29">Status</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="31">Tempo de Análise</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="31">Tempo de AnÃ¡lise</a></th>
             <th>Regularidade do Proponente</th>
             <th>Dilig&ecirc;ncia</th>
             <th id="testetoltip">Alterar</th>
             <th>Enviar Mensagem</th>
-            <th>Finalizar Análise</th>
+            <th>Finalizar AnÃ¡lise</th>
             <?php if (!empty ($this->coordenador ) ){?>
                 <th>Encaminhar Para Portaria</th>
-            <?php }?> 
+            <?php }?>
         </tr>
     </thead>
     <tbody>
@@ -132,8 +132,8 @@
                 </td>
                 <td id="colunafinalizar<?php echo ($projeto['idpronac']); ?>">
                     <?php if($projeto['stAnaliseProjeto'] == '1' || $projeto['stAnaliseProjeto'] == '2' ): ?>
-                        <input type="button" name="finalizar" id="finalizar" class="btn_finalizar" onclick="JSFinalizarAnalise('<?php echo ($projeto['idpronac']); ?>','<?php echo ($projeto['idAprovacao']); ?>','proponenteirregular')"  title="Finalizar análise">
-                    <?php else: ?>    
+                        <input type="button" name="finalizar" id="finalizar" class="btn_finalizar" onclick="JSFinalizarAnalise('<?php echo ($projeto['idpronac']); ?>','<?php echo ($projeto['idAprovacao']); ?>','proponenteirregular')"  title="Finalizar AnÃ¡lise">
+                    <?php else: ?>
                         <input type="button" name="finalizar" id="finalizar" class="btn_finalizar-off">
                     <?php endif; ?>
                 </td>

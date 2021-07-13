@@ -17,12 +17,12 @@ $pareceristaHref = $this->url(array('controller' => 'gerenciarparecer', 'action'
 $resconsolidacaopareceristaHref = $this->url(array('controller' => 'gerenciarparecer', 'action' => 'resconsolidacaoparecerista'));
 ?>
 <div id="menu">
-    <!-- inÌcio: conte˙do principal #container -->
+    <!-- IN√çCIO: CONTE√öDO principal #container -->
     <div id="container">
-        <!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'), '', true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+                <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'), '', true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
                 <li><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'), '', true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres</a></li>
                 <li class="last">Parecerista</li>
             </ul>
@@ -30,12 +30,12 @@ $resconsolidacaopareceristaHref = $this->url(array('controller' => 'gerenciarpar
         <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
         <!-- ========== BUTTON VOLTAR ========== -->
         <div id="titulo">
-            <div>An·lise por Parecerista<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+            <div>An√°lise por Parecerista<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
         </div>
-        <!-- ========== FIM TÕTULO ========== -->
+        <!-- ========== FIM TÔøΩTULO ========== -->
         <!-- ========== GRID NOME DA PROPOSTA ========== -->
 
-        <div id="conteudo" align="center">          
+        <div id="conteudo" align="center">
             <table class="tabela">
                 <tr>
                     <th colspan="3" style="font-size: 13px; font-family: sans-serif; text-align: left;">Parecerista : <?php echo $this->parecerista['nmParecerista']; ?></th>
@@ -45,7 +45,7 @@ $resconsolidacaopareceristaHref = $this->url(array('controller' => 'gerenciarpar
                     <td>Status:<?php echo $this->parecerista['ferias']; ?></td>
                 </tr>
                 <tr>
-                    <td> ¡reas/Segmento</td>
+                    <td> ÔøΩreas/Segmento</td>
                     <td>
                         <?php
                         foreach ($this->parecerista['area_segmento_nivel'] as $val) {
@@ -146,9 +146,9 @@ $resconsolidacaopareceristaHref = $this->url(array('controller' => 'gerenciarpar
                     <table class="tabela">
                         <tr>
                               <td align="center"><input type="button" class="btn_enviar"></td>
-                              <!-- ========== PAGINA«?O ========== -->
+                              <!-- ========== PAGINAÔøΩ?O ========== -->
                                 <?php if($this->qtdRegistro > 5){ echo "<p>" . $this->buscar . "</p>"; } ?>
-                                <!-- ========== FIM PAGINA«?O ========== -->
+                                <!-- ========== FIM PAGINAÔøΩ?O ========== -->
                         </tr>
                     </table>
                 </table>

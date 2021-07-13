@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
@@ -14,10 +14,10 @@
     });
     </script>
 
-    <!-- início: conteúdo principal #container -->
+    <!-- INÃCIO: CONTEÃšDO principal #container -->
     <div id="container">
 
-        <!-- início: navegação local #qm0 -->
+        <!-- INÃCIO: navegaï¿½ï¿½o local #qm0 -->
         <script type="text/javascript">
         function layout_fluido()
         {
@@ -54,9 +54,9 @@
                 <?php
 } ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'consultarprojetosarquivados')); ?>" title="Ir para Consultar projetos arquivados">Consultar Projetos Arquivados</a>
-                <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'solicitacoes')); ?>" title="Ir para Solicitações">Solicitações</a>-->
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'guias')); ?>" title="Ir para Guias de tramitação">Guias de Tramitação</a>
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'consultarprojetos'));	?>" title="Ir para Consultar projetos">Consultar Tramitação</a>
+                <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'solicitacoes')); ?>" title="Ir para Solicitaï¿½ï¿½es">Solicitaï¿½ï¿½es</a>-->
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'guias')); ?>" title="Ir para Guias de TramitaÃ§Ã£o">Guias de TramitaÃ§Ã£o</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'consultarprojetos'));	?>" title="Ir para Consultar projetos">Consultar TramitaÃ§Ã£o</a>
                 <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'receberprojetos')); ?>" title="Ir para Projetos recebidos">Projetos Recebidos</a>
                 <a class="no_seta last" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'enviarprojetos')); ?>" title="Ir para Projetos enviados">Projetos Enviados</a>-->
             </div>
@@ -65,7 +65,7 @@
         </div>
 
         <div id="alertar"></div>
-        <!-- final: navegação local #qm0 -->
+        <!-- final: navegaï¿½ï¿½o local #qm0 -->
     </div>
 </div>
 <script type="text/javascript">

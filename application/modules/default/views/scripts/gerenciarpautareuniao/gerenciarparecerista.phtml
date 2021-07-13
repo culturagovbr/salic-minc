@@ -39,7 +39,7 @@ echo "<form action='" . $this->url(array('controller' => 'gerenciarpautareuniao'
 if ($this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->stEstado == 0 and $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->stPlenaria == 'N')
 {
     echo "<div id=\"titulo\"><div>Gerenciar Pauta da Reuni�o N�: " . $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->NrReuniao . " - Representante da Vinculada -  ";
-    echo "Status: Plen�ria N�o Iniciada";
+    echo "Status: Plen�ria Não Iniciada";
     echo "<span>ID #23A</span> <span class=\"voltar\"><a href=\"#\">Voltar</a></span></div></div>";
     echo "<td></td>";
 }
@@ -80,7 +80,7 @@ echo "</form>";
                     <th>Segmento Cultural</th>
                     <th>Parecer Favor�vel</th>
                     <th>Data do Recebimento</th>
-                    <th>Componente da Comiss�o</th>
+                    <th>Componente da comissão</th>
                 </tr>
 
                 <?php
@@ -112,7 +112,7 @@ echo "</form>";
                         }
                         else
                         {
-                            echo "<td class=\"centro\">N�o</td>";
+                            echo "<td class=\"centro\">Não</td>";
                         }
                     ?>
                         <td class="centro"><?php echo $this->escape($consultaProjetosPautaReuniao->DataEnvioPauta); ?></td>
@@ -129,7 +129,7 @@ echo "</form>";
             <table class="tabela">
                 <tr>
                     <td>
-                        <input type="button" id="abrir_fechar1" class="btn_adicionar" />Projetos n�o Submetidos a pauta da Reuni�o N�.
+                        <input type="button" id="abrir_fechar1" class="btn_adicionar" />Projetos Não Submetidos a pauta da Reuni�o N�.
                     <?php echo $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->NrReuniao; ?>
                     <?php if (count($this->consultaProjetosPautaReuniaoNaoAnalisado) > 0)
                     {
@@ -153,7 +153,7 @@ echo "</form>";
                     <th>Segmento Cultural</th>
                     <th>Parecer Favor�vel</th>
                     <th>Data do Recebimento</th>
-                    <th>Componente da Comiss�o</th>
+                    <th>Componente da comissão</th>
                 </tr>
 
                 <?php
@@ -183,7 +183,7 @@ echo "</form>";
                         }
                         else
                         {
-                            echo "<td class=\"centro\">N�o</td>";
+                            echo "<td class=\"centro\">Não</td>";
                         }
                     ?>
                             <td class="centro"><?php echo $this->escape($consultaProjetosPautaReuniaoNaoAnalisado->DataEnvioPauta); ?></td>

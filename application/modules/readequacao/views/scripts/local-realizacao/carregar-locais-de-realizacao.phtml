@@ -2,23 +2,23 @@
     <table class="tabela">
         <tr>
             <td><input type="button" class="btn_incluir" id="adicionarLocalRealizacao"
-                       title="Adicionar Local de Realização"/></td>
+                       title="Adicionar Local de Realizaï¿½ï¿½o"/></td>
         </tr>
     </table>
 <?php } ?>
 
 <table class="tabela" id="modal-tabela-lr">
     <tr>
-        <th>País</th>
+        <th>Paï¿½s</th>
         <th>UF</th>
-        <th>Município</th>
-        <th style="width: 150px;">Solicitação Proponente</th>
+        <th>Municï¿½pio</th>
+        <th style="width: 150px;">SolicitaÃ§Ã£o Proponente</th>
         <?php if (in_array($this->siEncaminhamento, array(4, 5, 6, 7, 9, 10))) { ?>
-            <th style="width: 150px;">Avaliação Técnica</th>
+            <th style="width: 150px;">Avaliaï¿½ï¿½o TÃ©cnica</th>
         <?php } ?>
 
         <?php if (in_array($this->siEncaminhamento, array(7, 9))) { ?>
-            <th style="width: 150px;">Avaliação Conselheiro</th>
+            <th style="width: 150px;">Avaliaï¿½ï¿½o Conselheiro</th>
         <?php } ?>
     </tr>
 
@@ -49,8 +49,8 @@
             <td class="centro">
                 <?php if ($this->idPerfil == 1111) {
                     if ($l['tpSolicitacao'] == 'E') {
-                        echo '<span style="margin: 10px;">Excluído</span>';
-                        echo '<img src="' . $this->baseUrl() . '/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItemLocalRealizacao" tipo="' . $l['tpSolicitacao'] . '" idAbrangencia="' . $l['idAbrangencia'] . '" title="restaurar o local de realização excluído"/>';
+                        echo '<span style="margin: 10px;">Excluï¿½do</span>';
+                        echo '<img src="' . $this->baseUrl() . '/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItemLocalRealizacao" tipo="' . $l['tpSolicitacao'] . '" idAbrangencia="' . $l['idAbrangencia'] . '" title="restaurar o local de realizaï¿½ï¿½o excluï¿½do"/>';
                     } else { ?>
                         <input type="button" class="btn_excluir btnExcluirLR"
                                idAbrangencia="<?php echo $l->idAbrangencia; ?>">
@@ -59,12 +59,12 @@
                     $title = '';
                     switch ($l['tpSolicitacao']) {
                         case 'E':
-                            echo 'Excluído';
-                            $title = 'restaurar o local de realização excluído';
+                            echo 'Excluï¿½do';
+                            $title = 'restaurar o local de realizaï¿½ï¿½o excluï¿½do';
                             break;
                         case 'I':
-                            echo 'Incluído';
-                            $title = 'recusar inclusão de local de realização';
+                            echo 'Incluï¿½do';
+                            $title = 'recusar inclusï¿½o de local de realizaï¿½ï¿½o';
                             break;
                         case 'A':
                             echo 'Alterado';
@@ -163,9 +163,9 @@
 <div id="modalInclusaoLR" class="sumir">
     <table class="tabela">
         <tr>
-            <td class="destacar bold" style="width: 33%">País</td>
+            <td class="destacar bold" style="width: 33%">Paï¿½s</td>
             <td class="destacar bold" style="width: 33%">UF</td>
-            <td class="destacar bold" style="width: 33%">Município</td>
+            <td class="destacar bold" style="width: 33%">Municï¿½pio</td>
         </tr>
         <tr>
             <td>
@@ -269,9 +269,9 @@
             var idAbrangencia = $(this).attr('idAbrangencia'),
                 itemClicado = $(this);
 
-            //ABRE O MODAL DE CONFIRMAÇÃO DA AÇÃO REALIZADA
+            //ABRE O MODAL DE ConfirmaÃ§Ã£o DA Aï¿½ï¿½O REALIZADA
             $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html('Tem certeza que deseja excluir o local de realização?');
+            $("#msgAlerta").html('Tem certeza que deseja excluir o local de realizaï¿½ï¿½o?');
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -279,7 +279,7 @@
                 height: 200,
                 modal: true,
                 buttons: {
-                    'Não': function () {
+                    'NÃ£o': function () {
                         itemClicado.parent().parent().removeClass('fundo_linha4');
                         $(this).dialog('close');
                     },
@@ -357,9 +357,9 @@
                 msg = '';
 
             if (tpAcao == 'I') {
-                msg = 'Tem certeza que deseja excluir o local de realização adicionado?';
+                msg = 'Tem certeza que deseja excluir o local de realizaï¿½ï¿½o adicionado?';
             } else {
-                msg = 'Tem certeza que deseja restaurar o local de realização excluído?';
+                msg = 'Tem certeza que deseja restaurar o local de realizaï¿½ï¿½o excluï¿½do?';
             }
 
             $("#msgAlerta").dialog("destroy");
@@ -370,7 +370,7 @@
                 modal: true,
                 title: 'Alerta!',
                 buttons: {
-                    'Não': function () {
+                    'NÃ£o': function () {
                         $(this).dialog('close');
                     },
                     'Sim': function () {
@@ -411,7 +411,7 @@
                     modal: true,
                     title: 'Alerta!',
                     buttons: {
-                        'Não': function () {
+                        'NÃ£o': function () {
                             $(this).dialog('close');
                             select.val('');
                         },
@@ -441,4 +441,4 @@
         });
     });
 </script>
-<div id="alerta"></div>                                                        
+<div id="alerta"></div>

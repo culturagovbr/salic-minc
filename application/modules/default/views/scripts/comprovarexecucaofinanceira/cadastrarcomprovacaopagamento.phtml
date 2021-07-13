@@ -466,9 +466,9 @@
     <div id="desc_item"></div>
 </div>
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />
 
 <iframe id="anexarArquivo" name="anexarArquivo" src="#" style="width: 300px;height: 300px;display: none;"></iframe>
@@ -612,7 +612,7 @@
             fornecedores();
         }
 
-        //Mensagem para Utilizar este fornecedor para Comprova��o Financeira, sim ou n�o.
+        //Mensagem para Utilizar este fornecedor para Comprova��o Financeira, sim ou Não.
         function outroFornecedor(este){
             $("#divPerguntaFornecedor").dialog('close');
             $("#divPerguntaFornecedor").html('Deseja utilizar este fornecedor na comprova��o do pagamento?');
@@ -625,7 +625,7 @@
                 draggable:false,
                 title: 'Alerta!',
                 buttons: {
-                    'N�o': function(){
+                    'Não': function(){
                         $('#'+$(este).attr('idAgente')).val('');
                         $('#'+$(este).attr('idDescricao')).val('');
                         $('#CNPJCPF').val('');

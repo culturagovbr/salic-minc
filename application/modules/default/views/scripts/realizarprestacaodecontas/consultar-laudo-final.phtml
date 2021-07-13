@@ -4,7 +4,7 @@
             var pronac = $('#pronacPesquisa').val();
             if(pronac == ''){
                 $("#msgAlerta").dialog("destroy");
-                $("#msgAlerta").html("Favor informar o número do Pronac.");
+                $("#msgAlerta").html("Favor informar o nï¿½mero do Pronac.");
                 $("#msgAlerta").dialog({
                     resizable: false,
                     title: 'Alerta!',
@@ -17,7 +17,7 @@
                     }
                 });
                 $('.ui-dialog-titlebar-close').remove();
-                
+
             } else {
                 $('#formImpressao').submit();
             }
@@ -33,23 +33,23 @@
 
 <div id="msgAlerta"></div>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'), '', true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
-        <li class="second"><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'painel'), '', true); ?>" title="Ir para Prestação de contas">Prestação de contas</a></li>
+        <li class="second"><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'painel'), '', true); ?>" title="Ir para Prestaï¿½ï¿½o de contas">Prestaï¿½ï¿½o de contas</a></li>
         <li class="last">Consultar Laudo Final</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Consultar Laudo Final</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
     <form name="formImpressao" id="formImpressao" action="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'imprimir-laudo-final'));?>" method="post" target="_blank">
@@ -65,10 +65,10 @@
     </form>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

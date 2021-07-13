@@ -119,7 +119,7 @@ class ComprovantePagamentoInvoice extends ComprovantePagamento
                  * Ao fazer o rollback o driver PDO do linux lan�a um
                  * PDOException, aparentemente sem motivo, j� que o mesmo
                  * consegue por vias de fato realizar o rollback. Neste ponto
-                 * fa�o esse tratamento vazio para que n�o suba a exce��o para
+                 * fa�o esse tratamento vazio para que Não suba a exce��o para
                  * o Controller e que este por sua vez mostre ao usu�rio na tela
                  */
             }

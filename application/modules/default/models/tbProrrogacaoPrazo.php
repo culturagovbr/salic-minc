@@ -6,7 +6,7 @@ class tbProrrogacaoPrazo extends MinC_Db_Table_Abstract
     protected $_name   = "tbProrrogacaoPrazo";
 
     /**
-     * M�todo para buscar os prazos de capta��o e execu��o com solicita��o de readequa��o
+     * M�todo para buscar os prazos de capta��o e execu��o com Solicitação de readequa��o
      * @access public
      * @param integer $idPronac
      * @param string $tpProrrogacao

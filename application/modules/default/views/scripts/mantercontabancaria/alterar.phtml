@@ -14,7 +14,7 @@
     <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
     <div id="breadcrumb">
         <ul>
-            <li class="first"><a href="index" title="Ir para Início">In&iacute;cio</a></li>
+            <li class="first"><a href="index" title="Ir para INÃCIO">In&iacute;cio</a></li>
             <li class="second"><a href="<?php echo $this->url(array('controller' => 'mantercontabancaria', 'action' => 'consultar')); ?>" title="Ir para Liberar conta banc&aacute;ria">Manter conta banc&aacute;ria</a></li>
             <li class="last">Cadastrar conta banc&aacute;ria</li>
         </ul>
@@ -25,7 +25,7 @@
         <div>Cadastrar conta banc&aacute;ria<span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
     </div>
     <!-- ========== FIM TITULO ========== -->
-    
+
 <?php  endif; ?>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -33,7 +33,7 @@
         $('.btn_imprimir').click(function(){
             $('#formImpressao').submit();
         });
-        
+
         $('#Agencia').keyup(function(){
             if($('#Agencia').val().length == 5){
 
@@ -63,7 +63,7 @@
 
             if($('#campofalso').val() == ''){
                 $("#erro").dialog("destroy");
-                $("#erro").html("Informe uma agência válida!");
+                $("#erro").html("Informe uma agï¿½ncia vï¿½lida!");
                 $("#erro").dialog({
                   resizable: false,
                         title: 'Alerta!',
@@ -79,28 +79,28 @@
                 $('.ui-dialog-titlebar-close').remove();
                 return false;
             }
-            
+
             var preenchimento = false;
             $('.obrigatorio').each(function(){
                 if($.trim($(this).val()) == '')
                     preenchimento = true;
             });
-            
+
             var igualidade = false;
             if($("#ContaBloqueada").val() != '000000000000' && $("#ContaLivre").val() != '000000000000'){
                 if($("#ContaBloqueada").val() == $("#ContaLivre").val()){
                     igualidade = true;
                 }
             }
-            
+
             var justificativa = true;
             if($("#justificativa").val().length > 19){
                 justificativa = false;
             }
-            
+
             if(preenchimento) {
                 $("#erro").dialog("destroy");
-                $("#erro").html("Dados obrigátorios não informados.");
+                $("#erro").html("Dados obrigï¿½torios NÃ£o informados.");
                 $("#erro").dialog({
                   resizable: false,
                         title: 'Alerta!',
@@ -115,10 +115,10 @@
                 });
                 $('.ui-dialog-titlebar-close').remove();
             } else {
-                
+
                 if(igualidade){
                     $("#erro").dialog("destroy");
-                    $("#erro").html("As contas Capta&ccedil;&atilde;o e Movimento não podem ser iguais.");
+                    $("#erro").html("As contas Capta&ccedil;&atilde;o e Movimento NÃ£o podem ser iguais.");
                     $("#erro").dialog({
                       resizable: false,
                             title: 'Alerta!',
@@ -133,10 +133,10 @@
                     });
                         $('.ui-dialog-titlebar-close').remove();
                 } else {
-                    
+
                     if(justificativa){
                         $("#erro").dialog("destroy");
-                        $("#erro").html("O campo Justificativa deve ter o mínimo de 20 caracteres.");
+                        $("#erro").html("O campo Justificativa deve ter o mï¿½nimo de 20 caracteres.");
                         $("#erro").dialog({
                           resizable: false,
                                 title: 'Alerta!',
@@ -160,7 +160,7 @@
                                 height:160,
                                 modal: true,
                                 buttons : {
-                              'Não' : function(){
+                              'NÃ£o' : function(){
                                     $(this).dialog('close');
                                 },
                                     'Sim' : function(){
@@ -176,12 +176,12 @@
     });
 </script>
 <?php  if($this->modal != "s"): ?>
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 <?php  endif; ?>
     <div id="erro"></div>
 
-        <!-- ========== INÍCIO FORMULÁRIO DE BUSCA ========== -->
+        <!-- ========== INÃCIO FORMULï¿½RIO DE BUSCA ========== -->
         <form class="form" name="formBuscar" id="formBuscar" method="post" action="<?php echo $this->url(array('controller' => 'mantercontabancaria', 'action' => 'salvar')); ?>">
             <table class="tabela">
                 <tr>
@@ -203,8 +203,8 @@
                 </tr>
                 <tr>
                     <td class="destacar bold" align="left" style="width: 25%">Banco</td>
-                    <td class="destacar bold" align="left" style="width: 25%">Agência <span class="required" style="color: red;">*</span></td>
-                    <td class="destacar bold" align="left" style="width: 25%">Captação <span class="required" style="color: red;">*</span></td>
+                    <td class="destacar bold" align="left" style="width: 25%">Agï¿½ncia <span class="required" style="color: red;">*</span></td>
+                    <td class="destacar bold" align="left" style="width: 25%">Captaï¿½ï¿½o <span class="required" style="color: red;">*</span></td>
                     <td class="destacar bold" align="left" style="width: 25%">Movimento</td>
                 </tr>
                 <tr>
@@ -217,7 +217,7 @@
                     </td>
                     <td>
                         <input type="text" class="input_simples obrigatorio" name="Agencia" id="Agencia" maxlength="5" value="<?php echo $this->DadosBancarios['Agencia']; ?>">
-                        <span class="sumir" id="AgenciaInvalida"><b style="color: red;">Agência inválida</b></span>
+                        <span class="sumir" id="AgenciaInvalida"><b style="color: red;">Agï¿½ncia invï¿½lida</b></span>
                     </td>
                     <td>
                         <input type="text" class="input_simples obrigatorio" name="ContaBloqueada" id="ContaBloqueada" onBlur="formatarContaBloqueada(12,this.value.length)" maxlength="12" value="<?php echo $this->DadosBancarios['ContaBloqueada']; ?>">
@@ -227,7 +227,7 @@
                     </td>
                 </tr>
             </table>
-            
+
             <table class="tabela">
                 <tr>
                     <th>Justificativa <span class="required" style="color: red;">*</span></th>
@@ -239,7 +239,7 @@
                 </tr>
             </table>
 
-            <!-- ========== FIM FORMULÁRIO DE BUSCA ========== -->
+            <!-- ========== FIM FORMULï¿½RIO DE BUSCA ========== -->
 
             <p align="center" style="margin-top: 10px;">
                 <input type="button" class="btn_salvar" />
@@ -271,18 +271,18 @@
                         <td align="center"><?php echo Data::tratarDataZend($historicos->DtExclusao, 'Brasileira'); ?></td>
                         <!--<td><?php //if($historicos->tpAcao == 1){ echo 'Inclus&atilde;o'; } else { echo 'Exclus&atilde;o'; } ?></td>-->
         <!--                <td><?php //echo $historicos->Motivo; ?></td>-->
-                        <td align="center"><img style="cursor: pointer;" border="0" src="../public/img/table_multiple.png" alt="Visualizar Histórico" onclick="modalJustificativa('<?php echo $historicos->idHistoricoExclusaoConta; ?>')"/></td>
+                        <td align="center"><img style="cursor: pointer;" border="0" src="../public/img/table_multiple.png" alt="Visualizar Histï¿½rico" onclick="modalJustificativa('<?php echo $historicos->idHistoricoExclusaoConta; ?>')"/></td>
                     </tr>
                     <?php } ?>
                 <?php } else { ?>
                     <tr align="center">
-                        <td colspan="7"><span style="color: red; font-size: 16px;">N&atilde;o h&aacute; históricos para este Pronac.</span></td>
+                        <td colspan="7"><span style="color: red; font-size: 16px;">N&atilde;o h&aacute; histï¿½ricos para este Pronac.</span></td>
                     </tr>
                 <?php } ?>
             </table>
         </fieldset>
         <?php  } ?>
-        
+
         <form target="_blank" class="form" name="formImpressao" id="formImpressao" method="post" action='<?php echo $this->url(array('controller' => 'mantercontabancaria', 'action' => 'imprimir-conta-bancaria-cadastrada')); ?>'>
             <input type="hidden" name="pronac" value="<?php echo $this->DadosBancarios['Pronac']; ?>">
         </form>
@@ -291,7 +291,7 @@
 <?php if(count($this->Historicos) > 0){ foreach ($this->Historicos as $historicos) { ?>
 <div style="display: none;" id="modalHistorico<?php echo $historicos->idHistoricoExclusaoConta ?>"><?php echo $historicos->Motivo ?></div>
 <?php } } ?>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 <script type="text/javascript">
@@ -345,9 +345,9 @@
 
 
 <?php  if($this->modal != "s"): ?>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />
 

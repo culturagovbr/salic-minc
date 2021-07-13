@@ -5,7 +5,7 @@ function dadosProjeto(idEdital, nomeOrgao, nomeEdital){
 
 	//alert(idEdital); return false;
 
-	Texto = "Projetos selecionados do órgão " + nomeOrgao + " para o edital "+ nomeEdital;
+	Texto = "Projetos selecionados do ï¿½rgï¿½o " + nomeOrgao + " para o edital "+ nomeEdital;
 	$('#tabelaDados').html('');
 	$('#mensagemErro').html('');
 	$('#botaoPDF').html('');
@@ -26,7 +26,7 @@ function dadosProjeto(idEdital, nomeOrgao, nomeEdital){
 		}
 	});
 	$('.ui-dialog-titlebar-close').remove();
-	
+
 	$.ajax({
 	    url : '<?php echo $this->url(array('controller' => 'gerarrelatorios', 'action' => 'listarselecionados')); ?>',
 	    data :
@@ -39,7 +39,7 @@ function dadosProjeto(idEdital, nomeOrgao, nomeEdital){
 		var	recebe = $('#tabelaDados');
 		var	botao = $('#botaoPDF');
 		var	tabela = '<tr><th>Pronac</th><th>Nome do Projeto</th><th>Nota Final</th></tr>';
-		var	mensagem = '<tr><td>Não há registros a serem exibidos.</td></tr>';
+		var	mensagem = '<tr><td>NÃ£o hï¿½ registros a serem exibidos.</td></tr>';
 	        if(data.resposta){
 	            recebe.html(tabela);
 	            for (i in data.conteudo)
@@ -50,7 +50,7 @@ function dadosProjeto(idEdital, nomeOrgao, nomeEdital){
 	        } else {
         		$('#mensagemErro').html(mensagem);
 	        }
-	        
+
 	        //alert(data);
 		},
 	    type : 'post'
@@ -67,44 +67,44 @@ function gerarPDF(){
 </script>
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 
-	
+
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 <form id="frmPDF" name="frmPDF" action="<?php echo $this->url(array('controller' => 'Listareditais', 'action' => 'listarselecionados'));?>" method="post">
 <input type="hidden" name="html" id="html"></input>
 </form>
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 
 <table class="tabela">
  		<tr>
  			<th width="30%" align="center" >Nr. Edital</th>
- 			<th width="70%"  align="center" >Edital</th>			
+ 			<th width="70%"  align="center" >Edital</th>
  		</tr>
  		<?php $numeroEdital = $this->numeroEdital;?>
  		<?php foreach ($numeroEdital as $dados){ ?>
- 
-        	
+
+
 
 
 		 		<tr>
 		 			<td align="center"><u><a style="cursor:pointer;" onclick="dadosProjeto('<?php echo $dados->idEdital; ?>', '<?php echo $this->nomeOrgao; ?>', '<?php echo $dados->NomeEdital; ?>');"><?php echo $dados->NrEdital; ?></a></u></td>
 		 			<td align="center"><u><a style="cursor:pointer;" onclick="dadosProjeto('<?php echo $dados->idEdital; ?>', '<?php echo $this->nomeOrgao; ?>', '<?php echo $dados->NomeEdital; ?>');"><?php echo $dados->NomeEdital; ?></a></u></td>
-		
+
 		 		</tr>
 
- 		
+
  		<?php }?>
-		
+
  </table>
- 
+
  <div style="display: none" id="dadosProjeto">
- 
+
  <table class="tabela" id="tabelaDados">
  </table>
   <p id="botaoPDF"></p>
  <div id="mensagemErro" style="color: red; display: inherit;"></div>
  </div>
- 
+

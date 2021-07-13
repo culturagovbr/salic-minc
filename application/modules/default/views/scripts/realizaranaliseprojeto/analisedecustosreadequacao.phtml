@@ -6,13 +6,13 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.realizaranaliseprojeto
- * @link © http://www.cultura.gov.br
+ * @link ï¿½ http://www.cultura.gov.br
  */
 echo $this->partial('inc/menu.inc.php', $this) // menu vertical
 ?>
 <script>
     $(document).ready(function(){
-        
+
         var idplanilha = '<?php echo (isset($_GET['idplanilha'])) ? $_GET['idplanilha'] : '';?>';
         if(idplanilha != ""){
             setTimeout(function(){
@@ -21,9 +21,9 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                     scrollTop: $('#scroll'+idplanilha).offset().top
                 }, 1500);
             }, '1500');
-            
+
         }
-        
+
         var codEtapa = '<?php echo (isset($_GET['ETP'])) ? $_GET['ETP'] : '';?>';
         if(codEtapa != ""){
             setTimeout(function(){
@@ -33,7 +33,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                 }, 1500);
             }, '1500');
         }
-        
+
         $(".reintegrar").click(function(){
             var quantidade = $(this).attr('quantidade');
             var valorunitario = $(this).attr('valorunitario').replace('.',',');
@@ -51,14 +51,14 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                     $("#ocorrencia"+idplanilhaaprovacao).val(ocorrencia)
                     calcular_planilha_projeto(idplanilhaaprovacao)
                     validar_val_parec_relat(idplanilhaaprovacao)
-                  $("#confirma").dialog('close');  
+                  $("#confirma").dialog('close');
                 }
                 ,
                 function(){
-                  $("#confirma").dialog('close');  
+                  $("#confirma").dialog('close');
                 }
             )
-            $("#confirma").dialog('open');  
+            $("#confirma").dialog('open');
         })
         $("#error").dialog({
             title:"Erro",
@@ -133,7 +133,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
             var idEtapa   = $(this).attr('idEtapa');
             var idItem    = $(this).attr('idPlanilhaItem');
             var nomeEtapa = $(this).attr('etapa');
-            $("#form" + idplanilhaaprovacao).each(function() // necessário para resetar o formulário, pois, quando a modal ï¿½ fechada o mesmo não é resetado
+            $("#form" + idplanilhaaprovacao).each(function() // necessï¿½rio para resetar o formulï¿½rio, pois, quando a modal ï¿½ fechada o mesmo NÃ£o ï¿½ resetado
             {
                 this.reset();
                 calcular_planilha_projeto(idplanilhaaprovacao); // recalcula o valor total do produto
@@ -144,7 +144,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                 type : 'post',
                 url : '<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'recuperar-etapas-do-item')); ?>',
                 beforeSend: function(){
-                    
+
                 },
                 data :
                 {
@@ -152,7 +152,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                     idItem: idItem
                 },
                 success: function(data){
-                    
+
                     $("#selEtapaItem"+idplanilhaaprovacao+" option").remove(); //remove options existentes
                     if(data.length > 0)
                     {
@@ -166,7 +166,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                         });
 
                         $("#selEtapaItem"+idplanilhaaprovacao).append(option);
-                        
+
                     }else{
                         var option = "<option selected value='" + idEtapa + "'>" + nomeEtapa + "</option>";
                         $("#selEtapaItem"+idplanilhaaprovacao).append(option);
@@ -198,7 +198,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                             $("#error").dialog('open');
                             return false;
                         }
-                        
+
                         $("#form" + idplanilhaaprovacao).submit(); // envia o formulario
                         $(this).dialog('close');
                     }
@@ -206,20 +206,20 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
             });
             $(".tela[idPlanilhaAprovacao='"+idplanilhaaprovacao+"']").dialog('open')
         });
-		
+
 		$(".selEtapaItem").change(function(){
             var idEtapa    = $(this).attr('idEtapa');
             var valorEtapa = $(this).val();
             var txtEtapa   = $(this).find('option').filter(':selected').text(); //pega texto da combo selecionada
-            
+
             if(valorEtapa != idEtapa)
             {
-                $("#mensagemAlerta").html("Este item será movido para a etapa de " + txtEtapa + "!");
+                $("#mensagemAlerta").html("Este item serÃ¡ movido para a etapa de " + txtEtapa + "!");
                 abreAlerta();
             }
         });
     });//fecha $(document).ready
-    
+
     function confirma(functionsim, functionnao){
     $("#confirma").dialog({
         title:"Confirma",
@@ -254,17 +254,17 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
         });
         $('.ui-dialog-titlebar-close').remove();
     }
-    
+
     function JSReintegrarEtapa(intProduto, intEtapa){
-        
+
         var idPronac   = $("#divEtapa"+intProduto+"_"+intEtapa).find("input:[name='idPronac']").val();
         var idProduto  = $("#divEtapa"+intProduto+"_"+intEtapa).find("input:[name='idProduto']").val();
         var idEtapa    = $("#divEtapa"+intProduto+"_"+intEtapa).find("input:[name='idEtapa']").val();
         var tpPlanilha = $("#divEtapa"+intProduto+"_"+intEtapa).find("input:[name='tpPlanilha']").val();
-        
+
         $("#divDinamicaReintegrarEtapa").remove();
         $("#divDinamicaReintegrarEtapa").dialog("destroy");
-                
+
         $('html').css('overflow', 'hidden');
         $("body").append("<div id='divDinamicaReintegrarEtapa'></div>");
         $("#divDinamicaReintegrarEtapa").html("");
@@ -300,13 +300,13 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                     $("#divDinamicaReintegrarEtapa").remove();
                 },
                 'Salvar': function() {
-                    
+
                     var justificativa    = $("#formReintegrarEtapa").find("textarea:[name='justificativa']").val();
                     var etapaAReintegrar = $("#formReintegrarEtapa").find("input:[name='etapaAReintegrar']").val();
                     var msgErro = $("#formReintegrarEtapa").find("span:[id='msgErro']");
-                    
+
                     msgErro.html('');
-                    
+
                     if($.trim(etapaAReintegrar) == ''){
                         $("#error").html('Informe qual Etapa deseja reintegrar!');
                         $("#error").dialog('open');
@@ -316,14 +316,14 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                     if($.trim(justificativa) == ''){
                         $("#error").html('O campo justificativa &eacute; obrigat&oacute;rio!');
                         $("#error").dialog('open');
-                        //msgErro.html('Campo obrigatório não preenchido');
+                        //msgErro.html('Campo obrigatï¿½rio NÃ£o preenchido');
                         return false;
                     }
-                    
+
                     $("#confirma").html("Os valores da Etapa que voc&ecirc; selecionou ser&atilde;o reintegrados. Tem certeza que deseja continuar?");
                     confirma(
                         function(){
-                            $("#confirma").dialog('close');  
+                            $("#confirma").dialog('close');
                             $("#formReintegrarEtapa").submit();
                             //jqAjaxForm(document.getElementById('formReintegrarEtapa'), 'resultadoPesquisa');
                             $(this).dialog('close');
@@ -332,7 +332,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                         }
                         ,
                         function(){
-                            $("#confirma").dialog('close');  
+                            $("#confirma").dialog('close');
                         }
                     )
                     $("#confirma").dialog('open');
@@ -424,7 +424,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                         <td>
                             <div>
                                 <div tipo="etapa" fonte="<?php echo $nrfonte;?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" aberto="true" class="icn_menos" style="width:80%; margin-left:4%; "><span class="orange del_link" style="font-size: 14pt; font-weight: 800;"><?php echo $etapa; ?></span></div>
-                                <?php if(array_key_exists($produto,$this->produtosFavoraveis)): ?> 
+                                <?php if(array_key_exists($produto,$this->produtosFavoraveis)): ?>
                                     <div id="icnReintegrarEtapa" style="float: right;"><input type="button" class="btn_reintegrar reintegrarEtapa" value=" " onclick="JSReintegrarEtapa('<?php echo $nrproduto;?>','<?php echo $nretapa;?>')"></div>
                                 <?php endif; ?>
                             </div>
@@ -469,7 +469,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                                             <tr class="item" <?php echo $planilha['reducao'] == 1 ? "style='color : red;'" : 0; ?> id="scroll<?php echo $planilha['idPlanilhaAprovacao']; ?>">
                                                 <td><?php echo $item; ?></td>
                                                 <td>
-                                                    <?php if(array_key_exists($produto,$this->produtosFavoraveis)): ?> 
+                                                    <?php if(array_key_exists($produto,$this->produtosFavoraveis)): ?>
                                                         <a <?php echo $planilha['nrFonteRecurso'] == 109 ? "class='linkplanilha' valor='".$planilha['idPlanilhaAprovacao']."' style='text-decoration: underline; cursor:pointer;'" : '' ?> idPlanilhaAprovacao ="<?php echo $planilha['idPlanilhaAprovacao']; ?>"  idProduto="<?php echo $planilha['idProduto']; ?>"  idEtapa="<?php echo $planilha['idEtapa']; ?>" idPlanilhaItem="<?php echo $planilha['idPlanilhaItem']; ?>" etapa="<?php echo $etapa; ?>"  name="<?php echo $planilha['idPlanilhaAprovacao']; ?>" ><?php echo $planilha['item']; ?></a>
                                                     <?php else: ?>
                                                         <?php echo $planilha['item']; ?>
@@ -486,7 +486,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                                                 <td><?php echo $this->formatarReal($planilha['vlunitariocomp']); ?></td>
                                                 <td><?php echo $this->formatarReal($planilha['vlconselheiro']); ?></td>
                                                 <td><?php echo $planilha['justificativaconselheiro']; ?>
-                                                    
+
                                                     <!-- ================================================= -->
                                                     <!-- ========== INICIO MODAL REINTEGRAR ETAPA ======== -->
                                                     <!-- ================================================= -->
@@ -501,7 +501,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                                                     <!-- ================================================= -->
                                                     <!-- ========== FIM  MODAL REINTEGRAR ETAPA ========== -->
                                                     <!-- ================================================= -->
-                                                    
+
                                                     <!-- =============================================== -->
                                                     <!-- ========== INICIO MODAL EDITAR ITEM =========== -->
                                                     <!-- =============================================== -->
@@ -520,7 +520,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                                                                     </td>
                                                                     <td colspan="2">
                                                                         <strong>Etapa:</strong><br />
-                                                                        
+
 																		<?php //echo $etapa; ?>
                                                                         <select name="idEtapaDoItem" id="selEtapaItem<?php echo $planilha['idPlanilhaAprovacao']; ?>" class="input_simples selEtapaItem" idEtapa="<?php echo $planilha['idEtapa']; ?>"><option value="">&nbsp;carregando...&nbsp;</option></select>
                                                                     </td>
@@ -564,7 +564,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                                                                 </tr>
                                                                 <!-- ================================ -->
                                                                 <!-- ==== FIM DADOS DO PROPONENTE === -->
-                                                                
+
                                                                 <!-- ================================= -->
                                                                 <!-- ======= DADOS DO PARECERISTA ==== -->
                                                                 <tr>
@@ -601,7 +601,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                                                                 </tr>
                                                                 <!-- ================================= -->
                                                                 <!-- ==== FIM DADOS DO PARECERISTA === -->
-                                                                
+
                                                                 <!-- ============================= -->
                                                                 <!-- ===== DADOS DO RELATOR ====== -->
                                                                 <tr>
@@ -665,7 +665,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu vertical
                                                         $valoretapasolicitado += $valorufsolicitado;
                                                         $valoretapaparecerista += $valorufparecerista;
                                                         $valoretapacomponente += $valorufcomponente;
-                                                        
+
                                                         $valorprodutosolicitado += $valorufsolicitado;
                                                         $valorprodutoparecerista += $valorufparecerista;
                                                         $valorprodutocomponente += $valorufcomponente;

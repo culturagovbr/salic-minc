@@ -37,7 +37,7 @@ if ($this->projetosPagos) {
 	        	<input type="button" id="" class="btn_adicionar projeto" onclick="$('.produtos_<?php echo $projetosP['IdPRONAC']?>').toggle()" />
 	        	<label id="pronac">Pronac:</label>
 	        	<a target="_blank" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'))."?idPronac=$projetosP[IdPRONAC]"?>'><?php echo $projetosP['Pronac']; ?></a>
-	        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="nome projeto">Nome Projeto:</label> 
+	        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="nome projeto">Nome Projeto:</label>
 	        	<a href='<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'carregarhistorico'))."?Pronac=$projetosP[Pronac]&idPronac=$projetosP[IdPRONAC]"?>'><?php echo $projetosP['NomeProjeto']; ?></a>
 	        </td>
 	    </tr>
@@ -66,7 +66,7 @@ if ($this->projetosPagos) {
 		        <td><?php if ($produto->stPrincipal == 1) {
             echo 'Sim';
         } else {
-            echo 'Nâo';
+            echo 'NÃ£o';
         } ?></td>
 		        <td><?php echo $produto->OrdemPagamento; ?></td>
 		        <td><?php echo $produto->memorando.' / ';
@@ -132,7 +132,7 @@ if ($this->projetosLiberados) {
 	        	<input type="button" id="" class="btn_adicionar projeto" onclick="$('.produtos_<?php echo $projetosL['IdPRONAC']?>').toggle()" />
 	        	<label id="pronac">Pronac:</label>
 	        	<a target="_blank" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'))."?idPronac=$projetosL[IdPRONAC]"?>'><?php echo $projetosL['Pronac']; ?></a>
-	        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="nome projeto">Nome Projeto:</label> 
+	        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="nome projeto">Nome Projeto:</label>
 	        	<a href='<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'carregarhistorico'))."?Pronac=$projetosL[Pronac]&idPronac=$projetosL[IdPRONAC]"?>'><?php echo $projetosL['NomeProjeto']; ?></a>
 	        </td>
 	    </tr>
@@ -161,7 +161,7 @@ if ($this->projetosLiberados) {
 		        <td><?php if ($produto->stPrincipal == 1) {
                 echo 'Sim';
             } else {
-                echo 'Nâo';
+                echo 'NÃ£o';
             } ?></td>
 		        <td><?php echo $produto->OrdemPagamento; ?></td>
 		        <td><?php echo $produto->memorando.' / ';

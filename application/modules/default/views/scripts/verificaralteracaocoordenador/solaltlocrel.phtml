@@ -1,4 +1,4 @@
-<!-- ========== IN�CIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 <!--
 function layout_fluido()
@@ -39,14 +39,14 @@ function modaljustificativa(id){
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="In�cio">In&iacute;cio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="INÍCIO">In&iacute;cio</a></li>
         <li class="last">Acompanhamento</li>
         <li class="last">Verificar Readequa&ccedil;&atilde;o de Projeto</li>
     </ul>
 </div>
 <div id="mostra"></div>
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>READEQUA&Ccedil;&Atilde;O: LOCAL DE REALIZA&Ccedil;&Atilde;O
         <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
@@ -182,14 +182,14 @@ function modaljustificativa(id){
                             <td align="center" class="destacar bold">A&ccedil;&atilde;o</td>
                             <td align="center" class="destacar bold">Avalia&ccedil;&atilde;o</td>
                             <td align="center" class="destacar bold">Justificativa da Exclus&atilde;o</td>
-                            <td align="center" class="destacar bold">An&aacute;lise T�cnica</td>
+                            <td align="center" class="destacar bold">An&aacute;lise Técnica</td>
                         </tr>
                         <?php
                         $antpais = "";
                         $antuf = "";
                         $antmun = "";
                         $justificativa = "";
-                        
+
                         $contAbrangencia = 0;
                         if ($this->resultAbrangencia) {
                         	$i = 1;
@@ -219,7 +219,7 @@ function modaljustificativa(id){
                             }
                         }
                         ?>
-                        
+
 
 
                                 <?php if (!$exibirMais) { ?>
@@ -230,7 +230,7 @@ function modaljustificativa(id){
 
                                 <tr>
                                     <td>
-                                        
+
                                         <?php //if ($exibirMais && (isset($this->resultAbrangencia[$i]->idAbrangencia) && $locarel->idAbrangencia == $this->resultAbrangencia[$i]->idAbrangencia)) { // verifica se tem hist�rico ?>
                                                 <div class="exibir<?php echo $locarel->idAbrangencia;?>"><div class="icn_mais"><span><?php echo $locarel->pais; ?></span></div></a></div>
                                                 <div class="ocultar<?php echo $locarel->idAbrangencia;?> sumir" style="display:none;"><div class="icn_menos"><span><?php echo $locarel->pais; ?></span></div></a></div>
@@ -239,7 +239,7 @@ function modaljustificativa(id){
 
                                     <?php
 
-                                
+
                         ?>
                                     </td>
                             <td><?php
@@ -291,12 +291,12 @@ function modaljustificativa(id){
                             	?>
                             </td>
                         </tr>
-                        
+
                         <?php if (!$exibirMais) { ?>
                             </tbody>
                             <?php } ?>
 
-                            <div title="Justificativa da Exclus�o" style="display: none;" id="modal-justificativa<?php echo $locarel->idAbrangencia; ?>">
+                            <div title="Justificativa da Exclus�o" style="display: none;" id="modal-justificativa<?php echo $locarel->idAbrangencia; ?>">
                                         <?php echo $locarel->dsExclusao; ?>
                             </div>
 
@@ -310,7 +310,7 @@ function modaljustificativa(id){
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="2">JUSTIFICATIVA DA SOLICITA��O DE ALTERA��O</th>
+                    <th colspan="2">JUSTIFICATIVA DA Solicitação DE ALTERA��O</th>
                 </tr>
                 <tr>
                     <td align="left" colspan="2"><textarea cols="" rows="7"  class="textarea_simples" style="width: 99%" readonly="readonly" ><?php echo isset($this->resultAbrangencia[0]->dsjustificativa) ? strip_tags($this->resultAbrangencia[0]->dsjustificativa) : '' ?></textarea></td>
@@ -320,7 +320,7 @@ function modaljustificativa(id){
                 </tr>
                 <?php
                 if($this->resultArquivo){
-                foreach ($this->resultArquivo as $arquivo) {                 
+                foreach ($this->resultArquivo as $arquivo) {
                 ?>
                 <tr>
                     <td style="width: 25%; padding-left: 5%; text-decoration: underline;" colspan="2"><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivo->idArquivo; ?>"><?php echo $arquivo->nmarquivo; ?></a></td>
@@ -352,12 +352,12 @@ function modaljustificativa(id){
 
 </div>
 
-<!-- ========== FIM CONTE�DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

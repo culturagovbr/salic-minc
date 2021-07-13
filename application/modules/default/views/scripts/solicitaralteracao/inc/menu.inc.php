@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 <?php
 //$html = '<div style="padding-top:50px; text-align:center; background:#f8f8f8;"><p><a href="' . $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')) . '?idPronac=' . $_GET['idpronac'] . '" title="Abrir menu principal">Voltar para o menu principal</a></div>';
 $html = '';
@@ -7,15 +7,15 @@ $menuExiste = false;
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
-    <!-- início: conteúdo principal #container -->
+    <!-- INÃCIO: CONTEÃšDO principal #container -->
     <div id="container">
         <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
     ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
 } ?>Tem certeza que deseja Enviar e Finalizar?</div>
-        <div style="display:none" id="validarPlan">Antes de enviar a solicitação é necessário cadastrar os Itens de Custos para os Produtos sem planilha orçamentária!</div>
-        <div style="display:none" id="dialog-alerta">Solicitação realizada com sucesso!</div>
-        <div style="display:none" id="dialog-em-analise">Há pedido de readequação em análise. Favor aguardar.</div>
-        <!-- início: navegação local #qm0 -->
+        <div style="display:none" id="validarPlan">Antes de enviar a SolicitaÃ§Ã£o ï¿½ necessï¿½rio cadastrar os Itens de Custos para os Produtos sem planilha orï¿½amentï¿½ria!</div>
+        <div style="display:none" id="dialog-alerta">SolicitaÃ§Ã£o realizada com sucesso!</div>
+        <div style="display:none" id="dialog-em-analise">Hï¿½ pedido de readequaï¿½ï¿½o em AnÃ¡lise. Favor aguardar.</div>
+        <!-- INÃCIO: navegaï¿½ï¿½o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {
@@ -34,7 +34,7 @@ $menuExiste = false;
                 $("#rodapeConteudo").css("margin-left", "225px");
                 $(".sanfonaDiv").css("clear", "both");
                 $(".sanfonaDiv").css("width", "91%");
-            } // fecha função layout_fluido()
+            } // fecha funï¿½ï¿½o layout_fluido()
 
             $(document).ready(function()
             {
@@ -88,7 +88,7 @@ $menuExiste = false;
 
 
 
-        <?php if ($menu == "Com Menu" || $menu == "Botão") {
+        <?php if ($menu == "Com Menu" || $menu == "Botï¿½o") {
             ?>
             <div id="menuContexto">
                 <div class="top"></div>
@@ -116,14 +116,14 @@ $menuExiste = false;
                 <div class="sanfonaDiv"></div>
                 <div class="bottom"></div>
 
-    <?php if ($menu == "Botão") {
+    <?php if ($menu == "Botï¿½o") {
                 ?>
                     <div style='background:#f8f8f8;'><br><br><br>
                         <ul id='menuGerenciar' style="border:0">
                             <li>
                                 <form name="Produto" action="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'incluirproduto')); ?>" method="post">
                                     <input type="hidden" name="idpronac " value="<?php echo $idPronac; ?>">
-                                    <!--<input type="button" id="menuFinal" value="Enviar Solicitação" class="btn" />-->
+                                    <!--<input type="button" id="menuFinal" value="Enviar SolicitaÃ§Ã£o" class="btn" />-->
                                     <input type="button" id="menuFinal" class="btn_enviar_solicitacao" />
                                 </form>
                             </li>
@@ -144,7 +144,7 @@ $menuExiste = false;
 
 
 
-        <?php /* if($menu=="Botão"){ ?>
+        <?php /* if($menu=="Botï¿½o"){ ?>
           <div id="menuContexto">
           <div class="top"></div>
           <div id="qm0" class="qmmc ">
@@ -162,7 +162,7 @@ $menuExiste = false;
           <li>
           <form name="Produto" action="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto','action' => 'incluirproduto')); ?>" method="post">
           <input type="hidden" name="idpronac " value="<?php echo $idPronac; ?>">
-          <input type="button" id="menuFinal" value="Enviar Solicitação" class="btn" />
+          <input type="button" id="menuFinal" value="Enviar SolicitaÃ§Ã£o" class="btn" />
           </form>
           </li>
           </ul>
@@ -184,12 +184,12 @@ $menuExiste = false;
             });
             $(this).next().toggle('fast');
         });
-        
-<?php if ($menu != "Botão") {
+
+<?php if ($menu != "Botï¿½o") {
             ?>
 
             $('#div_teste2').toggle();
-                
+
 <?php
         } else {
             ?>
@@ -197,23 +197,23 @@ $menuExiste = false;
 <?php
         } ?>
     });
-    
 
-  
+
+
 </script>
 <script>
 
     $(document).ready(function(){
-        
+
         var existirPlanilhaProduto = '<?php echo $this->existirPlanilhaProduto; ?>';
 
-        $("#menuFinal").click(function(){           
+        $("#menuFinal").click(function(){
 
-            var idpronac = <?php echo $_GET['idpronac']; ?>;   
+            var idpronac = <?php echo $_GET['idpronac']; ?>;
             var idPedidoAlteracao = <?php echo $this->buscastatus['idPedidoAlteracao']; ?>;
-                                            
+
             var caminho = "<?php echo $this->url(array('controller' => 'solicitaralteracao', 'action' => 'validar-percentual')); ?>";
-                                            
+
             $.ajax({ //funcao jquery para enviar os formularios via ajax
                 type: "POST",
                 url: caminho,
@@ -226,7 +226,7 @@ $menuExiste = false;
                 success: function(data)
                 {
                     if (data.error) {
-                        $('#novas_mensagens').append('<div id="validar-pct">'+data.descricao+'<div>');                               
+                        $('#novas_mensagens').append('<div id="validar-pct">'+data.descricao+'<div>');
                         $('#validar-pct').dialog("destroy");
                         $('#validar-pct').dialog
                         ({
@@ -244,8 +244,8 @@ $menuExiste = false;
                             }
                         });
                         return false;
-                    }   else {  
-                    
+                    }   else {
+
                         if (existirPlanilhaProduto != 'ok') {
                             $("#validarPlan").dialog
                             ({
@@ -261,7 +261,7 @@ $menuExiste = false;
                                     {
                                         $(this).dialog('close');
                                         var idpronac = <?php echo $idPronac; ?>;
-                       
+
 
                                         var caminho = "<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'incluirproduto')); ?>";
                                         $.ajax({ //funcao jquery para enviar os formularios via ajax
@@ -295,11 +295,11 @@ $menuExiste = false;
                                 closeOnEscape: true,
                                 autoOpen:true,
                                 buttons: {
-                                    'Não': function()
+                                    'NÃ£o': function()
                                     {
                                         $(this).dialog('close');
                                         var idpronac = <?php echo $idPronac; ?>;
-                       
+
 
                                         var caminho = "<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'incluirproduto')); ?>";
                                         $.ajax({ //funcao jquery para enviar os formularios via ajax
@@ -351,7 +351,7 @@ $menuExiste = false;
                                                     });
                                                     $('.ui-dialog-titlebar-close').remove();
                                                 }
-                                
+
                                             }
 
                                         });
@@ -361,19 +361,19 @@ $menuExiste = false;
                             });
                             $('.ui-dialog-titlebar-close').remove();
                         }
-                    
+
                     }
                 }
             });
-             
 
-            
+
+
         });
 
     });
 
 </script>
 
-<!-- final: navegação local #qm0 -->
+<!-- final: navegaï¿½ï¿½o local #qm0 -->
 
 <!-- ========== FIM MENU ========== -->

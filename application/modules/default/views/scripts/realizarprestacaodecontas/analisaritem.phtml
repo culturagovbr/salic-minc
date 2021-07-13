@@ -2,7 +2,7 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
 <script language="javascript">
-    
+
     $(document).ready(function(){
     });
 
@@ -37,12 +37,12 @@
                     var texto = CKEDITOR.instances['observacao'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,'');
 
                     if (!$("input[@name='situacao']:checked").val()) {
-                       erro = '<b>Dados obrigatÛrios n„o informados!</b><br/>';
+                       erro = '<b>Dados obrigatÔøΩrios N√£o informados!</b><br/>';
                     }
 
                     if(texto == '')
                     {
-                        erro = '<b>Dados obrigatÛrios n„o informados!</b><br/>';
+                        erro = '<b>Dados obrigatÔøΩrios N√£o informados!</b><br/>';
                     }
 
                     if(erro != ''){
@@ -113,14 +113,14 @@
         </table>
         <table class="tabela">
             <tr>
-                <th>SITUA«√O</th>
+                <th>SITUAÔøΩÔøΩO</th>
             </tr>
             <tr>
                 <td >
                     <input type="radio" name="situacao" value="1"> Executado Integralmente<br>
                     <input type="radio" name="situacao" value="2"> Executado Parcialmente<br>
-                    <input type="radio" name="situacao" value="3"> N„o Executado<br>
-                    <input type="radio" name="situacao" value="4"> Sem InformaÁ„o<br>
+                    <input type="radio" name="situacao" value="3"> N√£o Executado<br>
+                    <input type="radio" name="situacao" value="4"> Sem InformaÔøΩÔøΩo<br>
 
                 </td>
             </tr>
@@ -128,7 +128,7 @@
         <table class="tabela">
             <tr>
                 <th>
-                    ObservaÁ„o:
+                    ObservaÔøΩÔøΩo:
                 </th>
             </tr>
             <tr>
@@ -142,9 +142,9 @@
 
 <div id="breadcrumb">
     <ul>
-       <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">InÌcio</a></li>
+       <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN√çCIO</a></li>
         <li class=""><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'tecnicoprestacaocontas'));?>">Analisar presta&ccedil;&atilde;o de contas</a></li>
-        <li class=""><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria', 'idPronac' => $this->AnalisarItem->IdPRONAC, 'idPlanilhaAprovacao' => $this->AnalisarItem->idPlanilhaAprovacao, 'idPlanilhaItem' => $this->AnalisarItem->idPlanilhaItens), '', true); ?>">Planilha or&ccedil;ament·ria comprovada</a></li>
+        <li class=""><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria', 'idPronac' => $this->AnalisarItem->IdPRONAC, 'idPlanilhaAprovacao' => $this->AnalisarItem->idPlanilhaAprovacao, 'idPlanilhaItem' => $this->AnalisarItem->idPlanilhaItens), '', true); ?>">Planilha or&ccedil;amentÔøΩria comprovada</a></li>
         <li class="last">Analisar item</li>
     </ul>
 </div>
@@ -171,7 +171,7 @@
                     <th colspan="4"><b>Licita&ccedil;&atilde;o</b></th>
                 </tr>
                 <tr>
-                    <td><b>N˙mero de Licita&ccedil;&atilde;o</b></td>
+                    <td><b>NÔøΩmero de Licita&ccedil;&atilde;o</b></td>
                     <td colspan="3"><?php echo $this->AnalisarItem->nrLicitacao;?></td>
                 </tr>
                 <tr>
@@ -179,7 +179,7 @@
                     <td colspan="3"><?php echo $this->AnalisarItem->modalidadeLicitacao;?></td>
                 </tr>
                 <tr>
-                    <td><b>N˙mero de Processo</b></td>
+                    <td><b>NÔøΩmero de Processo</b></td>
                     <td colspan="3"><?php echo $this->AnalisarItem->processoLicitacao;?></td>
                 </tr>
                 <tr>
@@ -305,5 +305,5 @@
     </form>
 </div>
 <div id="rodapeConteudo" ><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

@@ -1,42 +1,42 @@
 <?php
 /**
- * Projetos Deferidos - OrÁamento
+ * Projetos Deferidos - OrÔøΩamento
  * @author Equipe RUP - Politec
  * @since 20/07/2010
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.recurso
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
 		<li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'index')); ?>" title="Ir para Recurso">Recurso</a></li>
-		<li class="last">Projetos Deferidos com SolicitaÁ„o de Reenquadramento</li>
+		<li class="last">Projetos Deferidos com Solicita√ß√£o de Reenquadramento</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-	<div>Projetos Deferidos com SolicitaÁ„o de Reenquadramento <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>Projetos Deferidos com Solicita√ß√£o de Reenquadramento <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 
 
-	<!-- ========== INÕCIO TABELA RECURSO ========== -->
+	<!-- ========== IN√çCIO TABELA RECURSO ========== -->
 	<table class="tabela">
 		<tr>
 			<th>Pronac</th>
@@ -49,13 +49,13 @@
 			<td><?php echo $this->escape($tbrecurso[0]->NomeProjeto);?></td>
 		</tr>
 
-		<tr> 
+		<tr>
 			<th>CNPJ/CPF</th>
 			<th>Proponente</th>
 		</tr>
 
 		<tr>
-			<td><?php echo (!empty($tbrecurso[0]->CgcCpf)) ? Validacao::mascaraCPFCNPJ($this->escape($tbrecurso[0]->CgcCpf)) : "<em>N„o informado.</em>"; ?></td>
+			<td><?php echo (!empty($tbrecurso[0]->CgcCpf)) ? Validacao::mascaraCPFCNPJ($this->escape($tbrecurso[0]->CgcCpf)) : "<em>N√£o informado.</em>"; ?></td>
 			<td><?php echo $this->escape($tbrecurso[0]->NomeProponente);?></td>
 		</tr>
 	</table>
@@ -73,7 +73,7 @@
 
 	<br />
 
-	<!-- ========== INÕCIO TABELA RECURSO ========== -->
+	<!-- ========== IN√çCIO TABELA RECURSO ========== -->
 	<table class="tabela">
 		<tr>
 			<td>
@@ -89,7 +89,7 @@
 					</tr>
 					<tr>
 						<td>
-							<p><strong>ObservaÁ„o:</strong></p>
+							<p><strong>ObservaÔøΩÔøΩo:</strong></p>
 							<?php echo $p->dsJustificativa;?>
 						</td>
 					</tr>
@@ -101,7 +101,7 @@
 
 				<table class="tabela">
 					<tr>
-						<td align="right"><input type="submit" value=" Finalizar An·lise do Recurso " class="btn" /></td>
+						<td align="right"><input type="submit" value=" Finalizar An√°lise do Recurso " class="btn" /></td>
 					</tr>
 				</table>
 
@@ -113,12 +113,12 @@
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

@@ -1,42 +1,42 @@
 <?php
 /**
- * Visualização de comprovantes (Acesso: PROPONENTES)
+ * Visualizaï¿½ï¿½o de comprovantes (Acesso: PROPONENTES)
  * @author Equipe RUP - Politec
  * @since 28/04/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicadoprojeto
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="last">Comprovação de Execução Física do Projeto</li>
+		<li class="last">Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Comprovação de Execução Física do Projeto <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
 
-	<!-- ========== INÍCIO VISUALIZAÇÃO DE COMPROVANTE ========== -->
+	<!-- ========== INÃCIO VISUALIZAï¿½ï¿½O DE COMPROVANTE ========== -->
 	<table class="tabela" colspan="2" class="titulo_tabela">
-	
+
 		<?php foreach ($this->buscarPronac as $p): ?>
 		<tr class="titulo_tabela">
 			<th class="centro" colspan="2">
@@ -45,89 +45,89 @@
 			</th>
 		</tr>
 		<?php endforeach; ?>
-	
-	
-	
+
+
+
 		<?php foreach ($this->buscarDoc as $d): ?>
 		<tr>
 			<th class="centro" width="20%">TIPO DE DOCUMENTO</th>
 			<td class="esquerda"><?php echo $d->dsTipoDocumento; ?></td>
 		</tr>
 		<tr>
-			<th class="centro">TÍTULO</th>
+			<th class="centro">Tï¿½TULO</th>
 			<td class="esquerda"><?php echo $d->nmComprovante; ?></td>
 		</tr>
 		<tr>
-			<th class="centro">DESCRIÇÃO</th>
+			<th class="centro">DescriÃ§Ã£o</th>
 			<td class="esquerda"><?php echo $d->dsComprovante; ?></td>
 		</tr>
 		<tr>
 			<th class="centro">ARQUIVO</th>
 			<td class="esquerda"><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $d->idArquivo; ?>"><?php echo $d->nmArquivo; ?></a></td>
 		</tr>
-	
-		<?php if ($d->stParecerComprovante == 'CS') : // 'Comprovante Substituído' ?>
+
+		<?php if ($d->stParecerComprovante == 'CS') : // 'Comprovante Substituï¿½do' ?>
 		<tr>
-			<th class="centro">JUSTIFICATIVA PARA A ALTERAÇÃO</th>
+			<th class="centro">JUSTIFICATIVA PARA A ALTERAï¿½ï¿½O</th>
 			<td class="esquerda"><?php echo $d->dsJustificativaAlteracao; ?></td>
 		</tr>
 		<tr>
-			<th class="centro">PARECER TÉCNICO</th>
+			<th class="centro">PARECER Tï¿½CNICO</th>
 			<td class="esquerda"><?php echo $d->dsJustificativaCoordenador; ?></td>
 		</tr>
 		<?php endif; ?>
-	
+
 		<?php if ($d->stParecerComprovante == 'AD' || $d->stParecerComprovante == 'AI') : // 'Comprovante Deferido - Indeferido' ?>
 		<tr>
-			<th class="centro">JUSTIFICATIVA DE ALTERAÇÃO</th>
+			<th class="centro">JUSTIFICATIVA DE ALTERAï¿½ï¿½O</th>
 			<td class="esquerda"><?php echo $d->dsJustificativaAlteracao; ?></td>
 		</tr>
 		<tr>
 			<td class="centro" colspan="2">
 				<?php if ($d->stParecerComprovante == 'AD') : // 'Comprovante Deferido' ?>
-				<p>Substituição aceita (deferido)</p>
+				<p>Substituiï¿½ï¿½o aceita (deferido)</p>
 				<?php endif; ?>
 				<?php if ($d->stParecerComprovante == 'AI') : // 'Comprovante Indeferido' ?>
-				<p>Substituição não aceita (indeferido)</p>
+				<p>Substituiï¿½ï¿½o NÃ£o aceita (indeferido)</p>
 				<?php endif; ?>
 				<br />
 				<p>Justificativa: <?php echo $d->dsJustificativaCoordenador; ?></p>
 			</td>
 		</tr>
 		<?php endif; ?>
-	
+
 		<?php endforeach; ?>
-	
-	
-	
+
+
+
 	</table>
-	
-	
-	
-	<!-- ========== BOTÕES VOLTAR E ETC ========== -->
+
+
+
+	<!-- ========== BOTï¿½ES VOLTAR E ETC ========== -->
 	<table class="tabela">
 		<tr>
 			<td>
 				<div class="float_left">
-					<input type="button" class="btn_voltar" title=" Página Anterior "
-						onkeypress=" " 
+					<input type="button" class="btn_voltar" title=" pÃ¡gina Anterior "
+						onkeypress=" "
 						onclick="voltar();" />
-				</div>			
+				</div>
 			</td>
 		</tr>
 	</table>
-	
-	<!-- ========== FIM VISUALIZAÇÃO DE COMPROVANTE ========== -->
+
+	<!-- ========== FIM VISUALIZAï¿½ï¿½O DE COMPROVANTE ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

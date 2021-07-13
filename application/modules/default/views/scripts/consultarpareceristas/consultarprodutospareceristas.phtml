@@ -18,7 +18,7 @@ $(document).ready(function(){
             return false;
         //$(this).val($(this).val().replace(/\D/g,''));
     });
-    
+
 	$('.btn_localizar').click(function(){
 
 	var validar = true;
@@ -29,7 +29,7 @@ $(document).ready(function(){
 	});
 	if(validar == false){
 		$("#MsgPronac").html('Campo obrigat&oacute;rio!');
-		
+
 	} else{
 		switch($("#periodo").val())
         {
@@ -117,7 +117,7 @@ $(document).ready(function(){
                         dados += data;
                         $("#parecerista").html(dados);
                     } else {
-                        var dados = '<option value=""> - Nenhum Parecerista para o Órgão Selecionado - </option>';
+                        var dados = '<option value=""> - Nenhum Parecerista para o ï¿½rgï¿½o Selecionado - </option>';
                         $("#parecerista").html(dados);
                     }
                 }
@@ -181,7 +181,7 @@ function buscarPronac(v)
 	}
 	else if ( $("#pronac").val().length < 6 )
 	{
-		$("#MsgPronac").html('O Pronac deve ter no mínimo 6 caracteres!');
+		$("#MsgPronac").html('O Pronac deve ter no mï¿½nimo 6 caracteres!');
 	}
 	else{
 		$("#MsgPronac").html('');
@@ -230,7 +230,7 @@ function buscarPronac(v)
                 	<select name="filtro[tipo_produto]" class="input_simples" style="width: 250px;">
                 		<option value="0">Todos</option>
                 		<option value="1">Principal</option>
-                        <option value="0">Secundário</option>
+                        <option value="0">Secundï¿½rio</option>
                     </select>
                 </td>
             </tr>
@@ -244,7 +244,7 @@ function buscarPronac(v)
                 </td>
            	</tr>
             <tr>
-            	<td width="150"><label for="periodo">Período da Análise</label></td>
+            	<td width="150"><label for="periodo">Perï¿½odo da AnÃ¡lise</label></td>
             	<td width="150">
             		<select name="filtro[periodo]" id="periodo" class="input_simples" style="width: 250px;" onchange="datas(this.value);">
             			<option value="0">Todos</option>

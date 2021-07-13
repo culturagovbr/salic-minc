@@ -1567,7 +1567,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 //
 //                $tbVinculo->alterar($dadosVinculo, $whereVinculo);
 //            else :
-//                parent::message("O usu�rio informado n�o � Proponente ou o Projeto n�o est� vinculado a uma Proposta!", "alterarprojeto/" . $post->pagina . "?pronac=" . Seguranca::encrypt($dadosProjeto->pronac), "ERROR");
+//                parent::message("O usu�rio informado Não � Proponente ou o Projeto Não est� vinculado a uma Proposta!", "alterarprojeto/" . $post->pagina . "?pronac=" . Seguranca::encrypt($dadosProjeto->pronac), "ERROR");
 //            endif;
 
             /**

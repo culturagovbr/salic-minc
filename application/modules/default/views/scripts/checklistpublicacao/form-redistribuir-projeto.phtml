@@ -1,13 +1,13 @@
-<script type="text/javascript"> 
+<script type="text/javascript">
     $(document).ready(function(){
         $(".btn_pesquisar").click(function(){
-            
+
             var reuniao = $('#reuniao').val();
             var pronac  = $('#pronac').val();
             var tecnico = $('#tecnico').val();
-            
+
             $('#msgErro').html('');
-            
+
             if($.trim(reuniao) != "")
             {
                 if($.trim(pronac) == "" && $.trim(tecnico) == ""){
@@ -19,7 +19,7 @@
                 $('#msgErro').html("<font color='red'>Favor informar ao menos um campo para pesquisa.</font><br /><br />");
                 return false;
             }
-            
+
             $("#resultadoConsulta").html("");
             jqAjaxForm(document.getElementById("frmPesquisa"), "resultadoConsulta");
         });
@@ -38,10 +38,10 @@
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Redistribuir projeto por t&eacute;cnico
-    <span class="voltar"><a href="javascript:voltar();" title="P�gina Anterior">Voltar</a></span>
+    <span class="voltar"><a href="javascript:voltar();" title="página Anterior">Voltar</a></span>
     </div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
@@ -92,11 +92,11 @@
     <div id="resultadoConsulta"></div>
     <!-- ====== FIM RESULTADO PESQUISA ========== -->
 </div>
-<!-- ========== FIM CONTE�DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
-<br clear="all" /> 
+<br clear="all" />

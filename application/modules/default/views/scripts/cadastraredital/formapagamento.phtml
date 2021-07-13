@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 include_once 'inc/funcoes.inc.php';
 
@@ -35,10 +35,10 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
 <div id="alerta" title="Alerta" style="display: none">Os valores inseridos excedem o valor do PI dispon&iacute;vel!</div>
 <!--<div id="dialog_confirm_pagamento"></div>-->
 
-    <!-- início: conteúdo principal #container -->
+    <!-- INÃCIO: CONTEÃšDO principal #container -->
 
         <?php echo $this->partial('cadastraredital/inc/menu.inc.php', $this);?>
-        <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 		<div id="breadcrumb">
 		    <ul>
 		        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>">In&iacute;cio</a></li>
@@ -56,7 +56,7 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
         <div id="titulo">
             <div>Forma de pagamaneto para o edital "<?php echo $this->nmEdital; ?>" <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
         </div>
-        <!-- ========== FIM TÍTULO ========== -->
+        <!-- ========== FIM Tï¿½TULO ========== -->
 
 
         <!-- ========== GRID NOME DA PROPOSTA ========== -->
@@ -98,7 +98,7 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
 			                                        ?>
 			                                    </td>
 			                                    <td id="valorpi">
-			                                        Saldo disponível do PI:
+			                                        Saldo disponï¿½vel do PI:
 			                                        <?php
 			                                        echo "<b id='saldoDisponivelTXT'>".$saldoPi."</b>";
 			                                        ?>
@@ -205,11 +205,11 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
         }
 
         //formulario.montarEnvio.funcaoRetorno   =
-       $('.btn_salvar').click(function(){ 
-           
+       $('.btn_salvar').click(function(){
+
     	   var valida = true;
 //           $(this).find(".required").each(function(){
-//               if($(this).val()=='' || $(this).val() == 'Selecione' ){ 
+//               if($(this).val()=='' || $(this).val() == 'Selecione' ){
 //               	valida = false;
 //               }
 //           });
@@ -221,7 +221,7 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
              }else{
              	$("#mensagemForma").html('');
              }
-   	        
+
            	if($(".valor").val()==''){
    	        	$("#mensagemValor").html('<font color="red"><b>Informe o Valor de Apoio!</b></font>');
    	        	valida = false;
@@ -266,8 +266,8 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
 
         });
 
-	$('.btn_alterar').click(function(){ 
-           
+	$('.btn_alterar').click(function(){
+
     	   var valida = true;
 
            if(valida){
@@ -289,7 +289,7 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
            }
 
         });
-        $('#valorApoio').keydown(function(e){ 
+        $('#valorApoio').keydown(function(e){
             if($(this).val().length<14){
                 validaDigito(e);
                 formataValorMonetario(this,14,e,2);
@@ -440,7 +440,7 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
                 }
             }
         });
-        
+
         $("#dialog_confirm_pagamento").dialog({
                 resizable: false,
                 width:400,
@@ -451,7 +451,7 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
                         'N\u00e3o': function() {
                                 $(this).dialog('close');
                         },
-                        'Sim':function() 
+                        'Sim':function()
                         {
                                 var dados = {
                                     operacao:$("#dialog_confirm_pagamento").attr('operacao'),
@@ -464,8 +464,8 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
                                 };
 
                                 var parametros = jQuery.param(dados);
-                                
-                                
+
+
                                 //formulario.idInform='recebeinformacao';
                                 /*$.ajax({
                                 		type : 'post',
@@ -478,7 +478,7 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
                                 });*/
 
                                 window.location.href = '<?php echo $this->url(array('controller'=>'Cadastraredital', 'action'=>'formapagamentoopcoes')); ?>?'+parametros+''
-                                
+
                         }
                 }
         });
@@ -542,7 +542,7 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
 		{
 			subtracao = subtracao.replace(/(\d)(\d{2})$/, "$1,$2");
 			subtracao = subtracao.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2");
-	
+
 			var q = (subtracao.length - 3) / 3; // quantidade caracteres
 			var c = 0; // contador
 			while (q > c)
@@ -551,7 +551,7 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
 				subtracao = subtracao.replace(/(\d+)(\d{3}.*)/, "$1.$2");
 			}
 			subtracao = subtracao.replace(/^(0+)(\d)/g, "$2");
-	
+
 			$('#saldoDisponivelTXT').html(subtracao);
 		}
 		else
@@ -582,8 +582,8 @@ $saldoPi            = CadastrareditalController::saldoPiMenosValorEdital($nrForm
 
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

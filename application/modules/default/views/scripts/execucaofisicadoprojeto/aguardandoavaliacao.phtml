@@ -1,92 +1,92 @@
 <?php
 /**
- * Aguardando Avaliação de Comprovantes (Acesso: TÉCNICOS)
+ * Aguardando Avaliaï¿½ï¿½o de Comprovantes (Acesso: Tï¿½CNICOS)
  * @author Equipe RUP - Politec
  * @since 12/05/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicaprojeto
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="last">Comprovação de Execução Física do Projeto</li>
+		<li class="last">Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Comprovação de Execução Física do Projeto <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
 
-	<!-- ========== INÍCIO FORMULÁRIO DE BUSCA ========== -->
-	<form class="form" name="formBuscar" id="formBuscar" method="post" 
+	<!-- ========== INÃCIO FORMULï¿½RIO DE BUSCA ========== -->
+	<form class="form" name="formBuscar" id="formBuscar" method="post"
 		action="<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'aguardandoavaliacao')); ?>">
 
 	<table class="tabela">
 		<tr class="centro">
 			<td width="20%">
-				<label for="pronac"><strong>Nº PRONAC</strong></label> 
-				<input class="input_simples" type="text" name="pronac" id="pronac" maxlength="20" value="Digite o Pronac..."  
-					onkeyup="mascara(this, format_num);" onmouseup=" " 
-					onclick="limpar_campo(this, 'Digite o Pronac...');" onkeypress=" " 
+				<label for="pronac"><strong>Nï¿½ PRONAC</strong></label>
+				<input class="input_simples" type="text" name="pronac" id="pronac" maxlength="20" value="Digite o Pronac..."
+					onkeyup="mascara(this, format_num);" onmouseup=" "
+					onclick="limpar_campo(this, 'Digite o Pronac...');" onkeypress=" "
 					onblur="restaurar_campo(this, 'Digite o Pronac...');"  />
 			</td>
 			<td>
 				<label for="status"> </label>
 				<select class="input_simples" name="status" id="status">
-					<option value="AG">Aguardando Avaliação</option>
-					<option value="AV">Em Avaliação</option>
-					<option value="EA">Em Aprovação</option>
+					<option value="AG">Aguardando Avaliaï¿½ï¿½o</option>
+					<option value="AV">Em Avaliaï¿½ï¿½o</option>
+					<option value="EA">Em aprovaÃ§Ã£o</option>
 					<option value="AA">Avaliado</option>
 					<option value="TD" selected="selected">Todas</option>
 				</select>
 			</td>
 			<td>
-				<label for="dt_inicio"><strong>De</strong></label> 
-				<input class="input_simples" type="text" name="dt_inicio" id="dt_inicio" maxlength="10" value="00/00/0000" 
-					onkeyup="mascara(this, format_data);" onmouseup=" " 
-					onclick="limpar_campo(this, '00/00/0000');" onkeypress=" " 
-					onblur="restaurar_campo(this, '00/00/0000');" /> 
-				<label for="dt_fim"><strong>a</strong></label> 
-				<input class="input_simples" type="text" name="dt_fim" id="dt_fim" maxlength="10" value="00/00/0000" 
-					onkeyup="mascara(this, format_data);" onmouseup=" " 
-					onclick="limpar_campo(this, '00/00/0000');" onkeypress=" " 
+				<label for="dt_inicio"><strong>De</strong></label>
+				<input class="input_simples" type="text" name="dt_inicio" id="dt_inicio" maxlength="10" value="00/00/0000"
+					onkeyup="mascara(this, format_data);" onmouseup=" "
+					onclick="limpar_campo(this, '00/00/0000');" onkeypress=" "
+					onblur="restaurar_campo(this, '00/00/0000');" />
+				<label for="dt_fim"><strong>a</strong></label>
+				<input class="input_simples" type="text" name="dt_fim" id="dt_fim" maxlength="10" value="00/00/0000"
+					onkeyup="mascara(this, format_data);" onmouseup=" "
+					onclick="limpar_campo(this, '00/00/0000');" onkeypress=" "
 					onblur="restaurar_campo(this, '00/00/0000');" />
 			</td>
 			<td><input type="submit" class="btn_pesquisar" value=" " /></td>
 	</table>
 
 	</form>
-	<!-- ========== FIM FORMULÁRIO DE BUSCA ========== -->
+	<!-- ========== FIM FORMULï¿½RIO DE BUSCA ========== -->
 
 
 
-	<!-- ========== INÍCIO BUSCA PROJETOS -->
+	<!-- ========== INÃCIO BUSCA PROJETOS -->
 	<table class="tabela">
 		<tr class="titulo_tabela">
-			<th>Nº PRONAC</th>
+			<th>Nï¿½ PRONAC</th>
 			<th>Status</th>
 			<th>Data de Recebimento</th>
 			<th>Data de Resposta</th>
-			<th>Ação</th>
+			<th>Aï¿½ï¿½o</th>
 		</tr>
-	
+
 		<?php foreach ($this->paginacao as $r): ?>
 		<tr class="fundo_linha2 centro" <?php echo $this->corLinhaOnMouseOver(); ?>>
 			<td><acronym title="<?php echo $r->NomeProjeto; ?>"><?php echo $r->pronac; ?></acronym></td>
@@ -104,17 +104,17 @@
 
 
 
-	<!-- ========== PAGINAÇÃO ========== -->
+	<!-- ========== PAGINAÃ‡Ã‚O ========== -->
 	<?php if ($this->qtd > 20) { echo $this->paginacao; } ?>
 
 
 
-	<!-- ========== BOTÕES VOLTAR E ETC ========== -->
+	<!-- ========== BOTï¿½ES VOLTAR E ETC ========== -->
 	<table class="tabela">
 		<tr>
 			<td>
 				<div class="float_left">
-					<input type="button" class="btn_voltar" title=" Página Anterior " onkeypress=" " onclick="voltar();" />
+					<input type="button" class="btn_voltar" title=" pÃ¡gina Anterior " onkeypress=" " onclick="voltar();" />
 				</div>
 				<?php if (count($this->paginacao) > 0) : ?>
 				<div class="float_right total_itens">
@@ -128,12 +128,12 @@
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

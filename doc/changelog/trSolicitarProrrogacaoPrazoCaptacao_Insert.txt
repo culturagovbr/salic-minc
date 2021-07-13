@@ -12,16 +12,16 @@ ALTER  TRIGGER [dbo].[trSolicitarProrrogacaoPrazoCaptacao_Insert] ON [dbo].[vwSo
 AS
 
 -- ============================================================================================
--- Autor: Rômulo Menhô Barbosa
--- Data de Criação: 10/01/2013
--- Descrição: Incluir a solicitação do novo período para captar recursos. (NOVOSALIC)
+-- Autor: Rï¿½mulo Menhï¿½ Barbosa
+-- Data de Criaï¿½ï¿½o: 10/01/2013
+-- DescriÃ§Ã£o: Incluir a SolicitaÃ§Ã£o do novo perï¿½odo para captar recursos. (NOVOSALIC)
 -- ============================================================================================
 -- Autor: Jorge Arruda / Gabriel
--- Data de Criação: 10/04/2015
--- Descrição: Deletar a linha 82 que contém o seguinte código RAISERROR('O seu pedido de prorrogação foi recebido no MinC, aguarde a avaliação.<p>',16,1,@Erro)
--- Motivo: Quando o proponente vem requerir a prorrogação do prazo de captação de recursos, a aplicação lança
--- um erro, porque esta linha da trigger lança um "erro" com a mensagem de sucesso, o Zend entende que este erro
--- que o banco lança com a mensagem de "sucesso" é um erro. Por esse motivo a aplicação quebra.
+-- Data de Criaï¿½ï¿½o: 10/04/2015
+-- DescriÃ§Ã£o: Deletar a linha 82 que contï¿½m o seguinte CÃ³digo RAISERROR('O seu pedido de prorrogaï¿½ï¿½o foi recebido no MinC, aguarde a avaliaï¿½ï¿½o.<p>',16,1,@Erro)
+-- Motivo: Quando o proponente vem requerir a prorrogaï¿½ï¿½o do prazo de captaï¿½ï¿½o de recursos, a aplicaï¿½ï¿½o lanï¿½a
+-- um erro, porque esta linha da trigger lanï¿½a um "erro" com a mensagem de sucesso, o Zend entende que este erro
+-- que o banco lanï¿½a com a mensagem de "sucesso" ï¿½ um erro. Por esse motivo a aplicaï¿½ï¿½o quebra.
 -- ========================================================================================
 
 DECLARE @Erro             int
@@ -48,17 +48,17 @@ SET @Restricao = 0
 SET @Mensagem = ''
 
 --===================================================================================================================================
--- RECUPERAR INFORMAÇÕES
+-- RECUPERAR INFORMAï¿½ï¿½ES
 --===================================================================================================================================
 
-SELECT @idPronac = idPronac,@Pronac = AnoProjeto + Sequencial, @AnoProjeto = AnoProjeto, @Sequencial = Sequencial, 
+SELECT @idPronac = idPronac,@Pronac = AnoProjeto + Sequencial, @AnoProjeto = AnoProjeto, @Sequencial = Sequencial,
        @DtInicio = DtInicio, @DtFim = DtFinal, @Justificativa = Justificativa, @DtFimExecucao = DtFimExecucao
        FROM Inserted
 
 --===================================================================================================================================
 -- VERIFICAR OS PROJETOS QUE PODEM SER VALIDADOS PELOS SISTEMA
 --===================================================================================================================================
-IF EXISTS(SELECT * FROM Projetos 
+IF EXISTS(SELECT * FROM Projetos
                    WHERE Mecanismo = '1' and Situacao in ('E10','E12') and Orgao in (272,166) and IdPRONAC = @idPronac and
                          DateDiff(dy,dbo.fnDtPortariaPublicacao(AnoProjeto,Sequencial),convert(char(8),convert(char(4),year(DATEADD(year,1,getdate()))) + '0101' ,112)) <= 730)
    BEGIN
@@ -69,69 +69,69 @@ ELSE
      SET @Atendimento = 'A'
    END
 --===================================================================================================================================
--- INSERIR REGISTRO NA TABELA DE PRORROGAÇÃO.
+-- INSERIR REGISTRO NA TABELA DE PRORROGAï¿½ï¿½O.
 --===================================================================================================================================
 IF @Flag = 0
-   BEGIN 
-     INSERT INTO dbo.Prorrogacao 
-                (idPronac,AnoProjeto,Sequencial,DtPedido,DtInicio,DtFinal,Diligenciado,Observacao,Atendimento,Logon,idDocumento) 
+   BEGIN
+     INSERT INTO dbo.Prorrogacao
+                (idPronac,AnoProjeto,Sequencial,DtPedido,DtInicio,DtFinal,Diligenciado,Observacao,Atendimento,Logon,idDocumento)
           SELECT idPronac,AnoProjeto,Sequencial,getdate(),DtInicio,DtFinal,'N',@Justificativa,@Atendimento,idUsuario,idDocumento FROM Inserted
-   
+
      SELECT @Rows = @@ROWCOUNT, @Erro = @@ERROR
-     
+
      IF @Erro <> 0
         BEGIN
-          RAISERROR('2. Erro ao INCLUIR registro %d na tabela Prorrogação, transação cancelada.',16,1,@Erro)
+          RAISERROR('2. Erro ao INCLUIR registro %d na tabela Prorrogaï¿½ï¿½o, transaï¿½ï¿½o cancelada.',16,1,@Erro)
           ROLLBACK TRAN
           RETURN
         END
-     
+
      IF @Rows <> 1
         BEGIN
-          RAISERROR('3. Não é permitido INCLUIR %d registros ao mesmo tempo na tabela Prorrogação, transação cancelada',16,1,@Rows)
+          RAISERROR('3. NÃ£o ï¿½ permitido INCLUIR %d registros ao mesmo tempo na tabela Prorrogaï¿½ï¿½o, transaï¿½ï¿½o cancelada',16,1,@Rows)
           ROLLBACK TRAN
           RETURN
         END
-     
+
      --===================================================================================================================================
-     -- INSERIR OUTRO REGISTRO CORRESPONDENTE AO PRÓXIMO EXERCÍCIO SE O PERÍODO DE CAPTAÇÃO SE ENCERRAR APOS 31/10 ATÉ 30/12.
+     -- INSERIR OUTRO REGISTRO CORRESPONDENTE AO PRï¿½XIMO EXERCï¿½CIO SE O PERï¿½ODO DE CAPTAï¿½ï¿½O SE ENCERRAR APOS 31/10 ATï¿½ 30/12.
      --===================================================================================================================================
-     IF YEAR(@DtFimExecucao) > YEAR(GETDATE()) AND 
+     IF YEAR(@DtFimExecucao) > YEAR(GETDATE()) AND
         (DATEDIFF(dy,dbo.fnFimCaptacao(@AnoProjeto,@Sequencial),convert(char(8),convert(char(4),YEAR(GETDATE())) + '1230' ,112)) > 0 and
-         DATEDIFF(dy,dbo.fnFimCaptacao(@AnoProjeto,@Sequencial),convert(char(8),convert(char(4),YEAR(GETDATE())) + '1230' ,112)) <= 60) 
+         DATEDIFF(dy,dbo.fnFimCaptacao(@AnoProjeto,@Sequencial),convert(char(8),convert(char(4),YEAR(GETDATE())) + '1230' ,112)) <= 60)
         BEGIN
            IF YEAR(@DtFimExecucao) > YEAR(dateadd(year,1,GETDATE()))
-              BEGIN 
-                INSERT INTO dbo.Prorrogacao 
-                           (idPronac,AnoProjeto,Sequencial,DtPedido,DtInicio,DtFinal,Diligenciado,Observacao,Atendimento,Logon) 
+              BEGIN
+                INSERT INTO dbo.Prorrogacao
+                           (idPronac,AnoProjeto,Sequencial,DtPedido,DtInicio,DtFinal,Diligenciado,Observacao,Atendimento,Logon)
                      SELECT idPronac,AnoProjeto,Sequencial,dateadd(MINUTE,1,GETDATE()),
                             CONVERT(DATETIME,CONVERT(char(4),YEAR(DATEADD(YEAR,1,GETDATE()))) + '0101'),
                             CONVERT(DATETIME,CONVERT(char(4),YEAR(DATEADD(YEAR,1,GETDATE()))) + '1231'),
-                            'N',@Justificativa,@Atendimento,idUsuario 
+                            'N',@Justificativa,@Atendimento,idUsuario
                        FROM Inserted
               END
            ELSE
-              BEGIN 
-                INSERT INTO dbo.Prorrogacao 
-                           (idPronac,AnoProjeto,Sequencial,DtPedido,DtInicio,DtFinal,Diligenciado,Observacao,Atendimento,Logon,idDocumento) 
+              BEGIN
+                INSERT INTO dbo.Prorrogacao
+                           (idPronac,AnoProjeto,Sequencial,DtPedido,DtInicio,DtFinal,Diligenciado,Observacao,Atendimento,Logon,idDocumento)
                      SELECT idPronac,AnoProjeto,Sequencial,dateadd(MINUTE,1,GETDATE()),
                             CONVERT(DATETIME,CONVERT(char(4),YEAR(DATEADD(YEAR,1,GETDATE()))) + '0101'),@DtFimExecucao,
-                            'N',@Justificativa,@Atendimento,idUsuario,idDocumento 
+                            'N',@Justificativa,@Atendimento,idUsuario,idDocumento
                        FROM Inserted
               END
-           
+
           SELECT @Rows = @@ROWCOUNT, @Erro = @@ERROR
-     
+
           IF @Erro <> 0
              BEGIN
-               RAISERROR('2. Erro ao INCLUIR registro %d na tabela Prorrogação, transação cancelada.',16,1,@Erro)
+               RAISERROR('2. Erro ao INCLUIR registro %d na tabela Prorrogaï¿½ï¿½o, transaï¿½ï¿½o cancelada.',16,1,@Erro)
                ROLLBACK TRAN
                RETURN
              END
-     
+
           IF @Rows <> 1
              BEGIN
-               RAISERROR('3. Não é permitido INCLUIR %d registros ao mesmo tempo na tabela Prorrogação, transação cancelada',16,1,@Rows)
+               RAISERROR('3. NÃ£o ï¿½ permitido INCLUIR %d registros ao mesmo tempo na tabela Prorrogaï¿½ï¿½o, transaï¿½ï¿½o cancelada',16,1,@Rows)
                ROLLBACK TRAN
                RETURN
              END
@@ -139,5 +139,5 @@ IF @Flag = 0
      END
 ELSE
    RAISERROR(@Mensagem,16,1,@Erro)
-   
- 
+
+

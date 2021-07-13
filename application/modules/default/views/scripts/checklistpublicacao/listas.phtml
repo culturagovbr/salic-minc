@@ -5,7 +5,7 @@
         $("body").append("<div id='divDinamica'></div>");
         $("#divDinamica").html("");
         $('#divDinamica').html("Deseja realmente encaminhar o projeto para a publica&ccedil;&atilde;o no DOU?");
-        var title = 'ConfirmaÁ„o';
+        var title = 'Confirma√ß√£o';
         $("#divDinamica").dialog({
             //resizable: true,
             width:300,
@@ -14,7 +14,7 @@
             autoOpen:true,
             title: title,
             buttons: {
-                'N„o': function() {
+                'N√£o': function() {
                     $("#divDinamica").remove();
                     $(this).dialog('close');
                     $('html').css('overflow', 'auto');
@@ -131,7 +131,7 @@
             height:180,
             modal: true,
             autoOpen:true,
-            title:"ConfirmaÁ„o",
+            title:"Confirma√ß√£o",
             buttons: {
                 'OK': function() {
                     $("#divDinamicaMsg").remove();
@@ -156,7 +156,7 @@
             modal: true,
             autoOpen:false,
             buttons: {
-                'N„o': function() {
+                'N√£o': function() {
                     $(this).dialog('close')
                 },
                 'Sim': function() {
@@ -242,25 +242,25 @@
 
 <div id="modalConfirmacao" class="sumir"></div>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para InÔøΩcio">InÌcio</a></li>
-        <li>CheckList para PublicaÁ„o</li>
-        <li class="last"><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An·lise Documental'; ?></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
+        <li>CheckList para PublicaÔøΩÔøΩo</li>
+        <li class="last"><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An√°lise Documental'; ?></li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An·lise Documental'; ?></div>
+    <div><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An√°lise Documental'; ?></div>
 </div>
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
-<div id="conteudo">           
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
+<div id="conteudo">
     <form name="formPesquisa" id="formPesquisa" action="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas'));?>" method="get">
         <table class="tabela">
             <tr onclick="abrirDinamico('.divFiltroPesquisa', $(this))" style="cursor:pointer">
@@ -282,7 +282,7 @@
                 <td class="destacar bold">Situa&ccedil;&atilde;o</td>
                 <td>
                     <select name="tipoFiltro" style="width: 245px;" class="input_simples">
-                        <option value="">Aguardando An·lise Documental</option>
+                        <option value="">Aguardando An√°lise Documental</option>
                         <option value="desistencias" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='desistencias')?'selected="selected"':''; ?>>Desist&ecirc;ncias do Recurso</option>
                         <option value="diligenciados" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='diligenciados')?'selected="selected"':''; ?>>Proponente Diligenciado</option>
                         <option value="respondidos" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='respondidos')?'selected="selected"':''; ?>>Diligencia Respondida</option>
@@ -302,7 +302,7 @@
             </tr>
         </table>
     </form>
-    
+
     <!--<p align="center" colspan="2">
         <input type="button" name="btn_pesquisar" id="btn_pesquisar" class="btn_pesquisar" value="">
         <?php if($this->coordenador){ ?>
@@ -315,14 +315,14 @@
             <td align="center">
                 <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice1.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left;"> A diligenciar</div>
                 <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice.png" width="20px"/></div><div style="margin-top: 2px;  margin-right: 15px; margin-left: 3px; float: left"> Diligenciado</div>
-                <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice3.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left"> DiligÍncia respondida</div>
-                <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice2.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left"> DiligÍncia n„o respondida</div>
+                <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice3.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left"> DiligÔøΩncia respondida</div>
+                <div style="float: left;"><img src="<?php echo $this->baseUrl(); ?>/public/img/notice2.png" width="20px"/></div><div style="margin-top: 2px; margin-right: 15px; margin-left: 3px; float: left"> DiligÔøΩncia N√£o respondida</div>
             </td>
         </tr>
     </table>
 
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINA«√O ============ -->
+    <!-- ============ PAGINA√á√ÇO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -347,12 +347,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa; ?>'">
                     <?php } ?>
-                    P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -371,7 +371,7 @@
             echo " de ". $this->paginacao['total']. " Projetos listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php } ?>
 
 
@@ -381,9 +381,9 @@
             <tr class="titulo_tabela">
                 <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">PRONAC</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=1&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Projeto</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=16&ordem='.$this->paginacao['novaOrdem'];?>">¡rea / Segmento Cultural</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=16&ordem='.$this->paginacao['novaOrdem'];?>">ÔøΩrea / Segmento Cultural</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=7&ordem='.$this->paginacao['novaOrdem'];?>">Enquadramento</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">PerÌodo de Execu&ccedil;&atilde;o</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">PerÔøΩodo de Execu&ccedil;&atilde;o</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=9&ordem='.$this->paginacao['novaOrdem'];?>">Vl. Aprovado&nbsp;(R$)</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=11&ordem='.$this->paginacao['novaOrdem'];?>">N&ordm; Reuni&atilde;o</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa.'&campo=14&ordem='.$this->paginacao['novaOrdem'];?>">T&eacute;cnico</a></th>
@@ -391,11 +391,11 @@
                 <th>Regularidade</th>
 
                 <?php if($this->filtro != 'finalizados'){ ?>
-                <th>DiligÍncia</th>
+                <th>DiligÔøΩncia</th>
                 <?php } ?>
 
                 <th>Alterar</th>
-                
+
                 <?php if($this->coordenador && ($this->filtro == 'finalizados' || $this->filtro == 'recursos')){ ?>
                 <th>Encaminhar Para Portaria</th>
                 <?php } ?>
@@ -422,7 +422,7 @@
                 <td><?php echo $d->NomeProjeto; ?></td>
                 <td><?php echo $d->dsArea.' / '.$d->dsSegmento; ?></td>
                 <td align="center"><?php echo 'Art. '.$d->enquadramento; ?></td>
-                <td align="center" <?php echo $classRed; ?>><?php echo Data::tratarDataZend($d->DtInicioExecucao, 'Brasileira'); ?> ‡ <?php echo Data::tratarDataZend($d->DtFimExecucao, 'Brasileira'); ?></td>
+                <td align="center" <?php echo $classRed; ?>><?php echo Data::tratarDataZend($d->DtInicioExecucao, 'Brasileira'); ?> ÔøΩ <?php echo Data::tratarDataZend($d->DtFimExecucao, 'Brasileira'); ?></td>
                 <td align="right" nowrap><?php echo @number_format(($d->ValorAprovado), 2, ",", "."); ?></td>
                 <td align="center"><?php echo $d->nrreuniao; ?></td>
                 <td><?php echo $d->Tecnico; ?></td>
@@ -442,7 +442,7 @@
                     </a>
                     <?php } elseif($this->filtro == 'respondidos') { ?>
                     <a href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'));?>/tipoAnalise/inicial?idPronac=<?php echo ($d->IdPRONAC); ?>&situacao=D25&tpDiligencia=181" target="_blank">
-                        <img width="30px" title="DiligÍncia respondida" src="<?php echo $this->baseUrl(); ?>/public/img/notice3.png">
+                        <img width="30px" title="DiligÔøΩncia respondida" src="<?php echo $this->baseUrl(); ?>/public/img/notice3.png">
                     </a>
                     <?php } elseif($this->filtro == 'irregulares') { ?>
                     <a href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'));?>/tipoAnalise/inicial?idPronac=<?php echo ($d->IdPRONAC); ?>&situacao=D25&tpDiligencia=181" target="_blank">
@@ -470,7 +470,7 @@
 
     <?php if(count($this->dados)>0){ ?>
 
-        <!-- ============ PAGINA«√O ============ -->
+        <!-- ============ PAGINA√á√ÇO ============ -->
         <?php if($this->qtdDocumentos > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -503,12 +503,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronacPesquisa='.$this->pronacProjeto.'&nrReuniaoPesquisa='.$this->nrReuniaoPesquisa; ?>'">
                         <?php } ?>
-                        P·g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P√°g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -520,7 +520,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINA«√O ========== -->
+        <!-- ========== FIM PAGINA√á√ÇO ========== -->
 
     <?php } } ?>
 
@@ -547,12 +547,12 @@
         <input type="hidden" name="pronacPesquisa" value="<?php echo $this->pronacProjeto;?>">
         <input type="hidden" name="nrReuniaoPesquisa" value="<?php echo $this->nrReuniaoPesquisa;?>">
     </form>
-    
+
     <form target="_blank" class="form" name="formImprimirChecklist" id="formImprimirChecklist" method="post" action='<?php echo $this->url(array('controller' => 'checklistpublicacao', 'action' => 'assinaturas-imprimir-checklist')); ?>'></form>
 
 
 </div>
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

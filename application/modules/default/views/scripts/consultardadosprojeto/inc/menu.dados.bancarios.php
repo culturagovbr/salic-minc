@@ -1,4 +1,4 @@
-<!-- ========== INï¿½CIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
     <script type="text/javascript">
@@ -13,9 +13,9 @@
         });
     </script>
 
-    <!-- inï¿½cio: conteï¿½do principal #container -->
+    <!-- INÃCIO: CONTEÃšDO principal #container -->
     <div id="container">
-        <!-- inï¿½cio: navegaï¿½?o local #qm0 -->
+        <!-- INÃCIO: navegaï¿½?o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido(){
                 var janela = $(window).width();
@@ -32,7 +32,7 @@
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }
         </script>
-        
+
         <style type="text/css">
             .sanfonaDiv {
                 clear: both;
@@ -51,7 +51,7 @@
                 <a class="no_seta" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>' title="Ir para Concilia&ccedil;&atilde;o Banc&aacute;ria">Concilia&ccedil;&atilde;o Banc&aacute;ria</a>
                 <a class="no_seta" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'inconsistencia-bancaria'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>' title="Ir para Inconsist&ecirc;ncias Banc&aacute;rias">Inconsist&ecirc;ncias Banc&aacute;rias</a>
                 <a class="no_seta" href='<?php echo $this->url(array('controller' => 'aporte-captacao', 'action' => 'deposito-equivocado', 'idPronac' => $this->idPronac), '', true); ?>' title="Ir para Dep&oacute;sito Equivocado">Dep&oacute;sito Equivocado</a>
-                <a class="last no_seta <?php echo $this->itemMenu == 'devolucoes-do-incentivador' ? 'menuAtivo2':'';?>" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'devolucoes-do-incentivador', 'idPronac' => $this->idPronac), '', true); ?>' title="Ir para Devoluções do Incentivador">Devoluções do Incentivador</a>
+                <a class="last no_seta <?php echo $this->itemMenu == 'devolucoes-do-incentivador' ? 'menuAtivo2':'';?>" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'devolucoes-do-incentivador', 'idPronac' => $this->idPronac), '', true); ?>' title="Ir para Devoluï¿½ï¿½es do Incentivador">Devoluï¿½ï¿½es do Incentivador</a>
             </div>
             <div class="bottom"></div>
             <div id="space_menu"></div>

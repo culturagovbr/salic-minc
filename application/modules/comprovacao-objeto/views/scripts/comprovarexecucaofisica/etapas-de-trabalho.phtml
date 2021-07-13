@@ -1,6 +1,6 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl();?>/public/js/tinymce/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
- 
+
   //Contador e limitadores de caracteres
 
 function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
@@ -14,7 +14,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 
         document.getElementById("contador" + fieldName).innerHTML = "Caracteres: "+ countChars+ "";
 
-        //mudança de cor caso ultrapasse o numero de caracteres
+        //mudanï¿½a de cor caso ultrapasse o numero de caracteres
             if (countChars <= minchar){
                 document.getElementById("contador" + fieldName).style.color = "red";
             }else{
@@ -22,9 +22,9 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
             }
 }
 
-   $(document).ready(function(){    
+   $(document).ready(function(){
 
-        //inicializao e configuração do editor tinyMCE
+        //inicializao e configuraï¿½ï¿½o do editor tinyMCE
 
         tinymce.init({
 	    plugins:"paste,textcolor",
@@ -42,7 +42,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 		});
             }
         });
-        
+
         tinymce.init({
 	    plugins:"paste,textcolor",
             language: "pt_BR",
@@ -96,8 +96,8 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 
 
     });
-    
-    //Onde é feita a contagem do elemento do contador
+
+    //Onde ï¿½ feita a contagem do elemento do contador
     function CountCharacters(contador) {
         var body = tinymce.get(contador).getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
@@ -112,11 +112,11 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 etapasExecutadas = CountCharacters('etapasExecutadas'),
                 acessibilidade = CountCharacters('acessibilidade'),
                 democratizacaoAcesso = CountCharacters('democratizacaoAcesso');
-            
+
             if (etapasExecutadas >= 50 && acessibilidade >= 50 && democratizacaoAcesso >=50){
                 preenchimento = true;
             }
-            
+
             if(!preenchimento) {
                 $("#camposObrigatorios").dialog("destroy");
                 $("#camposObrigatorios").html("Favor preencher os dados obrig&aacute;torios!");
@@ -137,7 +137,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 $('#formCadastro').submit();
             }
         });
-        
+
     });
 </script>
 
@@ -162,7 +162,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center" width="30%">Nï¿½ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -190,11 +190,11 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 <td>
                     <textarea name="etapasExecutadas" id="etapasExecutadas" cols="" rows="7" style="width: 99%;" class="textarea_simples obrigatorio"><?php echo isset($this->DadosRelatorio->dsEtapasExecutadas) ? $this->DadosRelatorio->dsEtapasExecutadas : ''; ?></textarea>
 		    <div id="contadoretapasExecutadas"></div>
-                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite máximo de 3000 caracteres</span>
+                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite mï¿½ximo de 3000 caracteres</span>
                 </td>
             </tr>
             <tr align="center">
-                <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE FÍSICA <span style="color: red;">*</span></td>
+                <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE Fï¿½SICA <span style="color: red;">*</span></td>
             </tr>
             <tr>
                 <td>(acesso /lugares adaptados para pessoas portadoras de necessidades especiais)</td>
@@ -203,20 +203,20 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 <td>
                     <textarea name="acessibilidade" id="acessibilidade" cols="" rows="7" style="width: 99%;" class="textarea_simples obrigatorio"><?php echo isset($this->DadosRelatorio->dsAcessibilidade) ? $this->DadosRelatorio->dsAcessibilidade : ''; ?></textarea>
 		    <div id="contadoracessibilidade"></div>
-                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite máximo de 1000 caracteres</span>
+                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite mï¿½ximo de 1000 caracteres</span>
                 </td>
             </tr>
             <tr align="center">
-                <td class="destacar bold">MEDIDAS DE ESTÍMULO À FRUÍÇÃO DE DEMOCRATIZAÇÃO AO ACESSO PÚBLICO <span style="color: red;">*</span></td>
+                <td class="destacar bold">MEDIDAS DE ESTï¿½MULO ï¿½ FRUï¿½ï¿½ï¿½O DE DEMOCRATIZAï¿½ï¿½O AO ACESSO Pï¿½BLICO <span style="color: red;">*</span></td>
             </tr>
             <tr>
-                <td>(realização em local de fácil acesso, transporte / atividade / distribuição, entrada franqueada e divulgação)</td>
+                <td>(realizaï¿½ï¿½o em local de fï¿½cil acesso, transporte / atividade / distribuiï¿½ï¿½o, entrada franqueada e divulgaï¿½ï¿½o)</td>
             </tr>
             <tr>
                 <td>
                     <textarea name="democratizacaoAcesso" id="democratizacaoAcesso" cols="" rows="7" style="width: 99%;" class="textarea_simples obrigatorio"><?php echo isset($this->DadosRelatorio->dsDemocratizacaoAcesso) ? $this->DadosRelatorio->dsDemocratizacaoAcesso : ''; ?></textarea>
 		    <div id="contadordemocratizacaoAcesso"></div>
-                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite máximo de 1000 caracteres</span>
+                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite mï¿½ximo de 1000 caracteres</span>
                 </td>
             </tr>
             <tr align="center">
@@ -226,7 +226,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 <td>
                     <textarea name="impactoAmbiental" id="impactoAmbiental" cols="" rows="7" style="width: 99%;" class="textarea_simples"><?php echo isset($this->DadosRelatorio->dsImpactoAmbiental) ? $this->DadosRelatorio->dsImpactoAmbiental : ''; ?></textarea>
 		    <div id="contadorimpactoAmbiental"></div>
-                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite máximo de 1000 caracteres</span>
+                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite mï¿½ximo de 1000 caracteres</span>
                 </td>
             </tr>
         </table>
@@ -241,7 +241,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
 </div>
 
 
-<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÃCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

@@ -2,12 +2,12 @@
     $(document).ready(function() {
         $('.dataPicker').datepicker({
             dateFormat: 'dd/mm/yy',
-            dayNames: ['Domingo','Segunda','TerÁa','Quarta','Quinta','Sexta','S·bado','Domingo'],
+            dayNames: ['Domingo','Segunda','TerÔøΩa','Quarta','Quinta','Sexta','SÔøΩbado','Domingo'],
             dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','S·b','Dom' ],
-            monthNames: ['Janeiro','Fevereiro','MarÁo','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','SÔøΩb','Dom' ],
+            monthNames: ['Janeiro','Fevereiro','MarÔøΩo','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
             monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-            nextText: 'PrÛximo',
+            nextText: 'PrÔøΩximo',
             prevText: 'Anterior'
         });
     });
@@ -27,10 +27,10 @@
     }
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Gerenciar Parecer">Gerenciar Pareceres</a></li>
         <li class="last">Localizar Pareceres</li>
     </ul>
@@ -38,14 +38,14 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Localizar Pareceres<span class="voltar"><a href="#" onclick="window.location='<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>'">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <br clear="all" />
     <form action="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index')); ?>" method="post">
@@ -59,7 +59,7 @@
                 <td>Nome do Projeto</td>
                 <td align="center">
                     <select name="nometc" style="width: 200px;" class="input_simples">
-                        <option value="1">InÌcio igual</option>
+                        <option value="1">IN√çCIO igual</option>
                         <option value="2">Que contenha</option>
                         <option value="3">Diferente</option>
                     </select>
@@ -67,14 +67,14 @@
                 <td><input type="text" class="input_simples" name="nomeP" value="" /></td>
             </tr>-->
             <tr>
-                <td>SituaÁ„o</td>
+                <td>SituaÔøΩÔøΩo</td>
                 <!--<td width="230" align="center">Exatamente igual</td>-->
                 <td>
                     <select name="situacao" style="width: 220px;" class="input_simples" onchange="modoconsulta('dtDocumento',this.value);">
                         <option value="0">Todos</option>
-                        <option value="1">Aguardando distribuiÁ„o</option>
-                        <option value="2">An·lise concluÌda</option>
-                        <option value="3">Devolvida para nova an·lise</option>
+                        <option value="1">Aguardando distribuiÔøΩÔøΩo</option>
+                        <option value="2">An√°lise concluÔøΩda</option>
+                        <option value="3">Devolvida para nova An√°lise</option>
                     </select>
                 </td>
             </tr>
@@ -88,11 +88,11 @@
     </form>
     <br clear="all" />
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

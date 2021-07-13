@@ -122,7 +122,7 @@ if($this->tipoPublicacao == 'prorrogacao') {
 }
 
 
-// inï¿½cio foreach Artigo 18
+// INÃCIO foreach Artigo 18
 $existeArt18 = false;
 $areaprojetoAnterior = 0;
 $areaprojetoAnterior2 = 0;
@@ -136,12 +136,12 @@ foreach ($this->portaria as $portaria)
     $ufprojeto             = $portaria->UfProjeto;
     $cidadeprojeto         = $portaria->Cidade;
     $vlapoio               = $portaria->AprovadoReal;
-    $vlaprovado            = $portaria->ValorAprovado;    
+    $vlaprovado            = $portaria->ValorAprovado;
     $iniciocaptacao        = $portaria->DataInicio;
     $fimcaptacao           = $portaria->DataFim;
     $resumoprojeto         = $portaria->ResumoProjeto;
-    $areaprojeto           = strtoupper(strtr($portaria->Area ,"áéíóúâêôãõàèìòùç","ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
-    $areaprojetoCodigo     = strtoupper(strtr($portaria->AreaCodigo ,"áéíóúâêôãõàèìòùç","ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
+    $areaprojeto           = strtoupper(strtr($portaria->Area ,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
+    $areaprojetoCodigo     = strtoupper(strtr($portaria->AreaCodigo ,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
     $situacaoprojeto       = $portaria->Situacao;
     $artigo                = $portaria->Artigo;
     $PortariaAprovacao     = $portaria->PortariaAprovacao;
@@ -152,7 +152,7 @@ foreach ($this->portaria as $portaria)
     if ($this->tipoPublicacao == 'complementacao' || $this->tipoPublicacao == 'reducao') {
 	$novoValor = $portaria->ValorAprovado;
     }
-    
+
     if($areaprojetoCodigo != $areaprojetoAnterior){
         $linhaArea = '<p class="saltoLinha_primeira">&Aacute;REA:&nbsp;&nbsp;' . $areaprojetoCodigo . '&nbsp;&nbsp;' . $areaprojeto . '&nbsp;&nbsp;(' . $artigo . ' , &sect;  1&ordm; )</p>';
     } else {
@@ -167,13 +167,13 @@ foreach ($this->portaria as $portaria)
     } else if($this->tipoPublicacao == 'complementacao'){
         $txProcesso = '';
         $txValor = '<p class="saltoLinha">Valor Complementado:&nbsp;&nbsp;' . $this->formatarReal($vlapoio) . '</p>';
-        $txValor .= '<p class="saltoLinha">Valor total atual:&nbsp;&nbsp;' . $this->formatarReal($novoValor) . '</p>';	
+        $txValor .= '<p class="saltoLinha">Valor total atual:&nbsp;&nbsp;' . $this->formatarReal($novoValor) . '</p>';
         $txPrazoCaptacao = '';
         $txResumoProjeto = '';
     } else if($this->tipoPublicacao == 'reducao'){
         $txProcesso = '';
         $txValor = '<p class="saltoLinha">Valor Reduzido:&nbsp;&nbsp;' . $this->formatarReal($vlapoio) . '</p>';
-        $txValor .= '<p class="saltoLinha">Valor total anual:&nbsp;&nbsp;' . $this->formatarReal($novoValor) . '</p>';		
+        $txValor .= '<p class="saltoLinha">Valor total anual:&nbsp;&nbsp;' . $this->formatarReal($novoValor) . '</p>';
         $txPrazoCaptacao = '';
         $txResumoProjeto = '';
     } else {
@@ -200,7 +200,7 @@ foreach ($this->portaria as $portaria)
     } // fecha if
     $areaprojetoAnterior = $areaprojetoCodigo;
 } // fim foreach Artigo 18
-// inï¿½cio foreach Artigo 26
+// INÃCIO foreach Artigo 26
 $existeArt26 = false;
 foreach ($this->portaria as $portaria)
 {
@@ -215,8 +215,8 @@ foreach ($this->portaria as $portaria)
     $iniciocaptacao = $portaria->DataInicio;
     $fimcaptacao = $portaria->DataFim;
     $resumoprojeto = $portaria->ResumoProjeto;
-    $areaprojeto = strtoupper(strtr($portaria->Area ,"áéíóúâêôãõàèìòùç","ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
-    $areaprojetoCodigo = strtoupper(strtr($portaria->AreaCodigo ,"áéíóúâêôãõàèìòùç","ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
+    $areaprojeto = strtoupper(strtr($portaria->Area ,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
+    $areaprojetoCodigo = strtoupper(strtr($portaria->AreaCodigo ,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"));
     $situacaoprojeto = $portaria->Situacao;
     $artigo = $portaria->Artigo;
     $PortariaAprovacao = $portaria->PortariaAprovacao;
@@ -227,7 +227,7 @@ foreach ($this->portaria as $portaria)
     if ($this->tipoPublicacao == 'complementacao' || $this->tipoPublicacao == 'reducao') {
 	$novoValor = $portaria->ValorAprovado;
     }
-    
+
     if($areaprojetoCodigo != $areaprojetoAnterior2){
         $linhaArea = '<p class="saltoLinha_primeira">&Aacute;REA:&nbsp;&nbsp;' . $areaprojetoCodigo . '&nbsp;&nbsp;' . $areaprojeto . '&nbsp;&nbsp;(' . $artigo . ' , &sect;  1&ordm; )</p>';
     } else {
@@ -248,7 +248,7 @@ foreach ($this->portaria as $portaria)
     } else if($this->tipoPublicacao == 'reducao'){
         $txProcesso = '';
         $txValor = '<p class="saltoLinha">Valor Reduzido:&nbsp;&nbsp;' . $this->formatarReal($vlapoio) . '</p>';
-	$txValor .= '<p class="saltoLinha">Valor total atual:&nbsp;&nbsp;' . $this->formatarReal($novoValor) . '</p>';	
+	$txValor .= '<p class="saltoLinha">Valor total atual:&nbsp;&nbsp;' . $this->formatarReal($novoValor) . '</p>';
         $txPrazoCaptacao = '';
         $txResumoProjeto = '';
     } else {

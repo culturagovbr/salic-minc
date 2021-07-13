@@ -40,13 +40,13 @@
 					<tr style='text-align: center;'>
 			        	<td><a href='<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'carregarhistorico'))."?Pronac=$pronac&idPronac=$idPronac"?>'><?php echo $projetos['Pronac']; ?></a></td>
 				        <td><?php echo $produto->Descricao; ?></td>
-				        <td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'N�o'; }  ?></td>
-				        <td><?php $siPagamento = $produto->siPagamentoecho; 
-				        	if ($siPagamento == 4) { 
-				        		echo 'Efetuado'; 
-				        	} else{ 
-				        		if($siPagamento == 3) { 
-				        			echo 'Cancelado '; 
+				        <td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'Não'; }  ?></td>
+				        <td><?php $siPagamento = $produto->siPagamentoecho;
+				        	if ($siPagamento == 4) {
+				        		echo 'Efetuado';
+				        	} else{
+				        		if($siPagamento == 3) {
+				        			echo 'Cancelado ';
 				        		} else if($siPagamento == 0){
 				        			echo 'Pendente';
 				        		}

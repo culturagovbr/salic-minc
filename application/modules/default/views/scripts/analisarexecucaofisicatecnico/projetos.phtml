@@ -6,14 +6,14 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright ? 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ? 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
         $("#telaencaminhar").dialog({
-            title : 'Encaminhar para An·lise',
+            title : 'Encaminhar para An√°lise',
             resizable: false,
             width:800,
             height:600,
@@ -28,11 +28,11 @@
                     var orgao = $("#orgao").val();
                     var destinatario = $("#destinatario").val();
                     if($.trim(justificativa)=='' || orgao == '' ||  destinatario==''){
-                        $("#erro").html('Dados ObrigatÛrios n&atilde;o informados!');
+                        $("#erro").html('Dados ObrigatÔøΩrios n&atilde;o informados!');
                         $("#erro").dialog('open');
                     }
                     else{
-                        $("#alerta").html('Tem certeza que deseja encaminhar o projeto para an·lise?');
+                        $("#alerta").html('Tem certeza que deseja encaminhar o projeto para An√°lise?');
                         $("#alerta").dialog('open');
                     }
                 }
@@ -108,10 +108,10 @@
         })
     });
 </script>
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="index.html" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="index.html" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'analisarexecucaofisica', 'action' => 'filtroconsulta')); ?>" title="Ir para Analisar Projetos">Filtro para consulta</a></li>
         <li class="last">Analisar Projetos</li>
     </ul>
@@ -232,7 +232,7 @@
     </table>
 </div><!-- final: conteudo principal #conteudo -->
 
-<!-- inÌcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

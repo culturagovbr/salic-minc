@@ -108,7 +108,7 @@ echo $this->partial('consultarpareceristas/inc/menu.inc.php', $this);
                 break;
         }
     }
-    
+
 </script>
 <div id="titulo">
     <div><?php echo $this->titulo; ?><span>&nbsp;</span> <span class="voltar"><a href="javascript:history.back();">Voltar</a></span></div>
@@ -117,7 +117,7 @@ echo $this->partial('consultarpareceristas/inc/menu.inc.php', $this);
     <form id="formConsulta" method="post" action="<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'tratardadosrelatoriopagamento')); ?>">
     	<input type="hidden" name="titulo" value="<?php echo $this->titulo; ?>" />
     	<input type="hidden" name="prod" value="1" />
-    	
+
         <table class="tabela" style="text-align: left;">
         <?php if ($this->pareceristas) { ?>
                 <tr>
@@ -145,7 +145,7 @@ echo $this->partial('consultarpareceristas/inc/menu.inc.php', $this);
                  </td>
             </tr>
             <tr>
-                    <td width="150">Período de Análise</td>
+                    <td width="150">Perï¿½odo de AnÃ¡lise</td>
                     <td width="150">
                         <select name="filtro[periodo]" id="periodo" class="input_simples" style="width: 250px;" onchange="datas(this.value);">
                             <option value="0">Todo</option>

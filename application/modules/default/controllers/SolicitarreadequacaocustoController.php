@@ -43,7 +43,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         $buscaProjetoProduto = new SolicitarReadequacaoCustoDAO();
 
 
-        // ========== IN�CIO MENSAGEM DE REDU��O, COMPLEMENTO OU REMANEJAMENTO ==========
+        // ========== INÍCIO MENSAGEM DE REDU��O, COMPLEMENTO OU REMANEJAMENTO ==========
         $verificarReadequacao = $buscaProjetoProduto->verificarreadequacao($idPronac);
 
         $totalPlanilhaAprovada = !empty($verificarReadequacao[0]['totalAprovado']) ? $verificarReadequacao[0]['totalAprovado'] : 0;
@@ -74,7 +74,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
             $this->view->buscaPlanilhaCusto = $verificaPlanilhaCusto;
         }
 
-        
+
 
         $resultadoAcao = $buscaProjetoProduto->verificaTipoAcao($idPronac);
         $this->view->buscaacao = $resultadoAcao;
@@ -223,7 +223,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
                 }
 //                $valorFinal =  explode(".", $_POST['vlUnitario']);
 //                $valorFinal = $valorFinal[0] . $valorFinal[1] . "." . $valorFinal[2];
-                // diz se a solicita��o de readequa��o ser� inclu�da ou alterada
+                // diz se a Solicitação de readequa��o será inclu�da ou alterada
                 $PA = new PlanilhaAprovacao();
                 $buscarPlanilhaAprovacaoPai = $PA->buscar(array('idPlanilhaAprovacaoPai = ?' => $_POST['idPlanilhaAP'], 'tpPlanilha = ?' => 'SR'));
                 if (count($buscarPlanilhaAprovacaoPai) > 0) :
@@ -270,11 +270,11 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
 
                 if ($_POST['acao'] == 'E' or $_POST['acao'] == 'A') {
 
-                    // inclus�o da solicita��o de readequa��o
+                    // inclus�o da Solicitação de readequa��o
                     if ($acaoSR == 'I') {
                         $insertItem = SolicitarReadequacaoCustoDAO::inserirNovoProduto($dados);
                     }
-                    // altera��o da solicita��o de readequa��o
+                    // altera��o da Solicitação de readequa��o
                     else {
                         $where = "tpPlanilha = 'SR' AND stAtivo = 'N' AND $colunaSR = " . $_POST['idPlanilhaAP'];
                         $updateItem = SolicitarReadequacaoCustoDAO::atualizaItem($dados, $where);
@@ -608,7 +608,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         $valoracustosadministrativos = $valoracustosadministrativos['soma'];
         //$valoracustosadministrativos += (float) $_POST['qtd'] * $_POST['ocorrencia'] * $_POST['vlUnitario']; //
         $valorquinzeporceto = ($AprovadoReal * 0.15); //pegando o valor de 15% do projeto para incluir na msg abaixo
-        
+
         //***REGRA 20% DIVULGA��O/COMERCIALIZA��O  *****************************************************************************/
         //soma valor dos custos DIVULGA��O / COMERCIALIZA��O
         $arrWhereCustoDC = array();
@@ -619,14 +619,14 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         $valoracustosdivulgacaocomercializacao = (!empty($valoracustosdivulgacaocomercializacao['soma'])) ? $valoracustosdivulgacaocomercializacao['soma'] : 0;
 //        $valoracustosdivulgacaocomercializacao += (float) $_POST['qtd'] * $_POST['ocorrencia'] * $_POST['vlUnitario'];
         $valorvinteporcento = ($AprovadoReal * 0.20);
-        
-        
+
+
         $novos_valores = array();
         $dados = array('stPedidoAlteracao' => $_POST['acao']);
-        
+
         if ($valoracustosdivulgacaocomercializacao > $valorvinteporcento) {
             $atualizaPedido = SolicitarReadequacaoCustoDAO::atualizaPedidoAlteracao($dados, $_POST['idPedidoAlteracao']);
-            $msg = 'Favor ajustar os custos de Divulga��o / Comercializa��o que excedem <b>'. number_format($valorvinteporcento, '2', ',', '.') .'</b>, valor para que possa enviar sua solicita��o de readequa��o.';
+            $msg = 'Favor ajustar os custos de Divulga��o / Comercializa��o que excedem <b>'. number_format($valorvinteporcento, '2', ',', '.') .'</b>, valor para que possa enviar sua Solicitação de readequa��o.';
 //            $msg = 'Na readequa&ccedil;�o de planilha or&ccedil;ament�ria, o sistema deve bloquear envio planilha com custos administrativos superior a 15% do valor total do projeto.';
             $novos_valores['error'] = true;
             $novos_valores['descricao'] = utf8_encode($msg);
@@ -635,7 +635,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         } elseif ($valoracustosadministrativos > $valorquinzeporceto) {
             $atualizaPedido = SolicitarReadequacaoCustoDAO::atualizaPedidoAlteracao($dados, $_POST['idPedidoAlteracao']);
 
-            $msg = 'Favor ajustar os Custos Administrativos que excedem <b>'. number_format($valorquinzeporceto, '2', ',', '.') .'</b>, valor para que possa enviar sua solicita��o de readequa��o.';
+            $msg = 'Favor ajustar os Custos Administrativos que excedem <b>'. number_format($valorquinzeporceto, '2', ',', '.') .'</b>, valor para que possa enviar sua Solicitação de readequa��o.';
             $novos_valores['error'] = true;
             $novos_valores['descricao'] = utf8_encode($msg);
             $this->_helper->json($novos_valores);

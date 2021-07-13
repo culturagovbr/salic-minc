@@ -1,6 +1,6 @@
 <input type="hidden" name="idAgenteGeral" id="idAgenteGeral" value="<?php echo $_GET['idAgenteGeral']; ?>" />
 <div id="confirma"></div>
-<!-- ========== INÍCIO TABELA DADOS ========== -->
+<!-- ========== INÃCIO TABELA DADOS ========== -->
 <table id="tabDados" class="tabela">
 
 	<tr>
@@ -8,14 +8,14 @@
 			<label for="cpf">CPF:</label>
 			<br />
 			<div class="left"></div>
-			<input class="input" type="text" name="cpf" id="cpf" maxlength="14" onkeyup="mascara(this, format_cpf);" value="<?php echo (!empty($_GET['cpf']) ? Mascara::addMaskCPF($_GET['cpf']) : ' '); ?>" 
-				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');" 
+			<input class="input" type="text" name="cpf" id="cpf" maxlength="14" onkeyup="mascara(this, format_cpf);" value="<?php echo (!empty($_GET['cpf']) ? Mascara::addMaskCPF($_GET['cpf']) : ' '); ?>"
+				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');"
 				onblur="restaurar_campo(this, ' '); buscardadosdirigente();" onmouseout="restaurar_campo(this, ' ');" />
 			<div class="right"></div>
 			&nbsp; <span id="erroCpf" class="spanError"></span>
 			<input type="hidden" id="idAgente" name="idAgente" />
 			<?php
-			// caso o cpf venha via get, chama a função para buscar os dados de acordo com o cpf
+			// caso o cpf venha via get, chama a funï¿½ï¿½o para buscar os dados de acordo com o cpf
 			if (!empty($_GET['cpf']))
 			{
 				echo "<script>buscardadosdirigente();</script>";
@@ -23,11 +23,11 @@
 			?>
 		</td>
 		<td colspan="2">
-			<label for="nome">Nome *</label>	
+			<label for="nome">Nome *</label>
 			<br />
 			<div class="left"></div>
-			<input class="input" type="text" name="nome" id="nome" maxlength="70" size="50" readonly="readonly" value="<?php echo (!empty($_GET['nome']) ? $_GET['nome'] : ' '); ?>" 
-				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');" 
+			<input class="input" type="text" name="nome" id="nome" maxlength="70" size="50" readonly="readonly" value="<?php echo (!empty($_GET['nome']) ? $_GET['nome'] : ' '); ?>"
+				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');"
 				onblur="restaurar_campo(this, ' ');" onmouseout="restaurar_campo(this, ' ');" />
 			<div class="right"></div>
 			&nbsp; <span id="erroNome" class="spanError"></span>
@@ -39,8 +39,8 @@
 			<label for="cep">CEP *</label>
 			<br />
 			<div class="left"></div>
-			<input class="input" type="text" name="cep" id="cep" maxlength="10" onkeyup="mascara(this, format_cep);" onblur="buscar_cep(this.value);" readonly="readonly" 
-				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');" 
+			<input class="input" type="text" name="cep" id="cep" maxlength="10" onkeyup="mascara(this, format_cep);" onblur="buscar_cep(this.value);" readonly="readonly"
+				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');"
 				onblur="restaurar_campo(this, ' ');" onmouseout="restaurar_campo(this, ' ');" value=" " />
 			<div class="right"></div>
 			&nbsp; <span id="erroCep" class="spanError"></span>
@@ -70,8 +70,8 @@
 				<option value="0"> - Selecione - </option>
 
 				<?php foreach ($this->combocidades as $combocidade): ?>
-				<option value="<?php echo $combocidade->id; ?>" 
-					id="<?php echo $combocidade->idUF; ?>" 
+				<option value="<?php echo $combocidade->id; ?>"
+					id="<?php echo $combocidade->idUF; ?>"
 					<?php if ($this->cidade == $combocidade->id) echo "selected=\"selected\""; ?>>
 					<?php echo $combocidade->descricao; ?>
 				</option>
@@ -84,7 +84,7 @@
 
 	<tr>
 		<td colspan="2">
-			<label for="tipoEndereco">Tipo de Endereço *</label>
+			<label for="tipoEndereco">Tipo de Endereï¿½o *</label>
 			<br />
 			<select name="tipoEndereco" id="tipoEndereco" style="width:20%;">
 
@@ -126,19 +126,19 @@
 			<label for="logradouro">Logradouro *</label>
 			<br />
 			<div class="left"></div>
-			<input class="input" type="text" name="logradouro" id="logradouro" 
-				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');" 
+			<input class="input" type="text" name="logradouro" id="logradouro"
+				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');"
 				onblur="restaurar_campo(this, ' ');" onmouseout="restaurar_campo(this, ' ');" value=" " size="40" maxlength="50" readonly="readonly" />
 			<div class="right"></div>
 			&nbsp; <span id="erroLogradouro" class="spanError"></span>
 		</td>
 		<td colspan="2">
-			<label for="numero">Número *</label>
+			<label for="numero">Nï¿½mero *</label>
 			<br />
 			<div class="left"></div>
-			<input class="input" type="text" name="numero" id="numero" maxlength="10" onkeyup="mascara(this, format_num);" readonly="readonly" 
-				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');" 
-				onblur="restaurar_campo(this, ' ');" onmouseout="restaurar_campo(this, ' ');" 
+			<input class="input" type="text" name="numero" id="numero" maxlength="10" onkeyup="mascara(this, format_num);" readonly="readonly"
+				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');"
+				onblur="restaurar_campo(this, ' ');" onmouseout="restaurar_campo(this, ' ');"
 				value=" " />
 			<div class="right"></div>
 			&nbsp; <span id="erroNumero" class="spanError"></span>
@@ -150,8 +150,8 @@
 			<label for="complemento">Complemento *</label>
 			<br />
 			<div class="left"></div>
-			<input class="input" type="text" name="complemento" id="complemento" maxlength="50" onkeyup=" " onblur=" " value=" " 
-				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');" 
+			<input class="input" type="text" name="complemento" id="complemento" maxlength="50" onkeyup=" " onblur=" " value=" "
+				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');"
 				onblur="restaurar_campo(this, ' ');" onmouseout="restaurar_campo(this, ' ');" value=" " />
 			<div class="right"></div>
 			&nbsp; <span id="erroComplemento" class="spanError"></span>
@@ -160,8 +160,8 @@
 			<label for="bairro">Bairro *</label>
 			<br />
 			<span class="left"></span>
-			<input class="input" type="text" name="bairro" id="bairro" maxlength="50" size="40" 
-				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');" 
+			<input class="input" type="text" name="bairro" id="bairro" maxlength="50" size="40"
+				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');"
 				onblur="restaurar_campo(this, ' ');" onmouseout="restaurar_campo(this, ' ');" value=" " />
 			<span class="right"></span>
 			&nbsp; <span id="erroBairro" class="spanError"></span>
@@ -170,23 +170,23 @@
 
 	<tr>
 		<td colspan="2">
-			<label>Autorizo divulgar o endereço</label>
+			<label>Autorizo divulgar o endereï¿½o</label>
 			<input type="radio" name="divulgarEndereco" id="divulgarEnderecoS" class="checkradio" value="1" style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
-			<label for="divulgarEnderecoS">Sim</label> 
+			<label for="divulgarEnderecoS">Sim</label>
 			<input type="radio" name="divulgarEndereco" id="divulgarEnderecoN" class="checkradio" value="0" checked="checked" style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
-			<label for="divulgarEnderecoN">Não</label>
+			<label for="divulgarEnderecoN">NÃ£o</label>
 		</td>
 		<td colspan="2">
-			<label>Endereço para correspondências?</label>
-			<input type="radio" name="enderecoCorrespondencia" id="enderecoCorrespondenciaS" value="1" class="checkradio" checked="checked" style="background: none; border: 0%; float:none; clear:auto; display:inline;" /> 
-			<label for="enderecoCorrespondenciaS">Sim</label> 
+			<label>Endereï¿½o para correspondï¿½ncias?</label>
+			<input type="radio" name="enderecoCorrespondencia" id="enderecoCorrespondenciaS" value="1" class="checkradio" checked="checked" style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
+			<label for="enderecoCorrespondenciaS">Sim</label>
 			<input type="radio" name="enderecoCorrespondencia" id="enderecoCorrespondenciaN" value="0" class="checkradio" style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
-			<label for="enderecoCorrespondenciaN">Não</label>
+			<label for="enderecoCorrespondenciaN">NÃ£o</label>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="4"><span id="erroVisao" class="spanError"></span> &nbsp; 
-			<label for="visao"> Visão do Agente: </label>
+		<td colspan="4"><span id="erroVisao" class="spanError"></span> &nbsp;
+			<label for="visao"> Visï¿½o do Agente: </label>
 			<select name="visao" id="visao" style="width:20%;">
 				<option value="198">Dirigente</option>
 			</select>
@@ -199,11 +199,11 @@
 
 
 
-<!-- ========== INÍCIO FORMULÁRIO FONE ========== -->
+<!-- ========== INÃCIO FORMULï¿½RIO FONE ========== -->
 <table id="tabFone" class="tabela sumir">
 
 	<tr>
-		<th colspan="6">ADICIONE TELEFONES ATRAVÉS DO FORMULÁRIO ABAIXO!</th>
+		<th colspan="6">ADICIONE TELEFONES ATRAVï¿½S DO FORMULï¿½RIO ABAIXO!</th>
 	</tr>
 
 	<tr>
@@ -242,18 +242,18 @@
 			<label for="fone">Telefone *</label>
 			<br />
 			<div class="left"></div>
-			<input type="text" name="fone" id="fone" maxlength="9" class="input w100" onkeyup="mascara(this, format_tel);" 
-				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');" 
+			<input type="text" name="fone" id="fone" maxlength="9" class="input w100" onkeyup="mascara(this, format_tel);"
+				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');"
 				onblur="restaurar_campo(this, ' ');" onmouseout="restaurar_campo(this, ' ');" value=" " />
 			<div class="right"></div>
 		</td>
 		<td>
 			<label>Divulgar? *</label>
 			<br />
-			<input type="radio" name="divulgarFone" id="divulgarFoneS" value="1" class="checkradio"  style="background: none; border: 0%; float:none; clear:auto; display:inline;" /> 
-			<label for="divulgarFoneS">Sim</label> 
-			<input type="radio" name="divulgarFone" id="divulgarFoneN" value="0" class="checkradio" checked="checked"  style="background: none; border: 0%; float:none; clear:auto; display:inline;" /> 
-			<label for="divulgarFoneN">Não</label>
+			<input type="radio" name="divulgarFone" id="divulgarFoneS" value="1" class="checkradio"  style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
+			<label for="divulgarFoneS">Sim</label>
+			<input type="radio" name="divulgarFone" id="divulgarFoneN" value="0" class="checkradio" checked="checked"  style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
+			<label for="divulgarFoneN">NÃ£o</label>
 		</td>
 		<td class="centro" width="3%">
 			<div class="botao_texto">
@@ -263,20 +263,20 @@
 	</tr>
 
 </table>
-<!-- ========== FIM FORMULÁRIO FONE ========== -->
+<!-- ========== FIM FORMULï¿½RIO FONE ========== -->
 
 
 
-<!-- ========== INÍCIO FORMULÁRIO E-MAIL ========== -->
+<!-- ========== INÃCIO FORMULï¿½RIO E-MAIL ========== -->
 <table id="tabEmail" class="tabela sumir">
 
 	<tr>
-		<th colspan="6">ADICIONE E-MAILS ATRAVÉS DO FORMULÁRIO ABAIXO</th>
+		<th colspan="6">ADICIONE E-MAILS ATRAVï¿½S DO FORMULï¿½RIO ABAIXO</th>
 	</tr>
 
 	<tr>
 		<td>
-			<label for="tipoEmail">Tipo *</label> 
+			<label for="tipoEmail">Tipo *</label>
 			<br />
 			<select name="tipoEmail" id="tipoEmail">
 				<option value="0">- Selecione - </option>
@@ -291,26 +291,26 @@
 			<label for="email">E-mail *</label>
 			<br />
         	<div class="left"></div>
-			<input type="text" name="email" id="email" class="input w200" size="50" maxlength="70" 
-				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');" 
+			<input type="text" name="email" id="email" class="input w200" size="50" maxlength="70"
+				onclick="limpar_campo(this, ' ');" onkeypress="limpar_campo(this, ' ');"
 				onblur="restaurar_campo(this, ' ');" onmouseout="restaurar_campo(this, ' ');" value=" " />
         	<div class="right"></div>
 		</td>
 		<td>
-			<label>Posso Divulgar? *</label> 
+			<label>Posso Divulgar? *</label>
 			<br />
-			<input type="radio" name="divulgarEmail" id="divulgarEmailS" value="1" style="background: none; border: 0%; float:none; clear:auto; display:inline;" /> 
-			<label for="divulgarEmailS">Sim</label> 
-			<input type="radio" name="divulgarEmail" id="divulgarEmailN" value="0" class="checkradio" checked="checked"   style="background: none; border: 0%; float:none; clear:auto; display:inline;"/> 
-			<label for="divulgarEmailN">Não</label>
+			<input type="radio" name="divulgarEmail" id="divulgarEmailS" value="1" style="background: none; border: 0%; float:none; clear:auto; display:inline;" />
+			<label for="divulgarEmailS">Sim</label>
+			<input type="radio" name="divulgarEmail" id="divulgarEmailN" value="0" class="checkradio" checked="checked"   style="background: none; border: 0%; float:none; clear:auto; display:inline;"/>
+			<label for="divulgarEmailN">NÃ£o</label>
 		</td>
 		<td>
-			<label>Para correpondência? *</label> 
+			<label>Para correpondï¿½ncia? *</label>
 			<br />
-			<input type="radio" name="enviarEmail" id="enviarEmailS" value="1" class="checkradio" checked="checked"  style="background: none; border: 0%; float:none; clear:auto; display:inline;"/> 
-			<label for="enviarEmailS">Sim</label> 
-			<input type="radio" name="enviarEmail" id="enviarEmailN" value="0" class="checkradio"  style="background: none; border: 0%; float:none; clear:auto; display:inline;"/> 
-			<label for="enviarEmailN">Não</label>
+			<input type="radio" name="enviarEmail" id="enviarEmailS" value="1" class="checkradio" checked="checked"  style="background: none; border: 0%; float:none; clear:auto; display:inline;"/>
+			<label for="enviarEmailS">Sim</label>
+			<input type="radio" name="enviarEmail" id="enviarEmailN" value="0" class="checkradio"  style="background: none; border: 0%; float:none; clear:auto; display:inline;"/>
+			<label for="enviarEmailN">NÃ£o</label>
 		</td>
 		<td class="centro" width="3%">
 			<div class="botao_texto">
@@ -320,7 +320,7 @@
 	</tr>
 
 </table>
-<!-- ========== FIM FORMULÁRIO E-MAIL ========== -->
+<!-- ========== FIM FORMULï¿½RIO E-MAIL ========== -->
 
 
 
@@ -328,13 +328,13 @@
 
 <!--
 ==================================================
-INÍCIO TELEFONE E E-MAILS ADICIONADOS
+INÃCIO TELEFONE E E-MAILS ADICIONADOS
 ==================================================
 -->
 
 
 
-<!-- ========== INÍCIO BUSCA FONES ADICIONADOS ========== -->
+<!-- ========== INÃCIO BUSCA FONES ADICIONADOS ========== -->
 <table id="tabBuscarFone" class="tabela sumir">
 
 	<tr>
@@ -343,7 +343,7 @@ INÍCIO TELEFONE E E-MAILS ADICIONADOS
 		<th>DDD</th>
 		<th>TELEFONE</th>
 		<th>DIVULGAR?</th>
-		<th width="6%">AÇÃO</th>
+		<th width="6%">Aï¿½ï¿½O</th>
 	</tr>
 
 	<?php if (isset($this->Fones)): ?>
@@ -370,7 +370,7 @@ INÍCIO TELEFONE E E-MAILS ADICIONADOS
 				<input type="hidden" name="Fones[]" id="Fones[]" value="<?php echo $this->Fones[$i] ?>" />
 			</td>
 			<td class="centro">
-				<?php echo $this->divulgarFones[$i] == 1 ? 'Sim' : 'Não'; ?>
+				<?php echo $this->divulgarFones[$i] == 1 ? 'Sim' : 'NÃ£o'; ?>
 				<input type="hidden" name="divulgarFones[]" id="divulgarFones[]" value="<?php echo $this->divulgarFones[$i]?>" />
 			</td>
 			<td class="centro">
@@ -387,15 +387,15 @@ INÍCIO TELEFONE E E-MAILS ADICIONADOS
 
 
 
-<!-- ========== INÍCIO BUSCA E-MAILS ADICIONADOS ========== -->
+<!-- ========== INÃCIO BUSCA E-MAILS ADICIONADOS ========== -->
 <table id="tabBuscarEmail" class="tabela sumir">
 
 	<tr>
 		<th>TIPO</th>
 		<th>E-MAIL</th>
 		<th>DIVULGAR?</th>
-		<th>PARA CORRESPONDÊNCIA?</th>
-		<th>AÇÃO</th>
+		<th>PARA CORRESPONDï¿½NCIA?</th>
+		<th>Aï¿½ï¿½O</th>
 	</tr>
 
 	<?php if (isset($this->Emails)): ?>
@@ -412,11 +412,11 @@ INÍCIO TELEFONE E E-MAILS ADICIONADOS
 				<input type="hidden" name="Emails[]" id="Emails[]" value="<?php echo $this->Emails[$i]?>" />
 			</td>
 			<td class="centro">
-				<?php echo $this->divulgarEmails[$i] == 1 ? 'Sim' : 'Não'; ?>
+				<?php echo $this->divulgarEmails[$i] == 1 ? 'Sim' : 'NÃ£o'; ?>
 				<input type="hidden" name="divulgarEmails[]" id="divulgarEmails[]" value="<?php echo $this->divulgarEmails[$i]?>" />
 			</td>
 			<td class="centro">
-				<?php echo $this->enviarEmails[$i] == 1 ? 'Sim' : 'Não'; ?>
+				<?php echo $this->enviarEmails[$i] == 1 ? 'Sim' : 'NÃ£o'; ?>
 				<input type="hidden" name="enviarEmails[]" id="enviarEmails[]" value="<?php echo $this->enviarEmails[$i]?>" />
 			</td>
 			<td class="centro">

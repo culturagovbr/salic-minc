@@ -1,7 +1,7 @@
 <script type="text/javascript">
     function retirarAcento(text) {
         var varString = text;
-        var stringAcentos = new String('àâêôûãõáéíóúçüÀÂÊÔÛÃÕÁÉÍÓÚÇÜ');
+        var stringAcentos = new String('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
         var stringSemAcento = new String('aaeouaoaeioucuAAEOUAOAEIOUCU');
 
         var i = new Number();
@@ -57,7 +57,7 @@
                 $(".cmpDesabilitar").attr("disabled", "");
             }
         });
- 
+
         $(".cmpNumerico").numeric().attr("maxlength", "12");
 
         $('#uf').change(function(){
@@ -118,21 +118,21 @@
 
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para Página Inicial">Início</a></li>
-        <li><a href="<?php echo $this->url(array('controller' => 'relatorio', 'action' => ''), '', true); ?>" title="Ir para Relatorio">Gerar Relatório Análise</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para pÃ¡gina Inicial">INÃCIO</a></li>
+        <li><a href="<?php echo $this->url(array('controller' => 'relatorio', 'action' => ''), '', true); ?>" title="Ir para Relatorio">Gerar Relatï¿½rio AnÃ¡lise</a></li>
         <li class="last">Proposta</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Consulta de proposta cultural<span class="voltar"><a href="javascript:voltar()">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div id="conteudo" align="center">
     <form action="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'resultado-proposta')); ?>" method="get" name="frmRelatorio" id="frmRelatorio">
@@ -196,7 +196,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="destacar bold">Município</td>
+                    <td class="destacar bold">Municï¿½pio</td>
                     <td align="left" colspan="2">
                         <select name="municipio" id="municipio" style="width: 200px;" class="input_simples cmpDesabilitar">
                             <option value="">- Selecione -</option>
@@ -207,7 +207,7 @@
                     <td class="destacar bold">Valor</td>
                     <td width="220" align="center">Entre dois valores</td>
                     <td align="left">
-                        <input type="text" class="input_simples w150" name="valor" id="valor" onkeyup="mascara(this,format_moeda)" onblur="comparaValores();"> e 
+                        <input type="text" class="input_simples w150" name="valor" id="valor" onkeyup="mascara(this,format_moeda)" onblur="comparaValores();"> e
                         <input type="text" class="input_simples w150" name="valor2" id="valor2" onkeyup="mascara(this,format_moeda)" onblur="comparaValores();">
                     </td>
                 </tr>
@@ -216,10 +216,10 @@
                     <td align="left" colspan="2">
                         <select name="estado" style="width: 200px;" class="input_simples cmpDesabilitar">
                             <option value="">- Selecione -</option>
-                            <option value="enviada">Enviada ao MinC p/ avaliação</option>
-                            <option value="construcao">Proposta em construção</option>
+                            <option value="enviada">Enviada ao MinC p/ avaliaï¿½ï¿½o</option>
+                            <option value="construcao">Proposta em construï¿½ï¿½o</option>
                             <option value="diligenciada">Proposta diligenciada</option>
-                            <option value="respondida">Diligência respondida</option>
+                            <option value="respondida">Diligï¿½ncia respondida</option>
                             <option value="arquivada">Proposta arquivada</option>
                         </select>
                     </td>
@@ -238,10 +238,10 @@
     <div id="alerta" class="sumir"></div>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

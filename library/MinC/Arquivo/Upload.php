@@ -6,10 +6,10 @@
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Arquivo
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
- * 
- * MIMETYPE 								 EXTENSÕES
+ *
+ * MIMETYPE 								 EXTENSï¿½ES
  * =================================================================
  * application/acad 					(dwg)
  * application/andrew-inset 			(ez)
@@ -135,7 +135,7 @@
  * text/plain 							(asc, txt, c, cc, f90, f, h, hh)
  * text/richtext 						(rtx)
  * text/rtf 							(rtf)
- * text/sgml 							(sgm, sgml) 
+ * text/sgml 							(sgm, sgml)
  * text/tab-separated-values 			(tsv)
  * text/vnd.sun.j2me.app-descriptor 	(jad)
  * text/x-component 					(htc)
@@ -164,7 +164,7 @@
  * application/vnd.ms-word.template.macroEnabled.12 						 (dotm)
  * application/vnd.openxmlformats-officedocument.wordprocessingml.template 	 (dotx)
  * application/vnd.ms-powerpoint.slideshow.macroEnabled.12 					 (ppsm)
- * application/vnd.openxmlformats-officedocument.presentationml.slideshow 	 (ppsx) 
+ * application/vnd.openxmlformats-officedocument.presentationml.slideshow 	 (ppsx)
  * application/vnd.ms-powerpoint.presentation.macroEnabled.12 				 (pptm)
  * application/vnd.openxmlformats-officedocument.presentationml.presentation (pptx)
  * application/vnd.ms-excel.sheet.binary.macroEnabled.12 					 (xlsb)
@@ -175,7 +175,7 @@
 
 class Upload
 {
-	// extensões autorizadas
+	// extensï¿½es autorizadas
 	private $ext_aut = array(
 		"application/arj",
 		"application/excel",
@@ -267,7 +267,7 @@ class Upload
 
 
 	/**
-	 * Método construtor que elimina o limite de tempo de execução
+	 * Mï¿½todo construtor que elimina o limite de tempo de execuï¿½ï¿½o
 	 * @access public
 	 * @param void
 	 * @return void
@@ -282,34 +282,34 @@ class Upload
 	/**
 	 * Upload de arquivos em geral
 	 * @access public
-	 * @param integer $obrig     = o envio do arquivo é obrigatório? (0 = nao ou 1 = sim)
-	 * @param integer $limit_ext = limitar as extensões do arquivo? (0 = nao ou 1 = sim)
+	 * @param integer $obrig     = o envio do arquivo ï¿½ obrigatï¿½rio? (0 = nao ou 1 = sim)
+	 * @param integer $limit_ext = limitar as extensï¿½es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
-	 * @param integer $limit_dim = limitar dimensão da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos serão armazenados
-	 * @param integer $sobresc   = se já existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
+	 * @param integer $limit_dim = limitar dimensï¿½o da imagem? (0 ou 1)
+	 * @param string $caminho    = caminho onde os arquivos serÃ¡o armazenados
+	 * @param integer $sobresc   = se jï¿½ existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
 	public function uploadArquivo($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc)
 	{
-		// tamanho máximo autorizado do arquivo (em bytes)
+		// tamanho mï¿½ximo autorizado do arquivo (em bytes)
 		$tam_aut = "10485760"; // 10 MB
 
-		// extensões autorizadas
+		// extensï¿½es autorizadas
 		$ext_aut = $this->ext_aut;
 
 
-		// realiza a validação do(s) arquivo(s) enviado(s)
+		// realiza a validaï¿½ï¿½o do(s) arquivo(s) enviado(s)
 		for ($i = 0; $i < count($_FILES["arquivo"]["name"]); $i++)
 		{
-			// pega o nome, tipo, tamanho, nome temporário e erro no envio do arquivo
+			// pega o nome, tipo, tamanho, nome temporï¿½rio e erro no envio do arquivo
 			$arq_nome      = $_FILES["arquivo"]["name"][$i];
 			$arq_tipo      = $_FILES["arquivo"]["type"][$i];
 			$arq_tamanho   = $_FILES["arquivo"]["size"][$i];
 			$arq_nome_temp = $_FILES["arquivo"]["tmp_name"][$i];
 			$arq_erro      = $_FILES["arquivo"]["error"][$i];
 
-			// dimensões do arquivo em pixels (para imagens)
+			// dimensï¿½es do arquivo em pixels (para imagens)
 			if ($limit_dim == 1 && $arq_erro !== UPLOAD_ERR_NO_FILE)
 			{
 				$dimensao[$i] = getimagesize($arq_nome_temp);
@@ -319,35 +319,35 @@ class Upload
 
 			try
 			{
-				// verifica se o envio do arquivo é obrigatório
+				// verifica se o envio do arquivo ï¿½ obrigatï¿½rio
 				if ($obrig == 1 && $arq_erro === UPLOAD_ERR_NO_FILE)
 				{
-					throw new Exception("O envio do <strong>" . ($i + 1) . "º arquivo</strong> é obrigatório!");
+					throw new Exception("O envio do <strong>" . ($i + 1) . "ï¿½ arquivo</strong> ï¿½ obrigatï¿½rio!");
 				}
-				// verifica se a extensão do arquivo faz parte das extensões autorizadas
+				// verifica se a extensï¿½o do arquivo faz parte das extensï¿½es autorizadas
 				else if ($limit_ext == 1 && array_search($arq_tipo, $ext_aut) === FALSE && $arq_erro !== UPLOAD_ERR_NO_FILE && $arq_erro !== UPLOAD_ERR_INI_SIZE && $arq_erro !== UPLOAD_ERR_FORM_SIZE)
 				{
-					throw new Exception("A extensão do arquivo <strong>$arq_nome</strong> é inválida para upload!");
+					throw new Exception("A extensï¿½o do arquivo <strong>$arq_nome</strong> ï¿½ invï¿½lida para upload!");
 				}
-				// verifica se o tamanho do arquivo é maior que o autorizado
+				// verifica se o tamanho do arquivo ï¿½ maior que o autorizado
 				else if ($limit_tam == 1 && ($arq_tamanho > $tam_aut || $arq_erro === UPLOAD_ERR_INI_SIZE || $arq_erro === UPLOAD_ERR_FORM_SIZE))
 				{
-					throw new Exception("O arquivo <strong>$arq_nome</strong> deve ter no máximo " . ($tam_aut / (1024 * 1024)) . " MB!");
+					throw new Exception("O arquivo <strong>$arq_nome</strong> deve ter no mï¿½ximo " . ($tam_aut / (1024 * 1024)) . " MB!");
 				}
 				// largura da imagem
 				else if ($limit_dim == 1 && $dimensao[0] > $largura)
 				{
-					throw new Exception("A largura da imagem <strong>$arq_nome</strong> não deve ultrapassar $largura pixels");
+					throw new Exception("A largura da imagem <strong>$arq_nome</strong> NÃ£o deve ultrapassar $largura pixels");
 				}
 				// altura da imagem
 				else if ($limit_dim == 1 && $dimensao[1] > $altura)
 				{
-					throw new Exception("A altura da imagem <strong>$arq_nome</strong> não deve ultrapassar $altura pixels");
+					throw new Exception("A altura da imagem <strong>$arq_nome</strong> NÃ£o deve ultrapassar $altura pixels");
 				}
-				// verifica se já existe um arquivo com o mesmo nome
+				// verifica se jï¿½ existe um arquivo com o mesmo nome
 				else if ($sobresc == 0 && file_exists("$caminho/$arq_nome") && $obrig == 1)
 				{
-					throw new Exception("O arquivo <strong>$arq_nome</strong> já existe!");
+					throw new Exception("O arquivo <strong>$arq_nome</strong> jï¿½ existe!");
 				}
 			} // fecha try
 			catch (Exception $e)
@@ -358,10 +358,10 @@ class Upload
 		} // fecha for
 
 
-		// se não houver erros, tenta enviar o(s) arquivo(s)
+		// se NÃ£o houver erros, tenta enviar o(s) arquivo(s)
 		for ($i = 0; $i < count($_FILES["arquivo"]["name"]); $i++)
 		{
-			// pega o nome, tipo, tamanho, nome temporário e erro no envio do arquivo
+			// pega o nome, tipo, tamanho, nome temporï¿½rio e erro no envio do arquivo
 			$arq_nome      = $_FILES["arquivo"]["name"][$i];
 			$arq_tipo      = $_FILES["arquivo"]["type"][$i];
 			$arq_tamanho   = $_FILES["arquivo"]["size"][$i];
@@ -382,19 +382,19 @@ class Upload
 			}
 		} // fecha for
 
-	} // fecha método uploadArquivo()
+	} // fecha mï¿½todo uploadArquivo()
 
 
 
 	/**
 	 * Upload de imagens
 	 * @access public
-	 * @param integer $obrig     = o envio do arquivo é obrigatório? (0 = nao ou 1 = sim)
-	 * @param integer $limit_ext = limitar as extensões do arquivo? (0 = nao ou 1 = sim)
+	 * @param integer $obrig     = o envio do arquivo ï¿½ obrigatï¿½rio? (0 = nao ou 1 = sim)
+	 * @param integer $limit_ext = limitar as extensï¿½es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
-	 * @param integer $limit_dim = limitar dimensão da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos serão armazenados
-	 * @param integer $sobresc   = se já existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
+	 * @param integer $limit_dim = limitar dimensï¿½o da imagem? (0 ou 1)
+	 * @param string $caminho    = caminho onde os arquivos serÃ¡o armazenados
+	 * @param integer $sobresc   = se jï¿½ existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
 	public function uploadImagem($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc)
@@ -413,19 +413,19 @@ class Upload
 			"image/x-windows-bmp");
 
 		$this->uploadArquivo($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc);
-	} // fecha método uploadImagem()
+	} // fecha mï¿½todo uploadImagem()
 
 
 
 	/**
 	 * Upload de audios
 	 * @access public
-	 * @param integer $obrig     = o envio do arquivo é obrigatório? (0 = nao ou 1 = sim)
-	 * @param integer $limit_ext = limitar as extensões do arquivo? (0 = nao ou 1 = sim)
+	 * @param integer $obrig     = o envio do arquivo ï¿½ obrigatï¿½rio? (0 = nao ou 1 = sim)
+	 * @param integer $limit_ext = limitar as extensï¿½es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
-	 * @param integer $limit_dim = limitar dimensão da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos serão armazenados
-	 * @param integer $sobresc   = se já existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
+	 * @param integer $limit_dim = limitar dimensï¿½o da imagem? (0 ou 1)
+	 * @param string $caminho    = caminho onde os arquivos serÃ¡o armazenados
+	 * @param integer $sobresc   = se jï¿½ existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
 	public function uploadAudio($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc)
@@ -444,19 +444,19 @@ class Upload
 			"audio/x-wav");
 
 		$this->uploadArquivo($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc);
-	} // fecha método uploadAudio()
+	} // fecha mï¿½todo uploadAudio()
 
 
 
 	/**
 	 * Upload de videos
 	 * @access public
-	 * @param integer $obrig     = o envio do arquivo é obrigatório? (0 = nao ou 1 = sim)
-	 * @param integer $limit_ext = limitar as extensões do arquivo? (0 = nao ou 1 = sim)
+	 * @param integer $obrig     = o envio do arquivo ï¿½ obrigatï¿½rio? (0 = nao ou 1 = sim)
+	 * @param integer $limit_ext = limitar as extensï¿½es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
-	 * @param integer $limit_dim = limitar dimensão da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos serão armazenados
-	 * @param integer $sobresc   = se já existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
+	 * @param integer $limit_dim = limitar dimensï¿½o da imagem? (0 ou 1)
+	 * @param string $caminho    = caminho onde os arquivos serÃ¡o armazenados
+	 * @param integer $sobresc   = se jï¿½ existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
 	public function uploadVideo($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc)
@@ -476,19 +476,19 @@ class Upload
 			"x-music/x-midi");
 
 		$this->uploadArquivo($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc);
-	} // fecha método uploadVideo()
+	} // fecha mï¿½todo uploadVideo()
 
 
 
 	/**
 	 * Upload de audios e videos
 	 * @access public
-	 * @param integer $obrig     = o envio do arquivo é obrigatório? (0 = nao ou 1 = sim)
-	 * @param integer $limit_ext = limitar as extensões do arquivo? (0 = nao ou 1 = sim)
+	 * @param integer $obrig     = o envio do arquivo ï¿½ obrigatï¿½rio? (0 = nao ou 1 = sim)
+	 * @param integer $limit_ext = limitar as extensï¿½es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
-	 * @param integer $limit_dim = limitar dimensão da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos serão armazenados
-	 * @param integer $sobresc   = se já existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
+	 * @param integer $limit_dim = limitar dimensï¿½o da imagem? (0 ou 1)
+	 * @param string $caminho    = caminho onde os arquivos serÃ¡o armazenados
+	 * @param integer $sobresc   = se jï¿½ existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
 	public function uploadAudioVideo($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc)
@@ -518,19 +518,19 @@ class Upload
 			"x-music/x-midi");
 
 		$this->uploadArquivo($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc);
-	} // fecha método uploadAudioVideo()
+	} // fecha mï¿½todo uploadAudioVideo()
 
 
 
 	/**
 	 * Upload de documentos em geral
 	 * @access public
-	 * @param integer $obrig     = o envio do arquivo é obrigatório? (0 = nao ou 1 = sim)
-	 * @param integer $limit_ext = limitar as extensões do arquivo? (0 = nao ou 1 = sim)
+	 * @param integer $obrig     = o envio do arquivo ï¿½ obrigatï¿½rio? (0 = nao ou 1 = sim)
+	 * @param integer $limit_ext = limitar as extensï¿½es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
-	 * @param integer $limit_dim = limitar dimensão da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos serão armazenados
-	 * @param integer $sobresc   = se já existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
+	 * @param integer $limit_dim = limitar dimensï¿½o da imagem? (0 ou 1)
+	 * @param string $caminho    = caminho onde os arquivos serÃ¡o armazenados
+	 * @param integer $sobresc   = se jï¿½ existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
 	public function uploadDocumento($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc)
@@ -569,19 +569,19 @@ class Upload
 			"text/xml");
 
 		$this->uploadArquivo($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc);
-	} // fecha método uploadDocumento()
+	} // fecha mï¿½todo uploadDocumento()
 
 
 
 	/**
 	 * Upload de arquivos .txt
 	 * @access public
-	 * @param integer $obrig     = o envio do arquivo é obrigatório? (0 = nao ou 1 = sim)
-	 * @param integer $limit_ext = limitar as extensões do arquivo? (0 = nao ou 1 = sim)
+	 * @param integer $obrig     = o envio do arquivo ï¿½ obrigatï¿½rio? (0 = nao ou 1 = sim)
+	 * @param integer $limit_ext = limitar as extensï¿½es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
-	 * @param integer $limit_dim = limitar dimensão da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos serão armazenados
-	 * @param integer $sobresc   = se já existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
+	 * @param integer $limit_dim = limitar dimensï¿½o da imagem? (0 ou 1)
+	 * @param string $caminho    = caminho onde os arquivos serÃ¡o armazenados
+	 * @param integer $sobresc   = se jï¿½ existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
 	public function uploadTXT($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc)
@@ -589,12 +589,12 @@ class Upload
 		$this->ext_aut = array("text/plain");
 
 		$this->uploadArquivo($obrig, $limit_ext, $limit_tam, $limit_dim, $caminho, $sobresc);
-	} // fecha método uploadTXT()
+	} // fecha mï¿½todo uploadTXT()
 
 
 
 	/**
-	 * Pega a extensão de um arquivo
+	 * Pega a extensï¿½o de um arquivo
 	 * @access public
 	 * @static
 	 * @param string $arquivo
@@ -612,7 +612,7 @@ class Upload
 
 
 	/**
-	 * Transforma o arquivo em binário
+	 * Transforma o arquivo em binï¿½rio
 	 * @access public
 	 * @static
 	 * @param string $arquivoTemp
@@ -648,15 +648,15 @@ class Upload
             if(!empty($files)) {
             for ($i = 0; $i < count($files["arquivo"]["name"]); $i++)
             {
-                // pega as informações do arquivo
+                // pega as informaï¿½ï¿½es do arquivo
                 $arquivoNome     = $files['arquivo']['name'][$i]; // nome
-                $arquivoTemp     = $files['arquivo']['tmp_name'][$i]; // nome temporário
+                $arquivoTemp     = $files['arquivo']['tmp_name'][$i]; // nome temporï¿½rio
                 $arquivoTipo     = $files['arquivo']['type'][$i]; // tipo
                 $arquivoTamanho  = $files['arquivo']['size'][$i]; // tamanho
                 if (!empty($arquivoNome) && !empty($arquivoTemp))
                 {
-                    $arquivoExtensao = Upload::getExtensao($arquivoNome); // extensão
-                    $arquivoBinario  = Upload::setBinario($arquivoTemp); // binário
+                    $arquivoExtensao = Upload::getExtensao($arquivoNome); // extensï¿½o
+                    $arquivoBinario  = Upload::setBinario($arquivoTemp); // binï¿½rio
                     $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                 }
 
@@ -671,11 +671,11 @@ class Upload
                         'stAtivo'    => 'A');
                 $cadastrarArquivo = ArquivoDAO::cadastrar($dadosArquivo);
 
-                // pega o id do último arquivo cadastrado
+                // pega o id do ï¿½ltimo arquivo cadastrado
                 $idUltimoArquivo = ArquivoDAO::buscarIdArquivo();
                 $idUltimoArquivo = (int) $idUltimoArquivo[0]->id;
 
-                // cadastra o binário do arquivo
+                // cadastra o binï¿½rio do arquivo
                 $dadosBinario = array(
                         'idArquivo' => $idUltimoArquivo,
                         'biArquivo' => $arquivoBinario);
@@ -697,5 +697,5 @@ class Upload
             return false;
         }
 
-        
+
 } // fecha class

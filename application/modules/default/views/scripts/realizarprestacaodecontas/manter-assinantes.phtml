@@ -80,7 +80,7 @@
     });
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'), '', true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -89,13 +89,13 @@
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Assinantes</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr>
@@ -103,10 +103,10 @@
             <td>
                 <select name="tipoFiltro" id="tipoFiltro" class="select_simples">
                     <option value=""> - Todos - </option>
-                    <option value="coordIncFiscTec" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='coordGeral')?'selected="selected"':''; ?>>Coordenador (a) de Incentivos Fiscais e Apoio Técnico</option>
-                    <option value="coordGeral" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='coordGeral')?'selected="selected"':''; ?>>Coordenador (a) Geral de Prestação de Contas</option>
-                    <option value="diretorExecutivo" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='diretorExecutivo')?'selected="selected"':''; ?>>Diretor (a) Executivo de Incentivo à Cultura</option>
-                    <option value="secretarioFomento" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='secretarioFomento')?'selected="selected"':''; ?>>Secretário (a) de Fomento e Incentivo à Cultura</option>
+                    <option value="coordIncFiscTec" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='coordGeral')?'selected="selected"':''; ?>>Coordenador (a) de Incentivos Fiscais e Apoio Tï¿½cnico</option>
+                    <option value="coordGeral" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='coordGeral')?'selected="selected"':''; ?>>Coordenador (a) Geral de Prestaï¿½ï¿½o de Contas</option>
+                    <option value="diretorExecutivo" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='diretorExecutivo')?'selected="selected"':''; ?>>Diretor (a) Executivo de Incentivo ï¿½ Cultura</option>
+                    <option value="secretarioFomento" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='secretarioFomento')?'selected="selected"':''; ?>>Secretï¿½rio (a) de Fomento e Incentivo ï¿½ Cultura</option>
                 </select>
             </td>
             <td class="destacar bold" width="1" align="center">Assinante</td>
@@ -115,7 +115,7 @@
     </table>
 
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINAÃ‡Ã‚O ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -140,12 +140,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    PÃ¡g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
+                    &nbsp;Registros por pÃ¡gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
                     <input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
@@ -164,7 +164,7 @@
             echo " de ". $this->paginacao['total']. " registros listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
     <?php } ?>
 
     <?php if($this->qtdRegistros > 0){ ?>
@@ -175,8 +175,8 @@
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=2&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Assinante</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=3&ordem='.$this->paginacao['novaOrdem'];?>">Tipo do Cargo</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Cadastro</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">Situação</a></th>
-                <th>Ação</th>
+                <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">Situaï¿½ï¿½o</a></th>
+                <th>Aï¿½ï¿½o</th>
             </tr>
         </thead>
         <tbody>
@@ -188,16 +188,16 @@
                     <?php
                         switch ($d->tpCargo) {
                             case '1':
-                                echo 'Coordenador (a) de Incentivos Fiscais e Apoio Técnico';
+                                echo 'Coordenador (a) de Incentivos Fiscais e Apoio Tï¿½cnico';
                                 break;
                             case '2':
-                                echo 'Coordenador (a) Geral de Prestação de Contas';
+                                echo 'Coordenador (a) Geral de Prestaï¿½ï¿½o de Contas';
                                 break;
                             case '3':
-                                echo 'Diretor (a) Executivo de Incentivo à Cultura';
+                                echo 'Diretor (a) Executivo de Incentivo ï¿½ Cultura';
                                 break;
                             case '4':
-                                echo 'Secretário (a) de Fomento e Incentivo à Cultura';
+                                echo 'Secretï¿½rio (a) de Fomento e Incentivo ï¿½ Cultura';
                                 break;
                             default:
                                 echo ' - ';
@@ -218,7 +218,7 @@
 
     <?php if(count($this->dados)>0){ ?>
 
-        <!-- ============ PAGINAÇÃO ============ -->
+        <!-- ============ PAGINAÃ‡Ã‚O ============ -->
         <?php if($this->qtdRegistros > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -251,12 +251,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        PÃ¡g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
+                        &nbsp;Registros por pÃ¡gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
                         <input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
@@ -268,7 +268,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINAÇÃO ========== -->
+        <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
     <?php } } ?>
 
     <?php } else { ?>
@@ -300,10 +300,10 @@
                 <td class="destacar bold" align="right">Cargo</td>
                 <td>
                     <select name="tpCargo" id="tpCargo" class="select_simples">
-                        <option value="1">Coordenador (a) de Incentivos Fiscais e Apoio Técnico</option>
-                        <option value="2">Coordenador (a) Geral de Prestação de Contas</option>
-                        <option value="3">Diretor (a) Executivo de Incentivo à Cultura</option>
-                        <option value="4">Secretário (a) de Fomento e Incentivo à Cultura</option>
+                        <option value="1">Coordenador (a) de Incentivos Fiscais e Apoio Tï¿½cnico</option>
+                        <option value="2">Coordenador (a) Geral de Prestaï¿½ï¿½o de Contas</option>
+                        <option value="3">Diretor (a) Executivo de Incentivo ï¿½ Cultura</option>
+                        <option value="4">Secretï¿½rio (a) de Fomento e Incentivo ï¿½ Cultura</option>
                     </select>
                 </td>
             </tr>
@@ -325,10 +325,10 @@
                 <td class="destacar bold" align="right">Cargo</td>
                 <td>
                     <select name="tpCargo" id="editarCargo" class="select_simples">
-                        <option value="1">Coordenador (a) de Incentivos Fiscais e Apoio Técnico</option>
-                        <option value="2">Coordenador (a) Geral de Prestação de Contas</option>
-                        <option value="3">Diretor (a) Executivo de Incentivo à Cultura</option>
-                        <option value="4">Secretário (a) de Fomento e Incentivo à Cultura</option>
+                        <option value="1">Coordenador (a) de Incentivos Fiscais e Apoio Tï¿½cnico</option>
+                        <option value="2">Coordenador (a) Geral de Prestaï¿½ï¿½o de Contas</option>
+                        <option value="3">Diretor (a) Executivo de Incentivo ï¿½ Cultura</option>
+                        <option value="4">Secretï¿½rio (a) de Fomento e Incentivo ï¿½ Cultura</option>
                     </select>
                 </td>
             </tr>
@@ -346,11 +346,11 @@
 </div>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

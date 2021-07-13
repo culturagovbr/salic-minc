@@ -41,7 +41,7 @@ class Proposta_Model_TbDocumentosPreProjetoMapper extends MinC_Db_Mapper
 
             # Tamanho do arquivo: 10MB
             if ($arquivoTamanho > 10485760) {
-                $this->setMessage('O arquivo n�o pode ser maior do que 10MB!');
+                $this->setMessage('O arquivo Não pode ser maior do que 10MB!');
                 $booResult = false;
             } else {
                 # Verifica se tipo de documento ja esta cadastrado

@@ -1,23 +1,23 @@
 <?php
 /**
- * PrestaÁ„o de Contas (UC45)
+ * PrestaÔøΩÔøΩo de Contas (UC45)
  * @author Equipe RUP - Politec
  * @since 28/01/2011
  * @version 1.0
  * @subpackage application.view.scripts.prestacaodeocontas
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
-<?php 
+<?php
 
 //echo $this->partial('realizarprestacaodecontas/inc/menu.inc.php', $this) // menu
 
-?>  
+?>
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN√çCIO</a></li>
         <li class="last">Analisar presta&ccedil;&atilde;o de contas</li>
     </ul>
 </div>
@@ -25,13 +25,13 @@
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 <div>Analisar presta&ccedil;&atilde;o de contas <span class="voltar" style="float:right;"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo"><script>
 
 $(document).ready(function() {
@@ -59,7 +59,7 @@ $(document).ready(function() {
 				// disable it by setting the property sorter to false
 				sorter: false
 			}
-						
+
 		}
 	});
 
@@ -79,9 +79,9 @@ $(document).ready(function() {
 				// disable it by setting the property sorter to false
 				sorter: false
 			}
-			
-			
-			
+
+
+
 		}
 	});
 
@@ -110,7 +110,7 @@ $(document).ready(function() {
 				// disable it by setting the property sorter to false
 				sorter: false
 			}
-						
+
 		}
 	});
 });
@@ -133,7 +133,7 @@ function areadetrabalho()
     $('#abrir_fechar4').click(function(){
         $('#fechartce').toggle('slow');
     });
-    
+
 }
 window.onload = function() {areadetrabalho();};
 </script> <!-- MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
@@ -145,9 +145,9 @@ window.onload = function() {areadetrabalho();};
     	$("#Pronac").html(Pronac);
     	$("#nomeProjeto").html(nomeProjeto);
     	$("#idPronac").val(idPronac);
-    	
+
 	$("#encaminhar2").dialog({
-         title : 'Encaminhar Projeto para An·lise',
+         title : 'Encaminhar Projeto para An√°lise',
          resizable: false,
          width:560,
          height:580,
@@ -163,8 +163,8 @@ window.onload = function() {areadetrabalho();};
  }
 
     $(document).ready(function(){
-	    $('#passaValor').change(function(){		
-	    	
+	    $('#passaValor').change(function(){
+
 	        var idorgao = $('#passaValor').val();
 	        $.ajax({
                 url : '<?php echo $this->url(array('controller' => 'RealizarPrestacaoDeContas', 'action' => 'coordenadorgeralprestacaocontas')); ?>',
@@ -176,7 +176,7 @@ window.onload = function() {areadetrabalho();};
                 success: function(data){
                         //$('#encaminhar').find('.AgentePerfil').val('');
                         var recebe = $('#encaminhar2').find('#recebeValor');
-                        
+
                         if(data.resposta){
                             recebe.html('');
                             recebe.append("<option value=''>Selecione o agente</option>");
@@ -192,25 +192,25 @@ window.onload = function() {areadetrabalho();};
                 },
                 type : 'post'
                 ,dataType : 'json'
-                 
+
             });
-	        
+
 	    });
 
 	    $('#encaminhar2').find('#recebeValor').change(function(){
-  			
+
             var perfil = $(this).val().split('/');
             $('#encaminhar2').find('.AgentePerfil').val(perfil[1]);
             $('#encaminhar2').find('.AgenteId').val(perfil[0]);
-	
+
         });
-        
+
     });
-    
+
 	  </script>
 
 <div style="display: none;" id="encaminhar2"
-	title="Encaminhar projeto para an·lise">
+	title="Encaminhar projeto para An√°lise">
 <form name="formencaminhar"
 	id="form<?php //echo $AnaliseGeral->ID_PRONAC; ?>"
 	action="<?php echo $this->url(array('controller'=>'realizarprestacaodecontas', 'action'=>'encaminharprestacaodecontas')); ?>"
@@ -232,8 +232,8 @@ window.onload = function() {areadetrabalho();};
 
 <textarea name="dsjustificativa" id="dsjustificativa" rows="6"
 	cols="50" style="width: 95%;"
-	onclick="limpar_campo(this, 'Digite a observaÁ„o...');" onkeypress=" "
-	onblur="restaurar_campo(this, 'Digite a observaÁ„o...');">Digite a observaÁ„o...</textarea>
+	onclick="limpar_campo(this, 'Digite a observaÔøΩÔøΩo...');" onkeypress=" "
+	onblur="restaurar_campo(this, 'Digite a observaÔøΩÔøΩo...');">Digite a observaÔøΩÔøΩo...</textarea>
 
 <br />
 <br>
@@ -241,7 +241,7 @@ window.onload = function() {areadetrabalho();};
 <tr>
 	<td><b>Encaminhar para:</b></td>
 	<td><select name="passaValor" id="passaValor" style="width: 70%;" >
-		<option value="0">Selecione uma opÁ„o</option>
+		<option value="0">Selecione uma opÔøΩÔøΩo</option>
                                 <?php foreach($this->listaEntidades as $listaEntidades): ?>
                                 <option
 			value="<?php echo $listaEntidades->Codigo;?>"><?php echo $listaEntidades->Sigla; ?></option>
@@ -249,16 +249,16 @@ window.onload = function() {areadetrabalho();};
                             </select></td>
 </tr>
 <tr>
-	<td><b style="margin-left: 2.6em;">Destinat·rio:</b></td>
+	<td><b style="margin-left: 2.6em;">Destinat√°rio:</b></td>
 	<td><select name="recebeValor" id="recebeValor"
 		style="width: 70%; margin-top: 0.5em;"></select></td>
 </tr>
-</div>	
+</div>
 
 <br />
 
 <input type="hidden" name="idPronac" id="idPronac" value=" "/>
-  
+
 <p align="center" style="margin-top: 1%;"><input type="submit" value=" " class="btn_enviar salvarencaminhamento2<?php //echo $AnaliseGeral->ID_PRONAC.$AnaliseGeral->tpAlteracaoProjeto; ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="reset" value=" " class="btn_limpar" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="reset" value=" " class="btn_cancelar" /></p>
@@ -267,12 +267,12 @@ window.onload = function() {areadetrabalho();};
 	<tr>
 		<th>Data de Envio</th>
 		<th>Remetente</th>
-		<th>Destinat·rio</th>
-		<th>”rg„o</th>
+		<th>Destinat√°rio</th>
+		<th>ÔøΩrgÔøΩo</th>
 	</tr>
 	<tr>
 		<td><?php echo $date = date('d/m/Y') ; ?></td>
-		<td><?php echo 'ZÈ LelÈ' ?></td>
+		<td><?php echo 'ZÔøΩ LelÔøΩ' ?></td>
 		<td><?php echo 'Lex Luthor'; ?></td>
 		<td><?php echo 'Zona Fantasma'; ?></td>
 	</tr>
@@ -286,7 +286,7 @@ window.onload = function() {areadetrabalho();};
 <table class="tabela">
 	<tr>
 		<td><input type="button" id="abrir_fechar" class="btn_adicionar" />AGUARDANDO
-		AN¡LISE</td>
+		An√°lise</td>
 	</tr>
 </table>
         <?php foreach($this->CordenadorGeralPresContas as $chave => $prescontas){ ?>
@@ -296,13 +296,13 @@ window.onload = function() {areadetrabalho();};
 	<?php //echo $this->Grupo;?>
 <?php 	//if ($this->Grupo =='124' || $prescontas->Situacao =='E27'){  ?>
 		<tr class="titulo_tabela">
-			<th width="60">N˙mero</th>
+			<th width="60">NÔøΩmero</th>
 			<th width="60">Pronac</th>
 			<th>Nome do Projeto</th>
-			<th width="220">¡rea / Segmento</th>
+			<th width="220">ÔøΩrea / Segmento</th>
 			<th width="60">Cidade</th>
 			<th width="60">Mecanismo</th>
-			<th width="130">Encaminhar para An·lise</th>
+			<th width="130">Encaminhar para An√°lise</th>
 			<th width="60">Data de Recebimento</th>
 			<th width="60">Controle</th>
 		</tr>
@@ -336,8 +336,8 @@ window.onload = function() {areadetrabalho();};
 	</tr>
 
                 <?php
-                
-                
+
+
  /*                           $i++;
                         }
                     };*/
@@ -354,7 +354,7 @@ window.onload = function() {areadetrabalho();};
 <table class="tabela">
 	<tr>
 		<td><input type="button" id="abrir_fechar1" class="btn_adicionar" />DEVOLVIDOS
-		AP”S AN¡LISE</td>
+		APÔøΩS An√°lise</td>
 	</tr>
 </table>
         <?php foreach($this->ProjetosApos as $chaves => $prescontasApos){ ?>
@@ -362,10 +362,10 @@ window.onload = function() {areadetrabalho();};
 <table id="myTable" class="tabela tablesorter">
 	<thead>
 		<tr class="titulo_tabela">
-			<th width="50">N˙mero</th>
+			<th width="50">NÔøΩmero</th>
 			<th width="50">Pronac</th>
 			<th>Nome do Projeto</th>
-			<th width="220">¡rea / Segmento</th>
+			<th width="220">ÔøΩrea / Segmento</th>
 			<th width="130">Data de Inicio</th>
 			<th width="130">Data Fim</th>
 			<th width="130">Mecanismo</th>
@@ -421,17 +421,17 @@ window.onload = function() {areadetrabalho();};
 <table class="tabela">
 	<tr>
 		<td><input type="button" id="abrir_fechar3" class="btn_adicionar" />PROJETOS
-		DILIG NCIADOS - Coordenador Geral</td>
+		DILIGÔøΩNCIADOS - Coordenador Geral</td>
 	</tr>
 </table>
         <div id="fechardiligenciados">
 <table class="tabela tablesorter">
 	<thead>
 		<tr class="titulo_tabela">
-			<th width="60">N˙mero</th>
+			<th width="60">NÔøΩmero</th>
 			<th width="60">Pronac</th>
 			<th>Nome do Projeto</th>
-			<th width="220">¡rea / Segmento</th>
+			<th width="220">ÔøΩrea / Segmento</th>
 			<th width="60">Cidade</th>
 			<th width="130">Data de Recebimento</th>
 			<th width="130">Visualizar Historico</th>
@@ -443,7 +443,7 @@ window.onload = function() {areadetrabalho();};
 	<tr class="fundo_<?php //echo $fundo; ?>">
 		<td><?php //echo $i + 1; ?></td>
 		<td class="centro">
-                                
+
 <?php //echo ">>>".$prescontas->Area; ?>
                                     <a class="itenspronac"
 			style="text-decoration: underline; cursor: pointer;"
@@ -494,10 +494,10 @@ window.onload = function() {areadetrabalho();};
 	<?php //echo $this->Grupo;?>
 <?php 	//if ($this->Grupo =='124' || $prescontas->Situacao =='E27'){  ?>
 		<tr class="titulo_tabela">
-			<th width="60">N˙mero</th>
+			<th width="60">NÔøΩmero</th>
 			<th width="60">Pronac</th>
 			<th>Nome do Projeto</th>
-			<th width="280">¡rea / Segmento</th>
+			<th width="280">ÔøΩrea / Segmento</th>
 			<th width="60">Data de Recebimento</th>
 			<th width="60">Cidade</th>
 			<th width="130">TCE</th>
@@ -519,7 +519,7 @@ window.onload = function() {areadetrabalho();};
 	</tr>
 
                 <?php
-                
+
  	/*                           $i++;
                         }
                     };*/
@@ -533,7 +533,7 @@ window.onload = function() {areadetrabalho();};
 </div>
 
 
-<!-- inÌcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 <br clear="all" />

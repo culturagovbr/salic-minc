@@ -2,27 +2,27 @@
 
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para Início">Início</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Gerenciar Parecerer">Gerênciar Parecerer</a></li>
-		<li class="last">Análise de Conteúdo</li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para INÃCIO">INÃCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Gerenciar Parecerer">Gerï¿½nciar Parecerer</a></li>
+		<li class="last">AnÃ¡lise de CONTEÃšDO</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Análise de Conteúdo<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>AnÃ¡lise de CONTEÃšDO<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 <?php foreach($this->dados as $d):?>
@@ -31,14 +31,14 @@
 			<th align="left" colspan="3" style="font-family: sans-serif; font-size: 13px; padding-left: 50px;">
 				   Pronac: <?php echo $d->PRONAC ; ?> - <?php echo $d->NomeProjeto ; ?>
 			<br /> Produto: <?php echo $d->Produto ; ?>
-		 </th>			
+		 </th>
 		</tr>
 	</table>
-	
+
 	<table class="tabela">
 		<tr>
 			<td colspan="3">Tipo Parecer <br /> <?php echo $d->TipoParecer ; ?> </td>
-			<td colspan="3">Parecer Favorável ? <br /> <?php echo $d->ParecerFavoravel ; ?> </td>
+			<td colspan="3">Parecer Favorï¿½vel ? <br /> <?php echo $d->ParecerFavoravel ; ?> </td>
 		</tr>
 		<tr>
 			<th colspan="6">Lei 8.313</th>
@@ -47,16 +47,16 @@
 			<td colspan="6">Lei 8.313/91 alterada pela Lei 9.874/1999*  <br /> <?php echo $d->Lei8313 ; ?> </td>
 		</tr>
 		<tr>
-			<th colspan="3" align="center">Artigo 3º</th>
+			<th colspan="3" align="center">Artigo 3ï¿½</th>
 			<th colspan="2" align="center">Artigo 18</th>
 			<th colspan="1" align="center">Artigo 26</th>
 		</tr>
 		<tr>
 			<td>Artigo 3  <br /> <?php echo $d->Artigo3 ; ?> </td>
 			<td>Inciso    <br /> <?php echo $d->IncisoArtigo3 ; ?> </td>
-			<td>Alínea    <br /> <?php echo $d->AlineaArtigo3 ; ?> </td>
+			<td>Alï¿½nea    <br /> <?php echo $d->AlineaArtigo3 ; ?> </td>
 			<td>Artigo 18 <br /> <?php echo $d->Artigo18 ; ?> </td>
-			<td>Alínea    <br /> <?php echo $d->AlineaArtigo18 ; ?> </td>
+			<td>Alï¿½nea    <br /> <?php echo $d->AlineaArtigo18 ; ?> </td>
 			<td>Artigo 26 <br /> <?php echo $d->Artigo26 ; ?> </td>
 		</tr>
 		<tr>
@@ -71,7 +71,7 @@
 			<td>Inciso IV  <br /> <?php echo $d->IncisoArtigo27_IV ; ?> </td>
 		</tr>
 		<tr>
-			<th colspan="6">Parecer</th>			
+			<th colspan="6">Parecer</th>
 		</tr>
 		<tr>
 			<td colspan="6"><?php echo $d->ParecerDeConteudo ; ?></td>
@@ -79,12 +79,12 @@
 	</table>
 <?php endforeach; ?>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

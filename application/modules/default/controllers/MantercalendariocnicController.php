@@ -13,13 +13,13 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
     public function init()
     {
         $auth = Zend_Auth::getInstance(); // pega a autentica�?o
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
 
         // 3 => autentica�?o scriptcase e autentica�?o/permiss?o zend (AMBIENTE PROPONENTE E MINC)
         // utilizar quando a Controller ou a Action for acessada via scriptcase e zend
         // define as permiss?es
         $PermissoesGrupo = array();
-        $PermissoesGrupo[] = 103; // Coordenador de An�lise
+        $PermissoesGrupo[] = 103; // Coordenador de Análise
         $PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
         parent::perfil(3, $PermissoesGrupo);
         if (isset($auth->getIdentity()->usu_codigo)) {
@@ -58,14 +58,14 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
         $ordem = (!empty($_GET['ordem'])) ? $_GET['ordem'] : "desc";
 
         $this->view->ordemlista = $ordem;
-        
+
         $order = array($campo." ".$ordem);
 
-        
+
         $reunioes = $tblreuniao->listar(array(), $order, $tamanho, $inicio);
         $this->view->reunioies = $reunioes;
 
-        
+
         if ($fim>$total) {
             $fim = $total;
         }
@@ -82,17 +82,17 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
             );
 
         $this->view->paginacao = $paginacao;
-        
+
 
         if (!empty($_POST['colunasFim'])) {
             $ordem = $_POST['colunasFim'];
         } else {
             $ordem = array("N.Reuniao","Dt.Inicio","Dt.Final","Dt.Fechamento","Mecanismo","Status");
         }
-        
+
         $this->view->ordem = $ordem;
     }
-    
+
     public function gerarpdfAction()
     {
         $this->_helper->layout->disableLayout();

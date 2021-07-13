@@ -448,7 +448,7 @@ if (!isInvoice()) {
     mascaraCNPJCPF(cnpjcpf);
 }
 
-//Mensagem para Utilizar este fornecedor para Comprova¿¿o Financeira, sim ou n¿o.
+//Mensagem para Utilizar este fornecedor para Comprovaï¿½ï¿½o Financeira, sim ou NÃ£o.
 function outroFornecedorComprovacao(este) {
     $("#divPerguntaFornecedor").dialog('close');
     $("#divPerguntaFornecedor").html('Deseja utilizar este fornecedor na comprova&ccedil;&atilde;o do pagamento?');

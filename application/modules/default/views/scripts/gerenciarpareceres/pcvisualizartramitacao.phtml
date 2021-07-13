@@ -8,32 +8,32 @@ function pdf()
 function xls()
 {
 	$('#formxls').submit();
-}	
+}
 
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres T&eacute;cnicos</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'pareceresaconsolidar'),'',true); ?>" title="Gerenciar Pareceres">Pareceres a Consolidar</a></li>
-		<li class="last">Visualizar TramitaÁ„o</li>
+		<li class="last">Visualizar Tramita√ß√£o</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-	<div>Visualizar TramitaÁ„o<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>Visualizar Tramita√ß√£o<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 <form id="formhtml" action="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'gerarpdf')); ?>" method="post">
@@ -69,7 +69,7 @@ function xls()
 			<th width="200" align="left">TipoAnalise</th>
 			<th width="150" align="left">Unidade</th>
 			<th width="100" align="center">Data de Envio</th>
-			<th width="200" align="left">ObservaÁ„o</th>
+			<th width="200" align="left">ObservaÔøΩÔøΩo</th>
 			<th width="150" align="left">Usuario</th>
 		</tr>
 		<?php foreach($this->dados as $d): ?>
@@ -83,27 +83,27 @@ function xls()
 		</tr>
 		<?php endforeach; ?>
 	</table>
-	
-	<!-- ============ PAGINA«√O ============ -->		   
+
+	<!-- ============ PAGINA√á√ÇO ============ -->
 <?php if ($this->qtdDocumentos > 10) { echo $this->dados; } ?>
-<!-- ========== FIM PAGINA«√O ========== -->
+<!-- ========== FIM PAGINA√á√ÇO ========== -->
 <?php else:?>
 	<center>
-	<br />	
-	<div style="text-align:center; color:#000; font-size:15px;">N„o h· registros a exibir</div>
+	<br />
+	<div style="text-align:center; color:#000; font-size:15px;">N√£o hÔøΩ registros a exibir</div>
 	<br />
 	<input type="button" class="btn_voltar" name="btn_voltar" value=" " onclick="history.back();"/>
 	</center><br />
-	
-<?php endif;?>	
+
+<?php endif;?>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

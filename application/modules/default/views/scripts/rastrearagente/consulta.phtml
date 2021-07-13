@@ -6,26 +6,26 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright (c) 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright (c) 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 <script>
-$(document).ready( function() {	
-	$("#btn_imprimir").click(function(){		
+$(document).ready( function() {
+	$("#btn_imprimir").click(function(){
 		$("#conteudoImprimir").val($("#conteudoImprimivel").html());
-		$("#formGerarPdf").attr('target', '_blank');    
-        $("#formGerarPdf").submit(); 
+		$("#formGerarPdf").attr('target', '_blank');
+        $("#formGerarPdf").submit();
     });
 });
-	
-	
+
+
 </script>
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">InÌcio</a></li>
-		<li><!--a href="<?php echo $this->baseUrl(); ?>" title="InÌcio"-->Manuten&ccedil;&atilde;o<!--/a--></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">IN√çCIO</a></li>
+		<li><!--a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO"-->Manuten&ccedil;&atilde;o<!--/a--></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'Rastrearagente', 'action' => 'index')); ?>" title="Ir para Rastrear agente">Rastrear agente</a></li>
 		<li class="last">Resultado da consulta</li>
 	</ul>
@@ -203,7 +203,7 @@ $(document).ready( function() {
 			echo "<td class='red'>".$projetos->Sigla."</td></tr>";
 			$QTDprojetos++;
 		}
-		?>		
+		?>
 		<tr>
 			<td class="destacar"><b>TOTAL DE PROJETOS INABILITADOS</b></td>
 			<td colspan="2" class="direita"><b><?php echo $QTDprojetos ?></b></td>
@@ -225,8 +225,8 @@ $(document).ready( function() {
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

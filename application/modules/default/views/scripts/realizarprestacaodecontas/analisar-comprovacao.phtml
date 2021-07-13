@@ -15,11 +15,11 @@ function mascara($mask,$str){
 
 <div id="breadcrumb">
     <ul>
-       <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">InÌcio</a></li>
+       <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN√çCIO</a></li>
         <?php if ($this->grupoAtivo != 121) { //Tecnico de Acompanhamento ?>
             <li class=""><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'tecnicoprestacaocontas'));?>">Analisar presta&ccedil;&atilde;o de contas</a></li>
         <?php } ?>
-        <li class=""><a href="<?php //echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria', 'idPronac' => $this->projeto->IdPRONAC, 'idPlanilhaAprovacao' => $this->projeto->idPlanilhaAprovacao, 'idPlanilhaItem' => $this->projeto->idPlanilhaItens), '', true); ?>">Planilha or&ccedil;ament·ria comprovada</a></li>
+        <li class=""><a href="<?php //echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria', 'idPronac' => $this->projeto->IdPRONAC, 'idPlanilhaAprovacao' => $this->projeto->idPlanilhaAprovacao, 'idPlanilhaItem' => $this->projeto->idPlanilhaItens), '', true); ?>">Planilha or&ccedil;amentÔøΩria comprovada</a></li>
         <li class="last">Analisar item</li>
     </ul>
 </div>
@@ -82,7 +82,7 @@ function mascara($mask,$str){
                     <th colspan="4"><b>Licita&ccedil;&atilde;o</b></th>
                 </tr>
                 <tr>
-                    <td><b>N˙mero de Licita&ccedil;&atilde;o</b></td>
+                    <td><b>NÔøΩmero de Licita&ccedil;&atilde;o</b></td>
                     <td colspan="3"><?php echo $this->projeto->nrLicitacao;?></td>
                 </tr>
                 <tr>
@@ -90,7 +90,7 @@ function mascara($mask,$str){
                     <td colspan="3"><?php echo $this->projeto->modalidadeLicitacao;?></td>
                 </tr>
                 <tr>
-                    <td><b>N˙mero de Processo</b></td>
+                    <td><b>NÔøΩmero de Processo</b></td>
                     <td colspan="3"><?php echo $this->projeto->processoLicitacao;?></td>
                 </tr>
                 <tr>
@@ -151,12 +151,12 @@ function mascara($mask,$str){
         </table>
     <?php endif; ?>
 
-    <?php 
-        $vlcpTotal=0; 
+    <?php
+        $vlcpTotal=0;
         foreach ($this->comprovantesPagamento as $valoresComprovados) {
             $vlUn = $valoresComprovados->vlComprovacao+$vlcpTotal;
             $vlcpTotal = $vlUn;
-        } 
+        }
     ?>
 
     <table class="tabela">
@@ -177,7 +177,7 @@ function mascara($mask,$str){
                 <td>R$ <?php echo number_format($this->projeto->vlAprovado, 2, ',', '.');?></td>
                 <td class="destacar" align="right"><b>Valor Comprovado:</b></td>
                 <td>R$ <?php echo number_format($vlcpTotal, 2, ',', '.');?></td>
-                <td class="destacar" align="right"><b>ComprovaÁ„o Validada:</b></td>
+                <td class="destacar" align="right"><b>ComprovaÔøΩÔøΩo Validada:</b></td>
                 <td>R$ <?php echo number_format($this->projeto->vlComprovado, 2, ',', '.');?></td>
             </tr>
         </tbody>
@@ -228,7 +228,7 @@ function mascara($mask,$str){
                     <tr>
                         <td class="destacar" align="right"><b>Comprovante</b></td>
                         <td style="width: 175px;"><?php echo $comprovante->tpDocumento;?></td>
-                        <td class="destacar" align="right"><b>N˙mero</b></td>
+                        <td class="destacar" align="right"><b>NÔøΩmero</b></td>
                         <td><?php echo $comprovante->nrComprovante;?></td>
                         <td class="destacar" align="right"><b id="nmSerieTxt">S&eacute;rie</b></td>
                         <td colspan="3"><?php echo $comprovante->nrSerie;?></td>
@@ -272,7 +272,7 @@ function mascara($mask,$str){
                                     value="1"
                                     <?php echo 1 == $comprovante->stItemAvaliado ? 'checked="checked"': ''; ?>
                                     >
-                                <label for="situacao-1-<?php echo $comprovanteNodeId; ?>">ComprovaÁ„o validada</label><br>
+                                <label for="situacao-1-<?php echo $comprovanteNodeId; ?>">ComprovaÔøΩÔøΩo validada</label><br>
                                 <input
                                     type="radio"
                                     id="situacao-3-<?php echo $comprovanteNodeId; ?>"
@@ -280,11 +280,11 @@ function mascara($mask,$str){
                                     value="3"
                                     <?php echo 3 == $comprovante->stItemAvaliado ? 'checked="checked"': ''; ?>
                                     >
-                                <label for="situacao-3-<?php echo $comprovanteNodeId; ?>">ComprovaÁ„o recusada</label><br>
+                                <label for="situacao-3-<?php echo $comprovanteNodeId; ?>">ComprovaÔøΩÔøΩo recusada</label><br>
                         </td>
                     </tr>
                     <tr>
-                        <td class="destacar" align="right"><b>OcorrÍncia do TÈcnico</b></td>
+                        <td class="destacar" align="right"><b>OcorrÔøΩncia do TÔøΩcnico</b></td>
                         <td colspan="7">
                                 <textarea
                                     name="comprovantePagamento[<?php echo $comprovante->idPlanilhaAprovacao; ?>][observacao]"

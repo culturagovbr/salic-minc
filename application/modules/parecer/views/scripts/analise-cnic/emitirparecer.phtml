@@ -36,12 +36,12 @@
      else if(tiposalvar == 'AC' ){
          parecer = 2;
      }
-     <?php if (!$this->IN2017): ?>			
+     <?php if (!$this->IN2017): ?>
      else if(tiposalvar == null){
 	 parecer = <?php echo $this->nrparecerfavoravel; ?>;
      }
      <?php endif; ?>
-     
+
      if($("#justificativa").val().length >= 20){
          $.ajax({
              async: true,
@@ -113,15 +113,15 @@
              }
          }
      });
-     
+
      <?php if ($this->IN2017) : ?>
      $('#gerarAssinatura').click(function(e) {
 	 e.preventDefault();
-	 
+
 	 var parecer = $("input:radio[name='decisao']:checked").val(),
 	     redirectUrl = $('#gerarAssinatura').attr('href');
-	 
-	 salvar(parecer,0);		
+
+	 salvar(parecer,0);
 	 window.location.href  = redirectUrl;
      });
 
@@ -131,7 +131,7 @@
 	     $('#finalizarparecer').prop('disabled', 'disabled');
 	 }
      });
-     
+
      <?php endif; ?>
 
      <?php if ($this->IsProjetoJaAssinado($this->idpronac, $this->idTipoDoAtoAdministrativo, $this->idPerfilDoAssinante)): ?>
@@ -144,7 +144,7 @@
 	     $('#finalizarparecer').prop('disabled', 'disabled');
 	 }
      });
-     
+
      $('#desIndeferir').click(function(e) {
 	 $('.situacao').css('display','');
 	 $('#situacao').css('display','');
@@ -153,7 +153,7 @@
 	     $('#finalizarparecer').prop('disabled', 'disabled');
 	 }
      });
-     
+
      if ($('#desIndeferir').prop('checked') == true) {
 	 $('.situacao').css('display','');
 	 $('#situacao').css('display','');
@@ -164,19 +164,19 @@
 	     $('#finalizarparecer').prop('disabled', 'disabled');
 	 }
      });
-     
+
      <?php endif; ?>
-     
+
      <?php endif; ?>
      $("#finalizarparecer").click(function()
          {
 	     //atualiza no banco de dados o parecer digitado pelo componente
 	     var parecer = $("input:radio[name='decisao']:checked").val();
-	     
+
 	     var tipoPlanilha = '<?php echo $this->tipoplanilha; ?>';
 	     if(tipoPlanilha == 'CO')
 		 {
-		     <?php if (!$this->IN2017): ?>			
+		     <?php if (!$this->IN2017): ?>
 		     if (document.getElementById('verificarParecerFavoravel').value != 'sim')
 			 {
 			     document.getElementById('desAprovar').disabled = true;
@@ -189,7 +189,7 @@
 		     if ($('#situacao').val() == '' && parecer == 'IC') {
 			 $('#confirm').dialog('open');
 			 $('#confirm').html('<font color="red">Selecione a situa&ccedil;&atilde;o </font>');
-			 $('#alert').dialog('close');                
+			 $('#alert').dialog('close');
 			 return false;
 		     }
 		     if($("#justificativa").val().length <= 20){
@@ -204,7 +204,7 @@
 			     height:200,
 			     modal: true,
 			     buttons: {
-				 'Não': function(){
+				 'NÃ£o': function(){
 				     $("#alert").dialog('close');
 				 },
 				 'Sim': function(){
@@ -214,12 +214,12 @@
 					 situacao = $('#situacao').val(),
 					 stEnvioPlenaria = ($('#stEnvioPlenaria').prop('checked')) ? 'S' : 'N',
 					 justificativaenvcioplenaria = $('#justificativaenvioplenaria').val();
-				     
+
 				     document.forms.formEnviar.decisao.value = parecer;
 				     document.forms.formEnviar.situacao.value = situacao;
 				     document.forms.formEnviar.stEnvioPlenaria.value = stEnvioPlenaria;
 				     document.forms.formEnviar.justificativaenvioplenaria.value = justificativaenvioplenaria;
-				     
+
 				     $('#formEnviar').attr('action', url);
 				     $('#formEnviar').submit();
 				 }
@@ -280,7 +280,7 @@
 
          }
      });
-     
+
      $("#salvarparecer").click(function()
          {
 	     $("#alert").html('Deseja salvar o seu parecer consolidado?');
@@ -288,14 +288,14 @@
 		 var parecer = null;
 		 <?php if ($this->IN2017) : ?>
 		 parecer = $("input:radio[name='decisao']:checked").val();
-		 
+
 		 if (!parecer) {
 		     $('#confirm').dialog('open');
 		     $('#confirm').html('<font color="red">Defina seu posicionamento para salvar o Parecer!</font>');
-		     $('#alert').dialog('close');                
+		     $('#alert').dialog('close');
 		     return false;
-		 } 
-		 
+		 }
+
 		 <?php endif; ?>
                  salvar(parecer);
                  $("#alert").html('Aguarde, salvando informa&ccedil;&otilde;es...');
@@ -386,7 +386,7 @@
             <input name="stPlanoAnual" type="hidden" value="<?php echo $this->stPlanoAnual; ?>" />
             <input name="justificativaenvioplenaria" type="hidden" value="" />
             <input type="hidden" name="pareceratualizado" value="" />
-        </form>    
+        </form>
 <?php endif; ?>
     </div>
     <div id="erro" style="display:none; text-align: center; color: red;"></div>
@@ -550,7 +550,7 @@
 	    <?php endif; ?>
                 <!-- ========== Fim Parecer Consolidado ========== -->
             </div>
-	
+
     <?php
     if ($this->tipoplanilha == 'SE') {
         echo "<div style=\"color:red; text-align: center; font-size: 16pt;  padding-bottom: 2em;\">Projeto j&aacute; aprovado pela CNIC. Aberto para ajustes do Componente.</div>";
@@ -594,7 +594,7 @@
 		</tr>
 	    </table>
             <?php endif; ?>
-	    
+
             <table class="tabela">
                 <tr>
                     <th>Aprecia&ccedil;&atilde;o do comiss&aacute;rio relator</th>
@@ -638,11 +638,11 @@
 		<?php endif; ?>
 		<?php } ?>
 	    </table>
-	    
+
             <?php if (!$this->IN2017): ?>
             <table class="tabela">
                 <tr align="center">
-                    <td class="destacar bold" colspan="2">Verificação de Limites Orçamentários</td>
+                    <td class="destacar bold" colspan="2">Verificaï¿½ï¿½o de Limites Orï¿½amentï¿½rios</td>
                 </tr>
                 <?php foreach ($this->resultadoCheckList as $dsResultado) { ?>
                 <tr>
@@ -700,12 +700,12 @@
 		      data-tooltip="Assinar documento">
 		      <i class="material-icons white-text">create</i>
 		    </a>
-		    
+
     		    <?php elseif ($this->IsProjetoJaAssinado($this->idpronac, $this->idTipoDoAtoAdministrativo, $this->idPerfilDoAssinante)): ?>
 		    <input type="button" class="btn" value=" Finalizar " id="finalizarparecer"/>
-		    
+
 		    <?php endif; ?>
-		    <?php endif; ?>	    
+		    <?php endif; ?>
 		    <?php endif; ?>
                 </p>
                 <br />

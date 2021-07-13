@@ -14,7 +14,7 @@ function aprovar(pronac, nota, PreProjeto)
         ,
         buttons:
         {
-            'Não':function()
+            'NÃ£o':function()
             {
                 $(this).dialog('close');
                 return false;
@@ -36,8 +36,8 @@ function reprovar(Pro, nome, nota, idPreProjeto)
 	$("#pro").val(Pro);
 	$("#idPreProj").val(idPreProjeto);
 	$("#just").val(idPreProjeto);
-	
-	 document.getElementById("modalJustificativa").title = "Justificativa para Reprovação de Projeto";
+
+	 document.getElementById("modalJustificativa").title = "Justificativa para Reprovaï¿½ï¿½o de Projeto";
 
 		// modal com os ddos do dirigente
 		$("#modalJustificativa").dialog("destroy");
@@ -57,7 +57,7 @@ function reprovar(Pro, nome, nota, idPreProjeto)
 		});
 		return false;
 		//$('.ui-dialog-titlebar-close').remove();
-		
+
 }
 
 function alterar_nota(Pro, nome, nota, idPreProjeto)
@@ -68,8 +68,8 @@ function alterar_nota(Pro, nome, nota, idPreProjeto)
 	$("#pro").val(Pro);
 	$("#idPreProj").val(idPreProjeto);
 	$("#just").val('');
-	
-	 document.getElementById("modalJustificativa").title = "Justificativa para Alteração de Nota";
+
+	 document.getElementById("modalJustificativa").title = "Justificativa para Alteraï¿½ï¿½o de Nota";
 
 		// modal com os ddos do dirigente
 		$("#modalJustificativa").dialog("destroy");
@@ -89,7 +89,7 @@ function alterar_nota(Pro, nome, nota, idPreProjeto)
 		});
 		return false;
 		//$('.ui-dialog-titlebar-close').remove();
-		
+
 }
 
 $(document).ready(function(){
@@ -121,7 +121,7 @@ $(document).ready(function(){
             return false;
 
         }else{
-            if ($("#just").val() == ''){ 
+            if ($("#just").val() == ''){
             	$("#confirm4").dialog("destroy");
 			    $("#confirm4").dialog
 			    ({
@@ -132,7 +132,7 @@ $(document).ready(function(){
 			        ,
 			        buttons:
 			        {
-			            'Não':function()
+			            'NÃ£o':function()
 			            {
 			                $(this).dialog('close');
 			                return false;
@@ -145,7 +145,7 @@ $(document).ready(function(){
 			    });
 			    return false;
 					//$('.ui-dialog-titlebar-close').remove();
-            }else{ 
+            }else{
 				$("#confirm2").dialog("destroy");
 			    $("#confirm2").dialog
 			    ({
@@ -156,7 +156,7 @@ $(document).ready(function(){
 			        ,
 			        buttons:
 			        {
-			            'Não':function()
+			            'NÃ£o':function()
 			            {
 			                $(this).dialog('close');
 			                return false;
@@ -176,21 +176,21 @@ $(document).ready(function(){
 
 		if($(this).val() == 0){
 	        $("#uf").find('option').remove();
-	        $("#uf").append('<option value=""> - Selecione - </option>');   
+	        $("#uf").append('<option value=""> - Selecione - </option>');
 	    }
-		
+
 		var edital = $("#edital").val();
 		var regiao = $(this).val();
 		var url = '<?php echo $this->url(array('controller' => 'Avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag=1'."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&edital='; ?>'+ edital + '&regiao=' + regiao;
 		JSPaginacao(url);
-		
+
 	});
-	
+
 	$('#edital').change(function(){
 		var edital = $(this).val();
 		var url = '<?php echo $this->url(array('controller' => 'Avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag=1'."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&edital='; ?>'+edital;
 		JSPaginacao(url);
-		
+
 	});
 	$('#uf').change(function(){
 
@@ -199,15 +199,15 @@ $(document).ready(function(){
 		var uf = $(this).val();
 		var url = '<?php echo $this->url(array('controller' => 'Avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag=1'."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&edital='; ?>'+ edital + '&regiao=' + regiao + '&uf=' + uf;
 		JSPaginacao(url);
-		
+
 	});
 });
 
 function JSPaginacao(url){
-	
+
 	$('#gridProjetos').html("<br><br><center>Carregando dados...</center>");
 	jqAjaxLinkSemLoading(url,'','gridProjetos');
-			
+
 }
 </script>
 <div id="confirm" title="Confirma&ccedil;&atilde;o"
@@ -218,7 +218,7 @@ function JSPaginacao(url){
 	style="display: none">Tem certeza que deseja alterar a nota deste
 projeto?</div>
 <div id="confirm3" title="Confirma&ccedil;&atilde;o"
-	style="display: none">Dados obrigatórios não informados!</div>
+	style="display: none">Dados obrigatï¿½rios NÃ£o informados!</div>
 <div style="display: none;" id="modalJustificativa"
 	title="Justificativa de Recusa do Projeto">
 <form name="formjustificativa" id="" method="post">
@@ -310,7 +310,7 @@ projeto?</div>
 			href="javascript:JSPaginacao('<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=15&ordem='.$this->paginacao['novaOrdem'].$this->filtros;?>')">Proponente</a>
 		</th>
 		<th style="width: 50px;"><a
-			href="javascript:JSPaginacao('<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=8&ordem='.$this->paginacao['novaOrdem'].$this->filtros;?>')">Nº
+			href="javascript:JSPaginacao('<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=8&ordem='.$this->paginacao['novaOrdem'].$this->filtros;?>')">Nï¿½
 		Edital</a></th>
 		<th><a
 			href="javascript:JSPaginacao('<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=11&ordem='.$this->paginacao['novaOrdem'].$this->filtros;?>')">Nome
@@ -359,54 +359,54 @@ projeto?</div>
 <input type="hidden" id="pronacs" name="pronacs"></input> <input
 	type="hidden" id="idPreProjeto" name="idPreProjeto"></input> <input
 	type="hidden" id="nrNota" name="nrNota"></input> <input type=hidden
-	id="pre" name="pre"></input> <!-- ============ PAGINAÇÃO ============ -->
+	id="pre" name="pre"></input> <!-- ============ PAGINAÃ‡Ã‚O ============ -->
 <table class="tabela">
 	<tbody>
 		<tr>
 			<td align="center">
 			<form name="form1" id="form1" action="<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'avaliarcomissao'));?>" method="get">
-				<?php if($this->paginacao['pag']>1) { ?> 
+				<?php if($this->paginacao['pag']>1) { ?>
 					<input style="width: 88px;" class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio" onclick="javascript:JSPaginacao('<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag=1'."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].$this->filtros; ?>')">
-				<?php } else { ?> 
-					<input style="width: 88px;" class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio"> 
-				<?php } ?> 
-				
+				<?php } else { ?>
+					<input style="width: 88px;" class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio">
+				<?php } ?>
+
 				<?php if($this->paginacao['pag']<=1) { ?>
-					<input style="width: 88px;" id="btn_p_anterior" type="button" class="btn_p_anterior"> 
-				<?php }else { ?> 
+					<input style="width: 88px;" id="btn_p_anterior" type="button" class="btn_p_anterior">
+				<?php }else { ?>
 					<input style="width: 88px;" id="btn_p_anterior" type="button" class="btn_p_anterior" onclick="javascript:JSPaginacao('<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag='.($this->paginacao['pag'] - 1)."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].$this->filtros; ?>')">
-				<?php } ?> 
-					
+				<?php } ?>
+
 				<select name="pag" id="pag" onchange="JSPaginacao('<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag='?>' + this.value + '<?php echo "&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].$this->filtros; ?>')" class="select_simples">
 					<?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
 						<option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
 					<?php endfor; ?>
-				</select> 
-				
+				</select>
+
 			<?php if($this->paginacao['pag']+1 > $this->paginacao['totalPag']) { ?>
-				<input style="width: 88px;" id="btn_p_proximo" type="button" class="btn_p_proximo"> 
-			<?php }else { ?> 
+				<input style="width: 88px;" id="btn_p_proximo" type="button" class="btn_p_proximo">
+			<?php }else { ?>
 				<input style="width: 88px;" id="btn_p_proximo" type="button" class="btn_p_proximo" onclick="javascript:JSPaginacao('<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag='.($this->paginacao['pag'] + 1)."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].$this->filtros; ?>')">
-			<?php } ?> 
-			
+			<?php } ?>
+
 			<?php if($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
 				<input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button" onclick="javascript:JSPaginacao('<?php echo $this->url(array('controller' => 'avaliarprojetoscomissao', 'action' => 'listarprojetos')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].$this->filtros; ?>')">
-			<?php }else{ ?> 
-				<input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button"> 
+			<?php }else{ ?>
+				<input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button">
 			<?php } ?>
-			&nbsp;Exibindo de<b> 
+			&nbsp;Exibindo de<b>
 				<?php
 					echo $this->paginacao['inicio']." a ";
 					echo ($this->paginacao['pag']-1)*$this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
 					echo " de um total de ". $this->paginacao['total'];
-				?></b> 
-				<input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>"> 
+				?></b>
+				<input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
 				<input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>"></form>
 			</td>
 		</tr>
 	</tbody>
 </table>
-<!-- ========== FIM PAGINAÇÃO ========== --></form>
+<!-- ========== FIM PAGINAÃ‡Ã‚O ========== --></form>
 				<?php } else { ?>
 <table class="tabela_simples lista" style="width: 55%;" id="lista">
 	<tr>

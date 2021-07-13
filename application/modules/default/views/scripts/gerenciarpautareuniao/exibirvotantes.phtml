@@ -7,13 +7,13 @@
             modal: true,
             autoOpen:false,
             buttons : {
-                'Não' : functionnao,
+                'NÃ£o' : functionnao,
                 'Sim' : functionsim
             }
         });
     }
     var votacao =  setInterval(function(){verificainiciocnic()}, '2000');
-    
+
         function verificainiciocnic(){
         $.ajax({
             async: true,
@@ -25,7 +25,7 @@
             },
             success: function(data)
             {
-                
+
                 if(data){
                     if(!data.error){
                         if(data.acao == 'reload'){
@@ -38,7 +38,7 @@
             ,dataType : 'json'
         });
     }
-    
+
     $(document).ready(function(){
         $("#erro").dialog({
             resizable: false,
