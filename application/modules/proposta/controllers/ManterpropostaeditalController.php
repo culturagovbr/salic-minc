@@ -936,7 +936,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
             if ($rsMovimentacao->Movimentacao != 95) {
                 $arrResultado['erro'] = true;
                 $arrResultado['movimentacao']['erro'] = false;
-                $arrResultado['movimentacao']['msg'] = "A Proposta Cultural encontra-se no Minist&eacute;rio da Cidadania";
+                $arrResultado['movimentacao']['msg'] = "A Proposta Cultural encontra-se no Minist&eacute;rio da TURISMO";
             }
         }
 
@@ -980,15 +980,15 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
             if (count($regularidade) > 0) {
                 if ($regularidade[0]->Habilitado == "S") {
                     $arrResultado['regularidadeproponente']['erro'] = false;
-                    $arrResultado['regularidadeproponente']['msg'] = "Proponente em situa&ccedil;&atilde;o REGULAR no Minist&eacute;rio da Cidadania - <font color='green'>OK</font>";
+                    $arrResultado['regularidadeproponente']['msg'] = "Proponente em situa&ccedil;&atilde;o REGULAR no Minist&eacute;rio da TURISMO - <font color='green'>OK</font>";
                 } else {
                     $arrResultado['erro'] = true;
                     $arrResultado['regularidadeproponente']['erro'] = true;
-                    $arrResultado['regularidadeproponente']['msg'] = "Proponente em situa&ccedil;&atilde;o IRREGULAR no Minist&eacute;rio da Cidadania - <font color='red'>PENDENTE</font>";
+                    $arrResultado['regularidadeproponente']['msg'] = "Proponente em situa&ccedil;&atilde;o IRREGULAR no Minist&eacute;rio da TURISMO - <font color='red'>PENDENTE</font>";
                 }
             } else {
                 $arrResultado['regularidadeproponente']['erro'] = false;
-                $arrResultado['regularidadeproponente']['msg'] = "Proponente em situa&ccedil;&atilde;o REGULAR no Minist&eacute;rio da Cidadania - <font color='green'>OK</font>";
+                $arrResultado['regularidadeproponente']['msg'] = "Proponente em situa&ccedil;&atilde;o REGULAR no Minist&eacute;rio da TURISMO - <font color='green'>OK</font>";
             }
 
             //E-MAIL
@@ -1234,18 +1234,18 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                     //PERSISTE DADOS DA AVALIACAO PROPOSTA
                     $tblAvaliacao->inserirAvaliacao($dados);
 
-                    parent::message("A Proposta foi enviado com sucesso ao Minist&eacute;rio da Cidadania!", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "CONFIRM");
+                    parent::message("A Proposta foi enviado com sucesso ao Minist&eacute;rio da TURISMO!", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "CONFIRM");
                     die();
                 } catch (Exception $e) {
-                    parent::message("O Projeto n&atilde;o foi enviado ao Minist&eacute;rio da Cidadania!", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
+                    parent::message("O Projeto n&atilde;o foi enviado ao Minist&eacute;rio da TURISMO!", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
                     die();
                 }
             } else { //fecha IF se encontrou tecnicos para enviar a proposta
-                parent::message("A Proposta n&atilde;o foi enviado ao Minist&eacute;rio da Cidadania. T&eacute;cnico n&atilde;o localizado", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
+                parent::message("A Proposta n&atilde;o foi enviado ao Minist&eacute;rio da TURISMO. T&eacute;cnico n&atilde;o localizado", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
                 die();
             }
         } else {
-            parent::message("A Proposta n&atilde;o foi enviado ao Minist&eacute;rio da Cidadania.", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
+            parent::message("A Proposta n&atilde;o foi enviado ao Minist&eacute;rio da TURISMO.", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
         }
     }
 

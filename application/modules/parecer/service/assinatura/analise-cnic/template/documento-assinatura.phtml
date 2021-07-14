@@ -12,7 +12,7 @@
             <img src="/public/img/planalto_presidencia_simbolosnacionais_brasao.gif" style="height:120px">
         </div>
         <div class="center-align" style="font-size: 23px;">
-            MINIST&Eacute;RIO DA CIDADANIA
+            MINIST&Eacute;RIO DA TURISMO
         </div>
         <?php if ((int)$this->orgaoSuperior == (int)\Orgaos::ORGAO_SUPERIOR_SEFIC): ?>
         <div class="center-align" style="font-size: 23px;">
@@ -146,7 +146,7 @@
 	    <td>&nbsp;</td>
 	    <td align="center" class="bold" colspan="2">T&eacute;cnico</td>
 	  </tr>
-	  
+
 	  <tr>
 	    <td align="center">vl. Solicitado:</td>
 	    <td class="right-align">R$<?php echo number_format($this->dadosEnquadramento[0]->VlSolicitado, 2, ',', '.'); ?></td>
@@ -154,22 +154,22 @@
 	    <td align="center">Custo do Projeto:</td>
 	    <td class="right-align">R$<?php echo number_format($this->dadosEnquadramento[0]->CustoProjeto, 2, ',', '.'); ?></td>
 	  </tr>
-	  
+
 	  <tr>
 	    <td align="center">vl. Outras Fontes:</td>
 	    <td class="right-align">R$<?php echo number_format($this->dadosEnquadramento[0]->VlOutrasFontes, 2, ',', '.'); ?></td>
 	    <td>&nbsp;</td>
 	    <td align="center">vl. Outras Fontes</td>
 	    <td class="right-align">R$<?php echo number_format($this->dadosEnquadramento[0]->VlOutrasFontesAprovado, 2, ',', '.'); ?></td>
-	  </tr>	      
-	  
+	  </tr>
+
 	  <tr>
 	    <td align="center" class="bold">Vl. Projeto:</td>
 	    <td class="right-align">R$<?php echo number_format($this->dadosEnquadramento[0]->VlProjeto, 2, ',', '.'); ?></td>
 	    <td>&nbsp;</td>
 	    <td align="center" class="bold">Custo Total</td>
-	    <td class="right-align">R$<?php echo number_format($this->dadosEnquadramento[0]->CustoProjeto, 2, ',', '.'); ?></td>		
-	  </tr>	      
+	    <td class="right-align">R$<?php echo number_format($this->dadosEnquadramento[0]->CustoProjeto, 2, ',', '.'); ?></td>
+	  </tr>
 	</table>
       </div>
     </div>
@@ -203,7 +203,7 @@
 		  <?php foreach($this->dadosProdutos as $produto): ?>
 		  <tr>
 		    <td class="right-align"><?php echo $produto->Produto; ?></td>
-		    <td class="right-align"><?php echo $produto->tpProduto; ?></td>		      
+		    <td class="right-align"><?php echo $produto->tpProduto; ?></td>
 		    <td class="right-align"><?php echo number_format($produto->QtdeProduzida, 0, '', '.'); ?></td>
 		    <td class="right-align"><?php echo number_format($produto->QtdeDistribuicaoGratuita, 0, '', '.') ?></td>
 		    <td class="right-align"><?php echo number_format($produto->QtdeVendaPopular, 0, '', '.'); ?></td>
@@ -243,7 +243,7 @@
 <div class="row">
   <div class="col s1"></div>
   <div class="col s10">
-    <label style="color: black">Posicionamento do Comiss&aacute;rio Relator</label>  
+    <label style="color: black">Posicionamento do Comiss&aacute;rio Relator</label>
     <div class="bold padding10 bordered">
       <?php echo $this->dadosParecer[0]['p.tpResultado']; ?>
     </div>

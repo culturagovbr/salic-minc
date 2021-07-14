@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.recurso.inc
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -18,10 +18,10 @@
     <td class="fundo_linha2 bold">Proponente</td>
     <td class="fundo_linha2 bold">Pronac</td>
     <td class="fundo_linha2 bold">Nome do Projeto</td>
-    <td class="fundo_linha2 bold">Situação</td>
+    <td class="fundo_linha2 bold">Situaï¿½ï¿½o</td>
   </tr>
- 
- 
+
+
 	  <?php foreach ($this->proponente as $tbproponente): ?>
 <tr>
 <td class="fundo_linha2 center blue"><?php echo $this->escape($tbproponente->nmproponente);?></td>
@@ -29,5 +29,5 @@
 <td class="fundo_linha2 center blue"><?php echo $this->escape($tbproponente->nmprojeto);?></td>
 <td class="fundo_linha2 center blue"><?php echo $this->escape($tbproponente->situacao);?></td>
 </tr>
-<?php endforeach;?>	
+<?php endforeach;?>
 </table>

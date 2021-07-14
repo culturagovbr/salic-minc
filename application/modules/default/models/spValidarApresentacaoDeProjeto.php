@@ -55,7 +55,7 @@ class spValidarApresentacaoDeProjeto extends MinC_Db_Table_Abstract
         $movimentacao = $db->fetchAll($sql);
 
         if (!empty($movimentacao)) {
-            $validacao->Descricao = '<font color=blue><b>A PROPOSTA CULTURAL ENCONTRA-SE NO MINISTÉRIO DA CIDADANIA.</b></font>';
+            $validacao->Descricao = '<font color=blue><b>A PROPOSTA CULTURAL ENCONTRA-SE NO MINISTÉRIO DA TURISMO.</b></font>';
             $validacao->Observacao = '';
             $listaValidacao[] =  clone($validacao);
         } else {
@@ -102,11 +102,11 @@ class spValidarApresentacaoDeProjeto extends MinC_Db_Table_Abstract
 
                 $regularidadeProponente = $db->fetchAll($sql);
                 if (!empty($regularidadeProponente)) {
-                    $validacao->Descricao ='Proponente em situação IRREGULAR no Ministério da Cidadania.';
+                    $validacao->Descricao ='Proponente em situação IRREGULAR no Ministério da TURISMO.';
                     $validacao->Observacao =  'PENDENTE';
                     $listaValidacao[] =  clone($validacao);
                 } else {
-                    $validacao->Descricao ='Proponente em situação REGULAR no Ministério da Cidadania.';
+                    $validacao->Descricao ='Proponente em situação REGULAR no Ministério da TURISMO.';
                     $validacao->Observacao =  'OK';
                     $listaValidacao[] =  clone($validacao);
                 }
@@ -500,11 +500,11 @@ class spValidarApresentacaoDeProjeto extends MinC_Db_Table_Abstract
             //VALUES (@IdProjeto,96,getdate(),0,@Usuario)
             $insert = $db->insert('sac.dbo.tbMovimentacao', array($idPreProjeto, 96, new Zend_Db_Expr('getdate()'), 0,$usuario));
 
-            $validacao->Descricao = '<font color=blue><b>A PROPOSTA CULTURAL FOI ENCAMINHADA COM SUCESSO AO MINISTÉRIO DA CIDADANIA.</b></font>';
+            $validacao->Descricao = '<font color=blue><b>A PROPOSTA CULTURAL FOI ENCAMINHADA COM SUCESSO AO MINISTÉRIO DA TURISMO.</b></font>';
             $validacao->Observacao = 'OK';
             $listaValidacao[] =  clone($validacao);
         } else {
-            $validacao->Descricao = '<font color=red><b> A PROPOSTA CULTURAL NÃO FOI ENVIADA AO MINISTÉRIO DA CIDADANIA DEVIDO ÀS PENDÊNCIAS ASSINALADAS ACIMA.</b></font>';
+            $validacao->Descricao = '<font color=red><b> A PROPOSTA CULTURAL NÃO FOI ENVIADA AO MINISTÉRIO DA TURISMO DEVIDO ÀS PENDÊNCIAS ASSINALADAS ACIMA.</b></font>';
             $validacao->Observacao = '';
             $listaValidacao[] =  clone($validacao);
         }

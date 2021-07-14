@@ -1,19 +1,19 @@
 <?php
 /**
- * Helper para verificar o status da diligência
+ * Helper para verificar o status da diligï¿½ncia
  * @author Equipe RUP - Politec
  * @since 16/09/2011
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_VerificarStatusDiligencia
 {
     /**
-     * Método para verificar o status da diligencia
+     * Mï¿½todo para verificar o status da diligencia
      * @access public
      * @param integer $idPronac
      * @return string
@@ -24,7 +24,7 @@ class Zend_View_Helper_VerificarStatusDiligencia
 
             $Diligencia = new Diligencia();
 
-        // busca as diligências respondidas
+        // busca as diligï¿½ncias respondidas
         $buscarDiligenciaResp = $Diligencia->buscar(array('idPronac = ?' => $idPronac, 'DtResposta ?' => array(new Zend_Db_Expr('IS NULL'))));
         $buscarDiligenciaRespNaoEnviada = $Diligencia->buscar(array('idDiligencia = ?' => $idDiligencia, 'DtResposta ?' => array(new Zend_Db_Expr('IS NOT NULL')), 'stEnviado = ?' => 'N'));
 
@@ -34,8 +34,8 @@ class Zend_View_Helper_VerificarStatusDiligencia
         endif; elseif (isset($idDiligencia) && !empty($idDiligencia)) :
 
             $Diligencia = new Diligencia();
-                        
-        // busca as diligências respondidas
+
+        // busca as diligï¿½ncias respondidas
         $buscarDiligenciaResp = $Diligencia->buscar(array('idDiligencia = ?' => $idDiligencia, 'DtResposta ?' => array(new Zend_Db_Expr('IS NULL'))));
         $buscarDiligenciaRespNaoEnviada = $Diligencia->buscar(array('idDiligencia = ?' => $idDiligencia, 'DtResposta ?' => array(new Zend_Db_Expr('IS NOT NULL')), 'stEnviado = ?' => 'N'));
 
@@ -45,5 +45,5 @@ class Zend_View_Helper_VerificarStatusDiligencia
         endif; else :
             return 'D';
         endif;
-    } // fecha método verificarStatusDiligencia()
+    } // fecha mï¿½todo verificarStatusDiligencia()
 } // fecha class

@@ -283,10 +283,10 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
                         $mens = "Ol&aacute; $post->nome ,<br><br>";
                         $mens .= "Senha: $senha <br><br>";
                         $mens .= "Esta &eacute; a sua senha de acesso ao Sistema de Apresenta&ccedil;&atilde;o de Projetos via Web do ";
-                        $mens .= "Minist&eacute;rio da Cidadania.<br><br>Lembramos que a mesma dever&aacute; ser ";
+                        $mens .= "Minist&eacute;rio da TURISMO.<br><br>Lembramos que a mesma dever&aacute; ser ";
                         $mens .= "trocada no seu primeiro acesso ao sistema.<br><br>";
                         $mens .= "Esta &eacute; uma mensagem autom&aacute;tica. Por favor n&atilde;o responda.<br><br>";
-                        $mens .= "Atenciosamente,<br>Minist&eacute;rio da Cidadania";
+                        $mens .= "Atenciosamente,<br>Minist&eacute;rio da TURISMO";
 
                         $enviaEmail = EmailDAO::enviarEmail($post->email, $assunto, $mens, $perfil);
 //                        parent::message("Cadastro efetuado com sucesso. Verifique a senha no seu email", "/autenticacao", "CONFIRM");
@@ -342,10 +342,10 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
                 $mens = "Ol&aacute; " . $nome . ",<br><br>";
                 $mens .= "Senha....: " . $senha . "<br><br>";
                 $mens .= "Esta &eacute; a sua senha tempor&aacute;ria de acesso ao Sistema de Apresenta&ccedil;&atilde;o de Projetos via Web do ";
-                $mens .= "Minist&eacute;rio da Cidadania.<br><br>Lembramos que a mesma dever&aacute; ser ";
+                $mens .= "Minist&eacute;rio da TURISMO.<br><br>Lembramos que a mesma dever&aacute; ser ";
                 $mens .= "trocada no seu primeiro acesso ao sistema.<br><br>";
                 $mens .= "Esta &eacute; uma mensagem autom&aacute;tica. Por favor n&atilde;o responda.<br><br>";
-                $mens .= "Atenciosamente,<br>Minist&eacute;rio da Cidadania";
+                $mens .= "Atenciosamente,<br>Minist&eacute;rio da TURISMO";
 
                 $email = $sgcAcessoBuscaCpfArray[0]['Email'];
 
@@ -488,9 +488,9 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
                 $mens = "Ol&aacute; " . $nome . ",<br><br>";
                 $mens .= "Senha....: " . $senhaNova . "<br><br>";
                 $mens .= "Esta &eacute; a sua nova senha de acesso ao Sistema de Apresenta&ccedil;&atilde;o de Projetos via Web do ";
-                $mens .= "Minist&eacute;rio da Cidadania.<br><br>";
+                $mens .= "Minist&eacute;rio da TURISMO.<br><br>";
                 $mens .= "Esta &eacute; uma mensagem autom&aacute;tica. Por favor n&atilde;o responda.<br><br>";
-                $mens .= "Atenciosamente,<br>Minist&eacute;rio da Cidadania";
+                $mens .= "Atenciosamente,<br>Minist&eacute;rio da TURISMO";
 
                 $enviaEmail = EmailDAO::enviarEmail($email, $assunto, $mens, $perfil);
                 parent::message("Senha alterada com sucesso!", "/autenticacao/index/alterarsenha", "CONFIRM");

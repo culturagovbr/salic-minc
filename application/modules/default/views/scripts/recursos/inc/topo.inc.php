@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.recurso.inc
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -18,7 +18,7 @@
 	</tr>
 	<tr>
 		<td>54326</td>
-		<td>Espetáculo de Artes Cênicas</td>
+		<td>Espetï¿½culo de Artes Cï¿½nicas</td>
 	</tr>
 	<tr>
 		<th>CNPJ/CPF</th>
@@ -26,6 +26,6 @@
 	</tr>
 	<tr>
 		<td>999.999/0001-99</td>
-		<td>João Barbosa de Lima</td>
+		<td>Joï¿½o Barbosa de Lima</td>
 	</tr>
 </table>

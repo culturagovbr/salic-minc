@@ -7,7 +7,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.model.DAO
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 class UsuarioDAO extends MinC_Db_Table_Abstract

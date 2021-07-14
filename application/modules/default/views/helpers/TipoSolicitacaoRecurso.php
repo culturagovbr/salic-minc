@@ -1,19 +1,19 @@
 <?php
 /**
- * Tipos de solicitações dos recursos
+ * Tipos de solicitaï¿½ï¿½es dos recursos
  * @author emanuel.sampaio - Politec
  * @since 12/03/2011
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_TipoSolicitacaoRecurso
 {
     /**
-     * Método com os tipos de solicitações dos recursos
+     * Mï¿½todo com os tipos de solicitaï¿½ï¿½es dos recursos
      * @access public
      * @param string $tp
      * @return string
@@ -27,15 +27,15 @@ class Zend_View_Helper_TipoSolicitacaoRecurso
         } elseif ($tp == 'EN') {
             $ds = "Projeto Aprovado - Enquadramento";
         } elseif ($tp == 'OR') {
-            $ds = "Projeto Aprovado - Orçamento";
+            $ds = "Projeto Aprovado - Orï¿½amento";
         } elseif ($tp == 'PP') {
-            $ds = "Prorrogação de Prazo de Captação";
+            $ds = "Prorrogaï¿½ï¿½o de Prazo de Captaï¿½ï¿½o";
         } elseif ($tp == 'PE') {
-            $ds = "Prorrogação de Prazo de Execução";
+            $ds = "Prorrogaï¿½ï¿½o de Prazo de Execuï¿½ï¿½o";
         } elseif ($tp == 'PC') {
-            $ds = "Prestação de Contas";
+            $ds = "Prestaï¿½ï¿½o de Contas";
         }
 
         return $ds;
-    } // fecha método tipoSolicitacaoRecurso()
+    } // fecha mï¿½todo tipoSolicitacaoRecurso()
 } // fecha class

@@ -7,7 +7,7 @@
  * @package application
  * @subpackage application.views.scripts.manual-legado.inc
  * @link http://salic.cultura.gov.br
- * @copyright � 2011 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2011 - Ministério da Cultura - Todos os direitos reservados.
  */
 ?>
 

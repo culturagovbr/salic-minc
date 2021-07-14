@@ -6,14 +6,14 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_PatrocinioBancario
 {
     /**
-     * Método com os tipos de Patrocinio Bancario
+     * Mï¿½todo com os tipos de Patrocinio Bancario
      * @access public
      * @param integer $tipo
      * @return string $dsTipo
@@ -21,11 +21,11 @@ class Zend_View_Helper_PatrocinioBancario
     public function patrocinioBancario($tipo)
     {
         if ($tipo == '2') {
-            $dsTipo = "Doação";
+            $dsTipo = "Doaï¿½ï¿½o";
         } else {
-            $dsTipo = "Patrocínio";
+            $dsTipo = "Patrocï¿½nio";
         }
 
         return $dsTipo;
-    } // fecha método patrocinioBancario()
+    } // fecha mï¿½todo patrocinioBancario()
 } // fecha class

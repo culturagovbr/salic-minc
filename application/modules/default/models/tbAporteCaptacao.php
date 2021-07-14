@@ -5,7 +5,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.model
- * @copyright � 2012 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2012 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://salic.cultura.gov.br
  */
 class tbAporteCaptacao extends MinC_Db_Table_Abstract

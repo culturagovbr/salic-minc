@@ -1,19 +1,19 @@
 <?php
 /**
- * Nomes dos status da comprovação física do projeto
+ * Nomes dos status da comprovaï¿½ï¿½o fï¿½sica do projeto
  * @author Equipe RUP - Politec
  * @since 14/05/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.helpers
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_TipoDocumento
 {
     /**
-     * Método com os status dos comprovantes de status do projeto
+     * Mï¿½todo com os status dos comprovantes de status do projeto
      * @access public
      * @param string $status
      * @return string $nomeStatus
@@ -22,7 +22,7 @@ class Zend_View_Helper_TipoDocumento
     {
         switch ($status) {
                     case 1:
-                        $status = 'Boleto Bancário';
+                        $status = 'Boleto Bancï¿½rio';
                         break;
                     case 2:
                         $status = 'Cupom Fiscal';
@@ -31,7 +31,7 @@ class Zend_View_Helper_TipoDocumento
                         $status = 'Nota fiscal/Fatura';
                         break;
                     case 4:
-                        $status = 'Recibo de Pagamento Autônomo';
+                        $status = 'Recibo de Pagamento Autï¿½nomo';
                         break;
                     default:
                         $status = '-';
@@ -39,5 +39,5 @@ class Zend_View_Helper_TipoDocumento
                 }
 
         return $status;
-    } // fecha método statusComprovacaoFisicaDoProjeto()
+    } // fecha mï¿½todo statusComprovacaoFisicaDoProjeto()
 } // fecha class

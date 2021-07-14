@@ -354,10 +354,10 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
         SELECT 'Proposta' as tipo,
                 idProjeto,
                 idTecnico,
-                idPerfil, 
+                idPerfil,
                 g.gru_nome AS Perfil ,
-                usu_Nome, 
-                convert(varchar(30),DtAvaliacao, 120 ) as DtAvaliacao, 
+                usu_Nome,
+                convert(varchar(30),DtAvaliacao, 120 ) as DtAvaliacao,
                 Avaliacao
             FROM       SAC.dbo.tbAvaliacaoProposta p
               INNER JOIN tabelas.dbo.Usuarios        u on (p.idTecnico = u.usu_codigo)
@@ -366,7 +366,7 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
                      AND idProjeto = {$idPreProjeto}
             UNION ALL
             SELECT 'Proposta' as tipo,idProjeto,0,NULL, '','Proponente' as Tecnico, convert(varchar(30),DtMovimentacao, 120 ) as DtMovimentacao,
-                                          'Proposta Cultural ENVIADA ao Minist&eacute;rio da Cidadania para Conformidade Visual' as Avaliacao
+                                          'Proposta Cultural ENVIADA ao Minist&eacute;rio da TURISMO para Conformidade Visual' as Avaliacao
             FROM SAC.dbo.tbMovimentacao
             WHERE Movimentacao=".Agente_Model_DbTable_Verificacao::PROPOSTA_PARA_ANALISE_INICIAL ."
                   AND idProjeto = {$idPreProjeto}

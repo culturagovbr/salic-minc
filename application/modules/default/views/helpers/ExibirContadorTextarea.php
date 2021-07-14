@@ -6,18 +6,18 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_ExibirContadorTextarea
 {
     /**
-     * Método com os parametros para exibição do contador
+     * Mï¿½todo com os parametros para exibiï¿½ï¿½o do contador
      * @access public
      * @param string $nome (nome do campo)
      * @param integer $tamanho (maxlenght do input)
-     * @param integer $limite (quantidade máxima de caracteres - restantes)
+     * @param integer $limite (quantidade mï¿½xima de caracteres - restantes)
      * @param integer $qtd (quantidade de caracteres preenchidos por default)
      * @return string $campo
      */
@@ -27,12 +27,12 @@ class Zend_View_Helper_ExibirContadorTextarea
 
         $campo = "<br />
 				<p>
-					<label for=\"" . $nome . "\" style=\"font-weight:normal;\">faltam</label> <input type=\"text\" readonly=\"readonly\" name=\"" . $nome . "\" id=\"" . $nome . "\"  
-					maxlength=\"" . $tamanho . "\" value=\"" . $limite . "\" 
-					style=\"width:$largura;0;background:none;\" /> 
+					<label for=\"" . $nome . "\" style=\"font-weight:normal;\">faltam</label> <input type=\"text\" readonly=\"readonly\" name=\"" . $nome . "\" id=\"" . $nome . "\"
+					maxlength=\"" . $tamanho . "\" value=\"" . $limite . "\"
+					style=\"width:$largura;0;background:none;\" />
 					caracteres.
 				</p>";
 
         return $campo;
-    } // fecha método exibirContadorTextarea()
+    } // fecha mï¿½todo exibirContadorTextarea()
 } // fecha class
