@@ -5,7 +5,7 @@ Passo a passo do Teste de transformação de proposta em projeto cultural.
 
 
 ```
-@todo : Complementar esse arquivo com mais informações do módulo.
+@todo : Complementar esse arquivo com mais informações do m&oacute;dulo.
 ```
     <--=============INICIO DO PROCESSO DE CRIAÇÂO E TRANSFORMAÇAO===========-->
 
@@ -15,7 +15,7 @@ Passo a passo do Teste de transformação de proposta em projeto cultural.
 
 3°passo - Selecionar MECANISMO e um PROPONENTE( CPF Proponente) e clicar no botão "Nova Proposta" e clicar no Checkbox "De acordo".
 
-4°passo - Preencher o campo "nome da proposta cultural" 
+4°passo - Preencher o campo "nome da proposta cultural"
 
 5°passo - Preencher o campo "Resume da Proposta Cultural"
 
@@ -32,14 +32,14 @@ Passo a passo do Teste de transformação de proposta em projeto cultural.
 10°passo - Clicar em RESPONSABILIDADE SOCIAL no menu lateral esquerdo.
 
 11°passo - Preencher o campo "ACESSIBILIDADE".
- 
+
 12°passo - Preencher o campo "DEMOCRATIZAÇAO DE ACESSO".
 
 13°passo - Preencher o campo "IMPACTO AMBIENTAL".
 
-14°passo - Clicar em salvar 
+14°passo - Clicar em salvar
 
-    <--============DETALHES TÉCNICOS==========-->
+    <--============DETALHES T&eacute;CNICOS==========-->
 
 15°passo - Clicar em DETALHES TECNICOS no menu lateral esquerdo.
 
@@ -75,9 +75,9 @@ Passo a passo do Teste de transformação de proposta em projeto cultural.
 
 28°passo - Preencher TODOS os campos e clicar em salvar.
 
-    <--==============ITENS ORÇAMENTÁRIOS===========-->
+    <--==============ITENS ORÇAMENT&aacute;RIOS===========-->
 
-29°passo - Clicar em  ITENS ORÇAMENTÁRIOS no menu lateral esquerdo.
+29°passo - Clicar em  ITENS ORÇAMENT&aacute;RIOS no menu lateral esquerdo.
 
 30°passo - Selecionar o PRODUTO, ETAPA, ITEM.
 
@@ -121,16 +121,16 @@ Passo a passo do Teste de transformação de proposta em projeto cultural.
 
 46°passo - Clicar em SIM quando aparecer a mensagem "DESEJA TRANSFORMAR A PROPOSTA Nr.*****, EM PROJETO?".
 
-47°passo - Aguardar enquanto é gerado o PRONAC.
+47°passo - Aguardar enquanto &eacute; gerado o PRONAC.
 
 47°passo - Clicar em ADMISSIBILIDADE ----> ENQUADRAMENTO.
 
 48°passo - verificar se o projeto que sofreu a transformação esta na lista.
- 
+
 
     <--===========FIM DO PROCESSO DE CRIAÇÂO E TRANSFORMAÇAO===========-->
 
 
 
 
-****AUTOR:** ANDERSON ALVES DA SILVA PEREIRA** 
+****AUTOR:** ANDERSON ALVES DA SILVA PEREIRA**

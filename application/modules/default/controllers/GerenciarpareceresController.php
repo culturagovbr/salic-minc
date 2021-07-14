@@ -13,8 +13,8 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 93;  // Parecerista
         $PermissoesGrupo[] = 94;  // Coordenador de Parecer UC 101
         $PermissoesGrupo[] = 97;  // Gestor Salic
-        $PermissoesGrupo[] = 103;  // Coordenador de Análise
-        $PermissoesGrupo[] = 110;  // T�cnico de Análise
+        $PermissoesGrupo[] = 103;  // Coordenador de An&aacute;lise
+        $PermissoesGrupo[] = 110;  // T�cnico de An&aacute;lise
         $PermissoesGrupo[] = 151;
         $PermissoesGrupo[] = 148;
 
@@ -196,7 +196,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
             /* Situa��o ************************************************************
             * C09 - Projeto fora da pauta - Proponente Inabilitado
-            * C20 - Análise Técnica Concluida
+            * C20 - An&aacute;lise T&eacute;cnica Concluida
             * C25 - Parecer T�cnico desfavor�vel
             */
             if (($situacao) && ($sutuacaotc == 1)) {
@@ -409,7 +409,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
             /* Situa��o ************************************************************
             * C09 - Projeto fora da pauta - Proponente Inabilitado
-            * C20 - Análise Técnica Concluida
+            * C20 - An&aacute;lise T&eacute;cnica Concluida
             * C25 - Parecer T�cnico desfavor�vel
             */
             if (($situacao) && ($sutuacaotc == 1)) {
@@ -585,7 +585,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
         /* Situa��o ************************************************************
         * C09 - Projeto fora da pauta - Proponente Inabilitado
-        * C20 - Análise Técnica Concluida
+        * C20 - An&aacute;lise T&eacute;cnica Concluida
         * C25 - Parecer T�cnico desfavor�vel
         */
         if (($situacao) && ($sutuacaotc == 1)) {
@@ -724,7 +724,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
                 $dp->IdPRONAC,
                 null,
                 'B11',
-                'Devolvido para unidade ' . $orgao[0]->NomeOrgao . ' para revis&atilde;o do parecer Técnico.');
+                'Devolvido para unidade ' . $orgao[0]->NomeOrgao . ' para revis&atilde;o do parecer T&eacute;cnico.');
 //                $db->commit();
             parent::message("Devolvido com sucesso!", "gerenciarpareceres/index", "CONFIRM");
         } catch (Zend_Exception $ex) {

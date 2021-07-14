@@ -1662,7 +1662,7 @@ class Projetos extends MinC_Db_Table_Abstract
     // fecha metodo buscarPeriodoExecucao()
 
     /**
-     * Método que retorna se o período de um projeto está vigente ou não
+     * M&eacute;todo que retorna se o per&iacute;odo de um projeto est&aacute; vigente ou não
      * @param integer $idPronac
      * @return bool
      */
@@ -2930,7 +2930,7 @@ class Projetos extends MinC_Db_Table_Abstract
     }
 
     /**
-     * @deprecated: método migrado para modulo correto. Utilizar model Diligencia_Model_DbTable_TbDiligencia
+     * @deprecated: m&eacute;todo migrado para modulo correto. Utilizar model Diligencia_Model_DbTable_TbDiligencia
      **/
     public function listarDiligencias($consulta = array(), $retornaSelect = false)
     {
@@ -7325,7 +7325,7 @@ class Projetos extends MinC_Db_Table_Abstract
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
-        // em aguardando Análise, nao puxa t�cnico nem relat�rio
+        // em aguardando An&aacute;lise, nao puxa t�cnico nem relat�rio
         if ($filtro == '') {
             $select->from(
                 array('p' => $this->_name),
@@ -7390,7 +7390,7 @@ class Projetos extends MinC_Db_Table_Abstract
             'BDCORPORATIVO.scSAC'
         );
 
-        // se Não for 'aguardando Análise'
+        // se Não for 'aguardando An&aacute;lise'
         if ($filtro != '') {
             $select->joinLeft(
                 array('u' => 'Usuarios'),

@@ -22,13 +22,13 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Histórico: {{ produto.nomeProduto }} - ({{ produto.pronac }}) {{ produto.nomeProjeto }}
+                    Hist&oacute;rico: {{ produto.nomeProduto }} - ({{ produto.pronac }}) {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>
                 <s-carregando
                     v-if="loading"
-                    text="Carregando histórico do produto"
+                    text="Carregando hist&oacute;rico do produto"
                 />
                 <div v-else>
                     <v-data-table
@@ -123,7 +123,7 @@ export default {
             loading: true,
             headers: [
                 { text: 'Nome do Produto', value: 'dsProduto' },
-                { text: 'Unidade Responsável', value: 'Unidade' },
+                { text: 'Unidade Respons&aacute;vel', value: 'Unidade' },
                 { text: 'Data', value: 'DtDistribuicao' },
                 { text: 'Nome do Remetente', value: 'nmUsuario' },
                 { text: 'Nome do Parecerista', value: 'nmParecerista' },

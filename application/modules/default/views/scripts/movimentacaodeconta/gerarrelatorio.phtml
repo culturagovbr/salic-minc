@@ -75,7 +75,7 @@
 
 
 </script>
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -86,17 +86,17 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
-	<div>Relat&oacute;rio de inconsist&ecirc;ncias de conta capta&ccedil;&atilde;o <span class="voltar"><a href="<?php echo $this->url(array('controller'=>'movimentacaodeconta', 'action'=>'')); ?>" title="Ir para página anterior">Voltar</a></span></div>
+	<div>Relat&oacute;rio de inconsist&ecirc;ncias de conta capta&ccedil;&atilde;o <span class="voltar"><a href="<?php echo $this->url(array('controller'=>'movimentacaodeconta', 'action'=>'')); ?>" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 
-	<!-- INÍCIO GERA��O .PDF -->
+	<!-- IN&iacute;CIO GERA��O .PDF -->
 	<form id="formpdf" name="formpdf" method="post"
 		action="<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'gerarpdf'),'',true); ?>"
 		enctype="multipart/form-data">
@@ -104,7 +104,7 @@
 	</form>
 	<!-- FIM GERA��O .PDF -->
 
-	<!-- ========== INÍCIO �REA DE IMPRESS�O ========== -->
+	<!-- ========== IN&iacute;CIO �REA DE IMPRESS�O ========== -->
 	<div id="imprimir">
             <?php foreach ($this->inconsistencias as $chave => $inconsistencia) : ?>
                 <!-- ================================================================-->
@@ -166,12 +166,12 @@
         <?php endif; ?>
         <br />
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

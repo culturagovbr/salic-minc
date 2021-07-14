@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto está disponível para assinatura
+ * Helper para verificar se projeto est&aacute; dispon&iacute;vel para assinatura
  */
 
 class Zend_View_Helper_DisponivelParaAssinatura
 {
     /**
-     * Método para verificar se o projeto está disponível para assinatura
+     * M&eacute;todo para verificar se o projeto est&aacute; dispon&iacute;vel para assinatura
      * @access public
      * @param integer $siEncaminhamento
      * @param integer $idDocumentoAssinatura
@@ -33,7 +33,7 @@ class Zend_View_Helper_DisponivelParaAssinatura
         if (!in_array($idPerfil, array_keys($listAvailable))) {
             return;
         };
-        
+
         return in_array($siEncaminhamento, $listAvailable[$idPerfil]);
     }
 }

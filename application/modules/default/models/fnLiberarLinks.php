@@ -303,7 +303,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             } else {
                 /* ===== CHECAR SE EXISTE READEQUA�AO DE 50% ===== */
 
-                // VERIFICAR O QUE ESTÁ CHECANDO AQUI. É PRA LIBERAR A DE 50%
+                // VERIFICAR O QUE EST&aacute; CHECANDO AQUI. &eacute; PRA LIBERAR A DE 50%
                 $readequacaoFase5 = $db->select()
                     ->from(
                         array('a' => 'tbReadequacao'),
@@ -351,7 +351,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             $Fase = 5;
         }
 
-        //Fases que não pode liberar menu Análise Técnica
+        //Fases que não pode liberar menu An&aacute;lise T&eacute;cnica
         if (in_array($dadosProjeto->Situacao, array('B11', 'B14', 'C10', 'C30', 'C20', 'D50', 'D51'))) {
             $Analise = 0;
         }else{

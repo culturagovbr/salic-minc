@@ -21,7 +21,7 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 121; // Coordenador de Acompanhamento
 
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est no array de permisses
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, orgos e grupos do usurio (pega todos os grupos)

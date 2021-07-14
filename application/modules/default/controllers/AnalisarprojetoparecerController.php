@@ -16,7 +16,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo &agrave; Cultura"; // t�tulo da p&aacute;gina
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -57,7 +57,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
 
     /**
      * M�todo index()
-     * Busca os produto para Análise do Parecerista
+     * Busca os produto para An&aacute;lise do Parecerista
      * @param
      * @return List
      */
@@ -89,13 +89,13 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         $this->view->idTipoDoAtoAdministrativo = $this->idTipoDoAtoAdministrativo;
         $this->view->idPerfilDoAssinante = $GrupoAtivo->codGrupo;
 
-        // ========== INÍCIO PAGINAÇÂO ==========
+        // ========== IN&iacute;CIO PAGINAÇÂO ==========
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
         $paginator = Zend_Paginator::factory($resp); // dados a serem paginados
 
         $currentPage = $this->_getParam('page', 1);
-        $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(10); // 10 por página
+        $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(10); // 10 por p&aacute;gina
         // ========== FIM PAGINAÇÂO ==========
 
         $this->view->qtdRegistro = count($resp);
@@ -520,7 +520,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         }
 
         /****************************************************************************************************/
-        // Dados para concluir a Análise
+        // Dados para concluir a An&aacute;lise
         $tbDiligencia = new tbDiligencia();
 
         /* Verifica se tem diligencia para o projeto  */

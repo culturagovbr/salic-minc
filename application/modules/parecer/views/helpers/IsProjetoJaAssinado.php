@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto já foi assinado
+ * Helper para verificar se projeto j&aacute; foi assinado
  */
 
 class Zend_View_Helper_IsProjetoJaAssinado
 {
     /**
-     * Método para verificar se projeto já foi assinado na fase atual
+     * M&eacute;todo para verificar se projeto j&aacute; foi assinado na fase atual
      * @access public
      * @param integer $idPronac
      * @param integer $idTipoDoAtoAdministrativo
@@ -41,9 +41,9 @@ class Zend_View_Helper_IsProjetoJaAssinado
                 'idOrgaoSuperiorDoAssinante = ?' => $codOrgaoSuperior
             )
         )->toArray();
-        
+
         $ultimaAssinatura = end($assinaturas);
-        
+
         if (is_object($ultimaAssinatura)) {
             $idUltimaAssinatura = ($ultimaAssinatura->idOrdemDaAssinatura) ? $ultimaAssinatura->idOrdemDaAssinatura : 0;
         } elseif (is_array($ultimaAssinatura)) {
@@ -51,13 +51,13 @@ class Zend_View_Helper_IsProjetoJaAssinado
         } else {
             $idUltimaAssinatura = 0;
         }
-        
+
         if ($idUltimaAssinatura <= count($assinaturasNecessarias)) {
             $idProximaAssinatura = $idUltimaAssinatura + 1;
         } else {
             return true;
         }
-        
+
         $dadosAssinaturaAtual = $assinaturasNecessarias[$idUltimaAssinatura];
 
         if ($dadosAssinaturaAtual['idOrgaoDoAssinante'] == $idOrgaoDoAssinante

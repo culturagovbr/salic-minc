@@ -13,7 +13,7 @@ Vue.component('salic-proposta-plano-distribuicao', {
                     <table class="bordered">
                         <thead>
                            <tr>
-                                <th>Área</th>
+                                <th>&aacute;rea</th>
                                 <th>Segmento</th>
                                 <th>Principal</th>
                                 <th>Canal aberto?</th>

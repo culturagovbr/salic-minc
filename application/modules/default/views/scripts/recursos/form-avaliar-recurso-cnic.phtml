@@ -7,7 +7,7 @@
 
         $('#btn_finalizar_enquadramento').click(function(){
             $("#alerta").dialog("destroy");
-            $("#alerta").html('Deseja realmente finalizar a Análise do recurso?');
+            $("#alerta").html('Deseja realmente finalizar a An&aacute;lise do recurso?');
             $("#alerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -145,7 +145,7 @@
             carregarEnquadramento();
         });
 
-        //Atividades iniciados ao terminar o carregameto da página.
+        //Atividades iniciados ao terminar o carregameto da p&aacute;gina.
         carregarEnquadramento();
         CKEDITOR.replace( 'dsParecer', { toolbar: [] } );
     });
@@ -267,12 +267,12 @@
     }
 </style>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta" class="sumir"></div>
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
         <li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'analisar-recursos-cnic'), '', true); ?>" title="Avaliar de Recurso">Avaliar de Recurso</a></li>
         <li class="last">Avalia&ccedil;&atilde;o de Recurso</li>
     </ul>
@@ -280,12 +280,12 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
     <div>Avalia&ccedil;&atilde;o de Recurso - <?php echo $this->nmPagina; ?> <span class="voltar"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'analisar-recursos-cnic'), '', true); ?>">Voltar</a></span></div>
 </div>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr>
@@ -853,7 +853,7 @@
                         <td>
                             <table class="tabela">
                                 <tr>
-                                    <td><input type="button" name="grid1" id="analiseconteudo_<?php echo $produto->idProduto; ?>" class="btn_remover" title="Expandir" onclick="EnquadramentoFavoravel('<?php echo $produto->idProduto; ?>', '<?php echo $produto->ParecerFavoravel; ?>');" />Análise de CONTEÚDO</td>
+                                    <td><input type="button" name="grid1" id="analiseconteudo_<?php echo $produto->idProduto; ?>" class="btn_remover" title="Expandir" onclick="EnquadramentoFavoravel('<?php echo $produto->idProduto; ?>', '<?php echo $produto->ParecerFavoravel; ?>');" />An&aacute;lise de CONTE&uacute;DO</td>
                                 </tr>
                             </table>
                             <div id="div_analiseconteudo_<?php echo $produto->idProduto; ?>">
@@ -967,7 +967,7 @@
         </table>
         <table class="tabela">
             <tr>
-                <td style="font-weight: bold;"><input type="button" name="grid1" id="p_planilha_orcamentaria" class="btn_adicionar" title="Expandir" />Análise de Custo</td>
+                <td style="font-weight: bold;"><input type="button" name="grid1" id="p_planilha_orcamentaria" class="btn_adicionar" title="Expandir" />An&aacute;lise de Custo</td>
             </tr>
         </table>
         <div id="div_p_planilha_orcamentaria" class="sumir">
@@ -1356,7 +1356,7 @@
     </table>
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <br clear="all" />

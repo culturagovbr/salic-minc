@@ -1,5 +1,5 @@
 <?php
-$nmArquivo = 'Análise de Custos';
+$nmArquivo = 'An&aacute;lise de Custos';
 
 $output = '
 <style>
@@ -75,6 +75,6 @@ $output = preg_replace($patterns, $replaces, $output);
 //echo $output;
 
 //echo $output;die;
-$pdf = new PDF($output, 'pdf', 'Análise de Custos');
+$pdf = new PDF($output, 'pdf', 'An&aacute;lise de Custos');
 $pdf->gerarRelatorio('h');
 ?>

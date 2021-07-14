@@ -69,7 +69,7 @@
                         primary
                         class="title"
                     >
-                        Tipicidade e seus limites orçamentários
+                        Tipicidade e seus limites orçament&aacute;rios
                     </v-card-title>
                     <v-card-text>
                         <v-layout row>

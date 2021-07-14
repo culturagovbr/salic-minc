@@ -5,11 +5,11 @@ export default {
             switch (true) {
             case produto.siAnalise === 0
                 && produto.siEncaminhamento === 4:
-                situacao = 'Aguardando análise';
+                situacao = 'Aguardando an&aacute;lise';
                 break;
             case produto.siAnalise === 1
                 && produto.siEncaminhamento === 4:
-                situacao = 'Em análise';
+                situacao = 'Em an&aacute;lise';
                 break;
             case produto.siAnalise === 2
                 && produto.siEncaminhamento === 4:

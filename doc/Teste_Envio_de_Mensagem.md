@@ -1,11 +1,11 @@
-teste Envio de Mensagem de dúvida do enquadramento
+teste Envio de Mensagem de d&uacute;vida do enquadramento
 ==================================================
 
-Passo a passo do teste Envio de Mensagem de dúvida do enquadramento.
+Passo a passo do teste Envio de Mensagem de d&uacute;vida do enquadramento.
 
 
 ```
-@todo : Complementar esse arquivo com mais informações do módulo.
+@todo : Complementar esse arquivo com mais informações do m&oacute;dulo.
 ```
     <--============ENVIO DE PERGUNTA============-->
 
@@ -13,7 +13,7 @@ Passo a passo do teste Envio de Mensagem de dúvida do enquadramento.
 
 2°passo - Clicar no menu de Admissibilidade--->Enquadramento.
 
-3°passo - Clicar no botão de dúvida do respectivo projeto.
+3°passo - Clicar no botão de d&uacute;vida do respectivo projeto.
 
 4°passo - Clicar no botão ESCREVER PERGUNTA no canto inferior direito.
 
@@ -25,5 +25,5 @@ Passo a passo do teste Envio de Mensagem de dúvida do enquadramento.
 
     <--============ FIM ENVIO DE PERGUNTA============-->
 
-****AUTOR:** ANDERSON ALVES DA SILVA PEREIRA** 
-****AUTOR:** HYGOR FELLIPE MOREIRA** 
+****AUTOR:** ANDERSON ALVES DA SILVA PEREIRA**
+****AUTOR:** HYGOR FELLIPE MOREIRA**

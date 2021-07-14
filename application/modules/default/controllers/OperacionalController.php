@@ -22,7 +22,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 90; // Protocolo - Documento
         $PermissoesGrupo[] = 91; // Protocolo - Recebimento
         $PermissoesGrupo[] = 92; // Tec. de Admissibilidade
-        $PermissoesGrupo[] = 93; // Coordenador - Geral de Análise (Ministro)
+        $PermissoesGrupo[] = 93; // Coordenador - Geral de An&aacute;lise (Ministro)
         $PermissoesGrupo[] = 94; // Parecerista
         $PermissoesGrupo[] = 96;  // Consulta Gerencial
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
@@ -39,7 +39,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 124; // Tec. de Presta��o de Contas
         $PermissoesGrupo[] = 125; // Coord. de Presta��o de Contas
         $PermissoesGrupo[] = 126; // Coord. Geral de Presta��o de Contas
-        $PermissoesGrupo[] = 127; // Coord. Geral de Análise
+        $PermissoesGrupo[] = 127; // Coord. Geral de An&aacute;lise
         $PermissoesGrupo[] = 128; // Tec. de Portaria
         $PermissoesGrupo[] = 131; // Coord. de Admissibilidade
         $PermissoesGrupo[] = 132; // Chefe de Divis�o
@@ -352,7 +352,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
                         }
                         $tblArea = new Area();
                         $rsArea = $tblArea->buscar(array("Codigo IN (?)"=>$idsAreas));
-                        $arrAreas = array(0=>array("NomeArea"=>"Todas as Áreas"));
+                        $arrAreas = array(0=>array("NomeArea"=>"Todas as &aacute;reas"));
                         foreach ($rsArea as $area) {
                             $arrAreas[$area->Codigo]["NomeArea"] = $area->Descricao;
                         }
@@ -1931,7 +1931,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
 
         $tbl = new Projetos();
 
-        // ========== INÍCIO PAGINAÇÂO ==========
+        // ========== IN&iacute;CIO PAGINAÇÂO ==========
         $get = Zend_Registry::get('get');
         if (isset($pag)) {
             $pagina = $pag;
@@ -1966,7 +1966,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
 
         $tbl = new Projetos();
 
-        // ========== INÍCIO PAGINAÇÂO ==========
+        // ========== IN&iacute;CIO PAGINAÇÂO ==========
         $get = Zend_Registry::get('get');
         $rs = $tbl->imprimirResultadoProjetoSituacao($filtro);
         $total = $tbl->buscar(array('Situacao = ?' => $filtro['situacao']));
@@ -3435,7 +3435,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
             $ordem = array('6');
         }
 
-        //Valida se est� na �ltima página para passar os somat�rios
+        //Valida se est� na �ltima p&aacute;gina para passar os somat�rios
         //if($totalPag == $pag){
         $rsSomatorioAutorizado = $tbl->buscarDemonstrativoDeCaptacaoSomatorioValorAutorizado($arrBusca, $arrBuscaValor);
         $rsSomatorioCaptado    = $tbl->buscarDemonstrativoDeCaptacaoSomatorioValorCaptado($arrBusca, $arrBuscaValor);

@@ -55,7 +55,7 @@
 </script>
 
 <?php if($this->modal != 's') { ?>
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -65,13 +65,13 @@
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
-    <div>Recibo de capta&ccedil;&atilde;o <span class="voltar"><a href="<?php echo $this->url(array('controller'=>'movimentacaodeconta', 'action'=>'form-relatorio-recibo-captacao')); ?>" title="Ir para página anterior">Voltar</a></span></div>
+    <div>Recibo de capta&ccedil;&atilde;o <span class="voltar"><a href="<?php echo $this->url(array('controller'=>'movimentacaodeconta', 'action'=>'form-relatorio-recibo-captacao')); ?>" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 <?php } ?>
 
@@ -103,12 +103,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'resultado-relatorio-recibo-captacao')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao']."&pronac=".$this->pronac."&proponente=".$this->proponente."&incentivador=".$this->incentivador."&numLote=".$this->numLote."&dtLote=".$this->dtLote."&tpDtLote=".$this->tpDtLote."&dtLote_Final=".$this->dtLote_Final."&dtCaptacao=".$this->dtCaptacao."&tpDtCaptacao=".$this->tpDtCaptacao."&dtCaptacao_Final=".$this->dtCaptacao_Final; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="pronac" value="<?php echo $this->pronac;?>">
@@ -217,12 +217,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'resultado-relatorio-recibo-captacao')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao']."&pronac=".$this->pronac."&proponente=".$this->proponente."&incentivador=".$this->incentivador."&numLote=".$this->numLote."&dtLote=".$this->dtLote."&tpDtLote=".$this->tpDtLote."&dtLote_Final=".$this->dtLote_Final."&dtCaptacao=".$this->dtCaptacao."&tpDtCaptacao=".$this->tpDtCaptacao."&dtCaptacao_Final=".$this->dtCaptacao_Final; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="pronac" value="<?php echo $this->pronac;?>">
@@ -271,11 +271,11 @@
         <input type="hidden" name="numLote" value="<?php echo $this->numLote;?>">
      </form>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />
 <?php } ?>

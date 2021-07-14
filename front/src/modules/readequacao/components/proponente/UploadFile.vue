@@ -107,7 +107,7 @@ export default {
         },
         checkFormat(file) {
             if (!this.formatosAceitos.find(i => i === file.type)) {
-                this.mensagemErro(`Tipo fornecido (${file.type}) não é aceito. Tipos aceitos: ${this.formatosAceitos}`);
+                this.mensagemErro(`Tipo fornecido (${file.type}) não &eacute; aceito. Tipos aceitos: ${this.formatosAceitos}`);
             }
             return true;
         },

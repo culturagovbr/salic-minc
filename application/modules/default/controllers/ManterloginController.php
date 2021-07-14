@@ -29,14 +29,14 @@ class ManterloginController extends MinC_Controller_Action_Abstract
                 try {
                     // valida os dados
             if (empty($username) || empty($password)) { // verifica se os campos foram preenchidos
-                parent::message("Senha ou login inválidos", "/manterlogin/index");
+                parent::message("Senha ou login inv&aacute;lidos", "/manterlogin/index");
             } elseif (strlen($username) == 11 && !Validacao::validarCPF($username)) { // verifica se o CPF � v�lido
-                parent::message("CPF inválido", "/manterlogin/index");
+                parent::message("CPF inv&aacute;lido", "/manterlogin/index");
             } elseif (strlen($username) == 14 && !Validacao::validarCNPJ($username)) { // verifica se o CNPJ � v�lido
-                parent::message("CNPJ inválido", "/manterlogin/index");
+                parent::message("CNPJ inv&aacute;lido", "/manterlogin/index");
             } else {
                 Zend_Layout::startMvc(array('layout' => 'layout_proponente'));
-                // realiza a busca do usuário no banco, fazendo a autentica�?o do mesmo
+                // realiza a busca do usu&aacute;rio no banco, fazendo a autentica�?o do mesmo
                 $Usuario = new Autenticacao_Model_Sgcacesso();
                 $verificaStatus = $Usuario->buscar(array( 'Cpf = ?' => $username));
                 $IdUsuario =  $verificaStatus[0]->IdUsuario;
@@ -65,7 +65,7 @@ class ManterloginController extends MinC_Controller_Action_Abstract
 
                     $auth = Zend_Auth::getInstance(); // instancia da autentica�?o
 
-                    // registra o primeiro grupo do usuário (pega unidade autorizada, organiza e grupo do usua�io)
+                    // registra o primeiro grupo do usu&aacute;rio (pega unidade autorizada, organiza e grupo do usua�io)
                                     $Grupo   = $usuarioLog->buscarUnidades($auth->getIdentity()->usu_codigo, 21); // busca todos os grupos do usu&aacute;rio
 
                                     $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess?o com o grupo ativo
@@ -148,9 +148,9 @@ class ManterloginController extends MinC_Controller_Action_Abstract
                 $mens .= "Ol&aacute; $nome,<br><br>";
                 $mens .= "Senha....: <B>" . $SenhaFinal . "</B><br><br>";
                 $mens .= "Esta &eacute; a sua senha de acesso ao Sistema de Apresenta&ccedil;&atilde;o de Projetos via Web do ";
-                $mens .= "Minist&eacute;rio da TURISMO.<br><br>Lembramos que a mesma deverá ser ";
+                $mens .= "Minist&eacute;rio da TURISMO.<br><br>Lembramos que a mesma dever&aacute; ser ";
                 $mens .= "trocada no seu primeiro acesso ao sistema.<br><br>";
-                $mens .= "Esta &eacute; uma mensagem automática. Por favor não responda.<br><br>";
+                $mens .= "Esta &eacute; uma mensagem autom&aacute;tica. Por favor não responda.<br><br>";
                 $mens .= "Para acessar o Sistema, clique no link abaixo:<br>";
                 $mens .= "<a href='sistemas.cultura.gov.br/propostaweb/'>";
                 $mens .= "Apresenta&ccedil;&atilde;o de Projetos via Web</a><br><br>";
@@ -199,16 +199,16 @@ class ManterloginController extends MinC_Controller_Action_Abstract
             $headers .= "From: cadastro@cultura.gov.br\r\n";
 
             $mens = "<font face='Verdana' size='2'>";
-            $mens .= "Olá " . $nome . ",<br><br>";
+            $mens .= "Ol&aacute; " . $nome . ",<br><br>";
             $mens .= "Senha....: <B>" . $senha . "</B><br><br>";
             $mens .= "Esta � a sua nova senha de acesso ao Sistema de Apresentação de Projetos via Web do ";
-            $mens .= "Ministério da TURISMO.<br><br>Lembramos que a mesma deverá ser ";
-            $mens .= "trocada no seu próximo acesso ao sistema.<br><br>";
-            $mens .= "Esta é uma mensagem automática. Por favor não responda.<br><br>";
+            $mens .= "Minist&eacute;rio da TURISMO.<br><br>Lembramos que a mesma dever&aacute; ser ";
+            $mens .= "trocada no seu pr&oacute;ximo acesso ao sistema.<br><br>";
+            $mens .= "Esta &eacute; uma mensagem autom&aacute;tica. Por favor não responda.<br><br>";
             $mens .= "Para acessar o Sistema, clique no link abaixo:<br>";
             $mens .= "<a href='sistemas.cultura.gov.br/propostaweb/'>";
             $mens .= "Apresentação de Projetos via Web</a><br><br>";
-            $mens .= "Atenciosamente,<br><B>Ministério da TURISMO</B></font>";
+            $mens .= "Atenciosamente,<br><B>Minist&eacute;rio da TURISMO</B></font>";
 
             $enviaEmail = EnviaemailController::enviaEmail($mens, "Solicitação de senha", "tiago.rodrigues@cultura.gov.br", $email);
             parent::message("Senha gerada com sucesso. Verifique seu email!", "/manterlogin/index");
@@ -305,8 +305,8 @@ class ManterloginController extends MinC_Controller_Action_Abstract
                 if ($buscar) { // acesso permitido
                             $auth = Zend_Auth::getInstance(); // instancia da autentica�?o
 
-                            // registra o primeiro grupo do usuário (pega unidade autorizada, organiza e grupo do usua�io)
-                            $Grupo   = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21); // busca todos os grupos do usuário
+                            // registra o primeiro grupo do usu&aacute;rio (pega unidade autorizada, organiza e grupo do usua�io)
+                            $Grupo   = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21); // busca todos os grupos do usu&aacute;rio
 
                             $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess?o com o grupo ativo
                             $GrupoAtivo->codGrupo = $Grupo[0]->gru_codigo; // armazena o grupo na sess?o

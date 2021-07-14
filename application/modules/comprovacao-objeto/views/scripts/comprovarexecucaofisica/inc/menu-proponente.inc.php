@@ -1,11 +1,11 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== IN&iacute;CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
-    <!-- início: conteúdo principal #container -->
+    <!-- in&iacute;cio: conte&uacute;do principal #container -->
     <div id="container">
 
-        <!-- início: navegação local #qm0 -->
+        <!-- in&iacute;cio: navegação local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {
@@ -54,7 +54,7 @@
             }
         </style>
         <div style="display:none" id="dialog-alert">Solicitação Enviada com Sucesso</div>
-        <div style="display:none" id="produtoDesativado">Não há produtos cadastrados para este projeto!</div>
+        <div style="display:none" id="produtoDesativado">Não h&aacute; produtos cadastrados para este projeto!</div>
         <div style="display:none" id="pergunta">Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>. Tem certeza que deseja enviar planilha?</div>
         <div id="menuContexto">
             <div class="top"></div>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Inconsistência Bancária'"/>
+            <Carregando :text="'Inconsistência Banc&aacute;ria'"/>
         </div>
         <div v-else-if="dadosInconsistencia">
             <v-card>
@@ -143,7 +143,7 @@ export default {
             loading: true,
             headers: [
                 {
-                    text: 'ITEM ORÇAMENTÁRIO',
+                    text: 'ITEM ORÇAMENT&aacute;RIO',
                     align: 'left',
                     value: 'ItemOrcamentario',
                 },
@@ -158,7 +158,7 @@ export default {
                     value: 'Fornecedor',
                 },
                 {
-                    text: 'NÚMERO',
+                    text: 'N&uacute;MERO',
                     align: 'left',
                     value: 'nrDocumentoDePagamento',
                 },

@@ -151,7 +151,7 @@ export default {
                 enable: true,
             },
             manifestacaoRules: [
-                v => !!v || 'Tipo de manifestação é obrigatório!',
+                v => !!v || 'Tipo de manifestação &eacute; obrigat&oacute;rio!',
             ],
             laudoFinalData: {},
             loadingParecer: true,
@@ -210,7 +210,7 @@ export default {
                     show: true,
                     color: 'red--text',
                     backgroundColor: { 'background-color': '#FFCDD2' },
-                    msg: 'O Laudo é obrigatório!',
+                    msg: 'O Laudo &eacute; obrigat&oacute;rio!',
                     enable: false,
                 };
             }
@@ -226,11 +226,11 @@ export default {
         },
         isValido() {
             if (!this.$refs.form.validate()) {
-                this.mensagemErro('Dados obrigatórios não informados');
+                this.mensagemErro('Dados obrigat&oacute;rios não informados');
                 return false;
             }
             if (this.parecer.dsLaudoFinal.length < 10) {
-                this.mensagemErro('Parecer deve ter no mímimo 10 caracteres');
+                this.mensagemErro('Parecer deve ter no m&iacute;mimo 10 caracteres');
                 return false;
             }
 

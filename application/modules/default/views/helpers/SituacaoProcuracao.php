@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -21,7 +21,7 @@ class Zend_View_Helper_SituacaoProcuracao
     public function situacaoProcuracao($stvinculo)
     {
         if ($stvinculo == 0) {
-            $return =  "Aguardando Análise";
+            $return =  "Aguardando An&aacute;lise";
         }
         if ($stvinculo == 1) {
             $return =  "Aprovado";

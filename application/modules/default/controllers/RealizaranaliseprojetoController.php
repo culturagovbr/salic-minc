@@ -35,7 +35,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
             //$PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
             $PermissoesGrupo[] = 127; // Ministro
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo esta no array de permissoes
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
@@ -1043,7 +1043,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
     /**
      * Metodo para emitir parecer
      *
-     * @DEPRECATED - função movida e refatorada para módulo 'parecer'
+     * @DEPRECATED - função movida e refatorada para m&oacute;dulo 'parecer'
      */
     public function emitirparecerAction()
     {

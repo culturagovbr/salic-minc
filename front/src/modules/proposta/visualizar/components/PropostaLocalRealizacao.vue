@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             headers: [
-                { text: 'País', value: 'pais' },
+                { text: 'Pa&iacute;s', value: 'pais' },
                 { text: 'UF', value: 'uf' },
                 { text: 'Cidade', value: 'cidade' },
             ],

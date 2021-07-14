@@ -10,7 +10,7 @@ class PrincipalController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio ás Leis de Incentivo é Cultura"; // tetulo da pegina
+        $this->view->title = "Salic - Sistema de Apoio &aacute;s Leis de Incentivo &eacute; Cultura"; // tetulo da pegina
         $auth = Zend_Auth::getInstance(); // pega a autenticaeeo
         $usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuerio
         $grupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sesseo com o grupo ativo

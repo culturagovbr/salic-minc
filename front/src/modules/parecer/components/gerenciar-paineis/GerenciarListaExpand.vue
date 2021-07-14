@@ -44,7 +44,7 @@
                     sm2
                     md2
                 >
-                    <b>Área</b><br>
+                    <b>&aacute;rea</b><br>
                     {{ produto.area }}
                 </v-flex>
                 <v-flex
@@ -94,7 +94,7 @@
                     sm12
                     md2
                 >
-                    <b>Tempo total de análise</b><br>
+                    <b>Tempo total de an&aacute;lise</b><br>
                     {{ produto.tempoTotalAnalise }}
                 </v-flex>
                 <v-flex

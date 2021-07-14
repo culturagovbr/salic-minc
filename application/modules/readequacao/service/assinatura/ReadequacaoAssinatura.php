@@ -460,22 +460,22 @@ class ReadequacaoAssinatura implements IServico
                 'IdPRONAC=?' => $read->idPronac
             ])->current();
 
-            //Se não houve avalição do conselheiro, pega a avaliação técnica como referencia.
+            //Se não houve avalição do conselheiro, pega a avaliação t&eacute;cnica como referencia.
             $avaliacao = $abg->tpAnaliseComissao;
             if ($abg->tpAnaliseComissao == 'N') {
                 $avaliacao = $abg->tpAnaliseTecnica;
             }
 
-            //Se a avaliação foi deferida, realiza as mudanças necessárias na tabela original.
+            //Se a avaliação foi deferida, realiza as mudanças necess&aacute;rias na tabela original.
             if ($avaliacao == 'D') {
-                if ($abg->tpSolicitacao == 'E') { //Se a abrangencia foi excluída, atualiza os status da abrangencia na SAC.dbo.Abrangencia
+                if ($abg->tpSolicitacao == 'E') { //Se a abrangencia foi exclu&iacute;da, atualiza os status da abrangencia na SAC.dbo.Abrangencia
                     $Abrangencia->delete([
                         'idProjeto = ?' => $dadosPrj->idProjeto,
                         'idPais = ?' => $abg->idPais,
                         'idUF = ?' => $abg->idUF,
                         'idMunicipioIBGE = ?' => $abg->idMunicipioIBGE
                     ]);
-                } elseif ($abg->tpSolicitacao == 'I') { //Se a abangência foi incluída, cria um novo registro na tabela SAC.dbo.Abrangencia
+                } elseif ($abg->tpSolicitacao == 'I') { //Se a abangência foi inclu&iacute;da, cria um novo registro na tabela SAC.dbo.Abrangencia
                     $novoLocalRead = [];
                     $novoLocalRead['idProjeto'] = $dadosPrj->idProjeto;
                     $novoLocalRead['idPais'] = $abg->idPais;
@@ -563,15 +563,15 @@ class ReadequacaoAssinatura implements IServico
                 'IdPRONAC=?' => $read->idPronac
             ])->current();
 
-            //Se não houve avalição do conselheiro, pega a avaliação técnica como referencia.
+            //Se não houve avalição do conselheiro, pega a avaliação t&eacute;cnica como referencia.
             $avaliacao = $plano->tpAnaliseComissao;
             if ($plano->tpAnaliseComissao == 'N') {
                 $avaliacao = $plano->tpAnaliseTecnica;
             }
 
-            //Se a avaliação foi deferida, realiza as mudanças necessárias na tabela original.
+            //Se a avaliação foi deferida, realiza as mudanças necess&aacute;rias na tabela original.
             if ($avaliacao == 'D') {
-                if ($plano->tpSolicitacao == 'E') { //Se o plano de divulgação foi excluído, atualiza os status do plano na SAC.dbo.PlanoDeDivulgacao
+                if ($plano->tpSolicitacao == 'E') { //Se o plano de divulgação foi exclu&iacute;do, atualiza os status do plano na SAC.dbo.PlanoDeDivulgacao
                     $PlanoDivulgacaoEmQuestao = $PlanoDeDivulgacao->buscar([
                         'idProjeto = ?' => $dadosPrj->idProjeto,
                         'idPeca = ?' => $plano->idPeca,
@@ -585,7 +585,7 @@ class ReadequacaoAssinatura implements IServico
                         $dadosLogomarcaDaDivulgacao->delete();
                     }
                     $PlanoDivulgacaoEmQuestao->delete();
-                } elseif ($plano->tpSolicitacao == 'I') { //Se o plano de divulgação foi incluído, cria um novo registro na tabela SAC.dbo.PlanoDeDivulgacao
+                } elseif ($plano->tpSolicitacao == 'I') { //Se o plano de divulgação foi inclu&iacute;do, cria um novo registro na tabela SAC.dbo.PlanoDeDivulgacao
                     $novoPlanoDivRead = [];
                     $novoPlanoDivRead['idProjeto'] = $dadosPrj->idProjeto;
                     $novoPlanoDivRead['idPeca'] = $plano->idPeca;

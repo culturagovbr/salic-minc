@@ -14,7 +14,7 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
 <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.css" />
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para P&aacute;gina Inicial">In&iacute;cio</a></li>
@@ -31,7 +31,7 @@
         <div>Valor de remanejamento maior que o permitido! M&aacute;ximo : <span id="valorpossivelApresentacao"></span></div>
     </div>
 </div>
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
     <table class="tabela" >
         <tr>
@@ -154,7 +154,7 @@
             <table class="tabela" style="width: 95%;">
             <tr>
               <td colspan="5">
-                <b>Parecer de CONTEÚDO do Produto*</b>
+                <b>Parecer de CONTE&uacute;DO do Produto*</b>
                 <p>
                   <center>
                     <textarea class="textarea_simples" id="ParecerDeConteudo" name="ParecerDeConteudo" rows="10" style="width: 98%;"></textarea>
@@ -353,7 +353,7 @@
     <?php if(($this->stPrincipal == 1) && ($this->produtosSecundariosEmAnalise == 0)){ ?>
     <table class="tabela">
         <tr>
-            <td><input type="button" id="abaConsolidacao" class="btn_adicionar" onclick="abrirfechar('consolidacao');" />Consolida&ccedil;&atilde;o do Parecer Técnico</td>
+            <td><input type="button" id="abaConsolidacao" class="btn_adicionar" onclick="abrirfechar('consolidacao');" />Consolida&ccedil;&atilde;o do Parecer T&eacute;cnico</td>
         </tr>
     </table>
 
@@ -372,7 +372,7 @@
         <table class="tabela sumir" id="consolidacao" style="width:95%" width="95%">
 <?php if($this->Perfil == Autenticacao_Model_Grupos::PARECERISTA) { ?>
             <tr>
-                <th colspan="5">Consolida&ccedil;&atilde;o do Parecer Técnico</th>
+                <th colspan="5">Consolida&ccedil;&atilde;o do Parecer T&eacute;cnico</th>
             </tr>
             <tr>
                 <td align="left" class="destacar bold" width="180">Parecer Favor&aacute;vel?</td>
@@ -383,9 +383,9 @@
             </tr>
 	    <?php $escondeLinha = ($this->IN2017) ? "display:none;" : ""; ?>
             <tr style="<?php echo $escondeLinha; ?>">
-                <td align="left" class="destacar bold">Área / Segmento do Projeto</td>
+                <td align="left" class="destacar bold">&aacute;rea / Segmento do Projeto</td>
                 <td valign="top" width="300px">
-                    <label for="areaCultural">Área Cultural</label>
+                    <label for="areaCultural">&aacute;rea Cultural</label>
                     <select name="areaCultural" id="areaCultural" class="input_simples obrigatorio" style="width: 160px;">
 
                         <option value=""> - Selecione - </option>
@@ -402,7 +402,7 @@
                     <select name="segmentoCultural" id="segmentoCultural" class="input_simples obrigatorio">
 
                         <?php if (!isset($this->projeto->Area) || empty($this->projeto->Area)) { ?>
-                            <option value=""> - Selecione uma Área Cultural - </option>
+                            <option value=""> - Selecione uma &aacute;rea Cultural - </option>
                         <?php } else { ?>
 
                             <?php if (!isset($this->projeto->Segmento) || empty($this->projeto->Segmento)) { ?>
@@ -451,7 +451,7 @@
 
 	    <tr>
 	      <td class="destacar bold" colspan="5">
-                Parecer Técnico*
+                Parecer T&eacute;cnico*
 	      </td>
 	    </tr>
             <tr>
@@ -485,7 +485,7 @@
             </tr>
 	    <?php if (!$this->IN2017) { ?>
             <tr>
-                <th align="left">Área / Segmento do Projeto</th>
+                <th align="left">&aacute;rea / Segmento do Projeto</th>
                 <td><?php echo $this->dsArea.' - '.$this->dsSegmento; ?></td>
             </tr>
 	    <?php } ?>
@@ -508,7 +508,7 @@
 <div id="confirma" class="sumir"></div>
 <div id="camposObrigatorios" class="sumir"></div>
 
-<!-- ========== FIM RODAPÉ DO CONTE&UACUTE;DO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&UACUTE;DO ========== -->
 <input type="hidden" name="grupoAtivo" id="grupoAtivo" value="<?php echo $this->grupoAtivo; ?>" />
 
 <script type="text/javascript">
@@ -558,7 +558,7 @@
             <?php endif; ?>
 
             if( parecer.length  < 11){
-                alertar('O parecer Técnico deve ter no m\xEDnimo 11 caracteres!');
+                alertar('O parecer T&eacute;cnico deve ter no m\xEDnimo 11 caracteres!');
                 erros ++;
             }
 

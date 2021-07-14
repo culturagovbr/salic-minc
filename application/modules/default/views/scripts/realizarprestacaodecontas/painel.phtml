@@ -29,8 +29,8 @@
     <div class="row">
         <div class="col s12">
           <ul class="tabs">
-            <li class="tab col s3"><a class="active" href="#t1">Aguardando Análise</a></li>
-            <li class="tab col s3"><a href="#t2">Em Análise</a></li>
+            <li class="tab col s3"><a class="active" href="#t1">Aguardando An&aacute;lise</a></li>
+            <li class="tab col s3"><a href="#t2">Em An&aacute;lise</a></li>
             <li class="tab col s3"><a href="#t3">Analisados</a></li>
           </ul>
         </div>
@@ -86,7 +86,7 @@
             type : 'post'
         });
 
-        var title = 'Encaminhar Projeto para Análise';
+        var title = 'Encaminhar Projeto para An&aacute;lise';
         $3("#divDinamica").dialog({
             resizable: true,
             width:750,
@@ -136,7 +136,7 @@
         }else if(idOrgaoDestino == 12){
             title = 'Consultoria - CONJUR';
         }else{
-            title = 'Encaminhar Projeto para Análise';
+            title = 'Encaminhar Projeto para An&aacute;lise';
         }
         $("#divDinamica").dialog({
             resizable: true,
@@ -229,7 +229,7 @@
                 idEnc = $(this).attr('enc');
 
             $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html("Deseja realmente devolver o projeto?<br />Esta a��o excluir� a Análise realizada.");
+            $("#msgAlerta").html("Deseja realmente devolver o projeto?<br />Esta a��o excluir� a An&aacute;lise realizada.");
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Alerta!',

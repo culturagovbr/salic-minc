@@ -1,9 +1,9 @@
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar �rea de Trabalho">Visualizar �rea de Trabalho</a></li>
         <li class="last">Lembretes</li>
     </ul>
@@ -12,7 +12,7 @@
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
     <div>Lembretes <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -20,7 +20,7 @@
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 
 
@@ -64,7 +64,7 @@
     <?php foreach($this->lembretes as $tblembretes): ?>
     <tr>
         <td>
-            <!-- ========== INÍCIO MODAL ========== -->
+            <!-- ========== IN&iacute;CIO MODAL ========== -->
             <div id="analisarProjeto<?php echo $tblembretes->Contador; ?>" style="display:none; height:auto;" title="Altera��o de Lembrete" class="analisarProjeto">
                 <form name="form" action="<?php echo $this->url(array('module'=> 'default' , 'controller'=>'lembretes', 'action' => 'index')); ?>" method="post">
 
@@ -112,12 +112,12 @@
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

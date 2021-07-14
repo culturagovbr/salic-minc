@@ -56,7 +56,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
 
             parent::init(); // chama o init() do pai GenericControllerNew
         } else {
-            $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
+            $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da p&aacute;gina
 
             $Usuario = new UsuarioDAO(); // objeto usu�rio
             $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -77,7 +77,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                 // permiss�es para UC25
 
                 if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                    parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                    parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
                 }
 
                 // pega as unidades autorizadas, �rg�os e grupos do usu�rio (pega todos os grupos)
@@ -2426,7 +2426,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
             $this->_helper->flashMessenger->addMessage('Licita��o excluida com sucesso.');
             $this->_helper->flashMessengerType->addMessage('CONFIRM');
         } catch (Zend_Db_Statement_Exception $e) {
-            $this->_helper->flashMessenger->addMessage('Licita��o em uso, Não será poss�vel excluir.');
+            $this->_helper->flashMessenger->addMessage('Licita��o em uso, Não ser&aacute; poss�vel excluir.');
             $this->_helper->flashMessengerType->addMessage('ERROR');
         }
         $url = $this->view->url(array(

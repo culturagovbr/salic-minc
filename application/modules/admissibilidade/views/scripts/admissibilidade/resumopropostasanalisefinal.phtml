@@ -4,14 +4,14 @@
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li class="second">Admissibilidade</li>
         <li class="second"><a href="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'listar-propostas-analise-final')); ?>">Admissibilidade de Propostas - Lista de Propostas em analise final</a></li>
-        <li class="last">Resumo: Propostas em Análise Final</li>
+        <li class="last">Resumo: Propostas em An&aacute;lise Final</li>
     </ul>
 </div>
 <form method="POST" id="formGerarPdf" name="formGerarPdf" action="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'gerarpdf')); ?>" style="display:none">
     <textarea name="html" id="conteudoImprimir"></textarea>
 </form>
 <div id="titulo">
-    <div>Resumo: propostas em Análise final <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+    <div>Resumo: propostas em An&aacute;lise final <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 
 <div id="conteudo">

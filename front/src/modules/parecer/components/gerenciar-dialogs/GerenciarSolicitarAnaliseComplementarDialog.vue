@@ -148,7 +148,7 @@ export default {
                 Observacao: '',
             },
             dialogConfirmarEnvio: false,
-            obrigatorio: v => !!v || 'Este campo é obrigatório',
+            obrigatorio: v => !!v || 'Este campo &eacute; obrigat&oacute;rio',
         };
     },
 

@@ -173,7 +173,7 @@ class PrestacaoContas_VisualizarProjetoController extends MinC_Controller_Action
             'vlComprovado' => ['name' => 'Valor Comprovado', 'class' => 'right-align'],
             'PercComprovado' => ['name' => '% Comprovado', 'class' => 'right-align']
         ];
-        $json['maioresComprovacaoTipoDocumento']['title'] = 'MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBATÓRIOS';
+        $json['maioresComprovacaoTipoDocumento']['title'] = 'MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBAT&oacute;RIOS';
         $json['maioresComprovacaoTipoDocumento']['icon'] = 'description';
         $totalAux['vlComprovado'] = number_format($totalAux['vlComprovado'], 2, ',', '.');
         $totalAux['qtComprovacoes'] = number_format($totalAux['qtComprovacoes'], 0, ',', '.');
@@ -308,7 +308,7 @@ class PrestacaoContas_VisualizarProjetoController extends MinC_Controller_Action
             'dsJustificativa' => [ 'name' => 'Justificativa'],
             'vlComprovado' => [ 'name' => 'Valor Comprovado', 'class' => 'right-align']
         ];
-        $json['itensOrcamentariosImpugnados']['title'] = 'ITENS ORÇAMENTÁRIOS IMPUGNADOS NA AVALIAÇÃO FINANCEIRA';
+        $json['itensOrcamentariosImpugnados']['title'] = 'ITENS ORÇAMENT&aacute;RIOS IMPUGNADOS NA AVALIAÇÃO FINANCEIRA';
         $json['itensOrcamentariosImpugnados']['icon'] = 'error';
         $totalAux['NomeProjeto'] = 'Total';
         $totalAux['vlComprovado'] = number_format($totalAux['vlComprovado'], 2, ',', '.');

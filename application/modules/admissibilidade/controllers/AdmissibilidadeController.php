@@ -85,7 +85,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
     public function validarAcessoAdmissibilidade()
     {
         if (empty($this->idPreProjeto)) {
-            parent::message("Necessário informar o n&uacute;mero da proposta.", "/admissibilidade/admissibilidade/listar-propostas", "ALERT");
+            parent::message("Necess&aacute;rio informar o n&uacute;mero da proposta.", "/admissibilidade/admissibilidade/listar-propostas", "ALERT");
         }
     }
 
@@ -111,7 +111,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
         }
         $this->view->grupo = $this->codGrupo;
 
-        // Recuperando o Histórico de Sugestão de Enquadramento
+        // Recuperando o Hist&oacute;rico de Sugestão de Enquadramento
         $sugestaoEnquadramentoDbTable = new Admissibilidade_Model_DbTable_SugestaoEnquadramento();
         $sugestaoEnquadramentoDbTable->sugestaoEnquadramento->setIdPreprojeto($idPreProjeto);
         $this->view->sugestao_enquadramento = $sugestaoEnquadramentoDbTable->obterHistoricoEnquadramento();
@@ -777,7 +777,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
                     $rsProjeto->IdPRONAC,
                     null,
                     Projeto_Model_Situacao::PROJETO_EM_AVALIACAO_DOCUMENTAL,
-                    "Proposta aguardando análise e convalidação."
+                    "Proposta aguardando an&aacute;lise e convalidação."
                 );
 
             }
@@ -1908,7 +1908,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
     /**
      * ListarPropostas que vão ser avaliadas pelos tecnicos e Coordenadores de Admissibilidade.
      * A proposta são divididas em 2 areas SAV e SEFIC.
-     * Tecnico só pode ver a suas proprias propostas.
+     * Tecnico s&oacute; pode ver a suas proprias propostas.
      *
      * @access public
      * @return void
@@ -2152,7 +2152,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
         $grafico = new Grafico($_POST["cgTipoGrafico"]);
         $grafico->setTituloGrafico("Registros");
-        $grafico->setTituloEixoXY("Técnicos", "Registros");
+        $grafico->setTituloEixoXY("T&eacute;cnicos", "Registros");
         $grafico->configurar($_POST);
 
         $aux = array();
@@ -2439,7 +2439,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
         if (isset($get->estado) && !empty($get->estado)) {
             if ($get->estado == 1) {
-                $situacao = 'Em Análise';
+                $situacao = 'Em An&aacute;lise';
             } else {
                 $situacao = '<font color=red>Concluida</font>';
             }
@@ -2527,7 +2527,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
         if (isset($post->estado) && !empty($post->estado)) {
             if ($post->estado == 1) {
-                $situacao = 'Em Análise';
+                $situacao = 'Em An&aacute;lise';
             } else {
                 $situacao = '<font color=red>Concluida</font>';
             }
@@ -2664,7 +2664,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
             $sqlSequencialProjetos = " INSERT INTO SAC.dbo.SequencialProjetos (Ano,Sequencial) VALUES ('{$ano}' ,1)";
             $resultado = $db->query($sqlSequencialProjetos);
             if (!$resultado) {
-                throw new Exception("Não é possível incluir ou alterar mais de um registro na tabela SequencialProjetos.");
+                throw new Exception("Não &eacute; poss&iacute;vel incluir ou alterar mais de um registro na tabela SequencialProjetos.");
             }
         }
 
@@ -2677,7 +2677,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
 //        if (!empty($stProposta) && $stProposta != $propostaNormal) {
         //            $situacaoProjeto = Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA;
-        //            $providenciaTomada = 'Projeto encamihado a unidade vinculada para an&aacute;lise e emiss&atilde;o de parecer Técnico';
+        //            $providenciaTomada = 'Projeto encamihado a unidade vinculada para an&aacute;lise e emiss&atilde;o de parecer T&eacute;cnico';
         //        }
 
         $sqlProjetos = "INSERT INTO SAC.dbo.Projetos

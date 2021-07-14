@@ -255,13 +255,13 @@ export default {
                 justificativa: 0,
             },
             rules: {
-                required: v => !!v || 'Campo obrigatório.',
-                dataExecucaoChars: v => (v && v.length >= this.minChar.dataExecucao) || 'Data em formato inválido',
+                required: v => !!v || 'Campo obrigat&oacute;rio.',
+                dataExecucaoChars: v => (v && v.length >= this.minChar.dataExecucao) || 'Data em formato inv&aacute;lido',
                 dataExecucao: v => (v !== this.getValorCampoAtual()) || 'Data deve ser diferente da original.',
-                somenteNumerico: v => (v && /^[\d]*$/.test(v)) || 'Somente dados numéricos',
-                solicitacao: v => (v && v.length >= this.minChar.solicitacao) || `Deve ter no mínimo ${this.minChar.solicitacao} caracteres.`,
+                somenteNumerico: v => (v && /^[\d]*$/.test(v)) || 'Somente dados num&eacute;ricos',
+                solicitacao: v => (v && v.length >= this.minChar.solicitacao) || `Deve ter no m&iacute;nimo ${this.minChar.solicitacao} caracteres.`,
                 justificativa: v => (v && v.length >= this.minChar.justificativa)
-                    || `Justificativa ter no mínimo ${this.minChar.justificativa} caracteres.`,
+                    || `Justificativa ter no m&iacute;nimo ${this.minChar.justificativa} caracteres.`,
             },
             campos: [
                 'dsSolicitacao',
@@ -407,7 +407,7 @@ export default {
         },
         arquivoTipoInvalido(payload) {
             const tiposValidos = payload.formatosAceitos.join(', ');
-            this.mensagemErro(`Tipo fornecido (${payload.formatoEnviado}) não é aceito. Tipos aceitos: ${tiposValidos}`);
+            this.mensagemErro(`Tipo fornecido (${payload.formatoEnviado}) não &eacute; aceito. Tipos aceitos: ${tiposValidos}`);
         },
         atualizarCampo(valor, campo) {
             if (typeof this.readequacaoEditada.idTipoReadequacao !== 'undefined') {

@@ -201,7 +201,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
 
                 # Verifica se o grupo ativo esta no array de permissoes
                 if (!in_array($GrupoAtivo->codGrupo, $permissoes)) {
-                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
                 }
 
                 // pega as unidades autorizadas, org?os e grupos do usu?rio (pega todos os grupos)
@@ -240,7 +240,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $UsuarioAtivo->codUsuario = $codUsuario;
             } else // caso o usuario n?o esteja autenticado
             {
-                $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "index", "ALERT");
+                $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "index", "ALERT");
             }
 
             // tenta fazer a autenticacao do usuario logado no scriptcase para o zend
@@ -253,7 +253,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             } // fecha if
             else // caso o usuario n?o esteja autenticado
             {
-                $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "index", "ALERT");
+                $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "index", "ALERT");
             }
 
             # autenticacao scriptcase e autenticacao/permissao zend (AMBIENTE PROPONENTE E MINC)
@@ -280,7 +280,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 } // fecha if
                 else // caso o usuario nao esteja autenticado
                 {
-                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "index", "ALERT");
+                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "index", "ALERT");
                 }
                 // ========== FIM AUTENTICACAO SCRIPTCASE ==========
             } else {
@@ -289,14 +289,14 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
 
                 # verifica se o grupo ativo esta no array de permissoes
                 if (!in_array($GrupoAtivo->codGrupo, $permissoes)) {
-                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
                 }
 
                 # pega as unidades autorizadas, orgaos e grupos do usuario (pega todos os grupos)
                 if (isset($arrAuth['usu_codigo']) && !empty($arrAuth['usu_codigo'])) {
                     $grupos = $objModelUsuario->buscarUnidades($arrAuth['usu_codigo'], 21);
                 } else {
-                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
                 }
 
                 # manda os dados para a visao
@@ -325,7 +325,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 if ($autenticar || $auth->hasIdentity()) {
                     $this->view->usuario = $objIdentity;
                 } else {
-                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "index", "ALERT");
+                    $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "index", "ALERT");
                 }
                 # ========== FIM AUTENTICACAO MIGRACAO ==========
             } else {
@@ -337,14 +337,14 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                     return self::perfil(0, $permissoes);
                 } else {
                     if (!is_array($permissoes) || !in_array($GrupoAtivo->codGrupo, $permissoes)) {
-                        $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                        $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
                     }
 
                     // pega as unidades autorizadas, org?os e grupos do usuario (pega todos os grupos)
                     if (isset($objIdentity->usu_codigo) && !empty($objIdentity->usu_codigo)) {
                         $grupos = $objModelUsuario->buscarUnidades($objIdentity->usu_codigo, 21);
                     } else {
-                        $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                        $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
                     }
 
                     $this->view->usuario = $objIdentity; // manda os dados do usu?rio para a vis?o
@@ -925,7 +925,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
 
     /**
      * @return array
-     * @author Vinícius Feitosa da Silva <viniciusfesil@mail.com>
+     * @author Vin&iacute;cius Feitosa da Silva <viniciusfesil@mail.com>
      * @return mixed
      */
     protected function getOPAuthConfiguration()

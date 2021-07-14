@@ -11,7 +11,7 @@ class Readequacao_RedistribuirReadequacaoController extends MinC_Controller_Rest
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
@@ -22,7 +22,7 @@ class Readequacao_RedistribuirReadequacaoController extends MinC_Controller_Rest
 
         $subRoutes = [];
         $this->registrarSubRoutes($subRoutes);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
@@ -35,10 +35,10 @@ class Readequacao_RedistribuirReadequacaoController extends MinC_Controller_Rest
     public function postAction(){
         $data = [];
         $code = 200;
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
-        
+
         if (!$permissao) {
             $data['permissao'] = false;
             $data['message'] = 'Você não tem permissão para redistribuir esta readequação';
@@ -46,10 +46,10 @@ class Readequacao_RedistribuirReadequacaoController extends MinC_Controller_Rest
         } else {
             $encaminhar = $readequacaoService->redistribuirReadequacao();
             if ($encaminhar) {
-                $data['message'] = "Readequação redistribuída para técnico.";
+                $data['message'] = "Readequação redistribu&iacute;da para t&eacute;cnico.";
             }
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

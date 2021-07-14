@@ -423,7 +423,7 @@ function validar(id)
         // Define as regras
         rules:{
             justificativa:{
-                // campoNome será obrigatorio (required) e ter� tamanho minimo (minLength)
+                // campoNome ser&aacute; obrigatorio (required) e ter� tamanho minimo (minLength)
                 required: true,
                 minlength: 15
             }

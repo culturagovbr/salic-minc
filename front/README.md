@@ -7,7 +7,7 @@
 
 `npm run watch`
 
-Possui reload automático da página(BrowserSync).
+Possui reload autom&aacute;tico da p&aacute;gina(BrowserSync).
 
 ### Preparando um pacote para produção (minificado)
 
@@ -21,10 +21,10 @@ Possui reload automático da página(BrowserSync).
 
 ## Guia de estilo
 
-Antes de começar a desenvolver é essencial que você leia o [guia de estilo oficial](https://vuejs.org/v2/style-guide) do Vue JS.
+Antes de começar a desenvolver &eacute; essencial que você leia o [guia de estilo oficial](https://vuejs.org/v2/style-guide) do Vue JS.
 
 ## Estrutura de diret&oacute;rios atual (aguardando contribuição)
-A estrutura inicial definida é a seguinte:
+A estrutura inicial definida &eacute; a seguinte:
 
 ```
 app
@@ -43,7 +43,7 @@ app
 │   │   │   └── scss
 │   │   │       ├── _migrar_estilos_css_pra_ca.scss
 │   │   │       └── main.scss
-│   │   ├── components (neste nível apenas componentes globais, ou seja, que  podem ser usados por toda aplicação)
+│   │   ├── components (neste n&iacute;vel apenas componentes globais, ou seja, que  podem ser usados por toda aplicação)
 │   │   │   ├── planilha
 │   │   │   │   ├── Planilha.vue
 │   │   │   │   ├── PlanilhaItensAprovados.vue
@@ -74,10 +74,10 @@ app
 │   │   │   └── planilhas.js
 │   │   ├── modules
 │   │   │   ├── projeto
-│   │   │   │   ├── components (neste nível apenas componentes a nível do módulo)
+│   │   │   │   ├── components (neste n&iacute;vel apenas componentes a n&iacute;vel do m&oacute;dulo)
 │   │   │   │   │   └── MenuSuspenso.vue
 │   │   │   │   ├── visualizar
-│   │   │   │   │   ├── components (nível da pagina)
+│   │   │   │   │   ├── components (n&iacute;vel da pagina)
 │   │   │   │   │   │     ├── DadosProjeto.vue
 │   │   │   │   │   │     ├── incentivo
 │   │   │   │   │   │     │     ├── Index.vue
@@ -98,7 +98,7 @@ app
 │   │   │   │   ├── router.js
 │   │   │   │   └── Index.vue (para inicializacao do modulo. obs: futuramente nao sera necessario)
 │   │   │   └── agente
-│   │   │       ├── components (nível da página)
+│   │   │       ├── components (n&iacute;vel da p&aacute;gina)
 │   │   │       │   ├── Cadastrar.vue
 │   │   │       │   ├── Listar.vue
 │   │   │       │   └── Editar.vue
@@ -118,20 +118,20 @@ app
 └── application (backend)
 ```
 
-## Criando novo módulo
+## Criando novo m&oacute;dulo
 
-Ao criar um novo módulo você deve:
+Ao criar um novo m&oacute;dulo você deve:
 
-1 - criar a estrutura de pastas no diretório `src/modules`;
+1 - criar a estrutura de pastas no diret&oacute;rio `src/modules`;
 
-2 - atualizar o arquivo `webpack.base.conf.js` no diretório `build` com informações do novo módulo, conforme exemplo abaixo;
+2 - atualizar o arquivo `webpack.base.conf.js` no diret&oacute;rio `build` com informações do novo m&oacute;dulo, conforme exemplo abaixo;
 ```
  entry: {
         projeto: './src/modules/projeto/index.js',
         agente: './src/modules/agente/index.js'
     }
  ```
-3 - criar um método para carregar os scripts na controller desejada. Recomendamos utilizar a `indexController` do seu módulo com o exemplo abaixo.
+3 - criar um m&eacute;todo para carregar os scripts na controller desejada. Recomendamos utilizar a `indexController` do seu m&oacute;dulo com o exemplo abaixo.
 ```
     private function carregarScripts()
     {
@@ -142,10 +142,10 @@ Ao criar um novo módulo você deve:
     }
  ```
 
-Se você ainda estiver com dúvidas, pergunte ao coleguinha e atualize este documento com a resposta. ;D
+Se você ainda estiver com d&uacute;vidas, pergunte ao coleguinha e atualize este documento com a resposta. ;D
 
 ## Browser Support
 
-Atualmente nós suportamos, oficialmente, apenas as duas últimas versões dos seguintes navegadores:
+Atualmente n&oacute;s suportamos, oficialmente, apenas as duas &uacute;ltimas versões dos seguintes navegadores:
 
 <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/chrome.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/firefox.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/edge.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/safari.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/opera.png" width="64" height="64">

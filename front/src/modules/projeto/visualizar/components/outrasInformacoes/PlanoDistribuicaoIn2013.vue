@@ -37,7 +37,7 @@
                                         s6
                                         m6
                                         lg3>
-                                        <p><b>Área</b></p>
+                                        <p><b>&aacute;rea</b></p>
                                         <p>{{ dado.Area }}</p>
                                     </v-flex>
                                     <v-flex

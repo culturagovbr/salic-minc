@@ -1,26 +1,26 @@
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar �rea de Trabalho">Visualizar �rea de Trabalho</a></li>
-		<li class="last">Análise de Cortes Sugeridos</li>
+		<li class="last">An&aacute;lise de Cortes Sugeridos</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
-	<div>Análise de Cortes Sugeridos <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+	<div>An&aacute;lise de Cortes Sugeridos <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 
 
@@ -28,7 +28,7 @@
      <table class="tabela">
      <?php foreach($this->lembretesprojeto as $tblembretesprojeto): ?>
 <tr>
-<td class="titulo_tabela"> <a href='analiseprojeto?idPRONAC=<?php echo $this->escape($tblembretesprojeto->IdPRONAC);?>'>Análise Técnica</a></td>
+<td class="titulo_tabela"> <a href='analiseprojeto?idPRONAC=<?php echo $this->escape($tblembretesprojeto->IdPRONAC);?>'>An&aacute;lise T&eacute;cnica</a></td>
 <td class="titulo_tabela"> <a href='proponente?idPRONAC=<?php echo $this->escape($tblembretesprojeto->IdPRONAC);?>'>Proponente</a></td>
 <td class="titulo_tabela"> <a href='anexardocumentos?pronac=<?php echo $this->escape($tblembretesprojeto->IdPRONAC);?>'>Documentos Anexados</a></td>
 <td class="titulo_tabela"> <a href='lembretes?idPRONAC=<?php echo $this->escape($tblembretesprojeto->IdPRONAC);?>'>Lembretes</a></td>
@@ -79,12 +79,12 @@
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

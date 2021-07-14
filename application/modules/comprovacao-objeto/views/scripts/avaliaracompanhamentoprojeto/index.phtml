@@ -21,7 +21,7 @@
                 </td>
                 <td width="150">
                     <select name="tipoFiltro" id="tipoFiltro" class="input_simples">
-                        <option value="">Aguardando análise</option>
+                        <option value="">Aguardando an&aacute;lise</option>
                         <option
                             value="emanalise" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'emanalise') ? 'selected="selected"' : ''; ?>>
                             Em an&aacute;lise
@@ -122,7 +122,7 @@
                         <a href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->tipoFiltro . '&campo=11&ordem=' . $this->paginacao['novaOrdem']; ?>">Dt.&nbsp;Envio
                             da PC</a></th>
                     <?php if (!empty($_GET['tipoFiltro'])) : ?>
-                        <th>Técnico</th>
+                        <th>T&eacute;cnico</th>
                     <?php endif; ?>
                     <th>A&ccedil;&otilde;es</th>
                 </tr>
@@ -168,7 +168,7 @@
                                     style="margin-bottom:5px;"
                                     class="btn waves-effect waves-light tooltipped small white-text btn-primary modal-trigger btn-secondary"
                                     href="#modalDistribuirAnalise_<?= $dp->IdPRONAC ?>"
-                                    data-tooltip="Distribuir an&aacute;lise para um Técnico">
+                                    data-tooltip="Distribuir an&aacute;lise para um T&eacute;cnico">
                                     <i class="material-icons">person</i>
                                 </a>
                                 <!-- @todo: temporario pois o modulo sera migrado para vue -->
@@ -177,7 +177,7 @@
                                     <div class="modal-content">
                                         <p style="font-size: 18px;">Distribuir projeto <b>"<?= $dp->NomeProjeto; ?>"</b> para an&aacute;lise de
                                             cumprimento do objeto</p>
-                                        <p class="left-align">Selecione o Técnico:</p>
+                                        <p class="left-align">Selecione o T&eacute;cnico:</p>
                                         <div class="row">
                                             <div class="col l8 m8 s12">
                                                 <select name="tecnico" style="display: inline-block; font-size: 14px">
@@ -194,7 +194,7 @@
                                                     style="margin-bottom:5px; display: inline-block"
                                                     class="btn-enviar btn waves-effect waves-light tooltipped small white-text btn-primary"
                                                     href="javascript:void(0)"
-                                                    data-tooltip="Enviar para o Técnico selecionado">
+                                                    data-tooltip="Enviar para o T&eacute;cnico selecionado">
                                                     <i class="material-icons left">send</i> Enviar
                                                 </a>
                                             </div>
@@ -243,7 +243,7 @@
                                             style="margin-bottom:5px;"
                                             class="btn small disabled"
                                             href="<?php printf($url, $this->urlAssinatura, $dp->idDocumentoAssinatura, $this->originAssinatura); ?>"
-                                            title="Aguardando assinatura do técnico">
+                                            title="Aguardando assinatura do t&eacute;cnico">
                                             <i class="material-icons">create</i>
                                         </a>
                                     <?php endif; ?>
@@ -265,7 +265,7 @@
                                     class="devolverPedido btn waves-effect waves-light tooltipped small white-text btn-primary"
                                     pronac="<?= $dp->IdPRONAC; ?>"
                                     href="javascript:void(0)"
-                                    data-tooltip="Retirar avalia&ccedil;&atilde;o do Técnico">
+                                    data-tooltip="Retirar avalia&ccedil;&atilde;o do T&eacute;cnico">
                                     <i class="material-icons">update</i>
                                 </a>
                             <?php endif; ?>

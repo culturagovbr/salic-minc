@@ -4,7 +4,7 @@ $IdPronac = (!empty($_GET['idPronac'])) ? $_GET['idPronac'] : null;
 $pronac = (!empty($this->projeto->NrProjeto)) ? $this->projeto->NrProjeto : null;
 ?>
 
-<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== IN&iacute;CIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 <!--
 function layout_fluido()
@@ -38,7 +38,7 @@ $(document).ready(function()
 </script>
 <!-- ========== FIM AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== IN&iacute;CIO MENU ========== -->
 <div id="menuContexto">
 
     <table class="tabela">
@@ -47,7 +47,7 @@ $(document).ready(function()
         </tr>
         <tr>
             <td style="font-size: 40px; color: blue;">&bull;</td>
-            <td class="no_seta esquerda">< 10 dias para t�rmino do prazo da Análise do projeto</td>
+            <td class="no_seta esquerda">< 10 dias para t�rmino do prazo da An&aacute;lise do projeto</td>
         </tr>
         <tr>
             <td style="font-size: 40px; color: green;">&bull;</td>

@@ -43,7 +43,7 @@
                                     done_all
                                 </v-icon>
                             </v-btn>
-                            <span>Validar análise</span>
+                            <span>Validar an&aacute;lise</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -77,7 +77,7 @@
                                     report_off
                                 </v-icon>
                             </v-btn>
-                            <span>Devolver para reanálise do parecerista</span>
+                            <span>Devolver para rean&aacute;lise do parecerista</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -94,7 +94,7 @@
                                     group_add
                                 </v-icon>
                             </v-btn>
-                            <span>Solicitar análise complementar</span>
+                            <span>Solicitar an&aacute;lise complementar</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -111,7 +111,7 @@
                                     history
                                 </v-icon>
                             </v-btn>
-                            <span>Visualizar histórico</span>
+                            <span>Visualizar hist&oacute;rico</span>
                         </v-tooltip>
                     </td>
                 </tr>
@@ -218,7 +218,7 @@ export default {
             this.dialogConfirmarEnvio = true;
         },
         async validarParecer(produto) {
-            const mensagemStatus = 'Confirma a validação da análise do produto?';
+            const mensagemStatus = 'Confirma a validação da an&aacute;lise do produto?';
             if (await this.$root.$confirm(mensagemStatus) === false) {
                 return false;
             }

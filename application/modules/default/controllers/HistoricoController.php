@@ -8,7 +8,7 @@ class HistoricoController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
-        // Visualiza��o do t�tulo da página
+        // Visualiza��o do t�tulo da p&aacute;gina
         $this->view->title = "Visualiza��o dos Hist�ricos dos Projetos";
 
         parent::init();

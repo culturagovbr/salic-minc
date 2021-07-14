@@ -1,19 +1,19 @@
 <?php
 /**
- * Tipos de status da Análise para Verificar a Readequa��o
+ * Tipos de status da An&aacute;lise para Verificar a Readequa��o
  * @author emanuel.sampaio - Politec
  * @since 30/08/2011
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright � 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2011 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_StatusAnalise
 {
     /**
-     * M�todo com os status da Análise
+     * M�todo com os status da An&aacute;lise
      * @access public
      * @param string $cor
      * @return string

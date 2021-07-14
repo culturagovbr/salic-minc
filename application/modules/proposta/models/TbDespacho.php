@@ -2,7 +2,7 @@
 
 /**
  * Class Proposta_Model_TbDeslocamento
- * @author Vinícius Feitosa da Silva <viniciusfesil@mail.com>
+ * @author Vin&iacute;cius Feitosa da Silva <viniciusfesil@mail.com>
  * @since
  */
 class Proposta_Model_TbDespacho extends MinC_Db_Model

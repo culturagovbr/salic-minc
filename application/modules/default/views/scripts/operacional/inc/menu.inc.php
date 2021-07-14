@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== IN&iacute;CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     function layout_fluido(){
@@ -49,9 +49,9 @@
 </script>
 
 <div id="menu">
-    <!-- INÍCIO: CONTEÚDO principal #container -->
+    <!-- IN&iacute;CIO: CONTE&uacute;DO principal #container -->
     <div id="container">
-        <!-- INÍCIO: navega��o local #qm0 -->
+        <!-- IN&iacute;CIO: navega��o local #qm0 -->
         <?php
             $get = Zend_Registry::get("get");
             //define id do PreProjeto que sera passado as outras implementacoes

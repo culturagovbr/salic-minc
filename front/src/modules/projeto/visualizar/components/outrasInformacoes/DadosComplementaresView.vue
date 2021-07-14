@@ -90,7 +90,7 @@
                 icon="timeline"
             />
             <DadosComplementares
-                label="Tipicidade e seus limites orçamentários"
+                label="Tipicidade e seus limites orçament&aacute;rios"
                 icon="monetization_on"
             >
                 <template>

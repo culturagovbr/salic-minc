@@ -1,6 +1,6 @@
 <?php
 /**
- * Helper para verificar se o projeto é da IN2017
+ * Helper para verificar se o projeto &eacute; da IN2017
  * @since 11/07/2017
  * @version 1.0
  * @package default

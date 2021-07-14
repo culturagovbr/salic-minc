@@ -432,8 +432,8 @@ class ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjeto extends MinC_Db_Table_
         if ($filtro == 'painel-tecnico') {
             $select->joinLeft(
                 array('d' => 'tbDocumentoAssinatura'),
-                "a.IdPRONAC = d.idPronac 
-                    AND d.cdSituacao = 2 
+                "a.IdPRONAC = d.idPronac
+                    AND d.cdSituacao = 2
                     AND d.stEstado = 0
                     AND d.idTipoDoAtoAdministrativo = {$idAtoAdministrativo}
                     ",
@@ -447,8 +447,8 @@ class ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjeto extends MinC_Db_Table_
         if ($filtro == 'analisados') {
             $select->joinLeft(
                 array('d' => 'tbDocumentoAssinatura'),
-                "a.IdPRONAC = d.idPronac 
-                    AND d.cdSituacao = 1 
+                "a.IdPRONAC = d.idPronac
+                    AND d.cdSituacao = 1
                     AND d.stEstado = 1
                     AND d.idTipoDoAtoAdministrativo = {$idAtoAdministrativo}
                     ",
@@ -467,8 +467,8 @@ class ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjeto extends MinC_Db_Table_
             $idAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_AVALIACAO_OBJETO;
             $select->joinLeft(
                 array('d' => 'tbDocumentoAssinatura'),
-                "a.IdPRONAC = d.idPronac 
-                    AND d.cdSituacao = 1 
+                "a.IdPRONAC = d.idPronac
+                    AND d.cdSituacao = 1
                     AND d.stEstado = 1
                     AND d.idTipoDoAtoAdministrativo = {$idAtoAdministrativo}
                     ",
@@ -509,7 +509,7 @@ class ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjeto extends MinC_Db_Table_
     }
 
     /**
-     * Método que diz se projeto possui ou não um relatório de cumprimento de objeto
+     * M&eacute;todo que diz se projeto possui ou não um relat&oacute;rio de cumprimento de objeto
      *
      * @param integer $idPronac
      * @return bool

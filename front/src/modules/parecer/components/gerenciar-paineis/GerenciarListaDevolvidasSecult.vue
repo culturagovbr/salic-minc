@@ -74,7 +74,7 @@
                                 assignment_return
                             </v-icon>
                         </v-btn>
-                        <span>Devolver para o Ministério</span>
+                        <span>Devolver para o Minist&eacute;rio</span>
                     </v-tooltip>
                     <v-tooltip
                         bottom
@@ -91,7 +91,7 @@
                                 arrow_back
                             </v-icon>
                         </v-btn>
-                        <span>Devolver para reanálise do parecerista</span>
+                        <span>Devolver para rean&aacute;lise do parecerista</span>
                     </v-tooltip>
                     <v-tooltip
                         bottom
@@ -107,7 +107,7 @@
                                 history
                             </v-icon>
                         </v-btn>
-                        <span>Visualizar histórico</span>
+                        <span>Visualizar hist&oacute;rico</span>
                     </v-tooltip>
                 </td>
             </tr>

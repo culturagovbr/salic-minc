@@ -81,7 +81,7 @@ class Recurso_Model_TbRecurso extends MinC_Db_Model
     const PRAZO_RECURSAL = 10;
 
     /**
-     * liberar o recurso após alterar a situação
+     * liberar o recurso ap&oacute;s alterar a situação
      */
     const SITUACOES_RECURSO_ORCAMENTO = [
         Projeto_Model_Situacao::READEQUACAO_DO_PROJETO_APROVADA_AGUARDANDO_ANALISE_DOCUMENTAL,
@@ -90,7 +90,7 @@ class Recurso_Model_TbRecurso extends MinC_Db_Model
     ];
 
     /**
-     * liberar o recurso após a reunião da cnic - tbReuniao
+     * liberar o recurso ap&oacute;s a reunião da cnic - tbReuniao
      */
     const SITUACOES_RECURSO_PROJETO_INDEFERIDO = [
         Projeto_Model_Situacao::INDEFERIDO_NAO_ENQUADRAMENTO_NOS_OBJETIVOS,

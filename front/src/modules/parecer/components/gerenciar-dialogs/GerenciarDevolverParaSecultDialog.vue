@@ -69,7 +69,7 @@
                                     sm2
                                     md2
                                 >
-                                    <b>Área</b><br>
+                                    <b>&aacute;rea</b><br>
                                     {{ produto.area }}
                                 </v-flex>
                                 <v-flex
@@ -191,7 +191,7 @@ export default {
                 distribuirProjeto: false,
             },
             dialogConfirmarEnvio: false,
-            obrigatorio: v => !!v || 'Este campo é obrigatório',
+            obrigatorio: v => !!v || 'Este campo &eacute; obrigat&oacute;rio',
         };
     },
 

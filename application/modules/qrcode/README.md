@@ -1,4 +1,4 @@
-Módulo de QRCode
+M&oacute;dulo de QRCode
 =====================
 
 M&oacute;dulo respons&aacute;vel por fornecer ensumos para geração do QRCode no sistema.

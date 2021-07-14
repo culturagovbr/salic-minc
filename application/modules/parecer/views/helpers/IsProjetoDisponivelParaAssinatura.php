@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto está disponível para assinatura
+ * Helper para verificar se projeto est&aacute; dispon&iacute;vel para assinatura
  */
 
 class Zend_View_Helper_IsProjetoDisponivelParaAssinatura
 {
     /**
-     * Método para verificar se o projeto está disponível para assinatura
+     * M&eacute;todo para verificar se o projeto est&aacute; dispon&iacute;vel para assinatura
      * @access public
      * @param integer $idPronac
      * @param integer $idTipoDoAtoAdministrativo
@@ -19,7 +19,7 @@ class Zend_View_Helper_IsProjetoDisponivelParaAssinatura
             $idPronac,
             $idTipoDoAtoAdministrativo
         );
-        
+
         return $isProjetoDisponivelParaAssinatura;
     }
 }

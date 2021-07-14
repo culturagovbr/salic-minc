@@ -23,7 +23,7 @@
                 >
                     <v-icon>close</v-icon>
                 </v-btn>
-                <v-toolbar-title>Conciliação bancária</v-toolbar-title>
+                <v-toolbar-title>Conciliação banc&aacute;ria</v-toolbar-title>
             </v-toolbar>
 
             <v-card-text>

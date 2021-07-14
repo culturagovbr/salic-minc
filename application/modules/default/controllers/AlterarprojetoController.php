@@ -354,7 +354,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                     $i = TitulacaoConselheiroDAO::atualizaComponente($idAgente, $AtualizarComponente);
                 }
             } catch (Exception $e) {
-                parent::message("Erro ao salvar a Área e segmento: " . $e->getMessage(), $e->getMessage(), "alterarprojeto/incluirdirigente/pronac/" . $pronac, "ERROR");
+                parent::message("Erro ao salvar a &aacute;rea e segmento: " . $e->getMessage(), $e->getMessage(), "alterarprojeto/incluirdirigente/pronac/" . $pronac, "ERROR");
             }
         }
 
@@ -1355,7 +1355,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             $whereI['AnoProjeto = ?'] = $dadosProjeto->AnoProjeto;
             $whereI['Sequencial = ?'] = $dadosProjeto->Sequencial;
             $retorno = $tbl->Localizar($whereI);
-            $msg = 'O proponente não pode ser habilitado à presente data. Para habilitá-lo, favor anexar documento.';
+            $msg = 'O proponente não pode ser habilitado à presente data. Para habilit&aacute;-lo, favor anexar documento.';
             if ((count($retorno) > 0) && ($retorno[0]->idTipoInabilitado > 0) && ($retorno[0]->idTipoInabilitado <= 7) && ($retorno[0]->Anos < 1)) {
                 parent::message($msg, "alterarprojeto/" . $post->pagina . "?pronac=" . Seguranca::encrypt($dadosProjeto->pronac) . "&menu=" . $post->menu, "ALERT");
             } elseif ((count($retorno) > 0) && ($retorno[0]->idTipoInabilitado >= 4) && ($retorno[0]->idTipoInabilitado <= 5) && ($retorno[0]->Anos < 2)) {
@@ -1952,7 +1952,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                 $tbProjetos = new Projetos();
                 $projeto = $tbProjetos->VerificaPronac($arrBusca)->current();
                 if (empty($projeto)) {
-                    throw new Exception("Dados informados inválidos");
+                    throw new Exception("Dados informados inv&aacute;lidos");
                 }
 
                 //persiste os dados do Pre Projeto

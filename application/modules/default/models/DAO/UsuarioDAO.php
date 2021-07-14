@@ -7,7 +7,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.model.DAO
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 class UsuarioDAO extends MinC_Db_Table_Abstract
@@ -102,10 +102,10 @@ class UsuarioDAO extends MinC_Db_Table_Abstract
     /**
      * M�todo para buscar as unidades autorizadas do usu�rio do sistema
      * @access public
-     * @param @usu_codigo (Código do usu�rio)
-     * @param @sis_codigo (Código sistema)
-     * @param @gru_codigo (Código do grupo)
-     * @param @uog_orgao  (Código do �rg�o)
+     * @param @usu_codigo (C&oacute;digo do usu�rio)
+     * @param @sis_codigo (C&oacute;digo sistema)
+     * @param @gru_codigo (C&oacute;digo do grupo)
+     * @param @uog_orgao  (C&oacute;digo do �rg�o)
      * @return object
      */
     public function buscarUnidades($usu_codigo, $sis_codigo = null, $gru_codigo = null, $uog_orgao = null)

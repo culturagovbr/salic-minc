@@ -221,7 +221,7 @@
                                                     xs12
                                                     md2
                                                 >
-                                                    <b>Vl. Unitário (R$)</b>
+                                                    <b>Vl. Unit&aacute;rio (R$)</b>
                                                     <div>{{ itemEmEdicao.valorUnitarioprop | filtroFormatarParaReal }}</div>
                                                 </v-flex>
                                                 <v-flex
@@ -317,7 +317,7 @@
                                             <SalicInputValor
                                                 v-model="itemEmEdicao.valorUnitarioparc"
                                                 :rules="[rules.required, rules.menorQueZero]"
-                                                label="Vl. Unitário (R$)"
+                                                label="Vl. Unit&aacute;rio (R$)"
                                             />
                                         </v-flex>
                                         <v-flex
@@ -447,7 +447,7 @@ export default {
                 { text: 'Dias', align: 'left', value: 'diasparc' },
                 { text: 'Qtde', align: 'left', value: 'quantidadeparc' },
                 { text: 'Ocor.', align: 'left', value: 'ocorrenciaparc' },
-                { text: 'Vl. Unitário', align: 'center', value: 'valorUnitarioparc' },
+                { text: 'Vl. Unit&aacute;rio', align: 'center', value: 'valorUnitarioparc' },
                 { text: 'Valor Sugerido', align: 'center', value: 'VlSugeridoParecerista' },
             ],
             itemEmEdicao: {
@@ -460,7 +460,7 @@ export default {
             modalMediana: false,
             comboUnidade: {},
             rules: {
-                required: v => !!v || v === 0 || 'Campo obrigatório',
+                required: v => !!v || v === 0 || 'Campo obrigat&oacute;rio',
                 menorQueZero: v => this.converterParaMoedaAmericana(v) >= 0 || 'Não pode ser menor que zero',
             },
         };
@@ -484,7 +484,7 @@ export default {
             const rules = [];
             rules.push(v => !!v || 'Justificativa &eacute; obrigat&oacute;ria');
             rules.push(v => v.length <= this.maxChars || `O parecer não pode ultrapassar ${this.maxChars} caracteres`);
-            rules.push(v => v.length >= this.minChars || `O parecer deve ter no mínimo ${this.minChars} caracteres`);
+            rules.push(v => v.length >= this.minChars || `O parecer deve ter no m&iacute;nimo ${this.minChars} caracteres`);
             return rules;
         },
     },
@@ -583,7 +583,7 @@ export default {
                 || parseInt(item.stCustoPraticadoParc, 10) === 1);
         },
         obterMensagemCustoPraticado(item) {
-            return `O valor unitário (${this.formatarParaReal(item.valorUnitarioprop)}) deste item para ${item.Cidade},
+            return `O valor unit&aacute;rio (${this.formatarParaReal(item.valorUnitarioprop)}) deste item para ${item.Cidade},
                     ultrapassa o valor aprovado por este orgão. Faça uma nova sugestão de valor ou justifique`;
         },
         buscarMediana(item) {

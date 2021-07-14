@@ -285,7 +285,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
                     );
                     $success = $AbrangenciaDAO->cadastrar($dados);
                 } else {
-                    parent::message('Não &eacute; possível salvar o mesmo local mais de uma vez. '
+                    parent::message('Não &eacute; poss&iacute;vel salvar o mesmo local mais de uma vez. '
                             . '(Pa&iacute;s, Uf, Munic&iacute;pio)', $redirectUrl, 'ERROR');
                 }
             }
@@ -1086,7 +1086,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
                 $tipoDocumento = null;
                 switch ($registro['tpDocumento']) {
                     case 1:
-                        $tipoDocumento = 'Boleto Bancário';
+                        $tipoDocumento = 'Boleto Banc&aacute;rio';
                         break;
                     case 2:
                         $tipoDocumento = 'Cupom Fiscal';
@@ -1108,7 +1108,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
                         $formaPagamento = 'Cheque';
                         break;
                     case 2:
-                        $formaPagamento = 'Transferência Bancária';
+                        $formaPagamento = 'Transferência Banc&aacute;ria';
                         break;
                     case 3:
                         $formaPagamento = 'Saque/Dinheiro';
@@ -1546,7 +1546,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
                         'nmArquivo'         => $arquivoNome,
                         'sgExtensao'        => $arquivoExtensao,
                         'biArquivo'         => $data,
-                        'dsDocumento'       => 'Comprovação do Relatório Final - Bem Móvel',
+                        'dsDocumento'       => 'Comprovação do Relat&oacute;rio Final - Bem M&oacute;vel',
                         'idPronac'          => $idpronac,
                         'idTipoDocumento'   => 26);
 
@@ -1668,7 +1668,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
                         'nmArquivo'         => $arquivoNome,
                         'sgExtensao'        => $arquivoExtensao,
                         'biArquivo'         => $data,
-                        'dsDocumento'       => 'Comprovação do Relatório Final - Bem Imóvel',
+                        'dsDocumento'       => 'Comprovação do Relat&oacute;rio Final - Bem Im&oacute;vel',
                         'idPronac'          => $idpronac,
                         'idTipoDocumento'   => 26);
 
@@ -1713,7 +1713,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
                         'nmArquivo'         => $arquivoNome,
                         'sgExtensao'        => $arquivoExtensao,
                         'biArquivo'         => $data,
-                        'dsDocumento'       => 'Comprovação do Relatório Final - Bem Imóvel',
+                        'dsDocumento'       => 'Comprovação do Relat&oacute;rio Final - Bem Im&oacute;vel',
                         'idPronac'          => $idpronac,
                         'idTipoDocumento'   => 25);
 
@@ -1850,7 +1850,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
                 $Projetos = new Projetos();
                 $d = array();
                 $d['situacao'] = 'E24';
-                $d['ProvidenciaTomada'] = 'Prestação de Contas final apresentada, aguardando análise.';
+                $d['ProvidenciaTomada'] = 'Prestação de Contas final apresentada, aguardando an&aacute;lise.';
                 $d['dtSituacao'] = new Zend_Db_Expr('GETDATE()');
                 $d['Logon'] = $idUsuario;
                 $w = "IdPRONAC = $idpronac";

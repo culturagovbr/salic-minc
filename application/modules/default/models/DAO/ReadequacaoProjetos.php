@@ -2031,8 +2031,8 @@ class ReadequacaoProjetos extends Zend_Db_Table
 
     public static function dadosAgentesOrgaoA($idorgao)
     {
-        //sis_codigo = 21 (Trata-se do Código do SalicWeb)
-        //gru_codigo = 129 (Código de T�cnico de acompanhamento)
+        //sis_codigo = 21 (Trata-se do C&oacute;digo do SalicWeb)
+        //gru_codigo = 129 (C&oacute;digo de T�cnico de acompanhamento)
 
         $sql = "SELECT a.usu_codigo, a.usu_nome, a.gru_nome AS Perfil, b.idAgente, a.gru_codigo AS idVerificacao
                 FROM Tabelas..vwUsuariosOrgaosGrupos a
@@ -2046,8 +2046,8 @@ class ReadequacaoProjetos extends Zend_Db_Table
 
     public static function dadosAgentesOrgaoB($idorgao)
     {
-        //sis_codigo = 21 (Trata-se do Código do SalicWeb)
-        //gru_codigo = 93 (Código de Coordenador de Parecerista)
+        //sis_codigo = 21 (Trata-se do C&oacute;digo do SalicWeb)
+        //gru_codigo = 93 (C&oacute;digo de Coordenador de Parecerista)
 
         $sql = "SELECT a.usu_codigo, a.usu_nome, a.gru_nome AS Perfil, b.idAgente, a.gru_codigo AS idVerificacao
                 FROM Tabelas..vwUsuariosOrgaosGrupos a

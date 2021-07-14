@@ -425,7 +425,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     }
 
     /*
-    *  View: Solicitação de Altera��o da Ficha Técnica
+    *  View: Solicitação de Altera��o da Ficha T&eacute;cnica
     */
     public function solaltfictecAction()
     {

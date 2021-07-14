@@ -1,5 +1,5 @@
 /*
- * The Número de Identificación Fiscal ( NIF ) is the way tax identification used in Spain for individuals
+ * The N&uacute;mero de Identificaci&oacute;n Fiscal ( NIF ) is the way tax identification used in Spain for individuals
  */
 $.validator.addMethod( "nifES", function( value ) {
 	"use strict";

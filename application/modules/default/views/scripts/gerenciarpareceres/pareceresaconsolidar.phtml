@@ -4,11 +4,11 @@
 //echo $this->partial('inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres Técnicos</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres T&eacute;cnicos</a></li>
 		<li class="last">Pareceres a Consolidar</li>
 	</ul>
 </div>
@@ -16,7 +16,7 @@
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
 	<div>Pareceres a Consolidar<span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -24,7 +24,7 @@
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 
 	<table class="tabela">
@@ -43,9 +43,9 @@
 		<tr>
 			<th width="70" align="center">PRONAC</th>
 			<th width="" align="left">Nome do Projeto</th>
-			<th width="180" align="left">Unidade de Análise</th>
+			<th width="180" align="left">Unidade de An&aacute;lise</th>
 			<th width="350" align="left">Produto</th>
-			<th width="180" align="left">Descrição da Análise</th>
+			<th width="180" align="left">Descrição da An&aacute;lise</th>
 			<th width="70" align="center">Devolver</th>
 			<th width="70" align="center">Tramitação</th>
 		</tr>
@@ -57,7 +57,7 @@
 			<td><?php echo $d->Orgao; ?></td>
 			<td><?php echo $d->Produto; ?></td>
 			<td><?php echo $d->Estado; ?></td>
-			<td align="center"><img style="cursor:pointer;" title="Devolver Análise de Projeto para a Entidade Vinculada" src="<?php echo $this->baseUrl(); ?>/public/img/ico/undo.png" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'desconsolidarparecer')); ?>/idproduto/<?php echo $d->idProduto; ?>/tipoanalise/<?php echo $d->TipoAnalise;?>/idpronac/<?php echo $d->IdPRONAC; ?>');" /></td>
+			<td align="center"><img style="cursor:pointer;" title="Devolver An&aacute;lise de Projeto para a Entidade Vinculada" src="<?php echo $this->baseUrl(); ?>/public/img/ico/undo.png" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'desconsolidarparecer')); ?>/idproduto/<?php echo $d->idProduto; ?>/tipoanalise/<?php echo $d->TipoAnalise;?>/idpronac/<?php echo $d->IdPRONAC; ?>');" /></td>
 			<td align="center"><img style="cursor:pointer;" title="Visualizar Tramitação" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" onclick="redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'pcvisualizartramitacao')); ?>/idproduto/<?php echo $d->idProduto; ?>/tipoanalise/<?php echo $d->TipoAnalise;?>/idpronac/<?php echo $d->IdPRONAC; ?>');"/></td>
 		</tr>
 		<?php $copy = $d->PRONAC; ?>
@@ -70,12 +70,12 @@
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

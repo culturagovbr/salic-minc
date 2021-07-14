@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicaprojeto
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 echo $this->partial('inc/menu.inc.php', $this) // menu
@@ -62,10 +62,10 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 </script>
 <div id="Confirma" style="display: none;"></div>
 <div id="erro" style="display: none;">Dados Obrigat�rios n&atilde;o preenchidos</div>
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para INÍCIO">In&iacute;cio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN&iacute;CIO">In&iacute;cio</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Realizar an&aacute;lise">Realizar an&aacute;lise</a></li>
         <li class="last">Diligenciar Proponente</li>
     </ul>
@@ -74,7 +74,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
     <div>Diligenciar Proponente <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -82,12 +82,12 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 
 
 
-    <!-- ========== INÍCIO T�TULO página ========== -->
+    <!-- ========== IN&iacute;CIO T�TULO p&aacute;gina ========== -->
     <table class="tabela">
 
         <?php foreach ($this->pronac as $p) : ?>
@@ -120,11 +120,11 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
             <?php } ?>
         </table>
         <?php } ?>
-        <!-- ========== FIM T�TULO página ========== -->
+        <!-- ========== FIM T�TULO p&aacute;gina ========== -->
 
 
 
-        <!-- ========== INÍCIO FORMUL�RIO ========== -->
+        <!-- ========== IN&iacute;CIO FORMUL�RIO ========== -->
         <form id="formulario" action="<?php echo $this->url(array('controller' => 'diligenciarproponente', 'action' => 'index')); ?>" method="post">
             <input type="hidden" name="idPronac" value="<?php echo $this->idpronac?>" />
 
@@ -158,12 +158,12 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

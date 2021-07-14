@@ -16,7 +16,7 @@ class AporteCaptacaoController extends MinC_Controller_Action_Abstract
         //Da permissao de acesso a todos os grupos do usuario logado
         if (isset($auth->getIdentity()->usu_codigo)) {
             //Recupera todos os grupos do Usuario
-            $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuário
+            $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usu&aacute;rio
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
             foreach ($grupos as $grupo) {
                 $PermissoesGrupo[] = $grupo->gru_codigo;
@@ -40,10 +40,10 @@ class AporteCaptacaoController extends MinC_Controller_Action_Abstract
         /* ========== FIM PERFIL ==========*/
 
 
-        /* ========== INÍCIO ÓRGÃO ========== */
+        /* ========== IN&iacute;CIO &oacute;RGÃO ========== */
         $GrupoAtivo   = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
         $this->getIdGrupo = $GrupoAtivo->codGrupo; // id do grupo ativo
-        $this->getIdOrgao = $GrupoAtivo->codOrgao; // id do órgão ativo
+        $this->getIdOrgao = $GrupoAtivo->codOrgao; // id do &oacute;rgão ativo
         parent::init();
     }
 

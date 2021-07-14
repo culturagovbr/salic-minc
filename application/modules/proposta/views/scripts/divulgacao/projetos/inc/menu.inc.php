@@ -2,10 +2,10 @@
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
-    <!-- INÍCIO: CONTEÚDO principal #container -->
+    <!-- IN&iacute;CIO: CONTE&uacute;DO principal #container -->
     <div id="container">
 
-        <!-- INÍCIO: navega��o local  -->
+        <!-- IN&iacute;CIO: navega��o local  -->
         <script type="text/javascript">
             function layout_fluido()
             {

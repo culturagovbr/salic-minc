@@ -2,9 +2,9 @@
 
 class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
 {
-    private $getIdUsuario = 0; // Código do usu�rio logado
-    private $getIdGrupo   = 0; // Código do grupo logado
-    private $getIdOrgao   = 0; // Código do �rg�o logado
+    private $getIdUsuario = 0; // C&oacute;digo do usu�rio logado
+    private $getIdGrupo   = 0; // C&oacute;digo do grupo logado
+    private $getIdOrgao   = 0; // C&oacute;digo do �rg�o logado
     private $intTamPag    = 10;
 
     /**
@@ -19,7 +19,7 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
         // pega o idAgente do usu�rio logado
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
 
-        /* ========== INÍCIO PERFIL ==========*/
+        /* ========== IN&iacute;CIO PERFIL ==========*/
         // define os grupos que tem acesso
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 121; // T�cnico de Acompanhamento
@@ -42,7 +42,7 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
         /* ========== FIM PERFIL ==========*/
 
 
-        /* ========== INÍCIO �RG�O ========== */
+        /* ========== IN&iacute;CIO �RG�O ========== */
         $GrupoAtivo   = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $this->getIdGrupo = $GrupoAtivo->codGrupo; // id do grupo ativo
         $this->getIdOrgao = $GrupoAtivo->codOrgao; // id do �rg�o ativo

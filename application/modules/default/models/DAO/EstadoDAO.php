@@ -7,7 +7,7 @@ class EstadoDAO extends MinC_Db_Table_Abstract
     public function listar($id = null)
     {
         echo '<pre>';
-        var_dump('Método transferido para Agente Model Dbtable UF');
+        var_dump('M&eacute;todo transferido para Agente Model Dbtable UF');
         exit;
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);

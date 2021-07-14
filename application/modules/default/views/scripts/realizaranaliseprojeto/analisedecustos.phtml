@@ -212,7 +212,7 @@ endif;
                         {
                             var valorEtapa = $("#selEtapaItem"+idplanilhaaprovacao).val();
                             var txtEtapa   = $("#selEtapaItem"+idplanilhaaprovacao+" [value='" + valorEtapa + "']").text();
-                            $("#mensagemAlerta").html("Este item será movido para a etapa de " + txtEtapa + "!");
+                            $("#mensagemAlerta").html("Este item ser&aacute; movido para a etapa de " + txtEtapa + "!");
                             abreAlerta();
 
                             setTimeout(function(){
@@ -238,7 +238,7 @@ endif;
 
             if(valorEtapa != idEtapa)
             {
-                $("#mensagemAlerta").html("Este item será movido para a etapa de " + txtEtapa + "!");
+                $("#mensagemAlerta").html("Este item ser&aacute; movido para a etapa de " + txtEtapa + "!");
                 abreAlerta();
             }
         });

@@ -530,7 +530,7 @@ class Proposta_MantertabelaitensController extends Proposta_GenericController
                 <table width="100%" style="font-family:Arial">
                     <tr>
                         <th style="font-size:20px;" colspan="3">
-                            Relatório Produto/Etapa/Item
+                            Relat&oacute;rio Produto/Etapa/Item
                         </th>
                     </tr>
                 ';

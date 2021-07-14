@@ -44,7 +44,7 @@ class ErrorController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setRender('error');
         $helper = $this->_helper->getHelper('Layout');
 
-        $this->view->message = 'Você precisa efetuar login para visualizar este conteúdo.';
+        $this->view->message = 'Você precisa efetuar login para visualizar este conte&uacute;do.';
         $this->view->errorType = 'login';
     }
 
@@ -56,7 +56,7 @@ class ErrorController extends Zend_Controller_Action
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setRender('error');
-        $this->view->message = 'Você não tem permissão para acessar este conteúdo.';
+        $this->view->message = 'Você não tem permissão para acessar este conte&uacute;do.';
         $this->view->errorType = 'permissao';
     }
 
@@ -68,7 +68,7 @@ class ErrorController extends Zend_Controller_Action
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setRender('error');
-        $this->view->message = 'Página não encontrada.<br /> Você não possui permissão de acesso ou o link desejado não existe mais no sistema.';
+        $this->view->message = 'P&aacute;gina não encontrada.<br /> Você não possui permissão de acesso ou o link desejado não existe mais no sistema.';
         $this->view->errorType = 'pagina';
     }
 
@@ -99,7 +99,7 @@ class ErrorController extends Zend_Controller_Action
 
         switch ($errors->type) {
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
-                $this->view->message = 'Página não encontrada. Tem certeza que você digitou o endereço corretamente?';
+                $this->view->message = 'P&aacute;gina não encontrada. Tem certeza que você digitou o endereço corretamente?';
                 break;
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
                 $this->view->message = 'Controller não encontrada';

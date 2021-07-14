@@ -18,8 +18,8 @@ describe('Testes Actions - Avaliação de Resultados', () => {
                     {
                         analise: {
                             id: 'analise',
-                            label: 'Análise',
-                            title: 'Ir para Análise',
+                            label: 'An&aacute;lise',
+                            title: 'Ir para An&aacute;lise',
                         },
                     },
                 ],
@@ -79,7 +79,7 @@ describe('Testes Actions - Avaliação de Resultados', () => {
         });
     });
 
-    describe('obterDadosTabelaTecnico - Aba "Em Análise" ', () => {
+    describe('obterDadosTabelaTecnico - Aba "Em An&aacute;lise" ', () => {
         beforeEach(() => {
             mockReponse = {
                 data: {
@@ -159,7 +159,7 @@ describe('Testes Actions - Avaliação de Resultados', () => {
         });
     });
 
-    describe('projetosAssinatura - Aba "Histórico" ', () => {
+    describe('projetosAssinatura - Aba "Hist&oacute;rico" ', () => {
         beforeEach(() => {
             mockReponse = {
                 data: {
@@ -197,7 +197,7 @@ describe('Testes Actions - Avaliação de Resultados', () => {
         });
     });
 
-    describe('obter lista de Técnicos - Aba "Encaminhar" ', () => {
+    describe('obter lista de T&eacute;cnicos - Aba "Encaminhar" ', () => {
         beforeEach(() => {
             commit = jest.fn();
 
@@ -222,7 +222,7 @@ describe('Testes Actions - Avaliação de Resultados', () => {
         });
     });
 
-    describe('Obter Histórico de Encaminhamentos', () => {
+    describe('Obter Hist&oacute;rico de Encaminhamentos', () => {
         beforeEach(() => {
             mockReponse = {
                 data: {

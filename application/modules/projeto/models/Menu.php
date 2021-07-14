@@ -374,7 +374,7 @@ class Projeto_Model_Menu extends MinC_Db_Table_Abstract
             ];
         }
 
-        # Análise e Aprovação
+        # An&aacute;lise e Aprovação
         if ($this->permissoesMenu['Analise'] || !$this->usuarioExterno || $this->debug) {
 
             $menu['analiseaprovacao'] = [
@@ -793,8 +793,8 @@ class Projeto_Model_Menu extends MinC_Db_Table_Abstract
 
                 $menu['comprovacaofisica'] = [
                     'id' => 'comprovacaofisica',
-                    'label' => 'Comprova&ccedil;&atilde;o Física',
-                    'title' => 'Ir para Realizar Comprova&ccedil;&atilde;o Física',
+                    'label' => 'Comprova&ccedil;&atilde;o F&iacute;sica',
+                    'title' => 'Ir para Realizar Comprova&ccedil;&atilde;o F&iacute;sica',
                     'link' => '',
                     'ajax' => false,
                     'icon' => 'attach_file',

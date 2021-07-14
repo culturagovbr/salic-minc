@@ -78,7 +78,7 @@ class ManterpropostaincentivofiscalControllerTest extends MinC_Test_ControllerAc
     {
         $this->dispatch('/proposta/manterpropostaincentivofiscal/identificacaodaproposta' . '/idPreProjeto/' . $this->idPreProjeto);
         $this->assertResponseCode('200');
-        
+
         $this->assertQuery('#identificacaodiv');
     }
 
@@ -86,15 +86,15 @@ class ManterpropostaincentivofiscalControllerTest extends MinC_Test_ControllerAc
     {
         $this->dispatch('/proposta/manterpropostaincentivofiscal/identificacaodaproposta');
         $this->assertResponseCode('302');
-    }    
+    }
 
-    public function testResponsabilidadesocialAction() 
+    public function testResponsabilidadesocialAction()
     {
         $this->dispatch('/proposta/manterpropostaincentivofiscal/responsabilidadesocial' . '/idPreProjeto/' . $this->idPreProjeto);
         $this->assertUrl('proposta','manterpropostaincentivofiscal', 'responsabilidadesocial');
     }
 
-    public function testDetalhestecnicosAction() 
+    public function testDetalhestecnicosAction()
     {
         $this->dispatch('/proposta/manterpropostaincentivofiscal/detalhestecnicos' . '/idPreProjeto/' . $this->idPreProjeto);
         $this->assertUrl('proposta','manterpropostaincentivofiscal', 'detalhestecnicos');
@@ -141,7 +141,7 @@ class ManterpropostaincentivofiscalControllerTest extends MinC_Test_ControllerAc
     public function testSalvarAction(){}
 
     /**
-     * conferir se esse metodo é usado pelo sistema
+     * conferir se esse metodo &eacute; usado pelo sistema
      *
      */
     public function testCarregaProposta(){

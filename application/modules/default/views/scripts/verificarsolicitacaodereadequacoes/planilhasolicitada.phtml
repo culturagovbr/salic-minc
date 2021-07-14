@@ -93,7 +93,7 @@
                     return valida;
                 }
 
-                $("#alert").html('Deseja finalizar a Análise?')
+                $("#alert").html('Deseja finalizar a An&aacute;lise?')
                 analise(function(){
                     $("#encaminhar").dialog({
                         resizable: true,
@@ -169,7 +169,7 @@
     <textarea name="justificativa" id="justificativaencaminha" rows="6" cols="50" style="width:95%;" onclick="limpar_campo(this, 'Digite a observa��o...');" onkeypress=" " onblur="restaurar_campo(this, 'Digite a observa��o...');">Digite a observa��o...</textarea>
 </div>
 
-<!-- INÍCIO: #titulo -->
+<!-- IN&iacute;CIO: #titulo -->
 <div id="titulo">
     <div>Readequação: itens de custo
         <span class="voltar">
@@ -180,7 +180,7 @@
 <!-- final: #titulo -->
 
 
-<!-- INÍCIO: �rea principal #conteudo -->
+<!-- IN&iacute;CIO: �rea principal #conteudo -->
 <div id="conteudo">
     <div id="miolo">
         <?php
@@ -237,11 +237,11 @@
                             <?php } else { ?>
                             <select id="analise" class="select_simples">
                                 <?php if ($this->status == "EA") { ?>
-                                    <option value="2">Em Análise</option>
+                                    <option value="2">Em An&aacute;lise</option>
                                     <option value="3">Finalizar</option>
                                 <?php } else { ?>
-                                    <option value="1">Aguardando Análise</option>
-                                    <option value="2">Em Análise</option>
+                                    <option value="1">Aguardando An&aacute;lise</option>
+                                    <option value="2">Em An&aacute;lise</option>
                                 <?php } ?>
                             </select>
                             <?php } ?>
@@ -335,7 +335,7 @@
                             echo '</th>';
                             if ( !empty ( $this->AvaliacaoAnalise ) ){
                                 echo '<th>';
-                                 echo 'Justificativa Técnica';
+                                 echo 'Justificativa T&eacute;cnica';
                                 echo '</th>';
                             }
                             echo '<th>';
@@ -400,9 +400,9 @@
                                         echo (trim($verificaAnalise[0]->stAvaliacao) == 'D') ? 'Deferido' : 'Indeferido';
                                     } else {
                                     	if ($this->status == 'EA') {
-                                        	echo "Em Análise";
+                                        	echo "Em An&aacute;lise";
                                     	} else {
-                                    		echo "Aguardando Análise";
+                                    		echo "Aguardando An&aacute;lise";
                                     	}
                                     }
                                     echo '</td>';
@@ -526,7 +526,7 @@
                                                 echo '</th>';
                                                 if ( !empty ( $this->AvaliacaoAnalise ) ){
                                                     echo '<th>';
-                                                     echo 'Justificativa Técnica';
+                                                     echo 'Justificativa T&eacute;cnica';
                                                     echo '</th>';
                                                 }
                                                 echo '<th>';
@@ -596,9 +596,9 @@
                                                 echo (trim($verificaAnalise[0]->stAvaliacao) == 'D') ? 'Deferido' : 'Indeferido';
                                             } else {
                                             	if ($this->status == 'EA') {
-                                                	echo "Em Análise";
+                                                	echo "Em An&aacute;lise";
                                             	} else {
-                                            		echo "Aguardando Análise";
+                                            		echo "Aguardando An&aacute;lise";
                                             	}
                                             }
                                             echo '</td>';
@@ -703,12 +703,12 @@
     }
     //-->
 </script>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

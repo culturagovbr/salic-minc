@@ -148,7 +148,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                 $this->view->DtFinalDeExecucao = $dados[0]->DtFinalDeExecucao;
                 $this->view->idEdital = $dados[0]->idEdital;
             } else {
-                $this->view->mensagem = 'Pré Projeto não encontrado.';
+                $this->view->mensagem = 'Pr&eacute; Projeto não encontrado.';
                 $this->view->tpmensagem = "msgERROR";
             }
 
@@ -288,7 +288,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                     $array['tpmensagem'] = 'msgCONFIRM';
                 }
             } catch (Zend_Exception $ex) {
-                parent::message("Não foi possível realizar a operação!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
+                parent::message("Não foi poss&iacute;vel realizar a operação!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
             }
         } else {
             $array['mensagem'] 	 = 'Dados incorretos.';
@@ -345,7 +345,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
             $this->view->idEdital = $dados[0]->idEdital;
             $this->view->dados = $dados[0];
         } else {
-            parent::message("Pré Projeto não encontrado!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
+            parent::message("Pr&eacute; Projeto não encontrado!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
         }
         $this->view->idUsuario = $this->idUsuario;
     }
@@ -677,7 +677,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
         if ($rsPreProjeto->save()) {
             parent::message("Exclus&atilde;o realizada com sucesso!", "/proposta/manterpropostaincentivofiscal/listarproposta", "CONFIRM");
         } else {
-            parent::message("N&atilde;o foi possível realizar a opera&ccedil;&atilde;o!", "/proposta/manterpropostaincentivofiscal/listarproposta", "ERROR");
+            parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o!", "/proposta/manterpropostaincentivofiscal/listarproposta", "ERROR");
         }
     }
 
@@ -901,7 +901,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                 "erro" => $arrResultado['erro'],
                 "resultado" => $arrResultado));
         } else {
-            parent::message("Necessário informar o número da proposta.", "/proposta/manterpropostaedital/index", "ERROR");
+            parent::message("Necess&aacute;rio informar o n&uacute;mero da proposta.", "/proposta/manterpropostaedital/index", "ERROR");
         }
     }
 
@@ -1241,7 +1241,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                     die();
                 }
             } else { //fecha IF se encontrou tecnicos para enviar a proposta
-                parent::message("A Proposta n&atilde;o foi enviado ao Minist&eacute;rio da TURISMO. Técnico n&atilde;o localizado", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
+                parent::message("A Proposta n&atilde;o foi enviado ao Minist&eacute;rio da TURISMO. T&eacute;cnico n&atilde;o localizado", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
                 die();
             }
         } else {

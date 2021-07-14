@@ -151,15 +151,15 @@
 
                 <?php if (($this->fnLiberarLinks['Analise'] && in_array($this->fnLiberarLinks['FaseDoProjeto'], array('2','3','4'))) || $this->usuarioInterno) {
             ?>
-                <!-- ======================= Análise e Aprovação  =======================   -->
+                <!-- ======================= An&aacute;lise e Aprovação  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Análise e Aprovação" class="ancoraAnaliseAprovacao" onclick="return false;">Análise e Aprovação</a>
+                <a href="#" title="An&aacute;lise e Aprovação" class="ancoraAnaliseAprovacao" onclick="return false;">An&aacute;lise e Aprovação</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'analise-projeto')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para An&aacute;lise do projeto">An&aacute;lise do projeto</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'aprovacao')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para Aprova&ccedil;&atilde;o">Aprova&ccedil;&atilde;o</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'recurso')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para Recursos">Recursos</a>
                 </div>
-                <!-- ==================== FIM - Análise e Aprovação  =======================   -->
+                <!-- ==================== FIM - An&aacute;lise e Aprovação  =======================   -->
                 <?php
         } ?>
 

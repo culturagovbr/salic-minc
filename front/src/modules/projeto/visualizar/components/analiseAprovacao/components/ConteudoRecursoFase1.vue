@@ -69,7 +69,7 @@
                             lg12
                             dark
                             class="text-xs-left">
-                            <b><h4>PARECER TÉCNICO</h4></b>
+                            <b><h4>PARECER T&eacute;CNICO</h4></b>
                             <v-divider class="pb-2"/>
                         </v-flex>
                         <v-flex
@@ -104,11 +104,11 @@
                                                     <v-flex
                                                         lg12
                                                         dark>
-                                                        <b><h4>ANÁLISE DE CONTEÚDO</h4></b>
+                                                        <b><h4>AN&aacute;LISE DE CONTE&uacute;DO</h4></b>
                                                         <v-divider class="pb-2"/>
                                                     </v-flex>
                                                     <v-flex>
-                                                        <b>Enquadramento Favorável? *</b>
+                                                        <b>Enquadramento Favor&aacute;vel? *</b>
                                                         <p>
                                                             {{
                                                                 (dadosprodutos.ParecerFavoravel === 0) ?
@@ -151,7 +151,7 @@
                                                             </p>
                                                         </v-flex>
                                                         <v-flex>
-                                                            <b>Alínea Artigo 18</b>
+                                                            <b>Al&iacute;nea Artigo 18</b>
                                                             <p>{{ dadosprodutos.AlineaArtigo18 }}</p>
                                                         </v-flex>
                                                     </template>
@@ -269,7 +269,7 @@
                                 v-for="(dadosParecer, index) in recurso.parecerRecurso"
                                 :key="index">
                                 <v-flex>
-                                    <b>Parecer Favorável?</b>
+                                    <b>Parecer Favor&aacute;vel?</b>
                                     <p>
                                         {{ (dadosParecer.ParecerFavoravel === '2') ? 'Sim' : 'Não' }}
                                     </p>
@@ -283,7 +283,7 @@
                             </v-flex>
                         </v-flex>
                         <v-flex>
-                            <b>Área</b>
+                            <b>&aacute;rea</b>
                             <p v-html="recurso.projetosENRecurso.area"/>
                         </v-flex>
                         <v-flex>

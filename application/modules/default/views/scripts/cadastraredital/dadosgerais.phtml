@@ -125,7 +125,7 @@ $(document).ready(function(){
 
 
         <form action="<?php echo $this->url(array('controller' => 'cadastraredital', 'action' => 'dadosgerais')); ?>" name="formCadastraEdital" method="POST" id="formCadastraEdital">
-        <!-- ========== INÍCIO TABELA DADOS ========== -->
+        <!-- ========== IN&iacute;CIO TABELA DADOS ========== -->
         <?php require_once "inc/menuabas.phtml"; // menu abas ?>
         <div id="tabDados">
             <table class="tabela">
@@ -442,19 +442,19 @@ $(document).ready(function(){
 					</tr>
                     <tr>
                         <td>
-                            Data INÍCIO<br /><input onkeyup="mascara(this, format_data)" onblur="avisaErro();" onchange="avisaErro();" type="text" id="faseElabIni" name="faseElabIni" colspan="3" class="btn_calendario input_simples required obg elab" maxlength="10" value="<?php echo $this->dtIniFase1 ?>" />
+                            Data IN&iacute;CIO<br /><input onkeyup="mascara(this, format_data)" onblur="avisaErro();" onchange="avisaErro();" type="text" id="faseElabIni" name="faseElabIni" colspan="3" class="btn_calendario input_simples required obg elab" maxlength="10" value="<?php echo $this->dtIniFase1 ?>" />
                         </td>
                         <td>
                             Data fim<br /><input onblur="avisaDia(1); avisaErro();" onclick="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseElabFim" colspan="3" id="faseElabFim" class="btn_calendario input_simples required obg elab1" maxlength="10" value="<?php echo $this->dtFimFase1 ?>" />
                         </td>
                         <td>
-                            Data INÍCIO<br /><input onclick="avisaDia(1); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseInscIni" id="faseInscIni" colspan="3" class="btn_calendario input_simples required obg insc" maxlength="10" value="<?php echo $this->dtIniFase2 ?>" />
+                            Data IN&iacute;CIO<br /><input onclick="avisaDia(1); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseInscIni" id="faseInscIni" colspan="3" class="btn_calendario input_simples required obg insc" maxlength="10" value="<?php echo $this->dtIniFase2 ?>" />
                         </td>
                         <td>
                             Data fim<br /><input onblur="avisaDia(2); avisaErro();" onclick="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseInscFim" id="faseInscFim" colspan="3" class="btn_calendario input_simples required obg insc1" maxlength="10" value="<?php echo $this->dtFimFase2 ?>" />
                         </td>
                         <td>
-                            Data INÍCIO<br /><input onclick="avisaDia(2); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseHabIni" id="faseHabIni" colspan="3" class="btn_calendario input_simples required obg hab" maxlength="10" value="<?php echo $this->dtIniFase3 ?>" />
+                            Data IN&iacute;CIO<br /><input onclick="avisaDia(2); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseHabIni" id="faseHabIni" colspan="3" class="btn_calendario input_simples required obg hab" maxlength="10" value="<?php echo $this->dtIniFase3 ?>" />
                         </td>
                         <td>
                             Data fim<br /><input onblur="avisaDia(3); avisaErro();" onclick="avisaErro();" onchange="avisaErro();"   onkeyup="mascara(this, format_data);" type="text" name="faseHabFim" id="faseHabFim" colspan="3" class="btn_calendario input_simples required obg hab1"  maxlength="10" value="<?php echo $this->dtFimFase3 ?>" />
@@ -468,19 +468,19 @@ $(document).ready(function(){
 					</tr>
                     <tr>
                         <td>
-                            Data INÍCIO<br /><input onclick="avisaDia(3); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseSelIni" id="faseSelIni" colspan="3" class="btn_calendario input_simples required obg sel" maxlength="10" value="<?php echo $this->dtIniFase4 ?>" />
+                            Data IN&iacute;CIO<br /><input onclick="avisaDia(3); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseSelIni" id="faseSelIni" colspan="3" class="btn_calendario input_simples required obg sel" maxlength="10" value="<?php echo $this->dtIniFase4 ?>" />
                         </td>
                         <td>
                             Data fim<br /><input onblur="avisaDia(4); avisaErro();" onclick="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseSelFim" id="faseSelFim" colspan="3" class="btn_calendario input_simples required obg sel1" maxlength="10" value="<?php echo $this->dtFimFase4 ?>" />
                         </td>
                         <td>
-                            Data INÍCIO<br /><input onclick="avisaDia(4); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseHomIni" id="faseHomIni" colspan="3" class="btn_calendario input_simples required obg hom" maxlength="10" value="<?php echo $this->dtIniFase5 ?>" />
+                            Data IN&iacute;CIO<br /><input onclick="avisaDia(4); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseHomIni" id="faseHomIni" colspan="3" class="btn_calendario input_simples required obg hom" maxlength="10" value="<?php echo $this->dtIniFase5 ?>" />
                         </td>
                         <td>
                             Data fim<br /><input onblur="avisaDia(5); avisaErro();" onclick="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseHomFim" id="faseHomFim" colspan="3" class="btn_calendario input_simples required obg hom1" maxlength="10" value="<?php echo $this->dtFimFase5 ?>" />
                         </td>
                         <td>
-                            Data INÍCIO<br /><input onclick="avisaDia(5); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseDivIni" id="faseDivIni" colspan="3" class="btn_calendario input_simples required obg div" maxlength="10" value="<?php echo $this->dtIniFase6 ?>" />
+                            Data IN&iacute;CIO<br /><input onclick="avisaDia(5); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseDivIni" id="faseDivIni" colspan="3" class="btn_calendario input_simples required obg div" maxlength="10" value="<?php echo $this->dtIniFase6 ?>" />
                         </td>
                         <td>
                             Data fim<br /><input onblur="avisaDia(6); avisaErro();" onclick="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseDivFim" id="faseDivFim" colspan="3" class="btn_calendario input_simples required obg div1" maxlength="10" value="<?php echo $this->dtFimFase6 ?>" />
@@ -494,19 +494,19 @@ $(document).ready(function(){
 					</tr>
                     <tr>
                         <td>
-                            Data INÍCIO<br /><input onclick="avisaDia(6); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="fasePagIni" id="fasePagIni" colspan="3" class="btn_calendario input_simples required obg pag" maxlength="10" value="<?php echo $this->dtIniFase7 ?>" />
+                            Data IN&iacute;CIO<br /><input onclick="avisaDia(6); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="fasePagIni" id="fasePagIni" colspan="3" class="btn_calendario input_simples required obg pag" maxlength="10" value="<?php echo $this->dtIniFase7 ?>" />
                         </td>
                         <td>
                             Data fim<br /><input onblur="avisaDia(7); avisaErro();" onclick="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="fasePagFim" id="fasePagFim" colspan="3" class="btn_calendario input_simples required obg pag1" maxlength="10" value="<?php echo $this->dtFimFase7 ?>" />
                         </td>
                         <td>
-                            Data INÍCIO<br /><input onclick="avisaDia(7); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseAcoIni" id="faseAcoIni" colspan="3" class="btn_calendario input_simples obg aco" maxlength="10" value="<?php echo $this->dtIniFase8 ?>" />
+                            Data IN&iacute;CIO<br /><input onclick="avisaDia(7); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseAcoIni" id="faseAcoIni" colspan="3" class="btn_calendario input_simples obg aco" maxlength="10" value="<?php echo $this->dtIniFase8 ?>" />
                         </td>
                         <td>
                             Data fim<br /><input onblur="avisaDia(8); avisaErro();" onclick="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="faseAcoFim" id="faseAcoFim" colspan="3" class="btn_calendario input_simples obg aco1" maxlength="10" value="<?php echo $this->dtFimFase8 ?>" />
                         </td>
                         <td>
-                            Data INÍCIO<br /><input onclick="avisaDia(8); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="fasePrestIni" id="fasePrestIni" colspan="3" class="btn_calendario input_simples prest" maxlength="10" value="<?php echo $this->dtIniFase9 ?>" />
+                            Data IN&iacute;CIO<br /><input onclick="avisaDia(8); avisaErro();" onblur="avisaErro();" onchange="avisaErro();" onkeyup="mascara(this, format_data);" type="text" name="fasePrestIni" id="fasePrestIni" colspan="3" class="btn_calendario input_simples prest" maxlength="10" value="<?php echo $this->dtIniFase9 ?>" />
                         </td>
                         <td>
                             Data fim<br /><input  onkeyup="mascara(this, format_data);" type="text" name="fasePrestFim" id="fasePrestFim" colspan="3" class="btn_calendario input_simples prest" maxlength="10" value="<?php echo $this->dtFimFase9 ?>" />
@@ -527,8 +527,8 @@ $(document).ready(function(){
 
 <!-- ========== FIM TABELA DADOS ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
 
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <br clear="all" />

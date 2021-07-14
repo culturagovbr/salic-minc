@@ -45,7 +45,7 @@
                             :items="dadosDestinatarios"
                             :rules="[rules.required]"
                             :loading="loadingDestinatarios"
-                            :label="loadingDestinatarios ? 'Carregando técnicos' : '-- Escolha um técnico  --'"
+                            :label="loadingDestinatarios ? 'Carregando t&eacute;cnicos' : '-- Escolha um t&eacute;cnico  --'"
                             height="10px"
                             single-line
                             outline
@@ -57,7 +57,7 @@
                             ref="justificativa"
                             v-model="justificativa"
                             :rules="[rules.required]"
-                            label="Observação de encaminhamento para análise"
+                            label="Observação de encaminhamento para an&aacute;lise"
                             prepend-icon="create"
                             color="green"
                             autofocus

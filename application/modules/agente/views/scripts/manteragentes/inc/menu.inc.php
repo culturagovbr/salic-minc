@@ -49,8 +49,8 @@
 			<div id="qm0" class="qmmc">
 				<a class ="no_seta" href="<?php echo $this->url(array('controller' => 'manteragentes', 'action' => 'buscaragente')); ?>" title="Ir para Localizar Agente">Pesquisar Agentes</a>
 				<a class ="no_seta" href="<?php echo $this->url(array('controller' => 'manteragentes', 'action' => 'agentes')); ?>?acao=cc" title="Ir para Incluir Agente" >Incluir Agente</a>
-                                <a class ="no_seta" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'vincularresponsavel', 'action' => 'index')); 	?>" title="Ir para Vincular Respons&aacute;vel">	Vincular Responsável </a>
-                                <a class ="no_seta" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'vincularresponsavel', 'action' => 'desvincularresponsavel')); 		?>" title="Ir para Desvincular Respons&aacute;vel" >		Desvincular Responsável</a>
+                                <a class ="no_seta" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'vincularresponsavel', 'action' => 'index')); 	?>" title="Ir para Vincular Respons&aacute;vel">	Vincular Respons&aacute;vel </a>
+                                <a class ="no_seta" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'vincularresponsavel', 'action' => 'desvincularresponsavel')); 		?>" title="Ir para Desvincular Respons&aacute;vel" >		Desvincular Respons&aacute;vel</a>
                         </div>
 			<div class="bottom"></div>
 			<div id="space_menu"></div>

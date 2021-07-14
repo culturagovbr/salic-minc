@@ -111,7 +111,7 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
         $this->_helper->json([
             'error' =>[
                 'code' => 403,
-                'message' => 'Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!'
+                'message' => 'Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!'
             ]
         ]);
     }

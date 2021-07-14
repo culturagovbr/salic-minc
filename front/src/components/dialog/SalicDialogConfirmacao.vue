@@ -37,7 +37,7 @@
    * Dialog de Confirmacao
    *
    * Como utilizar:
-   * Não é necessário chamar o componente, basta chamar:
+   * Não &eacute; necess&aacute;rio chamar o componente, basta chamar:
    * this.$root.$confirm('Deseja confirmar a alteração?', 'Deletar item', { color: 'red' }).then((confirm) => {})
    * Ou use await:
    * if (await this.$root.$confirm('Deseja confirmar a alteração?', 'Deletar item', { color: 'red' })) {

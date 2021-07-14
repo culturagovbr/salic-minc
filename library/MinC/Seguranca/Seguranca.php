@@ -6,7 +6,7 @@
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Seguranca
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -21,13 +21,13 @@ class Seguranca
 	 */
 	public static function tratarVar($variavel)
 	{
-		// caso a fun��o get_magic_quotes_gpc() esteja desabilitada, for�a a inserá�o da barra antes das aspas
+		// caso a fun��o get_magic_quotes_gpc() esteja desabilitada, for�a a inser&aacute;�o da barra antes das aspas
 		$variavel = get_magic_quotes_gpc() ? $variavel : addslashes($variavel);
 
 		// retira as barras antes das aspas
 		$variavel = stripslashes($variavel);
 
-		// converte tags html em entidades e retira os espa�os no INÍCIO e final das vari�veis
+		// converte tags html em entidades e retira os espa�os no IN&iacute;CIO e final das vari�veis
 		return htmlentities(trim($variavel), ENT_QUOTES); // converte aspas simples e duplas
 	}  // fecha m�todo tratarVar()
 

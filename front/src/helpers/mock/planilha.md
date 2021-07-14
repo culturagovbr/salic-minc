@@ -97,7 +97,7 @@
             {
               "idUnidade": 10,
               "Sigla": "per",
-              "Descricao": "Período"
+              "Descricao": "Per&iacute;odo"
             },
             {
               "idUnidade": 15,
@@ -122,7 +122,7 @@
             {
               "idUnidade": 24,
               "Sigla": "tit",
-              "Descricao": "Títulos"
+              "Descricao": "T&iacute;tulos"
             },
             {
               "idUnidade": 7,

@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se o item está disponível para edição no remanejamento
+ * Helper para verificar se o item est&aacute; dispon&iacute;vel para edição no remanejamento
  */
 
 class Zend_View_Helper_ItemDisponivelParaEdicaoRemanejamento extends Zend_View_Helper_Abstract
 {
     /**
-     * Método para verificar se o item está disponível para edição no remanejamento
+     * M&eacute;todo para verificar se o item est&aacute; dispon&iacute;vel para edição no remanejamento
      * @access public
      * @param array $planilha
      * @param integer $fonte
@@ -18,7 +18,7 @@ class Zend_View_Helper_ItemDisponivelParaEdicaoRemanejamento extends Zend_View_H
             PlanilhaEtapa::ETAPA_CUSTOS_VINCULADOS,
             PlanilhaEtapa::ETAPA_CAPTACAO_RECURSOS
         ];
-        
+
         if (($planilha['tpAcao'] != 'E') &&
             $fonte == '0' &&
             $planilha['vlAprovado'] > $planilha['vlComprovado'] &&

@@ -2,11 +2,11 @@
 echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">INÍCIO</a></li>
-        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="INÍCIO"-->Manuten&ccedil;&atilde;o<!--/a--></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">IN&iacute;CIO</a></li>
+        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="IN&iacute;CIO"-->Manuten&ccedil;&atilde;o<!--/a--></li>
         <li><a href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'consultarprojeto')); ?>" title="Ir para alterar projeto">Alterar projeto</a></li>
         <li class="last">Alterar plano de distribui&ccedil;&atilde;o</li>
     </ul>
@@ -327,13 +327,13 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
     <input type="hidden" name="idPlanoDistribuicao" id="idPlanoDistribuicao" value="<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>">
     <input type="hidden" name="idProjeto" id="idProjeto" value="<?php echo $planoDistribuicao->idProjeto; ?>">
     <input type="hidden" name="pronac" id="pronac" value="<?php echo $this->pronac; ?>">
-    <!-- ========== INÍCIO TABELA DADOS ========== -->
+    <!-- ========== IN&iacute;CIO TABELA DADOS ========== -->
     <table  class="tabela">
         <tr>
             <th colspan="4" align="center">Nome do Evento / Produto</th>
         </tr>
         <tr>
-            <td class="destacar bold" style="width: 1px;">Área <span style="color: red;">*</span></td>
+            <td class="destacar bold" style="width: 1px;">&aacute;rea <span style="color: red;">*</span></td>
             <td>
                 <select class="input_simples obrigatorio" name="areaCultural" id="areaCultural-<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>" value="<?php echo $planoDistribuicao->idArea; ?>">
                     <option value=""> - Selecione uma �rea cultural - </option>
@@ -448,8 +448,8 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 
 <?php endforeach; ?>
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

@@ -1,14 +1,14 @@
-Infra técnica e de desenvolvimento SALIC
+Infra t&eacute;cnica e de desenvolvimento SALIC
 
 
-# Código
+# C&oacute;digo
 
-    Histórias de uso - backlog
+    Hist&oacute;rias de uso - backlog
 
     A1) criacao de branch dev-backlog a partir do MASTER; criacao dos branches dev-bl-fernao e dev-bl-pedro a partir da branch dev-backlog
-    A2) após realizar alteracoes em sua branch, fernao manda suas alteracoes para a dev-backlog
+    A2) ap&oacute;s realizar alteracoes em sua branch, fernao manda suas alteracoes para a dev-backlog
     A3) correcoes de uma funcionalidade sao feitas diretamente na dev-backlog, que e tageada com v1.5.1 e jogada para a master
-    A4) após realizar correcoes em sua branch, pedro faz um merge para pegar as atualizacoes da master (ou da dev-backlog, que estara sincada com a master nesse momento)
+    A4) ap&oacute;s realizar correcoes em sua branch, pedro faz um merge para pegar as atualizacoes da master (ou da dev-backlog, que estara sincada com a master nesse momento)
     A5) pedro envia suas alteracoes para a dev-backlog
     A6) alteracoes na backlog sao publicadas na producao com a tag v1.5.2
 
@@ -28,7 +28,7 @@ Infra técnica e de desenvolvimento SALIC
                          \              /\          \     / \             \     / \           \       / \     \             /
     ----dev-IN-rafa-------o---o---o----o--\----------\---/---o---o---o---o-\---/---\---o---o---o-----o   \     \           /
                            \               \          \ /     \             \ /     \                     \     \         /
-    ----dev-INsync----------o---------------o----------o-------\-------------o-------\---------------------o     \       /        
+    ----dev-INsync----------o---------------o----------o-------\-------------o-------\---------------------o     \       /
                                                                 \                     \                           \     /
     ----dev-INfernao---------------------------------------------o---o---o---o---o-----o---------------------------o---o
 
@@ -36,10 +36,10 @@ Infra técnica e de desenvolvimento SALIC
     B                       1            2  3          4    5  6   7         8   9     10     11      12   13     14   15                16
 
 
-    Histórias de uso - nova IN:
+    Hist&oacute;rias de uso - nova IN:
 
     B1) criacao de branch dev-novaIN a partir do MASTER; criacao dos branches dev-IN-RAFA e dev-INsyn a partir da branch dev-novaIN
-    B2) após realizar alteracoes em sua branch, Rafa manda suas alteracoes para a dev-novaIN, que sao tageadas como versao alpha2.0.0
+    B2) ap&oacute;s realizar alteracoes em sua branch, Rafa manda suas alteracoes para a dev-novaIN, que sao tageadas como versao alpha2.0.0
     B3) responsavel pela branch de sincronizacao atualiza branch com a dev-novaIN
     B4) responsavel pela branch de sincronizacao puxa atualizacoes da branch dev-backlog que foram lancadas para a master
     B5) alteracoes de sync sao enviadas para branch dev-novaIN
@@ -50,8 +50,8 @@ Infra técnica e de desenvolvimento SALIC
     B10) fernao realiza alteracoes na sua branch e faz merge com ultimas alteracoes vindas do backlog/sync
     B11) rafa realiza alteracoes na sua branch e faz merge com ultimas alteracoes vindas do backlog/sync
     B12) rafa publica suas alteracoes no dev-novaIN
-    B13) sync atualiza código com base no dev-novaIN
-    B14) fernao atualiza código com base no dev-novaIN
+    B13) sync atualiza c&oacute;digo com base no dev-novaIN
+    B14) fernao atualiza c&oacute;digo com base no dev-novaIN
     B15) fernao publica suas alteracoes no dev-novaIN
     B16) alteracoes da dev-novaIN sao publicadas na master
 
@@ -111,7 +111,7 @@ Infra técnica e de desenvolvimento SALIC
     /db/procedure/sp2.sql
     /db/procedure/sp3.sql
     /db/etc...
-    
+
     ...
     /db/carga_inicial.sql
 

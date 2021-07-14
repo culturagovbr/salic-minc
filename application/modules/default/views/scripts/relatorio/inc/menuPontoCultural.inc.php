@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== IN&iacute;CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     function layout_fluido()
@@ -54,7 +54,7 @@
     }
 </script>
 
-        <!-- INÍCIO: navega��o local #qm0 -->
+        <!-- IN&iacute;CIO: navega��o local #qm0 -->
         <?php
 
             $get = Zend_Registry::get("get");

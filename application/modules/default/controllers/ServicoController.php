@@ -5,7 +5,7 @@
  * Classe abstrata que trata dos servi�os publicados como SOAP
  * sendo necess�rio apenas criar um controller que herde desta classe, a action
  * deve apenas e usar a fun��o setServiceClass() passando uma classe que deve conter
- * os metodos que seráo publicados pelo soap, o  com o phpdoc dos m�todos desta classe
+ * os metodos que ser&aacute;o publicados pelo soap, o  com o phpdoc dos m�todos desta classe
  * devem estar devidamente anotados, pois a class Zend_Soap_AutoDiscover faz uso
  * dos mesmos.
  * @author mikhail
@@ -49,7 +49,7 @@ abstract class ServicoController extends Zend_Controller_Action
     }
 
     /**
-     * Seta a classe de servi�o que será estudada (autodiscover) pelo phpdoc
+     * Seta a classe de servi�o que ser&aacute; estudada (autodiscover) pelo phpdoc
      * e disponibilizada como servi�o para ser consumida
      * @param string $class
      */

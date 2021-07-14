@@ -1,8 +1,8 @@
-# Documentação Parecer Técnico
+# Documentação Parecer T&eacute;cnico
 
-## Como acessar os Pareceres Técnicos no perfil de Coordenador de Prestação de Contas
+## Como acessar os Pareceres T&eacute;cnicos no perfil de Coordenador de Prestação de Contas
 
-* Primeiro passo, é necessário estar logado em um perfil de Coordenador de Prestação de Contas.
+* Primeiro passo, &eacute; necess&aacute;rio estar logado em um perfil de Coordenador de Prestação de Contas.
 * Segundo passo selecione a opção Avaliação de Resultados localizada no menu superior e clique na opção Analisar Parecer.
 
 ## Abas
@@ -15,74 +15,74 @@
 ## Encaminhar
 
 
-Para visualizar a lista dos projetos aguardando serem encaminhados a um técnico de prestação de contas é necessário selecionar a aba ENCAMINHAR.
+Para visualizar a lista dos projetos aguardando serem encaminhados a um t&eacute;cnico de prestação de contas &eacute; necess&aacute;rio selecionar a aba ENCAMINHAR.
 
-Há uma lista dos projetos a serem encaminhados, havendo a possibilidade de visualizar os dados do projeto ao clicar no número do Pronac e a possibilidade de encaminhar o projeto a um técnico de prestação de contas.
+H&aacute; uma lista dos projetos a serem encaminhados, havendo a possibilidade de visualizar os dados do projeto ao clicar no n&uacute;mero do Pronac e a possibilidade de encaminhar o projeto a um t&eacute;cnico de prestação de contas.
 
-![Parecer técnico aba Encaminhar](./imagens/parecer_tecnico_encaminhar.png)
+![Parecer t&eacute;cnico aba Encaminhar](./imagens/parecer_tecnico_encaminhar.png)
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
 #### 1. Encaminhar Projeto
 
-* Primeiro passo, é necessário clicar na ação Encaminhar Projeto.
-* Após a abertura do formulário de encaminhamento é preciso selecionar um técnico de prestação de contas e digitar uma justificativa de encaminhamento, para finalizar clique em ENCAMINHAR.
+* Primeiro passo, &eacute; necess&aacute;rio clicar na ação Encaminhar Projeto.
+* Ap&oacute;s a abertura do formul&aacute;rio de encaminhamento &eacute; preciso selecionar um t&eacute;cnico de prestação de contas e digitar uma justificativa de encaminhamento, para finalizar clique em ENCAMINHAR.
 
 ![Encaminhar projeto](./imagens/parecer_tecnico_encaminhar_encaminhar.png)
 
-## Em Análise
+## Em An&aacute;lise
 
-Para visualizar a lista dos projetos aguardando a assinatura do técnico de prestação de contas é necessário selecionar a aba EM ANALISE.
+Para visualizar a lista dos projetos aguardando a assinatura do t&eacute;cnico de prestação de contas &eacute; necess&aacute;rio selecionar a aba EM ANALISE.
 
-![Parecer técnico aba Em Análise](./imagens/parecer_tecnico_emanalise_coord.png)
+![Parecer t&eacute;cnico aba Em An&aacute;lise](./imagens/parecer_tecnico_emanalise_coord.png)
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
 #### 1. [Encaminhar Projeto](#1.-encaminhar-projeto)
-Esta ação tem como objetivo reencaminhar o projeto a outro técnico de prestação de contas.
+Esta ação tem como objetivo reencaminhar o projeto a outro t&eacute;cnico de prestação de contas.
 
-#### 2. Histórico de Encaminhamentos
-Visualizar o histórico de encaminhamentos do projeto.
+#### 2. Hist&oacute;rico de Encaminhamentos
+Visualizar o hist&oacute;rico de encaminhamentos do projeto.
 
 #### 3. Visualizar Projeto
-Ao clicar na ação, é aberta a planilha orçamentaria do projeto.
+Ao clicar na ação, &eacute; aberta a planilha orçamentaria do projeto.
 
 ![Visualizar Projeto](./imagens/parecer_tecnico_emanalise_visualizar.png)
 
-Dentro da planilha é possível(de acordo com a numeração da imagem acima):
+Dentro da planilha &eacute; poss&iacute;vel(de acordo com a numeração da imagem acima):
 1. Visualizar dados sobre o projeto.
 2. Visualizar dados acerca da consolidação do projeto.
-3. Visualizar os comprovantes dos items de custo quando disponíveis.
+3. Visualizar os comprovantes dos items de custo quando dispon&iacute;veis.
 
 ## Assinar
 
-Para visualizar a lista de projetos já assinados pelos respectivos técnicos e aguardando assinatura do coordenador de prestação de contas, é necessário selecionar aba ASSINAR.
+Para visualizar a lista de projetos j&aacute; assinados pelos respectivos t&eacute;cnicos e aguardando assinatura do coordenador de prestação de contas, &eacute; necess&aacute;rio selecionar aba ASSINAR.
 
-![Parecer Técnico aba ASSINAR](./imagens/parecer_tecnico_assinar.png)
+![Parecer T&eacute;cnico aba ASSINAR](./imagens/parecer_tecnico_assinar.png)
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
-#### 1. Histórico de Encaminhamentos
+#### 1. Hist&oacute;rico de Encaminhamentos
 
-Visualizar o histórico de encaminhamentos do projeto.
+Visualizar o hist&oacute;rico de encaminhamentos do projeto.
 
 #### 2. Assinar
 
-* Para assinar o projeto é necessário clicar na segunda ação disponível(Assinar)
-* Logo após será aberta a planilha orçamentária semelhante a da ação [Visualizar Projeto](#3.-visualizar-projeto) mas com um menu flutuante presente no canto inferior direito da tela.
-* Posicione o cursor do mouse em cima deste menu e selecione a ação Assinar assim como é mostrado na imagem abaixo.
+* Para assinar o projeto &eacute; necess&aacute;rio clicar na segunda ação dispon&iacute;vel(Assinar)
+* Logo ap&oacute;s ser&aacute; aberta a planilha orçament&aacute;ria semelhante a da ação [Visualizar Projeto](#3.-visualizar-projeto) mas com um menu flutuante presente no canto inferior direito da tela.
+* Posicione o cursor do mouse em cima deste menu e selecione a ação Assinar assim como &eacute; mostrado na imagem abaixo.
 
 ![Assinar Projeto](./imagens/parecer_tecnico_assinar_assinar.png)
 
-* Após isso será apresentado na tela o Parecer Técnico de Avaliação de Resultado, role até o final da página e encontre opções de imprimir este, gerar o .pdf deste documento e o botão de ASSINAR efetivamente o projeto.
+* Ap&oacute;s isso ser&aacute; apresentado na tela o Parecer T&eacute;cnico de Avaliação de Resultado, role at&eacute; o final da p&aacute;gina e encontre opções de imprimir este, gerar o .pdf deste documento e o botão de ASSINAR efetivamente o projeto.
 
-![Parecer Técnico de Avaliação de Resultado](./imagens/parecer_tecnico_assinar_doc.png)
+![Parecer T&eacute;cnico de Avaliação de Resultado](./imagens/parecer_tecnico_assinar_doc.png)
 ![Botão Assinar](./imagens/parecer_tecnico_assinar_botao.png)
 
 
 #### 3. Devolver Projeto
 
-Ao selecionar a ação de Devolver Projeto, o coordenador de prestação de contas devolve o projeto assinado ao técnico de prestação de contas para que este seja analisado novamente.
+Ao selecionar a ação de Devolver Projeto, o coordenador de prestação de contas devolve o projeto assinado ao t&eacute;cnico de prestação de contas para que este seja analisado novamente.
 
 Para concluir a devolução basta confirmar clicando no botão SIM.
 
@@ -90,27 +90,27 @@ Para concluir a devolução basta confirmar clicando no botão SIM.
 
 #### 4. [Visualizar Projeto](#3.-visualizar-projeto)
 
-Ao clicar na ação, é aberta a planilha orçamentaria do projeto.
+Ao clicar na ação, &eacute; aberta a planilha orçamentaria do projeto.
 
 ## Historico
 
-![Parecer Técnico aba Historico](./imagens/parecer_tecnico_historico.png)
+![Parecer T&eacute;cnico aba Historico](./imagens/parecer_tecnico_historico.png)
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
-#### 1. Histórico de Encaminhamentos
+#### 1. Hist&oacute;rico de Encaminhamentos
 
-Visualizar o histórico de encaminhamentos do projeto.
+Visualizar o hist&oacute;rico de encaminhamentos do projeto.
 
 #### 2. [Visualizar Projeto](#3.-visualizar-projeto)
 
-Ao clicar na ação, é aberta a planilha orçamentaria do projeto.
+Ao clicar na ação, &eacute; aberta a planilha orçamentaria do projeto.
 
 ---
 
-## Como acessar os Pareceres Técnicos no perfil de Técnico de Prestação de Contas
+## Como acessar os Pareceres T&eacute;cnicos no perfil de T&eacute;cnico de Prestação de Contas
 
-* Primeiro passo, é necessário estar logado em um perfil de Técnico de Prestação de Contas.
+* Primeiro passo, &eacute; necess&aacute;rio estar logado em um perfil de T&eacute;cnico de Prestação de Contas.
 * Segundo passo selecione a opção Avaliação de Resultados localizada no menu superior e clique na opção Analisar Parecer.
 
 ## Abas
@@ -119,55 +119,55 @@ Ao clicar na ação, é aberta a planilha orçamentaria do projeto.
 2. ASSINAR
 3. HISTORICO
 
-## Em Análise
+## Em An&aacute;lise
 
-Para visualizar a lista dos projetos aguardando a análise do técnico logado é necessário selecionar a aba EM ANALISE.
+Para visualizar a lista dos projetos aguardando a an&aacute;lise do t&eacute;cnico logado &eacute; necess&aacute;rio selecionar a aba EM ANALISE.
 
-![Parecer técnico aba Em Análise](./imagens/parecer_tecnico_emanalise_tec.png)
+![Parecer t&eacute;cnico aba Em An&aacute;lise](./imagens/parecer_tecnico_emanalise_tec.png)
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
-#### 1. Histórico de Encaminhamentos
-Visualizar o histórico de encaminhamentos do projeto.
+#### 1. Hist&oacute;rico de Encaminhamentos
+Visualizar o hist&oacute;rico de encaminhamentos do projeto.
 
 #### 2. Analisar Projeto
- O [analisar projeto](#3.-Visualizar-Projeto)  do Técnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas ,porém tem as opções de  comprovar item, diligenciar, emitir parecer.
+ O [analisar projeto](#3.-Visualizar-Projeto)  do T&eacute;cnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas ,por&eacute;m tem as opções de  comprovar item, diligenciar, emitir parecer.
 
 ## Assinar
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
-#### 1. Histórico de Encaminhamentos
+#### 1. Hist&oacute;rico de Encaminhamentos
 
-Visualizar o histórico de encaminhamentos do projeto.
+Visualizar o hist&oacute;rico de encaminhamentos do projeto.
 
 #### 2. Assinar
 
-O [assinar](#2.-assinar) do Técnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas 
+O [assinar](#2.-assinar) do T&eacute;cnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas
 
 #### 3. Devolver Projeto
 
-O [devolver](#3.-Devolver-Projeto) do Técnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas 
+O [devolver](#3.-Devolver-Projeto) do T&eacute;cnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas
 
 
-#### 4. [Projeto](#3.-visualizar-projeto)  
+#### 4. [Projeto](#3.-visualizar-projeto)
 
 ## Historico
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
-#### 1. Histórico de Encaminhamentos
+#### 1. Hist&oacute;rico de Encaminhamentos
 
-Visualizar o histórico de encaminhamentos do projeto.
+Visualizar o hist&oacute;rico de encaminhamentos do projeto.
 
 #### 2. [Visualizar Projeto](#3.-visualizar-projeto)
 
-Ao clicar na ação, é aberta a planilha orçamentaria do projeto.
+Ao clicar na ação, &eacute; aberta a planilha orçamentaria do projeto.
 
 ---
-## Como acessar os Pareceres Técnicos no perfil de Coordenador Geral de Prestação de Contas
+## Como acessar os Pareceres T&eacute;cnicos no perfil de Coordenador Geral de Prestação de Contas
 
-* Primeiro passo, é necessário estar logado em um perfil de Coordenador Geral de Prestação de Contas.
+* Primeiro passo, &eacute; necess&aacute;rio estar logado em um perfil de Coordenador Geral de Prestação de Contas.
 * Segundo passo selecione a opção Avaliação de Resultados localizada no menu superior e clique na opção Analisar Parecer.
 
 ## Abas
@@ -176,53 +176,53 @@ Ao clicar na ação, é aberta a planilha orçamentaria do projeto.
 2. ASSINAR
 3. HISTORICO
 
-## Em Análise
+## Em An&aacute;lise
 
-Para visualizar a lista dos projetos em análise é necessário selecionar a aba EM ANALISE.
+Para visualizar a lista dos projetos em an&aacute;lise &eacute; necess&aacute;rio selecionar a aba EM ANALISE.
 
-![Parecer técnico aba Em Análise](./imagens/parecer_tecnico_emanalise_coord_geral.png)
+![Parecer t&eacute;cnico aba Em An&aacute;lise](./imagens/parecer_tecnico_emanalise_coord_geral.png)
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
 #### 1. [Encaminhar Projeto](#1.-encaminhar-projeto)
 
 
-#### 2. Histórico de Encaminhamentos
-Visualizar o histórico de encaminhamentos do projeto.
+#### 2. Hist&oacute;rico de Encaminhamentos
+Visualizar o hist&oacute;rico de encaminhamentos do projeto.
 
 #### 3. [Visualizar Projeto](#3.-visualizar-projeto)
 
 ## Assinar
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
-#### 1. Histórico de Encaminhamentos
+#### 1. Hist&oacute;rico de Encaminhamentos
 
-Visualizar o histórico de encaminhamentos do projeto.
+Visualizar o hist&oacute;rico de encaminhamentos do projeto.
 
 #### 2. Assinar
 
-A ação Assinar do Coordenador Geral de Prestação de contas é semelhante a ação Assinar do Coordenador de Prestação de Contas e já foi descrita [aqui](#2.-assinar).
+A ação Assinar do Coordenador Geral de Prestação de contas &eacute; semelhante a ação Assinar do Coordenador de Prestação de Contas e j&aacute; foi descrita [aqui](#2.-assinar).
 
 #### 3. Devolver Projeto
 
-A ação [Devolver] do Coordenador Geral de Prestação de contas é semelhante a ação Devolver do Coordenador de Prestação de Contas e já foi descrita [aqui](#3.-Devolver-Projeto). 
+A ação [Devolver] do Coordenador Geral de Prestação de contas &eacute; semelhante a ação Devolver do Coordenador de Prestação de Contas e j&aacute; foi descrita [aqui](#3.-Devolver-Projeto).
 
-#### 4. [Visualizar Projeto](#3.-visualizar-projeto)  
+#### 4. [Visualizar Projeto](#3.-visualizar-projeto)
 
 ## Historico
 
-![Parecer técnico aba Historico](./imagens/parecer_tecnico_historico_coord_geral.png)
+![Parecer t&eacute;cnico aba Historico](./imagens/parecer_tecnico_historico_coord_geral.png)
 
-### Ações disponíveis:
+### Ações dispon&iacute;veis:
 
-#### 1. Histórico de Encaminhamentos
+#### 1. Hist&oacute;rico de Encaminhamentos
 
-Visualizar o histórico de encaminhamentos do projeto.
+Visualizar o hist&oacute;rico de encaminhamentos do projeto.
 
 #### 2. [Visualizar Projeto](#3.-visualizar-projeto)
 
-Ao clicar na ação, é aberta a planilha orçamentaria do projeto.
+Ao clicar na ação, &eacute; aberta a planilha orçamentaria do projeto.
 
 
 

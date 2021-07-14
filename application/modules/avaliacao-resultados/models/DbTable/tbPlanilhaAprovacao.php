@@ -275,7 +275,7 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
     }
 
     /**
-     * Método para verificar se existe algum item já cadastrado na mesma fonte, produto, etapa e município
+     * M&eacute;todo para verificar se existe algum item j&aacute; cadastrado na mesma fonte, produto, etapa e munic&iacute;pio
      * @access public
      * @param integer $idPronac
      * @param integer $nrFonteRecurso
@@ -322,7 +322,7 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
     }
 
     /**
-     * Método para retornar o valor total da planilha ativa
+     * M&eacute;todo para retornar o valor total da planilha ativa
      * @access public
      * @param integer $idPronac
      * @param array $nrFonteRecurso
@@ -350,7 +350,7 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
     }
 
     /**
-     * Método para retornar o valor total da planilha ativa
+     * M&eacute;todo para retornar o valor total da planilha ativa
      * @access public
      * @param integer $idPronac
      * @param integer $idPlanilhaItem
@@ -377,7 +377,7 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
     }
 
     /**
-     * Método para retornar o valor total da planilha readequada
+     * M&eacute;todo para retornar o valor total da planilha readequada
      * @access public
      * @param integer $idPronac
      * @param integer $idReadequacao
@@ -733,7 +733,7 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
     }
 
     /**
-     * Método que copia planilha associando a um idReadequacao
+     * M&eacute;todo que copia planilha associando a um idReadequacao
      * @access private
      * @param integer $idPronac
      * @param integer $idReadequacao

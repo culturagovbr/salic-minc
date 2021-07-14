@@ -308,7 +308,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             // Plano de execução imediata #novain
             if ($post['stproposta'] == '618') { // proposta execucao imediata edital
                 $idDocumento = 248;
-            } elseif ($post['stproposta'] == '619') { // proposta execucao imediata contrato de patrocínio
+            } elseif ($post['stproposta'] == '619') { // proposta execucao imediata contrato de patroc&iacute;nio
                 $idDocumento = 162;
             }
 
@@ -415,7 +415,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             // Plano de execução imediata #novain
             if ($this->_proposta["stproposta"] == '618') { // proposta execucao imediata edital
                 $idDocumento = 248;
-            } elseif ($this->_proposta["stproposta"] == '619') { // proposta execucao imediata contrato de patrocínio
+            } elseif ($this->_proposta["stproposta"] == '619') { // proposta execucao imediata contrato de patroc&iacute;nio
                 $idDocumento = 162;
             }
             if (!empty($idDocumento)) {
@@ -464,14 +464,14 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
     /**
      * Encaminhar projeto ao MinC
      *
-     * Metódo para o proponente finalizar a situação do projeto, nem sempre este metódo será acionado,
-     * tendo em vista que existe uma rotina no banco para alterar a situacao do projeto após o prazo de alteracao.
+     * Met&oacute;do para o proponente finalizar a situação do projeto, nem sempre este met&oacute;do ser&aacute; acionado,
+     * tendo em vista que existe uma rotina no banco para alterar a situacao do projeto ap&oacute;s o prazo de alteracao.
      *
      * Regras antes de encaminhar
      * 1. Validar o checklist da proposta
      *
      * Regras ao encaminhar
-     * Quando o proponente clicar na opção Encaminhar projeto ao MinC, o sistema deverá a alterar situação do projeto para B20,
+     * Quando o proponente clicar na opção Encaminhar projeto ao MinC, o sistema dever&aacute; a alterar situação do projeto para B20,
      * com a seguinte providencia tomada: Projeto ajustado pelo proponente e encaminhado ao MinC para avaliação.
      *
      *
@@ -518,7 +518,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                     $orgaoUsuario = Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI;
                 }
 
-                # verificar se o projeto já possui avaliador
+                # verificar se o projeto j&aacute; possui avaliador
                 $tbAvaliacao = new Analise_Model_DbTable_TbAvaliarAdequacaoProjeto();
                 $avaliacao = $tbAvaliacao->buscarUltimaAvaliacao($idPronac);
 
@@ -558,7 +558,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         if ($preProjeto->save()) {
             parent::message("Exclus&atilde;o realizada com sucesso!", "/proposta/manterpropostaincentivofiscal/listarproposta", "CONFIRM");
         } else {
-            parent::message("N&atilde;o foi possível realizar a opera&ccedil;&atilde;o!", "/proposta/manterpropostaincentivofiscal/listarproposta", "ERROR");
+            parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o!", "/proposta/manterpropostaincentivofiscal/listarproposta", "ERROR");
         }
     }
 

@@ -62,7 +62,7 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
         $this->view->preprojeto = $preprojeto;
 
         if (count($this->view->comboareasculturais) < 1) {
-            throw new Exception("N&atilde;o foram encontradas Áreas Culturais para o PRONAC informado.");
+            throw new Exception("N&atilde;o foram encontradas &aacute;reas Culturais para o PRONAC informado.");
         }
 
         $this->view->id_perfil_usuario = $this->grupoAtivo->codGrupo;

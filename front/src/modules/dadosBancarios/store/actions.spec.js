@@ -803,11 +803,11 @@ describe('Projeto actions', () => {
                     data: {
                         items: {
                             diligenciaAdequacao: {
-                                tipoDiligencia: 'Dilig�ncia na Análise da adequa��o � realidade do projeto.',
+                                tipoDiligencia: 'Dilig�ncia na An&aacute;lise da adequa��o � realidade do projeto.',
                                 idAvaliarAdequacaoProjeto: 1452,
                             },
                             diligenciaProjeto: {
-                                tipoDiligencia: 'Dilig�ncia de Checklist - Análise',
+                                tipoDiligencia: 'Dilig�ncia de Checklist - An&aacute;lise',
                                 idDiligencia: 72427,
                             },
                             diligenciaProposta: {

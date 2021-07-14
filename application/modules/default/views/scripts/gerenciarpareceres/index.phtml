@@ -92,7 +92,7 @@
         $("#modalDevolverParaAnalise").dialog({
             width:750,
             height:470,
-            title: "Devolver para Análise",
+            title: "Devolver para An&aacute;lise",
             EscClose:false,
             modal:true,
             buttons: {
@@ -108,18 +108,18 @@
     }
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
-        <li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres Técnicos</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
+        <li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres T&eacute;cnicos</a></li>
         <li class="last">Principal</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
     <div>Gerenciar Pareceres<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -142,7 +142,7 @@
                 </td>
             </tr>
             <!--<tr>
-                <td class="destacar bold">Código ECT:</td>
+                <td class="destacar bold">C&oacute;digo ECT:</td>
                 <td><input type="text" class="input_simples numero" name="cod_ect" id="cod_ect" value="" size="20" maxlength="20" /></td>
             </tr>-->
             <tr>
@@ -155,7 +155,7 @@
     </form>
 </div>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
     <div id="modalConfirm" style="display: none;"><span id="msgmodal"></span></div>
 
@@ -196,12 +196,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao']; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="button" class="btn_imprimir">
@@ -229,7 +229,7 @@
             <th align="center" nowrap><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=Situacao&ordem='.$this->paginacao['novaOrdem'];?>">Situa&ccedil;&atilde;o</a></th>
             <th align="center" nowrap><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=NomeProponente&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Proponente</a></th>
             <th align="center" width="105"><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtConsolidacao&ordem='.$this->paginacao['novaOrdem'];?>">Dt Consolida&ccedil;&atilde;o</a></th>
-            <th align="center" width="160">Dados da Análise Técnica</th>
+            <th align="center" width="160">Dados da An&aacute;lise T&eacute;cnica</th>
 
             <?php if($this->codGrupo == 103){ ?>
             <th align="center" width="160">Devolver para An&aacute;lise</th>
@@ -250,10 +250,10 @@
             <td align="left" style="padding-left: 20px;"><?php echo $pc->Situacao; ?></td>
             <td align="left" style="padding-left: 20px;"><?php echo $pc->NomeProponente; ?></td>
             <td align="center" nowrap><?php echo $pc->DtConsolidacao; ?></td>
-            <td align="center"><img style="cursor:pointer;" title="Dados da Análise Técnica" src="<?php echo $this->baseUrl(); ?>/public/img/ico/archive.png" onclick="window.open('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'dadosdaanalisetecnica'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
+            <td align="center"><img style="cursor:pointer;" title="Dados da An&aacute;lise T&eacute;cnica" src="<?php echo $this->baseUrl(); ?>/public/img/ico/archive.png" onclick="window.open('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'dadosdaanalisetecnica'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
 
             <?php if($this->codGrupo == 103){ ?>
-            <td align="center"><img style="cursor:pointer;" title="Devolver para Análise" src="<?php echo $this->baseUrl(); ?>/public/img/ico/undo.png" onclick="devolverParaAnalise('<?php echo $pc->IdPRONAC; ?>'); //redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'devolverparaanalise'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
+            <td align="center"><img style="cursor:pointer;" title="Devolver para An&aacute;lise" src="<?php echo $this->baseUrl(); ?>/public/img/ico/undo.png" onclick="devolverParaAnalise('<?php echo $pc->IdPRONAC; ?>'); //redirecionar('<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'devolverparaanalise'));?>/idpronac/<?php echo $pc->IdPRONAC; ?>');" /></td>
             <td align="center">
                 <?php if($pc->Situacao == 'C20'){ ?>
                 <img style="cursor:pointer;" title="Balancear" src="<?php echo $this->baseUrl(); ?>/public/img/encaminhar22x22.jpg" onclick="confirmaBalancear(<?php echo $pc->IdPRONAC; ?>);" /></td>
@@ -307,12 +307,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao']; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="button" class="btn_imprimir">
@@ -375,10 +375,10 @@
 
     <div id="modalDevolverParaAnalise" class=""></div>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

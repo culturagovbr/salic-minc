@@ -3,11 +3,11 @@
 echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">INÍCIO</a></li>
-        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="INÍCIO"-->Manuten&ccedil;&atilde;o<!--/a--></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">IN&iacute;CIO</a></li>
+        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="IN&iacute;CIO"-->Manuten&ccedil;&atilde;o<!--/a--></li>
         <li><a href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'consultarprojeto')); ?>" title="Ir para alterar projeto">Alterar projeto</a></li>
         <li class="last">Alterar identifica&ccedil;&atilde;o</li>
     </ul>
@@ -29,11 +29,11 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
             // Define as regras
             rules:{
                 NomeProjeto:{
-                    // campoNome será obrigat�rio (required) e ter� tamanho m�nimo (minLength)
+                    // campoNome ser&aacute; obrigat�rio (required) e ter� tamanho m�nimo (minLength)
                     required: true
                 },
                 justificativa:{
-                    // campoEmail será obrigat�rio (required) e precisar� ser um e-mail v�lido (email)
+                    // campoEmail ser&aacute; obrigat�rio (required) e precisar� ser um e-mail v�lido (email)
                     required: true
                 }
             },
@@ -148,9 +148,9 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 </div>
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />
 <iframe name="enviar_arquivo" id="enviar_arquivo" style="height: 20px; display: none;"></iframe>

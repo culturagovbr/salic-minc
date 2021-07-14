@@ -115,7 +115,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
         if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
+            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM An&aacute;lise
             $IdPronac = $_GET['idpedidoalteracao'];
 
             self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltnomproj');
@@ -182,7 +182,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
         if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
+            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM An&aacute;lise
             $IdPronac = $_GET['idpedidoalteracao'];
 
             self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltrazsoc');
@@ -261,7 +261,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
         if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
+            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM An&aacute;lise
             $IdPronac = $_GET['idpedidoalteracao'];
 
             self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltnomprp');
@@ -330,7 +330,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
         if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
+            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM An&aacute;lise
             $IdPronac = $_GET['idpedidoalteracao'];
 
             self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltlocrel');
@@ -386,7 +386,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
     }
 
     /*
-    *  View: Solicitação de Altera��o da Ficha Técnica
+    *  View: Solicitação de Altera��o da Ficha T&eacute;cnica
     */
     public function solaltfictecAction()
     {
@@ -405,7 +405,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
         if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
+            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM An&aacute;lise
             $IdPronac = $_GET['idpedidoalteracao'];
 
             self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltfictec');
@@ -472,7 +472,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
         if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
+            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM An&aacute;lise
             $IdPronac = $_GET['idpedidoalteracao'];
 
             self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltprogprazcap');
@@ -542,7 +542,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
         if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
+            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM An&aacute;lise
             $IdPronac = $_GET['idpedidoalteracao'];
 
             self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltprogprazexec');
@@ -821,7 +821,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
                 throw new Exception("As informa��es abaixo s�o obrigat�rias:
 					<br />- Pronac
 					<br />- Abrang�ncia
-					<br />- Código da Avaliacao do Item de Pedido de Alteracao
+					<br />- C&oacute;digo da Avaliacao do Item de Pedido de Alteracao
 					<br />- A avalia��o (Deferido / Indeferido)
 					<br />- A justificativa da avalia��o");
             }
@@ -1011,10 +1011,10 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $stAvaliacaoSubItemPedidoAlteracao = $verificaSubItemPedidoAlteracao[0]->stAvaliacao;
 
         if ($stAvaliacaoSubItemPedidoAlteracao == "AG") {
-            $this->view->statusAnalise = "Aguardando Análise";
+            $this->view->statusAnalise = "Aguardando An&aacute;lise";
         }
         if ($stAvaliacaoSubItemPedidoAlteracao == "EA") {
-            $this->view->statusAnalise = "Em Análise";
+            $this->view->statusAnalise = "Em An&aacute;lise";
         }
         if ($stAvaliacaoSubItemPedidoAlteracao == "AP") {
             $this->view->statusAnalise = "Aprovado";

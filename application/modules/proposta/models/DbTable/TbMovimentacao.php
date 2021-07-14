@@ -86,7 +86,7 @@ class Proposta_Model_DbTable_TbMovimentacao extends MinC_Db_Table_Abstract
                         WHEN mov.Movimentacao = 95
                             THEN 'Proposta com o proponente'
                         WHEN mov.Movimentacao = 96
-                            THEN 'Proposta para análise inicial'
+                            THEN 'Proposta para an&aacute;lise inicial'
                         ELSE
                             ver.Descricao
                         END

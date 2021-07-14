@@ -25,7 +25,7 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
     public function init()
     {
         $auth = Zend_Auth::getInstance(); // pega a autentica�?o
-        $this->view->title = "Salic - Sistema de Apoio ?s Leis de Incentivo ? Cultura"; // t�tulo da página
+        $this->view->title = "Salic - Sistema de Apoio ?s Leis de Incentivo ? Cultura"; // t�tulo da p&aacute;gina
 
         $auth = Zend_Auth::getInstance();// instancia da autentica��o
         if (isset($auth->getIdentity()->usu_codigo)) { // autenticacao novo salic

@@ -42,7 +42,7 @@
                 sm2
                 md2
             >
-                <b>Área</b><br>
+                <b>&aacute;rea</b><br>
                 {{ produto.area }}
             </v-flex>
             <v-flex

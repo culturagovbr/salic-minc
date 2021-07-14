@@ -130,11 +130,11 @@
                                     lg12
                                     dark
                                     class="text-xs-left">
-                                    <b><h4>PERÍODO DE CAPTAÇÃO</h4></b>
+                                    <b><h4>PER&iacute;ODO DE CAPTAÇÃO</h4></b>
                                     <v-divider class="pb-2"/>
                                 </v-flex>
                                 <v-flex>
-                                    <p><b>Dt. Início</b></p>
+                                    <p><b>Dt. In&iacute;cio</b></p>
                                     <p>
                                         {{ itemEmVisualizacao.DtInicioCaptacao | formatarData }}
                                     </p>
@@ -154,7 +154,7 @@
                                     lg12
                                     dark
                                     class="text-xs-left">
-                                    <b><h4>SÍNTESE APROVAÇÃO</h4></b>
+                                    <b><h4>S&iacute;NTESE APROVAÇÃO</h4></b>
                                     <v-divider class="pb-2"/>
                                 </v-flex>
                                 <v-flex>

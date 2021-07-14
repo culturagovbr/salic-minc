@@ -14,7 +14,7 @@
         <li class="last">Resultado</li>
     </ul>
 </div>
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
     <div>Conta Banc&aacute;ria - Resultado<span class="voltar"><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'conta-bancaria')); ?>">Voltar</a></span></div>
 </div>
@@ -47,12 +47,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="pronac" value="<?php echo $this->pronac;?>">
@@ -92,7 +92,7 @@
                 <th><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap.'&campo=8&ordem='.$this->paginacao['novaOrdem'];?>">Tipo de Pessoa</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap.'&campo=9&ordem='.$this->paginacao['novaOrdem'];?>">N&ordm; Portaria</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap.'&campo=10&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Publica��o Portaria</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap.'&campo=11&ordem='.$this->paginacao['novaOrdem'];?>">Dt. INÍCIO Capta��o</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap.'&campo=11&ordem='.$this->paginacao['novaOrdem'];?>">Dt. IN&iacute;CIO Capta��o</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap.'&campo=12&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Fim Capta��o</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap.'&campo=13&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Nascimento</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap.'&campo=14&ordem='.$this->paginacao['novaOrdem'];?>">Ag�ncia</a></th>
@@ -254,12 +254,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'operacional', 'action' => 'resultado-conta-bancaria')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&pronac='.$this->pronac.'&tpPessoa='.$this->tpPessoa.'&ocorrencia='.$this->ocorrencia.'&estadoConta='.$this->estadoConta.'&tpDtLtCap='.$this->tpDtLtCap.'&dtInicioLtCap='.$this->dtInicioLtCap.'&dtFimLtCap='.$this->dtFimLtCap; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="pronac" value="<?php echo $this->pronac;?>">
@@ -303,8 +303,8 @@
     <br clear="all" />
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

@@ -120,10 +120,10 @@ export default {
                 { text: 'Dist. Gratuita', align: 'center', value: 'qtGratuitaDivulgacao' },
                 { text: 'Qtd. Inteira (P)', align: 'center', value: 'qtPopularIntegral' },
                 { text: 'Qtd. Meia (P)', align: 'center', value: 'qtPopularParcial' },
-                { text: 'Preço Unitário(P)', align: 'center', value: 'vlUnitarioPopularIntegral' },
+                { text: 'Preço Unit&aacute;rio(P)', align: 'center', value: 'vlUnitarioPopularIntegral' },
                 { text: 'Qtd. Inteira (PR)', align: 'center', value: 'qtProponenteIntegral' },
                 { text: 'Qtd. Meia (PR)', align: 'center', value: 'qtProponenteParcial' },
-                { text: 'Preço Unitário (PR)', align: 'center', value: 'vlUnitarioProponenteIntegral' },
+                { text: 'Preço Unit&aacute;rio (PR)', align: 'center', value: 'vlUnitarioProponenteIntegral' },
                 { text: 'Receita Prevista', align: 'center', value: 'vlReceitaPrevista' },
             ],
         };

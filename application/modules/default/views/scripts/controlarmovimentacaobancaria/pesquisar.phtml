@@ -19,7 +19,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.controlarmovimentacaobancaria
- * @copyright � 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2011 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -37,7 +37,7 @@ else
 if($this->cabecalho == 0){
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $urlInicio; ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -50,7 +50,7 @@ if($this->cabecalho == 0){
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
 	<div>Relat&oacute;rio da conta movimenta&ccedil;&atilde;o <span class="voltar"><a href="<?php echo $urlVoltar ?>" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
@@ -58,7 +58,7 @@ if($this->cabecalho == 0){
 <div id="conteudo">
 <?php } ?>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 
 
 	<script type="text/javascript">
@@ -76,7 +76,7 @@ if($this->cabecalho == 0){
 
 
 
-	<!-- INÍCIO GERA��O .PDF -->
+	<!-- IN&iacute;CIO GERA��O .PDF -->
 	<form id="formpdf" name="formpdf" method="post"
 		action="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'gerarpdf'),'',true); ?>"
 		enctype="multipart/form-data">
@@ -85,7 +85,7 @@ if($this->cabecalho == 0){
 	<!-- FIM GERA��O .PDF -->
 
 
-        <!-- INÍCIO GERA��O .PDF -->
+        <!-- IN&iacute;CIO GERA��O .PDF -->
 	<form id="frmPaginacao" name="formfrmPaginacaopdf" method="post"
 		action="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'pesquisar'),'',true); ?>"
 		enctype="multipart/form-data">
@@ -114,12 +114,12 @@ if($this->cabecalho == 0){
 
 
 
-	<!-- ========== INÍCIO �REA DE IMPRESS�O ========== -->
+	<!-- ========== IN&iacute;CIO �REA DE IMPRESS�O ========== -->
 	<div id="imprimir">
 
 
 
-	<!-- ========== INÍCIO TABELA COM O EXTRATO ========== -->
+	<!-- ========== IN&iacute;CIO TABELA COM O EXTRATO ========== -->
 	<?php if (count($this->dados) <= 0) { ?>
 	<div class="msgALERT">
 		<div>
@@ -178,7 +178,7 @@ if($this->cabecalho == 0){
 
 
 		<?php
-		/* ========== INÍCIO CONSTANTE 2 ========== */
+		/* ========== IN&iacute;CIO CONSTANTE 2 ========== */
 		$array_pronacs_2 = array(); // array com os pronacs, e, que servir� como 'cache' para evitar a impress�o de nomes de projetos repetidos
 		$array_movimen_2 = array(); // array com os id da movimentacao dos itens, e, que servir� como 'cache' para evitar a impress�o itens
 		$item_2          = 1; // contador para os itens
@@ -188,7 +188,7 @@ if($this->cabecalho == 0){
 		?>
 
 				<?php
-				/* ========== INÍCIO IMPRESS�O DO CABE�ALHO COM O PRONAC ========== */
+				/* ========== IN&iacute;CIO IMPRESS�O DO CABE�ALHO COM O PRONAC ========== */
 				if (!in_array($d->pronac, $array_pronacs_2)) :
 				$i_2 = 0; // contador para cor de linhas (por pronac)
 				?>
@@ -296,7 +296,7 @@ if($this->cabecalho == 0){
 
 
 		<?php
-		/* ========== INÍCIO CONSTANTE 3 ========== */
+		/* ========== IN&iacute;CIO CONSTANTE 3 ========== */
 		$array_pronacs_3 = array(); // array com os pronacs, e, que servir� como 'cache' para evitar a impress�o de nomes de projetos repetidos
 		$array_movimen_3 = array(); // array com os id da movimentacao dos itens, e, que servir� como 'cache' para evitar a impress�o itens
 		$item_3          = 1; // contador para os itens
@@ -306,7 +306,7 @@ if($this->cabecalho == 0){
 		?>
 
 				<?php
-				/* ========== INÍCIO IMPRESS�O DO CABE�ALHO COM O PRONAC ========== */
+				/* ========== IN&iacute;CIO IMPRESS�O DO CABE�ALHO COM O PRONAC ========== */
 				if (!in_array($d->pronac, $array_pronacs_3)) :
 				$i_3 = 0; // contador para cor de linhas (por pronac)
 				?>
@@ -413,7 +413,7 @@ if($this->cabecalho == 0){
 			<td colspan="11" class="linha_pronac">&nbsp;</td>
 		</tr>
 
-		<!-- ========== INÍCIO SALDO TOTAL DISPON�VEL ========== -->
+		<!-- ========== IN&iacute;CIO SALDO TOTAL DISPON�VEL ========== -->
 		<?php $saldo_final = $saldo_final_2 + $saldo_final_3; ?>
 		<tr>
 			<th align="left">Saldo Total Dispon&iacute;vel</th>
@@ -465,19 +465,19 @@ if($this->cabecalho == 0){
 </table>
 
 
-	<!-- ========== INÍCIO BOT�ES ========== -->
+	<!-- ========== IN&iacute;CIO BOT�ES ========== -->
 
 	<!-- ========== FIM BOT�ES ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

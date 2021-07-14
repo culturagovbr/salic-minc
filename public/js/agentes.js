@@ -159,12 +159,12 @@ function validaAgenteNovo()
     }
     else if ((visao == '210') && (grupologado != '118') && (verifica == false)) // valida&ccedil;&atilde;o de vis&atilde;o para o Componente da Comiss&atilde;o
     {
-        alertar("Selecione outra Área Cultural!", "area");
+        alertar("Selecione outra &aacute;rea Cultural!", "area");
         exibirMsgErro('area','erroTitular');
     }
     else if ((visao == '210') && (grupologado != '118') && (areaCultural == '0')) // valida&ccedil;&atilde;o de vis&atilde;o para o Componente da Comiss&atilde;o
     {
-        alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, informe a Área Cultural!", "area");
+        alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, informe a &aacute;rea Cultural!", "area");
         exibirMsgErro('area','erroAreaCultural');
     }
 //    else if ((visao == '210') && (grupologado != '118') && (segmentoCultural == '0')) // valida&ccedil;&atilde;o de vis&atilde;o para o Componente da Comiss&atilde;o

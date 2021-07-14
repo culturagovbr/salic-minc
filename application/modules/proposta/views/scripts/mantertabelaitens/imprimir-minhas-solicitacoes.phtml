@@ -93,12 +93,12 @@
     }
 </style>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div class="paginaA4">
     <div align="center">
         <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Minist&eacute;rio da TURISMO"/>
         <br clear="all" /><span class="TituloMinC">Minist&eacute;rio da TURISMO</span>
-        <br clear="all" /><span class="TituloDoDocumento">Minhas Solicita&ccedil;&otilde;es de Itens Or&ccedil;ament&aacute;rios - <?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando Análise'; ?></span>
+        <br clear="all" /><span class="TituloDoDocumento">Minhas Solicita&ccedil;&otilde;es de Itens Or&ccedil;ament&aacute;rios - <?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An&aacute;lise'; ?></span>
         <br clear="all" /><span class="DataDoDocumento">Data da impress&atilde;o: <?php echo date('d/m/Y - H:i:s'); ?></span>
         <br clear="all" /><br clear="all" /><span class="QntdRegistros"><?php echo count($this->dados).' projetos listados'; ?></span>
     </div>
@@ -164,12 +164,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'mantertabelaitens', 'action' => 'minhas-solicitacoes')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&idPreProjeto='.$this->idPreProjeto; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">

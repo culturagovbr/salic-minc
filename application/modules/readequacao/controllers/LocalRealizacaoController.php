@@ -35,7 +35,7 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
     public function salvarReadequacaoAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
         }
 
         if (empty($this->idPronac)) {

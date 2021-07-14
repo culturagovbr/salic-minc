@@ -17,7 +17,7 @@ export const obterProdutoParaAnalise = (params) => {
     return api.getRequest(`/${MODULE}/${controller}${queryParams}`);
 };
 
-/** Análise de Conteúdo */
+/** An&aacute;lise de Conte&uacute;do */
 
 export const obterAnaliseConteudo = (params) => {
     const controller = 'analise-inicial-conteudo-rest';
@@ -34,7 +34,7 @@ export const salvarAnaliseConteudo = (params) => {
     return api.postRequest(`/${MODULE}/${controller}/`, api.buildData(params));
 };
 
-/** Análise de Custo */
+/** An&aacute;lise de Custo */
 
 export const obterPlanilhaParaAnalise = (params) => {
     const controller = 'analise-inicial-custo-rest';

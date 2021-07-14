@@ -267,9 +267,9 @@ export default {
                 });
         },
         label_tipo_pessoa(tipo) {
-            let string = 'Pessoa Física';
+            let string = 'Pessoa F&iacute;sica';
 
-            if (tipo === '1') string = 'Pessoa Jurídica';
+            if (tipo === '1') string = 'Pessoa Jur&iacute;dica';
 
             return string;
         },

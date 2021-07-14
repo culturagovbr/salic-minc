@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Extratos Bancários Consolidado'"/>
+            <Carregando :text="'Extratos Banc&aacute;rios Consolidado'"/>
         </div>
         <v-card v-else>
             <div v-if="Object.keys(dadosExtratosConsolidado).length > 0">
@@ -143,7 +143,7 @@ export default {
                     value: 'NrConta',
                 },
                 {
-                    text: 'CÓDIGO',
+                    text: 'C&oacute;DIGO',
                     align: 'center',
                     value: 'Codigo',
                 },

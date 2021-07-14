@@ -94,10 +94,10 @@ jQuery(function($){
 /* Written by Kenan Konjo. */
 jQuery(function($){
 	$.datepicker.regional['bs'] = {
-		closeText: 'Zatvori', 
-		prevText: '&#x3c;', 
-		nextText: '&#x3e;', 
-		currentText: 'Danas', 
+		closeText: 'Zatvori',
+		prevText: '&#x3c;',
+		nextText: '&#x3e;',
+		currentText: 'Danas',
 		monthNames: ['Januar','Februar','Mart','April','Maj','Juni',
 		'Juli','August','Septembar','Oktobar','Novembar','Decembar'],
 		monthNamesShort: ['Jan','Feb','Mar','Apr','Maj','Jun',
@@ -112,7 +112,7 @@ jQuery(function($){
 		showMonthAfterYear: false,
 		yearSuffix: ''};
 	$.datepicker.setDefaults($.datepicker.regional['bs']);
-});/* Inicialització en català per a l'extenció 'calendar' per jQuery. */
+});/* Inicialitzaci&oacute; en català per a l'extenci&oacute; 'calendar' per jQuery. */
 /* Writers: (joan.leon@gmail.com). */
 jQuery(function($){
 	$.datepicker.regional['ca'] = {
@@ -138,17 +138,17 @@ jQuery(function($){
 /* Written by Tomas Muller (tomas@tomas-muller.net). */
 jQuery(function($){
 	$.datepicker.regional['cs'] = {
-		closeText: 'Zavřít',
-		prevText: '&#x3c;Dříve',
+		closeText: 'Zavř&iacute;t',
+		prevText: '&#x3c;Dř&iacute;ve',
 		nextText: 'Později&#x3e;',
-		currentText: 'Nyní',
-		monthNames: ['leden','únor','březen','duben','květen','červen',
-        'červenec','srpen','září','říjen','listopad','prosinec'],
-		monthNamesShort: ['led','úno','bře','dub','kvě','čer',
-		'čvc','srp','zář','říj','lis','pro'],
-		dayNames: ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'],
-		dayNamesShort: ['ne', 'po', 'út', 'st', 'čt', 'pá', 'so'],
-		dayNamesMin: ['ne','po','út','st','čt','pá','so'],
+		currentText: 'Nyn&iacute;',
+		monthNames: ['leden','&uacute;nor','březen','duben','květen','červen',
+        'červenec','srpen','z&aacute;ř&iacute;','ř&iacute;jen','listopad','prosinec'],
+		monthNamesShort: ['led','&uacute;no','bře','dub','kvě','čer',
+		'čvc','srp','z&aacute;ř','ř&iacute;j','lis','pro'],
+		dayNames: ['neděle', 'ponděl&iacute;', '&uacute;terý', 'středa', 'čtvrtek', 'p&aacute;tek', 'sobota'],
+		dayNamesShort: ['ne', 'po', '&uacute;t', 'st', 'čt', 'p&aacute;', 'so'],
+		dayNamesMin: ['ne','po','&uacute;t','st','čt','p&aacute;','so'],
 		weekHeader: 'Týd',
 		dateFormat: 'dd.mm.yy',
 		firstDay: 1,
@@ -271,7 +271,7 @@ jQuery(function($){
 		yearSuffix: ''};
 	$.datepicker.setDefaults($.datepicker.regional['eo']);
 });
-/* Inicialización en español para la extensión 'UI date picker' para jQuery. */
+/* Inicializaci&oacute;n en español para la extensi&oacute;n 'UI date picker' para jQuery. */
 /* Traducido por Vester (xvester@gmail.com). */
 jQuery(function($){
 	$.datepicker.regional['es'] = {
@@ -389,14 +389,14 @@ jQuery(function($){
 		closeText: 'Lat aftur',
 		prevText: '&#x3c;Fyrra',
 		nextText: 'Næsta&#x3e;',
-		currentText: 'Í dag',
-		monthNames: ['Januar','Februar','Mars','Apríl','Mei','Juni',
+		currentText: '&iacute; dag',
+		monthNames: ['Januar','Februar','Mars','Apr&iacute;l','Mei','Juni',
 		'Juli','August','September','Oktober','November','Desember'],
 		monthNamesShort: ['Jan','Feb','Mar','Apr','Mei','Jun',
 		'Jul','Aug','Sep','Okt','Nov','Des'],
-		dayNames: ['Sunnudagur','Mánadagur','Týsdagur','Mikudagur','Hósdagur','Fríggjadagur','Leyardagur'],
-		dayNamesShort: ['Sun','Mán','Týs','Mik','Hós','Frí','Ley'],
-		dayNamesMin: ['Su','Má','Tý','Mi','Hó','Fr','Le'],
+		dayNames: ['Sunnudagur','M&aacute;nadagur','Týsdagur','Mikudagur','H&oacute;sdagur','Fr&iacute;ggjadagur','Leyardagur'],
+		dayNamesShort: ['Sun','M&aacute;n','Týs','Mik','H&oacute;s','Fr&iacute;','Ley'],
+		dayNamesMin: ['Su','M&aacute;','Tý','Mi','H&oacute;','Fr','Le'],
 		weekHeader: 'Vk',
 		dateFormat: 'dd-mm-yy',
 		firstDay: 0,
@@ -410,13 +410,13 @@ jQuery(function($){
 jQuery(function($){
 	$.datepicker.regional['fr-CH'] = {
 		closeText: 'Fermer',
-		prevText: '&#x3c;Préc',
+		prevText: '&#x3c;Pr&eacute;c',
 		nextText: 'Suiv&#x3e;',
 		currentText: 'Courant',
-		monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
-		'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-		monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
-		'Jul','Aoû','Sep','Oct','Nov','Déc'],
+		monthNames: ['Janvier','F&eacute;vrier','Mars','Avril','Mai','Juin',
+		'Juillet','Août','Septembre','Octobre','Novembre','D&eacute;cembre'],
+		monthNamesShort: ['Jan','F&eacute;v','Mar','Avr','Mai','Jun',
+		'Jul','Aoû','Sep','Oct','Nov','D&eacute;c'],
 		dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
 		dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
 		dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
@@ -432,13 +432,13 @@ jQuery(function($){
 jQuery(function($){
 	$.datepicker.regional['fr'] = {
 		closeText: 'Fermer',
-		prevText: '&#x3c;Préc',
+		prevText: '&#x3c;Pr&eacute;c',
 		nextText: 'Suiv&#x3e;',
 		currentText: 'Courant',
-		monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
-		'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-		monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
-		'Jul','Aoû','Sep','Oct','Nov','Déc'],
+		monthNames: ['Janvier','F&eacute;vrier','Mars','Avril','Mai','Juin',
+		'Juillet','Août','Septembre','Octobre','Novembre','D&eacute;cembre'],
+		monthNamesShort: ['Jan','F&eacute;v','Mar','Avr','Mai','Jun',
+		'Jul','Aoû','Sep','Oct','Nov','D&eacute;c'],
 		dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
 		dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
 		dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
@@ -498,18 +498,18 @@ jQuery(function($){
 /* Written by Istvan Karaszi (jquery@spam.raszi.hu). */
 jQuery(function($){
 	$.datepicker.regional['hu'] = {
-		closeText: 'bezárás',
+		closeText: 'bez&aacute;r&aacute;s',
 		prevText: '&laquo;&nbsp;vissza',
 		nextText: 'előre&nbsp;&raquo;',
 		currentText: 'ma',
-		monthNames: ['Január', 'Február', 'Március', 'Április', 'Május', 'Június',
-		'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'],
-		monthNamesShort: ['Jan', 'Feb', 'Már', 'Ápr', 'Máj', 'Jún',
-		'Júl', 'Aug', 'Szep', 'Okt', 'Nov', 'Dec'],
-		dayNames: ['Vasárnap', 'Hétfö', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'],
-		dayNamesShort: ['Vas', 'Hét', 'Ked', 'Sze', 'Csü', 'Pén', 'Szo'],
+		monthNames: ['Janu&aacute;r', 'Febru&aacute;r', 'M&aacute;rcius', '&aacute;prilis', 'M&aacute;jus', 'J&uacute;nius',
+		'J&uacute;lius', 'Augusztus', 'Szeptember', 'Okt&oacute;ber', 'November', 'December'],
+		monthNamesShort: ['Jan', 'Feb', 'M&aacute;r', '&aacute;pr', 'M&aacute;j', 'J&uacute;n',
+		'J&uacute;l', 'Aug', 'Szep', 'Okt', 'Nov', 'Dec'],
+		dayNames: ['Vas&aacute;rnap', 'H&eacute;tfö', 'Kedd', 'Szerda', 'Csütörtök', 'P&eacute;ntek', 'Szombat'],
+		dayNamesShort: ['Vas', 'H&eacute;t', 'Ked', 'Sze', 'Csü', 'P&eacute;n', 'Szo'],
 		dayNamesMin: ['V', 'H', 'K', 'Sze', 'Cs', 'P', 'Szo'],
-		weekHeader: 'Hé',
+		weekHeader: 'H&eacute;',
 		dateFormat: 'yy-mm-dd',
 		firstDay: 1,
 		isRTL: false,
@@ -859,13 +859,13 @@ jQuery(function($){
 jQuery(function($){
 	$.datepicker.regional['sk'] = {
 		closeText: 'Zavrieť',
-		prevText: '&#x3c;Predchádzajúci',
-		nextText: 'Nasledujúci&#x3e;',
+		prevText: '&#x3c;Predch&aacute;dzaj&uacute;ci',
+		nextText: 'Nasleduj&uacute;ci&#x3e;',
 		currentText: 'Dnes',
-		monthNames: ['Január','Február','Marec','Apríl','Máj','Jún',
-		'Júl','August','September','Október','November','December'],
-		monthNamesShort: ['Jan','Feb','Mar','Apr','Máj','Jún',
-		'Júl','Aug','Sep','Okt','Nov','Dec'],
+		monthNames: ['Janu&aacute;r','Febru&aacute;r','Marec','Apr&iacute;l','M&aacute;j','J&uacute;n',
+		'J&uacute;l','August','September','Okt&oacute;ber','November','December'],
+		monthNamesShort: ['Jan','Feb','Mar','Apr','M&aacute;j','J&uacute;n',
+		'J&uacute;l','Aug','Sep','Okt','Nov','Dec'],
 		dayNames: ['Nedel\'a','Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota'],
 		dayNamesShort: ['Ned','Pon','Uto','Str','Štv','Pia','Sob'],
 		dayNamesMin: ['Ne','Po','Ut','St','Št','Pia','So'],
@@ -1086,15 +1086,15 @@ jQuery(function($){
 /* Translated by Le Thanh Huy (lthanhhuy@cit.ctu.edu.vn). */
 jQuery(function($){
 	$.datepicker.regional['vi'] = {
-		closeText: 'Đóng',
+		closeText: 'Đ&oacute;ng',
 		prevText: '&#x3c;Trước',
 		nextText: 'Tiếp&#x3e;',
 		currentText: 'Hôm nay',
-		monthNames: ['Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu',
-		'Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'],
-		monthNamesShort: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-		'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
-		dayNames: ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'],
+		monthNames: ['Th&aacute;ng Một', 'Th&aacute;ng Hai', 'Th&aacute;ng Ba', 'Th&aacute;ng Tư', 'Th&aacute;ng Năm', 'Th&aacute;ng S&aacute;u',
+		'Th&aacute;ng Bảy', 'Th&aacute;ng T&aacute;m', 'Th&aacute;ng Ch&iacute;n', 'Th&aacute;ng Mười', 'Th&aacute;ng Mười Một', 'Th&aacute;ng Mười Hai'],
+		monthNamesShort: ['Th&aacute;ng 1', 'Th&aacute;ng 2', 'Th&aacute;ng 3', 'Th&aacute;ng 4', 'Th&aacute;ng 5', 'Th&aacute;ng 6',
+		'Th&aacute;ng 7', 'Th&aacute;ng 8', 'Th&aacute;ng 9', 'Th&aacute;ng 10', 'Th&aacute;ng 11', 'Th&aacute;ng 12'],
+		dayNames: ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ S&aacute;u', 'Thứ Bảy'],
 		dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
 		dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
 		weekHeader: 'Tu',

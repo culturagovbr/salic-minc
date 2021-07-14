@@ -274,7 +274,7 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
     }
 
     /**
-     * Metódo que salva e edita o local de realizacao
+     * Met&oacute;do que salva e edita o local de realizacao
      * Neste metodo, quando edita um local de realizacao o mesmo atualiza os itens da planilha orcamentaria.
      *
      * @access public

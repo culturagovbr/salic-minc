@@ -240,8 +240,8 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 
 
     /**
-     * M�todo para recuperar os projetos em Análise. (CONSELHEIRO)
-     * S� efetua a busca se as fontes de recursos estiverem de acordo com o Código 109 � Incentivo Fiscal Federal,
+     * M�todo para recuperar os projetos em An&aacute;lise. (CONSELHEIRO)
+     * S� efetua a busca se as fontes de recursos estiverem de acordo com o C&oacute;digo 109 � Incentivo Fiscal Federal,
      * conforme Lei 8.313 de 1991.
      * @access public
      * @static
@@ -323,7 +323,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca as informa��es da Análise do parecer consolidado
+     * M�todo que busca as informa��es da An&aacute;lise do parecer consolidado
      * @access public
      * @static
      * @param integer $idPronac
@@ -399,7 +399,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca as informa��es da Análise do parecer consolidado j� somados os valores
+     * M�todo que busca as informa��es da An&aacute;lise do parecer consolidado j� somados os valores
      * @access public
      * @static
      * @param integer $idPronac
@@ -448,7 +448,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca as informa��es da Análise de CONTEÚDO
+     * M�todo que busca as informa��es da An&aacute;lise de CONTE&uacute;DO
      * @access public
      * @static
      * @param integer $idPronac
@@ -519,7 +519,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca os produtos dos projetos da Análise de custos
+     * M�todo que busca os produtos dos projetos da An&aacute;lise de custos
      * @access public
      * @static
      * @param integer $idPronac
@@ -535,7 +535,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca os produtos dos projetos da Análise de custos
+     * M�todo que busca os produtos dos projetos da An&aacute;lise de custos
      * @access public
      * @static
      * @param integer $idPronac
@@ -581,7 +581,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca as etapas dos projetos da Análise de custos
+     * M�todo que busca as etapas dos projetos da An&aacute;lise de custos
      * @access public
      * @static
      * @param integer $idPronac
@@ -626,7 +626,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca os estados dos projetos da Análise de custos
+     * M�todo que busca os estados dos projetos da An&aacute;lise de custos
      * @access public
      * @static
      * @param integer $idPronac
@@ -1507,7 +1507,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca a planilha de Análise de custos
+     * M�todo que busca a planilha de An&aacute;lise de custos
      * @access public
      * @static
      * @return object

@@ -4,7 +4,7 @@
 * Classe do componente de Pessoa Fisica que gerencia a
 * comunicacao via webservice entre o NovoSalic e o sistema da receita federal
 *
-* @copyright Ministério da Cultura
+* @copyright Minist&eacute;rio da Cultura
 * @author Politec/Minc - Everton Guilherme
 * @since 21/06/2010
 * @version 1.0

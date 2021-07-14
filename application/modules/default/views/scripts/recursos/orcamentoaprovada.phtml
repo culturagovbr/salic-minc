@@ -7,16 +7,16 @@
  * @package application
  * @subpackage application.controller.realizaranaliseprojeto
  * @link http://www.cultura.gov.br
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  */
 
 ?>
 
-	<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+	<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 	<div id="breadcrumb">
 		<ul>
-			<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
-			<li><a href="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'planilhaorcamento')); ?>" title="Ir para Análise do Membro da comissão">Análise do Membro da comissão</a></li>
+			<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
+			<li><a href="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'planilhaorcamento')); ?>" title="Ir para An&aacute;lise do Membro da comissão">An&aacute;lise do Membro da comissão</a></li>
 			<li class="last">Planilha de Or�amento Aprovada</li>
 		</ul>
 	</div>
@@ -24,7 +24,7 @@
 
 
 
-	<!-- ========== INÍCIO T�TULO ========== -->
+	<!-- ========== IN&iacute;CIO T�TULO ========== -->
 	<div id="titulo">
 		<div>Planilha de Or�amento Aprovada <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 	</div>
@@ -32,7 +32,7 @@
 
 
 
-	<!-- ========== INÍCIO CONTEÚDO ========== -->
+	<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 	<div id="conteudo">
 
 
@@ -53,7 +53,7 @@
 
 
 
-		<!-- ========== INÍCIO PRONAC ========== -->
+		<!-- ========== IN&iacute;CIO PRONAC ========== -->
 
 
 
@@ -80,7 +80,7 @@
 		<table class="tabela">
 
 
-			<!-- ========== INÍCIO BUSCA POR PRODUTO ========== -->
+			<!-- ========== IN&iacute;CIO BUSCA POR PRODUTO ========== -->
 			<?php
 			$item = 1; // contador para os itens
 			$contadorProd  = 0;
@@ -99,7 +99,7 @@
 
 
 
-				<!-- ========== INÍCIO BUSCA POR ETAPA ========== -->
+				<!-- ========== IN&iacute;CIO BUSCA POR ETAPA ========== -->
 				<?php
 				foreach (RecursoDAO::analiseDeCustosBuscarEtapa($buscarProd->IdPRONAC, $buscarProd->idProduto, true) as $buscarEtapa) :
 				?>
@@ -119,20 +119,20 @@
 
 
 
-					<!-- ========== INÍCIO BUSCA POR UF ========== -->
+					<!-- ========== IN&iacute;CIO BUSCA POR UF ========== -->
 					<?php
 					//foreach (RealizarAnaliseProjetoDAO::analiseDeCustosBuscarUF($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, true) as $buscarUF) :
 					?>
 
 
 
-						<!-- ========== INÍCIO �TENS ========== -->
+						<!-- ========== IN&iacute;CIO �TENS ========== -->
 					    <tr class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?>">
 						<th>Nome do Item</th>
 					        <th width="10%">Valor Solicitado/th>
 					        <th width="10%">Valor Aprovado</th>
 					        <th width="49%">Justificativa Proponente</th>
-					        <th width="6%">Justificativa Técnica</th>
+					        <th width="6%">Justificativa T&eacute;cnica</th>
 					    </tr>
 
 						<?php
@@ -224,12 +224,12 @@
 		</table>
 	</form>
 	</div>
-	<!-- ========== FIM CONTEÚDO ========== -->
+	<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-	<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+	<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 	<div id="rodapeConteudo"><span></span></div>
-	<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+	<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 	<br clear="all" />

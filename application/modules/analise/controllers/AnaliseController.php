@@ -182,7 +182,7 @@ class Analise_AnaliseController extends Analise_GenericController
                 }
 
                 /**
-                 * Adequacao já deve chegar aqui preenchida
+                 * Adequacao j&aacute; deve chegar aqui preenchida
                  * 1 - Quando o proponente envia o projeto readequado para o MinC o sistema registra a primeira avaliacao
                  * 2 - Existe uma rotina que pega os projetos na situacao E90 com prazo de adequacao expirado,
                  * a rotina escolhe o tecnico e registra uma nova avaliacao.
@@ -231,7 +231,7 @@ class Analise_AnaliseController extends Analise_GenericController
 
                     $situacao = Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA;
                     $providenciaTomada = "Projeto encaminhado &agrave; unidade vinculada para an&aacute;lise
-                    e emiss&atilde;o de parecer Técnico";
+                    e emiss&atilde;o de parecer T&eacute;cnico";
 
                     $tbProjetos->alterarSituacao($idPronac, '', $situacao, $providenciaTomada);
                 }
@@ -311,7 +311,7 @@ class Analise_AnaliseController extends Analise_GenericController
 
             if ($this->getRequest()->isPost()) {
                 if (empty($params['idNovoTecnico']) || empty($params['tecnicoAtual'])) {
-                    throw new Exception("Id do Técnico &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+                    throw new Exception("Id do T&eacute;cnico &eacute; necess&aacute;rio para acessar essa funcionalidade.");
                 }
 
                 $dados = array(

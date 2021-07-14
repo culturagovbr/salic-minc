@@ -25,12 +25,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='?page=<?php echo $this->pageCount; ?>'">
                     <?php } ?>
-                    Pág.:<select name="page" id="page" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="page" id="page" onchange="$('#form1').submit()" class="input_simples">
                         <?php foreach ($this->pagesInRange as $page) :?>
                         <option value="<?php echo $page;?>" <?php if($this->current == $page) echo "selected";?>><?php echo $page;?>&nbsp;</option>
                         <?php endforeach; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="nrows" id="nrows" class="input_simples" value="<?php echo $this->itemCountPerPage;?>">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="nrows" id="nrows" class="input_simples" value="<?php echo $this->itemCountPerPage;?>">
                     <input type="submit" class="btn_recarregar" value="">
                     <input type="button" class="btn_imprimir">
                     <input type="button" class="btn_xls" />

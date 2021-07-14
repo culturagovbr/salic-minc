@@ -7,7 +7,7 @@
  * @package application
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  */
 
 class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract
@@ -46,7 +46,7 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract
             /* ==== VERIFICA PERMISSAO DE ACESSO DO PROPONENTE A PROPOSTA OU AO PROJETO ====== */
             /* =============================================================================== */
             if (!isset($idPronac) || empty($idPronac)) {
-                parent::message('É necessário o número do PRONAC para acessar essa página!', "principalproponente", "ERROR");
+                parent::message('&eacute; necess&aacute;rio o n&uacute;mero do PRONAC para acessar essa p&aacute;gina!', "principalproponente", "ERROR");
             }
             $this->verificarPermissaoAcesso(false, true, false);
         }
@@ -208,7 +208,7 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract
             RecursoDAO::cadastrar($dados);
             parent::message('A desistência do prazo recursal foi cadastrada com sucesso!', "consultardadosprojeto?idPronac=" . Seguranca::encrypt($idPronac), "CONFIRM");
         } else {
-            parent::message('É necessário estar de acordo com os termos para registrar a sua desistência do prazo recursal!', "solicitarrecursodecisao/recurso-desistir-enquadramento?idPronac=" . Seguranca::encrypt($idPronac), "ERROR");
+            parent::message('&eacute; necess&aacute;rio estar de acordo com os termos para registrar a sua desistência do prazo recursal!', "solicitarrecursodecisao/recurso-desistir-enquadramento?idPronac=" . Seguranca::encrypt($idPronac), "ERROR");
         }
     }
 

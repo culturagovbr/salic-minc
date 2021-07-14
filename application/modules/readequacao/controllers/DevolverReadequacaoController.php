@@ -11,7 +11,7 @@ class Readequacao_DevolverReadequacaoController extends MinC_Controller_Rest_Abs
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
@@ -22,7 +22,7 @@ class Readequacao_DevolverReadequacaoController extends MinC_Controller_Rest_Abs
 
         $subRoutes = [];
         $this->registrarSubRoutes($subRoutes);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
@@ -35,10 +35,10 @@ class Readequacao_DevolverReadequacaoController extends MinC_Controller_Rest_Abs
     public function postAction(){
         $data = [];
         $code = 200;
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
-        
+
         if (!$permissao) {
             $data['permissao'] = false;
             $data['message'] = 'Você não tem permissão para devolver esta readequação.';
@@ -46,10 +46,10 @@ class Readequacao_DevolverReadequacaoController extends MinC_Controller_Rest_Abs
         } else {
             $encaminhar = $readequacaoService->devolverReadequacao();
             if ($encaminhar) {
-                $data['message'] = "Readequação devolvida para o técnico.";
+                $data['message'] = "Readequação devolvida para o t&eacute;cnico.";
             }
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

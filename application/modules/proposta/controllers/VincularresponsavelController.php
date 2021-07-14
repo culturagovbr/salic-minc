@@ -98,7 +98,7 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
         }
 
         $emailProponente = $buscarEmail ? $buscarEmail['email'] : null;
-        $assunto = 'Solicitação de vinculo ao responsável';
+        $assunto = 'Solicitação de vinculo ao respons&aacute;vel';
         $texto = 'Favor verificar o vinculo solicitado no Sistema SALIC WEB';
 
         if (isset($_POST['solicitarvinculo'])) {
@@ -244,11 +244,11 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
         $msg = '';
 
         if ($siVinculo == 1) {
-            $msg = 'O responsável foi rejeitado.';
+            $msg = 'O respons&aacute;vel foi rejeitado.';
         } elseif ($siVinculo == 2) {
-            $msg = 'Responsável vinculado com sucesso!';
+            $msg = 'Respons&aacute;vel vinculado com sucesso!';
         } elseif ($siVinculo == 3) {
-            $msg = 'O responsável foi desvinculado.';
+            $msg = 'O respons&aacute;vel foi desvinculado.';
         }
 
         try {
@@ -401,7 +401,7 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
             */
             $alteraPP = $PreProjetoDAO->alteraresponsavel($idPreProjeto, $idResponsavel);
 
-            parent::message("O responsável foi desvinculado.", "proposta/manterpropostaincentivofiscal/vincularprojetos", "CONFIRM");
+            parent::message("O respons&aacute;vel foi desvinculado.", "proposta/manterpropostaincentivofiscal/vincularprojetos", "CONFIRM");
         } catch (Exception $e) {
             parent::message("Erro. " . $e->getMessage(), "proposta/manterpropostaincentivofiscal/vincularprojetos", "ERROR");
         }

@@ -52,7 +52,7 @@
                                     sm3
                                     md3
                                 >
-                                    <b>Área</b>
+                                    <b>&aacute;rea</b>
                                     <div>{{ produto.DescricaoArea }}</div>
                                 </v-flex>
                                 <v-flex
@@ -136,7 +136,7 @@
                                     sm3
                                     md3
                                 >
-                                    <b>Valor médio</b>
+                                    <b>Valor m&eacute;dio</b>
                                     <div>{{ produto.ReceitaPopularNormal }}</div>
                                 </v-flex>
                                 <v-flex
@@ -166,7 +166,7 @@
                                     sm3
                                     md3
                                 >
-                                    <b>Valor médio</b>
+                                    <b>Valor m&eacute;dio</b>
                                     <div>{{ produto.PrecoUnitarioNormal }}</div>
                                 </v-flex>
                                 <v-flex

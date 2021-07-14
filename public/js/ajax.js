@@ -61,11 +61,11 @@ function xmlhttp()
 
 
 /**
- * Fun��o para pegar os scripts que ficam dentro das páginas aberta via AJAX
+ * Fun��o para pegar os scripts que ficam dentro das p&aacute;ginas aberta via AJAX
  */
 function pegar_script(tag_script)
 {
-	var js_home = 0; // INÍCIO do script
+	var js_home = 0; // IN&iacute;CIO do script
 	var js_end  = 0; // final do script
 
 	// varre os scripts encontrados
@@ -75,9 +75,9 @@ function pegar_script(tag_script)
 															// script
 		if (js_home >= 0)
 		{
-			js_home = tag_script.indexOf('>', js_home) + 1; // pega o INÍCIO
+			js_home = tag_script.indexOf('>', js_home) + 1; // pega o IN&iacute;CIO
 			js_end  = tag_script.indexOf('</script>', js_home); // pega o final
-			codigo  = tag_script.substring(js_home, js_end); // pega o Código
+			codigo  = tag_script.substring(js_home, js_end); // pega o C&oacute;digo
 
 			var novo  = document.createElement('script');
 			novo.type = 'text/javascript';
@@ -90,7 +90,7 @@ function pegar_script(tag_script)
 
 
 /**
- * Fun��o AJAX para abrir os links das páginas via GET
+ * Fun��o AJAX para abrir os links das p&aacute;ginas via GET
  */
 function abrir_pag(pag, id, carregando)
 {
@@ -185,7 +185,7 @@ function carregar_combo(valor, combo, url, txt_combo, campo_selecionado)
 	// deixa apenas um elemento no combo, os outros s�o exclu�dos
 	document.getElementById(combo).options.length = 1;
 
-	// abre a página que possue o XML gerado
+	// abre a p&aacute;gina que possue o XML gerado
 	ajax.open("POST", url, true);
 	ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -210,7 +210,7 @@ function carregar_combo(valor, combo, url, txt_combo, campo_selecionado)
 			}
 		}
 	}
-	// passa o Código do �tem escolhido
+	// passa o C&oacute;digo do �tem escolhido
 	var params = "id=" + valor;
 	ajax.send(params);
 
@@ -347,7 +347,7 @@ function alterar_senha()
 
 /**
  * ==============================
- *  INÍCIO DATA GRID
+ *  IN&iacute;CIO DATA GRID
  * ==============================
  */
 
@@ -829,7 +829,7 @@ var v_divSaida = "";
 
 // L� o �ndice armazenado no IFRAME. Se ele for diferente do �ndice atual
 // da cache, significa que o bot�o Voltar foi pressionado. Nesse caso,
-// obt�m o CONTEÚDO da cache e atualiza a página
+// obt�m o CONTE&uacute;DO da cache e atualiza a p&aacute;gina
 function v_checaEstado()
 {
 	if (v_iframeCarregado == false)
@@ -927,7 +927,7 @@ function carregar_cidades(valor)
 			}
 		}
 	}
-	// passa o Código do estado escolhido
+	// passa o C&oacute;digo do estado escolhido
 	var params = "id=" + valor;
 	ajax.send(params);
 }
@@ -1010,7 +1010,7 @@ function carregar_ddd(valor)
 			}
 		}
 	}
-	// passa o Código do estado escolhido
+	// passa o C&oacute;digo do estado escolhido
 	var params = "id=" + valor;
 	ajax.send(params);
 }
@@ -1093,7 +1093,7 @@ function carregar_segmentocultural(valor)
 			}
 		}
 	}
-	// passa o Código do estado escolhido
+	// passa o C&oacute;digo do estado escolhido
 	var params = "id=" + valor;
 	ajax.send(params);
 }
@@ -2278,7 +2278,7 @@ function modalValidacaoEnvioArquivos(msg)
 }
 
 /**
- * Fun��o para carregar uma página dentro de outra via ajax
+ * Fun��o para carregar uma p&aacute;gina dentro de outra via ajax
  */
 function carregarDados(url, divRetorno)
 {

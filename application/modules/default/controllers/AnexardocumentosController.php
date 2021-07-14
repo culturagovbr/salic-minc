@@ -8,7 +8,7 @@
  * @package application
  * @subpackage application.controllers
  * @link http://www.cultura.gov.br
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  */
 
 class AnexardocumentosController extends MinC_Controller_Action_Abstract
@@ -22,7 +22,7 @@ class AnexardocumentosController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -32,12 +32,12 @@ class AnexardocumentosController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo = array();
             //$PermissoesGrupo[] = 93;  // Coordenador de Parecerista
             //$PermissoesGrupo[] = 94;  // Parecerista
-            $PermissoesGrupo[] = 103; // Coordenador de Análise
+            $PermissoesGrupo[] = 103; // Coordenador de An&aacute;lise
             $PermissoesGrupo[] = 118; // Componente da comissão
             //$PermissoesGrupo[] = 119; // Presidente da Mesa
             //$PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -126,7 +126,7 @@ class AnexardocumentosController extends MinC_Controller_Action_Abstract
                 if (!$resultPronac) {
                     throw new Exception("Registro n&atilde;o encontrado!");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a página de busca
+                // caso o PRONAC esteja cadastrado, vai para a p&aacute;gina de busca
                 // dos seus documentos (comprovantes)
                 else {
                     // pega o id do pronac
@@ -290,7 +290,7 @@ class AnexardocumentosController extends MinC_Controller_Action_Abstract
                 if (!$resultado) {
                     parent::message("Registro Não encontrado!", "buscarpronac");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a página de busca
+                // caso o PRONAC esteja cadastrado, vai para a p&aacute;gina de busca
                 else {
                     $this->view->buscarpronac = $resultado;
                 }
@@ -352,7 +352,7 @@ class AnexardocumentosController extends MinC_Controller_Action_Abstract
                 $this->view->descricao = $descricao;
             }
         }
-        // quando a página � aberta
+        // quando a p&aacute;gina � aberta
         else {
             // recebe o pronac via get
             $get = Zend_Registry::get('get');
@@ -371,7 +371,7 @@ class AnexardocumentosController extends MinC_Controller_Action_Abstract
                     if (!$resultado) {
                         parent::message("Registro Não encontrado!", "buscarpronac");
                     }
-                    // caso o PRONAC esteja cadastrado, vai para a página de busca
+                    // caso o PRONAC esteja cadastrado, vai para a p&aacute;gina de busca
                     else {
                         $this->view->buscarpronac = $resultado;
                     }

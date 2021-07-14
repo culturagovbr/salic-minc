@@ -1,6 +1,6 @@
 <?php echo $this->partial('realizaranaliseprojeto/inc/menu.inc.php', $this) ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -12,7 +12,7 @@
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
     <div>An&aacute;lise de Cortes Sugeridos <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -20,7 +20,7 @@
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 
 
@@ -143,7 +143,7 @@
             <div>Os campos ter&atilde;o seus valores redefinidos!</div>
         </div>
     </div>
-    <!-- ========== INÍCIO T�TULO página ========== -->
+    <!-- ========== IN&iacute;CIO T�TULO p&aacute;gina ========== -->
     <table class="tabela">
 
         <tr>
@@ -154,11 +154,11 @@
         </tr>
 
     </table>
-    <!-- ========== FIM T�TULO página ========== -->
+    <!-- ========== FIM T�TULO p&aacute;gina ========== -->
 
 
 
-    <!-- ========== INÍCIO TABELA DE CORTES SUGERIDOS ========== -->
+    <!-- ========== IN&iacute;CIO TABELA DE CORTES SUGERIDOS ========== -->
     <table class="tabela">
         <tr>
             <th colspan="8" align="center">Cortes Sugeridos</th>
@@ -166,7 +166,7 @@
 
 
 
-        <!-- ========== INÍCIO ITEM REDUZIDO ========== -->
+        <!-- ========== IN&iacute;CIO ITEM REDUZIDO ========== -->
         <?php
         if (count($this->itemReduzido) == 0) {
             echo "<tr>";
@@ -192,8 +192,8 @@
             </tr>
 
             <?php
-            $totalValRed = (float) 0; // valor total da página
-            $totalItensRed = (int) 0; // total itens da página
+            $totalValRed = (float) 0; // valor total da p&aacute;gina
+            $totalItensRed = (int) 0; // total itens da p&aacute;gina
             // caso tenha projetos
             if (count($this->analiseReduzido) > 0) {
                 foreach ($this->analiseReduzido as $resposta) :
@@ -392,7 +392,7 @@
 
 
 
-            <!-- ========== INÍCIO ITEM RETIRADO ========== -->
+            <!-- ========== IN&iacute;CIO ITEM RETIRADO ========== -->
             <?php if ($this->itemRetirado) : ?>
                 <tr>
                     <td colspan="8">&nbsp;</td>
@@ -411,8 +411,8 @@
                 </tr>
 
                 <?php
-                $totalValRet = (float) 0; // valor total da página
-                $totalItensRet = (int) 0; // total itens da página
+                $totalValRet = (float) 0; // valor total da p&aacute;gina
+                $totalItensRet = (int) 0; // total itens da p&aacute;gina
                 // caso tenha projetos
                 if (count($this->analiseRetirado) > 0) {
                     foreach ($this->analiseRetirado as $resposta) :
@@ -613,12 +613,12 @@
 <input id="valorpossivel" value="<?php echo $this->totalproponente - $this->totalcomponente;?>" type="hidden"/>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

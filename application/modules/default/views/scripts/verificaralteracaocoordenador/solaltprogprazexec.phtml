@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== IN&iacute;CIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 function layout_fluido()
 {
@@ -26,13 +26,13 @@ function layout_fluido()
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="INÍCIO">INÍCIO</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN&iacute;CIO">IN&iacute;CIO</a></li>
         <li class="second">Acompanhamento</li>
         <li class="last">Verificar Readequa��o de Projeto</li>
     </ul>
 </div>
 <div id="mostra"></div>
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
     <div>READEQUA��O: PRORROGA��O DE PRAZOS DE EXECU��O
         <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
@@ -44,10 +44,10 @@ function layout_fluido()
                 <select name="status" disabled="disabled" id="status" style="float: right; width: 12em" class="select_simples" onchange="stAnalise(<?php echo $this->stResult[0]->idAvaliacaoItemPedidoAlteracao; ?>,<?php echo $this->escape($this->idpedidoalteracao) ?>,this ,'solaltnomproj')" >
                 <?php
                 if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
-                    echo "<option value='0' selected='selected'>Aguardando Análise</option>
-<option value='1'>Em Análise</option>";
+                    echo "<option value='0' selected='selected'>Aguardando An&aacute;lise</option>
+<option value='1'>Em An&aacute;lise</option>";
                 } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "EA") {
-                    echo "<option value='1' selected='selected'>Em Análise</option>
+                    echo "<option value='1' selected='selected'>Em An&aacute;lise</option>
 <option value='2'>Aprovado</option>
 <option value='3'>Indeferido</option>";
                 } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AP") {
@@ -136,7 +136,7 @@ function layout_fluido()
                     </th>
                 </tr>
                 <tr>
-                    <td colspan="3">Data INÍCIO:</td>
+                    <td colspan="3">Data IN&iacute;CIO:</td>
                     <td colspan="2">Data Final:</td>
                 </tr>
                 <tr>
@@ -149,7 +149,7 @@ function layout_fluido()
                     </th>
                 </tr>
                 <tr>
-                    <td colspan="3">Data INÍCIO:</td>
+                    <td colspan="3">Data IN&iacute;CIO:</td>
                     <td colspan="2">Data Final:</td>
                 </tr>
                 <tr>
@@ -197,7 +197,7 @@ function layout_fluido()
 
 </div>
 
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 <!-- MODAL DILIGENCIAR -->
@@ -224,8 +224,8 @@ function layout_fluido()
 <!-- FIM DO MODAL DILIGENCIAR -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

@@ -3,7 +3,7 @@
 /**
  * Tem como responsabilidade abstrair regras negociais da entidade SGCAcesso.
  * @class Agente_Model_AgentesMapper
- * @author Vinícius Feitosa da Silva <viniciusfesil@gmail.com>
+ * @author Vin&iacute;cius Feitosa da Silva <viniciusfesil@gmail.com>
  * @since 31/10/16 15:17
  * @link http://salic.cultura.gov.br
  */

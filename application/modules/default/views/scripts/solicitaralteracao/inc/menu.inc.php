@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== IN&iacute;CIO MENU ========== -->
 <?php
 //$html = '<div style="padding-top:50px; text-align:center; background:#f8f8f8;"><p><a href="' . $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')) . '?idPronac=' . $_GET['idpronac'] . '" title="Abrir menu principal">Voltar para o menu principal</a></div>';
 $html = '';
@@ -7,15 +7,15 @@ $menuExiste = false;
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
-    <!-- INÍCIO: CONTEÚDO principal #container -->
+    <!-- IN&iacute;CIO: CONTE&uacute;DO principal #container -->
     <div id="container">
         <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
     ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
 } ?>Tem certeza que deseja Enviar e Finalizar?</div>
         <div style="display:none" id="validarPlan">Antes de enviar a Solicitação � necess�rio cadastrar os Itens de Custos para os Produtos sem planilha or�ament�ria!</div>
         <div style="display:none" id="dialog-alerta">Solicitação realizada com sucesso!</div>
-        <div style="display:none" id="dialog-em-analise">H� pedido de readequa��o em Análise. Favor aguardar.</div>
-        <!-- INÍCIO: navega��o local #qm0 -->
+        <div style="display:none" id="dialog-em-analise">H� pedido de readequa��o em An&aacute;lise. Favor aguardar.</div>
+        <!-- IN&iacute;CIO: navega��o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {

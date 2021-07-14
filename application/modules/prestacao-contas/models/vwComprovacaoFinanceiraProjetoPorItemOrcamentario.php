@@ -79,7 +79,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /* MAIORES ITENS ORCÇAMENTÁRIOS COMPROVADOS */
+    /* MAIORES ITENS ORCÇAMENT&aacute;RIOS COMPROVADOS */
     public function maioresItensComprovados($idPronac)
     {
         $cols = new Zend_Db_Expr("
@@ -151,7 +151,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /* MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBATÓRIO */
+    /* MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBAT&oacute;RIO */
     public function maioresComprovacaoTipoDocumento($idPronac)
     {
         $cols =new Zend_Db_Expr("
@@ -471,7 +471,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             new Zend_Db_Expr("
             CASE
              WHEN c.tpFormaDePagamento = '1' THEN 'Cheque'
-             WHEN c.tpFormaDePagamento = '2' THEN 'Transferencia Bancária'
+             WHEN c.tpFormaDePagamento = '2' THEN 'Transferencia Banc&aacute;ria'
              WHEN c.tpFormaDePagamento = '3' THEN 'Saque/Dinheiro' ELSE ''
             END as tpFormaDePagamento"),
             "c.nrDocumentoDePagamento",
@@ -483,7 +483,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
            new Zend_Db_Expr("CASE
              WHEN stItemAvaliado = 1 THEN 'Validado'
              WHEN stItemAvaliado = 3 THEN 'Impugnado'
-             WHEN stItemAvaliado = 4 THEN 'Aguardando análise'
+             WHEN stItemAvaliado = 4 THEN 'Aguardando an&aacute;lise'
            END AS stAvaliacao"),
            "c.vlComprovacao"
        ];

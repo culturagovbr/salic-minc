@@ -14,7 +14,7 @@
         </v-btn>
         <v-toolbar-title class="ml-2">
             <h5 class="headline font-weight-regular">
-                {{ $route.meta.title ? $route.meta.title : 'Análise inicial' }}: {{ produto.nomeProduto }}
+                {{ $route.meta.title ? $route.meta.title : 'An&aacute;lise inicial' }}: {{ produto.nomeProduto }}
             </h5>
             <v-divider />
             <div class="subheading mt-1">
@@ -93,7 +93,7 @@
                     history
                 </v-icon>
             </v-btn>
-            <span>Visualizar histórico de distribuição deste produto</span>
+            <span>Visualizar hist&oacute;rico de distribuição deste produto</span>
         </v-tooltip>
         <v-chip
             v-if="produto.stPrincipal === 1"
@@ -107,7 +107,7 @@
             light
             color="blue-grey lighten-5"
         >
-            Produto Secundário
+            Produto Secund&aacute;rio
         </v-chip>
     </v-toolbar>
 </template>

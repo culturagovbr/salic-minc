@@ -1,6 +1,6 @@
 Release 2.7.6
-* [FIX] Parecer/CNIC: removendo blocos desnecessários em "projetos não submetidos - análise inicial"
-* [FIX] Parecer/CNIC: ajustes de estilo na análise do projeto & removendo informações desnecessárias caso IN2017
+* [FIX] Parecer/CNIC: removendo blocos desnecess&aacute;rios em "projetos não submetidos - an&aacute;lise inicial"
+* [FIX] Parecer/CNIC: ajustes de estilo na an&aacute;lise do projeto & removendo informações desnecess&aacute;rias caso IN2017
 * [FIX] Parecer/CNIC: bloqueia gravação de parecer enquanto não selecionar posicionamento
 
 Release 2.7.5
@@ -9,50 +9,50 @@ Release 2.7.5
 Release 2.7.4
 * [FIX] Parecer/presidente de vinculada: removendo busca e paginação
 * [FIX] Parecer/CNIC: ajustes de estilo ao emitir parecer
-* [FIX] Parecer/CNIC: ajustes de estilo na análise
+* [FIX] Parecer/CNIC: ajustes de estilo na an&aacute;lise
 
 Release 2.7.3
-* [FIX] Parecer/análise do produto: correção ao gravar produto IN2017 antes de finalizar produtos secundários
-* [FIX] Parecer/distribuir parecer: inativando documento assinatura quando redistribui o projeto caso já tenha sido assinado
+* [FIX] Parecer/an&aacute;lise do produto: correção ao gravar produto IN2017 antes de finalizar produtos secund&aacute;rios
+* [FIX] Parecer/distribuir parecer: inativando documento assinatura quando redistribui o projeto caso j&aacute; tenha sido assinado
 * [FIX] CNIC/Dados do projeto: corrigindo charset
 
 Release 2.7.2
-* [FIX] Parecer/análise inicial: libera botão de analisar produto quando uma análise é devolvida pelo coordenador ao parecerista
+* [FIX] Parecer/an&aacute;lise inicial: libera botão de analisar produto quando uma an&aacute;lise &eacute; devolvida pelo coordenador ao parecerista
 
 Release 2.7.1
-* [FIX] Readequações: removendo debug no painel de projetos em análise
+* [FIX] Readequações: removendo debug no painel de projetos em an&aacute;lise
 
 Release 2.7.0
-* [ADD] Alterar Projeto/Execução imediata: nova opção de atualizar Plano de Execução Imediata do Projeto por Técnicos e Coordenadores
+* [ADD] Alterar Projeto/Execução imediata: nova opção de atualizar Plano de Execução Imediata do Projeto por T&eacute;cnicos e Coordenadores
 * [ADD] Parecer/gerenciar parecer: fluxo de assinaturas do IPHAN com 5 passos - parecerista, coordenador regional, superintendente regional, coordenador PRONAC e presidente
 * [ADD] Parecer/gerenciar parecer: IPHAN: adicionando tela de superintendente com view nova
-* [ADD] Parecer/gerenciar parecer: fluxo do IPHAN com novo painel para coordenador IPHAN Brasília (analisado pela superintendência)
+* [ADD] Parecer/gerenciar parecer: fluxo do IPHAN com novo painel para coordenador IPHAN Bras&iacute;lia (analisado pela superintendência)
 * [UPDATE] Recurso enquadramento: altera o tipo do recurso ao salvar recurso
 * [UPDATE] TipoEncaminhamento: define constantes na model Tipo Encaminhamento
 * [UPDATE] Analise/Avaliar Adequacao de projeto: altera situacao quando execucao imediata diferente de normal
 * [FIX] Recurso Enquadramento: corrige dados ao salvar novo recurso
-* [FIX] Parecer/análise CNIC: removendo duplicidade nas caixas de conteúdo em Dados do Projeto
-* [FIX] Parecer/análise CNIC: removendo botão de próximo
-* [FIX] Parecer/análise CNIC: puxando valores corretos do enquadramento e valores
-* [FIX] Parecer/análise CNIC: puxando valor total sugerido corretamente
-* [FIX] Parecer/análise CNIC: correção nos links
+* [FIX] Parecer/an&aacute;lise CNIC: removendo duplicidade nas caixas de conte&uacute;do em Dados do Projeto
+* [FIX] Parecer/an&aacute;lise CNIC: removendo botão de pr&oacute;ximo
+* [FIX] Parecer/an&aacute;lise CNIC: puxando valores corretos do enquadramento e valores
+* [FIX] Parecer/an&aacute;lise CNIC: puxando valor total sugerido corretamente
+* [FIX] Parecer/an&aacute;lise CNIC: correção nos links
 * [FIX] Parecer/coordenador: removendo caixa de texto quando somente leitura
-* [FIX] Parecer: corrigindo quebra de tela na análise do produto
-* [FIX] Parecer/análise inicial consolidação: não exibe dados de área/segmento para IN2017 e melhorias gerais de código
-* [FIX] Parecer/análise inicial: não grava enquadramento novo se for IN2017
-* [FIX] Parecer/análise inicial: movendo ações relevantes para seção de consolidação do parecer técnico
-* [FIX] Parecer/análise inicial: verifica se já existe parecer do parecerista corrente
-* [FIX] Parecer/análise inicial: correção ao alterar valor editando item orçamentário
-* [FIX] Parecer/análise inicial: removendo permissão de edição da planilha pelo coordenador de parecer
+* [FIX] Parecer: corrigindo quebra de tela na an&aacute;lise do produto
+* [FIX] Parecer/an&aacute;lise inicial consolidação: não exibe dados de &aacute;rea/segmento para IN2017 e melhorias gerais de c&oacute;digo
+* [FIX] Parecer/an&aacute;lise inicial: não grava enquadramento novo se for IN2017
+* [FIX] Parecer/an&aacute;lise inicial: movendo ações relevantes para seção de consolidação do parecer t&eacute;cnico
+* [FIX] Parecer/an&aacute;lise inicial: verifica se j&aacute; existe parecer do parecerista corrente
+* [FIX] Parecer/an&aacute;lise inicial: correção ao alterar valor editando item orçament&aacute;rio
+* [FIX] Parecer/an&aacute;lise inicial: removendo permissão de edição da planilha pelo coordenador de parecer
 * [FIX] Parecer/gerenciar parecer: setando corretamente fecharParecer no caso padrão (não iphan)
 * [FIX] Parecer/gerenciar parecer: produto apenas leitura para coordenador de parecer
 * [FIX] Parecer/gerenciar parecer devolvidas: ajuste na cor de fundo
 * [FIX] Parecer: melhoria na função para determinar projeto assinado
 * [UPDATE] Parecer/gerenciar parecer: exibindo botão de visualizar documento assinado mesmo quando não assinado no passo atual
-* [REMOVE] Parecer/gerenciar parecer: removendo arquivo desnecessário
+* [REMOVE] Parecer/gerenciar parecer: removendo arquivo desnecess&aacute;rio
 * [REFACTOR] Parecer/gerenciar parecer: movendo função isVinculadaIphan para model Orgaos
-* [REFACTOR] Parecer/análise inicial: movendo função fecharanalise para módulo de parecer
-* [REFACTOR] Análise de conteúdo: removendo código comentado
+* [REFACTOR] Parecer/an&aacute;lise inicial: movendo função fecharanalise para m&oacute;dulo de parecer
+* [REFACTOR] An&aacute;lise de conte&uacute;do: removendo c&oacute;digo comentado
 
 Release 2.6.6
 [FIX] Gerenciar parecer/distribuir parecer: desativando documento assinatura quando distribui projeto
@@ -62,7 +62,7 @@ Release 2.6.5
 [ FIX ] Prestação de contas: Duplicidade de linhas ao fazer a analise do projeto.
 
 Release 2.6.4
-[FIX] Parecer/análise inicial: parecerista gravando parecer inicial e impedindo coordenador de editar parecer
+[FIX] Parecer/an&aacute;lise inicial: parecerista gravando parecer inicial e impedindo coordenador de editar parecer
 
 Release 2.6.3
 [FIX] Cadastro Proponente: corrige erro quando não existe informações adicionais
@@ -72,17 +72,17 @@ Release 2.6.2
 [Fix] Alterar projeto/Avaliacao: corrige bug ao salvar avaliacao
 
 Release 2.6.1
-* [FIX] Parecer/análise inicial de produto: correção na edição de parecer quando já existe parecer
+* [FIX] Parecer/an&aacute;lise inicial de produto: correção na edição de parecer quando j&aacute; existe parecer
 
 Release 2.6.0
 * [ADD] Assinatura / Models / Atos administrativos : Criação de mapper para AtoAdministrativo.
 * [UPDATE]Adição da opção "Gerir Atos Administrativos" para o grupo "Gestor Salic"
-* [UPDATE] Adição de validação que permite que somente usuários que façam parte do grupo "Gestor Salic" atuem nas funcionalidades do controller AtoAdministrativo.
+* [UPDATE] Adição de validação que permite que somente usu&aacute;rios que façam parte do grupo "Gestor Salic" atuem nas funcionalidades do controller AtoAdministrativo.
 * [FIX] Assinatura/Gerenciar Atos administrativos : Correção de envio e carregamento do Orgãdo do Assinante e Ordem de assinaturas do Ato Administrativo.
 * [UPDATE] Assinatura / Gerenciamento de Atos administrativos : Criação da funcionalidade de remover ato administrativo.
 * [UPDATE] Prestação de contas: Novos metodos para buscar produtos
 * [UPDATE] Prestação de contas: Ajuste para novo layout
-* [UPDATE] Prestação de contas: ajusta para sinalizar se está regular o laudo
+* [UPDATE] Prestação de contas: ajusta para sinalizar se est&aacute; regular o laudo
 * [UPDATE] Prestação de contas: ajuste no laudo final, adicionando laudos tecnico e chefe
 * [UPDATE] Prestação de contas: ajuste no laudo final, para utf8
 * [UPDATE] Prestação de contas: Ajuste no fluxo para poder emitir parecer
@@ -93,98 +93,98 @@ Release 2.6.0
 * [UPDATE] Prestação de contas: ajuste de link e historico reformulado
 * [ADD] Novo papel: superintendente de vinculada (IPHAN) e ajustes no fluxo do IPHAN
 * [FIX] Gerenciar parecer: corrigindo link de concluir parecer
-* [FIX] Parecer/gerenciar parecer: mantém idPronac buscado quando altera tipo do filtro
-* [FIX] Default/Gerenciar parecer coordenador: correção no link para página de histórico
+* [FIX] Parecer/gerenciar parecer: mant&eacute;m idPronac buscado quando altera tipo do filtro
+* [FIX] Default/Gerenciar parecer coordenador: correção no link para p&aacute;gina de hist&oacute;rico
 * [FIX] Parecer/gerenciar parecer coordenador: corrigindo valor de FecharAnalise na distribuição quando redistribui um projeto impedido por parecerista
-* [FIX] Parecer/Análise inicial: alterando link de redirecionamento quando declara impedimento
-* [FIX] Parecer/análise inicial: somente exibe botão de impedimento enquanto parecerista ainda não iniciou a análise
+* [FIX] Parecer/An&aacute;lise inicial: alterando link de redirecionamento quando declara impedimento
+* [FIX] Parecer/an&aacute;lise inicial: somente exibe botão de impedimento enquanto parecerista ainda não iniciou a an&aacute;lise
 * [FIX] Parecer/gerenciar parecer presidente: ao finalizar projeto, fecha assinatura
 * [FIX] Parecer/gerenciar parecer coordenador: correção no alinhamento dos botões
-* [FIX] Analise inicial/produto secundário: desabilitando botão de parecer desfavorável quando somente leitura
-* [FIX] Parecer/Emitir parecer CNIC: componente da comissão define parecer e só então libera botão de gerar assinatura; assinatura reflete parecer do componente da commissão
-* [FIX] Analise inicial/produto secundário: desabilitando edição do produto secundário se não for o parecerista atribuído para realizar parecer
+* [FIX] Analise inicial/produto secund&aacute;rio: desabilitando botão de parecer desfavor&aacute;vel quando somente leitura
+* [FIX] Parecer/Emitir parecer CNIC: componente da comissão define parecer e s&oacute; então libera botão de gerar assinatura; assinatura reflete parecer do componente da commissão
+* [FIX] Analise inicial/produto secund&aacute;rio: desabilitando edição do produto secund&aacute;rio se não for o parecerista atribu&iacute;do para realizar parecer
 * [FIX] CNIC/Parecer consolidado: correções na exibição do enquadramento e removendo campos caso nova IN
 * [FIX] Parecer/gerenciar parecer presidente: correção no alinhamento dos botões
-* [FIX] Analisar parecer/análise de custos: exibindo linhas com valores maiores que os praticados
-* [FIX] Analisar parecer/análise de custos: correção na exibição de números com ponto flutuante
-* [FIX] Análise inicial: ajuste na ordenação da planilha orçamentária
-* [FIX][REFACTOR] Parecer/análise inicial: removendo ações relevantes do produto principal && removendo funções não mais usadas
+* [FIX] Analisar parecer/an&aacute;lise de custos: exibindo linhas com valores maiores que os praticados
+* [FIX] Analisar parecer/an&aacute;lise de custos: correção na exibição de n&uacute;meros com ponto flutuante
+* [FIX] An&aacute;lise inicial: ajuste na ordenação da planilha orçament&aacute;ria
+* [FIX][REFACTOR] Parecer/an&aacute;lise inicial: removendo ações relevantes do produto principal && removendo funções não mais usadas
 * [REFACTOR] Parecer/gerenciar parecer: alterando nome da função isIphan para isVinculadaIphan
 * [REFACTOR] Parecer/gerenciar parecer: criando função isVinculadaIphan & ajuste no fluxo do IPHAN
-* [DEPRECATED] Gerenciar parecer: removendo funcionalidade de conclusão movida para outro módulo
+* [DEPRECATED] Gerenciar parecer: removendo funcionalidade de conclusão movida para outro m&oacute;dulo
 * [FIX] Parecerista: Corrige charset
 * [FIX] Parecerista: Corrige visualizacao das tabelas ao abrir e fechar
 * [FIX] Parecerista/Comprovante de RPA: Corrige erro ao baixar arquivo .pdf
-* [FIX] Planilhas orçamentárias: corrige texto da etapa de Administração do Projeto
+* [FIX] Planilhas orçament&aacute;rias: corrige texto da etapa de Administração do Projeto
 * [Fix] Projeto/Readequacao do Plano de Distribuicao: corrige ao salvar plano de distribuicao da antiga IN
-* [REFACTOR] Remoção de todas os códigos comentados de xd
+* [REFACTOR] Remoção de todas os c&oacute;digos comentados de xd
 
 Release 2.5.4
 * [Fix] Tempo da sessão: aumenta o tempo da sessão para 24horas
 
 Release 2.5.3
-* [FIX] Solicitar vínculo: corrige ao solicitar vínculo
+* [FIX] Solicitar v&iacute;nculo: corrige ao solicitar v&iacute;nculo
 
 Release 2.5.2
-* [FIX] Gerenciar Responsaveis/Novo responsável: correção ao vincular novo responsável
+* [FIX] Gerenciar Responsaveis/Novo respons&aacute;vel: correção ao vincular novo respons&aacute;vel
 
 Release 2.5.1
-* [FIX] Parecer/Análise inicial e CNIC: correção ao gerar documento
+* [FIX] Parecer/An&aacute;lise inicial e CNIC: correção ao gerar documento
 
 Release 2.5.0
-* [ADD] Parecer/Análise CNIC: Fluxo de assinatura para CNIC, com finalização de projeto
-* [FIX] CNIC/Realizar análise projeto: retirar verificação de limites orçamentários se nova IN 2017
-* [FIX] CNIC/Realizar análise projeto: removendo links de edição da planilha e reintegrar valores para projetos posteriores a VerificarIN2017
-* [FIX] CNIC/Realizar análise projeto: se nova IN, tirar links para análise de conteúdo e análise de cortes sugeridos
-* [FIX] CNIC/Realizar análise projeto: alterando cor do menu
-* [FIX] Parecer/análise inicial: correção de erro ao gerar documento para assinatura
+* [ADD] Parecer/An&aacute;lise CNIC: Fluxo de assinatura para CNIC, com finalização de projeto
+* [FIX] CNIC/Realizar an&aacute;lise projeto: retirar verificação de limites orçament&aacute;rios se nova IN 2017
+* [FIX] CNIC/Realizar an&aacute;lise projeto: removendo links de edição da planilha e reintegrar valores para projetos posteriores a VerificarIN2017
+* [FIX] CNIC/Realizar an&aacute;lise projeto: se nova IN, tirar links para an&aacute;lise de conte&uacute;do e an&aacute;lise de cortes sugeridos
+* [FIX] CNIC/Realizar an&aacute;lise projeto: alterando cor do menu
+* [FIX] Parecer/an&aacute;lise inicial: correção de erro ao gerar documento para assinatura
 * [FIX] Parecer/presidente de vinculada: correção de url
-* [FIX] Parecer/análise inicial: ajustes de estilo no documento para assinatura
-* [REFACTOR] Parecer/análise inicial: alterando nome de função preparatória do documento para assinatura
-* [REFACTOR] Parecer/Análise CNIC: movendo funcionalidade para módulo parecer e redirecionando ação
-* [REFACTOR] Parecer/parecer cnic: trazendo funcionalidades de emissão de parecer para módulo parecer
+* [FIX] Parecer/an&aacute;lise inicial: ajustes de estilo no documento para assinatura
+* [REFACTOR] Parecer/an&aacute;lise inicial: alterando nome de função preparat&oacute;ria do documento para assinatura
+* [REFACTOR] Parecer/An&aacute;lise CNIC: movendo funcionalidade para m&oacute;dulo parecer e redirecionando ação
+* [REFACTOR] Parecer/parecer cnic: trazendo funcionalidades de emissão de parecer para m&oacute;dulo parecer
 * [UPDATE] EXIBIR PROJETO/PLANO DISTRIBUICAO: Ajustando visualizacao do plano de distribuicao
-* [UPDATE] Assinatura/TbAssinatura: adicionando tipo ato para análise CNIC
+* [UPDATE] Assinatura/TbAssinatura: adicionando tipo ato para an&aacute;lise CNIC
 * [UPDATE] Autenticação: adicionado permissão para componente da comissão (cnic)
 
 Release 2.4.3
-* [FIX] Parecer/análise inicial: correção na geração do documento para assinatura'
+* [FIX] Parecer/an&aacute;lise inicial: correção na geração do documento para assinatura'
 
 Release 2.4.2
-* [FIX] Parecer/análise inicial: correção de erro na paginação
-* [FIX] Parecer/análise inicial: Passando idAtoAdministrativo e stEstado para gerar documento assinatura
+* [FIX] Parecer/an&aacute;lise inicial: correção de erro na paginação
+* [FIX] Parecer/an&aacute;lise inicial: Passando idAtoAdministrativo e stEstado para gerar documento assinatura
 
 Release 2.4.1
-* [FIX] Parecer/análise inicial: correção no fome da fn e alterando chamada a verificarIN2017 para fn
-* [FIX] Parecer/análise inicial: adicionando tela faltante
+* [FIX] Parecer/an&aacute;lise inicial: correção no fome da fn e alterando chamada a verificarIN2017 para fn
+* [FIX] Parecer/an&aacute;lise inicial: adicionando tela faltante
 
 Release 2.4.0
-* [ADD] Parecer/análise inicial: Fluxo de aprovação pelo parecerista com assinatura para IN 2017
+* [ADD] Parecer/an&aacute;lise inicial: Fluxo de aprovação pelo parecerista com assinatura para IN 2017
 * [ADD] Parecer/gerenciar pareceres: Fluxo de aprovação pelo coordenador de parecer com assinatura para IN 2017
 * [ADD] Parecer/gerenciar parecer: Fluxo de aprovação pelo presidente de vinculada para IN 2017
-* [ADD] Parecer/análise inicial: Gravando informações sobre ações relevantes para IN 2017
-* [ADD] Parecer: passando sempre o código do órgão superior para obterQuantidadeMinimaAssinaturas()
+* [ADD] Parecer/an&aacute;lise inicial: Gravando informações sobre ações relevantes para IN 2017
+* [ADD] Parecer: passando sempre o c&oacute;digo do &oacute;rgão superior para obterQuantidadeMinimaAssinaturas()
 * [ADD] Parecer/analisar-projeto-parecer: finalizar projeto pela modal para IN 2017
 * [ADD] Autenticação/grupos: Adicionando perfil de presidente de vinculada
-* [ADD] Parecer/Documento Assinatura: pega nome do órgão para gerar documento para assinatura
-* [ADD] Parecer/analisar-projeto-parecer: trazendo a lógica da análise inicial para módulo de parecer; adicionando restrição de editar produto, acessar diligência e declarar impedimento caso já tenha assinado
+* [ADD] Parecer/Documento Assinatura: pega nome do &oacute;rgão para gerar documento para assinatura
+* [ADD] Parecer/analisar-projeto-parecer: trazendo a l&oacute;gica da an&aacute;lise inicial para m&oacute;dulo de parecer; adicionando restrição de editar produto, acessar diligência e declarar impedimento caso j&aacute; tenha assinado
 * [ADD] Assinatura/TbAssinatura: adicionando constante para tipo_ato_analise_inicial
 * [ADD] Helper: adicionando helper IsProjetoJaAssinado
 * [FIX] Analisarprojetoparecer: fazendo validações de 15% e 20% apenas para projetos anteriores a 2017
 * [FIX] Default/gerenciarparecer: inativa documentoAssinatura existente quando encaminha/distribui parecer pelo coordenador
-* [FIX] Parecer: atualizando entradas no menu para análise inicial e gerenciar parecer
-* [FIX] Analisarprojetoparecer/análise inicial: correção de encoding
-* [FIX] Analisarprojetoparecer/fechar análise: correção de encoding
-* [FIX] Parecer/HelperIsProjetoJaAssinado: pegando também situação em que retorna objeto
-* [FIX] Analisarprojetoparecer/análise inicial: correção em link de produto secundário e erro ao alterar item
-* [FIX] Analisarprojetoparecer/análise inicial: correção ao alterar item && correção de acentos
+* [FIX] Parecer: atualizando entradas no menu para an&aacute;lise inicial e gerenciar parecer
+* [FIX] Analisarprojetoparecer/an&aacute;lise inicial: correção de encoding
+* [FIX] Analisarprojetoparecer/fechar an&aacute;lise: correção de encoding
+* [FIX] Parecer/HelperIsProjetoJaAssinado: pegando tamb&eacute;m situação em que retorna objeto
+* [FIX] Analisarprojetoparecer/an&aacute;lise inicial: correção em link de produto secund&aacute;rio e erro ao alterar item
+* [FIX] Analisarprojetoparecer/an&aacute;lise inicial: correção ao alterar item && correção de acentos
 * [FIX] Analise inicial/produto: estilo diferenciado para produto com custo praticado acima da mediana
-* [UPDATE] Parecer/análise inicial: ajuste de estilo dos botões
+* [UPDATE] Parecer/an&aacute;lise inicial: ajuste de estilo dos botões
 * [UPDATE] Parecer/gerenciar pareceres: ajuste de estilo dos botões
 * [UPDATE] Assinatura: adicionando possibilidade de filtrar a obtenção da quantidade de assinaturas por idOrgaoDoAssinante
-* [UPDATE] Analisarprojetoparecer/análise inicial: Alterando devolução ao coordenador para declaração de impedimento
-* [REFACTOR] Parecer/Análise inicial: movendo métodos de parecer/index para parecer/analise-inicial e removendo arquivos desnecessários
-* [REFACTOR] Parecer/gerenciar-parecer: movendo lógica de finalização de parecer para ser feito pelo presidente; presidente assinando, concluindo e enviando de volta para o MinC
+* [UPDATE] Analisarprojetoparecer/an&aacute;lise inicial: Alterando devolução ao coordenador para declaração de impedimento
+* [REFACTOR] Parecer/An&aacute;lise inicial: movendo m&eacute;todos de parecer/index para parecer/analise-inicial e removendo arquivos desnecess&aacute;rios
+* [REFACTOR] Parecer/gerenciar-parecer: movendo l&oacute;gica de finalização de parecer para ser feito pelo presidente; presidente assinando, concluindo e enviando de volta para o MinC
 * [UPDATE] Prestação de contas: Mudando formato de data/hora nas telas
 * [FIX] Prestação Contas: Retirando texto rico para teste e validação
 * [FIX] Desistencia Recursal: Ajusta no texto da desistencia recursal
@@ -197,18 +197,18 @@ Release 2.3.0
 * [FIX] Admissibilidade/Enquadramento : Correção do link "Enquadrar Projeto"
 * [FIX] Readequação: Erro ao acessar a tela
 * [FIX] Prestação de Contas : Ajuste no sql para gerar os dados de itens
-* [UPDATE] Assinatura : Adição de tratamento para gerenciamento de projetos culturais para assinar de acordo com o ato administativo do orgão, perfil e orgão superior do usuário logado.
-* [UPDATE] Assinatura : Adição de tratamento para visualização de itens já assinados
+* [UPDATE] Assinatura : Adição de tratamento para gerenciamento de projetos culturais para assinar de acordo com o ato administativo do orgão, perfil e orgão superior do usu&aacute;rio logado.
+* [UPDATE] Assinatura : Adição de tratamento para visualização de itens j&aacute; assinados
 * [UPDATE] Assinatura : Melhoria nos filtros de Projetos Culturais para assinaturas
 * [UPDATE] Assinatura : Alteração da validação da exibiçaõ do botão Finalizar, de acordo com o Orgao Superior no ato Administrativo [FIX] Correção de falha na validação da situação na funcionalidade de devolução do projeto cultural.
-* [UPDATE] Admissibilidade/Enquadramento : Criação de funcionalidade para visualizar o motivo da devolução dos Projetos Culturais que estão na situação 'B05 - Projeto Devolvido para enquadramento' que estão disponíveis para enquadramento
+* [UPDATE] Admissibilidade/Enquadramento : Criação de funcionalidade para visualizar o motivo da devolução dos Projetos Culturais que estão na situação 'B05 - Projeto Devolvido para enquadramento' que estão dispon&iacute;veis para enquadramento
 * [UPDATE] Admissibilidade/Enquadramento: Adição de grupos de acesso para SAV na assinatura pela admissibilidade de enquadramento.
 * [UPDATE] Proposta : Gestor Salic/Solicitar Itens: Corrige aprovacao e rejeicao dos itens
 * [UPDATE] Proposta : Atualiza README do modulo proposta
-* [UPDATE] Proposta/Solicitar item: Correcao de texto e limitar a quantidade mínima de caracteres para pesquisa
-* [UPDATE] Proposta/Solicitar Item - Corrigindo bug e melhorando o código
+* [UPDATE] Proposta/Solicitar item: Correcao de texto e limitar a quantidade m&iacute;nima de caracteres para pesquisa
+* [UPDATE] Proposta/Solicitar Item - Corrigindo bug e melhorando o c&oacute;digo
 * [UPDATE] Proposta/Solicitar Item - Refatora metodo de salvar e remove consultas nao utilizados
-* [UPDATE] Proposta/Solicitar Itens: Melhoria na pesquisa de itens já existentes
+* [UPDATE] Proposta/Solicitar Itens: Melhoria na pesquisa de itens j&aacute; existentes
 
 Release 2.2.0
  * [UPDATE] Proposta/Gerar pdf: novo formato e informacoes para o proponente imprimir a proposta cultural
@@ -240,32 +240,32 @@ Release 2.2.0
  * [FIX] RELATORIOS/Operacional: Bug ao carregar menu
  * [UPDATE] Assinatura: Melhoria de performance da funcionalidade de assinar projeto.
  * [UPDATE] Assinatura: Ajuste de consulta para consiga receber como parametro o identificador do documento gerado.
- * [UPDATE] Assinatura: Ajuste de todas as chamadas e carregamento de dados para a funcionalidade de Visualizar Documento de assinatura para que ao invés de enviar sempre os parametros "IdPronac" e 	"IdTipoDoAtoAdministrativo", agora envie somente "idDocumentoAssinatura".
- * [UPDATE] Assinatura: Criação de funcionalidade de encaminhamento em massa para módulo genérico de assinatura, validando a seleção dos mesmos Tipos de Atos Administrativos.
- * [UPDATE] Adapatação do módulo de assinatura pra permitir o encaminhamento em massa de assinaturas do mesmo Tipo do Ato Administrativo.
- * [UPDATE] Assinatura: Adição de parametrização do módulo de assinatura para permitir que receba módulo e controller de origem para redirecionamento ou ação do botão voltar.
- * [UPDATE] Assinatura: Alteração de todas as referências para a action "gerenciar-projeto" para "gerenciar-assinaturas" para que seja possível fazer o redirecionamento por módulo.
- * [UPDATE] Assinatura: Ajuste de layout na mensagem exibida para quando não há assinaturas para o usuário com o perfil, orgao e cargo atual.
+ * [UPDATE] Assinatura: Ajuste de todas as chamadas e carregamento de dados para a funcionalidade de Visualizar Documento de assinatura para que ao inv&eacute;s de enviar sempre os parametros "IdPronac" e 	"IdTipoDoAtoAdministrativo", agora envie somente "idDocumentoAssinatura".
+ * [UPDATE] Assinatura: Criação de funcionalidade de encaminhamento em massa para m&oacute;dulo gen&eacute;rico de assinatura, validando a seleção dos mesmos Tipos de Atos Administrativos.
+ * [UPDATE] Adapatação do m&oacute;dulo de assinatura pra permitir o encaminhamento em massa de assinaturas do mesmo Tipo do Ato Administrativo.
+ * [UPDATE] Assinatura: Adição de parametrização do m&oacute;dulo de assinatura para permitir que receba m&oacute;dulo e controller de origem para redirecionamento ou ação do botão voltar.
+ * [UPDATE] Assinatura: Alteração de todas as referências para a action "gerenciar-projeto" para "gerenciar-assinaturas" para que seja poss&iacute;vel fazer o redirecionamento por m&oacute;dulo.
+ * [UPDATE] Assinatura: Ajuste de layout na mensagem exibida para quando não h&aacute; assinaturas para o usu&aacute;rio com o perfil, orgao e cargo atual.
  * [FIX] Assinatura: Correção da movimentação do projeto quando encaminhado para assinatura para o orgao de destino correto, de acordo com o orgao superior
  * [UPDATE] Assinatura: Conforme solicitações do Rômulo foram realizadas alteraçãoes na estrutura do documento padrão de assinatura para enquatramento.
- * [FIX] Assinatura: Ajuste no redirecionamento das assinaturas quando uma falha de preenchimento é apresentada.
- * [FIX] Assinatura: Correção de consulta carrega documentos já assinados pelo usuário logado.
+ * [FIX] Assinatura: Ajuste no redirecionamento das assinaturas quando uma falha de preenchimento &eacute; apresentada.
+ * [FIX] Assinatura: Correção de consulta carrega documentos j&aacute; assinados pelo usu&aacute;rio logado.
  * [UPDATE] Assinatura: Alteração do layout da funcionalidade de visualização do projeto e visualizar assinaturas
  * [FIX]  Assinatura/Correção do painel : para que sejam exibidos projetos com assinatura finalizada.
  * [ADD]  Assinatura: Adição de brasão e configuração de folha de estilo para espaçamento de 10.
- * [UPDATE] Enquadramento/Assinatura : Melhorias de layout e refatoração de código para utilização de constantes que representam valores do banco de dados.
+ * [UPDATE] Enquadramento/Assinatura : Melhorias de layout e refatoração de c&oacute;digo para utilização de constantes que representam valores do banco de dados.
  * [FIX] Assinatura/Visualizar Assinaturas: Ajuste de cor de labels de acordo com o estado do documento.
  * [UPDATE] Assinatura/Visualizar Assinaturas: Adição das colunas Situação e Estado
- * [UPDATE] Assinatura/models/DbTable/TbAssinatura: Ordenação por data de criação no método "obterProjetosAssinados"
- * [UPDATE] Assinatura/models/DbTable/TbAssinatura: Adição do método "obterProjetosAssinados"
+ * [UPDATE] Assinatura/models/DbTable/TbAssinatura: Ordenação por data de criação no m&eacute;todo "obterProjetosAssinados"
+ * [UPDATE] Assinatura/models/DbTable/TbAssinatura: Adição do m&eacute;todo "obterProjetosAssinados"
  * [UPDATE] Assinatura: Adição da funcioalidade "Visualizar Assinaturas" acessada pelo menu "Assinatura".
- * [UPDATE] Assinatura: Adaptar locais de consulta por documentos abertos para assinatura buscando também por documentos Ativos
+ * [UPDATE] Assinatura: Adaptar locais de consulta por documentos abertos para assinatura buscando tamb&eacute;m por documentos Ativos
  * [UPDATE] Assinatura: Ajustar a devolução para que altere a situação do Documento da Assinatura para 0 quando devolvido.
- * [UPDATE] Assinatura/Documentação: Atualizar documentação da Library e Módulo de Assinatura com o intuito de nivelar conhecimento.
+ * [UPDATE] Assinatura/Documentação: Atualizar documentação da Library e M&oacute;dulo de Assinatura com o intuito de nivelar conhecimento.
  * [UPDATE] Assinatura/models/TbDocumentoAssinatura:
  	- Adição do atributo stEstado com getters e setters na Entidade Assinatura_Model_TbDocumentoAssinatura
  	- Adicionar constantes ATIVO(1) e INATIVO(2) na classe Assinatura_Model_TbDocumentoAssinatura
- * [FIX] Assinatura: Criação de SQL para alterar registros já existentes e com documentos abertos para assinatura para estarem com situação ativa
+ * [FIX] Assinatura: Criação de SQL para alterar registros j&aacute; existentes e com documentos abertos para assinatura para estarem com situação ativa
  * [UPDATE] Default/Models/Orgaos: Inclusão de novas contantes de Orgaos.
  * [UPDATE] Projeto/Models/Situação: Adição de novas contantes de situação do projeto.
  * [FIX] PRESTAÇÃO DE CONTAS: Ajuste de Menu, erro ao tentar analisar projeto.
@@ -273,27 +273,27 @@ Release 2.2.0
  * [UPDATE] Admissibilidade: Alteração da situação de destino do projeto quando devolvido. [UPDATE] Projetos/Models/Situacao : Inclusão de constante para situação "B05".
  * [FIX] Admissibilidade/Enquadramento: Correção de bug que não permitia menos que mil caracteres. [UPDATE] Alteração de label "Justificativa" para "Parecer de Enquadramento"
  * [UPDATE] Admissibilidade/Enquadramento: Alteração as providências tomadas e orgão de destino para quando a situação do projeto for "Enquadrado com Recurso".
- * [UPDATE] Admissibilidade/Enquadramento: Alteração da situação da finalização do projeto para "Projeto Aprovado Aguardando Análise Documental".
- * [UPDATE] Admissibilidade/Gerenciamento de assinaturas: Adição de módulo/controller de origem
- * [UPDATE] Admissibilidade/Gerenciamento de assinaturas : Alteração do título da págine de 'Gerenciar Projetos' para  'Gerenciar Assinaturas'
- * [UPDATE] Admissibilidade/EnquadramentoAssinatura: Adição de tratamento para que sejam exibidas somente as assinaturas disponíveis de acordo com o módulo selecionado.
+ * [UPDATE] Admissibilidade/Enquadramento: Alteração da situação da finalização do projeto para "Projeto Aprovado Aguardando An&aacute;lise Documental".
+ * [UPDATE] Admissibilidade/Gerenciamento de assinaturas: Adição de m&oacute;dulo/controller de origem
+ * [UPDATE] Admissibilidade/Gerenciamento de assinaturas : Alteração do t&iacute;tulo da p&aacute;gine de 'Gerenciar Projetos' para  'Gerenciar Assinaturas'
+ * [UPDATE] Admissibilidade/EnquadramentoAssinatura: Adição de tratamento para que sejam exibidas somente as assinaturas dispon&iacute;veis de acordo com o m&oacute;dulo selecionado.
  * [UPDATE] Admissibilidade/EnquadramentoAssinatura: Alteração da action  'gerenciarProjetosAction' para 'gerenciarAssinaturasAction'
  * [UPDATE] Admissibilidade/Transformar proposta em projeto: Retirando funcionalidade caso a situacao da proposta seja diferente de normal #2
  * [UPDATE] Admissibilidade/Exibir proposta: Atualiza planilha e plano de distribuicao ao imprimir proposta
  * [UPDATE] Refatoração de nome incorreto de constantes da entidade 'Orgao' e 'Situacao'.
  * [FIX] HEADER corrige link da logo para home do  proponente
- * [UPDATE] Adição de tratamento para o campo "from" utilizando base64_encode para ocultar a última url acessada e sendo informado junto com o método de loggout quando a sessão é perdida
+ * [UPDATE] Adição de tratamento para o campo "from" utilizando base64_encode para ocultar a &uacute;ltima url acessada e sendo informado junto com o m&eacute;todo de loggout quando a sessão &eacute; perdida
  * [UPDATE] Adição do campo do tipo hidden e name "from" para tratar redirecionamento de urls.
  * [UPDATE] Adição de tratamento para quando receber a propriedade "prom" da class ""...Action_Abstract.php"
  * [FIX] Procuracao/Cadastrar procurador: Corrige bug ao cadastrar um novo procurador
- * [REMOVE] Remoção do arquivo docker-compose.yml para que essa dependência não seja criada dentro deste repositório
+ * [REMOVE] Remoção do arquivo docker-compose.yml para que essa dependência não seja criada dentro deste reposit&oacute;rio
 
 Release 2.1.4
- * [FIX] Analiseprojetoparecer/análise inicial: correção de quebra de tela
+ * [FIX] Analiseprojetoparecer/an&aacute;lise inicial: correção de quebra de tela
 
 Release 2.1.3
- * [UPDATE] PlanilhaOrcamentaria: Adicionando alteração da IN2017 para planilha orçamentária tipo 3
- * [ADD] Consultardadosprojeto/Remanejamento 50%: correções ao fazer readequação de 50% quando já tem uma readequação SR
+ * [UPDATE] PlanilhaOrcamentaria: Adicionando alteração da IN2017 para planilha orçament&aacute;ria tipo 3
+ * [ADD] Consultardadosprojeto/Remanejamento 50%: correções ao fazer readequação de 50% quando j&aacute; tem uma readequação SR
 
 Release 2.1.2
  * [UPDATE] PROPOSTA:PLANO DE DISTRIBUICAO Melhoria nas mensagens, adiciona toast do materialize
@@ -303,7 +303,7 @@ Release 2.1.2
  * [UPDATE] PROPOSTA:PLANO DE DISTRIBUICAO Visualizando plano de distribuicao detalhado em outras partes do sistema
 
 Release 2.1.1
- * [Fix] Projeto/Readequação orçamentária: ajuste da lista de etapas conforme a IN 2017 ao incluir novo item
+ * [Fix] Projeto/Readequação orçament&aacute;ria: ajuste da lista de etapas conforme a IN 2017 ao incluir novo item
 
 Release 2.1.0
  * [Novo] Documentação: novo formato de arquivo CHANGELOG
@@ -317,12 +317,12 @@ Release 2.1.0
  * [Update] Proposta/Plano de Distribuição: ocultando campos quando for do tipo de venda Exemplar
  * [Update] Proposta/Plano de Distribuição: Melhorando as conversoes e ocultando calculos parciais quando eh do tipo Exemplar
  * [Update] Proposta/Plano de Distribuição: Salva valores corretamente e mostra de mensagem quando carrega
- * [Update] Proposta/Planilha Orçamentária: Aumenta quantidade de caracteres no valor unitario
+ * [Update] Proposta/Planilha Orçament&aacute;ria: Aumenta quantidade de caracteres no valor unitario
  * [Update] Proposta/Plano de Distribuição: formatando valores para salvar
  * [Update] Proposta/Plano de Distribuição: Ajustando combos no vuejs
  * [Update] Proposta/Plano de Distribuição: ajustando componentes
  * [Fix] Assinatura/Gerenciamento de assinaturas : Correção de validação que verifica quantidade minima de assinaturas para exibir a listagem.
- * [Fix] Consultardadosprojeto:remanejamento_menor correção nas mensagens ao usuário
+ * [Fix] Consultardadosprojeto:remanejamento_menor correção nas mensagens ao usu&aacute;rio
  * [Fix] Consultardadosprojeto/remanetamento_menor: correção na cor na totalização dos valores remanejados
  * [Fix] Consultardadosprojeto/remanejamento menor: correção na totalização da readequação e ao enviar projeto sem valor remanejado
  * [Fix] Consultardadosprojeto/remanejamento menor: correção de encoding em mensagem de erro
@@ -334,9 +334,9 @@ Release 2.1.0
  * [Fix] Proposta/Plano de distribuicao: alterando formato da moeda e atualizando form 2
  * [Fix] Proposta/Local de realizacao: Botao de excluir
  * [Update] Ambiente/Docker: Atualização das informações utilizada para funcionamento do docker no salic.
- * [Update] Ambiente/Docker: Melhoria no docker-compose.yml para que as configurações de volumem utilizem o diretório atual como referência e somente logs definidos como a pasta /var/www/log/apache2
+ * [Update] Ambiente/Docker: Melhoria no docker-compose.yml para que as configurações de volumem utilizem o diret&oacute;rio atual como referência e somente logs definidos como a pasta /var/www/log/apache2
  * [Update] Proposta/Plano de distribuicao: alterando formato da moeda e atualizando form
- * [Add] Ambiente/Docker: Adição do docker-compose.yml para carregamento automático das configurações necessárias e ambiente para que o Salic seja executado. [ REMOVE ] Remoção de arquivos legados que não são mais utilizados
+ * [Add] Ambiente/Docker: Adição do docker-compose.yml para carregamento autom&aacute;tico das configurações necess&aacute;rias e ambiente para que o Salic seja executado. [ REMOVE ] Remoção de arquivos legados que não são mais utilizados
  * [Refactor] Proposta/Plano distribuicão: Trabalhando no novo formato para detalhamento do plano distribuicao
  * [Refactor] Proposta/Plano distribuicão: Atualizando layout e disponibilizacao de botoes do plano de distribuicao
 
@@ -350,16 +350,16 @@ Release 2.0.15
  * Fix: [Remanejamento 50%] Removendo soma dos grupo a, b, c d
  * Fix: [Remanejamento 50%] Alterando texto do menu lateral
  * Fix: [Remanejamento 50%] Somando grupo a, b, c d - em andamento
- * Fix: [Remanejamento 50%] Corrigindo arredondamento de valor mínimo e valor máximo; puxando valor do item da planilha correta
+ * Fix: [Remanejamento 50%] Corrigindo arredondamento de valor m&iacute;nimo e valor m&aacute;ximo; puxando valor do item da planilha correta
  * Fix: [Remanejamento 50%] Alterando valor permitido de 20% para 50%
  * Fix: [Remanejamento 50%] Exibindo planilha correta ao realizar remanejamento
  * Update: [Assinatura] Ajustes de situação para definir Adicionando alterações no changelog para versão 2.1.4implicitamente os valores padroes para o documento de assinatura
- * Update: [Custos vinculados] mostrando valores padrões para o usuário
+ * Update: [Custos vinculados] mostrando valores padrões para o usu&aacute;rio
  * Update: [Custos vinculados] salvando os percentuais dos custos vinculados nos novos campos no banco
  * Update: [Planilha orcamentaria] finalizando atualizacoes para os custos vinculados
 
 Release 2.0.14
- * Fix: [Recursos] Exibindo combo de área cultural corretamente; correção no checkbox da finalização
+ * Fix: [Recursos] Exibindo combo de &aacute;rea cultural corretamente; correção no checkbox da finalização
 
 Release 2.0.13
  * Fix: [Assinatura] Correções variadas
@@ -370,7 +370,7 @@ Release 2.0.12
  * Fix: [Readequações] Erros no acesso a tela de Avaliar readequações.
  * Update: adição de funcionalidade de encaminhar assinatura
  * Fix: [Agente] Erro na combo de UF
- * Update: Criação do método "movimentarProjeto" [ Update ] Adição da propriedade $idOrdemDaAssinatura na classe "MinC_Assinatura_Model_Assinatura" com getters e setters.
+ * Update: Criação do m&eacute;todo "movimentarProjeto" [ Update ] Adição da propriedade $idOrdemDaAssinatura na classe "MinC_Assinatura_Model_Assinatura" com getters e setters.
  * Fix: Correção do link do botão "Voltar" da a gerência de assinaturas.
  * Fix:  Alteração da situação do documento de assinatura para fechado quando nalizar as assinaturas do enquadramento.
  * Fix: [Gerenciar Parecer] Ajuste para erro ao encaminhar parecer
@@ -378,9 +378,9 @@ Adicionando alterações no changelog para versão 2.1.4
 Release 2.0.11
  * Fix: [Proposta] Ajuste na inclusão de itens orçamentarios
  * Fix: [Agente] Erros nas combos de UF e Cidade
- * Add: [Assinatura] Adição de tratamento para quando o módulo utiliza ou não a movimentação de assinatura.
- * Add: [Assinatura] Adição de tratamento para quando o módulo utiliza ou não a movimentação de assinatura.
- * Add: [Assinatura] Adição de validação para quando o usuario entrar na tela de assinar e já tiver assinado o projeto.
+ * Add: [Assinatura] Adição de tratamento para quando o m&oacute;dulo utiliza ou não a movimentação de assinatura.
+ * Add: [Assinatura] Adição de tratamento para quando o m&oacute;dulo utiliza ou não a movimentação de assinatura.
+ * Add: [Assinatura] Adição de validação para quando o usuario entrar na tela de assinar e j&aacute; tiver assinado o projeto.
  * Fix: [Movimentação de Conta] Ajusta na SP de execução.
 
 Release 2.0.10
@@ -388,21 +388,21 @@ Release 2.0.10
   * Fix: [CNIC] Ajuste de menu para componente da comissão
   * Fix: [Parecerista] Corrigindo planilha na avaliacao do recurso
   * Fix: [CNIC] Ajuste no layout do painel de credenciamento.
-  * Fix: [Recurso] Charset Recurso em Análise.
+  * Fix: [Recurso] Charset Recurso em An&aacute;lise.
   * Fix: [Comprovação Financeira] Ajuste dos botões.
   * Fix: [Comprovação Financeira] Ajuste na hora de salvar fornecedor do exterior
-  * Fix: [Parecer Técnico] Erros no layout
+  * Fix: [Parecer T&eacute;cnico] Erros no layout
   * Fix: [Consultar dados projeto] Corrige charset e cores das planilhas
   * Update: [Sistema] Padroniza algumas transacoes e corrige varios charsets
   * Update: [Assinatura] Melhorias no fluxo de criação de documento e assinatura do documento de acordo com o que foi definido no arquivo de configuração.
-  * Add: [Assinatura] Adição de Markdown com passo-a-passo e dependências do módulo de assinatura
+  * Add: [Assinatura] Adição de Markdown com passo-a-passo e dependências do m&oacute;dulo de assinatura
   * Update: [Assinatura] Reestruturação de tudo o que envolve a criação de um documento de assinatura.
   * Remove: [Assinatura] Remoção de todas as dependências do enquadramentro da geração de um documento de assinatura.
-  * Add: [Assinatura] Criação de Interfaces e segmentação de classes com o intuito de definir o que é comum e pode ser aplicado um padrão para que seja possível implementar a assinatura dentro do SALIC em outras funcionalidades.
-  * Update: [Assinatura] Substituição de remoção física para remoção lógica das assinaturas
+  * Add: [Assinatura] Criação de Interfaces e segmentação de classes com o intuito de definir o que &eacute; comum e pode ser aplicado um padrão para que seja poss&iacute;vel implementar a assinatura dentro do SALIC em outras funcionalidades.
+  * Update: [Assinatura] Substituição de remoção f&iacute;sica para remoção l&oacute;gica das assinaturas
 
 Release 2.0.9
-  * Fix: [Análise de projeto] Erro no layout
+  * Fix: [An&aacute;lise de projeto] Erro no layout
   * Fix: [Comprovação financeira] Ajuste nos titulos da tela
   * Fix: [Comprovação financeira] Erro ao tentar enviar
   * Update: [Envio proposta cultural] Adicionando segmentos que não necessitam validar o CNAE do proponente
@@ -412,17 +412,17 @@ Release 2.0.9
   * Fix: [Menu] Label da nova IN trocada de 2016 para 2013
   * Fix: [Login] Erro ao tentar logar no sistema com senha gerada pelo gestor do salic
   * Fix: [Consulta cidadão] Corrigindo funcionalidade
-  * Fix: [Dados bancários] Correção de charset
+  * Fix: [Dados banc&aacute;rios] Correção de charset
   * Fix: [Layout] Ajuste das telas de incluir agentes + menu com novo formato
   * Fix: [Readequações] Botão finalizar não estava funcionando
-  * Add: [Proposta] Atualizando dados do proponente com webservice da receita quando o CNAE cultural nao é compativel com a proposta atual
+  * Add: [Proposta] Atualizando dados do proponente com webservice da receita quando o CNAE cultural nao &eacute; compativel com a proposta atual
 
 Release 2.0.8
-  * Fix [Manter usuários] correções em férias e atestados
-  * Fix [Manter usuários] Correção de charset
-  * Fix [Manter usuários] Correção de charset
-  * Fix [Planilha orçamentária] Destaca item na planilha orcamentaria quando ultrapassa o valor praticado
-  * Fix [Recurso] Corrigindo listagem de áreas
+  * Fix [Manter usu&aacute;rios] correções em f&eacute;rias e atestados
+  * Fix [Manter usu&aacute;rios] Correção de charset
+  * Fix [Manter usu&aacute;rios] Correção de charset
+  * Fix [Planilha orçament&aacute;ria] Destaca item na planilha orcamentaria quando ultrapassa o valor praticado
+  * Fix [Recurso] Corrigindo listagem de &aacute;reas
 
 Release 2.0.7
   * Fix [Acompanhamento] Corrige erro ao Analisar comprovacao de objeto
@@ -431,13 +431,13 @@ Release 2.0.7
   * Fix [Agentes] corrige id cidade ao cadastrar agente
   * Fix [CNIC] votantes: marcando membros natos previamente selecionados
   * Fix [CNIC] votantes: permitindo que se escolha membros
-  * Fix [Manter pareceristas] corrigindo credenciamento de áreas de pareceristas
+  * Fix [Manter pareceristas] corrigindo credenciamento de &aacute;reas de pareceristas
   * Fix [Prestação de contas] habilitar projeto: removida a penalidade
-  * Fix [Readequações] técnico finaliza readequação
+  * Fix [Readequações] t&eacute;cnico finaliza readequação
   * Fix [Readequações] parecerista finalizando readequação
   * Fix [Readequações] corrigindo links para projeto
   * Fix [Recursos] corrigindo charset
-  * Fix [Recursos] corrigindo carregamento de combos de área
+  * Fix [Recursos] corrigindo carregamento de combos de &aacute;rea
 
 Release 2.0.6
   * Fix: [Proponente] Corrigindo conversao JSON
@@ -450,8 +450,8 @@ Release 2.0.5
   * Fix: [Coordenador de parecer] corrige caracteres e botao de download
   * Fix: [Readequacao] corrige caracteres das mensagens
   * Fix: [Proponentes][Manter agentes] carrega as combos de natureza corretamente
-  * Fix: [Técnico de Fiscalizacao] Corrige bug ao cadastrar nova diligencia
-  * Fix: [Técnico de Fiscalizacao] Corrige erro ao acessar pagina e menu trocado
+  * Fix: [T&eacute;cnico de Fiscalizacao] Corrige bug ao cadastrar nova diligencia
+  * Fix: [T&eacute;cnico de Fiscalizacao] Corrige erro ao acessar pagina e menu trocado
   * Fix: [Proponente] Corrige charset nas certidões negativas
   * Fix: [Coordenador CNIC] ajustes ao abrir tabela de diligencias
   * Fix: [Proponente] corrige erro ao acessar proposta de proponente vinculado
@@ -462,14 +462,14 @@ Release 2.0.5
   * Update: Consultar Dados do projeto para IN2017 e IN2016 para consultar os dados de plano de distribuição
   * Fix: [Proponente] Corrigindo quando cadastrava apenas um item da planilha não estava mostrando
   * Update: [Proponente] Evitando quebra do header no cabecalho
-  * Update: [CNIC] Atualização de código para componente de visualizar distribuição
+  * Update: [CNIC] Atualização de c&oacute;digo para componente de visualizar distribuição
   * Update: [Proponente] Melhorando perfomance ao listar propostas
-  * Fix: [Proponente] Erro quando cai a sessão de usuário e o proponente vai para pagina inicial
-  * Fix: [Técnico de Parecer] Análise/certidões negativas: corrigindo cor do botão
-  * Fix: [Técnico de Parecer] Análise/certidões negativas: habilitando edição dos campos
-  * Fix: [Técnico de Parecer] Análise - certidões negativas: Padronizando botões
+  * Fix: [Proponente] Erro quando cai a sessão de usu&aacute;rio e o proponente vai para pagina inicial
+  * Fix: [T&eacute;cnico de Parecer] An&aacute;lise/certidões negativas: corrigindo cor do botão
+  * Fix: [T&eacute;cnico de Parecer] An&aacute;lise/certidões negativas: habilitando edição dos campos
+  * Fix: [T&eacute;cnico de Parecer] An&aacute;lise - certidões negativas: Padronizando botões
   * Update: [Projeto] Identificação das IN por PRONAC ou idPronac
-  * Fix: [Análise] Corrigindo link para certidões negativas
+  * Fix: [An&aacute;lise] Corrigindo link para certidões negativas
   * Fix: [Admissibilidade] Transferência de recurso
 
 Release 2.0.4
@@ -478,8 +478,8 @@ Release 2.0.4
   * Fix: [Admissibilidade] Correção na transformação de proposta em projeto
   * Fix: [Comprovação de objeto] Ajuste no CEP ao gravar plano de distribuição
   * Fix: [CNIC]	Ajuste em telas quebradas em CNIC
-  * Fix: [Gerenciar pareceres] Ajustes de estilo e botões ao visualizar parecer técnico consolidado (parecer técnico consolidado, análise de conteúdo, análise de custo e diligências)
-  * Fix: [Planilha orçamentária] Ajuste na gravação das tabelas
+  * Fix: [Gerenciar pareceres] Ajustes de estilo e botões ao visualizar parecer t&eacute;cnico consolidado (parecer t&eacute;cnico consolidado, an&aacute;lise de conte&uacute;do, an&aacute;lise de custo e diligências)
+  * Fix: [Planilha orçament&aacute;ria] Ajuste na gravação das tabelas
   * Fix: [Proponente] Estilos, botões, rolagem em cadastrar fornecedor
   * Fix: [Proponente] Corrigindo carregamento infinito em cadastrar fornecedor
   * Fix: [Proponente] Ajuste de estilo na execução da receita e despesa
@@ -496,7 +496,7 @@ Release 2.0.3
   * Fix: [Proponente] Correções de estilo e charset
   * Fix: [Proposta] Correção no download de documentos da proposta
   * Fix: [Validar aprovação] Removendo funcionalidade de desistência recursal
-  * Fix: [Validar aprovação] Adicionando funcionalidade de assinar para Secretário e Coord Geral Admissibilidade
+  * Fix: [Validar aprovação] Adicionando funcionalidade de assinar para Secret&aacute;rio e Coord Geral Admissibilidade
   * Fix: [Validar aprovação] Alteração na regra de exibição do botão de Encaminhar para Assinatura
 
 Release 2.0.2
@@ -506,8 +506,8 @@ Release 2.0.2
   * Fix: [Gerenciar componente da comissão] Correção ao salvar
   * Fix: [Gerenciar componente da comissão] Correção de estilo
   * Fix: [Gerenciar componente da comissão] Correção ao desabilitar componente
-  * Fix: [Gerenciar pareceres] Estilo pra página de tramitação
-  * Fix: [Gerenciar pareceres] Correção em devolver para análise
+  * Fix: [Gerenciar pareceres] Estilo pra p&aacute;gina de tramitação
+  * Fix: [Gerenciar pareceres] Correção em devolver para an&aacute;lise
   * Fix: [Gerenciar pareceres] Correções em aprovação direta
   * Fix: [Marcas] Permitindo processar marcas
   * Fix: [Mobile] Correção na autenticação do App - permitindo acesso do proponente
@@ -516,13 +516,13 @@ Release 2.0.2
   * Fix: [Parecerista] Anexando RPA em Meus Pagamentos
   * Fix: [Planilha] Correção visual na tela de alterar item
   * Fix: [Planilha] Correção em custo por produto
-  * Fix: [Proponente] Cadastrando beneficiários
-  * Fix: [Proponente] Readequação de Planilha Orçamentária
+  * Fix: [Proponente] Cadastrando benefici&aacute;rios
+  * Fix: [Proponente] Readequação de Planilha Orçament&aacute;ria
   * Fix: [Proponente] Correção nos menus do proponente
   * Fix: [Proposta] Exibindo proposta cultural
   * Fix: [Web Service Receita] Correção do preenchimento do CEP
   * Fix: [Web Service Receita] Correção do cliente do Web Service
-  * Fix: [Web Service Receita] Gravando nome sem apóstrofe
+  * Fix: [Web Service Receita] Gravando nome sem ap&oacute;strofe
 
 Release 2.0.1
   * Fix: [Checklist] Erro do CNAE
@@ -531,19 +531,19 @@ Release 2.0.1
   * Fix: [Consulta cidadão] Fix na funcionalidade
   * Fix: [Diligência] Resposta de diligência
   * Fix: [Fiscalização] Fix na funcionalidade
-  * Fix: [Movimentação bancária] Vários fixes
-  * Fix: [Prestação de contas] Fix em comprovar execução física
+  * Fix: [Movimentação banc&aacute;ria] V&aacute;rios fixes
+  * Fix: [Prestação de contas] Fix em comprovar execução f&iacute;sica
   * Fix: [Parecerista] Fix em meus pagamentos
   * Fix: [Proponente] Envio da proposta estava quebrado
-  * Fix: [Proponente] Vários fixes nas diligências
+  * Fix: [Proponente] V&aacute;rios fixes nas diligências
   * Fix: [Proponente] Permitir detalhamento do plano de distribuição
   * Fix: [Proponente] Fix ao consultar proposta
   * Fix: [Proponente] Anexar documentos
   * Fix: [Proponente] Excluir proposta
   * Fix: [Proponente] Falha ao finalzar pedido de Readequação
   * Fix: [Proponente] Gerar pdf
-  * Fix: [Proponente] Fix em realização do objeto - comprovação física
-  * Fix: [Relatório trimestral] Fix na funcionalidade
+  * Fix: [Proponente] Fix em realização do objeto - comprovação f&iacute;sica
+  * Fix: [Relat&oacute;rio trimestral] Fix na funcionalidade
 
 Release 2.0.0
   * Novo: Implementação da Nova IN 2017
@@ -554,70 +554,70 @@ Release 1.15.3
   * Fix: Removendo php info
 
 Release 1.15.2
-  * Fix: [Recursos] Lista de pareceristas quebrava página de vinculada do IPHAN
+  * Fix: [Recursos] Lista de pareceristas quebrava p&aacute;gina de vinculada do IPHAN
 
 Release 1.15.1
-  * Fix: [Movimentação bancária] Corrigindo inconsistência de conta bancária
+  * Fix: [Movimentação banc&aacute;ria] Corrigindo inconsistência de conta banc&aacute;ria
 
 Release 1.15.0
   * Novo: [Recursos] Painel de projetos analisados na CNIC
   * Fix: [Comprovação financeira] Adicionando novas situações
   * Fix: [Comprovação de pagamento] Adicionando situações que podem realizar comprovação financeira
-  * Fix: [Manter dados bancários] alterando model
+  * Fix: [Manter dados banc&aacute;rios] alterando model
   * Fix: [Recursos] Corrigindo link do painel de recuros analisados pela cnic
   * Fix: [Recursos] Padronizando painel - botão de ver em todas as abas
 
 Release 1.14.9
-  * Fix: [Comprovação física do objeto] mensagens de erro quando estoura tamanho de upload
+  * Fix: [Comprovação f&iacute;sica do objeto] mensagens de erro quando estoura tamanho de upload
   * Fix: [Publicação de portaria] pequeno ajuste no texto da portaria
   * Fix: [Comprovação financeira] Atualizando valor na tabela ComprovantePagamentoxPlanilhaOrcamentaria quando edita uma comprovação
 
 Release 1.14.8
-  * Fix: [Consultar dados projeto] adicionando visualização de planilha específica para remanejamento
+  * Fix: [Consultar dados projeto] adicionando visualização de planilha espec&iacute;fica para remanejamento
 
 Release 1.14.7
-  * Fix: [Readequações] Quando técnico fazia avaliação, inseria erroneamente uma entrada a mais em tbDistribuirReadequacao
+  * Fix: [Readequações] Quando t&eacute;cnico fazia avaliação, inseria erroneamente uma entrada a mais em tbDistribuirReadequacao
   * Fix: [Readequações] Corrigido erro na lista de pareceristas
-  * Fix: [Movimentação bancária] gravando dados corretos na tabela ContaBancaria
-  * Fix: [Movimentação bancária] Removendo botão excluir da tela "manter conta bancária"
-  * Fix: [Movimentação bancária] suprimindo regra que impede alteração de agência quando já há captação
+  * Fix: [Movimentação banc&aacute;ria] gravando dados corretos na tabela ContaBancaria
+  * Fix: [Movimentação banc&aacute;ria] Removendo botão excluir da tela "manter conta banc&aacute;ria"
+  * Fix: [Movimentação banc&aacute;ria] suprimindo regra que impede alteração de agência quando j&aacute; h&aacute; captação
   * Fix: [Gerenciar Componente da Comissão] Conserto no encaminhamento de projeto de um componente para outro -> criando uma entrada para cada encaminhamento e desativando encaminhamentos anteriores
-  * Fix: [Movimentação bancária] corrigida funcionalidade de alterar agência bancária de um projeto
-  * Fix: [Movimentação bancária] suprimindo regra que impede alteração de agência quando já há captação'
+  * Fix: [Movimentação banc&aacute;ria] corrigida funcionalidade de alterar agência banc&aacute;ria de um projeto
+  * Fix: [Movimentação banc&aacute;ria] suprimindo regra que impede alteração de agência quando j&aacute; h&aacute; captação'
 
 Release 1.14.6
   * Fix: [Readequações] Correção no envio de plano de distribuição pelo proponente
-  * Fix: [Readequações] Técnico não conseguia finalizar avaliação de readequação
+  * Fix: [Readequações] T&eacute;cnico não conseguia finalizar avaliação de readequação
 
 Release 1.14.5
-  * Fix: [Recursos] Correção de código
+  * Fix: [Recursos] Correção de c&oacute;digo
 
 Release 1.14.4
-  * Fix: [Recursos] Gravando dtFechamento e melhorias de código
+  * Fix: [Recursos] Gravando dtFechamento e melhorias de c&oacute;digo
 
 Release 1.14.3
   * Fix: [Recursos] Normalizando nomes das querys na montagem de combo de pareceristas
 
 Release 1.14.2
-  * Fix: [Recursos] Enviando para órgão correto quando coordenador finaliza
-  * Fix: [Readequações] Enviando para órgão correto quando coordenador finaliza
-  * Fix: [Readequações] Verifica limites orçamentários apenas se readequação for aprovada / #590
+  * Fix: [Recursos] Enviando para &oacute;rgão correto quando coordenador finaliza
+  * Fix: [Readequações] Enviando para &oacute;rgão correto quando coordenador finaliza
+  * Fix: [Readequações] Verifica limites orçament&aacute;rios apenas se readequação for aprovada / #590
 
 Release 1.14.1
   * Fix: [Recursos] Combos de pareceristas exibindo corretamente
-  * Fix: [Recursos] movendo restrições de busca apenas para caso "em análise"
+  * Fix: [Recursos] movendo restrições de busca apenas para caso "em an&aacute;lise"
 
 Release 1.14.0
   * Novo: [Gerenciar pareceres] adicionado ordenação todas as colunas de gerenciar parecer
-  * Novo: [Pagamento de Pareceristas] Adicionado paginação e ordenação em Registrar ordem bancária
+  * Novo: [Pagamento de Pareceristas] Adicionado paginação e ordenação em Registrar ordem banc&aacute;ria
   * Novo: [Pagamento de Pareceristas] Implementado ordenação nas colunas
   * Novo: [Pagamento de Pareceristas] Adicionado paginação e ordenação em finalizar Pagamento de parecerista
-  * Novo: [[Recursos] Fluxo de recursos com órgãos/superindendências (iphan) funcional
+  * Novo: [[Recursos] Fluxo de recursos com &oacute;rgãos/superindendências (iphan) funcional
   * Fix: [Readequações] Vinculada finaliza readequação e envia para MinC corretamente
-  * Fix: [Nova Cotação] Aumento do valor máximo de Cotação
+  * Fix: [Nova Cotação] Aumento do valor m&aacute;ximo de Cotação
   * Fix: [Comprovar pagamento] Alteração de query para esquema zend_db
   * Fix: [Relação de pagamentos] Correção do tipo de documento em relação de pagamentos
-  * Fix: [Relatório de pareceres] Data de distribuição quando vazia mostrava data de hoje (incorreta)
+  * Fix: [Relat&oacute;rio de pareceres] Data de distribuição quando vazia mostrava data de hoje (incorreta)
 
 Release 1.13.5
   * Fix: [Readequações] Fluxo completo do IPHAN para superintendências
@@ -640,11 +640,11 @@ Release 1.13.0
   * Novo: [Readequações] Puxando lista de pareceristas das superintendências do IPHAN
 
 Release 1.12.4
-  * Fix: [Recurso] correção de variável errada
+  * Fix: [Recurso] correção de vari&aacute;vel errada
 
 Release 1.12.3
   * Fix: [CNIC] Avaliar recurso pelo componente da comissão adiciona nova entrada de parecer
-  * Fix: [Readequações] Verificando se parecer favorável ou não para fazer encaminhamento devido (portaria ou finalizado)
+  * Fix: [Readequações] Verificando se parecer favor&aacute;vel ou não para fazer encaminhamento devido (portaria ou finalizado)
 
 Release 1.12.2
   * Fix: [Publicação DOU] Corrigindo publicação de portaria de redução
@@ -652,46 +652,46 @@ Release 1.12.2
 Release 1.12.1
   * Fix: [Publicação DOU] Correção na publicação da DOU
   * Fix: [Prestação de contas] Correção impressão e xls analisar prestação de contas
-  * Fix: [Proposta] Corrigido o estado da proposta quando está em construção
+  * Fix: [Proposta] Corrigido o estado da proposta quando est&aacute; em construção
 
 Release 1.12.0
   * Novo: [Avaliar pedido de prorrogação] Imprimir lista de pedidos de prorrogação
   * Novo: [Avaliar pedido de prorrogação] Incluir pesquisa por PRONAC
   * Fix: [Avaliar pedido de prorrogração] Adicionando possibilidade de gravar como "PROCESSADO" na tabela prorrogacaoModel
-  * Fix: [Avaliar pedido de prorrogração] removendo opção desnecessária
+  * Fix: [Avaliar pedido de prorrogração] removendo opção desnecess&aacute;ria
   * Fix: [Publicação DOU] fix de sql - não altera situação do projeto se for alteração de "nome", "resumo", "razão social" ou "proponente"
   * Fix: [Avaliar pedido de prorrogração] Adicionada opção de "processado"
   * Fix: [Avaliar pedido de prorrogração] Botão de excluir funcional
   * Fix: [Publicação DOU] corrigindo erro de SQL, que fazia com que não redirecionasse para portaria correta
-  * Fix: [Readequações] Em readequação de 20%, selecionando planilha correta quando já fez algum tipo de readequação anteriormente
-  * Fix: [Readequações] corrigindo erro ao editar item já readequado anteriormente - pegava valor da planilha original
-  * Fix: [Readequações] corrigindo mensagem de erro e limpando código comentado
+  * Fix: [Readequações] Em readequação de 20%, selecionando planilha correta quando j&aacute; fez algum tipo de readequação anteriormente
+  * Fix: [Readequações] corrigindo erro ao editar item j&aacute; readequado anteriormente - pegava valor da planilha original
+  * Fix: [Readequações] corrigindo mensagem de erro e limpando c&oacute;digo comentado
   * Fix: [Readequações] Distribuir/encaminhar readequação SAV gravando idAvaliador e siEncaminhamento correto
   * Fix: [Readequações] Projetos que devem ser encaminhados para DOU não estavam sendo corretamente encaminhados - nome do projeto, resumo, alteração de razão social e alteração de proponente
 
 Release 1.11.2
-  * Fix: [Readequações] Corrigindo listagem de destinatários/técnicos da SAV ao encaminhar projeto na avaliação de readequação
+  * Fix: [Readequações] Corrigindo listagem de destinat&aacute;rios/t&eacute;cnicos da SAV ao encaminhar projeto na avaliação de readequação
   * Fix: [Readequações] Adicionando caixa de erro caso ocorra problema no encaminhamento
 
 Release 1.11.1
-  * Fix: [Readequações] Listando técnicos da SAV ao encaminhar projeto na avaliação de readequação
+  * Fix: [Readequações] Listando t&eacute;cnicos da SAV ao encaminhar projeto na avaliação de readequação
 
 Release 1.11.0
   * Novo: [Segurança] Bloqueio de login caso digite senha errada muitas vezes
-  * Fix: [Analisar comprovação de objeto] Adicionado o nome dos avaliadores na visualização do relatório
+  * Fix: [Analisar comprovação de objeto] Adicionado o nome dos avaliadores na visualização do relat&oacute;rio
   * Fix: [Consulta cidadão] correção na busca de cidadão
   * Fix: [Comprovação do objeto] Refatoração do cadastro de locais de realização
   * Fix: [Comprovação de objeto] Alterada a data de analisar comprovação do objeto para data de envio da prestação de contas
   * Fix: [Comprovação do objeto] Alterada a data de analisar comprovação do objeto para data de envio da prestação de contas
-  * Fix: [Cumprimento do objeto] agora ao realizar o envio da comprovação também é registrado a data do envio na tabela tbCumprimentoObjeto
-  * Fix: [Conciliação bancária] fix em coluna de nome do fornecedor
-  * Fix: [Inconsistência bancária] fix em coluna e imprimir
-  * Fix: [Relatórios trimestrais] Refatoração do cadastro de locais de realização
-  * Fix: [Relatório final] Adicionado o nome dos avaliadores na visualização do relatório
+  * Fix: [Cumprimento do objeto] agora ao realizar o envio da comprovação tamb&eacute;m &eacute; registrado a data do envio na tabela tbCumprimentoObjeto
+  * Fix: [Conciliação banc&aacute;ria] fix em coluna de nome do fornecedor
+  * Fix: [Inconsistência banc&aacute;ria] fix em coluna e imprimir
+  * Fix: [Relat&oacute;rios trimestrais] Refatoração do cadastro de locais de realização
+  * Fix: [Relat&oacute;rio final] Adicionado o nome dos avaliadores na visualização do relat&oacute;rio
 
 Release 1.10.10
-  * Fix: [Readequações] Gravando código da unidade que está sendo encaminhado o projeto
-  * Fix: [Readequações] corrigindo código da SAV ao encaminhar avaliação
+  * Fix: [Readequações] Gravando c&oacute;digo da unidade que est&aacute; sendo encaminhado o projeto
+  * Fix: [Readequações] corrigindo c&oacute;digo da SAV ao encaminhar avaliação
 
 Release 1.10.9
   * Fix: [LOGIN] Atualização da senha de entrada.
@@ -709,104 +709,104 @@ Release 1.10.5
   * Fix: [alterar projetos] formatando preço promocional
   * Fix: [api-mobile] Correção para exibir corretamente o texto do Resumo do Projeto
   * Fix: [consultar dados projeto] correção em consulta para impressão de projeto
-  * Fix: [readequações] verificando limites orçamentários se for planilha orçamentária
-  * Fix: [readequações] removendo "planilha orçamentária" da combo da tela de "Solicitações gerais"
+  * Fix: [readequações] verificando limites orçament&aacute;rios se for planilha orçament&aacute;ria
+  * Fix: [readequações] removendo "planilha orçament&aacute;ria" da combo da tela de "Solicitações gerais"
 
 Release 1.10.4
-  * Fix: [alterar projeto] exibindo área e segmento corretamente
+  * Fix: [alterar projeto] exibindo &aacute;rea e segmento corretamente
   * Fix: [proponente] corrigindo erro no tipo de comprovante & estilo
   * Fix: [readequações] passando valor correto para SAV
   * Fix: [proponente] retornando dados corretamente em quaisquer perfis
 
 Release 1.10.3
-  * Fix: [dados bancários] exibindo contas corretamente
+  * Fix: [dados banc&aacute;rios] exibindo contas corretamente
   * Fix: [comprovação financeira] valor do item cadastrado não pode ser igual a zero
 
 Release 1.10.2
   * Fix: [proponente] produtos agora listam corretamente
 
 Release 1.10.1
-  * Fix: [dados bancários] exibindo contas corretamente
+  * Fix: [dados banc&aacute;rios] exibindo contas corretamente
   * Fix: [manutenção] alterar projeto/situação agora grava corretamente
   * Fix: [mobile] Correção na autenticação em função do novo componente de mascara do aplicativo mobile
   * Fix: [mobile] Funcionalidade de excluir mensagens
 
 Release 1.10.0
-  * Novo: [comprovação financeira] agora é possível atualizar comprovantes de pagamento
-  * Novo: [diligenciar] técnico não pode criar nova diligência caso exista alguma sem resposta
+  * Novo: [comprovação financeira] agora &eacute; poss&iacute;vel atualizar comprovantes de pagamento
+  * Novo: [diligenciar] t&eacute;cnico não pode criar nova diligência caso exista alguma sem resposta
   * Novo: [estrutura] Refatoração do local dos modulos, adicionando configurações padrões do zend
   * Novo: [estrutura] Modularização inicial do salic-br
-  * Novo: [inicial]: exibindo link da mensagem de commit no rodapé
+  * Novo: [inicial]: exibindo link da mensagem de commit no rodap&eacute;
   * Novo: [readequações] movendo planilha orcamentaria para item separado do menu com nova dinâmica de funcionamento
   * Novo: [readequações] plano de distribuição com novo funcionamento - abre/fecha de produtos
-  * Novo: [readequações] novos painéis de readequação: aguardando distribuição, em análise, analisados e aguardando publicação no DOU
-  * Novo: [readequações] nova tela de "encaminhar para analise técnica"
+  * Novo: [readequações] novos pain&eacute;is de readequação: aguardando distribuição, em an&aacute;lise, analisados e aguardando publicação no DOU
+  * Novo: [readequações] nova tela de "encaminhar para analise t&eacute;cnica"
   * Novo: [readequações] adicionando botões de enviar para cnic no painel "analisados"
-  * Novo: [readequações] busca por número de Pronac nas telas de coordenador de parecer
+  * Novo: [readequações] busca por n&uacute;mero de Pronac nas telas de coordenador de parecer
   * Novo: [readequações] Proponente agora consegue ver as readequações devolvidas
-  * Novo: [readequações] mensagens de verificação de limites orçamentários para pareceristas
+  * Novo: [readequações] mensagens de verificação de limites orçament&aacute;rios para pareceristas
   * Fix: [alterar projeto] corrigindo identificação de login ao salvar alteração
   * Fix: [arquivos] ajustes contra SQL injection na DAO uploadDAO
-  * Fix: [captação] agora é possível não cadastrar um bem/serviço, e é possível cadastrar número do recibo
+  * Fix: [captação] agora &eacute; poss&iacute;vel não cadastrar um bem/serviço, e &eacute; poss&iacute;vel cadastrar n&uacute;mero do recibo
   * Fix: [captação] corrigindo padrão da view na pesquisa de registrar captaçã
   * Fix: [cidadão] Diversos ajustes contra SQL injection na tela de Cidadão
   * Fix: [comprovação financeira] alterando url de redirect ao salvar comprovação editada
-  * Fix: [comprovacao financeira] adicionando documentação de código e removendo debugs e alguns códigos comentados
-  * Fix: [comprovação financeira] impedindo edição da comprovação uma vez que a análise já foi iniciada
+  * Fix: [comprovacao financeira] adicionando documentação de c&oacute;digo e removendo debugs e alguns c&oacute;digos comentados
+  * Fix: [comprovação financeira] impedindo edição da comprovação uma vez que a an&aacute;lise j&aacute; foi iniciada
   * Fix: [comprovação financeira] substituindo texto para "Anexar comprovante"
   * Fix: [comprovação financeira] posicionando "valor do item" junto à forma de pagamento
   * Fix: [comprovação financeira] limitando campo a 6 caracteres quando selecionado cheque
   * Fix: [comprovação financeira] ajuste na posição do campo "valor do item"
   * Fix: [comprovação pagamento] ajuste na listagem das comprovações
-  * Fix: [comprovação financeira] impedindo comprovação financeira até o dia atual
-  * Fix: [comprovar execução física] pequena correção no formulário
-  * Fix: [comprovar objeto] Agora é necessário fazer upload de documento nos campos com texto, e só poderá ser enviado um anexo. Adicionado Botão de deletar anexo e limpar pagina
+  * Fix: [comprovação financeira] impedindo comprovação financeira at&eacute; o dia atual
+  * Fix: [comprovar execução f&iacute;sica] pequena correção no formul&aacute;rio
+  * Fix: [comprovar objeto] Agora &eacute; necess&aacute;rio fazer upload de documento nos campos com texto, e s&oacute; poder&aacute; ser enviado um anexo. Adicionado Botão de deletar anexo e limpar pagina
   * Fix: [consultar dados projeto] menu diligência não aparecia para proponente em determinados casos
   * Fix: [consultar projetos] removendo link de valor aprovado, captado e comprovado caso sejam igual a zero
-  * Fix: [consultar dados projetos] só exibe data quando ela existe (inicial e prorrogação)
-  * Fix: [cnic] alterando título de menu lateral
-  * Fix: [diligências] padronizando redirecionamento e mensagens aos usuários ao enviar diligência
+  * Fix: [consultar dados projetos] s&oacute; exibe data quando ela existe (inicial e prorrogação)
+  * Fix: [cnic] alterando t&iacute;tulo de menu lateral
+  * Fix: [diligências] padronizando redirecionamento e mensagens aos usu&aacute;rios ao enviar diligência
   * Fix: [diligenciar] montando botão de diligenciar corretamente em cnic/avaliar readequações
-  * Fix: [dados bancários] Melhorando visualização em Captação (dados bancarios)
+  * Fix: [dados banc&aacute;rios] Melhorando visualização em Captação (dados bancarios)
   * Fix: [gestor salic] removendo menus de proposta e projetos
-  * Fix: [marcas] marcador de linhas para atender necessidade de análise de trabalho dos técnicos de acompanhamento
-  * Fix: [prestação de contas] Agora o tecnico de prestação de contas poderá ver Fornecedor e CNPJ/CPF dentro da consulta dos itens
+  * Fix: [marcas] marcador de linhas para atender necessidade de an&aacute;lise de trabalho dos t&eacute;cnicos de acompanhamento
+  * Fix: [prestação de contas] Agora o tecnico de prestação de contas poder&aacute; ver Fornecedor e CNPJ/CPF dentro da consulta dos itens
   * Fix: [prestação de contas] Adicionado link do consultardadosprojeto em planilha orçamentaria comprovada [ARQ-Tecnico de Prestação de Contas]
-  * Fix: [prestação de contas] Aumentando campo do número de documento de pagamento
-  * Fix: [prestação de contas] correção na formatação de data no histórico
-  * Fix: [proponente] Agora é possível cadastrar produtos de munic ípios diferentes
-  * Fix: [proponente] Em itens de custo orçamentário agora é possivel localizar para solicitar
+  * Fix: [prestação de contas] Aumentando campo do n&uacute;mero de documento de pagamento
+  * Fix: [prestação de contas] correção na formatação de data no hist&oacute;rico
+  * Fix: [proponente] Agora &eacute; poss&iacute;vel cadastrar produtos de munic &iacute;pios diferentes
+  * Fix: [proponente] Em itens de custo orçament&aacute;rio agora &eacute; possivel localizar para solicitar
   * Fix: [proponente] Busca de Solicitar inclusão de itens de custo
   * Fix: [proponente] Pesquisa de Solicitar inclusão de itens de custo
   * Fix: [publicação DOU] Corrigido escritas em gerar arquivos de publicação DOU
-  * Fix: [publicação DOU] consertando publicação de portaria / melhoria de código
-  * Fix: [readequações] planilha orçamentária inserindo item corretamente e com idReadequacao
+  * Fix: [publicação DOU] consertando publicação de portaria / melhoria de c&oacute;digo
+  * Fix: [readequações] planilha orçament&aacute;ria inserindo item corretamente e com idReadequacao
   * Fix: [readequações] correções gerais na listagem dos projetos
-  * Fix: [readequações] correção ao criar planilha orçamentária; alterações iniciais da controller para plano de distribuição
+  * Fix: [readequações] correção ao criar planilha orçament&aacute;ria; alterações iniciais da controller para plano de distribuição
   * Fix: [readequações] corrigindo ordenação por tipo de solicitação
   * Fix: [readequações] correção na troca de planilhas de remanejamento; correção na finalização de plano de distribuição
   * Fix: [readequações] imprimindo corretamente nas listagens de readequações
-  * Fix: [readequações] filtrando resultados da tela de técnico de acompanhamento pelo id do usuário logado
+  * Fix: [readequações] filtrando resultados da tela de t&eacute;cnico de acompanhamento pelo id do usu&aacute;rio logado
   * Fix: [readequações] conserto na query de buscar pareceristas
-  * Fix: [readequações] adicionando funcionalidade de encaminhar aos painéis do coordenador de parecer
-  * Fix: [readequações] removendo limite de caracteres no formulário de parecer técnico
+  * Fix: [readequações] adicionando funcionalidade de encaminhar aos pain&eacute;is do coordenador de parecer
+  * Fix: [readequações] removendo limite de caracteres no formul&aacute;rio de parecer t&eacute;cnico
   * Fix: [readequações] correção ao incluir item
   * Fix: [readequações] correção ao apagar / salvar item
   * Fix: [readequações] mantendo pronac quando altera consulta / ordenação
-  * Fix: [readequações] mantendo filtro de pronac após finalização de projeto
+  * Fix: [readequações] mantendo filtro de pronac ap&oacute;s finalização de projeto
   * Fix: [readequações] montando combo de tipos de readequação corretamente
-  * Fix: [readequações] correção de erro ao encaminhar para coordenador / técnico
-  * Fix: [readequações] Painel do coordenador de acompanhamento não separa por unidade do usuário logado
+  * Fix: [readequações] correção de erro ao encaminhar para coordenador / t&eacute;cnico
+  * Fix: [readequações] Painel do coordenador de acompanhamento não separa por unidade do usu&aacute;rio logado
   * Fix: [readequações] corrigindo erro ao encaminhar readequação para a CNIC
-  * Fix: [readequações] ao alterar planilha orçamentária, técnico só pode editar quando for produto de incentivo federal
-  * Fix: [readequacões] alterando "estratégia de execução" para "outras informações"
-  * Fix: [readequações] adicionando órgão na listagem de readequações me análise para coordenador de acompanhamento (caso não seja SEFIC)
-  * Fix: [readequações na cnic] adicionando verificacao se preencheu campos obrigatórios de avaliação; fix no envio da avaliação
+  * Fix: [readequações] ao alterar planilha orçament&aacute;ria, t&eacute;cnico s&oacute; pode editar quando for produto de incentivo federal
+  * Fix: [readequacões] alterando "estrat&eacute;gia de execução" para "outras informações"
+  * Fix: [readequações] adicionando &oacute;rgão na listagem de readequações me an&aacute;lise para coordenador de acompanhamento (caso não seja SEFIC)
+  * Fix: [readequações na cnic] adicionando verificacao se preencheu campos obrigat&oacute;rios de avaliação; fix no envio da avaliação
   * Fix: [readequações] fix na avaliação de readequações na cnic
   * Fix: [readequações] impedindo que proponente edite itens de outras fontes
   * Fix: [relatorios da CNIC] Adicionado permissao para Coordenador CNIC
-  * Fix: [relatórios trimestrais] Corrigido a data nos relatorios
-  * Fix: [remanejamento] encaminhando projeto para cnic gerava entrada extra desnecessária
+  * Fix: [relat&oacute;rios trimestrais] Corrigido a data nos relatorios
+  * Fix: [remanejamento] encaminhando projeto para cnic gerava entrada extra desnecess&aacute;ria
   * Fix: [segurança] removendo sessão corretamente no logout
   * Fix: [segurança] diversas correções na tela de consulta cidadão em diversos modelos utilizados
   * Fix: [segurança] correção na UploadDAO
@@ -820,7 +820,7 @@ Release 1.9.0
   * Novo: [API-Mobile] Desenvolvimento da funcionalidade que salva as informações no Banco de Dados de mensagens enviadas
   * Novo: [API-Mobile] Refatoração da funcionalidade de envio de notificações.
   * Fix: [Alterar projeto] plano de distribuição não gravava valor correto para quantidade total
-  * Fix: [Análise de projeto] corrigindo enquadramento para "exibição cinematográfica" para artigo 18
+  * Fix: [An&aacute;lise de projeto] corrigindo enquadramento para "exibição cinematogr&aacute;fica" para artigo 18
 
 Release 1.8.10
   * Fix: [Consultar dados projeto] Liberação correta dos links do menu lateral de acordo com permissões do projeto
@@ -833,7 +833,7 @@ Release 1.8.8
   * Fix: [consultar projetos] removendo link de valor aprovado, captado e comprovado caso sejam igual a zero
 
 Release 1.8.7
-  * Fix: [readequações] removendo limite de caracteres no formulário de parecer técnico
+  * Fix: [readequações] removendo limite de caracteres no formul&aacute;rio de parecer t&eacute;cnico
 
 Release 1.8.6
   * Fix: [providência tomada] Correção em query de providencias tomadas
@@ -842,19 +842,19 @@ Release 1.8.5
   * Fix: [prestação de contas] aumentando campo "nrDocumentoDePagamento" para comprovação financeira
 
 Release 1.8.4
-  * Fix: [Manter orçamentos] Agora é possível cadastrar produtos de municípios diferentes
+  * Fix: [Manter orçamentos] Agora &eacute; poss&iacute;vel cadastrar produtos de munic&iacute;pios diferentes
 
 Release 1.8.3
-  * Fix: [API DE SERVIÇOS] Corrigindo erros de caracteres UTF8 na síntese de projeto que não possui tags html para conversão.
+  * Fix: [API DE SERVIÇOS] Corrigindo erros de caracteres UTF8 na s&iacute;ntese de projeto que não possui tags html para conversão.
 
 Release 1.8.2
-  * Fix: [API DE SERVIÇOS] Corrigindo erros de caracteres UTF8 na síntese do projeto.
+  * Fix: [API DE SERVIÇOS] Corrigindo erros de caracteres UTF8 na s&iacute;ntese do projeto.
 
 Release 1.8.1
   * Fix: Inserindo a classe abastrata para implementar o webservice provider do Salic.
 
 Release 1.8.0
-  * Novo: [API DE SERVIÇOS] Adicionando API de Serviços para realizar Autenticação, Consultas de projetos, proponentes e extrato bancário.
+  * Novo: [API DE SERVIÇOS] Adicionando API de Serviços para realizar Autenticação, Consultas de projetos, proponentes e extrato banc&aacute;rio.
 
 Release 1.7.1
   * Fix: [Readequações] trocando planilhas corretamente em redução, complementação e readequação
@@ -863,127 +863,127 @@ Release 1.7.1
   * Fix: [Gerenciar parecer] adicionando link ao produto em outros filtros
 
 Release 1.7.0
-  * Novo: [Alterar projeto] possibilidade de alterar plano de distribuicao de múltiplos produtos
+  * Novo: [Alterar projeto] possibilidade de alterar plano de distribuicao de m&uacute;ltiplos produtos
   * Novo: [Gerenciar pareceres] Novo filtro de gerenciar pareceres - "em validação"
-  * Novo: [SQL] Organizando código de SQL em pasta versionada
-  * Novo: [Movimentação bancária] Adicionada a funcionalidade extrato bancário
-  * Novo: [Movimentação bancária] Adicionada a funcionalidade extrato bancário consolidado
-  * Novo: [Movimentação bancária] Adicionada funcionalidade Conciliação Bancaria
-  * Novo: [Movimentação bancária] Adicionado tela de inconsistência bancaria
-  * Novo: [Movimentação bancária] Adicionado tela de saldo das contas
-  * Novo: [Consultar dados projeto] exibindo informações sobre área e segmento e suprimindo de logomarca
-  * Novo: [Consultar dados projeto] adicionando período de captação
+  * Novo: [SQL] Organizando c&oacute;digo de SQL em pasta versionada
+  * Novo: [Movimentação banc&aacute;ria] Adicionada a funcionalidade extrato banc&aacute;rio
+  * Novo: [Movimentação banc&aacute;ria] Adicionada a funcionalidade extrato banc&aacute;rio consolidado
+  * Novo: [Movimentação banc&aacute;ria] Adicionada funcionalidade Conciliação Bancaria
+  * Novo: [Movimentação banc&aacute;ria] Adicionado tela de inconsistência bancaria
+  * Novo: [Movimentação banc&aacute;ria] Adicionado tela de saldo das contas
+  * Novo: [Consultar dados projeto] exibindo informações sobre &aacute;rea e segmento e suprimindo de logomarca
+  * Novo: [Consultar dados projeto] adicionando per&iacute;odo de captação
   * Novo: [Webservice Receita] Implementação completa do WebService da Receita para Pessoa Fisica ou Juridica
   * Novo: [Webservice Receita] Implementação do Serviço de Consulta a Receita Federal no Cadastro do Proponente na Comprovação da Execução Financeira
   * Novo: [Webservice Receita] Implementando o WebService da Receita federal no Cadastro de Beneficiario dentro do Plano de Distribuição.
-  * Fix: [Comprovar execução física] Correção da query de paginação em relatorios trimestrais
+  * Fix: [Comprovar execução f&iacute;sica] Correção da query de paginação em relatorios trimestrais
   * Fix: [Webservice SEI] Realizando ajustes no WebService do SEI
   * Fix: [Avaliar acompanhamento] corrigindo texto de cumprimento dos objetos
   * Fix: [Gerenciar pareceres] ajustes no relatorio final
-  * Fix: [Gerenciar pareceres] devolvida para análise não listava botão de concluir
-  * Fix: [Gerenciar pareceres] ajuste de estilo nos órgãos, produtos e listagem de projetos
+  * Fix: [Gerenciar pareceres] devolvida para an&aacute;lise não listava botão de concluir
+  * Fix: [Gerenciar pareceres] ajuste de estilo nos &oacute;rgãos, produtos e listagem de projetos
   * Fix: [Gerenciar pareceres] correções na devolução de parecer do minc para vinculada
   * Fix: [gerenciar pareceres] coordenador de analise - ajuste nas colunas da tramitação
-  * Fix: [Gerenciar parecer] colocando nome do filtro no título da página
+  * Fix: [Gerenciar parecer] colocando nome do filtro no t&iacute;tulo da p&aacute;gina
   * Fix: [Gerenciar parecer] grava valor da flag FecharAnalise conforme o filtro ativo
   * Fix: [Gerenciar parecer] consertando textos tooltip de justificativa no filtro de parecer devolvido
   * Fix: [Gerenciar parecer] ajustes ao distribuir / encaminhar produto
-  * Fix: [Gerenciar parecer] verifica se produtos secundários foram fechados para poder concluir produto principal
+  * Fix: [Gerenciar parecer] verifica se produtos secund&aacute;rios foram fechados para poder concluir produto principal
   * Fix: [Gerenciar parecer] gravando mensagens de providências tomadas
   * Fix: [Gerenciar parecer] gravando observações em texto rico
-  * Fix: [Gerenciar parecer] corrigindo nome do órgão na providência tomada
-  * Fix: [Gerenciar parecer] adicionando colunas na listagem de "devolvidas para análise"
-  * Fix: [Gerenciar parecer] análises devolvidas agora com situação e providência correta
-  * Fix: [Movimentação bancária] enviando valor correto & otimizando validação de cpf/valores
-  * Fix: [Integração com SEI] Criando o serviço para Integrar o SALIC ao SEI. Será gerado um número de processo no SEI e repassado ao SALIC. Adicionando os Arquivos SQL que implementam a modificacao no banco de dados. Versao Final]
+  * Fix: [Gerenciar parecer] corrigindo nome do &oacute;rgão na providência tomada
+  * Fix: [Gerenciar parecer] adicionando colunas na listagem de "devolvidas para an&aacute;lise"
+  * Fix: [Gerenciar parecer] an&aacute;lises devolvidas agora com situação e providência correta
+  * Fix: [Movimentação banc&aacute;ria] enviando valor correto & otimizando validação de cpf/valores
+  * Fix: [Integração com SEI] Criando o serviço para Integrar o SALIC ao SEI. Ser&aacute; gerado um n&uacute;mero de processo no SEI e repassado ao SALIC. Adicionando os Arquivos SQL que implementam a modificacao no banco de dados. Versao Final]
   * Fix: [Gerenciar parecer] Diversas correções no fluxo entre pareceristas e coordenadores
   * Fix: [Gerenciar parecer] Filtros de gerenciar pareceres - correções nos filtros existentes
-  * Fix: [Gerenciar parecer] Verificação de parecerista agora puxa código de área e segmento do produto e não do projeto
+  * Fix: [Gerenciar parecer] Verificação de parecerista agora puxa c&oacute;digo de &aacute;rea e segmento do produto e não do projeto
   * Fix: [Gerenciar parecer] consertando busca por PRONAC
   * Fix: [Consulta cidadão] Melhorando desempenho da busca geral
   * Fix: [Consulta cidadão] Corrigindo menu drop down na busca
-  * Fix: [Comprovaçãoo pagamento] pequeno fix de melhoria de código
-  * Fix: [Realizar prestação de contas] Agora é mantido o filtro de busca na mudança de pagina em realizarprestacao de contas durante a análise
-  * Fix: [Analisar execução física] Adicionado o campo data de execução em analisar execução física técnico
+  * Fix: [Comprovaçãoo pagamento] pequeno fix de melhoria de c&oacute;digo
+  * Fix: [Realizar prestação de contas] Agora &eacute; mantido o filtro de busca na mudança de pagina em realizarprestacao de contas durante a an&aacute;lise
+  * Fix: [Analisar execução f&iacute;sica] Adicionado o campo data de execução em analisar execução f&iacute;sica t&eacute;cnico
 
 [Release 1.6.0] Planejamento de Release
-  * Novo: [SEI] Realizando correções no WebService do SEI para garantir a exibição correta do número do processo dentro do SALIC.
+  * Novo: [SEI] Realizando correções no WebService do SEI para garantir a exibição correta do n&uacute;mero do processo dentro do SALIC.
   * Novo: [DOC] Adicionando documentação de desenvolvimento
   * Fix: [Projeto] Correção dos parâmetros de entrada na procedure que transforma proposta em projeto
-  * Fix: [Consulta cidadão] Correção do dropdown de mudança de página
+  * Fix: [Consulta cidadão] Correção do dropdown de mudança de p&aacute;gina
 
 Release 1.5.1
-  * Fix: [Gerenciar parecer] remoção de lixo no código e correção da validação de caracteres na controller
+  * Fix: [Gerenciar parecer] remoção de lixo no c&oacute;digo e correção da validação de caracteres na controller
 
 Release 1.5.0
-  * Novo: [Prestação de contas] chefe de divisão consegue encaminhar para técnico
-  * Novo: [Prestação de contas] técnico consegue encaminhar para chefe de divisão
+  * Novo: [Prestação de contas] chefe de divisão consegue encaminhar para t&eacute;cnico
+  * Novo: [Prestação de contas] t&eacute;cnico consegue encaminhar para chefe de divisão
   * Novo: [Prestação de contas] correção e novos filtros para o painel do coordenador de prestação de contas
   * Novo: [Prestação de contas] justificativa no campo de encaminhamento
   * Novo: [Prestação de contas] exibindo coluna justificativa nos itens da comprovação financeira
-  * Novo: [Prestação de contas] é possível editar a comprovação de itens
+  * Novo: [Prestação de contas] &eacute; poss&iacute;vel editar a comprovação de itens
   * Novo: [Prestação de contas] novo botão de enviar comprovantes em lote e botão de salvar comprovante
   * Novo: [Prestação de contas] responde diligência automaticamente ao enviar comprovantes recusados
-  * Novo: [Prestação de contas] richtext na comprovação de pagamento (técnico e proponente)
-  * Novo: [Coordenador de pronac/parecer] adicionados vídeos introdutórios para parecerista e coordenador de pronac
-  * Novo: [Comprovação física] local de realização: atividades agora tem data de início e fim
-  * Fix: [Coordenador de pronac/parecer] mudança de nomenclatura dos vídeos introdutórios para coordenador de pronac/parecer
-  * Fix: [Dados bancários] correção na ocorrência
+  * Novo: [Prestação de contas] richtext na comprovação de pagamento (t&eacute;cnico e proponente)
+  * Novo: [Coordenador de pronac/parecer] adicionados v&iacute;deos introdut&oacute;rios para parecerista e coordenador de pronac
+  * Novo: [Comprovação f&iacute;sica] local de realização: atividades agora tem data de in&iacute;cio e fim
+  * Fix: [Coordenador de pronac/parecer] mudança de nomenclatura dos v&iacute;deos introdut&oacute;rios para coordenador de pronac/parecer
+  * Fix: [Dados banc&aacute;rios] correção na ocorrência
   * Fix: [Proposta] atualização dos textos de ajuda
-  * Fix: [Gerenciar parecer] implementando contador de caracteres e editor ricktext nos formulários de distribuir, encaminhar e concluir parecer
+  * Fix: [Gerenciar parecer] implementando contador de caracteres e editor ricktext nos formul&aacute;rios de distribuir, encaminhar e concluir parecer
   * Fix: [Prestação de contas] alterado o campo glosado para impugnado
-  * Fix: [Prestação de contas] lista de técnicos atualizada no formulário de encaminhamento
-  * Fix: [Prestação de contas] correção na gravação do parecer do técnico
-  * Fix: [Prestação de contas] técnico: exibe apenas a listagem dos projetos designados para análise
+  * Fix: [Prestação de contas] lista de t&eacute;cnicos atualizada no formul&aacute;rio de encaminhamento
+  * Fix: [Prestação de contas] correção na gravação do parecer do t&eacute;cnico
+  * Fix: [Prestação de contas] t&eacute;cnico: exibe apenas a listagem dos projetos designados para an&aacute;lise
   * Fix: [Prestação de contas] chefe de divisão : correção nos filtros
-  * Fix: [Prestação de contas] validação de item orçamentário comprovado retorna mais de 255 caracteres
+  * Fix: [Prestação de contas] validação de item orçament&aacute;rio comprovado retorna mais de 255 caracteres
   * Fix: [Prestação de contas] editor de texto gravando parecer do chefe de divisão com formatação html
-  * Fix: [Prestação de contas] histórico de alterações corrigido para os coordenadores de prestação de contas
+  * Fix: [Prestação de contas] hist&oacute;rico de alterações corrigido para os coordenadores de prestação de contas
   * Fix: [Prestação de contas] correção na finalização da analise pelo chefe de divisão
   * Fix: [Prestação de contas] Adicionado Richtext, Bugfixes, e Complementação de Menu
   * Fix: [Prestação de contas] Corrigindo permissão de menu
-  * Fix: [Parecer técnico] campo richtext e limitação de caracteres
-  * Fix: [Localização física do projeto] correção na listagem
-  * Fix: [Localização física do projeto] agora é possível cadastrar sem um técnico
-  * Fix: [Comprovação de objeto] correção na devolução do técnico para coordenador de avaliação
-  * Fix: [Comprovação de objeto] correção nas etiquetas da visualização do relatório de cumprimento de objeto
-  * Fix: [Comprovação física] plano de distribuição: ajustes de estilo; correção no cadastro de produtos para baixa renda
-  * Fix: [Comprovacao física] plano de divulgação final: listando arquivos anexados
-  * Fix: [Comprovação física] plano de distribuição: ajustes de estilo
-  * Fix: [Comprovação física] local de realização - corrigindo comportamento quando altera estado (realizado / não realizado)
+  * Fix: [Parecer t&eacute;cnico] campo richtext e limitação de caracteres
+  * Fix: [Localização f&iacute;sica do projeto] correção na listagem
+  * Fix: [Localização f&iacute;sica do projeto] agora &eacute; poss&iacute;vel cadastrar sem um t&eacute;cnico
+  * Fix: [Comprovação de objeto] correção na devolução do t&eacute;cnico para coordenador de avaliação
+  * Fix: [Comprovação de objeto] correção nas etiquetas da visualização do relat&oacute;rio de cumprimento de objeto
+  * Fix: [Comprovação f&iacute;sica] plano de distribuição: ajustes de estilo; correção no cadastro de produtos para baixa renda
+  * Fix: [Comprovacao f&iacute;sica] plano de divulgação final: listando arquivos anexados
+  * Fix: [Comprovação f&iacute;sica] plano de distribuição: ajustes de estilo
+  * Fix: [Comprovação f&iacute;sica] local de realização - corrigindo comportamento quando altera estado (realizado / não realizado)
   * Fix: [Comprovacao fisica] local de realização gravando corretamente quando altera estado
-  * Fix: [Comprovação física] Adicionado Richtext, Bugfixes, e Complementação de Menu
+  * Fix: [Comprovação f&iacute;sica] Adicionado Richtext, Bugfixes, e Complementação de Menu
   * Fix: [Comprovação financeira] restringindo tipos de arquivos e tamanho no navegador; verifica data do documento
-  * Fix: [Comprovar pagamento] removendo itens excluídos da listagem
-  * Fix: [Relatórios trimestrais - técnico de acompanhamento] Adicionado limitador de caracteres máximos de parecer
-  * Fix: [Relatórios trimestrais - técnico de acompanhamento] Adicionado richtext em analisar relatórios trimestrais
-  * Fix: [Analisar execução física] Adicionado Richtext, Bugfixes, e Complementação de Menu
+  * Fix: [Comprovar pagamento] removendo itens exclu&iacute;dos da listagem
+  * Fix: [Relat&oacute;rios trimestrais - t&eacute;cnico de acompanhamento] Adicionado limitador de caracteres m&aacute;ximos de parecer
+  * Fix: [Relat&oacute;rios trimestrais - t&eacute;cnico de acompanhamento] Adicionado richtext em analisar relat&oacute;rios trimestrais
+  * Fix: [Analisar execução f&iacute;sica] Adicionado Richtext, Bugfixes, e Complementação de Menu
   * Fix: [Captação] tipos de apoio em captação possuia valores invertidos
 
 Release 1.4.4
-  * Fix: [Comprovação financeira] Ajuste solicitado pela Área na cláusula WHERE do painel de comprovação financeira para não listar projetos excluidos ou nulos
+  * Fix: [Comprovação financeira] Ajuste solicitado pela &aacute;rea na cl&aacute;usula WHERE do painel de comprovação financeira para não listar projetos excluidos ou nulos
 
 Release 1.4.3
-  * Fix: [Comprovação financeira] Ajuste solicitado pela Área na cláusula WHERE do painel de comprovação financeira
-  * Fix: [Prestação de contas] - Valor Impugnado agora é calculado através dos itens comprovados
-  * Fix: [Analise Execução financeira - técnico] - Corrigido a funcionalidade de paginação
-  * Fix: [Analise Execução financeira - técnico] - Corrigido botão de voltar (agora retorna para a página principal)
-  * Novo: [Analise Execução financeira - técnico] - Agora é possivel ordenar os campos
+  * Fix: [Comprovação financeira] Ajuste solicitado pela &aacute;rea na cl&aacute;usula WHERE do painel de comprovação financeira
+  * Fix: [Prestação de contas] - Valor Impugnado agora &eacute; calculado atrav&eacute;s dos itens comprovados
+  * Fix: [Analise Execução financeira - t&eacute;cnico] - Corrigido a funcionalidade de paginação
+  * Fix: [Analise Execução financeira - t&eacute;cnico] - Corrigido botão de voltar (agora retorna para a p&aacute;gina principal)
+  * Novo: [Analise Execução financeira - t&eacute;cnico] - Agora &eacute; possivel ordenar os campos
 
 Release 1.4.2
-  * Fix: [consulta cidadao] - Correção do cabeçalho 
+  * Fix: [consulta cidadao] - Correção do cabeçalho
   * Fix: [consulta cidadao] - Correção da impressão dos dados
   * Fix: [manual proposta] - Apresentando manual de como apresentar sua proposta cultural
 
 Release 1.4.1
   * Novo: [consulta cidadao] - Implementação da nova funcionalida de consulta, cidadao/consultar
-  * Fix: [readequação] - Corrigindo a Readequacao para que o valor aprovado seja trazido pelo banco de dados corretamente através de uma procedure 
+  * Fix: [readequação] - Corrigindo a Readequacao para que o valor aprovado seja trazido pelo banco de dados corretamente atrav&eacute;s de uma procedure
 
 Release 1.3.7
   * Fix: [remanejamento] - correção na soma dos valores na finalização da readequação
-  * Fix: [remanejamento] - removendo campos desnecessários na totalização
+  * Fix: [remanejamento] - removendo campos desnecess&aacute;rios na totalização
   * Fix: [prestação de contas] - corrigindo exibição de itens e totalização da captação
-  * Fix: [prestação de contas] - correção em consulta em execução de receita e despesa, relação de pagamentos, relatório físico, relação de bens de capital, pagamentos por uf/município e pagamentos consolidados
+  * Fix: [prestação de contas] - correção em consulta em execução de receita e despesa, relação de pagamentos, relat&oacute;rio f&iacute;sico, relação de bens de capital, pagamentos por uf/munic&iacute;pio e pagamentos consolidados
 
 Release 1.3.6
   * Fix: nova correção na busca dos valores empenhados e comprovados na comprovação financeira dos projetos
@@ -1000,17 +1000,17 @@ Release 1.3.3
 Release 1.3.2
   * Fix: alterando situação do projeto
   * Fix: reduções não são mais transformadas em complementações
-  * Fix: incluído Valor Total Atualizado nas portarias de redução e complementação
+  * Fix: inclu&iacute;do Valor Total Atualizado nas portarias de redução e complementação
   * Fix: gerando registro correto na tabela Aprovação
   * Fix: alterando campos dtSituacao e providenciaTomada
-  * Fix: não alterar mais a data de início de execução na tabela Projetos
+  * Fix: não alterar mais a data de in&iacute;cio de execução na tabela Projetos
   * Fix: ao inserir o registro de complementação na tabela aprovação os campos dtInicioCaptacao e dtFimCaptacao deverão ser NULL
   * Fix: apresentar a planilha correta ao proponente durante a fase de readequação
   * Fix: eliminação das mensagens de erro (-0,00, +0,00)
   * Fix: permitir digitação de campos fracionados em quantidade e ocorrência durante remanejamento
-  * Fix: somente mostrar a planilha readequada no ambiente do UC 75 após a finalização por parte do proponente.
+  * Fix: somente mostrar a planilha readequada no ambiente do UC 75 ap&oacute;s a finalização por parte do proponente.
   * Fix: remanejamento 20%: caracteres de controle aparecem no campo de justificativa do remanejamento
-  * Fix: após finalizar readequação de 20% atributo stEstado de tbReadequacao deverá ser 1
+  * Fix: ap&oacute;s finalizar readequação de 20% atributo stEstado de tbReadequacao dever&aacute; ser 1
 
 Release 1.3.1
   * changelog
@@ -1022,6 +1022,6 @@ Release 1.3.0
   * Transição para ambiente Git
 
 Release 1.2
-  * Os17 - movimentação bancária
+  * Os17 - movimentação banc&aacute;ria
   * Os32
   * feature-publicaao-dou - #462

@@ -347,7 +347,7 @@ function buscardadosdirigente()
         value = value.replace("/","");
         cpf = value.replace("-","");
 
-        // pega o Código do agente
+        // pega o C&oacute;digo do agente
         idAgenteGeral = document.getElementById('idAgenteGeral').value;
 
         // faz a verifica��o do dirigente via post

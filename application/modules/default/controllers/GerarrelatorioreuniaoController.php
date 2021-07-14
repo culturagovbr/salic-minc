@@ -3,7 +3,7 @@ class GerarRelatorioReuniaoController extends MinC_Controller_Action_Abstract
 {
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
+        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da p&aacute;gina
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -14,7 +14,7 @@ class GerarRelatorioReuniaoController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 90; // Protocolo - Documento
             $PermissoesGrupo[] = 91; // Protocolo - Recebimento
             $PermissoesGrupo[] = 92; // Tec. de Admissibilidade
-            $PermissoesGrupo[] = 93; // Coordenador - Geral de Análise (Ministro)
+            $PermissoesGrupo[] = 93; // Coordenador - Geral de An&aacute;lise (Ministro)
             $PermissoesGrupo[] = 94; // Parecerista
             $PermissoesGrupo[] = 96;  // Consulta Gerencial
             $PermissoesGrupo[] = 97;  // Gestor do SALIC
@@ -31,7 +31,7 @@ class GerarRelatorioReuniaoController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 124; // Tec. de Presta��o de Contas
             $PermissoesGrupo[] = 125; // Coord. de Presta��o de Contas
             $PermissoesGrupo[] = 126; // Coord. Geral de Presta��o de Contas
-            $PermissoesGrupo[] = 127; // Coord. Geral de Análise
+            $PermissoesGrupo[] = 127; // Coord. Geral de An&aacute;lise
             $PermissoesGrupo[] = 128; // Tec. de Portaria
             $PermissoesGrupo[] = 131; // Coord. de Admissibilidade
             $PermissoesGrupo[] = 132; // Chefe de Divis�o
@@ -41,7 +41,7 @@ class GerarRelatorioReuniaoController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 148; // Coord. de Avalia��o
             $PermissoesGrupo[] = 150; // Tec. de Avalia��o
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)

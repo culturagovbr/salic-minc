@@ -162,7 +162,7 @@ function obterColunasListagem () {
             let area = (data.descricao_area != null && data.descricao_area != '') ? data.descricao_area : data.descricao_area_inicial;
             let segmento = (data.descricao_segmento != null && data.descricao_segmento != '') ? data.descricao_segmento : data.descricao_segmento_inicial;
             let enquadramento = (data.enquadramento != null && data.enquadramento != '') ? data.enquadramento : data.enquadramento_inicial;
-            let texto = '<b>Área:</b> ' + area;
+            let texto = '<b>&aacute;rea:</b> ' + area;
             texto += '<br/><b>Segmento:</b> ' + segmento;
             texto += '<br/><b>' + enquadramento + '</b>'
 

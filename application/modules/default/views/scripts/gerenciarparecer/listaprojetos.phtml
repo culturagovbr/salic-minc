@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -8,15 +8,15 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
 <?php
 $filtros = array(
 		 'aguardando_distribuicao' => 'Aguardando distribui��o',
-		 'em_analise' => 'Em Análise',
+		 'em_analise' => 'Em An&aacute;lise',
 		 'em_validacao' => 'Em valida��o',
 		 'validados' => 'Validados',
-		 'devolvida' => 'Devolvidas para Análise',
+		 'devolvida' => 'Devolvidas para An&aacute;lise',
 		 'impedimento_parecerista' => 'Impedimento do parecerista'
 );
 ?>
@@ -24,7 +24,7 @@ $filtros = array(
 </div>
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
     <table class="tabela">
 	<tr>
@@ -129,7 +129,7 @@ $filtros = array(
 		<?php } ?>
 
 		<?php } else if ($this->tipoFiltro == 'validados') { ?>
-		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TecnicoValidador&ordem='.$this->paginacao['novaOrdem'];?>">Técnico validador</a></th>
+		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TecnicoValidador&ordem='.$this->paginacao['novaOrdem'];?>">T&eacute;cnico validador</a></th>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtValidacao&ordem='.$this->paginacao['novaOrdem'];?>">Dt. valida&ccedil;&atilde;o</a></th>
 		<?php } else if ($this->tipoFiltro == 'devolvida') { ?>
 		<th width="50"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=JustComponente&ordem='.$this->paginacao['novaOrdem'];?>">Justificativa do componente</a></th>
@@ -324,9 +324,9 @@ $filtros = array(
     <br clear="all" />
 
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <br clear="all" />
 
 

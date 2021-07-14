@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== IN&iacute;CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     function layout_fluido()
@@ -55,7 +55,7 @@
     }
 </script>
 
-        <!-- INÍCIO: navega��o local #qm0 -->
+        <!-- IN&iacute;CIO: navega��o local #qm0 -->
         <?php
 
             $get = Zend_Registry::get("get");
@@ -73,7 +73,7 @@
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc">
-                <a class="no_seta last" href="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'gerencial')); ?>" title="An&aacute;lise visual por Técnico">An&aacute;lise visual por Técnico</a>
+                <a class="no_seta last" href="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'gerencial')); ?>" title="An&aacute;lise visual por T&eacute;cnico">An&aacute;lise visual por T&eacute;cnico</a>
                 <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'parecer-projetos')); ?>" title="Parecer">Parecer</a>-->
             </div>
 			<div class="bottom"></div>

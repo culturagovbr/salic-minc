@@ -297,7 +297,7 @@ class Proposta_VisualizarController extends Proposta_GenericController
         try {
 
             if (empty($idPreProjeto)) {
-                throw new Exception("Proposta inválida");
+                throw new Exception("Proposta inv&aacute;lida");
             }
 
             $tbPlanoDistribuicao = new Proposta_Model_DbTable_PlanoDistribuicaoProduto();

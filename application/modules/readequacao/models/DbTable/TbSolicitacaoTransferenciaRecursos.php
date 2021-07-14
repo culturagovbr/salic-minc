@@ -5,9 +5,9 @@ class Readequacao_Model_DbTable_TbSolicitacaoTransferenciaRecursos extends MinC_
     protected $_schema  = "sac";
     protected $_primary = "idSolicitacaoTransferenciaRecursos";
     protected $_name    = "tbSolicitacaoTransferenciaRecursos";
-    
+
     /**
-     * Método para buscar projetos recebedores de uma readequação ou pronac
+     * M&eacute;todo para buscar projetos recebedores de uma readequação ou pronac
      * @access public
      * @param integer $idReadequacao
      * @param integer $idPronacRecebedor
@@ -25,7 +25,7 @@ class Readequacao_Model_DbTable_TbSolicitacaoTransferenciaRecursos extends MinC_
                 new Zend_Db_Expr("a.idSolicitacaoTransferenciaRecursos AS idSolicitacao, a.idReadequacao, a.tpTransferencia, a.idPronacRecebedor, a.vlRecebido, a.siAnaliseTecnica, a.siAnaliseComissao, a.stEstado")
             )
         );
-        
+
         $select->joinInner(
             array('b' => 'projetos'),
             'a.idPronacRecebedor = b.IdPRONAC',
@@ -46,7 +46,7 @@ class Readequacao_Model_DbTable_TbSolicitacaoTransferenciaRecursos extends MinC_
         if ($idPronacRecebedor) {
             $select->where('idPronacRecebedor = ?', $idPronacRecebedor);
         }
-        
+
         return $this->fetchAll($select);
     }
 }

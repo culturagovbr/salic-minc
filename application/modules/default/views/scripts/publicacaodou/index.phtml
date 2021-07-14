@@ -7,10 +7,10 @@
  * @package application
  * @subpackage application.controller.PublicacaoDou
  * @link http://www.cultura.gov.br
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  */
 ?>
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <script type="text/javascript" id="js">
     $(document).ready(function(){
 
@@ -94,14 +94,14 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
     <div>Publica&ccedil;&atilde;o no DOU - <?php echo ($this->nmPagina) ? $this->nmPagina : 'Aprova&ccedil;&atilde;o inicial'; ?></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
     <div id="msgAlerta" class="sumir"></div>
     <div id="alert" class="sumir"></div>
@@ -172,12 +172,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="situacao" value="<?php echo $this->filtro;?>">
@@ -209,7 +209,7 @@
                     <th width="80px"><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=1&ordem='.$this->paginacao['novaOrdem'];?>">PRONAC</a></th>
                     <th><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=2&ordem='.$this->paginacao['novaOrdem'];?>">NOME DO PROJETO</a></th>
                     <th><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">LOCALIZA&Ccedil;&Atilde;O ATUAL DO PROJETO</a></th>
-                    <th><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">Área</a></th>
+                    <th><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">&aacute;rea</a></th>
                     <?php if($this->filtro != 'readequacao'){ ?>
                     <th width="150px"><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=8&ordem='.$this->paginacao['novaOrdem'];?>">VALOR APROVADO</a></th>
                     <?php } ?>
@@ -284,12 +284,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="situacao" value="<?php echo $this->filtro;?>">
@@ -315,8 +315,8 @@
     <?php } ?>
 
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

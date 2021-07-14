@@ -5,7 +5,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
 
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $PermissoesGrupo = array();
@@ -434,7 +434,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
             $html .= '<th>Qtde Dias Devolvidos Para Coordenador</th>';
             $html .= '<th>Status da Dilig�ncia</th>';
             $html .= '<th>Unidade Vinculada</th>';
-            $html .= '<th>Dt.INÍCIO Execu��o</th>';
+            $html .= '<th>Dt.IN&iacute;CIO Execu��o</th>';
             $html .= '<th>Dt.Fim Execu��o</th>';
             $html .= '<th>Dias vencidos ou a vencer para execu��o do Projeto</th>';
             $html .= '</tr>';
@@ -1151,8 +1151,8 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                         <th width=\"100\">&Oacute;rg&atilde;o				</th>
                                         <th>Produto				</th>
                                         <th>PRODUTO PRINCIPAL</th>
-                                        <th width=\"100\">Dt. de fechamento da Análise Técnica</th>
-                                        <th width=\"150\">Área				</th>
+                                        <th width=\"100\">Dt. de fechamento da An&aacute;lise T&eacute;cnica</th>
+                                        <th width=\"150\">&aacute;rea				</th>
                                         <th width=\"150\">Segmento Cultural	</th>
                                     </tr>
                                     ";
@@ -1223,8 +1223,8 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                         <th width=\"100\">&Oacute;rg&atilde;o				</th>
                                         <th>Produto				</th>
                                         <th>PRODUTO PRINCIPAL</th>
-                                        <th width=\"100\">Dt. de fechamento da Análise Técnica</th>
-                                        <th width=\"150\">Área				</th>
+                                        <th width=\"100\">Dt. de fechamento da An&aacute;lise T&eacute;cnica</th>
+                                        <th width=\"150\">&aacute;rea				</th>
                                         <th width=\"150\">Segmento Cultural	</th>
                                     </tr>
                                     ";
@@ -1316,7 +1316,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                         <th colspan=\"3\" style=\"font-size: 13px; font-family: sans-serif; text-align: left;\">Parecerista : {$conteudo['nmParecerista']}</th>
                     </tr>
                     <tr>
-                        <td>QTD de Análise: {$conteudo['qtAnalise']}</td>
+                        <td>QTD de An&aacute;lise: {$conteudo['qtAnalise']}</td>
                         <td>F�rias:{$conteudo['ferias']}</td>
                     </tr>
                     <tr>
@@ -1361,7 +1361,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                                 <td>{$distribuicao['dtDistribuicao']}</td>
                                                 <td>{$distribuicao['nrDias']}</td>
                                                 <td>{$produto['diligencia']}</td>
-                                                <!--<td>B11 - Encaminhado para Análise Técnica</td>
+                                                <!--<td>B11 - Encaminhado para An&aacute;lise T&eacute;cnica</td>
                                                 <td>Proposta transformada em projeto cultural</td>-->
                                             </tr>
                                             ";
@@ -1374,7 +1374,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                                 <td>{$distribuicao['dtDistribuicao']}</td>
                                                 <td>{$distribuicao['nrDias']}</td>
                                                 <td></td>
-                                                <!--<td>B11 - Encaminhado para Análise Técnica</td>
+                                                <!--<td>B11 - Encaminhado para An&aacute;lise T&eacute;cnica</td>
                                                 <td>Proposta transformada em projeto cultural</td>-->
                                             </tr>
                                             ";
@@ -1394,7 +1394,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                                 <td>{$distribuicao['dtDistribuicao']}</td>
                                                 <td>{$distribuicao['nrDias']}</td>
                                                 <td>{$produto['diligencia']}</td>
-                                                <!--<td>B11 - Encaminhado para Análise Técnica</td>
+                                                <!--<td>B11 - Encaminhado para An&aacute;lise T&eacute;cnica</td>
                                                 <td>Proposta transformada em projeto cultural</td>-->
                                             </tr>
                                             ";
@@ -1407,7 +1407,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                                 <td>{$distribuicao['dtDistribuicao']}</td>
                                                 <td>{$distribuicao['nrDias']}</td>
                                                 <td></td>
-                                                <!--<td>B11 - Encaminhado para Análise Técnica</td>
+                                                <!--<td>B11 - Encaminhado para An&aacute;lise T&eacute;cnica</td>
                                                 <td>Proposta transformada em projeto cultural</td>-->
                                             </tr>
                                             ";

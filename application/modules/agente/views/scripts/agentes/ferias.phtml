@@ -1,12 +1,12 @@
 <div class="row">
     <?php echo $this->partial('agentes/inc/menu.inc.php', $this) ?>
     <div class="col s12 m10 l10">
-        <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
                 <li class="first"><a
                         href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'), '', true); ?>"
-                        title="Ir para INÍCIO">INÍCIO</a></li>
+                        title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
                 <li>Manter Agentes</li>
                 <li class="last">Principal</li>
             </ul>
@@ -14,14 +14,14 @@
         <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-        <!-- ========== INÍCIO T�TULO ========== -->
+        <!-- ========== IN&iacute;CIO T�TULO ========== -->
         <div id="titulo">
             <div>F�rias do Parecerista <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
         </div>
         <!-- ========== FIM T�TULO ========== -->
 
 
-        <!-- ========== INÍCIO CONTEÚDO ========== -->
+        <!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
         <div id="conteudo">
             <input type="hidden" name="dtatual" id="dtatual" value="<?php echo Date("d/m/Y"); ?>"/>
             <input type="hidden" name="dias" id="dias" value="<?php echo $this->totalDias; ?>"/>
@@ -177,7 +177,7 @@
                 </form>
             </div>
         </div>
-        <!-- ========== FIM CONTEÚDO ========== -->
+        <!-- ========== FIM CONTE&uacute;DO ========== -->
 
         <?php if ($this->message_type == 'ALERT') { ?>
             <script type="text/javascript">
@@ -188,9 +188,9 @@
         <?php } ?>
 
 
-        <!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+        <!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
         <div id="rodapeConteudo"><span></span></div>
-        <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+        <!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
         <br clear="all"/>
 

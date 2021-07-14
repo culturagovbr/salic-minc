@@ -83,7 +83,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
         } else {
             $objQuery->where('idOrgaoSuperiorDoAssinante = ?', $idOrgaoSuperiorDoAssinante);
         }
-        
+
         $objResultado = $this->fetchRow($objQuery);
         if ($objResultado) {
             $resultadoArray = $objResultado->toArray();
@@ -92,7 +92,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
     }
 
     /**
-     * @return string Código do orgao
+     * @return string C&oacute;digo do orgao
      */
     public function obterProximoOrgaoDeDestino(
         $idTipoDoAto,
@@ -149,7 +149,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
         if (!is_null($grupo)) {
             $objQuery->where('grupo = ?', $grupo);
         }
-        
+
         return $objQuery;
     }
 
@@ -167,7 +167,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
         );
 
         $objQuery->where("idOrdemDaAssinatura = ?", 1);
-        
+
         return $this->_db->fetchRow($objQuery);
     }
 
@@ -188,13 +188,13 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
             $this->_schema
         );
 
-        $objQuery->where('idDocumentoAssinatura = ?', $idDocumentoAssinatura);        
+        $objQuery->where('idDocumentoAssinatura = ?', $idDocumentoAssinatura);
 
         $grupo = $this->_db->fetchRow($objQuery);
-        
+
         return $grupo['grupo'];
     }
-    
+
     public function obterPrimeiroAtoPorIdDocumento($idDocumentoAssinatura)
     {
         $objQuery = $this->select();
@@ -207,7 +207,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
 
         $objQuery->where('idDocumentoAssinatura = ?', $idDocumentoAssinatura);
 
-        return $this->_db->fetchRow($objQuery);        
+        return $this->_db->fetchRow($objQuery);
     }
 
     public function obterAtoAdministrativoAtual(
@@ -216,7 +216,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
         $idOrgaoDoAssinante,
         $grupo = ''
     ) {
-        
+
         $objQuery = $this->obterQueryAtoAdministrativo(
             $idTipoDoAto,
             $idPerfilDoAssinante,
@@ -285,7 +285,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
             ["encaminhaProjeto" => "encaminhaProjeto"],
             $this->_schema
         );
-        
+
         $objQuery->order([
             "Verificacao.Descricao asc",
             "OrgaoSuperior.Sigla asc",

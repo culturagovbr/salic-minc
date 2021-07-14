@@ -25,7 +25,7 @@
 
         <div class="row">
             <div class="col s12 l6 m6">
-                <b>Área / Segmento</b></br>
+                <b>&aacute;rea / Segmento</b></br>
                 <?= $this->arrValue['enquadramentoProjeto']['Area'] ?> / <?= $this->arrValue['enquadramentoProjeto']['Segmento'] ?>
             </div>
             <div class="col s12 l6 m6">
@@ -87,7 +87,7 @@
         <table class="responsive-table bordered" style="width: 100%;">
             <tbody>
             <tr>
-                <td><b>Posicionamento Técnico:</b> <?php if (!is_null($this->arrValue['parecer']['ParecerFavoravel'])) echo ($this->arrValue['parecer']['ParecerFavoravel'] == 1)? 'Desfavor&aacute;vel' : 'Favor&aacute;vel' ?></td>
+                <td><b>Posicionamento T&eacute;cnico:</b> <?php if (!is_null($this->arrValue['parecer']['ParecerFavoravel'])) echo ($this->arrValue['parecer']['ParecerFavoravel'] == 1)? 'Desfavor&aacute;vel' : 'Favor&aacute;vel' ?></td>
             </tr>
             <tr>
                 <td class="justificado padding10"><?=  TratarString::tratarTextoRico($this->arrValue['parecer']['ResumoParecer']) ?></td>

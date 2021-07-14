@@ -631,7 +631,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
             $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
             die("N&atilde;o existe o arquivo especificado");
-            $this->view->message = 'Não foi possível abrir o arquivo!';
+            $this->view->message = 'Não foi poss&iacute;vel abrir o arquivo!';
             $this->view->message_type = 'ERROR';
         } else {
             // l� os cabe�alhos formatado

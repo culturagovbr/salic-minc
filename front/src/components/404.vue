@@ -9,12 +9,12 @@
                     <h1 class="display-2 primary--text">
                         Oops, 404
                     </h1>
-                    <p>Desculpe, mas essa página não existe!</p><a
+                    <p>Desculpe, mas essa p&aacute;gina não existe!</p><a
                         href="/"
                         class="v-btn v-btn--outline v-btn--depressed v-btn--router theme--light primary--text"
                     >
                         <div class="v-btn__content">
-                            Retornar à página inicial
+                            Retornar à p&aacute;gina inicial
                         </div>
                     </a>
                 </div>

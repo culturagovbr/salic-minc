@@ -1,12 +1,12 @@
  <?php
 /**
- * Helper para verificar se há produtos pendentes de parecer
+ * Helper para verificar se h&aacute; produtos pendentes de parecer
  */
 
 class Zend_View_Helper_IsProdutosPendentesParecer
 {
     /**
-     * Método para verificar se há produtos pendentes de parecer
+     * M&eacute;todo para verificar se h&aacute; produtos pendentes de parecer
      * @access public
      * @param integer $idPronac
      * @param integer $idProduto
@@ -19,7 +19,7 @@ class Zend_View_Helper_IsProdutosPendentesParecer
         $where['idProduto = ?'] = $idProduto;
         $where['ParecerDeConteudo = ?'] = '';
         $naoAnalisados = $tbAnaliseDeConteudoDAO->dadosAnaliseconteudo(null, $where);
-        
+
         if (count($naoAnalisados) > 0) {
             return true;
         } else {

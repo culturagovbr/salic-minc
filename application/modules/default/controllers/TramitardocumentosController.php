@@ -30,10 +30,10 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 91; // Protocolo - Recebimento
         $PermissoesGrupo[] = 93; // Coordenador de Parecer
         $PermissoesGrupo[] = 97; // Gestor Salic
-        $PermissoesGrupo[] = 103; // Coordenador de Análise
+        $PermissoesGrupo[] = 103; // Coordenador de An&aacute;lise
         $PermissoesGrupo[] = 104; // Protocolo - (Envio / Recebimento)
         $PermissoesGrupo[] = 109; // Arquivo
-        $PermissoesGrupo[] = 110; // T�cnico de Análise
+        $PermissoesGrupo[] = 110; // T�cnico de An&aacute;lise
         $PermissoesGrupo[] = 113; // Coordenador de Arquivo
         $PermissoesGrupo[] = 114; // Coordenador de Editais
         $PermissoesGrupo[] = 115; // Atendimento Representa��es
@@ -43,7 +43,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 124; // T�cnico de Presta��o de Contas
         $PermissoesGrupo[] = 125; // Coordenador de Presta��o de Contas
         $PermissoesGrupo[] = 126; // Coordenador Geral de Presta��o de Contas
-        $PermissoesGrupo[] = 127; // Coordenador Geral de Análise
+        $PermissoesGrupo[] = 127; // Coordenador Geral de An&aacute;lise
         $PermissoesGrupo[] = 128; // T�cnico de Portaria
         $PermissoesGrupo[] = 132; // Chefe de Divis�o
         $PermissoesGrupo[] = 134; // Coordenador de Fiscaliza��o

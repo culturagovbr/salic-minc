@@ -5,7 +5,7 @@
  * @author Jefferson Alessandro <jefferson.silva@cultura.gov.br>
  * @package application
  * @subpackage application.view.realizaranaliseprojeto
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 //header('Content-Type: text/plain; charset=ISO-8859-1');
@@ -76,7 +76,7 @@ include 'inc/menu.inc.php';
 		<table class="tabela">
             <tr>
                 <th width="5%">N&uacute;mero</th>
-                <th width="10%">Análise do Projeto</th>
+                <th width="10%">An&aacute;lise do Projeto</th>
                 <th width="5%">PRONAC</th>
                 <th width="35%">Nome do Projeto</th>
                 <?php if ($this->grupoativo == '119') { //presidente CNIC ?>
@@ -99,7 +99,7 @@ include 'inc/menu.inc.php';
                     ?>
                     <tr class="tradd" id="<?php echo $a."_".$d->idPronac; ?>" aberto="false">
                         <td class="centro"><?php echo $a; ?></td>
-                        <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onclick="abrirdadosRecursos('<?php echo $a."_".$d->idPronac; ?>', <?php echo $d->idPronac; ?>, '<?php echo $tipoagente; ?>','s', '<?php echo $d->idRecurso; ?>', '<?php echo $d->tpSolicitacao; ?>')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da Análise do Projeto" alt="Dados da Análise do Projeto" width="20px"/></a></td>
+                        <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onclick="abrirdadosRecursos('<?php echo $a."_".$d->idPronac; ?>', <?php echo $d->idPronac; ?>, '<?php echo $tipoagente; ?>','s', '<?php echo $d->idRecurso; ?>', '<?php echo $d->tpSolicitacao; ?>')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da An&aacute;lise do Projeto" alt="Dados da An&aacute;lise do Projeto" width="20px"/></a></td>
                         <td class="centro"><a id="consultarprojetos" href="<?php echo $this->url(array('controller' => 'dadosprojeto', 'action' => 'index', 'idpronac'=>$d->idPronac),'',true); ?>" target="_new" title="Ir para Consultar Projetos"><?php echo $d->PRONAC; ?></a></td>
                         <td><?php echo $d->NomeProjeto; ?></td>
                         <?php if ($this->grupoativo == '119') { //presidente CNIC ?>

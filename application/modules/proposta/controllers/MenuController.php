@@ -58,7 +58,7 @@ class Proposta_MenuController extends Proposta_GenericController
             'grupo' => array()
         );
         $arrMenuProponente['principal']['menu_nivel_1'][] = array(
-            'label' => 'Detalhes Técnicos',
+            'label' => 'Detalhes T&eacute;cnicos',
             'title' => '',
             'link' => array(
                 'module' => 'proposta',

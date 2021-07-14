@@ -69,7 +69,7 @@ class PropostaController extends MinC_Controller_Action_Abstract
                     $movimentacoes[$proposta->idPreProjeto]["txtMovimentacao"] = "<font color=#0000FF>" . $rsAgente->Descricao . "</font>";
                     //elseif ($tecnico[0]['tecnico'] == 96 and (!count($tecnico)>0)) //Antigo, que eu acho que estava errado
                     if (!count($tecnico)>0) {
-                        $movimentacoes[$proposta->idPreProjeto]["txtMovimentacao"] = "<font color=#FF0000>" . 'Proposta em Análise' . "</font>";
+                        $movimentacoes[$proposta->idPreProjeto]["txtMovimentacao"] = "<font color=#FF0000>" . 'Proposta em An&aacute;lise' . "</font>";
                     }
                 } elseif ($rsMovimentacao->Movimentacao == 97 and (!count($rsProjeto)>0)) {
                     $movimentacoes[$proposta->idPreProjeto]["txtMovimentacao"] = "<font color=#FF0000>" . 'Proposta aguardando documentos' . "</font>";
@@ -216,7 +216,7 @@ class PropostaController extends MinC_Controller_Action_Abstract
                     <table width="100%">
                         <tr>
                             <th style="font-size:36px;">
-                                Proposta em Análise final
+                                Proposta em An&aacute;lise final
                             </th>
                         </tr>
                     ';

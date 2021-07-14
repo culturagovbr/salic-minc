@@ -85,7 +85,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     {
 
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
         }
 
         if (empty($this->idPronac)) {
@@ -524,7 +524,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     {
 
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!");
+            throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!");
         }
 
         if (empty($data['idPronac'])) {
@@ -555,7 +555,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     {
         try {
             if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!");
+                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!");
             }
 
             if (empty($this->idPronac)) {

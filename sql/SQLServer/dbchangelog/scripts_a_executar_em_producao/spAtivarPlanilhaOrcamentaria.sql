@@ -1,10 +1,10 @@
 CREATE PROCEDURE dbo.spAtivarPlanilhaOrcamentaria (@idPronac int)
-AS 
+AS
 
 -- =========================================================================================
 -- Autor: Rômulo Menhô Barbosa
 -- Data de Criação: 18/01/0016
--- Descrição: Ativar planilha orçamentária
+-- Descrição: Ativar planilha orçament&aacute;ria
 -- =========================================================================================
 
 SET NOCOUNT ON
@@ -18,17 +18,17 @@ DECLARE @Erro              INT
 -- PEGAR DADOS DA READEQUAÇÃO
 -- =========================================================================================
 
-SELECT @idReadequacao = idReadequacao 
-  FROM sac.dbo.tbReadequacao 
+SELECT @idReadequacao = idReadequacao
+  FROM sac.dbo.tbReadequacao
   WHERE idPronac = @idPronac
-        AND idTipoReadequacao = 2 
+        AND idTipoReadequacao = 2
         AND siEncaminhamento = 15
 		AND stEstado = 1
 
 -- =========================================================================================
 -- PEGAR TIPO DE PLANILHA ATIVA
 -- =========================================================================================
-SELECT TOP 1 @tpPlanillhaAtiva = tpPlanilha 
+SELECT TOP 1 @tpPlanillhaAtiva = tpPlanilha
   FROM sac.dbo.tbPlanilhaAprovacao
   WHERE idPronac = @idPronac
         AND stAtivo = 'S'
@@ -45,7 +45,7 @@ BEGIN TRAN
 		   AND stAtivo = 'S'
 
      SELECT @Erro = @@ERROR
-             
+
      IF @Erro <> 0
          BEGIN
 		   ROLLBACK TRAN
@@ -60,7 +60,7 @@ BEGIN TRAN
 		   AND idReadequacao = @idReadequacao
 
      SELECT @Erro = @@ERROR
-             
+
      IF @Erro <> 0
          BEGIN
 		   ROLLBACK TRAN

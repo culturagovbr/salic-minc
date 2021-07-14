@@ -107,7 +107,7 @@ export default {
             },
             headers: [
                 {
-                    text: 'País',
+                    text: 'Pa&iacute;s',
                     align: 'left',
                     value: 'Pais',
                 },
@@ -117,7 +117,7 @@ export default {
                     value: 'UF',
                 },
                 {
-                    text: 'Município',
+                    text: 'Munic&iacute;pio',
                     align: 'left',
                     value: 'Municipio',
                 },
@@ -127,7 +127,7 @@ export default {
                     value: 'siAbrangencia',
                 },
                 {
-                    text: 'Dt. Início Realização',
+                    text: 'Dt. In&iacute;cio Realização',
                     align: 'center',
                     value: 'dtInicioRealizacao',
                 },

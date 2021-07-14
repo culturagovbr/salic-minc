@@ -26,7 +26,7 @@ class ProponenteController extends MinC_Controller_Action_Abstract
             // $PermissoesGrupo[] = 119;
             // $PermissoesGrupo[] = 120;
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, orgaos e grupos do usuario (pega todos os grupos)

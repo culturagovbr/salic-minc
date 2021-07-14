@@ -32,7 +32,7 @@ class EnviarEmail
         $mail->IsSMTP(); // Usando a conex�o SMTP
         $mail->Host       = "correio.cultura.gov.br"; // Servidor SMTP
         $mail->SMTPDebug  = 2;                     // Debug do SMTP
-        $mail->SetFrom('resposta@cultura.gov.br');// Email Alias do Ministério da cultura
+        $mail->SetFrom('resposta@cultura.gov.br');// Email Alias do Minist&eacute;rio da cultura
         $mail->Subject    = $this->assunto;
         $mail->MsgHTML($this->mensagem);
 

@@ -12,7 +12,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -27,8 +27,8 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 121;  // T�cnico de Acompanhamento
             $PermissoesGrupo[] = 129;  // T�cnico de Acompanhamento
             $PermissoesGrupo[] = 94;  // Parecerista
-            $PermissoesGrupo[] = 103; // Coordenador de Análise
-            $PermissoesGrupo[] = 110; // T�cnico de Análise
+            $PermissoesGrupo[] = 103; // Coordenador de An&aacute;lise
+            $PermissoesGrupo[] = 110; // T�cnico de An&aacute;lise
             $PermissoesGrupo[] = 118; // Componente da comissão
             $PermissoesGrupo[] = 126; // Coordenador Geral de Presta��o de Contas
             $PermissoesGrupo[] = 125; // Coordenador de Presta��o de Contas

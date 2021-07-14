@@ -1,9 +1,9 @@
 <?php echo $this->partial('parecerista/inc/menu-coordenador.inc.php', $this); ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
         <li class="last">Consulta</li>
     </ul>
 </div>
@@ -11,11 +11,11 @@
 
 <div id="dialog"></div>
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
-    <div>Consulta <span class="voltar"><a href="javascript:voltar();" title="página Anterior">Voltar</a></span></div>
+    <div>Consulta <span class="voltar"><a href="javascript:voltar();" title="p&aacute;gina Anterior">Voltar</a></span></div>
 </div>
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 
 <div id="conteudo">
 
@@ -49,7 +49,7 @@
                     <td>
                         <input type="text" class="input_simples" id="nrCPFPesquisa" name="nrCPFPesquisa" maxlength="14" style="width: 100px;" value="<?php echo $this->nrCPFPesquisa;?>">
                     </td>
-                    <td class="destacar bold">Dt INÍCIO:</td>
+                    <td class="destacar bold">Dt IN&iacute;CIO:</td>
                     <td>
                         <input type="text" class="input_simples" id="dtInicioPesquisa" name="dtInicioPesquisa" maxlength="10" style="width: 70px;" value="<?php echo $this->dtInicioPesquisa;?>">
                     </td>
@@ -91,12 +91,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&situacaoPesquisa='.$this->situacaoPesquisa.'&pronacPesquisa='.$this->pronacPesquisa.'&dtInicioPesquisa='.$this->dtInicioPesquisa.'&dtFimPesquisa='.$this->dtFimPesquisa; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="situacaoPesquisa" value="<?php echo $this->situacaoPesquisa;?>">
@@ -241,12 +241,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&situacaoPesquisa='.$this->situacaoPesquisa.'&pronacPesquisa='.$this->pronacPesquisa.'&nrCPFPesquisa='.$this->nrCPFPesquisa.'&dtInicioPesquisa='.$this->dtInicioPesquisa.'&dtFimPesquisa='.$this->dtFimPesquisa; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="situacaoPesquisa" value="<?php echo $this->situacaoPesquisa;?>">
@@ -266,12 +266,12 @@
     </div>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <br clear="all" />
 
 <script>

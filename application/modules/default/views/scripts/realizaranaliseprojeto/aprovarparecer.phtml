@@ -6,18 +6,18 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicaprojeto
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 echo $this->partial('inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Análise do Membro da comissão">Análise do Membro da comissão</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para An&aacute;lise do Membro da comissão">An&aacute;lise do Membro da comissão</a></li>
 		<li class="last">Emitir Parecer - Não acompanhar parecer</li>
 	</ul>
 </div>
@@ -25,7 +25,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
 	<div>Emitir Parecer - Não acompanhar parecer <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -33,14 +33,14 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 
 
 
 	<?php echo $this->partial('inc/menu_abas.inc.php', $this) // menu ?>
 
-	<!-- ========== INÍCIO T�TULO página ========== -->
+	<!-- ========== IN&iacute;CIO T�TULO p&aacute;gina ========== -->
 	<table class="tabela">
 
 		<?php foreach ($this->pronac as $p) : ?>
@@ -53,11 +53,11 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 		<?php endforeach; ?>
 
 	</table>
-	<!-- ========== FIM T�TULO página ========== -->
+	<!-- ========== FIM T�TULO p&aacute;gina ========== -->
 
 
 
-	<!-- ========== INÍCIO FORMUL�RIO ========== -->
+	<!-- ========== IN&iacute;CIO FORMUL�RIO ========== -->
 	<form action="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'aprovarparecer')); ?>" method="post">
 		<input type="hidden" name="idPlanilha" value="<?php echo $_GET['idPlanilha']; ?>" />
 		<input type="hidden" name="idPronac" value="<?php echo $_GET['idPronac']; ?>" />
@@ -107,12 +107,12 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

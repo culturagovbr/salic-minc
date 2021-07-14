@@ -7,7 +7,7 @@ export default {
                 diligencia = {
                     cor: 'yellow accent-4',
                     corIcone: 'yellow darken-4',
-                    texto: `Diligenciado há ${item.diasEmDiligencia} dia(s)`,
+                    texto: `Diligenciado h&aacute; ${item.diasEmDiligencia} dia(s)`,
                 };
                 break;
             case 2:
@@ -28,7 +28,7 @@ export default {
                 diligencia = {
                     cor: 'grey lighten-3',
                     corIcone: 'blue-grey darken-2',
-                    texto: 'Disponível para dilig&ecirc;ncia',
+                    texto: 'Dispon&iacute;vel para dilig&ecirc;ncia',
                 };
                 break;
             }

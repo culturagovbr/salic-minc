@@ -156,8 +156,8 @@
     <div class="paginaA4">
 
         <div align="center">
-            <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério da TURISMO"/>
-            <br clear="all" /><span class="TituloMinC">Ministério da TURISMO</span>
+            <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Minist&eacute;rio da TURISMO"/>
+            <br clear="all" /><span class="TituloMinC">Minist&eacute;rio da TURISMO</span>
             <br clear="all" /><span class="TituloDoDocumento">PRONAC: <?php echo empty($this->NrProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->NrProjeto; ?> - <?php echo empty($this->NomeProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->NomeProjeto; ?></span>
             <br clear="all" /><span class="TituloDoDocumento">Proponente: <?php echo empty($this->NomeProponente) ? '<em>Dados n&atilde;o informados!</em>' : $this->NomeProponente; ?></span>
             <!--<br clear="all" /><span class="DataDoDocumento">Data da impress�o: <?php //echo date('d/m/Y - H:i:s'); ?></span>-->
@@ -403,7 +403,7 @@
                             <legend>Localiza&ccedil;&atilde;o atual do Projeto</legend>
                             <table class="tabela">
                                 <tr class="destacar">
-                                    <td class="centro"><b>Localiza&ccedil;&atilde;o</b><br>(<font size="1em">A localiza��o atual do projeto s� será alterada ap�s o recebimento do projeto na unidade destino.</font>)</td>
+                                    <td class="centro"><b>Localiza&ccedil;&atilde;o</b><br>(<font size="1em">A localiza��o atual do projeto s� ser&aacute; alterada ap�s o recebimento do projeto na unidade destino.</font>)</td>
                                 </tr>
                                 <tr>
                                     <td align="left">
@@ -547,7 +547,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Ficha Técnica</legend>
+                    <legend>Ficha T&eacute;cnica</legend>
                     <table class="tabela">
 
                         <tr>
@@ -577,7 +577,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Especifica�&otilde;es Técnicas do produto</legend>
+                    <legend>Especifica�&otilde;es T&eacute;cnicas do produto</legend>
                     <table class="tabela">
 
                         <tr>
@@ -2028,7 +2028,7 @@
                     <legend>Recursos do Projeto</legend>
                     <?php if (count($this->projetosRecurso) > 0) : ?>
 
-                            <!-- ========== INÍCIO RECURSOS DO PRONAC ========== -->
+                            <!-- ========== IN&iacute;CIO RECURSOS DO PRONAC ========== -->
                             <table class="tabela">
                                     <tr>
                                             <th colspan="5">Recursos do Projeto</th>
@@ -2113,7 +2113,7 @@
                                                                     </tr>
 
                                                                     <?php
-                                                                    /* ========== INÍCIO OR�AMENTO ========== */
+                                                                    /* ========== IN&iacute;CIO OR�AMENTO ========== */
                                                                     if ($r->tpSolicitacao == 'OR')
                                                                     {
                                                                     ?>
@@ -2167,7 +2167,7 @@
                                                                     ?>
 
                                                                     <?php
-                                                                    /* ========== INÍCIO PRAZO DE EXECU��O ========== */
+                                                                    /* ========== IN&iacute;CIO PRAZO DE EXECU��O ========== */
                                                                     if ($r->tpSolicitacao == 'PE')
                                                                     {
                                                                     ?>
@@ -2188,7 +2188,7 @@
                                                                     ?>
 
                                                                     <?php
-                                                                    /* ========== INÍCIO PRAZO DE CAPTA��O ========== */
+                                                                    /* ========== IN&iacute;CIO PRAZO DE CAPTA��O ========== */
                                                                     if ($r->tpSolicitacao == 'PP')
                                                                     {
                                                                     ?>
@@ -2363,7 +2363,7 @@
                                         <td>
                                         <!-- PARECER CONSOLIDADO - INICIAL -->
                                         <fieldset>
-                                            <legend>Parecer Técnico Consolidado </legend>
+                                            <legend>Parecer T&eacute;cnico Consolidado </legend>
                                             <?php if(is_array($this->resultAnaliseProjeto) && count($this->resultAnaliseProjeto)>0): ?>
                                             <table class="tabela">
                                                 <tr>
@@ -2451,7 +2451,7 @@
                                             </table>
                                             <table class="tabela">
                                                 <tr class="destacar">
-                                                    <td align="center"><b>Parecer Técnico</b></td>
+                                                    <td align="center"><b>Parecer T&eacute;cnico</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -2473,7 +2473,7 @@
                                         <br>
                                         <!-- ANALISE DE CONTEUDO - INICIAL -->
                                         <fieldset>
-                                            <legend>Análise de Conte&uacute;do </legend>
+                                            <legend>An&aacute;lise de Conte&uacute;do </legend>
                                             <?php if(is_array($this->dadosAnaliseInicial) && count($this->dadosAnaliseInicial) > 0) :
                                                 foreach($this->dadosAnaliseInicial as $analise): ?>
                                                 <table class="tabela">
@@ -2525,7 +2525,7 @@
                                         <br>
                                         <!-- ANALISE DE CUSTO - INICIAL -->
                                         <fieldset>
-                                            <legend>Análise de Custo </legend>
+                                            <legend>An&aacute;lise de Custo </legend>
                                             <table class="tabela">
                                             <?php
                                             $nrfonte = 0;
@@ -2696,7 +2696,7 @@
                                         <td>
                                         <!-- PARECER CONSOLIDADO - CNIC -->
                                         <fieldset>
-                                            <legend>Parecer Técnico Consolidado </legend>
+                                            <legend>Parecer T&eacute;cnico Consolidado </legend>
                                             <?php if(is_array($this->resultAnaliseProjetoCNIC) && count($this->resultAnaliseProjetoCNIC)>0):?>
                                             <table class="tabela">
                                                 <tr>
@@ -2791,7 +2791,7 @@
                                             </table>
                                             <table class="tabela">
                                                 <tr class="destacar">
-                                                    <td align="center"><b>Parecer Técnico</b></td>
+                                                    <td align="center"><b>Parecer T&eacute;cnico</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -2813,7 +2813,7 @@
                                         <br>
                                         <!-- ANALISE DE CONTEUDO - CNIC -->
                                         <fieldset>
-                                            <legend>Análise de Conte&uacute;do </legend>
+                                            <legend>An&aacute;lise de Conte&uacute;do </legend>
                                             <?php if(is_object($this->dadosAnaliseCnic) && count($this->dadosAnaliseCnic) > 0):
                                                 foreach($this->dadosAnaliseCnic as $analise): ?>
                                                 <table class="tabela">
@@ -2869,7 +2869,7 @@
                                         <br>
                                         <!-- ANALISE DE CUSTO - CNIC -->
                                         <fieldset>
-                                            <legend>Análise de Custo </legend>
+                                            <legend>An&aacute;lise de Custo </legend>
                                             <table class="tabela" id="planilhaOrcamentaria">
                                             <?php
                                             $nrfonte = 0;
@@ -3056,7 +3056,7 @@
                                         <td>
                                         <!-- PARECER CONSOLIDADO - PLENARIA -->
                                         <fieldset>
-                                            <legend>Parecer Técnico Consolidado </legend>
+                                            <legend>Parecer T&eacute;cnico Consolidado </legend>
                                             <?php if(is_array($this->resultAnaliseProjetoPlenaria) && count($this->resultAnaliseProjetoPlenaria)>0):?>
                                             <table class="tabela">
                                                 <tr>
@@ -3151,7 +3151,7 @@
                                             </table>
                                             <table class="tabela">
                                                 <tr class="destacar">
-                                                    <td align="center"><b>Parecer Técnico</b></td>
+                                                    <td align="center"><b>Parecer T&eacute;cnico</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
@@ -3173,7 +3173,7 @@
                                         <br>
                                         <!-- ANALISE DE CONTEUDO - PLENARIA -->
                                         <fieldset>
-                                            <legend>Análise de Conte&uacute;do </legend>
+                                            <legend>An&aacute;lise de Conte&uacute;do </legend>
                                             <?php if(is_object($this->dadosAnalisePlenaria) && count($this->dadosAnalisePlenaria) > 0):
                                                 foreach($this->dadosAnalisePlenaria as $analise): ?>
                                                 <table class="tabela">
@@ -3229,7 +3229,7 @@
                                         <br>
                                         <!-- ANALISE DE CUSTO - PLENARIA -->
                                         <fieldset>
-                                            <legend>Análise de Custo </legend>
+                                            <legend>An&aacute;lise de Custo </legend>
                                             <table class="tabela">
                                             <?php
                                             $nrfonte = 0;
@@ -4347,7 +4347,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2" class="destacar" align="center"><b>Identifica�&atilde;o do Técnico</b></td>
+                                                            <td colspan="2" class="destacar" align="center"><b>Identifica�&atilde;o do T&eacute;cnico</b></td>
                                                         </tr>
                                                         <tr>
                                                             <td>

@@ -410,7 +410,7 @@ class Liberacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * Método que diz se a conta para um projeto buscado está liberada
+     * M&eacute;todo que diz se a conta para um projeto buscado est&aacute; liberada
      *
      * @param integer $idPronac
      * @return bool

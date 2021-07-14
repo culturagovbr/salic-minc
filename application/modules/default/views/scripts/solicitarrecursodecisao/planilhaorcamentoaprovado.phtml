@@ -1,16 +1,16 @@
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 	<div id="breadcrumb">
 		<ul>
 			<li class="last">Solicitar Recurso da Decis�o </li>
 		</ul>
 	</div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 	<div id="titulo">
 		<div>Planilha de Or�amento Aprovado <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 	</div>
 <!-- ========== FIM T�TULO ========== -->
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 	<div id="conteudo">
     <?php echo $this->partial("topo.phtml", $this); ?>
 	<table class="tabela">
@@ -29,7 +29,7 @@
 		<tr class="IFF">
 			<td colspan="12">&nbsp;</td>
 		</tr>
-		<!-- ========== INÍCIO BUSCA POR PRODUTO ========== -->
+		<!-- ========== IN&iacute;CIO BUSCA POR PRODUTO ========== -->
 		<?php
 		$item = 1; // contador para os itens
 		$contadorProd  = 0;
@@ -45,7 +45,7 @@
 				</strong>
 			</td>
 		</tr>
-			<!-- ========== INÍCIO BUSCA POR ETAPA ========== -->
+			<!-- ========== IN&iacute;CIO BUSCA POR ETAPA ========== -->
 			<?php
 			// inicializa valor total por etapa
 			$totalVal_01_Etapa = (float) 0;
@@ -70,7 +70,7 @@
 
 
 
-				<!-- ========== INÍCIO BUSCA POR UF ========== -->
+				<!-- ========== IN&iacute;CIO BUSCA POR UF ========== -->
 				<?php
 				// inicializa valor total por uf
 				$totalVal_01_UF = (float) 0;
@@ -96,7 +96,7 @@
 
 
 
-					<!-- ========== INÍCIO �TENS ========== -->
+					<!-- ========== IN&iacute;CIO �TENS ========== -->
 				    <tr class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?>">
 						<th>&nbsp;</th>
 				        <th>Item</th>
@@ -152,7 +152,7 @@
 				        <td>
 
 
-							<!-- ========== INÍCIO MODAL ========== -->
+							<!-- ========== IN&iacute;CIO MODAL ========== -->
 							<div id="dialog-modal<?php echo $i; ?>" class="sumir" title="Atualiza��o da Planilha de Projeto">
 								<form id='form<?php echo $i; ?>' class="form" action="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto','action' => 'analisedecustos')); ?>" method="post">
 								<input type="hidden" name="idProduto" value="<?php echo $resposta->idProduto; ?>" />
@@ -357,12 +357,12 @@
 
 
 	</div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 	<div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

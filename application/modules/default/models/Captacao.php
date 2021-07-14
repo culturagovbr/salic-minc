@@ -30,12 +30,12 @@ class Captacao extends MinC_Db_Table_Abstract
         $select->order('DtChegadaRecibo');
         $select->order('DtRecibo');
         return $this->fetchAll($select);
-    } 
+    }
 
     public function cadastrarDados($dados)
     {
         return $this->insert($dados);
-    } 
+    }
 
     public function alterarDados($dados, $where)
     {
@@ -263,7 +263,7 @@ class Captacao extends MinC_Db_Table_Abstract
         );
 
         $slct->where('p.IdPRONAC = ?', $idPronac);
-        
+
 
 
         return $this->fetchAll($slct);
@@ -1038,7 +1038,7 @@ class Captacao extends MinC_Db_Table_Abstract
                           "c.DtRecibo",
                           "c.CaptacaoReal",
                           "c.NumeroRecibo",
-                          "TipoApoio" => new Zend_Db_Expr("CASE WHEN c.TipoApoio = 1 then 'Patrocínio' WHEN c.TipoApoio = 2 then 'Doa&ccedil;&atilde;o' END "),
+                          "TipoApoio" => new Zend_Db_Expr("CASE WHEN c.TipoApoio = 1 then 'Patroc&iacute;nio' WHEN c.TipoApoio = 2 then 'Doa&ccedil;&atilde;o' END "),
                           "Incentivador" =>  new Zend_Db_Expr("SAC.dbo.fnNome(a.idagente)"),
                           "DtLiberacao" =>  new Zend_Db_Expr("(SELECT TOP 1 DtLiberacao FROM SAC.dbo.Liberacao l WHERE c.AnoProjeto+c.Sequencial = l.AnoProjeto+l.Sequencial)"),
                           "Percentual" =>  new Zend_Db_Expr("SAC.dbo.fnPercentualCaptado(c.AnoProjeto, c.Sequencial)"),

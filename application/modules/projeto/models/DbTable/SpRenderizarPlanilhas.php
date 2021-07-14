@@ -19,7 +19,7 @@ class Projeto_Model_DbTable_SpRenderizarPlanilhas extends MinC_Db_Table_Abstract
     {
 
         if (empty($idPronac) || empty($tipoPlanilha)) {
-            throw new Exception("Pronac e tipo são obrigatórios");
+            throw new Exception("Pronac e tipo são obrigat&oacute;rios");
         }
 
         $planilha = $this->exec($idPronac, $tipoPlanilha);

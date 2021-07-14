@@ -43,7 +43,7 @@ export default {
                 { text: 'Tipo de Endereço', value: 'tipoendereco' },
                 { text: 'Tipo do Logradouro', value: 'dstipologradouro' },
                 { text: 'Logradouro', value: 'logradouro' },
-                { text: 'Número', align: 'center', value: 'numero' },
+                { text: 'N&uacute;mero', align: 'center', value: 'numero' },
                 { text: 'Complemento', value: 'complemento' },
                 { text: 'Bairro', value: 'bairro' },
                 { text: 'Cidade', value: 'municipio' },

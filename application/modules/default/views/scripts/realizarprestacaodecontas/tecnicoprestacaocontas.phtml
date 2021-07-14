@@ -2,7 +2,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col s12 m9 l10">
-                <h1>Presta&ccedil;&atilde;o de contas: Analisar presta&ccedil;&atilde;o de contas - Em Análise</h1>
+                <h1>Presta&ccedil;&atilde;o de contas: Analisar presta&ccedil;&atilde;o de contas - Em An&aacute;lise</h1>
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
                                     <?php if ($projeto->RelatorioTecnico == "False") { ?>
                                         <img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/user_gray.png" onclick="return JSDevolverParaChefeDivisao('<?php echo $projeto->idPronac; ?>','<?php echo $this->codOrgao; ?>',true)" alt="Devolver para chefe de divis�o" />
                                     <?php } else { ?>
-                                        <em>Análise j&aacute; iniciada</em>
+                                        <em>An&aacute;lise j&aacute; iniciada</em>
                                     <?php } ?>
                                 </td>
                                 <td background="" align="center">
@@ -133,6 +133,6 @@
 <script type="text/javascript" src="/public/js/componentes/sl-collapse-visualizar.js" ></script>
 <script type="text/javascript" src="/public/js/componentes/salic-table-easy.js" ></script>
 
-<div style="display: none;" id="historicoEncaminhamento" title="Encaminhar projeto para Análise"></div>
+<div style="display: none;" id="historicoEncaminhamento" title="Encaminhar projeto para An&aacute;lise"></div>
 
 <?php echo $this->partial('visualizar-projeto/index.phtml', 'prestacao-contas')?>

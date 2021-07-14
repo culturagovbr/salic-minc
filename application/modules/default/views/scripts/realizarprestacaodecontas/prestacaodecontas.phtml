@@ -6,21 +6,21 @@ $grupo = $this->Grupo;
 <div id="breadcrumb">
 <ul>
 	<li class="first"><a href="<?php echo $this->baseUrl(); ?>"
-		title="INÍCIO">INÍCIO</a></li>
+		title="IN&iacute;CIO">IN&iacute;CIO</a></li>
 	<li class="last">Analisar Presta��o de Contas</li>
 </ul>
 </div>
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
 <div>Analisar Presta��o de Contas <span>ID #23A</span> <span
 	class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 <script>
 
@@ -55,7 +55,7 @@ window.onload = function() {areadetrabalho();};
     	$("#nomeProjeto").html(nomeProjeto);
 
 	$("#encaminhar2").dialog({
-         title : 'Encaminhar Projeto para Análise',
+         title : 'Encaminhar Projeto para An&aacute;lise',
          resizable: false,
          width:560,
          height:580,
@@ -119,7 +119,7 @@ alert(idorgao);
 </script>
 
 <div style="display: none;" id="encaminhar2"
-	title="Encaminhar projeto para Análise">
+	title="Encaminhar projeto para An&aacute;lise">
 <form name="formencaminhar"
 	id="form<?php //echo $AnaliseGeral->ID_PRONAC; ?>"
 	action="#"
@@ -158,7 +158,7 @@ alert(idorgao);
                             </select></td>
 </tr>
 <tr>
-	<td><b style="margin-left: 2.6em;">Destinatário:</b></td>
+	<td><b style="margin-left: 2.6em;">Destinat&aacute;rio:</b></td>
 	<td><select name="recebeValor" id="recebeValor"
 		style="width: 70%; margin-top: 0.5em;"></select></td>
 </tr>
@@ -184,7 +184,7 @@ alert(idorgao);
 	<tr>
 		<th>Data de Envio</th>
 		<th>Remetente</th>
-		<th>Destinatário</th>
+		<th>Destinat&aacute;rio</th>
 		<th>�rg�o</th>
 	</tr>
 	<tr>
@@ -203,7 +203,7 @@ alert(idorgao);
 <table class="tabela">
 	<tr>
 		<td><input type="button" id="abrir_fechar" class="btn_adicionar" />AGUARDANDO
-		Análise</td>
+		An&aacute;lise</td>
 	</tr>
 </table>
 
@@ -264,8 +264,8 @@ alert(idorgao);
 			<th>Nome do Projeto</th>
 			<th width="220">�rea / Segmento</th>
 			<th width="60">Cidade</th>
-			<th width="130">Encaminhar p/Análise</th>
-			<th width="130">Data de INÍCIO</th>
+			<th width="130">Encaminhar p/An&aacute;lise</th>
+			<th width="130">Data de IN&iacute;CIO</th>
 			<th width="60">Controle</th>
 		</tr>
 	</thead>
@@ -301,7 +301,7 @@ alert(idorgao);
 <table class="tabela">
 	<tr>
 		<td><input type="button" id="abrir_fechar1" class="btn_adicionar" />DEVOLVIDOS
-		AP�S Análise</td>
+		AP�S An&aacute;lise</td>
 	</tr>
 </table>
         <?php foreach($this->ProjetosApos as $chaves => $prescontasApos){ ?>
@@ -375,7 +375,7 @@ alert(idorgao);
 			<th>Nome do Projeto</th>
 			<th width="220">�rea / Segmento</th>
 			<th width="60">Cidade</th>
-			<th width="130">Data de INÍCIO</th>
+			<th width="130">Data de IN&iacute;CIO</th>
 			<th width="60">Controle</th>
 		</tr>
 	</thead>
@@ -428,7 +428,7 @@ alert(idorgao);
 			<th>Nome do Projeto</th>
 			<th width="220">�rea / Segmento</th>
 			<th width="60">Cidade</th>
-			<th width="130">Data de INÍCIO</th>
+			<th width="130">Data de IN&iacute;CIO</th>
 			<th width="60">Controle</th>
 		</tr>
 	</thead>
@@ -525,7 +525,7 @@ alert(idorgao);
 </div>
 </div>
 </div>
-<!-- INÍCIO: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN&iacute;CIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 <br clear="all" />

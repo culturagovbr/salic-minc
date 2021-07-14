@@ -54,7 +54,7 @@
 
     function retirarAcento(text) {
         var varString = text;
-        var stringAcentos = new String('àâêôûãõáéíóúçüÀÂÊÔÛÃÕÁÉÍÓÚÇÜ');
+        var stringAcentos = new String('àâêôûãõ&aacute;&eacute;&iacute;&oacute;&uacute;çüÀÂÊÔÛÃÕ&aacute;&eacute;&iacute;&oacute;&uacute;ÇÜ');
         var stringSemAcento = new String('aaeouaoaeioucuAAEOUAOAEIOUCU');
 
         var i = new Number();
@@ -85,7 +85,7 @@
                 $("#error").html('Voc&ecirc; deve preencher pelo menos um campo!');
             } else if( (cnpjcpf != '') && (cnpjcpf.length < 14) ) {
                 $("#error").removeClass('sumir');
-                $("#error").html('O cpf/cnpj deve conter, no mínimo, 11 caracteres');
+                $("#error").html('O cpf/cnpj deve conter, no m&iacute;nimo, 11 caracteres');
             }
             else if((cnpjcpf.length == 18) && (!valida_cnpj(cnpjcpf))) {
                 $("#error").removeClass('sumir');
@@ -164,7 +164,7 @@
     <fieldset>
         <legend> Informa&ccedil;&otilde;es do Proponente </legend>
         <form id="formBuscar" name="formBuscar" method="post" action="#">
-            <table class="tabela" style="margin:1% auto; " summary="Esta tabela contém o campo para pesquisa de Agentes Vinculados a Instituição. Para que a pesquisa tenha efeito é necessário que seja feita através do CNPJ ou o nome da Instituição que consta nos campos abaixo">
+            <table class="tabela" style="margin:1% auto; " summary="Esta tabela cont&eacute;m o campo para pesquisa de Agentes Vinculados a Instituição. Para que a pesquisa tenha efeito &eacute; necess&aacute;rio que seja feita atrav&eacute;s do CNPJ ou o nome da Instituição que consta nos campos abaixo">
                 <tr>
                     <th colspan="2" class="w800">PESQUISAR PROPONENTE</th>
                 </tr>

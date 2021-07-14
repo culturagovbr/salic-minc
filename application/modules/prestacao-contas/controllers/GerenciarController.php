@@ -226,7 +226,7 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
             $pais = $this->getRequest()->getParam('pais');
 
             if (empty($pais)) {
-                throw new Exception('Por favor inserir um arquivo com tamanho máximo de 5MB."');
+                throw new Exception('Por favor inserir um arquivo com tamanho m&aacute;ximo de 5MB."');
             }
 
             $arquivoModel = new ArquivoModel();

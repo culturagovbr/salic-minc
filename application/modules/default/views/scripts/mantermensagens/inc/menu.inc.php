@@ -42,10 +42,10 @@
         });
     });
 </script>
-<!-- ========== INÍCIO MENU ========== -->
-<div id='nomsg' style="display:none">Este usu�rio Não participou da Análise deste projeto!</div>
+<!-- ========== IN&iacute;CIO MENU ========== -->
+<div id='nomsg' style="display:none">Este usu�rio Não participou da An&aacute;lise deste projeto!</div>
 <div id="menu">
-    <!-- INÍCIO: CONTEÚDO principal #container -->
+    <!-- IN&iacute;CIO: CONTE&uacute;DO principal #container -->
     <div id="container">
         <div id="menuContexto">
             <div class="top"></div>

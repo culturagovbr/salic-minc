@@ -203,7 +203,7 @@ class Fiscalizacao_Model_TbFiscalizacao extends MinC_Db_Model
                 $status = 'Em andamento';
                 break;
             case self::ST_FISCALIZACAO_COM_COORDENADOR :
-                $status = 'Em análise pelo Coordenador';
+                $status = 'Em an&aacute;lise pelo Coordenador';
                 break;
             case self::ST_FISCALIZACAO_CONCLUIDA :
                 $status = 'Conclu&iacute;da';

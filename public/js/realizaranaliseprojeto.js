@@ -1,12 +1,12 @@
 <!--
 /**
- * Fun��es Realizar Análise Projeto
+ * Fun��es Realizar An&aacute;lise Projeto
  * @author Equipe RUP - Politec
  * @since 07/06/2010
  * @version 1.0
  * @package public
  * @subpackage public.js
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 

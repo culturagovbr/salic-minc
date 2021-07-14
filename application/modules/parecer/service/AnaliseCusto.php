@@ -171,7 +171,7 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
         unset($params['action']);
 
         if (!$params['idPlanilhaProjeto'] || !$params['IdPRONAC'] || !$params['idProduto']) {
-            throw new \Exception('Dados obrigatórios não informado');
+            throw new \Exception('Dados obrigat&oacute;rios não informado');
         }
 
         if (strlen(trim($params['dsJustificativaParecerista'])) < 10) {
@@ -194,7 +194,7 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
                 || empty($params['idUfDespesa'])
                 || empty($params['idMunicipioDespesa'])
             ) {
-                throw new \Exception("Dado obrigatório não informado!");
+                throw new \Exception("Dado obrigat&oacute;rio não informado!");
             }
 
             $spCalcularMedianaItemOrcamentario = new \Planilha_Model_DbTable_SpCalcularMedianaItemOrcamentario();

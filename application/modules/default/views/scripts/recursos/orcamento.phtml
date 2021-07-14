@@ -6,15 +6,15 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.recurso
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
 		<li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'index')); ?>" title="Ir para Recurso">Recurso</a></li>
 		<li class="last">Projetos Deferidos - Or�amento</li>
 	</ul>
@@ -23,7 +23,7 @@
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
 	<div>Projetos Deferidos - Or�amento <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -31,7 +31,7 @@
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 
 
@@ -111,7 +111,7 @@
 
 	<br />
 
-	<!-- ========== INÍCIO TABELA RECURSO ========== -->
+	<!-- ========== IN&iacute;CIO TABELA RECURSO ========== -->
 
 
 
@@ -142,7 +142,7 @@
 
 		<table class="tabela">
 
-			<!-- ========== INÍCIO BUSCA POR PRODUTO ========== -->
+			<!-- ========== IN&iacute;CIO BUSCA POR PRODUTO ========== -->
 			<?php
 			$item = 1; // contador para os itens
 			$contadorProd  = 0;
@@ -161,7 +161,7 @@
 
 
 
-				<!-- ========== INÍCIO BUSCA POR ETAPA ========== -->
+				<!-- ========== IN&iacute;CIO BUSCA POR ETAPA ========== -->
 				<?php
 				foreach (RecursoDAO::analiseDeCustosBuscarEtapa($buscarProd->IdPRONAC, $buscarProd->idProduto, true) as $buscarEtapa) :
 				?>
@@ -181,20 +181,20 @@
 
 
 
-					<!-- ========== INÍCIO BUSCA POR UF ========== -->
+					<!-- ========== IN&iacute;CIO BUSCA POR UF ========== -->
 					<?php
 					//foreach (RealizarAnaliseProjetoDAO::analiseDeCustosBuscarUF($buscarEtapa->IdPRONAC, $buscarEtapa->idProduto, $buscarEtapa->idEtapa, true) as $buscarUF) :
 					?>
 
 
 
-						<!-- ========== INÍCIO �TENS ========== -->
+						<!-- ========== IN&iacute;CIO �TENS ========== -->
 					    <tr class="IFF IFF_PRODUTO<?php echo $contadorProd; ?> IFF_ETAPA<?php echo $contadorEtapa; ?> IFF_UF<?php echo $contadorUF; ?>">
 							<th width="18%">Nome do Item</th>
 					        <th width="11%">Valor Solicitado</th>
 					        <th width="11%">Valor Aprovado</th>
 					        <th width="30%">Justificativa Proponente</th>
-					        <th width="30%">Justificativa Técnica</th>
+					        <th width="30%">Justificativa T&eacute;cnica</th>
 					    </tr>
 
 						<?php
@@ -229,7 +229,7 @@
 
 
 
-						<!-- ========== INÍCIO MODAL ========== -->
+						<!-- ========== IN&iacute;CIO MODAL ========== -->
 						<div id="dialog-modalparec<?php echo $item; ?>" title="Justificativa" class="sumir">
 
 						<!-- ========== EDITOR ========== -->
@@ -424,12 +424,12 @@
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

@@ -18,8 +18,8 @@
                     <s-mensagem
                         v-if="isDisponivelParaAssinatura"
                         :url-retorno="`${urlAssinatura}?idDocumentoAssinatura=${produto.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
-                        texto="Análise validada!
-                Para finalizar você também deverá assinar o parecer técnico"
+                        texto="An&aacute;lise validada!
+                Para finalizar você tamb&eacute;m dever&aacute; assinar o parecer t&eacute;cnico"
                         msg-url-retorno="Ir para o documento"
                         type="success"
                     />

@@ -61,7 +61,7 @@ class GerenciarPareceresDAO extends Zend_Db_Table
 
         /* Situa&ccedil;&atilde;o ************************************************************
         * C09 - Projeto fora da pauta - Proponente Inabilitado
-        * C20 - Análise Técnica Concluida
+        * C20 - An&aacute;lise T&eacute;cnica Concluida
         * C25 - Parecer T�cnico desfavor�vel
         */
         if (($situacao) && ($sutuacaotc == 1)) {
@@ -140,7 +140,7 @@ class GerenciarPareceresDAO extends Zend_Db_Table
         $sql = "SELECT  t.stPrincipal, t.stEstado,  t.idDistribuirParecer, t.idOrgao, p.IdPRONAC, p.AnoProjeto + p.Sequencial AS PRONAC, p.NomeProjeto, t.idProduto, r.Descricao AS Produto,
 						   x.idSecretaria, a.Descricao as AreaD, s.Descricao as SegmentoD,
 						   CASE WHEN TipoAnalise = 0 THEN 'Conte&uacute;do' WHEN TipoAnalise = 1 THEN 'Custo do Produto' WHEN TipoAnalise = 2 THEN 'Custo Administrativo do Projeto'
-						   END AS DescricaoAnalise, t.TipoAnalise, CASE WHEN FecharAnalise = 1 THEN 'Conclu�do' ELSE 'Aguardando Análise' END AS Estado,
+						   END AS DescricaoAnalise, t.TipoAnalise, CASE WHEN FecharAnalise = 1 THEN 'Conclu�do' ELSE 'Aguardando An&aacute;lise' END AS Estado,
 						   TABELAS.dbo.fnEstruturaOrgao(t.idOrgao, 0) AS Orgao
 				FROM       SAC.dbo.tbDistribuirParecer AS t
 				INNER JOIN SAC.dbo.Projetos AS p ON t.idPRONAC = p.IdPRONAC
@@ -374,7 +374,7 @@ class GerenciarPareceresDAO extends Zend_Db_Table
         $sql = "SELECT     t.idDistribuirParecer, t.idOrgao, p.IdPRONAC, p.AnoProjeto + p.Sequencial AS PRONAC, p.NomeProjeto, t.stPrincipal ,t.idProduto, r.Descricao AS Produto,
 						   x.idSecretaria, a.Descricao as AreaD, s.Descricao as SegmentoD,
 						   CASE WHEN TipoAnalise = 0 THEN 'Conte&uacute;do' WHEN TipoAnalise = 1 THEN 'Custo do Produto' WHEN TipoAnalise = 2 THEN 'Custo Administrativo do Projeto'
-						   END AS DescricaoAnalise, t.TipoAnalise, CASE WHEN FecharAnalise = 1 THEN 'Conclu�do' ELSE 'Aguardando Análise' END AS Estado,
+						   END AS DescricaoAnalise, t.TipoAnalise, CASE WHEN FecharAnalise = 1 THEN 'Conclu�do' ELSE 'Aguardando An&aacute;lise' END AS Estado,
 						   TABELAS.dbo.fnEstruturaOrgao(t.idOrgao, 0) AS Orgao
 				FROM       SAC.dbo.tbDistribuirParecer AS t
 				INNER JOIN SAC.dbo.Projetos AS p ON t.idPRONAC = p.IdPRONAC
@@ -524,7 +524,7 @@ FROM         SAC.dbo.Projetos AS a
     public static function updateProjetos($idpronac)
     {
         $sql = "UPDATE SAC.dbo.Projetos SET Situacao = 'B11',
-						ProvidenciaTomada = 'Projeto encaminhado para novo parecer t�cnico na unidade de Análise do MinC.',
+						ProvidenciaTomada = 'Projeto encaminhado para novo parecer t�cnico na unidade de An&aacute;lise do MinC.',
 						DtSituacao = getdate()
       			WHERE idPronac = ".$idpronac;
 

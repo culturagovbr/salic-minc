@@ -9,7 +9,7 @@
 </div>
 
 <div id="mostra"></div>
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <form name="formfinalizar" action="<?php echo $this->url(array('controller' => 'verificaralteracaotecnico', 'action' => 'finalizaprop')); ?>" method="post" >
 <div id="titulo">
     <div>READEQUA��O: NOME DO PROPONENTE
@@ -19,12 +19,12 @@
             $nomeForm = "'solaltnomprp'";
             if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                 echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stAnalise('.$this->stResult[0]->idAvaliacaoItemPedidoAlteracao . ','. $this->escape($this->idpedidoalteracao) . ',this , '.$nomeForm.' )">';
-                echo "<option value='0' selected='selected'>Aguardando Análise</option>
-                      <option value='1'>Em Análise</option>";
+                echo "<option value='0' selected='selected'>Aguardando An&aacute;lise</option>
+                      <option value='1'>Em An&aacute;lise</option>";
                 echo '</select>';
             } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "EA") {
                 echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar()">';
-                echo "<option value='1' selected='selected'>Em Análise</option>
+                echo "<option value='1' selected='selected'>Em An&aacute;lise</option>
                       <option value='2'>Aprovado</option>
                       <option value='3'>Indeferido</option>";
                 echo '</select>';
@@ -37,7 +37,7 @@
         {
             if( $("#editor1").val() == '' ){
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('Favor preencher a Análise da Proposta e Altera�&atilde;o.');
+                    $('#mostra').html('Favor preencher a An&aacute;lise da Proposta e Altera�&atilde;o.');
                     $("#mostra").dialog
                     ({
                         height: 180,
@@ -58,7 +58,7 @@
                 } else {
 
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('O projeto será finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
+                    $('#mostra').html('O projeto ser&aacute; finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
                     $("#mostra").dialog
                     ({
                         height: 250,
@@ -175,7 +175,7 @@
             <?php if ($this->dados->stAvaliacaoItemPedidoAlteracao != 'AG') { ?>
             <tr>
                 <th>
-                    Análise DA PROPOSTA E ALTERA��O
+                    An&aacute;lise DA PROPOSTA E ALTERA��O
                 </th>
             </tr>
             <tr>
@@ -206,7 +206,7 @@
 
 </div>
 </form>
-        <!-- ========== FIM CONTEÚDO ========== -->
+        <!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 <!-- MODAL DILIGENCIAR -->
@@ -233,7 +233,7 @@
 <!-- FIM DO MODAL DILIGENCIAR -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <br clear="all" />

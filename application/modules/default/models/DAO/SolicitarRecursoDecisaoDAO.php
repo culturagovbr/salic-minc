@@ -267,8 +267,8 @@ FROM         tbPlanilhaProposta INNER JOIN
     }
 
     /**
-     * M�todo para recuperar os projetos em Análise. (CONSELHEIRO)
-     * S� efetua a busca se as fontes de recursos estiverem de acordo com o Código 109 � Incentivo Fiscal Federal,
+     * M�todo para recuperar os projetos em An&aacute;lise. (CONSELHEIRO)
+     * S� efetua a busca se as fontes de recursos estiverem de acordo com o C&oacute;digo 109 � Incentivo Fiscal Federal,
      * conforme Lei 8.313 de 1991.
      * @access public
      * @static
@@ -383,7 +383,7 @@ FROM         tbPlanilhaProposta INNER JOIN
     } // fecha m�todo analiseDeCustosBuscarProduto()
 
     /**
-     * M�todo que busca as etapas dos projetos da Análise de custos
+     * M�todo que busca as etapas dos projetos da An&aacute;lise de custos
      * @access public
      * @static
      * @param integer $idPronac

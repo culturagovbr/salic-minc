@@ -442,7 +442,7 @@ class Readequacao implements IServicoRestZend
                 break;
 
             case \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA:
-                $descricao = 'Planilha orçamentária';
+                $descricao = 'Planilha orçament&aacute;ria';
                 $tpCampo = 'planilha';
                 break;
 
@@ -470,7 +470,7 @@ class Readequacao implements IServicoRestZend
                         $valorPreCarregado = $dadosBancarios->Agencia;
                     }
                 }
-                $descricao = 'Agência bancária';
+                $descricao = 'Agência banc&aacute;ria';
                 $tpCampo = 'input';
                 break;
 
@@ -530,7 +530,7 @@ class Readequacao implements IServicoRestZend
                         $valorPreCarregado = $dadosPreProjeto->EspecificacaoTecnica;
                     }
                 }
-                $descricao = 'Especificação técnica';
+                $descricao = 'Especificação t&eacute;cnica';
                 $tpCampo = 'textarea';
                 break;
 
@@ -550,7 +550,7 @@ class Readequacao implements IServicoRestZend
                         $valorPreCarregado = $dadosPreProjeto->EstrategiadeExecucao;
                     }
                 }
-                $descricao = 'Estratégia de execução';
+                $descricao = 'Estrat&eacute;gia de execução';
                 $tpCampo = 'textarea';
                 break;
 
@@ -603,7 +603,7 @@ class Readequacao implements IServicoRestZend
                 if ($dadosProjeto) {
                     $valorPreCarregado = $DtFimExecucao;
                 }
-                $descricao = 'Período de execução';
+                $descricao = 'Per&iacute;odo de execução';
                 $tpCampo = 'date';
                 break;
 
@@ -741,7 +741,7 @@ class Readequacao implements IServicoRestZend
                         $valorPreCarregado = $dadosPreProjeto->FichaTecnica;
                     }
                 }
-                $descricao = 'Ficha técnica';
+                $descricao = 'Ficha t&eacute;cnica';
                 $tpCampo = 'textarea';
                 break;
 
@@ -789,7 +789,7 @@ class Readequacao implements IServicoRestZend
             ) {
                 $excluir = $documento->excluir($readequacao['idDocumento']);
                 if (!$excluir) {
-                    $errorMessage = "Não foi possível remover o idDocumento {$readequacao['idDocumento']}!";
+                    $errorMessage = "Não foi poss&iacute;vel remover o idDocumento {$readequacao['idDocumento']}!";
                     throw new \Exception($errorMessage);
                 }
                 $parametros['idDocumento'] = 0;
@@ -807,7 +807,7 @@ class Readequacao implements IServicoRestZend
                     $metadata
                 );
                 if (!$parametros['idDocumento']){
-                    $errorMessage = "Não foi possível inserir o documento!";
+                    $errorMessage = "Não foi poss&iacute;vel inserir o documento!";
                     throw new \Exception($errorMessage);
                 }
             }
@@ -986,12 +986,12 @@ class Readequacao implements IServicoRestZend
             $finalizar = $tbReadequacao->finalizarSolicitacao($idReadequacao);
             if (!$finalizar) {
                 $data['error'] = true;
-                $data['message'] = "Houve um erro e não foi possível finalizar a readequação.";
+                $data['message'] = "Houve um erro e não foi poss&iacute;vel finalizar a readequação.";
             }
 
-            $data['message'] = "Readequação enviada para análise.";
+            $data['message'] = "Readequação enviada para an&aacute;lise.";
         } else {
-            $data['message'] = "É preciso especificar idPronac e idReadequação para finalizar uma readequação.";
+            $data['message'] = "&eacute; preciso especificar idPronac e idReadequação para finalizar uma readequação.";
             $data['erro'] = true;
         }
         return $data;
@@ -1248,7 +1248,7 @@ class Readequacao implements IServicoRestZend
             }
         } else {
             $data = [
-                'msg' => utf8_decode('Já existe uma solicitação de uso de saldo de aplicação.'),
+                'msg' => utf8_decode('J&aacute; existe uma solicitação de uso de saldo de aplicação.'),
                 'success' => 'false',
                 'readequacao' => $readequacao
             ];
@@ -1608,7 +1608,7 @@ class Readequacao implements IServicoRestZend
 
             return ['message' => 'Dados do item revertidos!'];
         } else {
-            $errorMessage = "Não foi possível reverter dados do item.";
+            $errorMessage = "Não foi poss&iacute;vel reverter dados do item.";
             throw new \Exception($errorMessage);
         }
     }
@@ -1627,7 +1627,7 @@ class Readequacao implements IServicoRestZend
         );
 
         if (empty($valorEntrePlanilhas)) {
-            $errorMessage = "Não foi possível calcular a diferença entre planilhas.";
+            $errorMessage = "Não foi poss&iacute;vel calcular a diferença entre planilhas.";
             throw new \Exception($errorMessage);
         }
 
@@ -1916,7 +1916,7 @@ class Readequacao implements IServicoRestZend
                 throw new \Exception($errorMessage);
             }
         } else {
-            $errorMessage = "Readequação inexistente, não foi possível devolver ao coordenador de acompanhamento!";
+            $errorMessage = "Readequação inexistente, não foi poss&iacute;vel devolver ao coordenador de acompanhamento!";
             throw new \Exception($errorMessage);
         }
     }
@@ -2060,7 +2060,7 @@ class Readequacao implements IServicoRestZend
         );
 
         if (!$retorno) {
-            $errorMessage = "Erro ao finalizar ciclo de análise da readequação!";
+            $errorMessage = "Erro ao finalizar ciclo de an&aacute;lise da readequação!";
             throw new \Exception($errorMessage);
         }
 

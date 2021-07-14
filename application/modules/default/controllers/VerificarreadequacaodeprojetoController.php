@@ -187,7 +187,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
 
-        //LISTAS - POR TIPO DE ALTERA��O -- AGUARDANDO Análise
+        //LISTAS - POR TIPO DE ALTERA��O -- AGUARDANDO An&aacute;lise
 
         $sqlAguardAnalise1 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 1, $unidade_autorizada); //Nome do proponente
         $AguardAnalise1 = $db->fetchAll($sqlAguardAnalise1);
@@ -195,7 +195,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $sqlAguardAnalise2 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 2, $unidade_autorizada); //Troca de Agente
         $AguardAnalise2 = $db->fetchAll($sqlAguardAnalise2);
 
-        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 3, $unidade_autorizada); //Ficha Técnica
+        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 3, $unidade_autorizada); //Ficha T&eacute;cnica
         $AguardAnalise3 = $db->fetchAll($sqlAguardAnalise3);
 
         $sqlAguardAnalise4 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 4, $unidade_autorizada); //Local de realiza��o
@@ -224,7 +224,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
         $AguardAnaliseQNTD = count($AguardAnalise1)+count($AguardAnalise2)+count($AguardAnalise3)+count($AguardAnalise4)+count($AguardAnalise5)+count($AguardAnalise6)+count($AguardAnalise7)+count($AguardAnalise8)+count($AguardAnalise9)+count($AguardAnalise10);
 
-        //LISTAS - POR TIPO DE ALTERA��O -- DEVOLVIDOS AP�S Análise
+        //LISTAS - POR TIPO DE ALTERA��O -- DEVOLVIDOS AP�S An&aacute;lise
 
         $sqlDevolvAnalise1 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 1, $unidade_autorizada); //Nome do proponente
         $DevolvAnalise1 = $db->fetchAll($sqlDevolvAnalise1);
@@ -232,7 +232,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $sqlDevolvAnalise2 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 2, $unidade_autorizada); //Raz�o social
         $DevolvAnalise2 = $db->fetchAll($sqlDevolvAnalise2);
 
-        $sqlDevolvAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 3, $unidade_autorizada); //Ficha Técnica
+        $sqlDevolvAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 3, $unidade_autorizada); //Ficha T&eacute;cnica
         $DevolvAnalise3 = $db->fetchAll($sqlDevolvAnalise3);
 
         $sqlDevolvAnalise4 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 4, $unidade_autorizada); //Local de realiza��o
@@ -340,7 +340,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
         $AguardAnaliseQNTD = /*count($AguardAnalise6)+*/count($AguardAnalise10);
 
-        //LISTAS - POR TIPO DE ALTERA��O -- DEVOLVIDOS AP�S Análise
+        //LISTAS - POR TIPO DE ALTERA��O -- DEVOLVIDOS AP�S An&aacute;lise
         $sqlDevolvAnalise6 = ReadequacaoProjetos::retornaSQLCP("sqlCoordPareceristaDev", 6, $this->getIdUsuario); //Proposta Pedag�gica
         $DevolvAnalise6 = $db->fetchAll($sqlDevolvAnalise6);
 
@@ -450,7 +450,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $AguardAnalise2 = $db->fetchAll($sqlAguardAnalise2);
 
 
-        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 3, $this->getIdUsuario, $this->getIdOrgao); //Ficha Técnica
+        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 3, $this->getIdUsuario, $this->getIdOrgao); //Ficha T&eacute;cnica
         $AguardAnalise3 = $db->fetchAll($sqlAguardAnalise3);
 
         $sqlAguardAnalise4 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 4, $this->getIdUsuario, $this->getIdOrgao); //Local de realiza��o
@@ -497,7 +497,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Proposta Pedag�giga - VISUALIZA��O (perfil coordenador de acompanhamento - AGUARDANDO Análise)
+    * Fun��o que chama a view Proposta Pedag�giga - VISUALIZA��O (perfil coordenador de acompanhamento - AGUARDANDO An&aacute;lise)
     * ************************************************************************************************************************/
     public function propostapedagogicaAction()
     {
@@ -526,7 +526,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Proposta Pedag�giga - VISUALIZA��O (perfil coordenador de acompanhamento - DEVOLVIDOS AP�S Análise)
+    * Fun��o que chama a view Proposta Pedag�giga - VISUALIZA��O (perfil coordenador de acompanhamento - DEVOLVIDOS AP�S An&aacute;lise)
     * ************************************************************************************************************************/
     public function propostapedagogicadevAction()
     {
@@ -665,7 +665,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * FUN��O QUE SALVA A Análise DA PROPOSTA PEDAG�GICA
+    * FUN��O QUE SALVA A An&aacute;lise DA PROPOSTA PEDAG�GICA
     * ************************************************************************************************************************/
     // 	public function salvaproppedagAction(){
 //
@@ -697,7 +697,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * FUN��O QUE FINALIZA A Análise DA PROPOSTA PEDAG�GICA
+    * FUN��O QUE FINALIZA A An&aacute;lise DA PROPOSTA PEDAG�GICA
     * ************************************************************************************************************************/
     public function finalizaproppedagAction()
     {
@@ -1892,7 +1892,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $idAgente = $agente['idAgente'];
 
         $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
+            $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM An&aacute;lise
 
             $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
@@ -1907,7 +1907,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $whereProdutoAT = array('idPedidoAlteracao = ?' => $reg[0]->idPedidoAlteracao, 'tpPlanoDistribuicao = ?' => 'AT');
         $listaProdutosAT = $this->tbPlanoDistribuicao->buscar($whereProdutoAT);
 
-        //VERIFICA SE J� POSSUI PLANO DE DISTRIBUI��O DO TIPO AT PARA Não GERAR OUTRA C�PIA DE Análise Técnica
+        //VERIFICA SE J� POSSUI PLANO DE DISTRIBUI��O DO TIPO AT PARA Não GERAR OUTRA C�PIA DE An&aacute;lise T&eacute;cnica
         if (count($listaProdutosAT) <= 0) {
             foreach ($listaProdutosSR as $d) {
                 if ($d->tpAcao != 'N') {
@@ -1930,7 +1930,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                                 ,'tpPlanoDistribuicao'   => 'AT'
                                 ,'dtPlanoDistribuicao'   => new Zend_Db_Expr('GETDATE()')
                         );
-                    //INSERE UMA C�PIA QUE será ALTERADA PELO T�CNICO DE ACOMPANHAMENTO - AT
+                    //INSERE UMA C�PIA QUE ser&aacute; ALTERADA PELO T�CNICO DE ACOMPANHAMENTO - AT
                     $this->tbPlanoDistribuicao->inserir($dadosCopia);
                 }
             }
@@ -1983,7 +1983,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $idAgente = $agente['idAgente'];
 
         $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
-        $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM Análise
+        $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM An&aacute;lise
         $IdPronac = $_GET['IdPronac'];
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -2215,7 +2215,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                      * ==============================================================
                      */
                 } elseif ($tpAlt == 3) {
-                    //FICHA Técnica
+                    //FICHA T&eacute;cnica
                     $fichatecAtual = FichaTecnicaDAO::buscarFichaTecnicaFinal($idPronac, $idPedidoAlt);
                     $Atual = $fichatecAtual[0]->FichaTecnica;
                     $idPreProjeto = $fichatecAtual[0]->idPreProjeto;
@@ -3039,7 +3039,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             $dsJustificativa = $_POST['justificativaPropRead'];
 
 
-            // ========== INÍCIO PLANO DE DISTRIBUI��O ==========
+            // ========== IN&iacute;CIO PLANO DE DISTRIBUI��O ==========
             // busca o Plano de Distribui��o do Proponente
             $b = PlanoDistribuicaoDAO::buscar($idPlano);
 
@@ -3089,7 +3089,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             // ========== FIM PLANO DE DISTRIBUI��O ==========
 
 
-            // ========== INÍCIO: cadastro de avalia��o do produto ==========
+            // ========== IN&iacute;CIO: cadastro de avalia��o do produto ==========
             $dados_produtos = array(
                     'idAvaliacaoItemPedidoAlteracao'     => $_POST['idAvaliacaoItemPedidoAlteracao']
                     ,'stAvaliacaoSubItemPedidoAlteracao' => $avaliacao
@@ -3255,7 +3255,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             } // fecha if
 
 
-            // ========== INÍCIO: cadastro de avalia��o do produto ==========
+            // ========== IN&iacute;CIO: cadastro de avalia��o do produto ==========
             $dados_produtos = array(
                     'idAvaliacaoItemPedidoAlteracao'     => $_POST['idAvaliacaoItemPedidoAlteracao']
                     ,'stAvaliacaoSubItemPedidoAlteracao' => $avaliacao
@@ -3563,10 +3563,10 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $stAvaliacaoSubItemPedidoAlteracao = $verificaSubItemPedidoAlteracao[0]->stAvaliacao;
 
         if ($stAvaliacaoSubItemPedidoAlteracao == "AG") {
-            $this->view->statusAnalise = "Aguardando Análise";
+            $this->view->statusAnalise = "Aguardando An&aacute;lise";
         }
         if ($stAvaliacaoSubItemPedidoAlteracao == "EA") {
-            $this->view->statusAnalise = "Em Análise";
+            $this->view->statusAnalise = "Em An&aacute;lise";
         }
         if ($stAvaliacaoSubItemPedidoAlteracao == "AP") {
             $this->view->statusAnalise = "Aprovado";

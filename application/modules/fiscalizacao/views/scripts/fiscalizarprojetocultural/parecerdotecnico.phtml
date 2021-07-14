@@ -63,7 +63,7 @@ $selected = '';
                     <th colspan="2">Dados do Projeto</th>
                 </tr>
                 <tr>
-                    <td class="destacar bold" align="center">Área</td>
+                    <td class="destacar bold" align="center">&aacute;rea</td>
                     <td class="destacar bold" align="center">Segmento</td>
                 </tr>
                 <tr>
@@ -877,7 +877,7 @@ $selected = '';
                     <a
                         id="DevolverTecnico"
                         class="waves-effect waves btn black-text tooltipped white-text small btn-danger"
-                        data-tooltip="Devolver para o Técnico"
+                        data-tooltip="Devolver para o T&eacute;cnico"
                         style="margin-left: 5px;"
                     ><i class="material-icons right">cancel</i>Devolver</a>
 
@@ -1042,7 +1042,7 @@ $selected = '';
                         Sim: function () {
                             $('#dsJustificativaDevolucao').attr('null', 'false');
                             $('#dsJustificativaDevolucao').val($('#justTecnico').val());
-                            if (validarFormulario('#formParecerTecnico', 'Preencher justificativa para o Técnico!')) {
+                            if (validarFormulario('#formParecerTecnico', 'Preencher justificativa para o T&eacute;cnico!')) {
                                 $('#formParecerTecnico').submit();
                                 $("#divDinamica").remove();
                                 $(this).dialog('close');
@@ -1263,7 +1263,7 @@ $selected = '';
         <?php endif; ?>
 
 
-        //VOLTAR ESSA VERSÃO APÓS O COMANDO DOS GESTORES ROMULO E ALINE. - Jefferson Alessandro
+        //VOLTAR ESSA VERSÃO AP&oacute;S O COMANDO DOS GESTORES ROMULO E ALINE. - Jefferson Alessandro
         //$(form).find('[null=false]').not('#dsParecer').each(function(){
         $(form).find('[null=false]').not('#dsParecer, #dsObservacao, #stRecursosCaptados').each(function () {
             if ($(this).attr('type') == 'radio') {

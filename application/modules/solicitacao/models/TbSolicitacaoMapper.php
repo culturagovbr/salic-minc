@@ -84,7 +84,7 @@ class Solicitacao_Model_TbSolicitacaoMapper extends MinC_Db_Mapper
                 }
 
                 if (empty($tecnico)) {
-                    throw new Exception("Erro ao salvar! Técnico n&atilde;o encontrado!");
+                    throw new Exception("Erro ao salvar! T&eacute;cnico n&atilde;o encontrado!");
                 }
 
                 if (empty(strip_tags($arrData['dsSolicitacao']))) {

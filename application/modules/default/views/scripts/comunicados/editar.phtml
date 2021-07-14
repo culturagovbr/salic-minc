@@ -7,7 +7,7 @@
  * @package application
  * @subpackage application.views.scripts.comunicados
  * @link http://salic.cultura.gov.br
- * @copyright � 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2011 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  */
 
 echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
@@ -16,7 +16,7 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 <script type="text/javascript">
 <!--
 	/**
-	 * Fun��es que s�o chamadas ap�s a página ser carregada
+	 * Fun��es que s�o chamadas ap�s a p&aacute;gina ser carregada
 	 */
 	$(document).ready(function()
 	{
@@ -98,11 +98,11 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 </script>
 
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para página Inicial">INÍCIO</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'index'), '', true); ?>" title="Ir para página Comunicados">Comunicados</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina Inicial">IN&iacute;CIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'index'), '', true); ?>" title="Ir para p&aacute;gina Comunicados">Comunicados</a></li>
 		<li class="last">Editar</li>
 	</ul>
 </div>
@@ -110,23 +110,23 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
 	<div>
 		Editar comunicado
-		<span class="voltar"><a href="javascript:voltar();" title="página Anterior">Voltar</a></span>
+		<span class="voltar"><a href="javascript:voltar();" title="p&aacute;gina Anterior">Voltar</a></span>
 	</div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
 <div id="confirma"></div>
 <input type="hidden" name="dtatual" id="dtatual" value="<?php echo date("d/m/Y");?>" />
 
-	<!-- ========== INÍCIO FORMUL�RIO 1 ========== -->
+	<!-- ========== IN&iacute;CIO FORMUL�RIO 1 ========== -->
 	<form name="formnovo" id="formnovo" action="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'salvar')); ?>" method="POST">
 	<?php foreach($this->comunicado as $c): ?>
 
@@ -184,12 +184,12 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

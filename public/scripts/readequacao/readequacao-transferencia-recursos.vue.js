@@ -23,7 +23,7 @@ Vue.component('readequacao-transferencia-recursos', {
           <b>Projeto: </b><span v-html="projetoTransferidor.nome"></span>
         </div>
         <div class="col s2">
-          <b>Área: </b><span v-html="projetoTransferidor.area"></span>
+          <b>&aacute;rea: </b><span v-html="projetoTransferidor.area"></span>
         </div>
         <div class="col s2">
           <strong>Total transferido: </strong><span style="white-space:nowrap;">R$ {{ valorFormatado(totalRecebido) }} </span>
@@ -275,7 +275,7 @@ Vue.component('readequacao-transferencia-recursos', {
                 },
                 {
                     'id': 9,
-                    'area': 'Museus e memória'
+                    'area': 'Museus e mem&oacute;ria'
                 }
             ],
             componente: 'readequacao-transferencia-recursos-tipo-transferencia',

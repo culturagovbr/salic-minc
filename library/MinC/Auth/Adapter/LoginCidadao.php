@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Adapter para autentição 'LoginCidadao', utilizado para que o método 'authenticate' da Classe 'Zend_Auth' consiga receber como parâmetro um objeto que implemente a interface 'Zend_Auth_Adapter_Interface'
- * @author Vinícius Feitosa da Silva <viniciusfesil@mail.com>
+ * Adapter para autentição 'LoginCidadao', utilizado para que o m&eacute;todo 'authenticate' da Classe 'Zend_Auth' consiga receber como parâmetro um objeto que implemente a interface 'Zend_Auth_Adapter_Interface'
+ * @author Vin&iacute;cius Feitosa da Silva <viniciusfesil@mail.com>
  * @since 20/10/16 14:32
  */
 class MinC_Auth_Adapter_LoginCidadao implements Zend_Auth_Adapter_Interface
@@ -17,7 +17,7 @@ class MinC_Auth_Adapter_LoginCidadao implements Zend_Auth_Adapter_Interface
      * Performs an authentication attempt
      * @throws Zend_Auth_Adapter_Exception If authentication cannot be performed
      * @return Zend_Auth_Result
-     * @author Vinícius Feitosa da Silva <viniciusfesil@mail.com>
+     * @author Vin&iacute;cius Feitosa da Silva <viniciusfesil@mail.com>
      */
 
     public function authenticate()

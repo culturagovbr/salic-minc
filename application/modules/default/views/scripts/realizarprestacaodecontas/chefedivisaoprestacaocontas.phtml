@@ -5,7 +5,7 @@
  * @since 27/12/2010
  * @version 1.0
  * @subpackage application.view.scripts.chefedivisaoprestacaocontas
- * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -63,7 +63,7 @@
         }else if(idOrgaoDestino == 12){
             title = 'Consultoria - CONJUR';
         }else{
-            title = 'Encaminhar Projeto para Análise';
+            title = 'Encaminhar Projeto para An&aacute;lise';
         }
         $("#divDinamica").dialog({
             resizable: true,
@@ -179,7 +179,7 @@
 <div id="breadcrumb">
     <ul>
         <li class="first">
-            <a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">INÍCIO</a>
+            <a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN&iacute;CIO</a>
         </li>
         <li>Presta&ccedil;&atilde;o de contas</li>
         <li class="last">Analisar presta&ccedil;&atilde;o de contas</li>
@@ -187,9 +187,9 @@
 </div>
 
 
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== IN&iacute;CIO T�TULO ========== -->
 <div id="titulo">
-    <?php $filtroNome = array('' => 'Aguardando Análise', 'emanalise' => 'Em Análise', 'analisados' => 'Analisados'); ?>
+    <?php $filtroNome = array('' => 'Aguardando An&aacute;lise', 'emanalise' => 'Em An&aacute;lise', 'analisados' => 'Analisados'); ?>
     <div>Analisar presta&ccedil;&atilde;o de contas - <?php echo $filtroNome[$this->filtro]; ?>
         <span class="voltar" style="float: right;">
             <a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a>
@@ -200,7 +200,7 @@
 <!-- ========== FIM T�TULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
 <div id="conteudo">
     <table class="tabela">
 	<tr>
@@ -210,8 +210,8 @@
             </td>
             <td width="150">
                 <select name="tipoFiltro" id="tipoFiltro" class="input_simples">
-                    <option value="">Aguardando Análise</option>
-                    <option value="emanalise" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'emanalise') ? 'selected="selected"' : '';  ?>>Em Análise</option>
+                    <option value="">Aguardando An&aacute;lise</option>
+                    <option value="emanalise" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'emanalise') ? 'selected="selected"' : '';  ?>>Em An&aacute;lise</option>
                     <option value="analisados" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'analisados') ? 'selected="selected"' : '';  ?>>Analisados</option>
                 </select>
             </td>
@@ -247,12 +247,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronacProjeto; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
                     <input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
@@ -288,7 +288,7 @@
 		<?php if($this->filtro != '') { ?>
 		<th>T�cnico</th>
 		<?php } ?>
-		<th>Encaminhar para Técnico</th>
+		<th>Encaminhar para T&eacute;cnico</th>
 
 		<?php if($this->filtro == 'analisados') { ?>
                 <th>Analisar Presta��o de Contas</th>
@@ -374,12 +374,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronacProjeto; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
+                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
                         <input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
@@ -414,10 +414,10 @@
     </form>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />

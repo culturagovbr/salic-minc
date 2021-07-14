@@ -159,7 +159,7 @@ class ManterAgentes extends MinC_Db_Table_Abstract
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Área Cultural: " . $e->getMessage();
+            $this->view->message = "Erro ao buscar &aacute;rea Cultural: " . $e->getMessage();
         }
 
         return $db->fetchAll($sql);

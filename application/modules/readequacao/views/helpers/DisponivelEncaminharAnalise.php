@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto está disponível para encaminhamento
+ * Helper para verificar se projeto est&aacute; dispon&iacute;vel para encaminhamento
  */
 
 class Zend_View_Helper_DisponivelEncaminharAnalise
 {
     /**
-     * Método para verificar se o projeto está disponível para assinatura
+     * M&eacute;todo para verificar se o projeto est&aacute; dispon&iacute;vel para assinatura
      * @access public
      * @param integer $idPerfil
      * @param integer $idVinculada
@@ -16,7 +16,7 @@ class Zend_View_Helper_DisponivelEncaminharAnalise
     {
         $auth = Zend_Auth::getInstance();
         $idOrgaoSuperior = $auth->getIdentity()->usu_org_max_superior;
-        
+
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $idOrgaoLogado = $GrupoAtivo->codOrgao;
 
@@ -32,13 +32,13 @@ class Zend_View_Helper_DisponivelEncaminharAnalise
         ];
 
         $orgaosDisponiveis = [];
-        
+
         foreach($orgaosEncaminhamento as $idOrgaoEncaminhar => $orgao) {
             if (in_array($idOrgaoLogado, $orgao)) {
                 $orgaosDisponiveis[] = $idOrgaoEncaminhar;
             }
         }
-        
+
         return implode(',', $orgaosDisponiveis);
     }
 }

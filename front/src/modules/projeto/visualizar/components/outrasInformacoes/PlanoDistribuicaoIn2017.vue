@@ -30,7 +30,7 @@
                                         m6
                                         lg2
                                         offset-lg1>
-                                        <b>Área</b>
+                                        <b>&aacute;rea</b>
                                         <p>{{ produto.DescricaoArea }}</p>
                                     </v-flex>
                                     <v-flex

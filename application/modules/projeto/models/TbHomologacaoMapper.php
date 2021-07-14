@@ -39,7 +39,7 @@ class Projeto_Model_TbHomologacaoMapper extends MinC_Db_Mapper
     }
 
     /*
-     * @todo Verificar por que não está alterando a sitacao.
+     * @todo Verificar por que não est&aacute; alterando a sitacao.
      */
     public function save($arrData)
     {

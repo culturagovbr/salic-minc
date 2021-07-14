@@ -1,7 +1,7 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== IN&iacute;CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 
-<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== IN&iacute;CIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 <!--
 function layout_fluido()
@@ -34,7 +34,7 @@ $(document).ready(function()
 </script>
 <!-- ========== FIM AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 
-<!-- INÍCIO: navega��o local #qm0 -->
+<!-- IN&iacute;CIO: navega��o local #qm0 -->
 <script type="text/javascript">
 $(function(){
    carregaPagina();

@@ -15,7 +15,7 @@
     });
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta"></div>
 <div class="container-fluid">
     <div class="row">
@@ -94,7 +94,7 @@
                                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                                onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'analisar-readequacoes-cnic')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronac; ?>'">
                                     <?php } ?>
-                                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()"
+                                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()"
                                                  class="input_simples">
                                         <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
                                             <option value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
@@ -102,7 +102,7 @@
                                             </option>
                                         <?php endfor; ?>
                                     </select>
-                                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde"
+                                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde"
                                                                       class="input_simples"
                                                                       value="<?php echo $this->intTamPag; ?>"><input
                                             type="submit" class="btn_recarregar" value="">
@@ -225,7 +225,7 @@
                                                 <input class="btn_ultimo" id="btn_ultimo" type="button"
                                                        onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'analisar-readequacoes-cnic')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronac; ?>'">
                                             <?php } ?>
-                                            Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()"
+                                            P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()"
                                                          class="input_simples">
                                                 <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
                                                     <option value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
@@ -233,7 +233,7 @@
                                                     </option>
                                                 <?php endfor; ?>
                                             </select>
-                                            &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde"
+                                            &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde"
                                                                               class="input_simples"
                                                                               value="<?php echo $this->intTamPag; ?>"><input
                                                     type="submit" class="btn_recarregar" value="">

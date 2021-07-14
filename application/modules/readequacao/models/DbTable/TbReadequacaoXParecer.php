@@ -20,7 +20,7 @@ class Readequacao_Model_DbTable_TbReadequacaoXParecer extends MinC_Db_Table_Abst
                 new Zend_Db_Expr("b.IdParecer, b.ParecerFavoravel, b.ResumoParecer, b.DtParecer, c.usu_nome AS Avaliador"),
                 new Zend_Db_Expr("
                     CASE WHEN b.idTipoAgente = 1
-                        THEN 'Técnico / Parecerista'
+                        THEN 'T&eacute;cnico / Parecerista'
                     WHEN b.idTipoAgente = 6
                         THEN 'Componente da Comiss&atilde;o'
                     END AS tpAvaliador

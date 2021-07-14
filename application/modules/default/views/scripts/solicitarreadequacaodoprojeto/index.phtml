@@ -1,6 +1,6 @@
 <script src='<?php echo $this->baseUrl(); ?>/public/js/jquery.MultiFile.js' type="text/javascript" language="javascript"></script>
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
-<!-- INÍCIO: navega��o local #qm0 -->
+<!-- IN&iacute;CIO: navega��o local #qm0 -->
 <div id="Teste" class="sumir" title="Enviar Solicitação"><p>Solicitação de readequa��o realizada com sucesso! Deseja fazer nova readequa��o?</p></div>
 <div id="Teste2" class="sumir" title="Enviar Solicitação"><p>Solicitação de readequa��o realizada com sucesso! Deseja fazer nova readequa��o?</p></div>
 <div id="cadastrarProduto" class="sumir" title="Cadastrar Produto"><p>Produto cadastrado com sucesso!</p><p>� necess�rio enviar a planilha de custo para o produto cadastrado.</p></div>
@@ -444,7 +444,7 @@ function EnviarExecucao()
     {
         if (!validarData(data1))
         {
-            var div = $("<div id='modal-validar-dataE-validacao1'></div>").html('Data de INÍCIO Inv�lida!').appendTo('body');
+            var div = $("<div id='modal-validar-dataE-validacao1'></div>").html('Data de IN&iacute;CIO Inv�lida!').appendTo('body');
             alertModal("Alert", "modal-validar-dataE-validacao1");
         }
         else if (!validarData(data2))
@@ -454,7 +454,7 @@ function EnviarExecucao()
         }
         else if (compararDataInicialDataFinal(data1, data2) == 1)
         {
-            var div = $("<div id='modal-validar-dataE-inicio'></div>").html('Data INÍCIO Não poder� ser superior a Data Fim!').appendTo('body');
+            var div = $("<div id='modal-validar-dataE-inicio'></div>").html('Data IN&iacute;CIO Não poder� ser superior a Data Fim!').appendTo('body');
             alertModal("Alert", "modal-validar-dataE-inicio");
         }
 
@@ -508,7 +508,7 @@ function EnviarExecucao()
         }
         else if (!validarData(data1))
         {
-            var div = $("<div id='modal-validar-dataE-validacao1'></div>").html('Data de INÍCIO Inv�lida!').appendTo('body');
+            var div = $("<div id='modal-validar-dataE-validacao1'></div>").html('Data de IN&iacute;CIO Inv�lida!').appendTo('body');
             alertModal("Alert", "modal-validar-dataE-validacao1");
         }
         else if (!validarData(data2))
@@ -518,12 +518,12 @@ function EnviarExecucao()
         }
         else if (compararDataInicialDataFinal(data1, data2) == 1)
         {
-            var div = $("<div id='modal-validar-dataE-inicio'></div>").html('Data INÍCIO Não poder� ser superior a Data Fim!').appendTo('body');
+            var div = $("<div id='modal-validar-dataE-inicio'></div>").html('Data IN&iacute;CIO Não poder� ser superior a Data Fim!').appendTo('body');
             alertModal("Alert", "modal-validar-dataE-inicio");
         }
         else if (compararDataInicialDataFinal(dataF, data1) != 0 || diasDecorridosEntreDuasDatas(dataF, data1) != 1)
         {
-            var div = $("<div id='modal-validar-dataE-inicial'></div>").html('A nova Data de INÍCIO deve ser um dia posterior a Data Final atual!').appendTo('body');
+            var div = $("<div id='modal-validar-dataE-inicial'></div>").html('A nova Data de IN&iacute;CIO deve ser um dia posterior a Data Final atual!').appendTo('body');
             alertModal("Alert", "modal-validar-dataE-inicial");
         }
         else if (ano1 != ano2)
@@ -599,7 +599,7 @@ function EnviarExecucao()
 		}
 		else if (!validarData(data3))
 		{
-			var div = $("<div id='modal-validar-dataC-validacao3'></div>").html('Data de INÍCIO Inv�lida!').appendTo('body');
+			var div = $("<div id='modal-validar-dataC-validacao3'></div>").html('Data de IN&iacute;CIO Inv�lida!').appendTo('body');
 			alertModal("Alert", "modal-validar-dataC-validacao3");
 		}
 		else if (!validarData(data4))
@@ -609,12 +609,12 @@ function EnviarExecucao()
 		}
 		else if (compararDataInicialDataFinal(data3, data4) == 1)
 		{
-			var div = $("<div id='modal-validar-dataC-inicio'></div>").html('Data INÍCIO Não poder� ser superior a Data Fim!').appendTo('body');
+			var div = $("<div id='modal-validar-dataC-inicio'></div>").html('Data IN&iacute;CIO Não poder� ser superior a Data Fim!').appendTo('body');
 			alertModal("Alert", "modal-validar-dataC-inicio");
 		}
 		else if (compararDataInicialDataFinal(dataF, data3) != 0 || diasDecorridosEntreDuasDatas(dataF, data3) != 1)
 		{
-			var div = $("<div id='modal-validar-dataC-inicial'></div>").html('A nova Data de INÍCIO deve ser um dia posterior a Data Final atual!').appendTo('body');
+			var div = $("<div id='modal-validar-dataC-inicial'></div>").html('A nova Data de IN&iacute;CIO deve ser um dia posterior a Data Final atual!').appendTo('body');
 			alertModal("Alert", "modal-validar-dataC-inicial");
 		}
 		else if (ano3 != ano4)
@@ -665,7 +665,7 @@ function EnviarExecucao()
 		}
 		else if (!validarData(data3))
 		{
-			var div = $("<div id='modal-validar-dataC-validacao3'></div>").html('Data de INÍCIO Inv�lida!').appendTo('body');
+			var div = $("<div id='modal-validar-dataC-validacao3'></div>").html('Data de IN&iacute;CIO Inv�lida!').appendTo('body');
 			alertModal("Alert", "modal-validar-dataC-validacao3");
 		}
 		else if (!validarData(data4))
@@ -675,12 +675,12 @@ function EnviarExecucao()
 		}
 		else if (compararDataInicialDataFinal(data3, data4) == 1)
 		{
-			var div = $("<div id='modal-validar-dataC-inicio'></div>").html('Data INÍCIO Não poder� ser superior a Data Fim!').appendTo('body');
+			var div = $("<div id='modal-validar-dataC-inicio'></div>").html('Data IN&iacute;CIO Não poder� ser superior a Data Fim!').appendTo('body');
 			alertModal("Alert", "modal-validar-dataC-inicio");
 		}
 		else if (compararDataInicialDataFinal(dataF, data3) != 0 || diasDecorridosEntreDuasDatas(dataF, data3) != 1)
 		{
-			var div = $("<div id='modal-validar-dataC-inicial'></div>").html('A nova Data de INÍCIO deve ser um dia posterior a Data Final atual!').appendTo('body');
+			var div = $("<div id='modal-validar-dataC-inicial'></div>").html('A nova Data de IN&iacute;CIO deve ser um dia posterior a Data Final atual!').appendTo('body');
 			alertModal("Alert", "modal-validar-dataC-inicial");
 		}
 		else if (ano3 != ano4)
@@ -737,7 +737,7 @@ function EnviarExecucao()
 	 */
 	function somaIngressos()
 	{
-		/* ========== INÍCIO SOMA DE INGRESSOS ========== */
+		/* ========== IN&iacute;CIO SOMA DE INGRESSOS ========== */
 		campo1 = document.getElementById('Patrocinador').value;
 		campo1 = campo1.replace(/\D/g, ""); // retira os pontos e as v�rgulas, deixando somente n�meros
 		campo1 = campo1.replace(/(\d{0})(\d)/, "$1$2");
@@ -792,7 +792,7 @@ function EnviarExecucao()
 		/* ========== FIM SOMA DE INGRESSOS ========== */
 
 
-		/* ========== INÍCIO CALCULO DE INGRESSOS ========== */
+		/* ========== IN&iacute;CIO CALCULO DE INGRESSOS ========== */
 		campo6 = document.getElementById('Normal_Uni').value;
 		campo6 = campo6.replace(/\D/g, ""); // retira os pontos e as v�rgulas, deixando somente n�meros
 		campo6 = campo6.replace(/(\d{0})(\d)/, "$1$2");
@@ -894,7 +894,7 @@ function EnviarExecucao()
 
 
 
-<!-- INÍCIO: #breadcrumb -->
+<!-- IN&iacute;CIO: #breadcrumb -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('module'=>'default', 'controller' => 'principalproponente', 'action' => 'index')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -904,13 +904,13 @@ function EnviarExecucao()
 </div>
 <!-- final: #breadcrumb -->
 
-<!-- INÍCIO: #titulo -->
+<!-- IN&iacute;CIO: #titulo -->
 <div id="titulo">
     <div>Readequação de projeto <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
 <!-- final: #titulo -->
 
-<!-- INÍCIO: �rea principal #conteudo -->
+<!-- IN&iacute;CIO: �rea principal #conteudo -->
 <div id="conteudo">
     <div id="miolo">
         <?php
@@ -1025,7 +1025,7 @@ function EnviarExecucao()
                             foreach ($this->buscarprodutoSolicitado as $resultadoprodutos) {
                     ?>
 
-                    <!-- ========== INÍCIO FORMUL�RIO PRODUTOS ========== -->
+                    <!-- ========== IN&iacute;CIO FORMUL�RIO PRODUTOS ========== -->
                     <form name="Produto<?php echo $i; ?>" action="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'acao')); ?>" method="post">
                         <input type="hidden" value="<?php echo $idPronac; ?>" name="idPronac"/>
                         <input type="hidden" value="<?php echo $this->escape($resultado[0]->pronac); ?>" name="pronac" />
@@ -1054,7 +1054,7 @@ function EnviarExecucao()
 
 
         <div id="div_teste2" style="display:none">
-            <!-- ========== INÍCIO FORMUL�RIO CURSO ========== -->
+            <!-- ========== IN&iacute;CIO FORMUL�RIO CURSO ========== -->
             <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/ckeditor.js"></script>
             <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
             <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.css" />
@@ -1071,7 +1071,7 @@ function EnviarExecucao()
                             <td align="center">ESPECIFICA&Ccedil;&Atilde;O T&Eacute;CNICA APROVADA</td>
                         </tr>
                         <tr>
-                            <td align="center">- Especifica��es Técnicas: propostas de edi��o de livro, revistas e peri�dicos<br />
+                            <td align="center">- Especifica��es T&eacute;cnicas: propostas de edi��o de livro, revistas e peri�dicos<br />
 											   - Projeto Pedag�gico/ plano de execu��o: propostas de cursos/workshops *</td>
                         </tr>
                         <?php if($this->propostaPedagogica){?>
@@ -1139,7 +1139,7 @@ function EnviarExecucao()
         <!-- NOVO PRODUTO -->
         <!-- ************ -->
 		<div id="div_teste3" style="display:none">
-			<!-- ========== INÍCIO FORMUL�RIO PLANO ========== -->
+			<!-- ========== IN&iacute;CIO FORMUL�RIO PLANO ========== -->
 			<form name="formPlano" id="formPlano" action="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'novoproduto')); ?>" method="post">
                             <input type="hidden" value="<?php echo $idPronac; ?>" name="idPronac" />
                             <table class="tabela">
@@ -1290,18 +1290,18 @@ function EnviarExecucao()
         <!-- FICHA TECNCA -->
         <!-- ************ -->
         <div id="div_teste5" style="display:none">
-            <!-- ========== INÍCIO FORMUL�RIO FICHA ========== -->
+            <!-- ========== IN&iacute;CIO FORMUL�RIO FICHA ========== -->
             <form name="Ficha" id="Ficha" action="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'termo')); ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" id="idpronac" name="idpronac" value="<?php echo $idPronac; ?>" />
                 <table class="tabela">
                     <tr>
-                        <th>Ficha Técnica</th>
+                        <th>Ficha T&eacute;cnica</th>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
                     </tr>
                     <tr class="destacar bold">
-                        <td align="center">FICHA Técnica APROVADA</td>
+                        <td align="center">FICHA T&eacute;cnica APROVADA</td>
                     </tr>
                     <?php if($this->fichaTecnica){ ?>
                     <tr>
@@ -1313,7 +1313,7 @@ function EnviarExecucao()
                     </tr>
                     <?php } ?>
                     <tr class="destacar bold">
-                        <td align="center">NOVA FICHA Técnica</td>
+                        <td align="center">NOVA FICHA T&eacute;cnica</td>
                     </tr>
                     <tr>
                         <td><textarea <?php echo $readonly; ?> class="input_simples" style="width: 99%;" cols="" id="nomeprojeto" name="nomeprojeto" rows="10"><?php echo $nomedoprojeto2; ?></textarea></td>
@@ -1357,7 +1357,7 @@ function EnviarExecucao()
         <!-- LOCAL DE REALIZA��O -->
         <!-- ******************* -->
         <div id="div_teste6" style="display:none">
-            <!-- ========== INÍCIO FORMUL�RIO LOCAL ========== -->
+            <!-- ========== IN&iacute;CIO FORMUL�RIO LOCAL ========== -->
                 <form name="Local" id="Local" action="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'local')); ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" id="idpronac" name="idpronac" value="<?php echo $idPronac; ?>" />
                     <table class="tabela">
@@ -1390,14 +1390,14 @@ function EnviarExecucao()
                             <td align="center">
                                 <?php echo $valores->Descricao; ?>
 
-                                <!-- ========== INÍCIO MODAL EXCLUS�O DE LOCAL ========== -->
+                                <!-- ========== IN&iacute;CIO MODAL EXCLUS�O DE LOCAL ========== -->
                                 <div class="sumir" id="modal-exclusao-local<?php echo $cont_local; ?>">
                                     Deseja realmente Excluir?
                                     <br /><br />
                                     <p><label for="dsJustificativaExclusao<?php echo $i; ?>">Justificativa:</label></p>
                                     <p><input type="text" name="dsJustificativaExclusao" id="dsJustificativaExclusao<?php echo $i; ?>" maxlength="255" class="input_simples" style="width:600px;" /></p>
                                 </div>
-                                <!-- ========== INÍCIO MODAL EXCLUS�O DE LOCAL ========== -->
+                                <!-- ========== IN&iacute;CIO MODAL EXCLUS�O DE LOCAL ========== -->
 
                             </td>
                             <td align="center"><?php echo $valores->sigla; ?></td>
@@ -1595,7 +1595,7 @@ function EnviarExecucao()
                             <td align="center" colspan="2">NOVO PER�ODO DE EXECU��O</td>
                         </tr>
                         <tr>
-                            <td>Data de INÍCIO Atual: <input  null="false" class="input_simples w100" disabled="disabled" value="<?php echo $data1;//$dataInicialOriginal; ?>" type="text" name="data1"  id="data1" maxlength="10" value="00/00/0000"
+                            <td>Data de IN&iacute;CIO Atual: <input  null="false" class="input_simples w100" disabled="disabled" value="<?php echo $data1;//$dataInicialOriginal; ?>" type="text" name="data1"  id="data1" maxlength="10" value="00/00/0000"
                                                               onkeyup="mascara(this, format_data);" onmouseup=" "
                                                               onclick="limpar_campo(this, '00/00/0000');" onkeypress=" "
                                                               onblur="restaurar_campo(this, '00/00/0000');" />
@@ -1605,7 +1605,7 @@ function EnviarExecucao()
                                                               onclick="limpar_campo(this, '00/00/0000');" onkeypress=" "
                                                               onblur="restaurar_campo(this, '00/00/0000');" />
                             </td>
-                            <td>Data de INÍCIO: <input  <?php echo $readonly; ?> null="false"  type="text" name="datepicker1" id="datepicker1" maxlength="10" value="<?php echo $this->dtInicioNovoPrazoE; ?>"
+                            <td>Data de IN&iacute;CIO: <input  <?php echo $readonly; ?> null="false"  type="text" name="datepicker1" id="datepicker1" maxlength="10" value="<?php echo $this->dtInicioNovoPrazoE; ?>"
                                                         onkeyup="mascara(this, format_data);" onmouseup=" "
                                                         onclick="limpar_campo(this, '');" onkeypress=" "
                                                         onblur="restaurar_campo(this, '');" class="input_simples w100" />
@@ -1669,7 +1669,7 @@ function EnviarExecucao()
                             <td colspan="2" align="center">PER�ODO DE EXECU��O ATUAL</td>
                         </tr>
                         <tr>
-                            <td width="50%">Data de INÍCIO Atual: <input class="input_simples w100" null="false" disabled="disable" value="<?php echo $data1; ?>" type="text" name="dataE1"  id="dataE1" maxlength="10" value="00/00/0000"
+                            <td width="50%">Data de IN&iacute;CIO Atual: <input class="input_simples w100" null="false" disabled="disable" value="<?php echo $data1; ?>" type="text" name="dataE1"  id="dataE1" maxlength="10" value="00/00/0000"
                                   onkeyup="mascara(this, format_data);" onmouseup=" "
                                   onclick="limpar_campo(this, '00/00/0000');" onkeypress=" "
                                   onblur="restaurar_campo(this, '00/00/0000');" />
@@ -1689,7 +1689,7 @@ function EnviarExecucao()
                             <td colspan="2" align="center">PER�ODO DE EXECU��O SOLICITADO</td>
                         </tr>
                         <tr>
-                            <td width="50%">Data de INÍCIO Solicitado: <input class="input_simples w100" null="false" disabled="disabled" value="<?php echo $this->dtInicioNovoPrazoE; ?>" type="text" name="dataSE1"  id="dataSE1" maxlength="10" value="00/00/0000"
+                            <td width="50%">Data de IN&iacute;CIO Solicitado: <input class="input_simples w100" null="false" disabled="disabled" value="<?php echo $this->dtInicioNovoPrazoE; ?>" type="text" name="dataSE1"  id="dataSE1" maxlength="10" value="00/00/0000"
                                   onkeyup="mascara(this, format_data);" onmouseup=" "
                                   onclick="limpar_campo(this, '00/00/0000');" onkeypress=" "
                                   onblur="restaurar_campo(this, '00/00/0000');" />
@@ -1709,7 +1709,7 @@ function EnviarExecucao()
                             <td colspan="2" align="center">NOVO PRAZO DE CAPTA��O</td>
                         </tr>
                         <tr>
-                            <td>Data de INÍCIO Atual: <input disabled="disable" class="input_simples w100" value="<?php echo $data3; ?>"type="text" readonly  null="false" name="data3" id="data3" maxlength="10"
+                            <td>Data de IN&iacute;CIO Atual: <input disabled="disable" class="input_simples w100" value="<?php echo $data3; ?>"type="text" readonly  null="false" name="data3" id="data3" maxlength="10"
                                 onkeyup="mascara(this, format_data);" />
                             </td>
                             <td>Data de Fim Atual: <input disabled="disable" class="input_simples w100" type="text" readonly  null="false" value="<?php echo $data4; ?>" name="data4"  id="data4" maxlength="10"
@@ -1762,16 +1762,16 @@ function EnviarExecucao()
     </div>
 
 
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTE&uacute;DO ========== -->
 </div>
 
 
 <div id="dialog-alert">Dados obrigat�rios Não informados!</div>
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
 
 <br clear="all" />
 
@@ -1946,7 +1946,7 @@ $('#div_teste6').hide();
 $('#div_teste7').hide();
 $('#div_teste8').hide();
 $('#div_teste9').hide();
-<?php } if (isset($_GET['ativar_menu_ficha_tecnica'])) { // ficha Técnica ?>
+<?php } if (isset($_GET['ativar_menu_ficha_tecnica'])) { // ficha T&eacute;cnica ?>
 $('#div_teste3').hide();
 $('#div_teste').hide();
 $('#div_teste2').hide();
@@ -2051,7 +2051,7 @@ $('.abrir_fechar4').click(function() // vazio
     $('#div_teste8').hide();
     $('#div_teste9').hide();
 });
-$('.abrir_fechar5').click(function() // ficha Técnica
+$('.abrir_fechar5').click(function() // ficha T&eacute;cnica
 {
     if($("#div_teste5").is(":visible")){
         $("div#rodapeConteudo_com_menu").attr("id", "rodapeConteudo");

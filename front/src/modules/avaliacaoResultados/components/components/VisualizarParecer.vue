@@ -115,7 +115,7 @@
                 <v-divider/>
             </v-container>
             <div v-if="Object.keys(parecerTecnico).length !== 0">
-                <h2 class="text-sm-center">Parecer técnico de avaliação financeira</h2>
+                <h2 class="text-sm-center">Parecer t&eacute;cnico de avaliação financeira</h2>
                 <v-container grid-list-sm>
                     <v-layout
                         wrap

@@ -27,7 +27,7 @@ class DistribuirprojetosController extends MinC_Controller_Action_Abstract
     public function init()
     {
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
 
         // 3 => autentica��o scriptcase e autentica��o/permiss�o zend (AMBIENTE PROPONENTE E MINC)
         // utilizar quando a Controller ou a Action for acessada via scriptcase e zend

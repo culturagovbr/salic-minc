@@ -31,7 +31,7 @@ class Segmentocultural extends MinC_Db_Table_Abstract
     }
 
     /**
-     * Este método representa a view SAC.dbo.vSegmento
+     * Este m&eacute;todo representa a view SAC.dbo.vSegmento
      */
     public function obterViewVSegmento($where = array(), $isRetornarObjeto = false)
     {

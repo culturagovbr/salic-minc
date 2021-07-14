@@ -35,9 +35,9 @@ class DbfController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = 'Salic - Sistema de Apoio �s Leis de Incentivo � Cultura'; // t�tulo da página
+        $this->view->title = 'Salic - Sistema de Apoio �s Leis de Incentivo � Cultura'; // t�tulo da p&aacute;gina
 
-        /* ========== INÍCIO PERFIL ========== */
+        /* ========== IN&iacute;CIO PERFIL ========== */
         // define os grupos que tem acesso
         $PermissoesGrupo = array();
         //$PermissoesGrupo[] = 121; // T�cnico de Acompanhamento
@@ -130,7 +130,7 @@ class DbfController extends MinC_Controller_Action_Abstract
                     $this->sInformacaoReceitaFederalV3 = new sInformacaoReceitaFederalV3();
                     $this->sInformacaoReceitaFederalV3->gerarDBF($ano);
 
-                    // busca as infoma��es que seráo armazenadas no arquivo
+                    // busca as infoma��es que ser&aacute;o armazenadas no arquivo
                     $this->Dbf = new Dbf();
                     $buscar = $this->Dbf->buscarInformacoes();
 

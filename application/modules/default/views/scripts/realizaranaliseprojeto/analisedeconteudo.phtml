@@ -116,7 +116,7 @@ if($this->cabecalho != "false") {
             EscClose:true,
             modal:true,
             autoOpen:true,
-            title: 'Análise de CONTEÚDO do Produto',
+            title: 'An&aacute;lise de CONTE&uacute;DO do Produto',
             buttons: {
                 'Sair': function() {
                     $(this).dialog('close');
@@ -214,7 +214,7 @@ if($this->cabecalho != "false") {
     <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
     <div id="breadcrumb">
         <ul>
-            <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para INÍCIO">In&iacute;cio</a></li>
+            <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN&iacute;CIO">In&iacute;cio</a></li>
             <li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para A&aacute;�lise do Membro da Comiss&atilde;o">An&aacute;lise do Membro da Comiss&atilde;o</a></li>
             <li class="last">An&aacute;lise de Conte&uacute;do</li>
         </ul>
@@ -524,12 +524,12 @@ if($this->cabecalho != "false") {
                     <input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconteudo')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao']; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="idpronac" value="<?php echo $this->idPronac;?>">
