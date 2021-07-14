@@ -38,7 +38,7 @@ $(document).ready(function(){
             Data Fim
         </td>
     </tr>
-    <?php foreach ($this->histFerias as $ferias) :?> 
+    <?php foreach ($this->histFerias as $ferias) :?>
     <tr>
     	<td><?php echo $qtd; ?></td>
     	<td><?php echo $ferias->dtInicio; ?></td>
@@ -154,11 +154,11 @@ $(document).ready(function(){
 <div class="projeto">
 	<table class="tabela">
 		<tr>
-	 		<td><input type="button" id="" class="btn_adicionar produto abrir" onclick="$('.produtos_<?php echo $projetos['IdPRONAC'] ?>').slideToggle('slow')"/> 
+	 		<td><input type="button" id="" class="btn_adicionar produto abrir" onclick="$('.produtos_<?php echo $projetos['IdPRONAC'] ?>').slideToggle('slow')"/>
 	 		<label id='proanc'>Pronac: </label><a target="_blank" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'))."?idPronac=$projetos[IdPRONAC]"?>'>
 	 		<?php echo $projetos['Pronac']; ?></a>
 	 		&nbsp;&nbsp;&nbsp;&nbsp;
-	 		<label id="nome projeto">Nome Projeto:</label> 
+	 		<label id="nome projeto">Nome Projeto:</label>
 	 		<a href='<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'carregarhistorico'))."?Pronac=$projetos[Pronac]&idPronac=$projetos[IdPRONAC]"?>'><?php echo $projetos['NomeProjeto']; ?></a>
 	 		</td>
 	 	</tr>
@@ -193,7 +193,7 @@ $(document).ready(function(){
 				        <td><?php if ($produto->stPrincipal == 1) {
             echo 'Sim';
         } else {
-            echo 'Nâo';
+            echo 'NÃ£o';
         } ?></td>
 				        <td><?php echo $this->formatarReal($produto->vlPagamento); ?></td>
 				        <td><?php if ($produto->siPagamento == 4) {

@@ -5,7 +5,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
 
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $PermissoesGrupo = array();
@@ -39,6 +39,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
     }
     private function paginacao($total, $qtInformacao = 10)
     {
+        set_time_limit(-1);
         $post = Zend_Registry::get('post');
         $this->intTamPag = $qtInformacao;
         //controlando a paginacao
@@ -69,6 +70,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
     }
     private function gerarAnexo($tela, $filtro = '')
     {
+        set_time_limit(-1);
         $this->view->tela   =   $tela;
         if (empty($filtro)) {
             $this->view->filtro =   $tela;
@@ -127,6 +129,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
     }
     public function pareceremitidoAction()
     {
+        set_time_limit(-1);
         $tela   = 'pareceremitido';
         $this->gerarAnexo($tela);
         $this->view->projetos = $this->gerarInfoPaginas($tela, array(), 10);
@@ -431,7 +434,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
             $html .= '<th>Qtde Dias Devolvidos Para Coordenador</th>';
             $html .= '<th>Status da Dilig�ncia</th>';
             $html .= '<th>Unidade Vinculada</th>';
-            $html .= '<th>Dt.In�cio Execu��o</th>';
+            $html .= '<th>Dt.INÍCIO Execu��o</th>';
             $html .= '<th>Dt.Fim Execu��o</th>';
             $html .= '<th>Dias vencidos ou a vencer para execu��o do Projeto</th>';
             $html .= '</tr>';
@@ -1148,7 +1151,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                         <th width=\"100\">&Oacute;rg&atilde;o				</th>
                                         <th>Produto				</th>
                                         <th>PRODUTO PRINCIPAL</th>
-                                        <th width=\"100\">Dt. de fechamento da an�lise t�cnica</th>
+                                        <th width=\"100\">Dt. de fechamento da Análise Técnica</th>
                                         <th width=\"150\">&Aacute;rea				</th>
                                         <th width=\"150\">Segmento Cultural	</th>
                                     </tr>
@@ -1220,7 +1223,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                         <th width=\"100\">&Oacute;rg&atilde;o				</th>
                                         <th>Produto				</th>
                                         <th>PRODUTO PRINCIPAL</th>
-                                        <th width=\"100\">Dt. de fechamento da an�lise t�cnica</th>
+                                        <th width=\"100\">Dt. de fechamento da Análise Técnica</th>
                                         <th width=\"150\">&Aacute;rea				</th>
                                         <th width=\"150\">Segmento Cultural	</th>
                                     </tr>
@@ -1313,7 +1316,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                         <th colspan=\"3\" style=\"font-size: 13px; font-family: sans-serif; text-align: left;\">Parecerista : {$conteudo['nmParecerista']}</th>
                     </tr>
                     <tr>
-                        <td>QTD de An�lise: {$conteudo['qtAnalise']}</td>
+                        <td>QTD de Análise: {$conteudo['qtAnalise']}</td>
                         <td>F�rias:{$conteudo['ferias']}</td>
                     </tr>
                     <tr>
@@ -1358,7 +1361,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                                 <td>{$distribuicao['dtDistribuicao']}</td>
                                                 <td>{$distribuicao['nrDias']}</td>
                                                 <td>{$produto['diligencia']}</td>
-                                                <!--<td>B11 - Encaminhado para an�lise t�cnica</td>
+                                                <!--<td>B11 - Encaminhado para Análise Técnica</td>
                                                 <td>Proposta transformada em projeto cultural</td>-->
                                             </tr>
                                             ";
@@ -1371,7 +1374,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                                 <td>{$distribuicao['dtDistribuicao']}</td>
                                                 <td>{$distribuicao['nrDias']}</td>
                                                 <td></td>
-                                                <!--<td>B11 - Encaminhado para an�lise t�cnica</td>
+                                                <!--<td>B11 - Encaminhado para Análise Técnica</td>
                                                 <td>Proposta transformada em projeto cultural</td>-->
                                             </tr>
                                             ";
@@ -1391,7 +1394,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                                 <td>{$distribuicao['dtDistribuicao']}</td>
                                                 <td>{$distribuicao['nrDias']}</td>
                                                 <td>{$produto['diligencia']}</td>
-                                                <!--<td>B11 - Encaminhado para an�lise t�cnica</td>
+                                                <!--<td>B11 - Encaminhado para Análise Técnica</td>
                                                 <td>Proposta transformada em projeto cultural</td>-->
                                             </tr>
                                             ";
@@ -1404,7 +1407,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                                 <td>{$distribuicao['dtDistribuicao']}</td>
                                                 <td>{$distribuicao['nrDias']}</td>
                                                 <td></td>
-                                                <!--<td>B11 - Encaminhado para an�lise t�cnica</td>
+                                                <!--<td>B11 - Encaminhado para Análise Técnica</td>
                                                 <td>Proposta transformada em projeto cultural</td>-->
                                             </tr>
                                             ";

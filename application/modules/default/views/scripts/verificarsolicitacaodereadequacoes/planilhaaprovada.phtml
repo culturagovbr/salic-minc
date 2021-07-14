@@ -4,32 +4,32 @@
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li>Acompanhamento</li>
-        <li class="last">Readequaç&atilde;o: itens de custo</li>
+        <li class="last">Readequaï¿½&atilde;o: itens de custo</li>
     </ul>
 </div>
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Readequa&ccedil;&atilde;o: itens de custo <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 <script type="text/javascript">
 <!--
 /**
- * Ações que serão executadas após o carregamento da página
+ * Aï¿½ï¿½es que serÃ¡o executadas apï¿½s o carregamento da pÃ¡gina
  */
 $(document).ready(function()
 {
-	// controle de exibição da planilha aprovada
+	// controle de exibiï¿½ï¿½o da planilha aprovada
 	$(".icn_menos_AP").click(function()
 	{
 		abrir_planilha(this, '');
 	});
 	$(".icn_menos_AP").click();
 
-	// controle de exibição da planilha solicitada
+	// controle de exibiï¿½ï¿½o da planilha solicitada
 	$(".icn_menos_SR").click(function()
 	{
 		abrir_planilha(this, 'SR');
@@ -62,7 +62,7 @@ $(document).ready(function()
 
 
 /**
- * Função para expandir/recolher a planilha
+ * Funï¿½ï¿½o para expandir/recolher a planilha
  */
 function abrir_planilha(item, planilha)
 {
@@ -115,13 +115,13 @@ function abrir_planilha(item, planilha)
 		cidade  = $(item).attr('cidade' + planilha);
 		$(".cidade" + planilha + "[produto" + planilha + "='" + produto + "'][etapa" + planilha + "='" + etapa + "'][cidade" + planilha + "='" + cidade + "'][fonte" + planilha + "='" + fonte + "']").css('display', adisplay);
 	}
-} // fecha função abrir_planilha()
+} // fecha funï¿½ï¿½o abrir_planilha()
 //-->
 </script>
 
 
 
-<!-- início: área principal #conteudo -->
+<!-- INÃCIO: ï¿½rea principal #conteudo -->
 <div id="conteudo">
     <div id="miolo">
         <?php $resultado = $this->buscaprojeto;
@@ -131,7 +131,7 @@ function abrir_planilha(item, planilha)
         <table class="tabela">
             <thead>
                 <tr>
-                    <th align="center">Nº PRONAC</th>
+                    <th align="center">Nï¿½ PRONAC</th>
                     <th align="center">Nome do Projeto</th>
                 </tr>
             </thead>
@@ -164,7 +164,7 @@ function abrir_planilha(item, planilha)
 
             <table class="tabela">
             	<tr>
-            		<th>Planilha Orçamentária</th>
+            		<th>Planilha Orï¿½amentï¿½ria</th>
             	<tr>
                 <?php
                 $classPai='tr_f_AP';
@@ -182,7 +182,7 @@ function abrir_planilha(item, planilha)
 
                 </tr>
 
-	<!-- ========== INÍCIO PLANILHA APROVADA ========== -->
+	<!-- ========== INÃCIO PLANILHA APROVADA ========== -->
 		<!--<tr>
 			<th>Planilha Aprovada</th>
 		</tr>-->
@@ -301,7 +301,7 @@ function abrir_planilha(item, planilha)
 			$nrFonte++;
 		endforeach; //fechaForeachFonteIncentivo
 		?>
-    
+
 	<!-- ========== FIM PLANILHA APROVADA ========== -->
 
             </table>
@@ -366,12 +366,12 @@ function abrirFecharFilhos()
 }
 //-->
 </script>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

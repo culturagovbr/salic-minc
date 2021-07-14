@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Alterar Projeto
  * @author Equipe RUP - Politec
@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright ? 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ? 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -45,7 +45,7 @@
         $("#tpPeriodoExecucao").change(function(){
             var opcao = $(this).val();
             if(opcao == '1'){
-                $('#labelTipo1').html('Dt. InÌcio:');
+                $('#labelTipo1').html('Dt. IN√çCIO:');
                 $('#labelTipo2').html('Dt. Fim:');
                 $("#spandtExecucaoIni").show();
                 $("#spandtExecucaoFim").show();
@@ -61,7 +61,7 @@
                 $("#spandtExecucaoFim").show();
             }else if(opcao == '4'){
                 $('#labelTipo1').html('De:');
-                $('#labelTipo2').html('atÈ:');
+                $('#labelTipo2').html('atÔøΩ:');
                 $("#spandtExecucaoIni").show();
                 $("#spandtExecucaoFim").show();
             }else{
@@ -101,7 +101,7 @@
             gerarRelatorio(datafim, diffdias);
         });
 
-        // calend·rio
+        // calendÔøΩrio
         $(function()
             {
                 $.datepicker.regional['pt-BR'] = {
@@ -151,10 +151,10 @@
 </script>
 
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>/principal" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>/principal" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Analisar Relat&oacute;rios Trimestrais</li>
     </ul>
 </div>
@@ -199,7 +199,7 @@
                         ?>
                     </select>
                 </td>
-                <!--<th>MunicÌpio</th>
+                <!--<th>MunicÔøΩpio</th>
                 <td>
                     <select name='idMunicipioIBGE' class='select_simples focus' id='municipio'>
                         <option value="0">--Selecione--</option>
@@ -230,7 +230,7 @@
                     </td>
                 </tr>
             <tr>
-                <td class="bold">SituaÁ„o do projeto</td>
+                <td class="bold">SituaÔøΩÔøΩo do projeto</td>
                 <td colspan="3">
                     <select name='Situacao' class='select_simples focus'>
                         <option value='0' selected>- Selecione -</option>
@@ -258,7 +258,7 @@
             </tr>
             <tr>
                 <td class="bold">Dilig&ecirc;ncia</td>
-                <td colspan="3"> 
+                <td colspan="3">
                     <select name='stDiligencia' class='select_simples focus'>
                         <option value='0' selected>- Selecione -</option>
                         <option value="d0">A diligenciar</option>
@@ -269,7 +269,7 @@
                 </td>
             </tr>
             <tr>
-<!--                <th>RelatÛrio</th>
+<!--                <th>RelatÔøΩrio</th>
                 <td>
                     <select name='relatorio' class='select_simples habilitar focus' id='relatorio'>
                         <option  value="0">--Selecione--</option>
@@ -279,8 +279,8 @@
                 <td colspan="3">
                     <select name='stRelatorio' class='select_simples habilitar focus'>
                         <option value='0' selected>- Selecione -</option>
-                        <option value="1">Aguardando an·lise</option>
-                        <option value="2">Em an·lise</option>
+                        <option value="1">Aguardando An√°lise</option>
+                        <option value="2">Em An√°lise</option>
                         <option value="3">Analisado</option>
                     </select>
                 </td>
@@ -294,13 +294,13 @@
                     <input type="reset" style="width: 88px" class="btn_limpar" id="btn_limpar" onclick="$('#spandtExecucaoIni').hide(); $('#spandtExecucaoFim').hide(); $('#labelTipo1').html('');$('#labelTipo2').html(''); JSLiberaCampos();" value=""/>
                 </td>
             </tr>
-        </table> 
+        </table>
         <br />
         </fieldset>
     </form>
 </div><!-- final: conteudo principal #conteudo -->
 
-<!-- inÌcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

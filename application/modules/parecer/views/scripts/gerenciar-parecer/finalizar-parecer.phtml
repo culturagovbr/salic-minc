@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -8,13 +8,13 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Gerenciar Pareceres<span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div class="content padding20 clearfix">
   <div class="row">
     <div class="col s12">
@@ -23,7 +23,7 @@
           <td class="center-align"><?php if($this->qtdDocumentos != 0){echo $this->qtdDocumentos.' Projetos listados';}else{ echo 'Nenhum Registro encontrado!';}?></td>
         </tr>
     </table>
-    
+
     <?php if($this->qtdDocumentos != 0): ?>
     <table class="bordered margin0 dataTable no-footer" style="width:100%">
       <thead>
@@ -43,7 +43,7 @@
                 $tipostatus  = array ('AN&Aacute;LISE CONCLU&Iacute;DA', 'Aguardando distribui&ccedil;&atilde;o');
 
                 foreach($this->dados as $dp):
-	    
+
                 ?>
             <tr class="<?php if($dp->FecharAnalise == 2) { echo 'red'; }?>" >
                 <td class="center-align">
@@ -60,7 +60,7 @@
                 <td><?php if(($nomeProjeto != $dp->NomeProjeto) || ($pronac != $dp->NrProjeto))echo $dp->NomeProjeto; ?></td>
                 <td><?php echo $dp->Segmento; ?></td>
                 <td align="right" nowrap><?php echo $this->formatarReal($dp->Valor); ?></td>
-		
+
 		<td class="center-align"><strong><?php echo $dp->TecnicoValidador; ?></strong></td>
 		<td class="center-align"><?php echo Data::tratarDataZend($dp->dtValidacao, 'Brasileira'); ?></td>
 
@@ -69,13 +69,13 @@
 		     href="<?php echo $this->url(array('module' => 'default', 'controller' => 'gerenciarparecer', 'action' => 'historico', 'idPronac'=> $dp->IdPRONAC, 'stPrincipal'=> $dp->stPrincipal, 'idProduto' => $dp->idProduto)); ?>"
 		    data-tooltip="Hist&oacute;rico">
 		    <i class="material-icons white-text">history</i>
-		  </a>		  
+		  </a>
 		</td>
 
 		<td class="center-align">
 		  <!-- pergunto se tem secundarios abertos -->
 		  <?php if($this->checarValidacaoSecundarios[$dp->IdPRONAC] == 1) { ?>
-		  <!-- se retornar true mostra o botão -->
+		  <!-- se retornar true mostra o botï¿½o -->
 		  <?php if($this->verificarIN2017($dp->IdPRONAC)): ?>
 		  <?php if($this->IsProjetoDisponivelParaAssinatura($dp->IdPRONAC, $this->idTipoDoAtoAdministrativo)): ?>
 		  <?php $idDocumentoAssinatura = $this->GetIdDocumentoAssinatura($dp->IdPRONAC, $this->idTipoDoAtoAdministrativo); ?>
@@ -83,7 +83,7 @@
 		     href="<?php echo $this->url(array('module' => 'assinatura', 'controller' => 'index', 'action' => 'visualizar-projeto')) . "?idDocumentoAssinatura=" . $idDocumentoAssinatura; ?>&origin=parecer/gerenciar-parecer/finalizar-parecer"
 		    data-tooltip="Visualizar documento assinado">
 		    <i class="material-icons white-text">remove_red_eye</i>
-		  </a>             
+		  </a>
 		  <?php if (!$this->IsProjetoJaAssinado($dp->IdPRONAC, $this->idTipoDoAtoAdministrativo, $this->idPerfilDoAssinante)):
 		  $parametrosAssinatura = "?idpronac=". $dp->IdPRONAC;
 		  ?>
@@ -92,7 +92,7 @@
 		    data-tooltip="Assinar documento">
 		    <i class="material-icons white-text">create</i>
 		  </a>
-		  <?php elseif ($this->IsProjetoJaAssinado($dp->IdPRONAC, $this->idTipoDoAtoAdministrativo, $this->idPerfilDoAssinante)):		  
+		  <?php elseif ($this->IsProjetoJaAssinado($dp->IdPRONAC, $this->idTipoDoAtoAdministrativo, $this->idPerfilDoAssinante)):
 		  $parametrosAssinatura = "/idDistribuirParecer/" . $dp->idDistribuirParecer . "/idpronac/". $dp->IdPRONAC;
 		  ?>
 		  &nbsp;&nbsp;
@@ -112,10 +112,10 @@
                   </a>
 	  	  <?php endif; ?>
 		  <?php endif; ?>
-		  <?php elseif(!$this->verificarIN2017($dp->IdPRONAC)): 
+		  <?php elseif(!$this->verificarIN2017($dp->IdPRONAC)):
 		  $parametrosAssinatura = "/idDistribuirParecer/" . $dp->idDistribuirParecer . "/idpronac/". $dp->IdPRONAC ."/concluir/1";
 		  ?>
-		  <!-- se retornar true mostra o botão -->
+		  <!-- se retornar true mostra o botï¿½o -->
                   <a class="modal-trigger btn waves-effect waves-light tooltipped small btn cyan"
                      href="<?php echo $this->url(
                                         array(
@@ -133,7 +133,7 @@
 		  <?php } ?>
 		</td>
             </tr>
-            <?php 
+            <?php
                 $nomeProjeto = $dp->NomeProjeto;
                 $pronac      = $dp->NrProjeto;
             ?>
@@ -145,13 +145,13 @@
     <br clear="all" />
 
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />
 
 <div id="conteudoDialogoModal">
-  
+
   <div id="modalConfirmacao" class="modal modal-fixed-footer">
     <div class="modal-content">
       <h4>Confirma&ccedil;&atilde;o</h4>
@@ -182,11 +182,11 @@
 
 <script type="text/javascript">
     function areadetrabalho(){
-        
+
         $('#pinicial').click(function(){
             $('#analiseinicial').toggle('slow');
         });
-        
+
         $('#preadequacao').click(function(){
             $('#readequacao').toggle('slow');
         });
@@ -200,7 +200,7 @@
 		window.location = "<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index')); ?>?pag=1&pronac="+pronac;
 	    }
 	});
-	
+
         $("#btn_pesquisar").click(function(){
             var pronac = $('#pronac').val(),
                 filtro = $('.comboFiltro').val();
@@ -216,5 +216,5 @@
     window.onload = function(){
         areadetrabalho();
     };
-    
+
 </script>

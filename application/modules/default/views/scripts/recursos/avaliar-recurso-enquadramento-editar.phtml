@@ -13,7 +13,7 @@
                     <td colspan="2"><?php echo $this->projeto->NomeProjeto; ?></td>
                 </tr>
                 <tr>
-                    <th colspan="4">Descrição do Recurso</th>
+                    <th colspan="4">DescriÃ§Ã£o do Recurso</th>
                 </tr>
                 <tr>
                     <td colspan="4"><?php echo $this->recurso->dsSolicitacaoRecurso; ?></td>
@@ -21,7 +21,7 @@
                 <tr>
                     <th>Tipo do Recurso</th>
                     <td><?php echo $this->recurso->tpRecursoDesc; ?></td>
-                    <th>Tipo do Solicitação</th>
+                    <th>Tipo do SolicitaÃ§Ã£o</th>
                     <td><?php echo $this->recurso->tpSolicitacaoDesc; ?></td>
                 </tr>
             </table>
@@ -36,17 +36,17 @@
                     <label for="stAtendimento2">Indeferir</label>
                 </p>
 
-                <label for="dsAvaliacao">Avalição:</label>
+                <label for="dsAvaliacao">Avaliï¿½ï¿½o:</label>
                 <textarea class="materialize-textarea" name="dsAvaliacao" id="dsAvaliacao">
                     <?php echo $this->recurso->dsAvaliacao?>
                 </textarea>
                 <div class="row">
                     <div class="input-field col s12 center-align">
                         <input type="hidden" name="idRecurso" value="<?php echo $this->recurso->idRecurso; ?>">
-                        <button name="btn_salvar" id="btn_salvar" class="tooltipped btn waves-effect waves-light" data-tooltip="Enviar Avaliação" type="submit" name="action">Enviar
+                        <button name="btn_salvar" id="btn_salvar" class="tooltipped btn waves-effect waves-light" data-tooltip="Enviar Avaliaï¿½ï¿½o" type="submit" name="action">Enviar
                             <i class="material-icons right">send</i>
                         </button>
-                        <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos' , 'action' => 'recurso-enquadramento'))?>" name="btn_voltar" id="btn_voltar" class="tooltipped red-text btn waves-effect waves-dark white" data-tooltip="Cancelar Avaliação" type="reset" name="action">Cancelar</a>
+                        <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos' , 'action' => 'recurso-enquadramento'))?>" name="btn_voltar" id="btn_voltar" class="tooltipped red-text btn waves-effect waves-dark white" data-tooltip="Cancelar Avaliaï¿½ï¿½o" type="reset" name="action">Cancelar</a>
                     </div>
                 </div>
             </form>
@@ -69,7 +69,7 @@
                 }
             },
             invalidHandler: function(event, validator) {
-                Materialize.toast('Campo "Avaliação" &eacute; obrigat&oacute;rio!', 4000);
+                Materialize.toast('Campo "Avaliaï¿½ï¿½o" &eacute; obrigat&oacute;rio!', 4000);
             },
             submitHandler: function (form) {
                     $("#container-progress").show();

@@ -1,5 +1,5 @@
-<!-- ========== INÍCIO MENU ========== -->
- 
+<!-- ========== INÃCIO MENU ========== -->
+
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
@@ -15,10 +15,10 @@
         });
     </script>
 
-    <!-- início: conteúdo principal #container -->
+    <!-- INÃCIO: CONTEÃšDO principal #container -->
     <div id="container">
 
-        <!-- início: navegação local #qm0 -->
+        <!-- INÃCIO: navegaï¿½ï¿½o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {
@@ -42,7 +42,7 @@
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
-                <a class="no_seta" href='<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'index'), '', true); ?>'>Procurações cadastradas</a>
+                <a class="no_seta" href='<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'index'), '', true); ?>'>Procuraï¿½ï¿½es cadastradas</a>
                 <a class="no_seta" href='<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'cadastramento'), '', true); ?>'>Cadastramento</a>
             </div>
             <div class="bottom"></div>
@@ -50,7 +50,7 @@
 
 
         <div id="alertar"></div>
-        <!-- final: navegação local #qm0 -->
+        <!-- final: navegaï¿½ï¿½o local #qm0 -->
     </div>
 </div>
 <!-- ========== FIM MENU ========== -->

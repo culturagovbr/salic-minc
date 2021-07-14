@@ -1,9 +1,9 @@
 <?php
 
 /**
-* Prove constantes que encapsulam recursos utilizados pelo sistema. O 
-* objetivo desta classe é diminuir o uso de strings literais durante a 
-* programacao do sistema, facilitando o entendimento do codigo 
+* Prove constantes que encapsulam recursos utilizados pelo sistema. O
+* objetivo desta classe ï¿½ diminuir o uso de strings literais durante a
+* programacao do sistema, facilitando o entendimento do codigo
 * especialmente durante manutencoes.
 * @author Marcos Rodrigo Ribeiro
 * @version  <pre>
@@ -12,7 +12,7 @@
 *    Autor: Marcos Rodrigo Ribeiro
 *    Descricao: Versao inicial.
 *   <hr>
-* </pre>  
+* </pre>
 * @name Constantes()
 * @access public
 */
@@ -20,19 +20,19 @@
 class Constantes {
 
         /* =========================================================================================================== */
-	/* ================== CÓDIGOS (ID's) REFERENTE À TABELA TIPO (SAC.dbo.Tipo) ================================== */
+	/* ================== CÃ³digoS (ID's) REFERENTE ï¿½ TABELA TIPO (SAC.dbo.Tipo) ================================== */
         /* =========================================================================================================== */
-        
+
         /*=== valor do campo ID da tabela SAC.dbo.Tipo que referencia ao registro "Termo de "Decisao" === */
-	const cteIdTipoTermoDecisao = 19; //(no Minc (em homologacao) o valor e 19) 
-	
+	const cteIdTipoTermoDecisao = 19; //(no Minc (em homologacao) o valor e 19)
+
         /* =========================================================================================================== */
-	/* ================== CÓDIGOS (ID's) REFERENTE À TABELA VERIFICACAO (SAC.dbo.Verificacao) ==================== */
+	/* ================== CÃ³digoS (ID's) REFERENTE ï¿½ TABELA VERIFICACAO (SAC.dbo.Verificacao) ==================== */
         /* =========================================================================================================== */
 	const cteIdVerificacaoTipoTermoAnaliseInicial   = 407; //(no Minc (em homologacao) o valor e 352) /*=== valor do campo ID da tabela SAC.dbo.Verificacao que referencia o registro "Inicial" (Tipo de termo de decisao) === */
-	const cteIdVerificacaoTipoTermoReadequacao      = 408; //(no Minc (em homologacao) o valor e 353) /*=== valor do campo ID da tabela SAC.dbo.Verificacao que referencia o registro "Readequação" (Tipo de termo de decisao) === */
+	const cteIdVerificacaoTipoTermoReadequacao      = 408; //(no Minc (em homologacao) o valor e 353) /*=== valor do campo ID da tabela SAC.dbo.Verificacao que referencia o registro "Readequaï¿½ï¿½o" (Tipo de termo de decisao) === */
 	const cteIdVerificacaoTipoRecurso               = 409; //(no Minc (em homologacao) o valor e 354) /*=== valor do campo ID da tabela SAC.dbo.Verificacao que referencia o registro "Recurso" (Tipo de termo de decisao) === */
-	
+
 	private function __construct()
 	{
 		parent::__constructor();

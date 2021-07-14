@@ -117,7 +117,7 @@ gerarBreadCrumb($links);
 if ($this->infoProjeto[0]->dtFimFiscalizacaoProjeto != '') {
     echo date('d/m/Y', strtotime($this->infoProjeto[0]->dtFimFiscalizacaoProjeto));
 } else {
-	echo 'N�o informada';
+	echo 'Não informada';
 }
 ?>
                                     </div>
@@ -156,7 +156,7 @@ if ($this->infoProjeto[0]->dtFimFiscalizacaoProjeto != '') {
                                 <div style="float: left;width: 100%;margin-top: 5px;">
                                     <div style="float: left;width: 200px;">Dados para Fiscaliza&ccedil;&atilde;o </div>
                                     <div style="float: left; overflow: auto; height: 100px;">
-<?php echo !empty($this->infoProjeto[0]->dsFiscalizacaoProjeto) ? $this->infoProjeto[0]->dsFiscalizacaoProjeto : 'N�o informado'; ?>
+<?php echo !empty($this->infoProjeto[0]->dsFiscalizacaoProjeto) ? $this->infoProjeto[0]->dsFiscalizacaoProjeto : 'Não informado'; ?>
                                     </div>
                                 </div>
 
@@ -581,11 +581,11 @@ if ($this->infoProjeto[0]->dtFimFiscalizacaoProjeto != '') {
                     for(var j in data){
                         this[j]=data[j];
                     }
-            
+
             novaJanela.iniciarJanela(dados);
             return novaJanela;
         }
-       
+
     }
  }
 </script>

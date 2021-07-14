@@ -54,7 +54,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
                         ,
                         buttons:
                             {
-                            'Não':function()
+                            'NÃ£o':function()
                             {
                                 $(this).dialog('close');
                                 return false;
@@ -79,7 +79,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
                         ,
                         buttons:
                             {
-                            'Não':function()
+                            'NÃ£o':function()
                             {
                                 $(this).dialog('close');
                                 return false;
@@ -114,7 +114,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
         $("#idDocumento").val(idDocumento);
 
 
-        document.getElementById("modalJustificativa").title = "Justificativa para solicitação de cancelamento";
+        document.getElementById("modalJustificativa").title = "Justificativa para SolicitaÃ§Ã£o de cancelamento";
 
         // modal com os ddos do dirigente
         $("#modalJustificativa").dialog("destroy");
@@ -140,7 +140,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
         $("#nome").html(nome);
         $("#idHistorico").val(idHistorico);
 
-        document.getElementById("modalJustificativa").title = "Justificativa para solicitação de cancelamento";
+        document.getElementById("modalJustificativa").title = "Justificativa para SolicitaÃ§Ã£o de cancelamento";
 
         // modal com os ddos do dirigente
         $("#modalJustificativa").dialog("destroy");
@@ -163,7 +163,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
 
     function Caracteres(objeto){
         var limite = 300;
-        var erro = "Você ultrapassou o limite de caracteres.";
+        var erro = "Vocï¿½ ultrapassou o limite de caracteres.";
 
         tamanho = objeto.value.length;
         if (tamanho>limite) {
@@ -176,10 +176,10 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
 </script>
 
 <div id="confirm" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja cancelar o Envio do Projeto?</div>
-<div id="confirm2" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja recusar a Solicitação?</div>
-<div id="confirm3" title="Confirma&ccedil;&atilde;o" style="display: none">Dados obrigatórios não informados!</div>
+<div id="confirm2" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja recusar a SolicitaÃ§Ã£o?</div>
+<div id="confirm3" title="Confirma&ccedil;&atilde;o" style="display: none">Dados obrigatï¿½rios NÃ£o informados!</div>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -202,12 +202,12 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
             </tr>
        	</table>
 
-       	* Por favor informe uma justificativa para a solicitação de cancelamento:
+       	* Por favor informe uma justificativa para a SolicitaÃ§Ã£o de cancelamento:
        	<br />	<br><label for="justificativa">Justificativa</label><br>
 
        	<textarea name="justificativa" id="justificativa" rows="6" cols="50" style="width:100%;" onclick="limpar_campo(this, 'Digite a justificativa...');" onkeypress=" "
                   onblur="restaurar_campo(this, 'Digite a justificativa...');" onkeydown=Caracteres(this) onkeyup=Caracteres(this)>Digite a justificativa...</textarea>
-        <font>Limite: 300 • Restantes: </font>
+        <font>Limite: 300 ï¿½ Restantes: </font>
         <span id="restantes" style="estilos...">300</span>
        	<br />
        	<br />
@@ -228,18 +228,18 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
 </div>
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Solicita&ccedil;&otilde;es <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div id="conteudo">
 
     <div style="display: on" class="cancelar">
         <?php if($this->cancel) { ?>
 
-        <fieldset><legend> Solicitações pendentes </legend>
+        <fieldset><legend> Solicitaï¿½ï¿½es pendentes </legend>
             <form name="form" method="post">
                 <table class="tabela">
                     <?php foreach ($this->cancelOrgao as $destino){ ?>
@@ -254,7 +254,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
                     </tr>
                     <tr class="<?php echo $destino->idDestino; ?>">
                         <th width="5">Cancelar Envio</th>
-                        <th width="5">Recusar Solicitação</th>
+                        <th width="5">Recusar SolicitaÃ§Ã£o</th>
                         <th width="20">Processo</th>
                         <th width="10">PRONAC</th>
                         <th width="150">Nome do Projeto</th>
@@ -294,7 +294,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
         <table class="tabela">
             <tr>
                 <td class="centro">
-				Não existem Solicitações!
+				NÃ£o existem Solicitaï¿½ï¿½es!
                 </td>
             </tr>
         </table>
@@ -303,7 +303,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
 
 </div>
 
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 

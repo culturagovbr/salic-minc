@@ -39,9 +39,9 @@
                             });
                             return false;
                         } else {
-                            var mensagem = 'Tem certeza que deseja salvar e finalizar a an·lise do projeto?';
+                            var mensagem = 'Tem certeza que deseja salvar e finalizar a An√°lise do projeto?';
                             if (isLaudoAprovado == 'aprovado') {
-                                mensagem + '<br>Ser· gerado a guia de arquivamento para seu projeto.';
+                                mensagem + '<br>ser√° gerado a guia de arquivamento para seu projeto.';
                             }
                             $("#enviar-confirm").html(mensagem);
                             $("#enviar").dialog("destroy");
@@ -54,7 +54,7 @@
                                 resizable: true,
                                 closeOnEscape: false,
                                 buttons: {
-                                    'N„o': function(){
+                                    'N√£o': function(){
                                         $(this).dialog('close');
                                     },
                                     'Sim': function() {
@@ -97,7 +97,7 @@
                     $("body").append("<div id='divDinamica'></div>");
                     $('#divDinamica')
                             .css('overflow', 'hidden')
-                            .html("… necess·rio informar ao menos um parecer para impress„o.")
+                            .html("ÔøΩ necessÔøΩrio informar ao menos um parecer para impressÔøΩo.")
                             .dialog({
                                 resizable: true,
                                 width:320,
@@ -129,7 +129,7 @@
 
 <div class="col s12" id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN√çCIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'painel'));?>">Presta&ccedil;&atilde;o de contas</a></li>
         <li class="last">Laudo final de presta&ccedil;&atilde;o de contas</li>
     </ul>
@@ -159,15 +159,15 @@
                     <tr>
                         <th style="" colspan="1">
                             <input type="checkbox" name="pt" id="pt" value="1" class="" />
-                            <label for="pt">Parecer TÈcnico</label>
+                            <label for="pt">Parecer TÔøΩcnico</label>
                             <br/>
                         </th>
                     </tr>
                     <tr class="sumir destacar" id="linha_pt">
                         <td>
                             Nome: <input type="text" class="input_simples w300" name="nome_tecnico" id="nome_tecnico" value="Elton Pereira dos Santos">
-                            Cargo: <input type="text" class="input_simples w300" name="cargo_tecnico" id="cargo_tecnico" value="Coordenador de PrestaÁ„o de Contas">
-                            MatrÌcula: <input type="text" class="input_simples" name="matricula_tecnico" id="matricula_tecnico" value="SIAPE 2701536">
+                            Cargo: <input type="text" class="input_simples w300" name="cargo_tecnico" id="cargo_tecnico" value="Coordenador de PrestaÔøΩÔøΩo de Contas">
+                            MatrÔøΩcula: <input type="text" class="input_simples" name="matricula_tecnico" id="matricula_tecnico" value="SIAPE 2701536">
                         </td>
                     </tr>
                     <tr>
@@ -181,7 +181,7 @@
                                 $parecerTecnico = $this->parecerTecnico->siManifestacao == 0 ? 'Irregular' : 'Regular';
                                 ?>
                             <input type="hidden" name="manifestacaoParecerTecnico" value="<?php echo $parecerTecnico; ?>"/>
-                            <span style="color: #35953F; font-size: 16px; font-weight: bold; padding: 5px;">ManifestaÁ„o Final: </span>
+                            <span style="color: #35953F; font-size: 16px; font-weight: bold; padding: 5px;">ManifestaÔøΩÔøΩo Final: </span>
                             <?php
                                 echo $parecerTecnico;
                             endif;
@@ -193,15 +193,15 @@
                     <tr>
                         <th style="text-align:left" colspan="1">
                             <input type="checkbox" name="pch" id="pch" value="2" class="checks" />
-                            <label for="pch">Parecer Chefe de Divis„o</label>
+                            <label for="pch">Parecer Chefe de DivisÔøΩo</label>
                             <br>
                         </th>
                     </tr>
                     <tr class="destacar sumir" id="linha_pch">
                         <td>
                             Nome: <input type="text" class="input_simples w300" name="nome_tecnico" id="nome_tecnico" value="Denise Terra Nunes Ribas">
-                            Cargo: <input type="text" class="input_simples w300" name="cargo_tecnico" id="cargo_tecnico" value="Coordenadora-Geral de PrestaÁ„o de Contas">
-                            MatrÌcula: <input type="text" class="input_simples" name="matricula_tecnico" id="matricula_tecnico" value="">
+                            Cargo: <input type="text" class="input_simples w300" name="cargo_tecnico" id="cargo_tecnico" value="Coordenadora-Geral de PrestaÔøΩÔøΩo de Contas">
+                            MatrÔøΩcula: <input type="text" class="input_simples" name="matricula_tecnico" id="matricula_tecnico" value="">
                         </td>
                     </tr>
                     <tr>
@@ -230,9 +230,9 @@
         <input type="hidden" name="IN" value="reprovado" />
         <table cellspacing="1" class="bordered">
             <tr>
-                <th style="text-align: left" <?php echo (!empty($this->tipoInabilitacao)) ? '' : 'colspan="2"'; ?> class="" align="center" width="50%"><b>Conforme IN n∫ 1 de 05/10/2010.&nbsp;&nbsp;SeÁ„o III Art. 76 a Art. 80</b></th>
+                <th style="text-align: left" <?php echo (!empty($this->tipoInabilitacao)) ? '' : 'colspan="2"'; ?> class="" align="center" width="50%"><b>Conforme IN nÔøΩ 1 de 05/10/2010.&nbsp;&nbsp;SeÔøΩÔøΩo III Art. 76 a Art. 80</b></th>
                 <?php if(!empty($this->tipoInabilitacao)) { ?>
-                <th style="text-align: left" class="" align="center"><b>Conforme IN n∫ 1 de 05/10/2010. Art. 88</b></th>
+                <th style="text-align: left" class="" align="center"><b>Conforme IN nÔøΩ 1 de 05/10/2010. Art. 88</b></th>
                 <?php } ?>
             </tr>
             <tr>
@@ -243,25 +243,25 @@
         <?php else: //fecha else(mostra ou nao radios de aprovacao) ?>
         <table cellspacing="1" class="tabela">
             <tr>
-                <th style="text-align: left" colspan="3">ManifestaÁ„o</th>
+                <th style="text-align: left" colspan="3">ManifestaÔøΩÔøΩo</th>
             </tr>
             <tr>
                 <td colspan="1">
                     <input type="radio" id="aprovacao" class="radio" name="IN" value="aprovado" />
-                    <label for="aprovacao">AprovaÁ„o</label>
+                    <label for="aprovacao">aprova√ß√£o</label>
                     <input type="radio" id="reprovacao" class="radio" name="IN" value="reprovado" />
-                    <label for="reprovacao">ReprovaÁ„o</label>
+                    <label for="reprovacao">ReprovaÔøΩÔøΩo</label>
                 </td>
             </tr>
         </table>
         <?php endif; //fecha if(mostra ou nao radios de aprovacao)?>
         <table cellspacing="1" class="tabela">
             <tr>
-                <th style="text-align: left" colspan="4">ESCOLHA DE RESPONS¡VEIS</th>
+                <th style="text-align: left" colspan="4">ESCOLHA DE RESPONSÔøΩVEIS</th>
             </tr>
             <tr>
                 <td>
-                    <p>Coordenador(a) de Incentivos Fiscais e Apoio TÈcnico</p>
+                    <p>Coordenador(a) de Incentivos Fiscais e Apoio TÔøΩcnico</p>
                     <select name="coordenadorIncentivoFiscal" class="input_simples">
                         <?php foreach ($this->CoordIncFisc as $a){ ?>
                         <option value="<?php echo $a->nmAssinante; ?>"><?php echo $a->nmAssinante; ?></option>
@@ -269,7 +269,7 @@
                     </select>
                 </td>
                 <td>
-                    <p>Coordenador(a) Geral de PrestaÁ„o de Contas</p>
+                    <p>Coordenador(a) Geral de PrestaÔøΩÔøΩo de Contas</p>
                     <select name="coordenadorPrestacaoDeContas" class="input_simples">
                         <?php foreach ($this->CoordGeral as $b){ ?>
                         <option value="<?php echo $b->nmAssinante; ?>"><?php echo $b->nmAssinante; ?></option>
@@ -277,7 +277,7 @@
                     </select>
                 </td>
                 <td>
-                    <p>Diretor(a) de Incentivo ‡ Cultura</p>
+                    <p>Diretor(a) de Incentivo ÔøΩ Cultura</p>
                     <select name="diretorIncentivoACultura" class="input_simples">
                         <?php foreach ($this->Diretores as $c){ ?>
                         <option value="<?php echo $c->nmAssinante; ?>"><?php echo $c->nmAssinante; ?></option>
@@ -285,7 +285,7 @@
                     </select>
                 </td>
                 <td>
-                    <p>Secret·rio(a) de Fomento e Incentivo ‡ Cultura</p>
+                    <p>SecretÔøΩrio(a) de Fomento e Incentivo ÔøΩ Cultura</p>
                     <select name="coordenadorIncentivoACultura" class="input_simples">
                         <?php foreach ($this->Secretarios as $d){ ?>
                         <option value="<?php echo $d->nmAssinante; ?>"><?php echo $d->nmAssinante; ?></option>

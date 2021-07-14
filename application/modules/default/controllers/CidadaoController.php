@@ -60,7 +60,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $reuniao = new Reuniao();
         //Alysson - Na Primeira Consulta exibe dados da ultima reuniao aberta
         if (!$idNrReuniaoConsulta) {
-            $raberta = null;  // Fernao: permite n�o filtrar
+            $raberta = null;  // Fernao: permite Não filtrar
             $this->view->idNrReuniaoConsulta = null;
         } else {
             $raberta = $reuniao->buscarReuniaoPorId($idNrReuniaoConsulta); //idNrReuniao
@@ -158,7 +158,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             $urlComplement[] = "idNrReuniaoConsulta=" . $idNrReuniao;
         }
 
-        // pagina��o
+        // PAGINAÇÂO
         if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
             $urlComplement[] = 'qtde=' . $this->intTamPag;
@@ -299,7 +299,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             $idNrReuniao = $raberta->idNrReuniao;
         }
 
-        // pagina��o
+        // PAGINAÇÂO
         if ($sess->qtde) {
             $this->intTamPag = $sess->qtde;
         }
@@ -400,7 +400,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             $idNrReuniao = $raberta->idNrReuniao;
         }
 
-        // pagina��o
+        // PAGINAÇÂO
         if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
@@ -507,7 +507,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             }
             $this->view->idPronac = $idPronac;
         } else {
-            parent::message("Projeto n�o encontrado!", "cidadao/index", "ALERT");
+            parent::message("Projeto Não encontrado!", "cidadao/index", "ALERT");
         }
 
         $projetos = new Projetos();
@@ -534,7 +534,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         if ($insert) {
             parent::message("Sua opini�o foi cadastrada com sucesso!", "cidadao/index", "CONFIRM");
         } else {
-            parent::message("N�o foi poss�vel cadastrar a sua opini�o!", "cidadao/index", "ERROR");
+            parent::message("Não foi poss�vel cadastrar a sua opini�o!", "cidadao/index", "ERROR");
         }
     }
 
@@ -550,7 +550,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             }
             $this->view->idPronac = $idPronac;
         } else {
-            parent::message("Projeto n�o encontrado!", "cidadao/index", "ALERT");
+            parent::message("Projeto Não encontrado!", "cidadao/index", "ALERT");
         }
 
         $projetos = new Projetos();
@@ -592,7 +592,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             }
             $this->view->idPronac = $idPronac;
         } else {
-            parent::message("Projeto n�o encontrado!", "cidadao/index", "ALERT");
+            parent::message("Projeto Não encontrado!", "cidadao/index", "ALERT");
         }
 
         $projetos = new Projetos();
@@ -618,7 +618,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             }
             $this->view->idPronac = $idPronac;
         } else {
-            parent::message("Projeto n�o encontrado!", "cidadao/index", "ALERT");
+            parent::message("Projeto Não encontrado!", "cidadao/index", "ALERT");
         }
 
         $Parecer = new Parecer_Model_DbTable_Parecer();
@@ -1045,7 +1045,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             $this->view->relacaoPagamentos = $tbComprovante->buscarRelacaoPagamentos($idPronac);
         }
     }
-    
+
     public function historicoEncaminhamentoAction()
     {
         $idPronac = $this->_request->getParam("idPronac");
@@ -1064,7 +1064,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             $this->view->dados = $tbDistribuirParecer->buscarHistoricoEncaminhamento(array('a.idPRONAC = ?'=>$idPronac));
         }
     }
-    
+
      public function dadosBancariosAction()
     {
         $idPronac = $this->_request->getParam("idPronac");

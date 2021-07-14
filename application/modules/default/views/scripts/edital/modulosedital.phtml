@@ -2,7 +2,7 @@
 
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="index">Criar Edital - Passo 1</a></li>
         <li class=""><a href="informacaogeral">Criar Edital - Passo 2</a></li>
         <li class="last">Criar Edital - Passo 3</li>
@@ -13,37 +13,37 @@
 </div>
 <div id="conteudo">
     <fieldset>
-        <legend> Passo 3 - DefiniÁ„o dos mÛdulos do Edital</legend>
+        <legend> Passo 3 - DefiniÔøΩÔøΩo dos mÔøΩdulos do Edital</legend>
 
         <?php if($this->qtdModulos != 0): ?>
         <div style="width: 100%; text-align: center;">
             <a href="<?php echo $this->url(array('controller' => 'edital', 'action' => 'montagem-edital')); ?>">
                 <img src="<?php echo $this->baseUrl(); ?>/public/img/montar-edital.gif" style="cursor: pointer;"><br /><br />
-            </a>   
+            </a>
         </div>
         <?php endif; ?>
-        
+
     </fieldset>
 </div>
 
 
 <!-- inicio: navegacao local  -->
 <script type="text/javascript">
-            
+
     function num(dom){
         dom.value=dom.value.replace(/\D/g,'');
     }
-          
-    
-            
+
+
+
     $('#selectItemOrcamentario').change(function(){
         if($(this).val() == 999){
-            $(this).closest('table tr td').append($('<br /><br />Outro:&nbsp;&nbsp;<input maxlength="3" size="85" type="text" name="dsOutro" id="dsOutro" class="input_simples">'));  
+            $(this).closest('table tr td').append($('<br /><br />Outro:&nbsp;&nbsp;<input maxlength="3" size="85" type="text" name="dsOutro" id="dsOutro" class="input_simples">'));
         } else {
             $(this).closest('table').remove($('#dsOutro'));
         }
     });
-            
+
     $('#tabs').tabs();
 
     /* ================== FUNCOES - QUESTIONARIO ============================ */
@@ -58,8 +58,8 @@
             });
         }
     }
-    
-    
+
+
 
     function excluirFormaPagamento(id){
        var idEdital = $('#idEdital').val();
@@ -249,18 +249,18 @@
             '<table class="tabela" id="tblQuestaoAdicionada" style="margin-top: 0px !important; padding-top: 0px !important; border-top: 1px #fff solid !important; ">' +
             '<thead>' +
                 '<tr nodrag="true">' +
-                    '<td colspan="4" class="destacar centro bold">QUEST’S ADICIONADAS - ' + guia.nome + '</td>' +
+                    '<td colspan="4" class="destacar centro bold">QUESTÔøΩS ADICIONADAS - ' + guia.nome + '</td>' +
                 '</tr>' +
                 '<tr nodrag="true">' +
-                    '<td class="destacar bold" style="width: 35%">Texto da Quest„o</td>' +
-                    '<td class="destacar bold " style="width: 35%">Texto de ajuda da Quest„o</td>' +
+                    '<td class="destacar bold" style="width: 35%">Texto da QuestÔøΩo</td>' +
+                    '<td class="destacar bold " style="width: 35%">Texto de ajuda da QuestÔøΩo</td>' +
                     '<td class="destacar bold " style="width: 15%">Tipo Resposta</td>' +
-                    '<td class="destacar bold centro" style="width: 15%">AÁıes</td>' +
+                    '<td class="destacar bold centro" style="width: 15%">AÔøΩÔøΩes</td>' +
                 '</tr>' +
             '</thead>' +
             '<tbody>' +
                 '<tr id="trQuestao_zero" style="cursor: move;">' +
-                    '<td colspan="4" class="centro"><em>Nenhuma quest„o adicionada</em></td>' +
+                    '<td colspan="4" class="centro"><em>Nenhuma questÔøΩo adicionada</em></td>' +
                 '</tr>' +
             '</tbody>' +
             '</table>' +
@@ -444,12 +444,12 @@
         $('#tblGuiaAdicionada tbody tr input').each(function() {
             if ('btn_editar' == $(this).attr('class')) {
                 $(this).unbind('click').click(function() {
-                    GuiaPesquisar($(this).attr('data-guia')); 
+                    GuiaPesquisar($(this).attr('data-guia'));
                 });
             };
             if ('btn_exclusao' == $(this).attr('class')) {
                 $(this).unbind('click').click(function() {
-                    GuiaDeletar($(this).attr('data-guia')); 
+                    GuiaDeletar($(this).attr('data-guia'));
                 });
             };
         });
@@ -459,12 +459,12 @@
         $('#tblQuestaoAdicionada tbody tr input').each(function() {
             if ('btn_editar' == $(this).attr('class')) {
                 $(this).unbind('click').click(function() {
-                    QuestaoPesquisar($(this).attr('data-questao')); 
+                    QuestaoPesquisar($(this).attr('data-questao'));
                 });
             };
             if ('btn_exclusao' == $(this).attr('class')) {
                 $(this).unbind('click').click(function() {
-                    QuestaoDeletar($(this).attr('data-questao')); 
+                    QuestaoDeletar($(this).attr('data-questao'));
                 });
             };
         });
@@ -472,10 +472,10 @@
 
     addGuiaEvents();
     addQuestaoEvents();
-        
+
 </script>
 
-        
+
 <br clear="all" />
 
 

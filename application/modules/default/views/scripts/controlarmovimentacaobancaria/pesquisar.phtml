@@ -19,7 +19,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.controlarmovimentacaobancaria
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -37,7 +37,7 @@ else
 if($this->cabecalho == 0){
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $urlInicio; ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -50,21 +50,21 @@ if($this->cabecalho == 0){
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 	<div>Relat&oacute;rio da conta movimenta&ccedil;&atilde;o <span class="voltar"><a href="<?php echo $urlVoltar ?>" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 <div id="conteudo">
 <?php } ?>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 
 
 	<script type="text/javascript">
 	<!--
 	/**
-	 * Função para gerar o pdf da planilha
+	 * Funï¿½ï¿½o para gerar o pdf da planilha
 	 */
 	function pdf()
 	{
@@ -76,16 +76,16 @@ if($this->cabecalho == 0){
 
 
 
-	<!-- INÍCIO GERAÇÃO .PDF -->
+	<!-- INÃCIO GERAï¿½ï¿½O .PDF -->
 	<form id="formpdf" name="formpdf" method="post"
 		action="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'gerarpdf'),'',true); ?>"
 		enctype="multipart/form-data">
 		<input type="hidden" name="html" value="" id="htmlpdf" />
 	</form>
-	<!-- FIM GERAÇÃO .PDF -->
+	<!-- FIM GERAï¿½ï¿½O .PDF -->
 
 
-        <!-- INÍCIO GERAÇÃO .PDF -->
+        <!-- INÃCIO GERAï¿½ï¿½O .PDF -->
 	<form id="frmPaginacao" name="formfrmPaginacaopdf" method="post"
 		action="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'pesquisar'),'',true); ?>"
 		enctype="multipart/form-data">
@@ -110,16 +110,16 @@ if($this->cabecalho == 0){
                 <input type="hidden" name="tipoOrdenacao" id="tipoOrdenacao" value="<?php echo (!empty($this->parametrosBusca["tipoOrdenacao"]))?$this->parametrosBusca["tipoOrdenacao"]:""; ?>"/>
             <?php endif; ?>
 	</form>
-	<!-- FIM GERAÇÃO .PDF -->
+	<!-- FIM GERAï¿½ï¿½O .PDF -->
 
 
 
-	<!-- ========== INÍCIO ÁREA DE IMPRESSÃO ========== -->
+	<!-- ========== INÃCIO ï¿½REA DE IMPRESSï¿½O ========== -->
 	<div id="imprimir">
 
 
 
-	<!-- ========== INÍCIO TABELA COM O EXTRATO ========== -->
+	<!-- ========== INÃCIO TABELA COM O EXTRATO ========== -->
 	<?php if (count($this->dados) <= 0) { ?>
 	<div class="msgALERT">
 		<div>
@@ -135,19 +135,19 @@ if($this->cabecalho == 0){
 		$p = $this->periodo;
 		if ($p[0] == 'A')      $per = 'Hoje';
 		else if ($p[0] == 'B') $per = 'Ontem';
-		else if ($p[0] == 'C') $per = 'Últimos 7 dias';
+		else if ($p[0] == 'C') $per = 'ï¿½ltimos 7 dias';
 		else if ($p[0] == 'D') $per = 'Semana passada (seg-dom)';
-		else if ($p[0] == 'E') $per = 'Última semana (seg-sex)';
-		else if ($p[0] == 'F') $per = 'Este mês';
+		else if ($p[0] == 'E') $per = 'ï¿½ltima semana (seg-sex)';
+		else if ($p[0] == 'F') $per = 'Este mï¿½s';
 		else if ($p[0] == 'G') $per = 'Ano passado';
-		else if ($p[0] == 'H') $per = 'Últimos 12 meses';
-		else if ($p[0] == 'I') $per = 'Últimos 6 meses';
-		else if ($p[0] == 'J') $per = 'Últimos 3 meses';
+		else if ($p[0] == 'H') $per = 'ï¿½ltimos 12 meses';
+		else if ($p[0] == 'I') $per = 'ï¿½ltimos 6 meses';
+		else if ($p[0] == 'J') $per = 'ï¿½ltimos 3 meses';
 		else if ($p[0] == 'K')
 		{
 			if (!empty($p[1]) && !empty($p[2]))
 			{
-				$per = 'De ' . $p[1] . ' à ' . $p[2];
+				$per = 'De ' . $p[1] . ' ï¿½ ' . $p[2];
 			}
 			else
 			{
@@ -157,13 +157,13 @@ if($this->cabecalho == 0){
 				}
 				if (!empty($p[2]))
 				{
-					$per = 'Até ' . $p[2];
+					$per = 'Atï¿½ ' . $p[2];
 				}
 			}
 		}
 		else
 		{
-			$per = 'Buscar todas as informações';
+			$per = 'Buscar todas as informaï¿½ï¿½es';
 		}
 		?>
 
@@ -178,9 +178,9 @@ if($this->cabecalho == 0){
 
 
 		<?php
-		/* ========== INÍCIO CONSTANTE 2 ========== */
-		$array_pronacs_2 = array(); // array com os pronacs, e, que servirá como 'cache' para evitar a impressão de nomes de projetos repetidos
-		$array_movimen_2 = array(); // array com os id da movimentacao dos itens, e, que servirá como 'cache' para evitar a impressão itens
+		/* ========== INÃCIO CONSTANTE 2 ========== */
+		$array_pronacs_2 = array(); // array com os pronacs, e, que servirï¿½ como 'cache' para evitar a impressï¿½o de nomes de projetos repetidos
+		$array_movimen_2 = array(); // array com os id da movimentacao dos itens, e, que servirï¿½ como 'cache' para evitar a impressï¿½o itens
 		$item_2          = 1; // contador para os itens
 		$saldo_final_2   = (float) 0; // saldo final do extrato
 		foreach ($this->dados as $d) :
@@ -188,7 +188,7 @@ if($this->cabecalho == 0){
 		?>
 
 				<?php
-				/* ========== INÍCIO IMPRESSÃO DO CABEÇALHO COM O PRONAC ========== */
+				/* ========== INÃCIO IMPRESSï¿½O DO CABEï¿½ALHO COM O PRONAC ========== */
 				if (!in_array($d->pronac, $array_pronacs_2)) :
 				$i_2 = 0; // contador para cor de linhas (por pronac)
 				?>
@@ -225,7 +225,7 @@ if($this->cabecalho == 0){
 				</tr>
 				<?php
 				endif;
-				/* ========== FIM IMPRESSÃO DO CABEÇALHO COM O PRONAC ========== */
+				/* ========== FIM IMPRESSï¿½O DO CABEï¿½ALHO COM O PRONAC ========== */
 				?>
 
 				<?php if (!in_array($d->idMovimentacaoBancariaItem, $array_movimen_2)) :  ?>
@@ -275,11 +275,11 @@ if($this->cabecalho == 0){
 				$array_movimen_2[] = $d->idMovimentacaoBancariaItem; // adiciona no cache com os itens com problemas
 
 				// retira ou adiciona no saldo total conforme o tipo de operacao
-				if ($d->tpSaldoInicial == 'D') // subtração
+				if ($d->tpSaldoInicial == 'D') // subtraï¿½ï¿½o
 				{
 					$saldo_final_2 -= $d->vlSaldoInicial;
 				}
-				else // adição
+				else // adiï¿½ï¿½o
 				{
 					$saldo_final_2 += $d->vlSaldoInicial;
 				}
@@ -296,9 +296,9 @@ if($this->cabecalho == 0){
 
 
 		<?php
-		/* ========== INÍCIO CONSTANTE 3 ========== */
-		$array_pronacs_3 = array(); // array com os pronacs, e, que servirá como 'cache' para evitar a impressão de nomes de projetos repetidos
-		$array_movimen_3 = array(); // array com os id da movimentacao dos itens, e, que servirá como 'cache' para evitar a impressão itens
+		/* ========== INÃCIO CONSTANTE 3 ========== */
+		$array_pronacs_3 = array(); // array com os pronacs, e, que servirï¿½ como 'cache' para evitar a impressï¿½o de nomes de projetos repetidos
+		$array_movimen_3 = array(); // array com os id da movimentacao dos itens, e, que servirï¿½ como 'cache' para evitar a impressï¿½o itens
 		$item_3          = 1; // contador para os itens
 		$saldo_final_3   = (float) 0; // saldo final do extrato
 		foreach ($this->dados as $d) :
@@ -306,7 +306,7 @@ if($this->cabecalho == 0){
 		?>
 
 				<?php
-				/* ========== INÍCIO IMPRESSÃO DO CABEÇALHO COM O PRONAC ========== */
+				/* ========== INÃCIO IMPRESSï¿½O DO CABEï¿½ALHO COM O PRONAC ========== */
 				if (!in_array($d->pronac, $array_pronacs_3)) :
 				$i_3 = 0; // contador para cor de linhas (por pronac)
 				?>
@@ -342,12 +342,12 @@ if($this->cabecalho == 0){
 				</tr>
 				<?php
 				endif;
-				/* ========== FIM IMPRESSÃO DO CABEÇALHO COM O PRONAC ========== */
+				/* ========== FIM IMPRESSï¿½O DO CABEï¿½ALHO COM O PRONAC ========== */
 				?>
 
 				<?php if (!in_array($d->idMovimentacaoBancariaItem, $array_movimen_3)) :  ?>
 				<tr <?php echo ($i_3 % 2 != 0) ? 'class="fundo_linha2"' : '' ; ?>  onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);">
-					<td align="center"><?php echo $d->dtInicioMovimento; ?> à <?php echo $d->dtFimMovimento; ?></td>
+					<td align="center"><?php echo $d->dtInicioMovimento; ?> ï¿½ <?php echo $d->dtFimMovimento; ?></td>
 					<td align="center"><?php echo $d->nrBanco; ?> - <?php echo $d->nmBanco; ?></td>
 					<td align="center"><?php echo $d->nrAgencia; ?></td>
 					<td align="center"><?php echo $d->nrDigitoConta; ?></td>
@@ -390,11 +390,11 @@ if($this->cabecalho == 0){
 				$array_movimen_3[] = $d->idMovimentacaoBancariaItem; // adiciona no cache com os itens com problemas
 
 				// retira ou adiciona no saldo total conforme o tipo de operacao
-				if ($d->cdMovimento == 'D') // subtração
+				if ($d->cdMovimento == 'D') // subtraï¿½ï¿½o
 				{
 					$saldo_final_3 -= $d->vlMovimento;
 				}
-				else // adição
+				else // adiï¿½ï¿½o
 				{
 					$saldo_final_3 += $d->vlMovimento;
 				}
@@ -413,7 +413,7 @@ if($this->cabecalho == 0){
 			<td colspan="11" class="linha_pronac">&nbsp;</td>
 		</tr>
 
-		<!-- ========== INÍCIO SALDO TOTAL DISPONÍVEL ========== -->
+		<!-- ========== INÃCIO SALDO TOTAL DISPONï¿½VEL ========== -->
 		<?php $saldo_final = $saldo_final_2 + $saldo_final_3; ?>
 		<tr>
 			<th align="left">Saldo Total Dispon&iacute;vel</th>
@@ -421,7 +421,7 @@ if($this->cabecalho == 0){
 				<?php echo $this->formatarReal($saldo_final); ?> <?php echo ($saldo_final < 0) ? 'D' : 'C' ; ?>
 			</td>
 		</tr>
-		<!-- ========== FIM SALDO TOTAL DISPONÍVEL ========== -->
+		<!-- ========== FIM SALDO TOTAL DISPONï¿½VEL ========== -->
 <tr>
     <td align="center" colspan="11">
             <input type="button" style="width: 88px" class="btn_inicio" id="btn_inicio" onclick="paginar('1')"/>
@@ -459,25 +459,25 @@ if($this->cabecalho == 0){
 
 
 	</div>
-	<!-- ========== FIM ÁREA DE IMPRESSÃO ========== -->
+	<!-- ========== FIM ï¿½REA DE IMPRESSï¿½O ========== -->
 <table class="tabela">
 
 </table>
 
 
-	<!-- ========== INÍCIO BOTÕES ========== -->
+	<!-- ========== INÃCIO BOTï¿½ES ========== -->
 
-	<!-- ========== FIM BOTÕES ========== -->
+	<!-- ========== FIM BOTï¿½ES ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

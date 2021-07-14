@@ -1,23 +1,23 @@
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
-        <li class="last">ProrrogaÁ„o do Prazo</li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
+        <li class="last">ProrrogaÔøΩÔøΩo do Prazo</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>ProrrogaÁ„o do Prazo <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+    <div>ProrrogaÔøΩÔøΩo do Prazo <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 <table class="tabela"  >
@@ -26,7 +26,7 @@
             	<td class="titulo_tabela">Projeto Cultural</td>
             </tr>
             <tr align="center">
-            	<th>ProrrogaÁ„o do prazo</th>
+            	<th>ProrrogaÔøΩÔøΩo do prazo</th>
             </tr>
             <tr>
             	<td >&nbsp;</td>
@@ -34,22 +34,22 @@
 </table>
 <table class="tabela"  >
             <tr>
-                <td class="titulo_tabela"> IdentificaÁ„o</td>                
+                <td class="titulo_tabela"> IdentificaÔøΩÔøΩo</td>
             </tr>
 </table>
-<table class="tabela"  >            
+<table class="tabela"  >
             <?php foreach ($this->resposta as $resposta) {?>
             <tr>
                 <td><strong>Pronac:</strong> <br>         <?php echo $this->escape($resposta->idPronac); ?></td>
                 <td><strong>Nome do Projeto:</strong> <br><?php echo $this->escape($resposta->NomeProjeto); ?></td>
-           
+
             </tr>
-                     
+
            <tr>
                 <td><strong>CNPJ / CPF:</strong> <br>
-                <?php 
-                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3); 
-                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"]; 
+                <?php
+                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3);
+                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"];
                 ?>
                 </td>
                 <td><strong>Proponente:</strong> <br><?php echo $this->escape($resposta->Nome); ?></td>
@@ -58,18 +58,18 @@
 </table>
 <table class="tabela" >
 	            <tr>
-	            
+
 	            <tr>
-	            	<td bgcolor="#cccccc" colspan="2"> 
-	            	<?php foreach ($this->resposta as $resposta) {?>		            
-	            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/prorrogacaoprazocapacitacao/pron/<?php echo $this->escape($resposta->idPronac); ?>/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">+</a> ProrrogaÁ„o de Prazo - CaptaÁ„o</td>
+	            	<td bgcolor="#cccccc" colspan="2">
+	            	<?php foreach ($this->resposta as $resposta) {?>
+	            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/prorrogacaoprazocapacitacao/pron/<?php echo $this->escape($resposta->idPronac); ?>/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">+</a> ProrrogaÔøΩÔøΩo de Prazo - CaptaÔøΩÔøΩo</td>
 	            	<?php } ?>
-	            </tr>	            
+	            </tr>
 </table>
 	<table class="tabela"  >
-	            
+
 	            <tr>
-	            	<td ><label for="dtInicioC">*Data InÌcio: </label><input type="text" name="dtInicioC" size="10" maxlength="10" onkeyup="mascara(this, format_data);" disabled="disabled"/>
+	            	<td ><label for="dtInicioC">*Data IN√çCIO: </label><input type="text" name="dtInicioC" size="10" maxlength="10" onkeyup="mascara(this, format_data);" disabled="disabled"/>
 	            	     &nbsp;&nbsp;&nbsp;<label for="dtFimC">*Data Fim: </label><input type="text" name="dtFimC" size="10" maxlength="10" onkeyup="mascara(this, format_data);" disabled="disabled"/></td>
 	            </tr>
 	            <tr>
@@ -81,39 +81,39 @@
 	            </tr>
 	            <tr>
 	            	<td >Anexos<br /><input type="file" name="anexo1" disabled="disabled"/></td>
-	            
+
 	            </tr>
-           
+
 	            <tr>
 	            	<?php foreach ($this->resposta as $resposta) {?>
-	            	<td bgcolor="#cccccc" colspan="2"><a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/prorrogacaoprazoexecucao/pron/<?php echo $this->escape($resposta->idPronac); ?>/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">+</a>ProrrogaÁ„o de Prazo - ExecuÁ„o</td>
+	            	<td bgcolor="#cccccc" colspan="2"><a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/prorrogacaoprazoexecucao/pron/<?php echo $this->escape($resposta->idPronac); ?>/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">+</a>ProrrogaÔøΩÔøΩo de Prazo - ExecuÔøΩÔøΩo</td>
 	            	<?php } ?>
-	           
+
 	            </tr>
 	            <tr>
-	            	<td ><label for="dtInicioE">*Data InÌcio: </label><input type="text" name="dtInicioE" id="dtInicioE" size="10" maxlength="10" onkeyup="mascara(this, format_data);" disabled="disabled"/>
+	            	<td ><label for="dtInicioE">*Data IN√çCIO: </label><input type="text" name="dtInicioE" id="dtInicioE" size="10" maxlength="10" onkeyup="mascara(this, format_data);" disabled="disabled"/>
 	            	     &nbsp;&nbsp;&nbsp;<label for="dtFimE">*Data Fim:  </label><input type="text" name="dtFimE" size="10" maxlength="10" onkeyup="mascara(this, format_data);" disabled="disabled"/></td>
-	           
+
 	            </tr>
 	            <tr>
-	            	<td ><label for="justificativaE">*Informe a Justificativa da execuÁ„o fÌsica do projeto (metas fÌsicas REALIZADAS e A REALIZAR do projeto)</label><br />
+	            	<td ><label for="justificativaE">*Informe a Justificativa da execuÔøΩÔøΩo fÔøΩsica do projeto (metas fÔøΩsicas REALIZADAS e A REALIZAR do projeto)</label><br />
 	            	<textarea name="justificativaE" id="justificativaE" cols="70"  rows="10" maxlength="600" disabled="disabled"></textarea></td>
 	            </tr>
 	            <tr>
 	            	<td >Anexos<br /><input type="file" name="anexo2" disabled="disabled"/></td>
 	            </tr>
 	            <tr>
-	            	<td ><input type="submit" title="Buscar" value="Alterar" /><input type="button" title="Cancelar" value="Cancelar" onkeypress="redirecionar('<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/index')" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/index')"/></td>	            	
+	            	<td ><input type="submit" title="Buscar" value="Alterar" /><input type="button" title="Cancelar" value="Cancelar" onkeypress="redirecionar('<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/index')" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/index')"/></td>
 	            </tr>
 	</table>
-	
+
 	</div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

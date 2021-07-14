@@ -5,15 +5,15 @@
 		// Define as regras
 		rules:{
                         senhaAtual:{
-				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+				// campoNome serÃ¡ obrigatï¿½rio (required) e terï¿½ tamanho mï¿½nimo (minLength)
 				required: true, minlength: 2
 			},
 			senhaNova:{
-				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+				// campoNome serÃ¡ obrigatï¿½rio (required) e terï¿½ tamanho mï¿½nimo (minLength)
 				required: true, minlength: 2
 			},
 			repeteSenha:{
-				// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
+				// campoEmail serÃ¡ obrigatï¿½rio (required) e precisarï¿½ ser um e-mail vï¿½lido (email)
 				required: true, minlength: 2
 			}
 
@@ -22,15 +22,15 @@
 		messages:{
                         senhaAtual:{
 				required: "Digite a senha atual",
-				minLength: "O seu nome deve conter, no mínimo, 11 caracteres"
+				minLength: "O seu nome deve conter, no mï¿½nimo, 11 caracteres"
 			},
 			senhaNova:{
 				required: "Digite senha nova",
-				minLength: "O seu nome deve conter, no mínimo, 2 caracteres"
+				minLength: "O seu nome deve conter, no mï¿½nimo, 2 caracteres"
 			},
 			repeteSenha:{
 				required: "Repetir senha nova",
-                                minLength: "O seu nome deve conter, no mínimo, 2 caracteres"
+                                minLength: "O seu nome deve conter, no mï¿½nimo, 2 caracteres"
 
 			}
 		}
@@ -60,7 +60,7 @@ $auth = Zend_Auth::getInstance();
 if ( isset ($auth->getIdentity()->Cpf ) ) { ?>
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('module'=>'default', 'controller' => 'principalproponente', 'action' => 'index')); ?>">In&iacute;cio</a></li>
-        <li class="last">Cadastrar Usuário</li>
+        <li class="last">Cadastrar Usuï¿½rio</li>
     </ul>
 <?php } ?>
 </div>
@@ -73,7 +73,7 @@ if ( isset ($auth->getIdentity()->Cpf ) ) { ?>
                 <table border="1" class="tabela">
                     <thead>
                         <tr>
-                            <th colspan="2">Informações</th>
+                            <th colspan="2">Informaï¿½ï¿½es</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,12 +105,12 @@ if ( isset ($auth->getIdentity()->Cpf ) ) { ?>
             </form>
         </div>
 
-<!-- ========== FIM CONTEï¿½DO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INï¿½CIO RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 	<div id="rodapeConteudo"><span></span></div>
 
-<!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 			<br clear="all" />

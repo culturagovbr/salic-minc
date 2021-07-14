@@ -19,14 +19,14 @@ $relatorio = "<html>
 .titulo{
 	background: #abda5d;
 	font-weight: bold;
-	font-family: Arial; 
+	font-family: Arial;
 	text-align: center;
 }
 
 th{
-	 
+
 	background: #ccc;
-	font-family: Arial; 
+	font-family: Arial;
 	text-align: center;
 }
 
@@ -38,7 +38,7 @@ th{
             <th colspan='6' align='center' class='titulo'>Projeto Cultural</th>
         </tr>
         <tr>
-            <th colspan='6' align='center' class='titulo'>Identificação</th>
+            <th colspan='6' align='center' class='titulo'>Identificaï¿½ï¿½o</th>
         </tr>
         <tr>
            <td colspan='3'>
@@ -53,7 +53,7 @@ th{
             </td>
         </tr>
         <tr>
-            <th colspan='6' align='center' class='titulo'>UF / Mecanismo / Área / Segmento / Processo</th>
+            <th colspan='6' align='center' class='titulo'>UF / Mecanismo / ï¿½rea / Segmento / Processo</th>
         </tr>
         <tr>
             <td align='center'>
@@ -67,7 +67,7 @@ th{
                 ".$this->projeto->Mecanismo."
             </td>
             <td align='center'>
-                <b>Área Cultural</b>
+                <b>ï¿½rea Cultural</b>
                 <br />
                 ".$this->projeto->Area."
             </td>
@@ -121,31 +121,31 @@ th{
                 ".number_format(($this->projeto->OutrasFontes + $this->projeto->ValorAprovado), 2, ',', '.')."
             </td>
             <td align='center'>
-                <b>Captação / Convênio (E)</b><br />
+                <b>Captaï¿½ï¿½o / Convï¿½nio (E)</b><br />
                 ".number_format(@($this->projeto->ValorCaptado / ($this->projeto->OutrasFontes + $this->projeto->ValorAprovado)), 2, ',', '.')."
             </td>
         </tr>
         <tr>
-            <th colspan='6' align='center' class='titulo'>Situação</th>
+            <th colspan='6' align='center' class='titulo'>Situaï¿½ï¿½o</th>
         </tr>
         <tr>
             <td align='center' colspan='2'>
-                <b>Dt.Situação</b><br />
+                <b>Dt.Situaï¿½ï¿½o</b><br />
                 ".$this->projeto->DtSituacao."
             </td>
             <td align='center' colspan='4'>
-                <b>Situação</b><br />
+                <b>Situaï¿½ï¿½o</b><br />
                 ".$this->projeto->Situacao."
             </td>
         </tr>
         <tr>
-            <td colspan='6' align='left'><b>Providência Tomada</b><br />
+            <td colspan='6' align='left'><b>Providï¿½ncia Tomada</b><br />
                 ".$this->projeto->ProvidenciaTomada."
             </td>
         </tr>
         <tr>
             <th colspan='6' align='center' class='titulo'>
-                <b>Última Tramitação</b>
+                <b>ï¿½ltima TramitaÃ§Ã£o</b>
             </th>
         </tr>
         <tr>
@@ -183,11 +183,11 @@ th{
             </td>
         </tr>
         <tr>
-            <th colspan='6' align='center' class='titulo'>Localização atual do projeto <br /></th>
+            <th colspan='6' align='center' class='titulo'>Localizaï¿½ï¿½o atual do projeto <br /></th>
         </tr>
         <tr>
             <td colspan='6' align='center'>
-                A localização atual do projeto só será alterada após o recebimento do projeto na unidade destino.<br />
+                A localizaï¿½ï¿½o atual do projeto sï¿½ serÃ¡ alterada apï¿½s o recebimento do projeto na unidade destino.<br />
                 ".$this->projeto->Origem."
             </td>
         </tr>
@@ -196,11 +196,11 @@ th{
         </tr>
         <tr>
             <th colspan='6' align='center' class='titulo'>
-                <b>Plano de Distribuição</b>
+                <b>Plano de Distribuiï¿½ï¿½o</b>
             </th>
         </tr>";
-        
-            
+
+
             if($this->projeto->idProjeto)
             {
                 $relatorio .=" <tr>
@@ -243,19 +243,19 @@ th{
                                     <td colspan='6' align='center'>Nenhum registro encontrado.</td>
                                 </tr>";
             }
-	
-		
-        	
-        
+
+
+
+
     $relatorio .="<tr>
                     <td colspan='6' align='left' class='separador'>s</td>
                   </tr>
                   <tr>
                       <th colspan='6' align='center' class='titulo'>
-                            <b>Plano de Divulgação</b>
+                            <b>Plano de Divulgaï¿½ï¿½o</b>
                       </th>
                   </tr>";
-                
+
 
             if($this->projeto->idProjeto)
             {
@@ -268,30 +268,30 @@ th{
                 $dados = $dao->buscarDigulgacao($idPreProjeto);
 
                 foreach ($dados as $divulgacao):
-	    
+
                 $relatorio .="<tr>
-                                <td colspan='3' align='center'>".utf8_decode(htmlentities($divulgacao->Peça))."</td>
+                                <td colspan='3' align='center'>".utf8_decode(htmlentities($divulgacao->Peï¿½a))."</td>
                                 <td colspan='3' align='center'>".utf8_decode(htmlentities($divulgacao->Veiculo))."</td>
                              </tr>";
-           
+
                     endforeach;
             }else{
                 $relatorio .=   "<tr>
                                     <td colspan='6' align='center' >Nenhum registro encontrado.</td>
                                 </tr>";
             }
-            
-	    
+
+
 $relatorio .="<tr>
 	        <td colspan='6' align='left' class='separador'>s</td>
               </tr>
               <tr>
                   <th colspan='6' align='center' class='titulo'>
-                        <b>Local de Realização</b>
+                        <b>Local de Realizaï¿½ï¿½o</b>
                   </th>
               </tr>";
 
-            
+
 
             if($this->projeto->idProjeto)
             {
@@ -305,7 +305,7 @@ $relatorio .="<tr>
 
                 $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
                 $rsAbrangencia = $tblAbrangencia->buscar($arrBusca);
-                
+
 		foreach ($rsAbrangencia as $localizacao):
                     $relatorio .="<tr>
                                     <td colspan='2' align='center'>".utf8_decode(htmlentities($localizacao->pais))."</td>
@@ -319,8 +319,8 @@ $relatorio .="<tr>
                                 </tr>";
             }
 
-               
-        
+
+
             $relatorio .="
                     <tr>
                             <td colspan='6' class='separador'>s</td>
@@ -330,7 +330,7 @@ $relatorio .="<tr>
                             <b>Deslocamento</b>
                       </th>
                     </tr>";
-                        
+
 
 
                 if($this->projeto->idProjeto)
@@ -343,7 +343,7 @@ $relatorio .="<tr>
                                         <th align='center'>UF Destino:</th>
                                         <th align='center'>Cidade Destino:</th>
                                 </tr>";
-                    
+
                      $deslocamento = DeslocamentoDAO::buscarDeslocamentos($idPreProjeto, null);
                      foreach($deslocamento as $desloca):
 
@@ -367,7 +367,7 @@ $relatorio .="<tr>
                                     </tr>";
                 }
 
-                
+
 
 
             $relatorio .="<tr>
@@ -375,7 +375,7 @@ $relatorio .="<tr>
                           </tr>
                           <tr>
                             <th colspan='6' align='center' class='titulo'>
-                                <b>Planilha Orçamentária</b>
+                                <b>Planilha Orï¿½amentï¿½ria</b>
                             </th>
                          </tr></table>";
 
@@ -387,7 +387,7 @@ $relatorio .="<tr>
 
                     $total_geral = 0;
 				foreach ($buscarPlanilhaEtapa as $etapas):
-				
+
                    $relatorio .="  <table border='1' width='97%' align='center'>
 					<tr>
                                             <td colspan='6' align='left' class='etapas'>".utf8_decode(htmlentities($etapas->DescricaoEtapa))."</td>
@@ -400,18 +400,18 @@ $relatorio .="<tr>
                                             <th>Vl. Unit&aacute;rio</th>
                                             <th>Vl. TOTAL</th>
 					</tr>";
-					
+
 					$buscarPlanilha = ManterorcamentoDAO::buscarPlanilha($idPreProjeto);
 					$soma = 0;
 
 					foreach ($buscarPlanilha as $planilha):
-			       	
+
 					if($etapas->idEtapa == $planilha->idEtapa):
-				
+
 					$total = ($planilha->Quantidade * $planilha->Ocorrencia * $planilha->ValorUnitario);
 	                $soma = $soma + $total;
 	                $total_geral = $total_geral + $soma;
-					
+
                     $relatorio .="<tr>
 	               		<td>".utf8_decode(htmlentities($planilha->DescricaoItem))."</td>
                                     <td align='center' width='10%'>".utf8_decode(htmlentities($planilha->DescricaoUnidade))."</td>
@@ -420,10 +420,10 @@ $relatorio .="<tr>
                                     <td align='center' width='13%'>".number_format(utf8_decode(htmlentities($planilha->ValorUnitario)), 2, ',', '.')."</td>
 						<td>".number_format(utf8_decode(htmlentities($total)), 2, ',', '.')."</td>
 		       		</tr>";
-				        
+
 					endif;
 			        endforeach;
-				        
+
                                 $relatorio .="<tr>
 			        	<td align='center'><b><font color='green'>TOTAL:</font></b></td>
 			        	<td width='10%'></td>
@@ -432,9 +432,9 @@ $relatorio .="<tr>
 			        	<td width='13%'></td>
 					    <td align='center'><b><font color='green'>R$ ".number_format(utf8_decode(htmlentities($soma)), 2, ',', '.')."</font></b></td>
 					</tr>";
-				
+
 					endforeach;
-						 
+
                    $relatorio .="<tr>
 		                <td align='center' width='40%'><b><font color='red'>TOTAL GERAL: </font></b></td>
 		                <td width='10%'></td>

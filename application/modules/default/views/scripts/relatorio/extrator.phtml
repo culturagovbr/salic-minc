@@ -95,7 +95,7 @@
             visao.remove(i); // remove o option do select de origem
             i--;
         }
-    } // fecha funç?o addTodos()
+    } // fecha funï¿½?o addTodos()
 
 
     function delTodos() // deleta todos os options da direita
@@ -114,7 +114,7 @@
                 i--;
             }
         }
-    } // fecha funç?o delTodos()
+    } // fecha funï¿½?o delTodos()
 
 
     function addSelecionado() // adiciona o option selecionado da esquerda para direita
@@ -133,7 +133,7 @@
                 i--;
             }
         }
-    } // fecha funç?o addSelecionado()
+    } // fecha funï¿½?o addSelecionado()
 
 
     function delSelecionado() // deleta o option selecionado da direita
@@ -152,17 +152,17 @@
                 i--;
             }
         }
-    } // fecha funç?o delSelecionado()
+    } // fecha funï¿½?o delSelecionado()
 
 
-    function selecionarOptions() // funç?o para selecionar todos os options antes do envio do formulário
+    function selecionarOptions() // funï¿½?o para selecionar todos os options antes do envio do formulï¿½rio
     {
         visaoAgente = document.getElementById("visaoAgente"); // select de destino
         for (i = 0; i < visaoAgente.length; i++) // varre todo o option de origem
         {
             visaoAgente.options[i].selected = true; // adiciona o novo option no select de destino
         }
-    } // fecha funç?o selecionarOptions()
+    } // fecha funï¿½?o selecionarOptions()
 
 
     function abrirModal(conteudo){
@@ -193,15 +193,15 @@
         <li class="last">Extrator de Dados</li>
     </ul>
 </div>
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 	<div>Extrator de dados<span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 	<fieldset>
             <form action="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'resultado-extrator')); ?>" method="post" name="frmRelatorio" id="frmRelatorio">
@@ -390,11 +390,11 @@
                         <td colspan="3" align="left">
                             <table align="left" width="100%">
                                 <tr>
-                                    <th align="center">Não Mostrar</th>
+                                    <th align="center">NÃ£o Mostrar</th>
                                     <th> </th>
                                     <th align="center">Mostrar</th>
-                                </tr>    
-                                <tr>    
+                                </tr>
+                                <tr>
                                     <td class="centro" valign="top">
 
                                             <label for="visao"> </label>
@@ -418,20 +418,20 @@
                                             <option  value="cmpsOrd_dtprotocolo">Dt. Protocolo</option>
                                             <option  value="cmpsOrd_orgao">&Oacute;rg&atilde;o</option>
                                             <option  value="cmpsOrd_orgaoorigem">&Oacute;rg&atilde;o de Origem</option>
-                                            <option  value="cmpsOrd_situacao">Situç&atilde;o</option>
-                                            <option  value="cmpsOrd_dtsituacao">Dt. Situaç&atilde;o</option>
+                                            <option  value="cmpsOrd_situacao">Situï¿½&atilde;o</option>
+                                            <option  value="cmpsOrd_dtsituacao">Dt. Situaï¿½&atilde;o</option>
                                             <option  value="cmpsOrd_sintese">S&iacute;ntese do Projeto</option>
                                             <option  value="cmpsOrd_providencia">Provid&ecirc;ncia Tomada</option>
                                             <option  value="cmpsOrd_cnpjcpf">CNPJ / CPF</option>
                                             <option  value="cmpsOrd_proponente">Proponente</option>
                                             <option  value="cmpsOrd_nrportaria">Nr. Portaria</option>
                                             <option  value="cmpsOrd_dtportaria">Dt. Portaria</option>
-                                            <option  value="cmpsOrd_dtpublicacao">Dt. Publicaç&atilde;o</option>
-                                            <option  value="cmpsOrd_dtiniciocaptacao">Dt. In&iacute;cio Captaç&atilde;o</option>
-                                            <option  value="cmpsOrd_dtfimcaptacao">Dt. Fim Captaç&atilde;o</option>
-                                            <option  value="cmpsOrd_dtprimeiracaptacao">Dt. Primeira Captaç&atilde;o</option>
-                                            <option  value="cmpsOrd_dtultimacaptacao">Dt. &Uacute;ltima Captaç&atilde;o</option>
-                                            <option  value="cmpsOrd_dtliberacao">Dt. Liberaç&atilde;o</option>
+                                            <option  value="cmpsOrd_dtpublicacao">Dt. Publicaï¿½&atilde;o</option>
+                                            <option  value="cmpsOrd_dtiniciocaptacao">Dt. In&iacute;cio Captaï¿½&atilde;o</option>
+                                            <option  value="cmpsOrd_dtfimcaptacao">Dt. Fim Captaï¿½&atilde;o</option>
+                                            <option  value="cmpsOrd_dtprimeiracaptacao">Dt. Primeira Captaï¿½&atilde;o</option>
+                                            <option  value="cmpsOrd_dtultimacaptacao">Dt. &Uacute;ltima Captaï¿½&atilde;o</option>
+                                            <option  value="cmpsOrd_dtliberacao">Dt. Liberaï¿½&atilde;o</option>
                                             <option  value="cmpsOrd_vlsolicitado">Vl. Solicitado</option>
                                             <option  value="cmpsOrd_vlaprovado">Vl. Aprovado</option>
                                             <option  value="cmpsOrd_vlcaptado">Vl. Captado</option>
@@ -456,10 +456,10 @@
 <div id="resultadoConsulta"></div>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

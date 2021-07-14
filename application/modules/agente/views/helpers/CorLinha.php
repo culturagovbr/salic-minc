@@ -1,6 +1,6 @@
 <?php
 /**
- * Cores alternativas dos registros de uma tabela (cor sim, cor não)
+ * Cores alternativas dos registros de uma tabela (cor sim, cor NÃ£o)
  * @author Equipe RUP - Politec
  * @since 29/03/2010
  * @version 1.0
@@ -12,7 +12,7 @@
 class Zend_View_Helper_CorLinha
 {
     /**
-     * Método com as cores alternativas das linhas da tabela
+     * Mï¿½todo com as cores alternativas das linhas da tabela
      * @access public
      * @param integer $i
      * @return string
@@ -27,5 +27,5 @@ class Zend_View_Helper_CorLinha
         }
 
         return $bg;
-    } // fecha método corLinha()
+    } // fecha mï¿½todo corLinha()
 } // fecha class

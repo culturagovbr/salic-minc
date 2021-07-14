@@ -3,7 +3,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col s12 m9 l10">
-                    <h1>Presta&ccedil;&atilde;o de Contas: Analisar prestação de contas</h1>
+                    <h1>Presta&ccedil;&atilde;o de Contas: Analisar prestaï¿½ï¿½o de contas</h1>
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
         <div id="breadcrumb">
             <ul>
                 <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'), '', true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
-                <li class="second"><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'painel'), '', true); ?>" title="Ir para Prestação de contas">Prestação de contas</a></li>
+                <li class="second"><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'painel'), '', true); ?>" title="Ir para Prestaï¿½ï¿½o de contas">Prestaï¿½ï¿½o de contas</a></li>
                 <li class="last"></li>
             </ul>
         </div>
@@ -23,14 +23,14 @@
     </div -->
     <!--div class="row">
         <div class="col s12">
-            <h5>Analisar prestação de contas</h5>
+            <h5>Analisar prestaï¿½ï¿½o de contas</h5>
         </div>
     </div-->
     <div class="row">
         <div class="col s12">
           <ul class="tabs">
-            <li class="tab col s3"><a class="active" href="#t1">Aguardando Análise</a></li>
-            <li class="tab col s3"><a href="#t2">Em análise</a></li>
+            <li class="tab col s3"><a class="active" href="#t1">Aguardando AnÃ¡lise</a></li>
+            <li class="tab col s3"><a href="#t2">Em AnÃ¡lise</a></li>
             <li class="tab col s3"><a href="#t3">Analisados</a></li>
           </ul>
         </div>
@@ -86,7 +86,7 @@
             type : 'post'
         });
 
-        var title = 'Encaminhar Projeto para Análise';
+        var title = 'Encaminhar Projeto para AnÃ¡lise';
         $3("#divDinamica").dialog({
             resizable: true,
             width:750,
@@ -136,7 +136,7 @@
         }else if(idOrgaoDestino == 12){
             title = 'Consultoria - CONJUR';
         }else{
-            title = 'Encaminhar Projeto para Análise';
+            title = 'Encaminhar Projeto para AnÃ¡lise';
         }
         $("#divDinamica").dialog({
             resizable: true,
@@ -229,7 +229,7 @@
                 idEnc = $(this).attr('enc');
 
             $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html("Deseja realmente devolver o projeto?<br />Esta ação excluirá a análise realizada.");
+            $("#msgAlerta").html("Deseja realmente devolver o projeto?<br />Esta aï¿½ï¿½o excluirï¿½ a AnÃ¡lise realizada.");
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -237,7 +237,7 @@
                 height:170,
                 modal: true,
                 buttons : {
-                    'Não' : function(){
+                    'NÃ£o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -286,7 +286,7 @@
 </script>
 <style>
     #abrirModal.modal{
-       height: 90%; 
+       height: 90%;
        max-height: 96%;
        width: 98%;
     }

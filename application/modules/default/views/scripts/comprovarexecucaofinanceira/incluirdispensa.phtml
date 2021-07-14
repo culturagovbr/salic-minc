@@ -140,7 +140,7 @@
                 </tr>
                 <?php foreach ($this->itensVinculados as $itensVinculados) { ?>
                 <tr>
-                    <td><?php echo $itensVinculados->dsProduto ? $itensVinculados->dsProduto : 'Administração do Projeto'; ?></td>
+                    <td><?php echo $itensVinculados->dsProduto ? $itensVinculados->dsProduto : 'Administraï¿½ï¿½o do Projeto'; ?></td>
                     <td><?php echo $itensVinculados->dsEtapa; ?></td>
                     <td><?php echo $itensVinculados->dsItem; ?></td>
                     <td>
@@ -162,9 +162,9 @@
     </div>
     <br clear="left" />
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />
 
 <div id="msgAlerta" class="sumir"></div>
@@ -188,7 +188,7 @@
                 height:160,
                 modal: true,
                 buttons : {
-                    'Não' : function(){
+                    'NÃ£o' : function(){
                         $("#msgConfirm").dialog('close');
                     },
                     'Sim' : function(){
@@ -203,7 +203,7 @@
                             success: function(dados) {
                                 obj.parent().parent().remove();
                                 $("#msgAlerta").dialog("destroy");
-                                $("#msgAlerta").html("Excluído com sucesso!");
+                                $("#msgAlerta").html("Excluï¿½do com sucesso!");
                                 $("#msgAlerta").dialog({
                                     resizable: false,
                                     title: 'Alerta!',
@@ -268,7 +268,7 @@
                 carregarSelect('<?php echo $carregarSelectHref;?>','#itens',{tpSelect:'itens',idpronac:'<?php echo $this->idpronac?>',idProduto:$('#produto').val(),idEtapa:$('#etapa').val()},'Todos');
             }
         });
-        
+
         $(corpo+' #additemcusto').click(function(){
 			$('#tableItensCusto').show();
             var info = {
@@ -295,7 +295,7 @@
              if(validarFormulario('#formularioDispensa',ag1)){
                 $('#formularioDispensa').submit();
             }
-        
+
             /*var info = {
                 este                :   this,
                 corpo               :   '<?php //echo $corpo;?>',
@@ -306,12 +306,12 @@
             salvar(info);
             return false;*/
         });
-        
-        
+
+
         $(corpo+ '.btn_cancelar').click(function(){
             voltar();
         });
-        
+
         $('.linkArquivos').click(function(){
             var este = this;
             var nomeJanelaAlerta =   janelaObj({

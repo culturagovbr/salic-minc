@@ -10,10 +10,10 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
 
         parent::init();
-    } 
+    }
 
     /**
      * Redireciona para o fluxo inicial do sistema
@@ -60,14 +60,14 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // busca de acordo com o pronac no banco
                     $resultado = ProjetoDAO::buscar($pronac);
 
-                    // caso o PRONAC n�o esteja cadastrado
+                    // caso o PRONAC Não esteja cadastrado
                     if (!$resultado) {
-                        throw new Exception("Registro n�o encontrado!");
+                        throw new Exception("Registro Não encontrado!");
                     }
                     // caso o PRONAC esteja cadastrado,
-                    // vai para a p�gina de busca dos documentos (comprovantes) do pronac
+                    // vai para a página de busca dos documentos (comprovantes) do pronac
                     else {
-                        // redireciona o pronac para a p�gina com seus documentos (comprovantes)
+                        // redireciona o pronac para a página com seus documentos (comprovantes)
                         $this->redirect("execucaofisicadoprojeto/buscardocumentos?pronac=" . $pronac);
                     }
                 } // fecha else
@@ -111,11 +111,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 // busca de acordo com o pronac no banco
                 $resultPronac = ProjetoDAO::buscar($pronac);
 
-                // caso o PRONAC n�o esteja cadastrado
+                // caso o PRONAC Não esteja cadastrado
                 if (!$resultPronac) {
-                    throw new Exception("Registro n�o encontrado!");
+                    throw new Exception("Registro Não encontrado!");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a p�gina de busca
+                // caso o PRONAC esteja cadastrado, vai para a página de busca
                 // dos seus documentos (comprovantes)
                 else {
                     // manda o pronac para a vis�o
@@ -128,7 +128,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // ========== LEMBRAR DE PASSAR DEPOIS O ID DO PROPONENTE COMO PAR�METRO ==========
                     $resultComprovantes = ComprovanteExecucaoFisicaDAO::buscarDocumentos($idPronac);
 
-                    // caso n�o existam comprovantes cadastrados
+                    // caso Não existam comprovantes cadastrados
                     if (!$resultComprovantes) {
                         $this->view->message      = "Nenhum comprovante cadastrado para o PRONAC N� " . $pronac . "!";
                         $this->view->message_type = "ALERT";
@@ -152,16 +152,16 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                         endfor;
 
 
-                        // ========== IN�CIO PAGINA��O ==========
+                        // ========== INÍCIO PAGINAÇÂO ==========
                         //criando a pagina�ao
                         Zend_Paginator::setDefaultScrollingStyle('Sliding');
                         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
                         $paginator = Zend_Paginator::factory($arrayComprovantes); // dados a serem paginados
 
-                        // p�gina atual e quantidade de �tens por p�gina
+                        // página atual e quantidade de �tens por página
                         $currentPage = $this->_getParam('page', 1);
                         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
-                        // ========== FIM PAGINA��O ==========
+                        // ========== FIM PAGINAÇÂO ==========
 
 
                         // manda os comprovantes e seu hist�rico para a vis�o
@@ -223,11 +223,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 // busca de acordo com o pronac no banco
                 $resultado = ProjetoDAO::buscar($pronac);
 
-                // caso o PRONAC n�o esteja cadastrado
+                // caso o PRONAC Não esteja cadastrado
                 if (!$resultado) {
-                    parent::message("Registro n�o encontrado!", "execucaofisicadoprojeto/buscarpronac", "ERROR");
+                    parent::message("Registro Não encontrado!", "execucaofisicadoprojeto/buscarpronac", "ERROR");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a p�gina de busca
+                // caso o PRONAC esteja cadastrado, vai para a página de busca
                 else {
                     $this->view->buscarPronac = $resultado;
                 }
@@ -240,9 +240,9 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 } elseif (strlen($titulo) < 2 || strlen($titulo) > 100) {
                     throw new Exception("O t�tulo do documento � inv�lido! A quantidade m�nima � de 2 caracteres!");
                 } elseif (empty($descricao) || $descricao == 'Digite o texto do comprovante...') {
-                    throw new Exception("Por favor, informe a descri��o do documento!");
+                    throw new Exception("Por favor, informe a Descrição do documento!");
                 } elseif (strlen($descricao) < 20 || strlen($descricao) > 500) {
-                    throw new Exception("A descri��o do documento � inv�lida! S�o permitidos entre 20 e 500 caracteres!");
+                    throw new Exception("A Descrição do documento � inv�lida! S�o permitidos entre 20 e 500 caracteres!");
                 } elseif (empty($arquivoTemp)) { // nome do arquivo
                     throw new Exception("Por favor, informe o arquivo!");
                 } elseif ($arquivoExtensao == 'exe' || $arquivoExtensao == 'bat' ||
@@ -250,7 +250,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $arquivoTipo == 'application/dos-exe' || strlen($arquivoExtensao) > 5) { // extens�o do arquivo
                     throw new Exception("A extens�o do arquivo � inv�lida!");
                 } elseif ($arquivoTamanho > 10485760) { // tamanho do arquivo: 10MB
-                    throw new Exception("O arquivo n�o pode ser maior do que 10MB!");
+                    throw new Exception("O arquivo Não pode ser maior do que 10MB!");
                 } elseif (ArquivoDAO::verificarHash($arquivoHash)) { // hash do arquivo
                     throw new Exception("O arquivo enviado j� est� cadastrado na base de dados! Por favor, informe outro!");
                 }
@@ -314,7 +314,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $this->view->descricao     = $descricao;
             }
         }
-        // quando a p�gina � aberta
+        // quando a página � aberta
         else {
             // recebe o pronac via get
             $get    = Zend_Registry::get('get');
@@ -330,11 +330,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // busca o PRONAC no banco
                     $resultado = ProjetoDAO::buscar($pronac);
 
-                    // caso o PRONAC n�o esteja cadastrado
+                    // caso o PRONAC Não esteja cadastrado
                     if (!$resultado) {
-                        throw new Exception("Regisitro n�o encontrado!");
+                        throw new Exception("Regisitro Não encontrado!");
                     }
-                    // caso o PRONAC esteja cadastrado, vai para a p�gina de busca
+                    // caso o PRONAC esteja cadastrado, vai para a página de busca
                     else {
                         $this->view->buscarPronac = $resultado;
                     }
@@ -397,11 +397,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 // busca o Comprovante de acordo com o id no banco
                 $resultadoComprovante = ComprovanteExecucaoFisicaDAO::buscar($resultadoPronac[0]->IdPRONAC, $doc);
 
-                // caso o PRONAC ou o Comprovante n�o estejam cadastrados
+                // caso o PRONAC ou o Comprovante Não estejam cadastrados
                 if (!$resultadoPronac || !$resultadoComprovante) {
-                    parent::message("Registro n�o encontrado!", "execucaofisicadoprojeto/buscarpronac", "ERROR");
+                    parent::message("Registro Não encontrado!", "execucaofisicadoprojeto/buscarpronac", "ERROR");
                 }
-                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p�gina de busca
+                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                 else {
                     $this->view->buscarPronac = $resultadoPronac;
                     $this->view->buscarDoc    = $resultadoComprovante;
@@ -415,15 +415,15 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 } elseif (strlen($titulo) < 2 || strlen($titulo) > 100) {
                     throw new Exception("O t�tulo do documento � inv�lido! A quantidade m�nima � de 2 caracteres!");
                 } elseif (empty($descricao)) {
-                    throw new Exception("Por favor, informe a descri��o do documento!");
+                    throw new Exception("Por favor, informe a Descrição do documento!");
                 } elseif (strlen($descricao) < 20 || strlen($descricao) > 500) {
-                    throw new Exception("A descri��o do documento � inv�lida! S�o permitidos entre 20 e 500 caracteres!");
+                    throw new Exception("A Descrição do documento � inv�lida! S�o permitidos entre 20 e 500 caracteres!");
                 } elseif (!empty($arquivoTemp) && ($arquivoExtensao == 'exe' || $arquivoExtensao == 'bat' ||
                 $arquivoTipo == 'application/exe' || $arquivoTipo == 'application/x-exe' ||
                 $arquivoTipo == 'application/dos-exe' || strlen($arquivoExtensao) > 5)) { // extens�o do arquivo
                     throw new Exception("A extens�o do arquivo � inv�lida!");
                 } elseif (!empty($arquivoTemp) && $arquivoTamanho > 10485760) { // tamanho do arquivo: 10MB
-                    throw new Exception("O arquivo n�o pode ser maior do que 10MB!");
+                    throw new Exception("O arquivo Não pode ser maior do que 10MB!");
                 } elseif (!empty($arquivoTemp) && ArquivoDAO::verificarHash($arquivoHash)) { // hash do arquivo
                     throw new Exception("O arquivo enviado j� est� cadastrado na base de dados! Por favor, informe outro!");
                 }
@@ -472,7 +472,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $this->view->descricao     = $descricao;
             }
         }
-        // quando a p�gina � aberta
+        // quando a página � aberta
         else {
             // recebe o pronac e comprovante via get
             $get    = Zend_Registry::get('get');
@@ -492,11 +492,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // busca o Comprovante de acordo com o id no banco
                     $resultadoComprovante = ComprovanteExecucaoFisicaDAO::buscar($resultadoPronac[0]->IdPRONAC, $doc);
 
-                    // caso o PRONAC ou o Comprovante n�o estejam cadastrados
+                    // caso o PRONAC ou o Comprovante Não estejam cadastrados
                     if (!$resultadoPronac || !$resultadoComprovante) {
-                        throw new Exception("Registro n�o encontrado!");
+                        throw new Exception("Registro Não encontrado!");
                     }
-                    // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p�gina de busca
+                    // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                     else {
                         $this->view->buscarPronac = $resultadoPronac;
                         $this->view->buscarDoc    = $resultadoComprovante;
@@ -563,11 +563,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 // busca o Comprovante de acordo com o id no banco
                 $resultadoComprovante = ComprovanteExecucaoFisicaDAO::buscar($resultadoPronac[0]->IdPRONAC, $doc);
 
-                // caso o PRONAC ou o Comprovante n�o estejam cadastrados
+                // caso o PRONAC ou o Comprovante Não estejam cadastrados
                 if (!$resultadoPronac || !$resultadoComprovante) {
-                    parent::message("Registro n�o encontrado!", "execucaofisicadoprojeto/buscarpronac", "ERROR");
+                    parent::message("Registro Não encontrado!", "execucaofisicadoprojeto/buscarpronac", "ERROR");
                 }
-                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p�gina de busca
+                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                 else {
                     $this->view->buscarPronac = $resultadoPronac;
                     $this->view->buscarDoc    = $resultadoComprovante;
@@ -581,9 +581,9 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 } elseif (strlen($titulo) < 2 || strlen($titulo) > 100) {
                     throw new Exception("O t�tulo do documento � inv�lido! A quantidade m�nima � de 2 caracteres!");
                 } elseif (empty($descricao)) {
-                    throw new Exception("Por favor, informe a descri��o do documento!");
+                    throw new Exception("Por favor, informe a Descrição do documento!");
                 } elseif (strlen($descricao) < 20 || strlen($descricao) > 500) {
-                    throw new Exception("A descri��o do documento � inv�lida! S�o permitidos entre 20 e 500 caracteres!");
+                    throw new Exception("A Descrição do documento � inv�lida! S�o permitidos entre 20 e 500 caracteres!");
                 } elseif (empty($justificativa) || $justificativa == "Digite a justificativa...") {
                     throw new Exception("Por favor, informe a justificativa do documento!");
                 } elseif (strlen($justificativa) < 20 || strlen($justificativa) > 500) {
@@ -593,11 +593,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $arquivoTipo == 'application/dos-exe' || strlen($arquivoExtensao) > 5)) { // extens�o do arquivo
                     throw new Exception("A extens�o do arquivo � inv�lida!");
                 } elseif (!empty($arquivoTemp) && $arquivoTamanho > 10485760) { // tamanho do arquivo: 10MB
-                    throw new Exception("O arquivo n�o pode ser maior do que 10MB!");
+                    throw new Exception("O arquivo Não pode ser maior do que 10MB!");
                 } elseif (!empty($arquivoTemp) && ArquivoDAO::verificarHash($arquivoHash)) { // hash do arquivo
                     throw new Exception("O arquivo enviado j� est� cadastrado na base de dados! Por favor, informe outro!");
                 }
-                // faz a inser��o (substitui��o) no banco de dados
+                // faz a inserá�o (substitui��o) no banco de dados
                 else {
                     // cadastra o arquivo caso o mesmo tenha sido enviado
                     if (!empty($arquivoTemp)) {
@@ -638,7 +638,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                             'idComprovanteAnterior'      => $idComprovanteAnterior);
                         $substituirComprovante = ComprovanteExecucaoFisicaDAO::cadastrar($dadosComprovante, $doc);
                     } // fecha if
-                    // n�o cadastra o arquivo
+                    // Não cadastra o arquivo
                     // pega a refer�ncia do arquivo cadastrado com o comprovante anterior
                     else {
                         // cadastra dados do comprovante
@@ -659,9 +659,9 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     }
 
                     if ($substituirComprovante) {
-                        parent::message("Solicita��o de substitui��o realizada com sucesso!", "execucaofisicadoprojeto/buscardocumentos?pronac=" . $pronac, "CONFIRM");
+                        parent::message("Solicitação de substitui��o realizada com sucesso!", "execucaofisicadoprojeto/buscardocumentos?pronac=" . $pronac, "CONFIRM");
                     } else {
-                        parent::message("Erro ao realizar solicita��o de substitui��o!", "execucaofisicadoprojeto/buscardocumentos?pronac=" . $pronac, "ERROR");
+                        parent::message("Erro ao realizar Solicitação de substitui��o!", "execucaofisicadoprojeto/buscardocumentos?pronac=" . $pronac, "ERROR");
                     }
                 } // fecha else
             } // fecha try
@@ -675,7 +675,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $this->view->justificativaCoordenador = $justificativaCoordenador;
             }
         }
-        // quando a p�gina � aberta
+        // quando a página � aberta
         else {
             // recebe o pronac via get
             $get    = Zend_Registry::get('get');
@@ -695,11 +695,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // busca o Comprovante de acordo com o id no banco
                     $resultadoComprovante = ComprovanteExecucaoFisicaDAO::buscar($resultadoPronac[0]->IdPRONAC, $doc);
 
-                    // caso o PRONAC ou o Comprovante n�o estejam cadastrados
+                    // caso o PRONAC ou o Comprovante Não estejam cadastrados
                     if (!$resultadoPronac || !$resultadoComprovante) {
-                        throw new Exception("Registro n�o encontrado!");
+                        throw new Exception("Registro Não encontrado!");
                     }
-                    // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p�gina de busca
+                    // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                     else {
                         $this->view->buscarPronac = $resultadoPronac;
                         $this->view->buscarDoc    = $resultadoComprovante;
@@ -751,11 +751,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 // busca o Comprovante de acordo com o id no banco
                 $resultadoComprovante = ComprovanteExecucaoFisicaDAO::buscar($resultadoPronac[0]->IdPRONAC, $doc);
 
-                // caso o PRONAC ou o Comprovante n�o estejam cadastrados
+                // caso o PRONAC ou o Comprovante Não estejam cadastrados
                 if (!$resultadoPronac || !$resultadoComprovante) {
-                    throw new Exception("Registro n�o encontrado!");
+                    throw new Exception("Registro Não encontrado!");
                 }
-                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p�gina de busca
+                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                 else {
                     $this->view->buscarPronac = $resultadoPronac;
                     $this->view->buscarDoc    = $resultadoComprovante;
@@ -844,16 +844,16 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
         } // fecha else
 
 
-        // ========== IN�CIO PAGINA��O ==========
+        // ========== INÍCIO PAGINAÇÂO ==========
         //criando a pagina�ao
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
         $paginator = Zend_Paginator::factory($resultado); // dados a serem paginados
 
-        // p�gina atual e quantidade de �tens por p�gina
+        // página atual e quantidade de �tens por página
         $currentPage = $this->_getParam('page', 1);
         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
-        // ========== FIM PAGINA��O ==========
+        // ========== FIM PAGINAÇÂO ==========
 
 
         // manda para a vis�o
@@ -898,11 +898,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 // busca o PRONAC no banco
                 $resultPronac = ProjetoDAO::buscar($pronac);
 
-                // caso o PRONAC n�o esteja cadastrado
+                // caso o PRONAC Não esteja cadastrado
                 if (!$resultPronac) {
-                    throw new Exception("Registro n�o encontrado!");
+                    throw new Exception("Registro Não encontrado!");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a p�gina de busca
+                // caso o PRONAC esteja cadastrado, vai para a página de busca
                 // dos seus documentos (comprovantes)
                 else {
                     // manda o pronac para a vis�o
@@ -915,7 +915,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // ========== LEMBRAR DE PASSAR DEPOIS O ID DO PROPONENTE COMO PAR�METRO ==========
                     $resultComprovantes = ComprovanteExecucaoFisicaDAO::buscarDocumentos($idPronac);
 
-                    // caso n�o existam comprovantes cadastrados
+                    // caso Não existam comprovantes cadastrados
                     if (!$resultComprovantes) {
                         $this->view->message      = "Nenhum comprovante cadastrado para o PRONAC N� " . $pronac . "!";
                         $this->view->message_type = "ALERT";
@@ -939,16 +939,16 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                         endfor;
 
 
-                        // ========== IN�CIO PAGINA��O ==========
+                        // ========== INÍCIO PAGINAÇÂO ==========
                         //criando a pagina�ao
                         Zend_Paginator::setDefaultScrollingStyle('Sliding');
                         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
                         $paginator = Zend_Paginator::factory($arrayComprovantes); // dados a serem paginados
 
-                        // p�gina atual e quantidade de �tens por p�gina
+                        // página atual e quantidade de �tens por página
                         $currentPage = $this->_getParam('page', 1);
                         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
-                        // ========== FIM PAGINA��O ==========
+                        // ========== FIM PAGINAÇÂO ==========
 
 
                         // manda os comprovantes e seu hist�rico para a vis�o
@@ -1005,9 +1005,9 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // busca o Comprovante de acordo com o id no banco
                     $resultComprovante = ComprovanteExecucaoFisicaDAO::buscar($resultPronac[0]->IdPRONAC, $doc);
 
-                    // caso o PRONAC ou o Comprovante n�o estejam cadastrados
+                    // caso o PRONAC ou o Comprovante Não estejam cadastrados
                     if (!$resultPronac || !$resultComprovante) {
-                        parent::message("Registro n�o encontrado!", "execucaofisicadoprojeto/aguardandoavaliacao", "ERROR");
+                        parent::message("Registro Não encontrado!", "execucaofisicadoprojeto/aguardandoavaliacao", "ERROR");
                     }
                     // caso o PRONAC esteja cadastrado
                     else {
@@ -1026,7 +1026,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 } elseif (strlen($parecer) < 20 || strlen($parecer) > 500) {
                     throw new Exception("O Parecer � inv�lido! S�o permitidos entre 20 e 500 caracteres!");
                 } else {
-                    // atualiza o status para 'Em Aprova��o'
+                    // atualiza o status para 'Em aprovação'
                     $dadosComprovante = array(
                         'dsParecerComprovante'   => $parecer,
                         'stParecerComprovante'   => 'EA',
@@ -1047,7 +1047,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $this->view->parecer      = $parecer;
             }
         } // fecha if
-        // quando a p�gina � aberta
+        // quando a página � aberta
         else {
             // recebe os dados via get
             $get    = Zend_Registry::get("get");
@@ -1067,9 +1067,9 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // busca o Comprovante de acordo com o id no banco
                     $resultComprovante = ComprovanteExecucaoFisicaDAO::buscar($resultPronac[0]->IdPRONAC, $doc);
 
-                    // caso o PRONAC ou o Comprovante n�o estejam cadastrados
+                    // caso o PRONAC ou o Comprovante Não estejam cadastrados
                     if (!$resultPronac || !$resultComprovante) {
-                        throw new Exception("Registro n�o encontrado!");
+                        throw new Exception("Registro Não encontrado!");
                     }
                     // caso o PRONAC esteja cadastrado
                     else {
@@ -1106,7 +1106,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
 
 
     /**
-     * M�todo para buscar projetos com comprovantes aguardando aprova��o
+     * M�todo para buscar projetos com comprovantes aguardando aprovação
      * @access public
      * @param void
      * @return void
@@ -1170,16 +1170,16 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
         } // fecha else
 
 
-        // ========== IN�CIO PAGINA��O ==========
+        // ========== INÍCIO PAGINAÇÂO ==========
         //criando a pagina�ao
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
         $paginator = Zend_Paginator::factory($resultado); // dados a serem paginados
 
-        // p�gina atual e quantidade de �tens por p�gina
+        // página atual e quantidade de �tens por página
         $currentPage = $this->_getParam('page', 1);
         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
-        // ========== FIM PAGINA��O ==========
+        // ========== FIM PAGINAÇÂO ==========
 
 
         // manda para a vis�o
@@ -1224,11 +1224,11 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 // busca o PRONAC de acordo com o id no banco
                 $resultPronac = ProjetoDAO::buscar($pronac);
 
-                // caso o PRONAC n�o esteja cadastrado
+                // caso o PRONAC Não esteja cadastrado
                 if (!$resultPronac) {
-                    throw new Exception("Registro n�o encontrado!");
+                    throw new Exception("Registro Não encontrado!");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a p�gina de busca
+                // caso o PRONAC esteja cadastrado, vai para a página de busca
                 // dos seus documentos (comprovantes)
                 else {
                     // manda o pronac para a vis�o
@@ -1241,7 +1241,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // ========== LEMBRAR DE PASSAR DEPOIS O ID DO PROPONENTE COMO PAR�METRO ==========
                     $resultComprovantes = ComprovanteExecucaoFisicaDAO::buscarDocumentos($idPronac);
 
-                    // caso n�o existam comprovantes cadastrados
+                    // caso Não existam comprovantes cadastrados
                     if (!$resultComprovantes) {
                         $this->view->message      = "Nenhum comprovante cadastrado para o PRONAC N� " . $pronac . "!";
                         $this->view->message_type = "ALERT";
@@ -1265,16 +1265,16 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                         endfor;
 
 
-                        // ========== IN�CIO PAGINA��O ==========
+                        // ========== INÍCIO PAGINAÇÂO ==========
                         //criando a pagina�ao
                         Zend_Paginator::setDefaultScrollingStyle('Sliding');
                         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
                         $paginator = Zend_Paginator::factory($arrayComprovantes); // dados a serem paginados
 
-                        // p�gina atual e quantidade de �tens por p�gina
+                        // página atual e quantidade de �tens por página
                         $currentPage = $this->_getParam('page', 1);
                         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
-                        // ========== FIM PAGINA��O ==========
+                        // ========== FIM PAGINAÇÂO ==========
 
 
                         // manda os comprovantes e seu hist�rico para a vis�o
@@ -1333,9 +1333,9 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // busca o Comprovante de acordo com o id no banco
                     $resultComprovante = ComprovanteExecucaoFisicaDAO::buscar($resultPronac[0]->IdPRONAC, $doc);
 
-                    // caso o PRONAC ou o Comprovante n�o estejam cadastrados
+                    // caso o PRONAC ou o Comprovante Não estejam cadastrados
                     if (!$resultPronac || !$resultComprovante) {
-                        parent::message("Registro n�o encontrado!", "execucaofisicadoprojeto/aguardandoaprovacao", "ERROR");
+                        parent::message("Registro Não encontrado!", "execucaofisicadoprojeto/aguardandoaprovacao", "ERROR");
                     }
                     // caso o PRONAC esteja cadastrado
                     else {
@@ -1405,9 +1405,9 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     // busca o Comprovante de acordo com o id no banco
                     $resultComprovante = ComprovanteExecucaoFisicaDAO::buscar($resultPronac[0]->IdPRONAC, $doc);
 
-                    // caso o PRONAC ou o Comprovante n�o estejam cadastrados
+                    // caso o PRONAC ou o Comprovante Não estejam cadastrados
                     if (!$resultPronac || !$resultComprovante) {
-                        throw new Exception("Registro n�o encontrado!");
+                        throw new Exception("Registro Não encontrado!");
                     }
                     // caso o PRONAC esteja cadastrado
                     else {

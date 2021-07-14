@@ -6,7 +6,7 @@
 class Zend_View_Helper_PrazoRespostaDiligencia
 {
     /**
-     * Método que retorna as informacoes sobre o prazo de resposta da diligencia, incluindo o icone que deve ser apresentado na tela
+     * Mï¿½todo que retorna as informacoes sobre o prazo de resposta da diligencia, incluindo o icone que deve ser apresentado na tela
      * @access public
      * @param integer $idPronac (id do Projeto que deseja saber informacoes sobre a diligencia)
      * @param integer $idTipoDiligencia (id do tipo de diligencia, cada modulo possui um codigo especifico)
@@ -40,7 +40,7 @@ class Zend_View_Helper_PrazoRespostaDiligencia
             $arrBusca['idDiligencia = ?'] = $idDiligencia;
         }
 
-        // busca a situação do projeto
+        // busca a situaï¿½ï¿½o do projeto
         $rsDiligencia = $tbDiligencia->buscar($arrBusca, array('DtSolicitacao DESC'))->current();
 
         if (!empty($rsDiligencia)):
@@ -80,35 +80,35 @@ class Zend_View_Helper_PrazoRespostaDiligencia
         return 40;
 //            switch ($idTipoDiligencia)
 //            {
-//                case(124): //Diligência do parecerista
+//                case(124): //Diligï¿½ncia do parecerista
 //                {
 //                    if($stProrrogacao == 'N')
 //                        return 20;
 //                    else
 //                        return 40;
 //                }
-//                case(126): //Diligência do Componente da comissão (CNIC)
+//                case(126): //Diligï¿½ncia do Componente da comissÃ£o (CNIC)
 //                {
 //                    if($stProrrogacao == 'N')
 //                        return 20;
 //                    else
 //                        return 40;
 //                }
-//                case(181): //Diligência no Checklist (Analise Inicial)
+//                case(181): //Diligï¿½ncia no Checklist (Analise Inicial)
 //                {
 //                    if($stProrrogacao == 'N')
 //                        return 20;
 //                    else
 //                        return 40;
 //                }
-//                case(182): //Diligência no Checklist (Readequacao)
+//                case(182): //Diligï¿½ncia no Checklist (Readequacao)
 //                {
 //                    if($stProrrogacao == 'N')
 //                        return 20;
 //                    else
 //                        return 40;
 //                }
-//                default: //Diligência em outros modulos
+//                default: //Diligï¿½ncia em outros modulos
 //                    return 30;
 //            }
     }
@@ -147,14 +147,14 @@ class Zend_View_Helper_PrazoRespostaDiligencia
         //diligencia nao respondida
         elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null && $prazoResposta > $prazoPadrao) {
             $arrIcones['icone'] = "notice2.png";
-            $arrIcones['title'] = "Diligência não respondida";
+            $arrIcones['title'] = "Diligï¿½ncia NÃ£o respondida";
         }
         //diligencia respondida
         elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta != null) {
             //se respondeu mais nao enviou a resposta
             if ($rsDiligencia->stEnviado == 'N' && $prazoResposta > $prazoPadrao) {
                 $arrIcones['icone'] = "notice2.png";
-                $arrIcones['title'] = "Diligência não respondida";
+                $arrIcones['title'] = "Diligï¿½ncia NÃ£o respondida";
             } elseif ($rsDiligencia->stEnviado == 'N' && $prazoResposta <= $prazoPadrao) {
                 $arrIcones['icone'] = "notice.png";
                 $arrIcones['title'] = "Diligenciado";

@@ -17,6 +17,7 @@ class RelatorioController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
+        set_time_limit(-1);
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         if (empty($auth->getIdentity()->usu_codigo)) {
             $this->redirect(Zend_Controller_Front::getInstance()->getBaseUrl());
@@ -27,7 +28,7 @@ class RelatorioController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 90; // Protocolo - Documento
         $PermissoesGrupo[] = 91; // Protocolo - Recebimento
         $PermissoesGrupo[] = 92; // Tec. de Admissibilidade
-        $PermissoesGrupo[] = 93; // Coordenador - Geral de An�lise (Ministro)
+        $PermissoesGrupo[] = 93; // Coordenador - Geral de Análise (Ministro)
         $PermissoesGrupo[] = 94; // Parecerista
         $PermissoesGrupo[] = 96;  // Consulta Gerencial
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
@@ -44,7 +45,7 @@ class RelatorioController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 124; // Tec. de Presta��o de Contas
         $PermissoesGrupo[] = 125; // Coord. de Presta��o de Contas
         $PermissoesGrupo[] = 126; // Coord. Geral de Presta��o de Contas
-        $PermissoesGrupo[] = 127; // Coord. Geral de An�lise
+        $PermissoesGrupo[] = 127; // Coord. Geral de Análise
         $PermissoesGrupo[] = 128; // Tec. de Portaria
         $PermissoesGrupo[] = 131; // Coord. de Admissibilidade
         $PermissoesGrupo[] = 132; // Chefe de Divis�o

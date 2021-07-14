@@ -2,7 +2,7 @@
 <div id="alerta" class="sumir"></div>
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="edital/index">Criar Edital - Passo 1</a></li>
         <li class="">Criar Edital - Passo 2</li>
     </ul>
@@ -10,9 +10,9 @@
 
 <div id="titulo">
     <div>Forma de Pagamento</div>
-</div> 
+</div>
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <br />
     <div id="msg" class="msgALERT sumir" style="margin: 0px 20px 0px 20px">
@@ -86,7 +86,7 @@
                 </tr>
             </tbody></table>
         <br>
-        
+
         <?php if(count($this->formapagamento) > 0):?>
         <table class="tabela" id="tblConteudoAdicionado">
             <tbody>
@@ -98,7 +98,7 @@
                     <td class="destacar bold" style="width: 40%">Valor do Apoio</td>
                     <td class="destacar bold centro" style="width: 10%">Quantidade de Premiados</td>
                     <td class="destacar bold centro" style="width: 10%">Quantidade de Parcelas</td>
-                    <td class="destacar bold centro" style="width: 10%">AÁıes</td>
+                    <td class="destacar bold centro" style="width: 10%">AÔøΩÔøΩes</td>
                 </tr>
                 <?php foreach($this->formapagamento as $forP): ?>
                 <tr id="trCriterio_zero">
@@ -121,14 +121,14 @@
             </tr>
         </table>
         <?php endif; ?>
-        
+
         <!--div style="width: 100%; text-align: center;">
             <input id='' class="btn_salvar" type="button" value="" name="salvar" id="salvar">
             <input class="btn_limpar" type="reset" value="" name="limpar" id="limpar">
         </div-->
     </form>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 <div id="rodapeConteudo"><span></span></div>
 <br clear="all" />
@@ -138,50 +138,50 @@
     $(document).ready(function() {
 
         $('#vlrApoio').maskMoney({symbol:"",decimal:",",thousands:"."});
-    
+
         $(".btn_cancelar").click(function() {
             $('.opcoes').remove();
             $('#trParcelas').hide();
         });
-        
+
         $("#slcNumParcela").change(function() {
-           
+
             $('#msg').hide();
             $('#txtmsg').html('');
-            
+
             var item = $(this).val();
             var vlrApoio = $('#vlrApoio').val();
-            
+
             if(vlrApoio == ''){
                 $('#txtmsg').html('Valor de apoio deve ser preenchido!');
                 $('#msg').show();
                 return false;
             }
-            
+
             $('.opcoes').remove();
-           
+
             if(item == '1'){
                 $('#trParcelas').hide();
                 return false;
             }
-            
+
             $('#trParcelas').show();
-           
+
             while(vlrApoio.indexOf(".") != -1){
  		vlrApoio = vlrApoio.replace(".", "");
             }
-            
+
             vlrApoio = vlrApoio.replace(",", ".");
-            
+
             var vlrOriginal = vlrApoio;
             var vlDividido = parseFloat(vlrApoio / item).toFixed(2);
             var somaTotal = parseFloat(0.00);
             var sobra = 0;
-            
+
             for(i = 1; i <= item; i++){
-               
+
                 somaTotal = parseFloat(somaTotal) + parseFloat(vlDividido);
-                
+
                 if(i == item){
                     sobra = (vlrOriginal) - (somaTotal);
                     var teste = sobra.toFixed(2);
@@ -189,21 +189,21 @@
                     vlDividido = vlDividido.toFixed(2);
                     somaTotal = parseFloat(somaTotal) + parseFloat(teste);
                 }
-                
-                var row = '<tr class="opcoes"><td class="centro">'+i+'™</td><td class=""><input type="text" name="parcela[]"  onkeyup="somarvalores();" class="input_simples valores required" value="'+float2moeda(vlDividido)+'"></td></tr>';
+
+                var row = '<tr class="opcoes"><td class="centro">'+i+'ÔøΩ</td><td class=""><input type="text" name="parcela[]"  onkeyup="somarvalores();" class="input_simples valores required" value="'+float2moeda(vlDividido)+'"></td></tr>';
                 $('#tblOpcaoResposta').append(row);
-                
-            } 
-            
+
+            }
+
             var vlTotal = float2moeda(somaTotal) ;
             var rowTotal = '<tr class="opcoes"><td class="centro">Total:</td><td class=""><b id="totalvalores">'+vlTotal+'</b></td></tr>';
 
             $('#tblOpcaoResposta').append(rowTotal);
             $('.valores').maskMoney({symbol:"",decimal:",",thousands:"."});
-            
+
         });
-        
-        
+
+
         $("#formularioFormaPagamento").submit(function() {
 
             $('#msg').hide();
@@ -223,7 +223,7 @@
             });
 
             if ((check === 1)) {
-                $('#txtmsg').html('Verifique os campos obrigatÛrios!<br />');
+                $('#txtmsg').html('Verifique os campos obrigatÔøΩrios!<br />');
                 $('#msg').show();
                 enviar = 1;
             } else {
@@ -232,13 +232,13 @@
             }
 
             var validaValores = $('#validaValores').val();
-            
+
             if (validaValores === '1') {
-                $('#txtmsg').append('A soma das parcelas n„o batem com o valor de apoio!<br />');
+                $('#txtmsg').append('A soma das parcelas N√£o batem com o valor de apoio!<br />');
                 $('#msg').show();
                 enviar = 1;
             }
-            
+
             // Enviar o Form
             if ((enviar === 1)) {
                 return false;
@@ -292,29 +292,29 @@
     }
 
     function somarvalores() {
-        
-        var soma = 0;   
-        var vlOriginal = $('#vlrApoio').val();   
-        
+
+        var soma = 0;
+        var vlOriginal = $('#vlrApoio').val();
+
         while(vlOriginal.indexOf(".") != -1){
             vlOriginal = vlOriginal.replace(".", "");
         }
-            
+
         vlOriginal = vlOriginal.replace(",", ".");
-            
-            
-        $('.valores').each(function(i){  
-            
+
+
+        $('.valores').each(function(i){
+
             vlrApoio = $(this).val();
-            
+
             while(vlrApoio.indexOf(".") != -1){
  		vlrApoio = vlrApoio.replace(".", "");
             }
-            
+
             vlrApoio = vlrApoio.replace(",", ".");
-            
+
             soma = parseFloat(vlrApoio) + parseFloat(soma);
-            
+
             if(soma != vlOriginal){
                 $('#totalvalores').html('<b class="red">'+float2moeda(soma)+'</b>');
                 $('#validaValores').val('1');
@@ -322,13 +322,13 @@
                 $('#totalvalores').html(float2moeda(soma));
                 $('#validaValores').val('0');
             }
-            
-            
-        }); 
-            
+
+
+        });
+
     }
-        
-        
+
+
 
     function editarFormaPagamento(id){
 
@@ -359,9 +359,9 @@
                 }
         });
     }
-    
+
     function excluirFormaPagamento(id){
-    
+
         $("#alerta").dialog("destroy");
         $("#alerta").html("Tem certeza que deseja excluir a forma de pagamento?");
         $("#alerta").dialog({
@@ -371,7 +371,7 @@
             height: 170,
             modal: true,
             buttons: {
-                'N„o': function() {
+                'N√£o': function() {
                     $(this).dialog('close');
                 },
                 'Sim': function() {
@@ -379,12 +379,12 @@
                 }
             }
         });
-        
+
         $('.ui-dialog-titlebar-close').remove();
-        
+
      }
-        
-        
+
+
     function float2moeda(num) {
 
         x = 0;

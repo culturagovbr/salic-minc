@@ -2,7 +2,7 @@
 <div id="alerta" class="sumir"></div>
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="edital/index">Criar Edital - Passo 1</a></li>
         <li class="">Nova Categoria</li>
     </ul>
@@ -10,21 +10,21 @@
 
 <div id="titulo">
     <div>Nova Categoria</div>
-</div> 
+</div>
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
-    
+
     <fieldset>
         <br />
         <div id="msg" class="msgALERT sumir" style="margin: 0px 20px 0px 20px">
             <div class="float_right"><input type="button" class="btn_close" title="Fechar mensagem" id="msgALERT" onclick="$('.msgALERT').hide();" onkeypress="$('.msgALERT').hide();"/></div>
             <div id="txtmsg" style="line-height: 25px;"></div>
         </div>
-        
+
         <form id="formularioCategoria" action="<?php echo $this->url(array('controller' => 'edital', 'action' => 'salva-categoria'),null, true); ?>" method="post">
-            <input type="hidden" name="idModulo" id="idModulo" value="<?php echo $this->idModulo;?>" /> 
+            <input type="hidden" name="idModulo" id="idModulo" value="<?php echo $this->idModulo;?>" />
             <input type="hidden" name="idEdital" id="idEdital" value="<?php echo $this->idEdital;?>" />
             <table class="tabela">
                 <tr>
@@ -36,22 +36,22 @@
                         Reutilizar Categoria
                     </td>
                     <td>
-                        <img src="<?php echo $this->baseUrl(); ?>/public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th>  
+                        <img src="<?php echo $this->baseUrl(); ?>/public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th>
                     </td>
                 </tr>
             </table>
             <div style="width: 100%; text-align: center;">
                 <input class="btn_salvar" type="submit" value="" name="salvar" id="btsalvar">
             </div>
-        </form>    
+        </form>
 
     </fieldset>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script type="text/javascript">
@@ -77,7 +77,7 @@
             });
 
             if ((check === 1)) {
-                $('#txtmsg').html('Verifique os campos obrigatÛrios!<br />');
+                $('#txtmsg').html('Verifique os campos obrigatÔøΩrios!<br />');
                 $('#msg').show();
                 enviar = 1;
             } else {

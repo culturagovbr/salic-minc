@@ -2,7 +2,7 @@
 $linkProjetosProdutos = $this->url(array('controller' => 'Analisarprojetoparecer', 'action' => 'projetosprodutos'));
 
 $links = array();
-$links[] = array('Projetos/Produtos para An�lise' => array());
+$links[] = array('Projetos/Produtos para Análise' => array());
 gerarBreadCrumb($links);
 ?>
 <div id="total">
@@ -26,7 +26,7 @@ gerarBreadCrumb($links);
             </tr>
         </table>
 
-        <?php if($this->qtdRegistro != 0): ?>	
+        <?php if($this->qtdRegistro != 0): ?>
 		<table class="tabela">
 			<tr>
 				<th width="5"></th>
@@ -41,14 +41,14 @@ gerarBreadCrumb($links);
 				<th width="70">Historico</th>
 				<th width="70">Conclus&atilde;o</th>
 			</tr>
-			<?php 
-				$contador = 1; 
+			<?php
+				$contador = 1;
 				$rp = '';
 				$diligenciado = '';
 				$Titlediligenciado = '';
-				foreach($this->buscar as $d): 
-				
-				switch ($d->stDiligenciado) 
+				foreach($this->buscar as $d):
+
+				switch ($d->stDiligenciado)
 				{
 			    	case 0:
 			        	$diligenciado = "notice1.png";
@@ -60,18 +60,18 @@ gerarBreadCrumb($links);
 			        	break;
 			        case 2:
 			        	$diligenciado = "notice2.png";
-			        	$Titlediligenciado = "Diligencia n�o respondida";
+			        	$Titlediligenciado = "Diligencia Não respondida";
 			        	break;
 			        case 3:
 			        	$diligenciado = "notice3.png";
 			        	$Titlediligenciado = "Diligencia respondida";
 			        	break;
 			     }
-				
+
 			    $diligencia = NULL;
 	            $tempoRestante = NULL;
 	            $tempoDiligencia = NULL;
-	
+
 	            /* Diligencia */
 	            if ($d->DtSolicitacao && $d->DtResposta == NULL) {
 	                $diligencia = 1;
@@ -82,7 +82,7 @@ gerarBreadCrumb($links);
 	            } else {
 	                $diligencia = 0;
 	            }
-			     
+
 			      /* Tempo Restante */
 	            switch ($diligencia) {
 	                case 0:
@@ -102,7 +102,7 @@ gerarBreadCrumb($links);
 	                case 1: $tempoDiligencia = round(data::CompararDatas($d->DtSolicitacao));
 	                    break;
 	            }
-				
+
 			?>
 			<tr>
 				<td><?php echo $contador; ?></td>
@@ -123,10 +123,10 @@ gerarBreadCrumb($links);
 					<img src="<?php echo $this->baseUrl(); ?>/public/img/save.gif" onclick="redirecionar('<?php echo $this->url(array('controller' => 'Analisarprojetoparecer', 'action' => 'fecharparecer', 'idPronac'=> $d->IdPRONAC, 'tipoanalise'=> $d->TipoAnalise, 'idProduto' => $d->idProduto)); ?>')" style="cursor: pointer;" />
 				</td>
 			</tr>
-			<?php 
+			<?php
 				$rp = $d->PRONAC;
 				$contador++;
-				endforeach; 
+				endforeach;
 			?>
 		</table>
 			<?php if($this->qtdRegistro > 5){ echo "<p>" . $this->buscar . "</p>"; } ?>
@@ -136,8 +136,8 @@ gerarBreadCrumb($links);
 			<tr>
 				<td align="center">NENHUM REGISTRO ENCONTRADO</td>
 			</tr>
-		</table>	
-		<?php endif; ?>    
+		</table>
+		<?php endif; ?>
     </div>
 
     <div id="rodapeConteudo_com_menu" ><span></span></div>

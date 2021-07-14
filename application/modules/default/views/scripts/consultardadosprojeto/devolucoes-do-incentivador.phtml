@@ -1,24 +1,24 @@
 <?php require_once dirname(__DIR__) . "/consultardadosprojeto/inc/menu.dados.bancarios.php"; ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>" title="Consultar dados projeto">Consultar dados projeto</a></li>
         <li>Dados banc&aacute;rios</li>
-        <li class="last">Devoluções do incentivador</li>
+        <li class="last">Devoluï¿½ï¿½es do incentivador</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>Devoluções do incentivador</div>
+    <div>Devoluï¿½ï¿½es do incentivador</div>
 </div>
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr class="destacar">
@@ -30,7 +30,7 @@
             <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
         </tr>
     </table>
-    
+
     <form name="formPesquisa" id="formPesquisa" method="get">
         <table class="tabela">
             <tr onclick="abrirDinamico('.divFiltroPesquisa', $(this))" style="cursor:pointer">
@@ -40,11 +40,11 @@
                 </th>
             </tr>
             <tr class="divFiltroPesquisa">
-                <td class="destacar bold w100">Dt. Devolução</td>
+                <td class="destacar bold w100">Dt. Devoluï¿½ï¿½o</td>
                 <td>
                     <input type="text" name="dtDevolucaoInicio" id="dtDevolucaoInicio" class="input_simples w100"
                     	maxlength="10"onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');"
-                    	onblur="restaurar_campo(this, '');" type="text" value="<?php echo $this->dataDevolucaoInicio; ?>" />&nbsp;até&nbsp;
+                    	onblur="restaurar_campo(this, '');" type="text" value="<?php echo $this->dataDevolucaoInicio; ?>" />&nbsp;atï¿½&nbsp;
                     <input type="text" name="dtDevolucaoFim" id="dtDevolucaoFim" class="input_simples w100"
                     	maxlength="10" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');"
                     	onblur="restaurar_campo(this, '');" type="text" value="<?php echo $this->dataDevolucaoFim; ?>" />
@@ -60,8 +60,8 @@
 	        <thead>
 	            <tr class="titulo_tabela">
 	                <th>Incentivador</th>
-	                <th>Dt. Crédito</th>
-	                <th>Dt. Devolução</th>
+	                <th>Dt. Crï¿½dito</th>
+	                <th>Dt. Devoluï¿½ï¿½o</th>
 	                <th>Vl. Captado</th>
 	            </tr>
 	        </thead>
@@ -90,7 +90,7 @@
     <br clear="all" />
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

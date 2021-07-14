@@ -54,7 +54,7 @@ class DadosprojetoController extends MinC_Controller_Action_Abstract
             $this->view->grupoAtivo  = $GrupoAtivo->codGrupo; // manda o grupo ativo do usuario para a visao
             $this->view->orgaoAtivo  = $GrupoAtivo->codOrgao; // manda o orgao ativo do usuario para a visao
         } // fecha if
-        else // caso o usuario n�o esteja autenticado
+        else // caso o usuario Não esteja autenticado
         {
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }*/

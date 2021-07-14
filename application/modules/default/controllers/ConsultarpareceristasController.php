@@ -177,7 +177,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
                 $segmento = $SegmentoDAO->buscar(array('Codigo = ?' => $idSegmento));
 
                 if ($idAgente == 0) {
-                    parent::message("Dados obrigat�rios n�o informados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
+                    parent::message("Dados obrigat�rios Não informados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
                 }
                 $this->view->histFerias = 1;
                 $this->view->feriasAgend = 1;
@@ -265,7 +265,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
 
                 /*---------------------------------------*/
                 if ((!$histFerias) && (!$feriasAgend) && (!$atestados) && (!$produtos)) {
-                    parent::message("Dados n�o localizados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
+                    parent::message("Dados Não localizados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
                 }
                 $this->view->titulo = $titulo;
                   $this->view->parecerista = strtoupper($parecerista[0]['Nome']);
@@ -295,7 +295,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
                     $parecerista = $NomesDAO->buscarNomePorCPFCNPJ(null, $_REQUEST['filtro']['parecerista']);
                     $this->view->parecerista = strtoupper($parecerista[0]['Nome']);
                     if ($idAgente == 0) {
-                        parent::message("Dados obrigat�rios n�o informados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
+                        parent::message("Dados obrigat�rios Não informados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
                     }
 
                     $produtos = null;
@@ -363,7 +363,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
                         $this->view->produtos = $produtos;
                     /*---------------------------------------*/
                     if (!$produtos) {
-                        parent::message("Dados n�o localizados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
+                        parent::message("Dados Não localizados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
                     }
 
                 break;
@@ -424,7 +424,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
                     $this->view->produtos = $produtos;
                     /*---------------------------------------*/
                     if (!$produtos) {
-                        parent::message("Dados n�o localizados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
+                        parent::message("Dados Não localizados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
                     }
                 } else {
                     if (isset($_POST['filtro']['produto'])) {
@@ -488,7 +488,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
                     $this->view->produtos = $produtos;
                     /*---------------------------------------*/
                     if (!$produtos) {
-                        parent::message("Dados n�o localizados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
+                        parent::message("Dados Não localizados!", "/consultarpareceristas/consultardadospareceristas", "ALERT");
                     }
                 }
                 break;
@@ -522,7 +522,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
                 $this->view->parecerista = strtoupper($parecerista[0]['Nome']);
 
                 if ($idAgente == 0) {
-                    parent::message("Dados obrigat�rios n�o informados!", "/consultarpareceristas/relatoriomensaldepagamento", "ALERT");
+                    parent::message("Dados obrigat�rios Não informados!", "/consultarpareceristas/relatoriomensaldepagamento", "ALERT");
                 }
                 /*-------------- PRODUTOS  --------------*/
                 $produtos = ConsultarPareceristasDAO::buscarProdutosPareceristas($idAgente, null, $dataInicio, $dataFim, $parecer);
@@ -560,7 +560,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
                 $this->view->produtos = $produtos;
                 /*---------------------------------------*/
                 if (!$produtos) {
-                    parent::message("Dados n�o localizados!", "/consultarpareceristas/relatoriomensaldepagamento", "ALERT");
+                    parent::message("Dados Não localizados!", "/consultarpareceristas/relatoriomensaldepagamento", "ALERT");
                 }
             } else {
                 $this->view->perfilAtual = self::$perfilAtual;
@@ -604,7 +604,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
                 $this->view->projetos = $dados;
                 $this->view->produtos = $produtos;
                 if (!$produtos) {
-                    parent::message("Dados n�o localizados!", "/consultarpareceristas/consultarpagamentospareceristas", "ALERT");
+                    parent::message("Dados Não localizados!", "/consultarpareceristas/consultarpagamentospareceristas", "ALERT");
                 }
                 /*---------------------------------------*/
             }
@@ -663,7 +663,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
                 $this->view->produtos = $produtos;
                 /*---------------------------------------*/
                 if (count($produtos) <= 0) {
-                    parent::message("Dados n�o localizados!", "/consultarpareceristas/consultarprodutospareceristas", "ALERT");
+                    parent::message("Dados Não localizados!", "/consultarpareceristas/consultarprodutospareceristas", "ALERT");
                 }
             }
         }

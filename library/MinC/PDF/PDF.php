@@ -54,16 +54,16 @@ class PDF {
             $autoloader->pushAutoloader('DOMPDF_autoload', '');
 
             $dompdf = new DOMPDF();
-            
+
             //$papel = array(0,0,355.00,866.20);
-    
-    
-     		// se a vari�vel n�o for definida, seta para vertical, caso contr�rio, seta para horizontal
+
+
+     		// se a vari�vel Não for definida, seta para vertical, caso contr�rio, seta para horizontal
      		$orientacao = (empty($orientacao_papel) || $orientacao_papel == null) ? 'portrait' : 'landscape';
      		$dompdf->set_paper("letter", $orientacao);
-     
+
             $dompdf->load_html($this->entrada);
-            
+
             $dompdf->render();
             $dompdf->stream($this->nomeArquivo . '.pdf');
         } catch (Exception $e) {

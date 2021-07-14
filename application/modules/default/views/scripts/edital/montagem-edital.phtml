@@ -2,7 +2,7 @@
 <div id="alerta" class="sumir"></div>
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="index-cadastrar-edital.htm">Criar Edital - Passo 1</a></li>
         <li class=""><a href="form-informacoes-basicas.htm">Criar Edital - Passo 2</a></li>
         <li class=""><a href="form-modulos-edital.htm">Criar Edital - Passo 3</a></li>
@@ -44,7 +44,7 @@
         </table>
     </fieldset>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 <br clear="all" />
 
@@ -55,7 +55,7 @@
         $('#btsalvar').click(function() {
             $('#frmCadQuestao').submit();
         });
-        
+
         $('.expander').expander({
             slicePoint: 200,
             expandText: 'Ver mais',
@@ -69,7 +69,7 @@
                 $('#msg').show();
             }
         }).disableSelection();
-        
+
         //editor para o cadastro de anexo de edital
         CKEDITOR.replace('txtConteudoAnexo', {
             toolbar: [[
@@ -90,7 +90,7 @@
     });
 
     function excluirTexto(id) {
-    
+
         var idEdital = '<?php echo $this->idEdital; ?>';
 
         $("#alerta").dialog("destroy");
@@ -102,7 +102,7 @@
             height: 170,
             modal: true,
             buttons: {
-                'N„o': function() {
+                'N√£o': function() {
                     $(this).dialog('close');
                 },
                 'Sim': function() {
@@ -110,11 +110,11 @@
                 }
             }
         });
-        
+
         $('.ui-dialog-titlebar-close').remove();
-        
+
     }
-    
+
     function editarTexto(id) {
         var idEdital = '<?php echo $this->idEdital; ?>';
         window.location = '<?php echo $this->url(array('controller' => 'edital', 'action' => 'editar-texto-edital'), '', true); ?>/idTextoEdital/' + id + '/idEdital/' + idEdital;

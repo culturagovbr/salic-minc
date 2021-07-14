@@ -1,4 +1,4 @@
-<!-- ========== IN�CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     var votacao = window.setInterval(
@@ -141,9 +141,9 @@
         });
     });
 </script>
-<!-- in�cio: conte�do principal #container -->
+<!-- INÍCIO: CONTEÚDO principal #container -->
 <div id="menu">
-    <!-- in�cio: navega��o local #qm0 -->
+    <!-- INÍCIO: navega��o local #qm0 -->
     <?php
     $getPronac = $this->idpronac;
     ?>

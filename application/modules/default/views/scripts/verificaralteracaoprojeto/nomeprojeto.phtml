@@ -4,10 +4,10 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl(); ?>/public/css/formularioAltProjeto.css" media="screen" />
 <table class="tabela">
     <tr>
-        <td align="center" class="titulo_tabela">Solicitação de Alteração do Nome do Projeto</td>
+        <td align="center" class="titulo_tabela">SolicitaÃ§Ã£o de Alteraï¿½ï¿½o do Nome do Projeto</td>
     </tr>
     <tr align="center">
-        <th bgcolor="#ccc111">Identificação</th>
+        <th bgcolor="#ccc111">Identificaï¿½ï¿½o</th>
     </tr>
 </table>
 <table class="tabela" style="margin:5px auto; width:1000px;">
@@ -27,19 +27,19 @@
 </table>
 
 <table class="tabela">
-    <th>Informações do Projeto</th>
+    <th>Informaï¿½ï¿½es do Projeto</th>
     <tr>
         <td align="center">Objetivos do Projeto:</td>
     </tr>
     <td style="width: 100%;">
         <textarea rows="10"><?php echo $this->resultAlteracaoNomeProjeto['Objetivos']; ?></textarea>
     </td>
-</table>    
+</table>
 
 
 <table class="tabela" style="margin:5px auto;">
 
-    <th>Solicitação de Alteração do Nome do Projeto</th>
+    <th>SolicitaÃ§Ã£o de Alteraï¿½ï¿½o do Nome do Projeto</th>
     <tr>
         <td>Novo Nome do Projeto: <?php echo $this->escape($this->resultAlteracaoNomeProjeto['nmProjeto']); ?></td>
     </tr>
@@ -64,7 +64,7 @@
             ?>
         </td>
     </tr>
-</table>  
+</table>
 
 <table class="tabela" style="margin:5px auto;">
     <tr>
@@ -82,7 +82,7 @@
 
 
         <td>
-            Comentários:
+            Comentï¿½rios:
             <label for="editor1"> </label>
             <textarea cols="80" id="editor1" name="editor1" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;Digite seu texto aqui...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
             <script type="text/javascript">
@@ -113,7 +113,7 @@
 
 
             <th>
-                Comentários do Coordenador
+                Comentï¿½rios do Coordenador
             </th>
 
         </tr>
@@ -136,14 +136,14 @@
 
             </table>
 -->
-           
+
 
                 <?php
                 $disabled = '';
                 /*if ($this->StatusAvalicacaoPedidoAlteracao($this->resultConsulta[0]->idpedidoalteracao, true) != 2)
                     $disabled = "disabled='disabled'";*/
                 ?>
-                
+
                 <input <?php echo $disabled; ?> id="btParecer" name="btParecer" value="Parecer" type="button" />
                 <input <?php echo $disabled; ?> id="btDiligenciar" name="btDiligenciar" value="Diligenciar" type="button"  />
                 <input <?php echo $disabled; ?> id="btCancelar" value="Cancelar" type="button" />

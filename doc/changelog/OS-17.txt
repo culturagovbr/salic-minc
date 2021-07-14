@@ -1,5 +1,5 @@
 ---------------------------------
-#1126 - UPDATE sac.dbo.tbTipoInconsistencia SET dsTipoInconsistencia = 'Sem tipo Depósito' WHERE idTipoInconsistencia = 4;
+#1126 - UPDATE sac.dbo.tbTipoInconsistencia SET dsTipoInconsistencia = 'Sem tipo Depï¿½sito' WHERE idTipoInconsistencia = 4;
 ---------------------------------
 
 Favor mudar na SP [SAC].[dbo].[spValidarDepositoIdentificado]
@@ -23,7 +23,7 @@ Favor mudar na SP [SAC].[dbo].[spValidarDepositoIdentificado]
 
 CREATE INDEX PK_tbAssinantesPrestacao ON SAC.dbo.tbAssinantesPrestacao (idAssinantesPrestacao);
 
-# 1129 -A Chave primária da tabela SAC.dbo.tbAssinantesPrestacao deve ser auto generated e auto increment
+# 1129 -A Chave primï¿½ria da tabela SAC.dbo.tbAssinantesPrestacao deve ser auto generated e auto increment
 
 ---------------------------------
 
@@ -40,7 +40,7 @@ CREATE INDEX PK_tbAssinantesPrestacao ON SAC.dbo.tbAssinantesPrestacao (idAssina
 
 CREATE INDEX PK_tbLaudoFinal ON SAC.dbo.tbLaudoFinal (idLaudoFinal);
 
-A Chave primária da tabela SAC.dbo.tbLaudoFinal deve ser auto generated e auto increment
+A Chave primï¿½ria da tabela SAC.dbo.tbLaudoFinal deve ser auto generated e auto increment
 
 ---------------------------------
 
@@ -61,18 +61,18 @@ A Chave primária da tabela SAC.dbo.tbLaudoFinal deve ser auto generated e auto i
 
 CREATE INDEX PK__Localiza__3214EC07DEF1101B ON SAC.dbo.LocalizacaoFisica (Id);
 
-A Chave primária deve ser Auto Increment e Auto Generated
+A Chave primï¿½ria deve ser Auto Increment e Auto Generated
 
 ---------------------------------
 
-#1128 - 
-Na view sac.dbo.vwSolicitarProrrogacaoPrazoCaptacao contém a trigger  trSolicitarProrrogacaoPrazoCaptacao_Insert.
-Nesta, deletar a linha 82 que contém o seguinte código
-RAISERROR('O seu pedido de prorrogação foi recebido no MinC, aguarde a avaliação.<p>',16,1,@Erro)
+#1128 -
+Na view sac.dbo.vwSolicitarProrrogacaoPrazoCaptacao contï¿½m a trigger  trSolicitarProrrogacaoPrazoCaptacao_Insert.
+Nesta, deletar a linha 82 que contï¿½m o seguinte CÃ³digo
+RAISERROR('O seu pedido de prorrogaï¿½ï¿½o foi recebido no MinC, aguarde a avaliaï¿½ï¿½o.<p>',16,1,@Erro)
 
-Motivo: Quando o proponente vem requerir a prorrogação do prazo de captação de recursos, a aplicação lança
-um erro, porque esta linha da trigger lança um "erro" com a mensagem de sucesso, o Zend entende que este erro
-que o banco lança com a mensagem de "sucesso" é um erro. Por esse motivo a aplicação quebra.
+Motivo: Quando o proponente vem requerir a prorrogaï¿½ï¿½o do prazo de captaï¿½ï¿½o de recursos, a aplicaï¿½ï¿½o lanï¿½a
+um erro, porque esta linha da trigger lanï¿½a um "erro" com a mensagem de sucesso, o Zend entende que este erro
+que o banco lanï¿½a com a mensagem de "sucesso" ï¿½ um erro. Por esse motivo a aplicaï¿½ï¿½o quebra.
 
 ---------------------------------
 
@@ -86,19 +86,19 @@ CREATE TABLE SAC.dbo.tbCargoAssinantePrestacaoConta (
 
 SET IDENTITY_INSERT SAC.dbo.tbCargoAssinantePrestacaoConta on;
 
-INSERT INTO SAC.dbo.tbCargoAssinantePrestacaoConta (idCargoAssinantePrestacaoConta, nmCargo) values (1, 'Coordenador (a) de Incentivos Fiscais e Apoio Técnico');
-INSERT INTO SAC.dbo.tbCargoAssinantePrestacaoConta (idCargoAssinantePrestacaoConta, nmCargo) values (2, 'Coordenador (a) Geral de Prestação de Contas');
-INSERT INTO SAC.dbo.tbCargoAssinantePrestacaoConta (idCargoAssinantePrestacaoConta, nmCargo) values (3, 'Diretor (a) Executivo de Incentivo à Cultura');
-INSERT INTO SAC.dbo.tbCargoAssinantePrestacaoConta (idCargoAssinantePrestacaoConta, nmCargo) values (4, 'Secretário (a) de Fomento e Incentivo à Cultura');
+INSERT INTO SAC.dbo.tbCargoAssinantePrestacaoConta (idCargoAssinantePrestacaoConta, nmCargo) values (1, 'Coordenador (a) de Incentivos Fiscais e Apoio Tï¿½cnico');
+INSERT INTO SAC.dbo.tbCargoAssinantePrestacaoConta (idCargoAssinantePrestacaoConta, nmCargo) values (2, 'Coordenador (a) Geral de Prestaï¿½ï¿½o de Contas');
+INSERT INTO SAC.dbo.tbCargoAssinantePrestacaoConta (idCargoAssinantePrestacaoConta, nmCargo) values (3, 'Diretor (a) Executivo de Incentivo ï¿½ Cultura');
+INSERT INTO SAC.dbo.tbCargoAssinantePrestacaoConta (idCargoAssinantePrestacaoConta, nmCargo) values (4, 'Secretï¿½rio (a) de Fomento e Incentivo ï¿½ Cultura');
 
 SET IDENTITY_INSERT SAC.dbo.tbCargoAssinantePrestacaoConta off;
 
 ---------------------------------
 
-#Prestação de Contas - Laudo Final
-Funcionalidades novas para atender o encaminhamendo dos projetos de Prestação de Contas para a Publicação no DOU.
+#Prestaï¿½ï¿½o de Contas - Laudo Final
+Funcionalidades novas para atender o encaminhamendo dos projetos de Prestaï¿½ï¿½o de Contas para a Publicaï¿½ï¿½o no DOU.
 
-INSERT SAC.dbo.Situacao VALUES ( 'D42', 'Aguardando Publicação de Portaria da Prestação de Contas', 'P', 1 )
-INSERT SAC.dbo.Situacao VALUES ( 'D43', 'Aguardando Portaria da Prestação de Contas', 'P', 1 )
+INSERT SAC.dbo.Situacao VALUES ( 'D42', 'Aguardando Publicaï¿½ï¿½o de Portaria da Prestaï¿½ï¿½o de Contas', 'P', 1 )
+INSERT SAC.dbo.Situacao VALUES ( 'D43', 'Aguardando Portaria da Prestaï¿½ï¿½o de Contas', 'P', 1 )
 
 ---------------------------------

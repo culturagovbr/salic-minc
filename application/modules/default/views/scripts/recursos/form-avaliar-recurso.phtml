@@ -247,13 +247,13 @@
     }
 </style>
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta" class="sumir"></div>
 
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>"
-                             title="Ir para In�cio">In&iacute;cio</a></li>
+                             title="Ir para INÍCIO">In&iacute;cio</a></li>
         <li>
             <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos'), '', true); ?>"
                title="Avalia&ccedil;&atilde;o de Recurso">Avalia&ccedil;&atilde;o de Recurso</a></li>
@@ -263,14 +263,14 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Avalia&ccedil;&atilde;o de Recurso - <?php echo $this->nmPagina; ?> <span class="voltar"><a
                 href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos'), '', true); ?>">Voltar</a></span>
     </div>
 </div>
 
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr>
@@ -561,7 +561,7 @@
                                                         // vari�vel com o resultado
                                                         Total = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
 
-                                                        // se n�o for n�mero
+                                                        // se Não for n�mero
                                                         if (isNaN(Total)) {
                                                             Total = '';
                                                         }
@@ -592,7 +592,7 @@
                                                             itemClicado.parent().parent().find('.textJustificativa').html(Justificativa);
                                                         }
 
-                                                        //ABRE O MODAL DE CONFIRMA��O DA A��O REALIZADA
+                                                        //ABRE O MODAL DE Confirmação DA A��O REALIZADA
                                                         $("#modalItem").dialog('close');
                                                         $("#alerta").dialog("destroy");
                                                         $("#alerta").html(data.msg);
@@ -1067,7 +1067,7 @@
                                     $nrcidade = 0;
                                     $valorSolicitadoTotalEtapa = 0;
                                     $valorSugeridoTotalEtapa = 0;
-                                    
+
                                     foreach ($this->planilha[$fonte][$produto][$etapa] as $cidade => $planilha) : ?>
                                         <tr class="master produto etapa" produto="<?php echo $nrproduto; ?>"
                                             etapa="<?php echo $nretapa; ?>" fonte="<?php echo $nrfonte; ?>">

@@ -25,10 +25,10 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
                             ->from(
                                 array('e' =>'Enquadramento'),
                             array('stArtigo' => new Zend_Db_Expr(
-                                "CASE WHEN Enquadramento = 1 
-			                       THEN 'Artigo 26' 
-				                 WHEN Enquadramento = 2 
-				                   THEN 'Artigo 18' 
+                                "CASE WHEN Enquadramento = 1
+			                       THEN 'Artigo 26'
+				                 WHEN Enquadramento = 2
+				                   THEN 'Artigo 18'
                                  ELSE 'N&atilde;o enquadrado'
                                  END"
                             )),
@@ -65,7 +65,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         return $db->fetchAll($select);
     }
     /**
-    * M�todo para Verificar se o parecer � favoravel ou n�o
+    * M�todo para Verificar se o parecer � favoravel ou Não
     * @access public
     * @static
     * @param integer $idPronac
@@ -75,7 +75,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     {
         $sql = "select
                     case
-                    when sac.dbo.fnParecerFavoravel($idpronac) = 1 then 'N�o'
+                    when sac.dbo.fnParecerFavoravel($idpronac) = 1 then 'Não'
                     when sac.dbo.fnParecerFavoravel($idpronac) = 2 then 'Sim'
                     end as parecer";
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -240,8 +240,8 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 
 
     /**
-     * M�todo para recuperar os projetos em an�lise. (CONSELHEIRO)
-     * S� efetua a busca se as fontes de recursos estiverem de acordo com o C�digo 109 � Incentivo Fiscal Federal,
+     * M�todo para recuperar os projetos em Análise. (CONSELHEIRO)
+     * S� efetua a busca se as fontes de recursos estiverem de acordo com o Código 109 � Incentivo Fiscal Federal,
      * conforme Lei 8.313 de 1991.
      * @access public
      * @static
@@ -323,7 +323,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca as informa��es da an�lise do parecer consolidado
+     * M�todo que busca as informa��es da Análise do parecer consolidado
      * @access public
      * @static
      * @param integer $idPronac
@@ -359,7 +359,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 			left JOIN SAC.dbo.Enquadramento enq on enq.IdPRONAC  = PRO.IdPRONAC
             WHERE PAR.idTipoAgente = 1 and PRO.IdPRONAC=" . $idPronac;
         // busca de acordo com o pronac
-        
+
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
@@ -399,7 +399,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca as informa��es da an�lise do parecer consolidado j� somados os valores
+     * M�todo que busca as informa��es da Análise do parecer consolidado j� somados os valores
      * @access public
      * @static
      * @param integer $idPronac
@@ -445,10 +445,10 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } 
+    }
 
     /**
-     * M�todo que busca as informa��es da an�lise de conte�do
+     * M�todo que busca as informa��es da Análise de CONTEÚDO
      * @access public
      * @static
      * @param integer $idPronac
@@ -516,10 +516,10 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } 
+    }
 
     /**
-     * M�todo que busca os produtos dos projetos da an�lise de custos
+     * M�todo que busca os produtos dos projetos da Análise de custos
      * @access public
      * @static
      * @param integer $idPronac
@@ -535,7 +535,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca os produtos dos projetos da an�lise de custos
+     * M�todo que busca os produtos dos projetos da Análise de custos
      * @access public
      * @static
      * @param integer $idPronac
@@ -578,10 +578,10 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } 
+    }
 
     /**
-     * M�todo que busca as etapas dos projetos da an�lise de custos
+     * M�todo que busca as etapas dos projetos da Análise de custos
      * @access public
      * @static
      * @param integer $idPronac
@@ -626,7 +626,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca os estados dos projetos da an�lise de custos
+     * M�todo que busca os estados dos projetos da Análise de custos
      * @access public
      * @static
      * @param integer $idPronac
@@ -674,10 +674,10 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } 
+    }
 
     /**
-     * M�todo que emite parecer (grava na tabela de aprova��o)
+     * M�todo que emite parecer (grava na tabela de aprovação)
      * @access public
      * @static
      * @param array $dados
@@ -899,7 +899,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
         return $db->fetchRow($sql);
-    } 
+    }
 
     public static function localrealizacao($idpronac)
     {
@@ -958,7 +958,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
-    } 
+    }
 
     public static function deslocamento($pronac)
     {
@@ -1325,7 +1325,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
         return $db->fetchAll($sql);
-    } 
+    }
 
     /**
      * Planilha de Or�amento
@@ -1444,7 +1444,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } 
+    }
 
     /**
      * M�todo que busca os estados da planilhaOrcamento
@@ -1479,7 +1479,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } 
+    }
 
     /**
      * M�todo que busca o valor total de custo administrativo
@@ -1507,7 +1507,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca a planilha de an�lise de custos
+     * M�todo que busca a planilha de Análise de custos
      * @access public
      * @static
      * @return object
@@ -1589,5 +1589,5 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } 
+    }
 }

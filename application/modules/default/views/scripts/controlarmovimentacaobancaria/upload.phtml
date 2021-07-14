@@ -1,12 +1,12 @@
-<?php 
+<?php
 /**
- * Formulário para upload do arquivo do banco do brasil
+ * Formulï¿½rio para upload do arquivo do banco do brasil
  * @author emanuel.sampaio - Politec
  * @since 30/06/2011
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.controlarmovimentacaobancaria
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -14,7 +14,7 @@
 echo $this->partial('controlarmovimentacaobancaria/inc/menu.inc.php', $this);
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -26,15 +26,15 @@ echo $this->partial('controlarmovimentacaobancaria/inc/menu.inc.php', $this);
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 	<div>Enviar arquivo da conta movimenta&ccedil;&atilde;o</div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
@@ -42,11 +42,11 @@ echo $this->partial('controlarmovimentacaobancaria/inc/menu.inc.php', $this);
 	<script type="text/javascript">
 	<!--
 	/**
-	 * Funções que são chamadas após a página ser carregada
+	 * Funï¿½ï¿½es que sï¿½o chamadas apï¿½s a pÃ¡gina ser carregada
 	 */
 	$(document).ready(function()
 	{
-		// validações antes do envio do formulário
+		// validaï¿½ï¿½es antes do envio do formulï¿½rio
 		$('.btn_enviar').click(function()
 		{
 			if ( $('#arquivo').val() == '' )
@@ -72,9 +72,9 @@ echo $this->partial('controlarmovimentacaobancaria/inc/menu.inc.php', $this);
 
 
 
-	<!-- ========== INÍCIO FORMULÁRIO ========== -->
-	<form name="form" id="form" method="post" 
-		action="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'upload')); ?>" 
+	<!-- ========== INÃCIO FORMULï¿½RIO ========== -->
+	<form name="form" id="form" method="post"
+		action="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'upload')); ?>"
 		enctype="multipart/form-data">
 
 		<table class="tabela">
@@ -100,17 +100,17 @@ echo $this->partial('controlarmovimentacaobancaria/inc/menu.inc.php', $this);
 		</table>
 
 	</form>
-	<!-- ========== FIM FORMULÁRIO DE CONSULTA ========== -->
+	<!-- ========== FIM FORMULï¿½RIO DE CONSULTA ========== -->
 
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

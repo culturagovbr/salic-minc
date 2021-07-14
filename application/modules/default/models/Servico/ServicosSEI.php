@@ -66,7 +66,7 @@ class ServicosSEI
         #Inicio dos Dados do Procedimento
         //Procedimento
         $Procedimento = array();
-        $Procedimento['IdTipoProcedimento'] = '100000520'; #Alysson - C�digo do Tipo de Processo "Apoio Cultural: Projeto Cultural" em Produ��o;
+        $Procedimento['IdTipoProcedimento'] = '100000520'; #Alysson - Código do Tipo de Processo "Apoio Cultural: Projeto Cultural" em Produ��o;
         $Procedimento['Especificacao'] = utf8_encode('Apoio Cultural: Projeto Cultural'); //Verificar se tem que usar UTF-8 Em Produ��o
 
         //Assuntos
@@ -79,7 +79,7 @@ class ServicosSEI
         $Procedimento['Interessados'] = $arrInteressados;
 
         //Observa��es
-        #$Procedimento['Observacao'] = 'Observa��es para Teste de Inser��o de Dados';
+        #$Procedimento['Observacao'] = 'Observa��es para Teste de Inserá�o de Dados';
         $Procedimento['Observacao'] = null;
 
         //Nivel de Acesso [0-Publico, 1-Restrito, 2-Sigiloso, NULL-Nivel de acesso do tipo de projeto cadastrado no SEI]

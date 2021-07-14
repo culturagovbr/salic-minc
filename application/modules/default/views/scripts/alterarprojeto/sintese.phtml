@@ -6,19 +6,19 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright (c) 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright (c) 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">Início</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">INÃCIO</a></li>
         <li class="second"><a href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'consultarprojeto')); ?>" title="Ir para alterar projeto">Alterar projeto</a></li>
-        <li class="last">Alterar síntese do projeto</li>
+        <li class="last">Alterar sï¿½ntese do projeto</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
@@ -26,9 +26,9 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 
 <!-- ========== BUTTON VOLTAR ========== -->
 <div id="titulo">
-    <div>Alterar síntese do projeto <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+    <div>Alterar sï¿½ntese do projeto <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 <!-- ========== GRID NOME DA PROPOSTA ========== -->
@@ -38,21 +38,21 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
             // Define as regras
             rules:{
                 sinteseProjeto:{
-                    // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                    // campoNome serÃ¡ obrigatï¿½rio (required) e terï¿½ tamanho mï¿½nimo (minLength)
                     required: true
                 },
                 justificativa:{
-                    // campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
+                    // campoEmail serÃ¡ obrigatï¿½rio (required) e precisarï¿½ ser um e-mail vï¿½lido (email)
                     required: true
                 }
             },
             // Define as mensagens de erro para cada regra
             messages:{
                 sinteseProjeto:{
-                    required: "<br>Dados obrigatórios n&atilde;o informados"
+                    required: "<br>Dados obrigatï¿½rios n&atilde;o informados"
                 },
                 justificativa:{
-                    required: "<br>Dados obrigatórios n&atilde;o informados"
+                    required: "<br>Dados obrigatï¿½rios n&atilde;o informados"
                 }
             }
         });
@@ -85,7 +85,7 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 
         <table class="tabela">
             <tr>
-                <th>Síntese do Projeto<span style="color: red;">*</span></th>
+                <th>Sï¿½ntese do Projeto<span style="color: red;">*</span></th>
             </tr>
             <tr>
                 <td align="center">
@@ -158,9 +158,9 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
     </form>
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />
 <iframe name="enviar_arquivo" id="enviar_arquivo" style="height: 20px; display: none;"></iframe>

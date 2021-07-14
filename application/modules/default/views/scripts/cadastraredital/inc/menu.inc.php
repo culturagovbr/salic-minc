@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 $formapagamentoHref         =   $this->url(array('controller' => 'cadastraredital', 'action' => 'formapagamento'))."?nrFormDocumento=".$_GET['nrFormDocumento']."&nrVersaoDocumento=".$_GET['nrVersaoDocumento']."&idEdital=".$_GET['idEdital']."&idUsuario=".$_GET['idUsuario'];
@@ -17,9 +17,9 @@ $vinculareditaisHref            =   $this->url(array('controller' => 'cadastrare
 
 
 ?>
-<!-- ========== IN�CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 
-<!-- ========== IN�CIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 <!--
 function layout_fluido()
@@ -63,5 +63,5 @@ $(document).ready(function()
     </div>
     <div class="bottom"></div>
 </div>
-         
+
 <!-- ========== FIM MENU ========== -->

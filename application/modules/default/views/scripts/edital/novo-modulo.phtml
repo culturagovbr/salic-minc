@@ -2,20 +2,20 @@
 <div id="alerta" class="sumir"></div>
 <div id="breadcrumb">
     <ul>
-        <li class="first">InÌcio</li>
+        <li class="first">IN√çCIO</li>
         <li class=""><a href="edital/index">Criar Edital - Passo 1</a></li>
-        <li class="">Novo MÛdulo</li>
+        <li class="">Novo MÔøΩdulo</li>
     </ul>
 </div>
 
 <div id="titulo">
-    <div>Novo MÛdulo</div>
-</div> 
+    <div>Novo MÔøΩdulo</div>
+</div>
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <fieldset>
-        
+
         <br />
         <div id="msg" class="msgALERT sumir" style="margin: 0px 20px 0px 20px">
             <div class="float_right"><input type="button" class="btn_close" title="Fechar mensagem" id="msgALERT" onclick="$('.msgALERT').hide();" onkeypress="$('.msgALERT').hide();"/></div>
@@ -23,14 +23,14 @@
         </div>
 
         <form id="formularioModulo" action="<?php echo $this->url(array('controller' => 'edital', 'action' => 'salva-modulo')); ?>" method="post">
-            <input type="hidden" name="idEdital" value="<?php echo $this->idEdital; ?>" />    
+            <input type="hidden" name="idEdital" value="<?php echo $this->idEdital; ?>" />
             <table class="tabela">
                 <tr>
-                    <td class="destacar bold w200 esquerdo">Nome do MÛdulo <span style="color: red;">*</span></td>
+                    <td class="destacar bold w200 esquerdo">Nome do MÔøΩdulo <span style="color: red;">*</span></td>
                     <td><input maxlength="200" type="text" name="nomeModulo" id="nomeModulo" class="input_simples w300 required"></td>
                 </tr>
                 <tr>
-                    <td class="destacar bold esquerdo">Tipo de ParticipaÁ„o do Edital<span style="color: red;">*</span></td>
+                    <td class="destacar bold esquerdo">Tipo de ParticipaÔøΩÔøΩo do Edital<span style="color: red;">*</span></td>
                     <td colspan="3">
                         <?php foreach ($this->participacoes as $tpart): ?>
                         <input type="checkbox" class="tpParticipacao" id="tipoParticipacao_<?php echo $tpart['idTpParticipacao']; ?>" name="tipoParticipacaoEdital[]" value="<?php echo $tpart['idTpParticipacao']; ?>" style="vertical-align: middle"/>
@@ -44,26 +44,26 @@
                                     <?php endif;?>
                                 </select>
                             </span><br />
-                        <?php endforeach; ?> 
+                        <?php endforeach; ?>
                     </td>
                 </tr>
                 <tr>
-                    <td class="destacar bold esquerdo"> Reutilizar mÛdulo </td>
+                    <td class="destacar bold esquerdo"> Reutilizar mÔøΩdulo </td>
                     <td> <img src="<?php echo $this->baseUrl(); ?>/public/img/botaoReutilizar.png" style="cursor: pointer;"/>&nbsp;&nbsp;</th> </td>
                 </tr>
             </table>
             <div style="width: 100%; text-align: center;">
                 <input class="btn_salvar" type="submit" value="" name="salvar" id="btsalvar">
             </div>
-        </form>    
+        </form>
 
     </fieldset>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script type="text/javascript">
@@ -96,17 +96,17 @@
                 }
             });
 
-            
-            
+
+
             if((check == 1) || (tpParticipacao == 0)) {
-                $('#txtmsg').html('Verifique os campos obrigatÛrios!');
+                $('#txtmsg').html('Verifique os campos obrigatÔøΩrios!');
                 $('#msg').show();
                 enviar = 1;
             }else{
                 $('#txtmsg').html('');
                 $('#msg').hide();
             }
-            
+
             // Enviar o Form
             if ((enviar === 1)) {
                 return false;
@@ -153,7 +153,7 @@
         });
 
         $('#selectRegra').change(function(){
-            
+
             if($(this).val() == 'nascimento'){
 
                 $('#trSexo').remove();
@@ -178,7 +178,7 @@
                                                                   <option value=0> - Selecione - </option>\n\
                                                                   <option value=menor18> Menor de 18 anos </option>\n\
                                                                   <option value=maior18> Maior de 18 anos </option>\n\
-                                                              </select> </td>'));  
+                                                              </select> </td>'));
             }  else if($(this).val() == 'cidade'){
 
                 $('#selectNascimento').remove();
@@ -197,7 +197,7 @@
                                                   <select name="selectEstado" id="selectEstado">\n\
                                                           <option value = 0> - Selecione - </option>\n\
                                                   </select id="selectCidade"></td></tr>')
-                ); 
+                );
 
                 $(this).closest('table').append(
                         $('<tr id="trCidade"><td id="addCidade" class=destacar bold w150 esquerdo>Regra da Cidade <span id="spanCidade" style=color: red;>*</span></td>\n\

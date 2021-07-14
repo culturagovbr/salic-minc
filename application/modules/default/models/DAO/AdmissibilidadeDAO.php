@@ -83,7 +83,7 @@ class AdmissibilidadeDAO extends Zend_Db_Table
                  where uog_usuario = {$params->usu_cod}
                    and uog_grupo   = {$params->gru_codigo}
                    and uog_orgao   = {$params->usu_orgao}";
-        
+
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -96,6 +96,7 @@ class AdmissibilidadeDAO extends Zend_Db_Table
 
     public static function consultarRedistribuirAnalise(stdClass $params)
     {
+        set_time_limit(-1);
         $sql = "
             SELECT idProjeto,NomeProposta,stPlanoAnual,CNPJCPF,idAgente,
                 idUsuario,Tecnico,idSecretaria,
@@ -119,6 +120,7 @@ class AdmissibilidadeDAO extends Zend_Db_Table
 
     public static function consultarRedistribuirAnaliseItem(stdClass $params)
     {
+        set_time_limit(-1);
         $retorno = false;
         if ($params->fase != 'Documental') {
             $sql = "select idProjeto,
@@ -151,6 +153,7 @@ class AdmissibilidadeDAO extends Zend_Db_Table
 
     public static function consultarRedistribuirAnaliseItemSelect(stdClass $params)
     {
+        set_time_limit(-1);
         $sql = "   SELECT DISTINCT usu_codigo as usu_cod, usu_nome,org_superior
                      FROM TABELAS.dbo.vwUsuariosOrgaosGrupos
                     WHERE sis_codigo = 21 AND
@@ -170,6 +173,7 @@ class AdmissibilidadeDAO extends Zend_Db_Table
 
     public static function redistribuirAnalise(stdClass $params)
     {
+        set_time_limit(-1);
         $sql = "UPDATE SAC.dbo.tbAvaliacaoProposta
                    SET idTecnico = {$params->usu_cod}
                  WHERE idProjeto = {$params->idProjeto}

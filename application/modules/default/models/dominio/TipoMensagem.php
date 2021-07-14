@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe para o dominio da informação de tipo de Mensagens.
+ * Classe para o dominio da informaï¿½ï¿½o de tipo de Mensagens.
  *
  */
 class Dominio_TipoMensagem
@@ -9,24 +9,24 @@ class Dominio_TipoMensagem
     const DILIGENCIA = 1;
 
     const CAPTACAO = 2;
-    
+
     /**
      * Lista de tipos de mensagens.
      *
      * @var array
      */
     private static $lista = array(
-        self::DILIGENCIA => 'Diligência',
-        self::CAPTACAO => 'Capitação'
+        self::DILIGENCIA => 'Diligï¿½ncia',
+        self::CAPTACAO => 'Capitaï¿½ï¿½o'
     );
-    
+
     public static function getLista()
     {
         return self::$lista;
     }
 
     /**
-     * Busca a descrição de acordo com o número do tipo.
+     * Busca a DescriÃ§Ã£o de acordo com o nï¿½mero do tipo.
      *
      * @param integer $numero
      * @return string
@@ -37,12 +37,12 @@ class Dominio_TipoMensagem
         if ($numero) {
             $descricao = self::$lista[$numero];
         }
-        
+
         return $descricao;
     }
-    
+
     /**
-     * Classe para o dominio da informação de tipo de Mensagens.
+     * Classe para o dominio da informaï¿½ï¿½o de tipo de Mensagens.
      *
      */
     public function __construct()

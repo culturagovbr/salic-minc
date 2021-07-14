@@ -1,67 +1,67 @@
 <?php
 
 /**
- * Classe para controlar API de Serviços.
- * 
+ * Classe para controlar API de Serviï¿½os.
+ *
  * @version 1.0
  * @package application
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
- * @copyright © 2016 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2016 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  */
 abstract class Minc_Controller_AbstractRest extends Zend_Rest_Controller{
 
     /**
      * Chave secreta para criptografar e descriptografar os dados.
-     * 
+     *
      * @var string
      */
     protected $encryptHash;
 
     /**
-     * Chave pública usada por aplicativos para consumir os serviços.
-     * @todo transformar em lista quando houver várias aplicações consumindo dados.
-     * 
+     * Chave pï¿½blica usada por aplicativos para consumir os serviï¿½os.
+     * @todo transformar em lista quando houver vï¿½rias aplicaï¿½ï¿½es consumindo dados.
+     *
      * @var string
      */
     protected $publicKey;
-    
+
     /**
-     * Chave de acesso utilizada pelo usuário logado no sistema.
-     * 
+     * Chave de acesso utilizada pelo usuï¿½rio logado no sistema.
+     *
      * @var string
      */
     protected $authorization;
-    
+
     /**
-     * Código único do dispositivo conectado fornecido pelo serviço GCM.
-     * 
+     * CÃ³digo ï¿½nico do dispositivo conectado fornecido pelo serviï¿½o GCM.
+     *
      * @var string
      */
     protected $registrationId;
 
     /**
-     * Dados do usuário que está consumindo o serviço.
-     * 
-     * @var Sgcacesso 
+     * Dados do usuï¿½rio que estï¿½ consumindo o serviï¿½o.
+     *
+     * @var Sgcacesso
      */
     protected $usuario;
-    
+
     /**
-     * Métodos que podem ser acessados sem autenticação.
-     * 
+     * Mï¿½todos que podem ser acessados sem autenticaï¿½ï¿½o.
+     *
      * @var array
      */
     protected $arrPublicMethod = array();
-    
+
     public function init(){
         $this->publicKey = Zend_Registry::get('config')->resources->view->service->salicMobileHash;
         $this->encryptHash = Zend_Registry::get('config')->resources->view->service->encryptHash;
         $this->registrationId = $this->getRequest()->getHeader('registrationId');
-        
+
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
-        
+
         $this->authorization = $this->getRequest()->getHeader('Authorization');
         if(!$this->getRequest()->getHeader('ApplicationKey') || $this->publicKey != $this->getRequest()->getHeader('ApplicationKey')) {
             $this->_forward('error-forbiden');
@@ -73,10 +73,10 @@ abstract class Minc_Controller_AbstractRest extends Zend_Rest_Controller{
         }
         $this->salvarUltimoAcesso();
     }
-    
+
     /**
-     * Salva data e hora do último acesso do dispositivo.
-     * 
+     * Salva data e hora do ï¿½ltimo acesso do dispositivo.
+     *
      * @return VOID
      */
     protected function salvarUltimoAcesso() {
@@ -89,10 +89,10 @@ abstract class Minc_Controller_AbstractRest extends Zend_Rest_Controller{
             }
         }
     }
-    
+
     /**
-     * Carrega o objeto usuário com os dados do usuário que está consumindo os dados através da token.
-     * 
+     * Carrega o objeto usuï¿½rio com os dados do usuï¿½rio que estï¿½ consumindo os dados atravï¿½s da token.
+     *
      * @param integer $id
      * @return Zend_Db_Table_Rowset_Abstract
      */
@@ -101,7 +101,7 @@ abstract class Minc_Controller_AbstractRest extends Zend_Rest_Controller{
         $cpf = str_replace($this->publicKey, '', $keyCpf);
         $modelSgcAcesso = new Autenticacao_Model_Sgcacesso();
         $this->usuario = $modelSgcAcesso->fetchRow("Cpf = '{$cpf}'");
-        # Valida se o usuário é válido.
+        # Valida se o usuï¿½rio ï¿½ vï¿½lido.
         if(!$this->usuario){
             $this->_forward('error-forbiden');
         }
@@ -110,8 +110,8 @@ abstract class Minc_Controller_AbstractRest extends Zend_Rest_Controller{
     }
 
     /**
-     * Atribui código de erro a situação da resposta da requisição e informa o erro de acesso negado.
-     * 
+     * Atribui CÃ³digo de erro a situaï¿½ï¿½o da resposta da requisiï¿½ï¿½o e informa o erro de acesso negado.
+     *
      * @return JSON
      */
     protected function errorForbidenAction(){
@@ -120,10 +120,10 @@ abstract class Minc_Controller_AbstractRest extends Zend_Rest_Controller{
             ->setBody(json_encode(array('error' => '403 Forbidden', 'message' => 'Acesso negado'))
         );
     }
-    
+
     /**
-     * Responde requisição de opções de metódos suportados ao serviço.
-     * 
+     * Responde requisiï¿½ï¿½o de opï¿½ï¿½es de metï¿½dos suportados ao serviï¿½o.
+     *
      * @return JSON
      */
     public function optionsAction(){
@@ -132,11 +132,11 @@ abstract class Minc_Controller_AbstractRest extends Zend_Rest_Controller{
         $this->getResponse()->setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, HEAD, PUT');
         $this->getResponse()->setHeader('Access-Control-Allow-Headers', 'x-requested-with, Content-Type, origin, authorization, accept, client-security-token');
     }
-    
+
     public function getPublicMethod() {
         return $this->arrPublicMethod;
     }
-    
+
     public function setPublicMethod($publicMethod) {
         if (is_array($publicMethod)){
             $this->arrPublicMethod = array_merge ($this->arrPublicMethod, $publicMethod);
@@ -150,5 +150,5 @@ abstract class Minc_Controller_AbstractRest extends Zend_Rest_Controller{
     public function headAction() {
 
     }
-    
+
 }

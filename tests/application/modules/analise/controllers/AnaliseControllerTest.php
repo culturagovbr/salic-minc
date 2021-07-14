@@ -60,6 +60,7 @@ class AnaliseControllerTest extends MinC_Test_ControllerActionTestCase
 
     public function testAnaliseRedistribuiranaliseitemAction()
     {
+        set_time_limit(-1);
         $this->dispatch('/analise/analise/redistribuiranaliseitem');
         $this->assertUrl('analise', 'analise', 'redistribuiranaliseitem');
     }

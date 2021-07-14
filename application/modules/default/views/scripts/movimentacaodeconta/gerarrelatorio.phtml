@@ -1,6 +1,6 @@
 <script type="text/javascript">
     /**
-    * Função para gerar o pdf da planilha
+    * Funï¿½ï¿½o para gerar o pdf da planilha
     */
     function pdf()
     {
@@ -12,7 +12,7 @@
     {
         var campoIdInconsistencia = $("#frmRelatorio").find("input:[name='idTpInconsistencia']");
             campoIdInconsistencia.val(idInconsistencia); //atualiza valor do tipo de inconsistencia a ser buscada
-        
+
         $('.' + idInconsistencia).toggle();
 
         if ($('#' + idInconsistencia).hasClass('btn_adicionar'))
@@ -24,16 +24,16 @@
         {
                 $('#' + idInconsistencia).addClass('btn_adicionar');
                 $('#' + idInconsistencia).removeClass('btn_remover');
-        }            
+        }
         //CARREGA PROJETOS DE ACORDO COM O TIPO DE INCONSISTENCIA
         if($('#'+idInconsistencia+'_resultado').html() == ''){
             jqAjaxForm(document.getElementById("frmRelatorio"), idInconsistencia +"_resultado");
         }
     }
-    
+
     $(document).ready(function() {
-        
-        
+
+
         $(".btn_finalizar").click(function()
         {
             $("#resultadoFinalizar").html("");
@@ -46,7 +46,7 @@
                     modal : "s"
                 },
                 success: function(data)
-                {   
+                {
                     if(data.error){
                         message(data.msg, 'ERROR');
                     }else{
@@ -58,24 +58,24 @@
                     }
                 },
                 error: function(data) {
-                    message('Ocorreu um erro ao tentar realizar a operção para atualizar as inconsistências.', 'ERROR');
+                    message('Ocorreu um erro ao tentar realizar a operï¿½ï¿½o para atualizar as inconsistï¿½ncias.', 'ERROR');
                 },
                 complete: function(){
                     $("#resultadoFinalizar").html("");
                 },
                 dataType : 'json'
-                
+
             });
-             
+
         });
-        
+
     });//feach ready
-    
-        
-        
-     
+
+
+
+
 </script>
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -86,25 +86,25 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Relat&oacute;rio de inconsist&ecirc;ncias de conta capta&ccedil;&atilde;o <span class="voltar"><a href="<?php echo $this->url(array('controller'=>'movimentacaodeconta', 'action'=>'')); ?>" title="Ir para página anterior">Voltar</a></span></div>
+	<div>Relat&oacute;rio de inconsist&ecirc;ncias de conta capta&ccedil;&atilde;o <span class="voltar"><a href="<?php echo $this->url(array('controller'=>'movimentacaodeconta', 'action'=>'')); ?>" title="Ir para pÃ¡gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
-	<!-- INÍCIO GERAÇÃO .PDF -->
-	<form id="formpdf" name="formpdf" method="post" 
-		action="<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'gerarpdf'),'',true); ?>" 
+	<!-- INÃCIO GERAï¿½ï¿½O .PDF -->
+	<form id="formpdf" name="formpdf" method="post"
+		action="<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'gerarpdf'),'',true); ?>"
 		enctype="multipart/form-data">
 		<input type="hidden" name="html" value="" id="htmlpdf" />
 	</form>
-	<!-- FIM GERAÇÃO .PDF -->
+	<!-- FIM GERAï¿½ï¿½O .PDF -->
 
-	<!-- ========== INÍCIO ÁREA DE IMPRESSÃO ========== -->
+	<!-- ========== INÃCIO ï¿½REA DE IMPRESSï¿½O ========== -->
 	<div id="imprimir">
             <?php foreach ($this->inconsistencias as $chave => $inconsistencia) : ?>
                 <!-- ================================================================-->
@@ -120,8 +120,8 @@
                 <div class="<?php echo $inconsistencia->idTipoInconsistencia?> sumir" ><div id="<?php echo $inconsistencia->idTipoInconsistencia?>_resultado"></div></div>
             <?php endforeach; ?>
 	</div>
-	<!-- ========== FIM ÁREA DE IMPRESSÃO ========== -->
-        
+	<!-- ========== FIM ï¿½REA DE IMPRESSï¿½O ========== -->
+
         <!-- FORMULARIO DE PAGINACAO/ORDENACAO -->
         <form action="<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'listar-projetos')); ?>" method="post" name="frmRelatorio" id="frmRelatorio">
             <?php if(!empty($this->parametrosBusca)) foreach($this->parametrosBusca as $name=>$value):?>
@@ -161,17 +161,17 @@
         <?php if ($this->inconsistencias->count() > 0) : ?>
             <center>
                 <div id="resultadoFinalizar"></div>
-                <input type="button" class="btn_finalizar" title="Finalizar" value=" " /> 
+                <input type="button" class="btn_finalizar" title="Finalizar" value=" " />
             </center>
         <?php endif; ?>
         <br />
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

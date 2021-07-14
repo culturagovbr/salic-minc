@@ -13,7 +13,7 @@
             modal: true,
             autoOpen:false,
             buttons: {
-                'N„o': functionnao,
+                'N√£o': functionnao,
                 'Sim': functionsim
             }
         });
@@ -60,14 +60,14 @@
                         }
                         else if(($("#encaminhar").val() == 0)){
                             validar = false;
-                            var msgError = 'Dados ObrigatÛrios nao informados.'
+                            var msgError = 'Dados ObrigatÔøΩrios nao informados.'
                         }
                         if(!validar){
                             $('#error').html(msgError);
                             $('#error').dialog('open');
                         }
                         else{
-                            $('#confirm').html('Tem certeza que deseja enviar essa mensagem?');       
+                            $('#confirm').html('Tem certeza que deseja enviar essa mensagem?');
                             confirma(function(){
                                 $("#idMensagemProjeto").val(idmensagem);
                                 $("#idAgente").val(idagente);
@@ -85,12 +85,12 @@
             $("#resposta").dialog('open');
         })
     })
-    
+
 </script>
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index')); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Mensagens</li>
     </ul>
 </div>
@@ -98,15 +98,15 @@
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Mensagens</div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <div id="error"></div>
     <div id="confirm"></div>
@@ -150,12 +150,12 @@
             <tr>
                 <th>Data</th>
                 <th>Remetente</th>
-                <th>Destinat·rio</th>
+                <th>Destinat√°rio</th>
                 <th>Mensagem</th>
                 <th>Responder</th>
             </tr>
         </thead>
-        <?php 
+        <?php
         if (count($this->mensagens) > 0) { ?>
             <?php foreach ($this->mensagens as $mensagem) { ?>
                 <tr>
@@ -169,18 +169,18 @@
         <?php } else { ?>
             <tr>
                 <th colspan="5">
-                    N„o existem mensagens para esse projeto!
+                    N√£o existem mensagens para esse projeto!
                 </th>
             </tr>
         <?php } ?>
     </table>
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

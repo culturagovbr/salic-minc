@@ -20,7 +20,7 @@ $IncluirAvaliacao                 = $this->url(array('module' => 'admissibilidad
 </style>
 <script type="text/javascript">
     /*
-     * Fun&ccedil;&atilde;o respons�vel pela exibi&ccedil;&atilde;o ou ocultamento de conte�do,
+     * Fun&ccedil;&atilde;o respons�vel pela exibi&ccedil;&atilde;o ou ocultamento de CONTEÚDO,
      * mudando a imagem.
      **/
     $(document).ready(function(){
@@ -255,12 +255,12 @@ $IncluirAvaliacao                 = $this->url(array('module' => 'admissibilidad
                                             <tr>
                                                 <td></td>
                                                 <td>
-                                                    <table class='tabela'>           
+                                                    <table class='tabela'>
                                                         <tr class="destacar">
                                                             <td class="centro" colspan="4">Mandatos</td>
                                                         </tr>
                                                         <?php if(count($this->mandatos[$tbdirigentes->NomeDirigente]) > 0):
-                                                                foreach ($this->mandatos[$tbdirigentes->NomeDirigente] as $mandato): ?>  
+                                                                foreach ($this->mandatos[$tbdirigentes->NomeDirigente] as $mandato): ?>
                                                                     <tr>
                                                                         <td>
                                                                             <b>Tipo de documento</b><br>
@@ -296,7 +296,7 @@ $IncluirAvaliacao                 = $this->url(array('module' => 'admissibilidad
                                     </tr>
                             <?php } ?>
                         </table>
-                    </fieldset> 
+                    </fieldset>
                 <?php if(is_array($this->itensGeral) and !empty($this->itensGeral[0]->nomeUsuario)){ ?>
                 <fieldset>
                     <legend>Usu&aacute;rio SalicWEB</legend>
@@ -412,7 +412,7 @@ $IncluirAvaliacao                 = $this->url(array('module' => 'admissibilidad
                             <td align="left"><b>Pais</b></td>
                             <td align="left"><b>UF</b></td>
                             <td align="left"><b>Cidade</b></td>
-                            <!--<td align="center"><b>Dt. In�cio Execu&ccedil;&atilde;o</b></td>
+                            <!--<td align="center"><b>Dt. INÍCIO Execu&ccedil;&atilde;o</b></td>
                             <td align="center"><b>Dt. Final Execu&ccedil;&atilde;o</b></td>-->
                         </tr>
                             <?php

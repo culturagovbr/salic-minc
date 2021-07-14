@@ -34,7 +34,7 @@
         $("#cxInicioDesarquivar").val(cxInicio);
         $("#cxFinalDesarquivar").val(cxFinal);
 
-        document.getElementById("modalJustificativa").title = "Justificativa para solicitação de desarquivamento";
+        document.getElementById("modalJustificativa").title = "Justificativa para SolicitaÃ§Ã£o de desarquivamento";
 
         // modal com os ddos do dirigente
         $("#modalJustificativa").dialog("destroy");
@@ -53,7 +53,7 @@
     }
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -64,7 +64,7 @@
 <!-- ========== FIM BRADCRUMB (LINKS TOPO) ========== -->
 
 
-<div id="confirm1" title="Confirma&ccedil;&atilde;o" style="display: none">Dados obrigatórios não informados!</div>
+<div id="confirm1" title="Confirma&ccedil;&atilde;o" style="display: none">Dados obrigatï¿½rios NÃ£o informados!</div>
 <div class="sumir" id="modalJustificativa" title="Justificativa de Recusa do Projeto" >
     <form name="formencaminhar" id="" method="post">
         <table class="tabela">
@@ -78,7 +78,7 @@
             </tr>
        	</table>
 
-       	* Por favor informe uma justificativa para a solicitação de desarquivamento:
+       	* Por favor informe uma justificativa para a SolicitaÃ§Ã£o de desarquivamento:
        	<br />	<br><label for="justificativa">Justificativa</label><br>
 
        	<textarea name="justificativa" id="justificativa" rows="6" cols="50" style="width:100%;" onclick="limpar_campo(this, 'Digite a justificativa...');" onkeypress=" "
@@ -102,19 +102,19 @@
 </div>
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Projetos arquivados <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 <div id="conteudo" align="center">
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINAÃ‡Ã‚O ============ -->
     <?php if ($this->qtdDocs > 30) {
     echo $this->Arquivados;
 } ?>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
     <table class="tabela">
         <tr>
             <th width="5%">Pronac</th>
@@ -141,17 +141,17 @@
         </tr>
     <?php } ?>
     </table>
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINAÃ‡Ã‚O ============ -->
 <?php if ($this->qtdDocs > 30) {
     echo $this->Arquivados;
 } ?>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

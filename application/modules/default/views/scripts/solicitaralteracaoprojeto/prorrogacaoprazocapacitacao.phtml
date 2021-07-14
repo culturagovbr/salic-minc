@@ -1,30 +1,30 @@
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
-        <li class="last">ComprovaÁ„o de ExecuÁ„o FÌsica do Projeto</li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
+        <li class="last">ComprovaÔøΩÔøΩo de ExecuÔøΩÔøΩo FÔøΩsica do Projeto</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>ComprovaÁ„o de ExecuÁ„o FÌsica do Projeto <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+    <div>ComprovaÔøΩÔøΩo de ExecuÔøΩÔøΩo FÔøΩsica do Projeto <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
             <tr>
             	<td align="center" class="titulo_tabela">Projeto Cultural</td>
             </tr>
             <tr align="center">
-            	<th>AlteraÁ„o de Projeto</th>
+            	<th>AlteraÔøΩÔøΩo de Projeto</th>
             </tr>
             <tr>
             	<td >&nbsp;</td>
@@ -32,7 +32,7 @@
 </table>
  <table class="tabela" style="margin:5px auto; ">
             <tr>
-                <td bgcolor="#cccccc" colspan="3">IdentificaÁ„o</td>                
+                <td bgcolor="#cccccc" colspan="3">IdentificaÔøΩÔøΩo</td>
             </tr>
             <?php foreach ($this->resposta as $resposta) {?>
             <tr>
@@ -43,12 +43,12 @@
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
-                     
+
            <tr>
                 <td><strong>CNPJ / CPF:</strong> <br>
-                <?php 
-                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3); 
-                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"]; 
+                <?php
+                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3);
+                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"];
                 ?>
                 </td>
                 <td><strong>Proponente:</strong> <br><?php echo $this->escape($resposta->Nome); ?></td>
@@ -60,35 +60,35 @@
 	            	<td></td>
 	            </tr>
 	            <tr>
-	            	<td bgcolor="#cccccc" colspan="2"> 
-	            	<?php foreach ($this->resposta as $resposta) {?>		            
-	            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/prorrogacaoprazocapacitacao/pron/<?php echo $this->escape($resposta->idPronac); ?>/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">+</a> ProrrogaÁ„o de Prazo - CaptaÁ„o</td>
+	            	<td bgcolor="#cccccc" colspan="2">
+	            	<?php foreach ($this->resposta as $resposta) {?>
+	            	<a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/prorrogacaoprazocapacitacao/pron/<?php echo $this->escape($resposta->idPronac); ?>/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">+</a> ProrrogaÔøΩÔøΩo de Prazo - CaptaÔøΩÔøΩo</td>
 	            	<?php } ?>
-	            </tr>		            
+	            </tr>
 </table>
 <form action="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/alterarprorrogacaoprazocapacitacao" method="post" enctype="multipart/form-data">
  <table class="tabela" style="margin:5px auto; ">
-	            
+
 	            <tr>
 	            	<td>
-	            		<label for="data_1">*Data InÌcio: </label><input type="text" name="dtInicio" size="10" maxlength="10" id="data_1" onkeyup="mascara(this, format_data);" 
-	            		
+	            		<label for="data_1">*Data IN√çCIO: </label><input type="text" name="dtInicio" size="10" maxlength="10" id="data_1" onkeyup="mascara(this, format_data);"
+
 	            			            	onmouseup=" "
 					onclick="limpar_campo(this, ' ');" onkeypress=" "
 					onblur="restaurar_campo(this, ' ');" onmouseout=" "
-					value=" " 
-	            		
+					value=" "
+
 	            		readonly="readonly" />
-	            		<img src="<?php echo $this->baseUrl(); ?>/public/img/calendar.jpg" id="data_1_1" alt="Calend·rio"/>
-	            	     &nbsp;&nbsp;&nbsp;<label for="data_2"> *Data Fim: </label><input type="text" name="dtFim" size="10" maxlength="10" id="data_2" onkeyup="mascara(this, format_data);" 
-	            	     
+	            		<img src="<?php echo $this->baseUrl(); ?>/public/img/calendar.jpg" id="data_1_1" alt="CalendÔøΩrio"/>
+	            	     &nbsp;&nbsp;&nbsp;<label for="data_2"> *Data Fim: </label><input type="text" name="dtFim" size="10" maxlength="10" id="data_2" onkeyup="mascara(this, format_data);"
+
 	            	     	            	onmouseup=" "
 					onclick="limpar_campo(this, ' ');" onkeypress=" "
 					onblur="restaurar_campo(this, ' ');" onmouseout=" "
-					value=" " 
-	            	     
+					value=" "
+
 	            	     readonly="readonly"/>
-	            	     <img src="<?php echo $this->baseUrl(); ?>/public/img/calendar.jpg" id="data_2_2"  alt="Calend·rio" />
+	            	     <img src="<?php echo $this->baseUrl(); ?>/public/img/calendar.jpg" id="data_2_2"  alt="CalendÔøΩrio" />
 	            	 </td>
 	            </tr>
 	            <tr>
@@ -96,13 +96,13 @@
 	            </tr>
 	            <tr>
 	            	<td >
-	            	
+
 	            		<label for="justificativa">Justificativa</label><br />
 	                   <textarea name="justificativa" id="justificativa" cols="70"  rows="10" maxlength="600"
 	                   	onclick="limpar_campo(this, ' ');" onkeypress=" "
 					onblur="restaurar_campo(this, ' ');" onmouseout=" "
 					value=" "
-	                   
+
 	                   ></textarea></td>
 	            </tr>
 	            <tr>
@@ -117,45 +117,45 @@
 	            </tr>
 	            <tr>
 	            	<?php foreach ($this->resposta as $resposta) {?>
-	            	<td bgcolor="#cccccc" colspan="2"><a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/prorrogacaoprazoexecucao/pron/<?php echo $this->escape($resposta->idPronac); ?>/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">+</a>ProrrogaÁ„o de Prazo - ExecuÁ„o</td>
+	            	<td bgcolor="#cccccc" colspan="2"><a href="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/prorrogacaoprazoexecucao/pron/<?php echo $this->escape($resposta->idPronac); ?>/prop/<?php echo $this->escape($resposta->CgcCpf); ?>">+</a>ProrrogaÔøΩÔøΩo de Prazo - ExecuÔøΩÔøΩo</td>
 	            	<?php } ?>
-	            </tr>		
+	            </tr>
 	            <tr>
 	            	<td>&nbsp;</td>
 	            </tr>
 	            <tr>
-	            	<td ><label for="dtInicio">*Data InÌcio: </label><input type="text" name="dtInicio" id="dtInicio" size="10" maxlength="10" onkeyup="mascara(this, format_data);" 
-	            	
+	            	<td ><label for="dtInicio">*Data IN√çCIO: </label><input type="text" name="dtInicio" id="dtInicio" size="10" maxlength="10" onkeyup="mascara(this, format_data);"
+
 	            	onmouseup=" "
 					onclick="limpar_campo(this, ' ');" onkeypress=" "
 					onblur="restaurar_campo(this, ' ');" onmouseout=" "
-					value=" " 
-	            	
+					value=" "
+
 	            	disabled="disabled"/>
-	  
-	            	
-	            	
-	            	     &nbsp;&nbsp;&nbsp;<label for="dtFim">*Data Fim: </label><input type="text" name="dtFim" id="dtFim" size="10" maxlength="10" onkeyup="mascara(this, format_data);" 
-	            	     
-	            	     	            	
+
+
+
+	            	     &nbsp;&nbsp;&nbsp;<label for="dtFim">*Data Fim: </label><input type="text" name="dtFim" id="dtFim" size="10" maxlength="10" onkeyup="mascara(this, format_data);"
+
+
 	            	onmouseup=" "
 					onclick="limpar_campo(this, ' ');" onkeypress=" "
 					onblur="restaurar_campo(this, ' ');" onmouseout=" "
-					value=" " 
-	            	     
+					value=" "
+
 	            	     disabled="disabled"/></td>
 	            </tr>
 	            <tr>
 	            	<td>&nbsp;</td>
 	            </tr>
 	            <tr>
-	            	<td ><label for="justificativa">*Informe a Justificativa da execuÁ„o fÌsica do projeto (metas fÌsicas REALIZADAS e A REALIZAR do projeto)</label><br />
-	            	<textarea name="justificativa" id="justificativa" cols="70"  rows="10" maxlength="600" 
-	            	
+	            	<td ><label for="justificativa">*Informe a Justificativa da execuÔøΩÔøΩo fÔøΩsica do projeto (metas fÔøΩsicas REALIZADAS e A REALIZAR do projeto)</label><br />
+	            	<textarea name="justificativa" id="justificativa" cols="70"  rows="10" maxlength="600"
+
 	            		onclick="limpar_campo(this, ' ');" onkeypress=" "
 					onblur="restaurar_campo(this, ' ');" onmouseout=" "
 					value=" "
-	            	
+
 	            	disabled="disabled"></textarea></td>
 	            </tr>
 	            <tr>
@@ -173,12 +173,12 @@
 </form>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

@@ -28,9 +28,9 @@ if (isset($this->idPronac)) {
         });
     </script>
 
-    <!-- inï¿½cio: conteï¿½do principal #container -->
+    <!-- INÃCIO: CONTEÃšDO principal #container -->
     <div id="container">
-        <!-- inï¿½cio: navegaï¿½?o local #qm0 -->
+        <!-- INÃCIO: navegaï¿½?o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido(){
                 var janela = $(window).width();
@@ -86,7 +86,7 @@ if (isset($this->idPronac)) {
                 <a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico/comprovantes-de-execucao?idpronac=<?php echo $this->idPronac; ?>&relatorio=<?php echo $this->idRelatorio; ?>" title="Comprovantes de Execu&ccedil;&atilde;o" class="no_seta">Comprovantes de Execu&ccedil;&atilde;o</a>
 
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Execução" class="ancoraPrestacaoContas" onclick="return false;">Presta&ccedil;&atilde;o de Contas</a>
+                <a href="#" title="Execuï¿½ï¿½o" class="ancoraPrestacaoContas" onclick="return false;">Presta&ccedil;&atilde;o de Contas</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'execucao-receita-despesa', 'idPronac'=>$this->idPronac)); ?><?php echo $codPronac;?>','conteudo'); return false"  title="Ir para Execu&ccedil;&atilde;o da receita e despesa">Execu&ccedil;&atilde;o da receita e despesa</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-relacao-pagamentos', 'idPronac'=>$this->idPronac)); ?><?php echo $codPronac;?>','conteudo'); return false"  title="Ir para Rela&ccedil;&atilde;o de Pagamentos">Rela&ccedil;&atilde;o de pagamentos</a>
@@ -99,7 +99,7 @@ if (isset($this->idPronac)) {
                 </div>
                 <div class="sanfonaDiv" style="display:none;"></div>
 
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria', 'idPronac'=>$this->idPronac)).'?idPronac='.$this->idPronac.'&relatorio='.$this->idRelatorio; ?>" title="Ir para Execução Financeira Comprovada">Execução Financeira Comprovada</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria', 'idPronac'=>$this->idPronac)).'?idPronac='.$this->idPronac.'&relatorio='.$this->idRelatorio; ?>" title="Ir para Execuï¿½ï¿½o Financeira Comprovada">Execuï¿½ï¿½o Financeira Comprovada</a>
 
 
 

@@ -7,8 +7,8 @@ Vue.component('salic-proposta-diff', {
             <div v-else-if="Object.keys(dadosAtuais).length > 2">
                 <div class="card padding20">
                     <div class="nao-existe-versao-proposta">
-                        <h4><i class="material-icons small left">report</i>Não existe versionamento de alterações para o projeto informado...</h4>
-                        <p style="margin-left: 44px">O proponente não fez alterações no projeto no prazo estabelecido.</p>
+                        <h4><i class="material-icons small left">report</i>NÃ£o existe versionamento de alteraï¿½ï¿½es para o projeto informado...</h4>
+                        <p style="margin-left: 44px">O proponente NÃ£o fez alteraï¿½ï¿½es no projeto no prazo estabelecido.</p>
                     </div>
                 </div>
                 <salic-proposta :idpreprojeto="idpreprojeto" :proposta="dadosAtuais"></salic-proposta>
@@ -99,7 +99,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.FichaTecnica, dadosHistorico.FichaTecnica)}" i>
                         <i class="material-icons">subject</i>Ficha t&eacute;cnica
                     </div>
@@ -119,7 +119,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.ResumoDoProjeto, dadosHistorico.ResumoDoProjeto)}">
                         <i class="material-icons">subject</i>Resumo
                     </div>
@@ -139,7 +139,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.Objetivos, dadosHistorico.Objetivos)}">
                         <i class="material-icons">subject</i>Objetivos
                     </div>
@@ -159,7 +159,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.EtapaDeTrabalho, dadosHistorico.EtapaDeTrabalho)}">
                         <i class="material-icons">subject</i>Etapa de Trabalho
                     </div>
@@ -179,7 +179,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.Acessibilidade, dadosHistorico.Acessibilidade)}">
                         <i class="material-icons">subject</i>Acessibilidade
                     </div>
@@ -199,7 +199,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.EspecificacaoTecnica, dadosHistorico.EspecificacaoTecnica)}">
                         <i class="material-icons">subject</i>Especifica&ccedil;&otilde;es t&eacute;cnicas do produto
                     </div>
@@ -219,7 +219,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.Sinopse, dadosHistorico.Sinopse)}">
                         <i class="material-icons">subject</i>Sinopse de Obra
                     </div>
@@ -239,7 +239,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.DemocratizacaoDeAcesso, dadosHistorico.DemocratizacaoDeAcesso)}">
                         <i class="material-icons">subject</i>Democratiza&ccedil;&atilde;o de Acesso
                     </div>
@@ -259,7 +259,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.Justificativa, dadosHistorico.Justificativa)}">
                         <i class="material-icons">subject</i>Justificativa
                     </div>
@@ -279,7 +279,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                  <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.DescricaoAtividade, dadosHistorico.DescricaoAtividade)}">
                         <i class="material-icons">subject</i>Descri&ccedil;&atilde;o de Atividades
                     </div>
@@ -299,7 +299,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.abrangencia, dadosHistorico.abrangencia)}">
                         <i class="material-icons">place</i>Local de realiza&ccedil;&atilde;o/Deslocamento
                     </div>
@@ -317,7 +317,7 @@ Vue.component('salic-proposta-alteracoes', {
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header" 
+                    <div class="collapsible-header"
                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.documentos_proposta, dadosHistorico.documentos_proposta)}">
                         <i class="material-icons">attachment</i>Documentos anexados
                     </div>

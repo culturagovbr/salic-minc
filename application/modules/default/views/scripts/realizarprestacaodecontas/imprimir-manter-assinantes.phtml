@@ -95,14 +95,14 @@
     }
 </style>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div class="paginaA4">
 
     <div align="center">
-        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério da Cidadania"/>
-        <br clear="all" /><span class="TituloMinC">Ministério da Cidadania</span>
+        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministï¿½rio da Cidadania"/>
+        <br clear="all" /><span class="TituloMinC">Ministï¿½rio da Cidadania</span>
         <br clear="all" /><span class="TituloDoDocumento">Manter Assinantes</span>
-        <br clear="all" /><span class="DataDoDocumento">Data da impressão: <?php echo date('d/m/Y - H:i:s'); ?></span>
+        <br clear="all" /><span class="DataDoDocumento">Data da impressï¿½o: <?php echo date('d/m/Y - H:i:s'); ?></span>
         <br clear="all" /><br clear="all" /><span class="QntdRegistros"><?php echo count($this->dados).' registros listados'; ?></span>
     </div>
 
@@ -114,7 +114,7 @@
                 <th>Nome do Assinante</th>
                 <th>Tipo do Cargo</th>
                 <th>Dt. Cadastro</th>
-                <th>Situação</th>
+                <th>Situaï¿½ï¿½o</th>
             </tr>
         </thead>
         <tbody>
@@ -126,16 +126,16 @@
                     <?php
                         switch ($d->tpCargo) {
                             case '1':
-                                echo 'Coordenador (a) de Incentivos Fiscais e Apoio Técnico';
+                                echo 'Coordenador (a) de Incentivos Fiscais e Apoio Tï¿½cnico';
                                 break;
                             case '2':
-                                echo 'Coordenador (a) Geral de Prestação de Contas';
+                                echo 'Coordenador (a) Geral de Prestaï¿½ï¿½o de Contas';
                                 break;
                             case '3':
-                                echo 'Diretor (a) Executivo de Incentivo à Cultura';
+                                echo 'Diretor (a) Executivo de Incentivo ï¿½ Cultura';
                                 break;
                             case '4':
-                                echo 'Secretário (a) de Fomento e Incentivo à Cultura';
+                                echo 'Secretï¿½rio (a) de Fomento e Incentivo ï¿½ Cultura';
                                 break;
                             default:
                                 echo ' - ';

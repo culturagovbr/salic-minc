@@ -1,14 +1,14 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
     <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
     ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
 } ?>Tem certeza que deseja Enviar e Finalizar?</div>
-    <div style="display:none" id="validarPlan">Antes de enviar a solicitação é necessário cadastrar os Itens de Custos para os Produtos sem planilha orçamentária!</div>
-    <div style="display:none" id="dialog-alerta">Solicitação realizada com sucesso!</div>
-    <div style="display:none" id="dialog-em-analise">Há pedido de readequação em análise. Favor aguardar.</div>
+    <div style="display:none" id="validarPlan">Antes de enviar a SolicitaÃ§Ã£o ï¿½ necessï¿½rio cadastrar os Itens de Custos para os Produtos sem planilha orï¿½amentï¿½ria!</div>
+    <div style="display:none" id="dialog-alerta">SolicitaÃ§Ã£o realizada com sucesso!</div>
+    <div style="display:none" id="dialog-em-analise">Hï¿½ pedido de readequaï¿½ï¿½o em AnÃ¡lise. Favor aguardar.</div>
 
-    <!-- início: conteúdo principal #container -->
+    <!-- INÃCIO: CONTEÃšDO principal #container -->
     <div id="container">
 
         <script type="text/javascript">
@@ -29,7 +29,7 @@
                 $("#rodapeConteudo").css("margin-left", "225px");
                 $(".sanfonaDiv").css("clear", "both");
                 $(".sanfonaDiv").css("width", "91%");
-            } // fecha função layout_fluido()
+            } // fecha funï¿½ï¿½o layout_fluido()
 
             $(document).ready(function()
             {
@@ -81,7 +81,7 @@
         <?php
         } ?>
 
-        <?php if ($menu == "Com Menu" || $menu == "Botão") {
+        <?php if ($menu == "Com Menu" || $menu == "Botï¿½o") {
             ?>
             <div id="menuContexto">
                 <div class="top"></div>
@@ -91,12 +91,12 @@
                     <a href="#" id="botaoProjetosConfigura" title="Projetos" class="abrir_fechar4">Projetos</a>
                     <div class="sanfonaDiv" style="width: 90%;">
                         <a href='#' id='abrir_fechar'>Produtos</a>
-                        <a href='#' class='abrir_fechar5'>Ficha Técnica</a>
-                        <a href='#' class='abrir_fechar6'>Local de Realização</a>
+                        <a href='#' class='abrir_fechar5'>Ficha TÃ©cnica</a>
+                        <a href='#' class='abrir_fechar6'>Local de Realizaï¿½ï¿½o</a>
                         <a href='#' class='abrir_fechar7'>Nome do Projeto</a>
-                        <a href='#' class='abrir_fechar8'>Prorrogar Prazos de Execução</a>
-                        <a href='#' class='abrir_fechar9'>Prorrogar Prazos de Captação</a>
-                        <a href='#' id='abrir_fechar2'>Proposta Pedagógica</a>
+                        <a href='#' class='abrir_fechar8'>Prorrogar Prazos de Execuï¿½ï¿½o</a>
+                        <a href='#' class='abrir_fechar9'>Prorrogar Prazos de Captaï¿½ï¿½o</a>
+                        <a href='#' id='abrir_fechar2'>Proposta Pedagï¿½gica</a>
                     </div>
                     <?php if (count($this->buscaPlanilhaCusto) > 0) {
                 ?>
@@ -107,13 +107,13 @@
                 <div class="sanfonaDiv"></div>
                 <div class="bottom"></div>
 
-                <?php if ($menu == "Botão") {
+                <?php if ($menu == "Botï¿½o") {
                 ?>
                     <div style='background:#f8f8f8; padding-top: 3.5em;'>
                         <ul id='menuGerenciar' style="border:0; width:auto;">
                             <li style="text-align: center;">
                                 <form name="Produto" action="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'incluirproduto')); ?>" method="post" style="text-align:center; margin:auto; width:auto; padding-left:3em;">
-                                    <!--<input type="button" id="menuFinal" value="Enviar Solicitação" class="btn" />-->
+                                    <!--<input type="button" id="menuFinal" value="Enviar SolicitaÃ§Ã£o" class="btn" />-->
                                     <input type="button" id="menuFinal" class="btn_enviar_solicitacao" />
                                     <input type="hidden" name="idpronac " value="<?php echo $idPronac; ?>" />
                                 </form>
@@ -133,7 +133,7 @@
         } ?>
 
 
-        <?php /* if($menu=="Botão"){ ?>
+        <?php /* if($menu=="Botï¿½o"){ ?>
           <div id="menuContexto">
           <div class="top"></div>
           <div id="qm0" class="qmmc sanfona">
@@ -150,7 +150,7 @@
           <ul id='menuGerenciar' style="border:0; width:auto;">
           <li style="text-align: center;">
           <form name="Produto" action="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto','action' => 'incluirproduto')); ?>" method="post" style="text-align:center; margin:auto; width:auto; padding-left:3em;">
-          <input type="button" id="menuFinal" value="Enviar Solicitação" class="btn" />
+          <input type="button" id="menuFinal" value="Enviar SolicitaÃ§Ã£o" class="btn" />
           <input type="hidden" name="idpronac " value="<?php echo $idPronac; ?>" />
           </form>
           </li>
@@ -186,11 +186,11 @@
 
 
         $("#menuFinal").click(function(){
-            var idpronac = <?php echo $_GET['idpronac']; ?>;   
+            var idpronac = <?php echo $_GET['idpronac']; ?>;
             var idPedidoAlteracao = <?php echo $this->buscastatus['idPedidoAlteracao']; ?>;
-                                            
+
             var caminho = "<?php echo $this->url(array('controller' => 'solicitaralteracao', 'action' => 'validar-percentual')); ?>";
-                                            
+
             $.ajax({ //funcao jquery para enviar os formularios via ajax
                 type: "POST",
                 url: caminho,
@@ -203,7 +203,7 @@
                 success: function(data)
                 {
                     if (data.error) {
-                        $('#novas_mensagens').append('<div id="validar-pct">'+data.descricao+'<div>');                               
+                        $('#novas_mensagens').append('<div id="validar-pct">'+data.descricao+'<div>');
                         $('#validar-pct').dialog("destroy");
                         $('#validar-pct').dialog
                         ({
@@ -272,7 +272,7 @@
                                 closeOnEscape: true,
                                 autoOpen:true,
                                 buttons: {
-                                    'Não': function()
+                                    'NÃ£o': function()
                                     {
                                         $(this).dialog('close');
                                         var idpronac = <?php echo $idPronac; ?>;
@@ -314,7 +314,7 @@
                                             },
                                             success: function(data)
                                             {
-                                
+
                                                 $("#dialog-alerta").dialog({
                                                     title:'Alerta',
                                                     resizable: false,
@@ -329,7 +329,7 @@
                                                 });
                                                 $('.ui-dialog-titlebar-close').remove();
                                             }
-                           
+
                                         });
 
                                     }
@@ -338,11 +338,11 @@
                             $('.ui-dialog-titlebar-close').remove();
 
                         }
-                    
+
                     }
                 }
             });
-            
+
         });
 
 
@@ -351,5 +351,5 @@
 
 </script>
 
-<!-- final: navegação local #qm0 -->
+<!-- final: navegaï¿½ï¿½o local #qm0 -->
 <!-- ========== FIM MENU ========== -->

@@ -54,14 +54,14 @@
     });
 </script>
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Dados do Projeto</div>
 </div>
 
 
 <div id="conteudo" align="center">
-    
+
     <table class="tabela">
         <tr>
             <th colspan="5">Identifica&ccedil;&atilde;o</th>
@@ -114,46 +114,46 @@
             <td><?php echo $this->formatarReal($this->dados->ValorProposta); ?></td>
             <td colspan="2"><?php echo $this->formatarReal($this->dados->ValorAprovado); ?></td>
         </tr>
-        
+
         <th colspan="5">S&iacute;ntese do Projeto</th>
         <tr>
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->ResumoProjeto; ?></td>
         </tr>
-        
+
         <th colspan="5">Objetivos</th>
         <tr>
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->Objetivos; ?></td>
         </tr>
-        
+
         <th colspan="5">Justificativa</th>
         <tr>
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->Justificativa; ?></td>
         </tr>
-        
+
         <th colspan="5">Acessibilidade</th>
         <tr>
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->Acessibilidade; ?></td>
         </tr>
-        
+
         <th colspan="5">Democratiza��o de Acesso</th>
         <tr>
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->DemocratizacaoDeAcesso; ?></td>
         </tr>
-        
+
         <th colspan="5">Etapa de Trabalho</th>
         <tr>
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->EtapaDeTrabalho; ?></td>
         </tr>
-        
-        <th colspan="5">Ficha T�cnica</th>
+
+        <th colspan="5">Ficha Técnica</th>
         <tr>
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->FichaTecnica; ?></td>
         </tr>
-        
+
         <th colspan="5">Planilha Or�ament�ria</th>
         <tr>
             <td colspan="5">
-                
+
                 <table class="tabela">
                     <?php
                     $nrfonte = 0;
@@ -287,7 +287,7 @@
                                         </table>
                                     </td>
                                 </tr>
-                               <?php 
+                               <?php
                                 $nretapa++;
                             } //fechaForeachetapa
                             ?>
@@ -304,7 +304,7 @@
                                     </table>
                                 </td>
                             </tr>
-                            <?php $nrproduto++; 
+                            <?php $nrproduto++;
                         } //fechaForeachproduto
                         ?>
                         <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
@@ -343,15 +343,15 @@
                     </tr>
                     <?php endif; ?>
                 </table>
-                
+
             </td>
         </tr>
     </table>
-        
+
 </div>
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />

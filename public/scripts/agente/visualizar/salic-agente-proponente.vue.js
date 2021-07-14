@@ -192,10 +192,10 @@ Vue.component('salic-agente-proponente', {
             }
         },
         label_tipo_pessoa: function (tipo) {
-            let string = 'Pessoa Física';
+            let string = 'Pessoa Fï¿½sica';
 
             if (tipo == '1')
-                string = 'Pessoa Jurídica';
+                string = 'Pessoa Jurï¿½dica';
 
             return string;
         },
@@ -203,7 +203,7 @@ Vue.component('salic-agente-proponente', {
             if (valor == 1)
                 return 'Sim';
             else
-                return 'Não';
+                return 'NÃ£o';
         }
     }
 });

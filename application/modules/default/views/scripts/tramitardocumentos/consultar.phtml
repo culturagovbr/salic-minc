@@ -2,12 +2,12 @@
     $(document).ready(function() {
         $('.dataPicker').datepicker({
             dateFormat: 'dd/mm/yy',
-            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+            dayNames: ['Domingo','Segunda','Terï¿½a','Quarta','Quinta','Sexta','Sï¿½bado','Domingo'],
             dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom' ],
-            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sï¿½b','Dom' ],
+            monthNames: ['Janeiro','Fevereiro','Marï¿½o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
             monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-            nextText: 'Próximo',
+            nextText: 'Prï¿½ximo',
             prevText: 'Anterior'
         });
 
@@ -41,7 +41,7 @@
 
 
         //********************
-        //SE O USUÁRIO OPTAR POR FILTRAR PELO CAMPO DE PRONAC, O MESMO DESABILITA A OBRIGATORIEDADE DO CAMPO ESTADO.
+        //SE O USUï¿½RIO OPTAR POR FILTRAR PELO CAMPO DE PRONAC, O MESMO DESABILITA A OBRIGATORIEDADE DO CAMPO ESTADO.
         $('#pronac').keyup(function(){
             var campo = $(this);
             if(campo.val().length > 0){
@@ -63,7 +63,7 @@
             }
         });
         //FIM ****************
-        
+
         $('#cod_ect').keyup(function(){
             var campo = $(this);
             if(campo.val().length > 0){
@@ -107,7 +107,7 @@
             $('.obrigatorio').each(function(){
                 if($.trim($(this).val()) == ''){
                     valida = false;
-                    texto = 'Favor preencher os campos obrigatórios!';
+                    texto = 'Favor preencher os campos obrigatï¿½rios!';
                 }
             });
 
@@ -167,7 +167,7 @@
 
 <?php echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -178,14 +178,14 @@
 <!-- ========== FIM BRADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Consultar documentos<span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <div id="error" class="sumir"></div>
     <form action="<?php echo $this->url(array('controller' => 'tramitardocumentos', 'action' => 'consultardocumento')); ?>" method="get" id="formulario">
@@ -288,11 +288,11 @@
     </form>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

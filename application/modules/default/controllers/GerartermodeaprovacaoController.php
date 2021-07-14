@@ -12,14 +12,14 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
     private $arrCodOrgaosSAV = array();
 
     /**
-     * Reescreve o método init()
+     * Reescreve o mï¿½todo init()
      * @access public
      * @param void
      * @return void
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio às Leis de Incentivo à Cultura"; // titulo da pagina
+        $this->view->title = "Salic - Sistema de Apoio ï¿½s Leis de Incentivo ï¿½ Cultura"; // titulo da pagina
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 103; // Coordenador de Analise
         $PermissoesGrupo[] = 127; // Coordenador Geral de Analise
@@ -29,14 +29,14 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 110; // Tecnico Analise
         $PermissoesGrupo[] = 121; // Tecnico Acompanhamento
         parent::perfil(1, $PermissoesGrupo);
-        
+
         parent::init(); // chama o init() do pai GenericControllerNew
-        
+
         $this->codGrupo       = $_SESSION['GrupoAtivo']['codGrupo'];
         $this->view->codGrupo = $_SESSION['GrupoAtivo']['codGrupo'];
         $this->codOrgao       = $_SESSION['GrupoAtivo']['codOrgao'];
         $this->view->codOrgao = $_SESSION['GrupoAtivo']['codOrgao'];
-        
+
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         //$this->codOrgaoSuperior = (!empty($auth->getIdentity()->usu_org_max_superior))?$auth->getIdentity()->usu_org_max_superior:$auth->getIdentity()->usu_orgao;
         $this->arrCodOrgaosSEFIC = array('251','254','256','262','270','271','272');
@@ -53,13 +53,13 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         } elseif ($this->codGrupo == 122 || $this->codGrupo == 123 || $this->codGrupo == 121) { //122=Cood. de Acompanhamento  123=Cood. Geral de Acompanhamento  121=Tecnico Acompanhamento
             $this->tipoProjeto = "readequacao";
         }
-        
+
         $post = Zend_Registry::get('post');
-        
+
         if (empty($post->nomeSecretario) && empty($post->nomeOrgao)) {
             $tbSecretario = new tbSecretario();
             $rsOrgaoSecretario = $tbSecretario->buscar(array('idOrgao = ?' => $this->codOrgaoSuperior))->current();
-            
+
             if (!empty($rsOrgaoSecretario->nmSecretario) && !empty($rsOrgaoSecretario->dsCargo)) {
                 $this->nomeSecretario = $rsOrgaoSecretario->nmSecretario;
                 $this->nomeOrgao      = $rsOrgaoSecretario->dsCargo;
@@ -68,17 +68,17 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
                 $this->nomeOrgao      = "";
                 /*if($this->codOrgaoSuperior == 251){ //SEFIC
                     $this->nomeSecretario = "HENILTON PARENTE DE MENEZES";
-                    $this->nomeOrgao      = "Secretário de Fomento e Incentivo à Cultura";
+                    $this->nomeOrgao      = "Secretï¿½rio de Fomento e Incentivo ï¿½ Cultura";
                 }else{ //SAV
                     $this->nomeSecretario = "ANA PAULA DOURADO SANTANA";
-                    $this->nomeOrgao      = "Secretária de Audiovisual";
+                    $this->nomeOrgao      = "Secretï¿½ria de Audiovisual";
                 }*/
             }
         } else {
             $this->nomeSecretario = $post->nomeSecretario;
             $this->nomeOrgao      = $post->nomeOrgao;
         }
-        
+
         $this->view->nomeSecretario = $this->nomeSecretario;
         $this->view->nomeOrgao      = $this->nomeOrgao;
     }
@@ -91,7 +91,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         $tblPauta = new tbPauta();
         $reuniao = new Reuniao();
         $pronac  = (isset($_POST['pronac'])) ? $_POST['pronac'] : "";
-        
+
         if (isset($_POST['NrReuniao'])) {
             $NrReuniao = $_POST['NrReuniao'];
             $buscareuniao = $reuniao->buscar(array('NrReuniao = ?' => $NrReuniao));
@@ -192,7 +192,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         /**=================================================================*/
     /*=============== TRATAMENTO DE PROJETOS APROVADOS =================*/
     /**=================================================================*/
-        
+
     /* === APROVACAO INICIAL - APROVADOS ==*
     $pautaSAVAprovados = array();
     $pautaSEFICAprovados = array();
@@ -295,7 +295,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
     /**=================================================================*/
     /*=============== TRATAMENTO DE PROJETOS INDEFERIDOS ===============*/
     /**=================================================================*/
-        
+
     /* === APROVACAO INICIAL - INDEFERIDOS ==*
     $pautaSAVIndeferidos = array();
     $pautaSEFICIndeferidos = array();
@@ -396,7 +396,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
     $this->view->pautaSAVIndeferidosRecurso = $pautaSAVIndeferidosRecurso;
     $this->view->pautaSEFICIndeferidosRecurso = $pautaSEFICIndeferidosRecurso;
 
-    //TRATAMENTO CASO NENHUMA DAS CONDIÇÕES SEJAM ATENDIDAS
+    //TRATAMENTO CASO NENHUMA DAS CONDIï¿½ï¿½ES SEJAM ATENDIDAS
     if( (count($pautaSAVAprovados) <= 0) &&
         (count($pautaSEFICAprovados) <= 0) &&
         (count($pautaSAVIndeferidos) <= 0) &&
@@ -406,7 +406,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         (count($pautaSAVIndeferidosRecurso) <= 0) &&
         (count($pautaSEFICIndeferidosRecurso) <= 0))
     {
-        parent::message("O(s) projeto(s) informado(s) não atende(m) às condições necessárias para ser(em) impresso(s) no Termo de Decisão.", "gerartermodeaprovacao/", "ALERT");
+        parent::message("O(s) projeto(s) informado(s) NÃ£o atende(m) ï¿½s condiï¿½ï¿½es necessï¿½rias para ser(em) impresso(s) no Termo de Decisï¿½o.", "gerartermodeaprovacao/", "ALERT");
     }
 
     /*$pautaSAVAprovados[$ct1]['PRONAC'] = $dadosresultado['pronac'];
@@ -429,7 +429,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
     $ct1++;*
     }
     */
-    
+
     public function gerarpdfAction()
     {
         $this->_helper->layout->disableLayout();
@@ -439,7 +439,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         $idpronac  = $_POST['idpronac'];
         $nrReuniao = $_POST['nrReuniao'];
         //$buscarpauta = $pauta->dadosiniciaistermoaprovacao($idpronac);
-        
+
         if ($this->tipoProjeto == "analiseInicial") {
             //========== PROJETOS APROVADOS SEFIC e SAV - APROVACAO INICIAL =========================/
             $arrBusca = array();
@@ -464,7 +464,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
             $arrBusca['pr.Orgao = ?'] = $this->codOrgao;
             $rsProjetosIndeferidos = $tblPauta->buscarProjetosTermoAprovacao($arrBusca);
         }
-        
+
         if ($this->tipoProjeto == "readequacao") {
             //========== PROJETOS APROVADOS SEFIC e SAV - READEQUACAO ==========================/
             $arrBusca = array();
@@ -486,11 +486,11 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
             $arrBusca['pr.Orgao = ?'] = $this->codOrgao;
             $rsProjetosIndeferidosReadequacao = $tblPauta->buscarProjetosTermoAprovacao($arrBusca);
         }
-        
+
         /**=================================================================*/
         /*=============== TRATAMENTO DE PROJETOS APROVADOS =================*/
         /**=================================================================*/
-        
+
         $pautaAprovados = array();
         if ($this->tipoProjeto == "analiseInicial") {
             /* === APROVACAO INICIAL - APROVADOS ==*/
@@ -513,14 +513,14 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
             }
         }
         /* === READEQUACAO - APROVADOS ==*/
-        
+
         $pautaAprovadosReadequacao = array();
         if ($this->tipoProjeto == "readequacao") {
             $ct1 = 0;
             foreach ($rsProjetosAprovadosReadequacao as $dadosresultado) {
                 $pautaAprovadosReadequacao[$ct1]['PRONAC'] = $dadosresultado['pronac'];
                 $pautaAprovadosReadequacao[$ct1]['NomeProjeto'] = $dadosresultado['NomeProjeto'];
-                $pautaAprovadosReadequacao[$ct1]['TipoParecer'] = 'Readequação';
+                $pautaAprovadosReadequacao[$ct1]['TipoParecer'] = 'Readequaï¿½ï¿½o';
                 $pautaAprovadosReadequacao[$ct1]['NrReuniao'] = $dadosresultado['NrReuniao'];
                 $pautaAprovadosReadequacao[$ct1]['mesReuniao'] = date('m', strtotime($dadosresultado['DtInicio']));
                 $pautaAprovadosReadequacao[$ct1]['DtInicio'] = date('d', strtotime($dadosresultado['DtInicio']));
@@ -537,7 +537,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         /**=================================================================*/
         /*=============== TRATAMENTO DE PROJETOS INDEFERIDOS ===============*/
         /**=================================================================*/
-        
+
         $pautaIndeferidos = array();
         if ($this->tipoProjeto == "analiseInicial") {
             /* === APROVACAO INICIAL - INDEFERIDOS ==*/
@@ -566,7 +566,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
             foreach ($rsProjetosIndeferidosReadequacao as $dadosresultado) {
                 $pautaIndeferidosReadequacao[$ct1]['PRONAC'] = $dadosresultado['pronac'];
                 $pautaIndeferidosReadequacao[$ct1]['NomeProjeto'] = $dadosresultado['NomeProjeto'];
-                $pautaIndeferidosReadequacao[$ct1]['TipoParecer'] = 'Readequação';
+                $pautaIndeferidosReadequacao[$ct1]['TipoParecer'] = 'Readequaï¿½ï¿½o';
                 $pautaIndeferidosReadequacao[$ct1]['NrReuniao'] = $dadosresultado['NrReuniao'];
                 $pautaIndeferidosReadequacao[$ct1]['mesReuniao'] = date('m', strtotime($dadosresultado['DtInicio']));
                 $pautaIndeferidosReadequacao[$ct1]['DtInicio'] = date('d', strtotime($dadosresultado['DtInicio']));
@@ -583,12 +583,12 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         //APROVACAO INICIAL
         $this->view->pautaAprovados = $pautaAprovados;
         $this->view->pautaIndeferidos = $pautaIndeferidos;
-        
+
         //READEQUACAO
         $this->view->pautaAprovadosReadequacao = $pautaAprovadosReadequacao;
         $this->view->pautaIndeferidosReadequacao = $pautaIndeferidosReadequacao;
-        
-        // mês por extenso
+
+        // mï¿½s por extenso
         $mes_extenso[1] = "janeiro";
         $mes_extenso[2] = "fevereiro";
         $mes_extenso[3] = "mar&ccedil;o";
@@ -601,17 +601,17 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         $mes_extenso[10] = "outubro";
         $mes_extenso[11] = "novembro";
         $mes_extenso[12] = "dezembro";
-        
+
         $this->view->mesPorExtenso = $mes_extenso;
-        
-        //TRATAMENTO CASO NENHUMA DAS CONDIÇÕES SEJAM ATENDIDAS
+
+        //TRATAMENTO CASO NENHUMA DAS CONDIï¿½ï¿½ES SEJAM ATENDIDAS
         if ((count($pautaAprovados) <= 0) &&
             (count($pautaIndeferidos) <= 0) &&
             (count($pautaAprovadosReadequacao) <= 0) &&
             (count($pautaIndeferidosReadequacao) <= 0)) {
-            parent::message("O(s) projeto(s) informado(s) não atende(m) às condições necessárias para ser(em) impresso(s) no Termo de Decisão.", "gerartermodeaprovacao/", "ALERT");
+            parent::message("O(s) projeto(s) informado(s) NÃ£o atende(m) ï¿½s condiï¿½ï¿½es necessï¿½rias para ser(em) impresso(s) no Termo de Decisï¿½o.", "gerartermodeaprovacao/", "ALERT");
         }
-        
+
         if ($this->codOrgaoSuperior == 251) {
             $this->montaTela("gerartermodeaprovacao/gerar-pdf-sefic.phtml", array());
         } else {

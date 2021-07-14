@@ -116,7 +116,7 @@ if($this->cabecalho != "false") {
             EscClose:true,
             modal:true,
             autoOpen:true,
-            title: 'An·lise de Conte˙do do Produto',
+            title: 'An√°lise de CONTE√öDO do Produto',
             buttons: {
                 'Sair': function() {
                     $(this).dialog('close');
@@ -135,7 +135,7 @@ if($this->cabecalho != "false") {
                             var i = $("#formAlterarConteudo").find("select:[name='nrIncisoArtigo3']").val();
                             var a = $.trim($("#formAlterarConteudo").find("input:[name='dsAlineaArt3']").val());
                             if(i == "" || a == ""){
-                                $("#erro").html("O inciso e a al&iacute;nea do Artigo 3 s„o obrigatÛrios!");
+                                $("#erro").html("O inciso e a al&iacute;nea do Artigo 3 sÔøΩo obrigatÔøΩrios!");
                                 $("#erro").dialog('open');
                                 return false;
                             }
@@ -146,7 +146,7 @@ if($this->cabecalho != "false") {
                         if(valorArt18 != 0){
                             var a = $.trim($("#formAlterarConteudo").find("input:[name='dsAlineaArtigo18']").val());
                             if(a == ""){
-                                $("#erro").html("A al&iacute;nea do Artigo 18 È obrigatÛrio!");
+                                $("#erro").html("A al&iacute;nea do Artigo 18 ÔøΩ obrigatÔøΩrio!");
                                 $("#erro").dialog('open');
                                 return false;
                             }
@@ -169,11 +169,11 @@ if($this->cabecalho != "false") {
                             $("#erro").html("O campo justificativa &eacute; obrigat&oacute;rio!");
                             $("#erro").dialog('open');
                             return false;
-                            //msgErro.html('Campo obrigatÛrio n„o preenchido');
+                            //msgErro.html('Campo obrigatÔøΩrio N√£o preenchido');
                         }
 
                     }
-                      //submete o formul·rio
+                      //submete o formulÔøΩrio
 //                    jqAjaxForm(document.getElementById('formAlterarConteudo'), 'resultadoPesquisa');
                         $('#formAlterarConteudo').submit();
                         $(this).dialog('close');
@@ -214,8 +214,8 @@ if($this->cabecalho != "false") {
     <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
     <div id="breadcrumb">
         <ul>
-            <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">In&iacute;cio</a></li>
-            <li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para A&aacute;·lise do Membro da Comiss&atilde;o">An&aacute;lise do Membro da Comiss&atilde;o</a></li>
+            <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">In&iacute;cio</a></li>
+            <li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para A&aacute;ÔøΩlise do Membro da Comiss&atilde;o">An&aacute;lise do Membro da Comiss&atilde;o</a></li>
             <li class="last">An&aacute;lise de Conte&uacute;do</li>
         </ul>
     </div>
@@ -497,7 +497,7 @@ if($this->cabecalho != "false") {
 
     <br />
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINA«√O ============ -->
+    <!-- ============ PAGINA√á√ÇO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -524,12 +524,12 @@ if($this->cabecalho != "false") {
                     <input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconteudo')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao']; ?>'">
                     <?php } ?>
-                    P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="idpronac" value="<?php echo $this->idPronac;?>">
@@ -545,7 +545,7 @@ if($this->cabecalho != "false") {
             echo " de ". $this->paginacao['total'];
         ?>
     </center>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php } ?>
 
 </div>

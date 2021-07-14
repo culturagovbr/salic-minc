@@ -219,7 +219,7 @@
                 <td>Ficha T&eacute;cnica</td>
             </tr>
             <tr>
-                <td><?php echo !empty($this->dadosPedido['FichaTecnica']) ? strip_tags($this->dadosPedido['FichaTecnica']) : 'Não Aplicável' ?></td>
+                <td><?php echo !empty($this->dadosPedido['FichaTecnica']) ? strip_tags($this->dadosPedido['FichaTecnica']) : 'NÃ£o Aplicï¿½vel' ?></td>
             </tr>
         </table>
     </div>
@@ -351,13 +351,13 @@
                 <td>Especifica&ccedil;&atilde;o T&eacute;cnica</td>
             </tr>
             <tr>
-                <td><?php echo !empty($this->dadosPedido['EspecificacaoTecnica']) ? strip_tags($this->dadosPedido['EspecificacaoTecnica']) : 'Não Aplicável'; ?></td>
+                <td><?php echo !empty($this->dadosPedido['EspecificacaoTecnica']) ? strip_tags($this->dadosPedido['EspecificacaoTecnica']) : 'NÃ£o Aplicï¿½vel'; ?></td>
             </tr>
             <tr class="destacar bold" align="center">
                 <td>Outras Informa&ccedil;&otilde;es</td>
             </tr>
             <tr>
-                <td><?php echo !empty($this->dadosPedido['EstrategiadeExecucao']) ? strip_tags($this->dadosPedido['EstrategiadeExecucao']) : 'Não Aplicável'; ?></td>
+                <td><?php echo !empty($this->dadosPedido['EstrategiadeExecucao']) ? strip_tags($this->dadosPedido['EstrategiadeExecucao']) : 'NÃ£o Aplicï¿½vel'; ?></td>
             </tr>
         </table>
     </div>
@@ -801,11 +801,11 @@
 
 <script type="text/javascript">
     /**
-     * Ações que serão executadas após o carregamento da página
+     * Aï¿½ï¿½es que serÃ¡o executadas apï¿½s o carregamento da pÃ¡gina
      */
     $(document).ready(function(){
 	/**
-	 * Função para carregar uma página dentro de outra via ajax
+	 * Funï¿½ï¿½o para carregar uma pÃ¡gina dentro de outra via ajax
 	 */
 	function carregarDados(url, divRetorno){
             $('#' + divRetorno).html('<br><br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br><br>');
@@ -817,9 +817,9 @@
                 },
                 type : 'post'
             });
-        } // fecha função carregaDados()
+        } // fecha funï¿½ï¿½o carregaDados()
 
-        // atualiza o título da página
+        // atualiza o tï¿½tulo da pÃ¡gina
         window.parent.$("#titulo").html("<div>Readequa&ccedil;&atilde;o</div>");
         window.parent.$("#caminhoLocalAtual").html("Readequa&ccedil;&atilde;o");
 

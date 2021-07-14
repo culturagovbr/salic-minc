@@ -70,7 +70,7 @@ class UsuarioDAO extends MinC_Db_Table_Abstract
 
                 return true;
             } // fecha if
-            else { // caso n�o tenha sido validado
+            else { // caso Não tenha sido validado
                 return false;
             }
         } // fecha if
@@ -102,10 +102,10 @@ class UsuarioDAO extends MinC_Db_Table_Abstract
     /**
      * M�todo para buscar as unidades autorizadas do usu�rio do sistema
      * @access public
-     * @param @usu_codigo (c�digo do usu�rio)
-     * @param @sis_codigo (c�digo sistema)
-     * @param @gru_codigo (c�digo do grupo)
-     * @param @uog_orgao  (c�digo do �rg�o)
+     * @param @usu_codigo (Código do usu�rio)
+     * @param @sis_codigo (Código sistema)
+     * @param @gru_codigo (Código do grupo)
+     * @param @uog_orgao  (Código do �rg�o)
      * @return object
      */
     public function buscarUnidades($usu_codigo, $sis_codigo = null, $gru_codigo = null, $uog_orgao = null)

@@ -1,13 +1,13 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl();?>/public/js/tinymce/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
- 
+
 function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
 	var minchar;
 
         countChars  = CountCharacters(fieldName);
         //Atualiza��o para os contadores de caracteres
         document.getElementById("contador" + fieldName).innerHTML = "Caracteres: " + countChars;
-                     
+
         //mudan�a de cor caso ultrapasse o numero de caracteres
         if (countChars <= minchar){
 	    document.getElementById("contador" + fieldName).style.color = "red";
@@ -37,10 +37,10 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
 		});
             }
         });
-        
+
 
     });
-    
+
     //Onde � feita a contagem do elemento do contador
     function CountCharacters(contador) {
         var body = tinymce.get(contador).getBody();
@@ -48,7 +48,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
         return content.length;
     };
 
- 
+
 </script>
 
 <script type="text/javascript">
@@ -84,11 +84,11 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
             return false;
 	    validacao = false;
         }
-	
+
 	if(validacao == true){
             $('#form').submit();
 	}
-	
+
     }
 
     function infoparecerista(idAgente) {
@@ -118,7 +118,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
                     }
                 },
                 error: function (data){
-                    $("#infoparecerista").html("Falha na recupera��o dos dados.\nN�o foi poss�vel carregar agente!");
+                    $("#infoparecerista").html("Falha na recupera��o dos dados.\nNão foi poss�vel carregar agente!");
                 }
             });
         } else {
@@ -129,7 +129,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
     }
 </script>
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -138,12 +138,12 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Distribuir Projeto <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <form id="form" action="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'distribuiu')); ?>" method="POST" >
         <input id="idpronac" name="idpronac"  type="hidden" value="<?php echo $this->idpronac; ?>" />
@@ -169,7 +169,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
                 <td><?php echo $this->dadosProjeto[0]->Segmento; ?></td>
             </tr>
         </table>
-        
+
         <table id="tableCombo" class="tabela">
             <tr>
                 <td width="50%" style="font-family: sans-serif; font-size: 13px;">
@@ -188,7 +188,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
                         <option value="<?php echo $p['Codigo']; ?>"><?php echo $p['Sigla']; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    
+
                     <select name="idAgenteParecerista" class="input_simples" id="pareceristaCombo" onchange="infoparecerista(this.value);">
                         <option value="0" selected="selected">Selecione</option>
                         <?php foreach ($this->pareceristas as $p){ ?>

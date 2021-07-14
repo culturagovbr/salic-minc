@@ -30,10 +30,10 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 91; // Protocolo - Recebimento
         $PermissoesGrupo[] = 93; // Coordenador de Parecer
         $PermissoesGrupo[] = 97; // Gestor Salic
-        $PermissoesGrupo[] = 103; // Coordenador de An�lise
+        $PermissoesGrupo[] = 103; // Coordenador de Análise
         $PermissoesGrupo[] = 104; // Protocolo - (Envio / Recebimento)
         $PermissoesGrupo[] = 109; // Arquivo
-        $PermissoesGrupo[] = 110; // T�cnico de An�lise
+        $PermissoesGrupo[] = 110; // T�cnico de Análise
         $PermissoesGrupo[] = 113; // Coordenador de Arquivo
         $PermissoesGrupo[] = 114; // Coordenador de Editais
         $PermissoesGrupo[] = 115; // Atendimento Representa��es
@@ -43,7 +43,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 124; // T�cnico de Presta��o de Contas
         $PermissoesGrupo[] = 125; // Coordenador de Presta��o de Contas
         $PermissoesGrupo[] = 126; // Coordenador Geral de Presta��o de Contas
-        $PermissoesGrupo[] = 127; // Coordenador Geral de An�lise
+        $PermissoesGrupo[] = 127; // Coordenador Geral de Análise
         $PermissoesGrupo[] = 128; // T�cnico de Portaria
         $PermissoesGrupo[] = 132; // Chefe de Divis�o
         $PermissoesGrupo[] = 134; // Coordenador de Fiscaliza��o
@@ -75,7 +75,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
             }
 
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
             }
         } else {
             parent::perfil(4, $PermissoesGrupo);
@@ -215,9 +215,9 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
                 } elseif (empty($arquivoTemp)) { // nome do arquivo
                     parent::message("Por favor, informe o arquivo!", "tramitardocumentos/despachar", "ALERT");
                 } elseif (strtolower($arquivoExtensao) != 'pdf') { // extens�o do arquivo
-                    parent::message("O arquivo n�o pode ser maior do que 10MB!", "tramitardocumentos/despachar", "ALERT");
+                    parent::message("O arquivo Não pode ser maior do que 10MB!", "tramitardocumentos/despachar", "ALERT");
                 } elseif ($arquivoTamanho > 10485760) { // tamanho do arquivo: 10MB
-                    parent::message("O arquivo n�o pode ser maior do que 10MB!", "tramitardocumentos/despachar", "ALERT");
+                    parent::message("O arquivo Não pode ser maior do que 10MB!", "tramitardocumentos/despachar", "ALERT");
                 } else {
                     $resultado = TramitarDocumentosDAO::cadDocumento($dados);
                     $tbHistoricoDoc = array(
@@ -268,7 +268,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
             $justificativa = $_POST['justificativa'];
             $idLote = $_POST['idLote'];
             $idDoc = $_POST['idDoc'];
-            
+
 
             $acaoAlterada = 1;
             $historicoDocumentos = new HistoricoDocumento();
@@ -291,7 +291,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
                 'idDocumento' => $idDoc
             );
 
-            
+
             $inserir = $historicoDocumentos->inserirHistoricoDocumento($dadosInserir);
             parent::message("Envio de documentos realizado com sucesso!", "tramitardocumentos/enviar", "CONFIRM");
         }
@@ -938,7 +938,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
 
         // erro ao abrir o arquivo
         if (!$resultado) {
-            $this->view->message = 'N�o foi poss�vel abrir o arquivo!';
+            $this->view->message = 'Não foi poss�vel abrir o arquivo!';
             $this->view->message_type = 'ERROR';
         } else {
             // l� os cabe�alhos formatado
@@ -1304,7 +1304,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
                 );
 
                 $gravarHistorico = TramitarDocumentosDAO::GravarHistorico($recebe);
-                parent::message("Solicita��o n�o atendida!", "tramitardocumentos/solicitacoes", "CONFIRM");
+                parent::message("Solicitação Não atendida!", "tramitardocumentos/solicitacoes", "CONFIRM");
             }
         }
     }

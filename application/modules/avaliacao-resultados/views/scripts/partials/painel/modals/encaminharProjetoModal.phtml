@@ -14,11 +14,11 @@
                     <input type="hidden" id="areaEncaminhamento" value="<?= $this->areaEncaminhamento->Codigo; ?>">
                     <input type="hidden" id="idPronac" value="">
                 <?php endif;?>
-                <label>Área de Encaminhamento</label>
+                <label>ï¿½rea de Encaminhamento</label>
             </div>
 
             <div class="col s4">
-                <label class="input-field">Destinatário</label>
+                <label class="input-field">DestinatÃ¡rio</label>
                 <select class="browser-default" id="selecionarTecnicos"></select>
             </div>
         </div>
@@ -57,7 +57,7 @@
                     type: "POST"
                 }).done((data)=>{
                     $3('#selecionarTecnicos').empty();
-                    $3('#selecionarTecnicos').append("<option value='' disabled selected>Selecione um técnico</option>");
+                    $3('#selecionarTecnicos').append("<option value='' disabled selected>Selecione um tï¿½cnico</option>");
                     data.conteudo.forEach( (tecnico) => {
                         let codigo = tecnico.usu_codigo + '/' + tecnico.idperfil;
                         let nome = tecnico.usu_nome;

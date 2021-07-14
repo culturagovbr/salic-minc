@@ -21,7 +21,7 @@ class ProjetoRestController extends Minc_Controller_AbstractRest
     public function postAction()
     {
     }
-    
+
     public function indexAction()
     {
         $next = $this->_request->getParam('next');
@@ -35,7 +35,7 @@ class ProjetoRestController extends Minc_Controller_AbstractRest
         if ($this->usuario) {
             $idUsuario = $this->usuario->IdUsuario;
         }
-        
+
         $listaProjeto = array();
         $modelProjeto = new Projetos();
         $objParam = (object) array(
@@ -82,7 +82,7 @@ class ProjetoRestController extends Minc_Controller_AbstractRest
             $listaResult = $modelProjeto->buscarAnoExtratoDeProjeto($pronac);
             $listaAno = $listaResult->toArray();
             $numeroLancamentoExtrato = count($listaAno);
-            
+
             # Formatando dados
             $projeto->NomeProjeto = utf8_encode($projeto->NomeProjeto);
             $projeto->CNPJCPF = mascara::addMaskCpfCnpj($projeto->CNPJCPF);
@@ -110,7 +110,7 @@ class ProjetoRestController extends Minc_Controller_AbstractRest
     }
 
     /**
-     * Regra de visualiza��o para formatar a descri��o da conta.
+     * Regra de visualiza��o para formatar a Descrição da conta.
      *
      * @param stdClass $projeto
      * @return string
@@ -131,7 +131,7 @@ class ProjetoRestController extends Minc_Controller_AbstractRest
         if (!(int)$projeto->Conta) {
             $descricao = '-';
         }
-        
+
         return $descricao;
     }
 
@@ -157,10 +157,10 @@ class ProjetoRestController extends Minc_Controller_AbstractRest
             # Inserindo tra�o
             $resultado = $numero. '-'. $digito;
         }
-        
+
         return $resultado;
     }
-    
+
     /**
      * Regra de visualiza��o para formatar o n�mero da Ag�ncia.
      *
@@ -174,7 +174,7 @@ class ProjetoRestController extends Minc_Controller_AbstractRest
             $qtdNumero = strlen($agencia);
             $resultado = substr($agencia, 0, ((int)$qtdNumero)-1). '-'. substr($agencia, ((int) $qtdNumero) -1, $qtdNumero);
         }
-        
+
         return $resultado;
     }
 

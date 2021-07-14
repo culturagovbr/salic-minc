@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <?php
 echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
-?>  
+?>
 <?php $CadastrarCustos = $this->url(array('controller' => 'manterorcamento', 'action' => 'cadastrarcustos'));?>
 <div id="breadcrumb">
     <ul>
@@ -9,7 +9,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
 		<li class="last">Or&ccedil;amento</li>
 		<li class="last">Custos Administrativos</li>
     </ul>
-</div>                
+</div>
 <!-- ========== INICIO TITULO ========== -->
 <div id="titulo">
     <div>Custos Administrativos <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
@@ -32,10 +32,10 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
                     <td class="centro"><?php echo $custos->etapa?></td>
                     <td class="centro"><?php echo $custos->item?></td>
                     <td class='centro' width="5%">
-					<a href='<?php echo $this->baseurl();?>/manterorcamento/editarcustos?item=<?php echo $this->escape($custos->idItem); ?>&etapa=<?php echo $this->escape($custos->idEtapa);?>&proposta=<?php echo $this->escape($custos->idProposta);?>&idPlanilhaProposta=<?php echo $custos->idPlanilhaProposta?>'> 
+					<a href='<?php echo $this->baseurl();?>/manterorcamento/editarcustos?item=<?php echo $this->escape($custos->idItem); ?>&etapa=<?php echo $this->escape($custos->idEtapa);?>&proposta=<?php echo $this->escape($custos->idProposta);?>&idPlanilhaProposta=<?php echo $custos->idPlanilhaProposta?>'>
 					<img title="Editar" class="editar" src="<?php echo $this->baseUrl(); ?>/public/img/ico/edit.png" style="width: 40%; height: 45%"></img></a></td>
 					<td class='centro' width="5%">
-					<a href="<?php echo $this->url(array('controller'=>'manterorcamento','action'=>'excluiritensprodutos'))?>?idPlanilhaProposta=<?php echo $custos->idPlanilhaProposta?>&retorno=custosadministrativos" > 
+					<a href="<?php echo $this->url(array('controller'=>'manterorcamento','action'=>'excluiritensprodutos'))?>?idPlanilhaProposta=<?php echo $custos->idPlanilhaProposta?>&retorno=custosadministrativos" >
 					<img src="<?php echo $this->baseUrl(); ?>/public/img/btn_excluir.gif" style="width: 30%; height: 35%"></img></a></td>
                 </tr>
                <?php endforeach; ?>
@@ -49,7 +49,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
 <?php endforeach; ?>
 	</div>
 </div>
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 	<div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />

@@ -99,7 +99,7 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
                 $valoresItem->cdUF,
                 $valoresItem->cdEtapa
             )->toArray();
-           
+
         array_walk($comprovantesDePagamento, function (&$comprovanteDePagamento) use ($fornecedorModel) {
             $comprovanteDePagamento = (object) $comprovanteDePagamento;
 
@@ -378,7 +378,7 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
                 if ($_FILES['arquivo']['name'] != '') {
                     $comprovantePagamentoModel->atualizar(4, true);
                 } else {
-                    // nao atualiza arquivo se n�o houver novo upload
+                    // nao atualiza arquivo se Não houver novo upload
                     $comprovantePagamentoModel->atualizar(4);
                 }
 
@@ -414,7 +414,7 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
                 if ($_FILES['arquivoInternacional']['name'] != '') {
                     $comprovantePagamentoModel->atualizar(4, true);
                 } else {
-                    // nao atualiza arquivo se n�o houver novo upload
+                    // nao atualiza arquivo se Não houver novo upload
                     $comprovantePagamentoModel->atualizar(4);
                 }
             }

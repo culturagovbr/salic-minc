@@ -75,7 +75,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=".Seguranca::encrypt($this->i
 <div id="conteudo">
     <?php //include_once 'scripts/cidadao/inc/menu.inc.php';
     if(!isset($this->projeto)) {
-        echo '<div align="center">Projeto n�o encontrado.</div>';
+        echo '<div align="center">Projeto Não encontrado.</div>';
     } else { ?>
 
     <br clear="all" />
@@ -153,7 +153,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=".Seguranca::encrypt($this->i
                 <td align="center"><b><?php echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('controller' => 'cidadao', 'action' => 'planilha-orcamentaria-aprovada'))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> <font color=\"#0000FF\">".@number_format(($this->projeto->ValorAprovado), 2, ",", ".")."</font></a>"; ?></b></td>
                 <!--<td align="center"><b><?php //echo "<font color=\"#0000FF\">".@number_format(($this->projeto->ValorSolicitado + $this->projeto->OutrasFontes), 2, ",", ".")."</font>"; ?></b></td>
                 <td align="center"><b><?php //echo "<font color=\"#0000FF\">".@number_format(($this->projeto->ValorAprovado), 2, ",", ".")."</font>"; ?></b></td>-->
-            
+
                 <td align="center"><b><?php echo @number_format(($this->projeto->OutrasFontes + $this->projeto->ValorAprovado), 2, ",", "."); ?></b></td>
                 <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
                 <td align="center"><b><a href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'dados-bancarios-captacao'));?>?idPronac=<?php echo $this->idPronac; ?>" style="color: blue !important;"><?php echo @number_format($this->projeto->ValorCaptado, 2, ",", "."); ?></a></b></td>
@@ -167,7 +167,7 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=".Seguranca::encrypt($this->i
                 <td align="center"><b><?php echo @number_format((($this->projeto->vlComprovado / $this->projeto->ValorCaptado)* 100), 2, ",", "."); ?></b></td>
                 <?php } ?>
             </tr>
- 
+
 	<!--<tr>
                 <td align="center"><b><font color="#009900"><?php //echo @number_format($this->valoresDoProjeto['fontesincentivo'], 2, ",", "."); ?></font></b></td>
                 <td align="center"><b><font color="#CC0000"><?php //echo @number_format($this->valoresDoProjeto['outrasfontes'], 2, ",", "."); ?></font></b></td>

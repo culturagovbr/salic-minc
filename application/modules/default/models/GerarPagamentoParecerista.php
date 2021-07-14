@@ -49,7 +49,7 @@ class GerarPagamentoParecerista extends MinC_Db_Table_Abstract
             $select->where($coluna, $valor);
         }
 
-        //Total de dados da pagina��o
+        //Total de dados da PAGINAÇÂO
         if ($qtdeTotal) {
             return $this->fetchAll($select)->count();
         }

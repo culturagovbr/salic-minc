@@ -1,4 +1,4 @@
-<?php 
+<?php
 class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract
 {
     private $getIdAgente  = 0;
@@ -287,7 +287,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $DadosRelatorio = $tbComprovanteTrimestral->buscarComprovantes(array('IdPRONAC = ?' => $idpronac, 'nrComprovanteTrimestral=?'=>$nrrelatorio, 'siComprovanteTrimestral in (?)'=>array(2,5)));
         $this->view->DadosRelatorio = $DadosRelatorio;
         if (count($DadosRelatorio)==0) {
-            parent::message("Relat�rio n�o encontrado!", "analisarexecucaofisica/projetos", "ERROR");
+            parent::message("Relat�rio Não encontrado!", "analisarexecucaofisica/projetos", "ERROR");
         }
 
         $LocaisDeRealizacao = $projetos->buscarLocaisDeRealizacao($idpronac);
@@ -477,7 +477,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract
             }
         }
         $this->view->planodistribuicao = $planodivulgacao;
-        
+
         $buscarBeneficiario = $b->buscarUsandoCAST($idRelatorio[0]->idRelatorio)->current();
         $this->view->dadosbeneficiario = $buscarBeneficiario;
 
@@ -573,7 +573,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $p = new Projetos();
         $DadosProjeto = $p->buscar(array('IdPRONAC = ?' => $idPronac))->current();
         $this->view->DadosProjeto = $DadosProjeto;
-        
+
         // busca os t�cnicos do �rg�o logado
         $Tecnicos = new Usuariosorgaosgrupos();
         $buscarTecnicos = $Tecnicos->buscardadosAgentesArray(array('uog.uog_orgao = ?' => $this->getIdOrgao, 'uog.gru_codigo IN (?)' => array('121', '129')));

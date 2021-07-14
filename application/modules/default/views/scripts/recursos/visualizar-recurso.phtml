@@ -22,13 +22,13 @@
     }
 </style>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta"></div>
 
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>"
-                             title="Ir para InÔøΩcio">InÌcio</a></li>
+                             title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li>
             <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos'), '', true); ?>"
                title="Avalialiar Recurso">Avalialiar Recurso</a></li>
@@ -38,13 +38,13 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Visualizar Recurso - <?php echo $this->nmPagina; ?> <span class="voltar"><a
                 href="javascript:voltar()">Voltar</a></span></div>
 </div>
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr>
@@ -64,7 +64,7 @@
 
     <table class="tabela">
         <tr>
-            <td><input type="button" name="grid1" id="g1_1" class="btn_adicionar" title="Expandir"/>DADOS DA SOLICITA«√O
+            <td><input type="button" name="grid1" id="g1_1" class="btn_adicionar" title="Expandir"/>DADOS DA Solicita√ß√£o
             </td>
         </tr>
     </table>
@@ -77,7 +77,7 @@
                 <td colspan="3"><?php echo $this->dados->dsSolicitacaoRecurso; ?></td>
             </tr>
             <tr>
-                <td class="destacar bold">Tipo da SolicitaÁ„o</td>
+                <td class="destacar bold">Tipo da Solicita√ß√£o</td>
                 <td class="destacar bold">Tipo do Recurso</td>
                 <td class="destacar bold">Dt. Recurso</td>
             </tr>
@@ -91,7 +91,7 @@
 
     <table class="tabela">
         <tr>
-            <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIA«√O DO
+            <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIAÔøΩÔøΩO DO
                 COORDENADOR
             </td>
         </tr>
@@ -99,14 +99,14 @@
     <div id="div_g1_2" class="sumir">
         <table class="tabela">
             <tr>
-                <td class="destacar bold" colspan="3">DescriÁ„o</td>
+                <td class="destacar bold" colspan="3">Descri√ß√£o</td>
             </tr>
             <tr>
                 <td colspan="2"><?php echo $this->dados->dsAvaliacao; ?></td>
             </tr>
             <tr>
-                <td class="destacar bold">SituaÁ„o</td>
-                <td class="destacar bold">Dt. AvaliaÁ„o</td>
+                <td class="destacar bold">SituaÔøΩÔøΩo</td>
+                <td class="destacar bold">Dt. AvaliaÔøΩÔøΩo</td>
             </tr>
             <tr>
                 <td><?php echo !empty($this->dados->stAtendimento) ? 'Deferido' : ''; ?></td>
@@ -212,15 +212,15 @@
 
         <table class="tabela">
             <tr>
-                <th colspan="4">Parecer TÈcnico</th>
+                <th colspan="4">Parecer TÔøΩcnico</th>
             </tr>
         </table>
 
     <?php $habilitarAnaliseDeCusto = false; ?>
     <?php foreach ($this->produtos as $produto){ ?>
     <?php
-    if ($produto->stPrincipal) { //Verifica se È o produto principal
-        if ($produto->ParecerFavoravel) { //Verifica se o parecer desse produto principal È favor·vel
+    if ($produto->stPrincipal) { //Verifica se ÔøΩ o produto principal
+        if ($produto->ParecerFavoravel) { //Verifica se o parecer desse produto principal ÔøΩ favorÔøΩvel
             $habilitarAnaliseDeCusto = true;
         }
     }
@@ -249,8 +249,8 @@
                                 <td><input type="button" name="grid1"
                                            id="analiseconteudo_<?php echo $produto->idProduto; ?>" class="btn_remover"
                                            title="Expandir"
-                                           onclick="EnquadramentoFavoravel('<?php echo $produto->idProduto; ?>', '<?php echo $produto->ParecerFavoravel; ?>');"/>An·lise
-                                    de Conte˙do
+                                           onclick="EnquadramentoFavoravel('<?php echo $produto->idProduto; ?>', '<?php echo $produto->ParecerFavoravel; ?>');"/>An√°lise
+                                    de CONTE√öDO
                                 </td>
                             </tr>
                         </table>
@@ -258,12 +258,12 @@
                             <table class="tabela">
                                 <tr>
                                     <td class="destacar bold enquadramentoFavoravel" colspan="6">Enquadramento
-                                        Favor·vel? *
+                                        FavorÔøΩvel? *
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="6">
-                                        <?php echo ($produto->ParecerFavoravel) ? 'N„o' : 'Sim'; ?>
+                                        <?php echo ($produto->ParecerFavoravel) ? 'N√£o' : 'Sim'; ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -272,14 +272,14 @@
                                     <td class="destacar bold">Inciso</td>
                                     <td class="destacar bold">Alinea Artigo 3</td>
                                     <td class="destacar bold">Artigo Enquadramento</td>
-                                    <td class="destacar bold">AlÌnea Artigo 18</td>
+                                    <td class="destacar bold">AlÔøΩnea Artigo 18</td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <?php echo ($produto->Lei8313 == 1) ? 'Sim' : 'N„o'; ?>
+                                        <?php echo ($produto->Lei8313 == 1) ? 'Sim' : 'N√£o'; ?>
                                     </td>
                                     <td>
-                                        <?php echo ($produto->Artigo3 == 1) ? 'Sim' : 'N„o'; ?>
+                                        <?php echo ($produto->Artigo3 == 1) ? 'Sim' : 'N√£o'; ?>
                                     </td>
                                     <td>
                                         <?php switch ($produto->IncisoArtigo3) {
@@ -317,8 +317,8 @@
                                     <td class="destacar bold">Inciso(s)</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"><?php echo ($produto->Lei5761 == 1) ? 'Sim' : 'N„o'; ?></td>
-                                    <td id="Artigo27"><?php echo ($produto->Artigo27 == 1) ? 'Sim' : 'N„o'; ?></td>
+                                    <td colspan="4"><?php echo ($produto->Lei5761 == 1) ? 'Sim' : 'N√£o'; ?></td>
+                                    <td id="Artigo27"><?php echo ($produto->Artigo27 == 1) ? 'Sim' : 'N√£o'; ?></td>
                                     <td id="IncisoArtigo27">
                                         <input
                                             type="checkbox" <?php echo ($produto->IncisoArtigo27_I == 1) ? 'checked="checked"' : ''; ?>
@@ -360,13 +360,13 @@
     <?php if ($habilitarAnaliseDeCusto){ ?>
         <table class="tabela">
             <tr>
-                <td class="bold centro fundo_linha2">Planilha OrÁament·ria</td>
+                <td class="bold centro fundo_linha2">Planilha OrÔøΩamentÔøΩria</td>
             </tr>
         </table>
         <table class="tabela">
             <tr>
                 <td style="font-weight: bold;"><input type="button" name="grid1" id="p_planilha_orcamentaria"
-                                                      class="btn_adicionar" title="Expandir"/>An·lise de Custo
+                                                      class="btn_adicionar" title="Expandir"/>An√°lise de Custo
                 </td>
             </tr>
         </table>
@@ -599,8 +599,8 @@
         <?php $habilitarAnaliseDeCusto = false; ?>
         <?php if (count($this->produtos) > 0) { ?>
             <?php foreach ($this->produtos as $produto) {
-                if ($produto->stPrincipal) { //Verifica se È o produto principal
-                    if ($produto->ParecerFavoravel) { //Verifica se o parecer desse produto principal È favor·vel
+                if ($produto->stPrincipal) { //Verifica se ÔøΩ o produto principal
+                    if ($produto->ParecerFavoravel) { //Verifica se o parecer desse produto principal ÔøΩ favorÔøΩvel
                         $habilitarAnaliseDeCusto = true;
                     }
                 }
@@ -633,8 +633,8 @@
 
         <table class="tabela">
             <tr>
-                <td align="right" class="destacar bold w150">Parecer Favor·vel?</td>
-                <td><?php echo $this->Parecer->ParecerFavoravel == 2 ? 'Sim' : 'N„o'; ?></td>
+                <td align="right" class="destacar bold w150">Parecer FavorÔøΩvel?</td>
+                <td><?php echo $this->Parecer->ParecerFavoravel == 2 ? 'Sim' : 'N√£o'; ?></td>
                 <td align="right" class="destacar bold w150">Dt. Parecer</td>
                 <td><?php echo Data::tratarDataZend($this->Parecer->DtParecer, 'Brasileira'); ?></td>
             </tr>
@@ -643,7 +643,7 @@
                 $sumir = 'class="sumir"';
             } ?>
             <tr <?php echo $sumir; ?>>
-                <td align="right" class="destacar bold w150">¡rea</td>
+                <td align="right" class="destacar bold w150">ÔøΩrea</td>
                 <td valign="top" width="200px"><?php echo $this->projetosEN->area; ?></td>
                 <td align="right" class="destacar bold" width="100">Segmento</td>
                 <td><?php echo $this->projetosEN->segmento; ?></td>
@@ -665,7 +665,7 @@
     <br clear="all"/>
 </div>
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all"/>

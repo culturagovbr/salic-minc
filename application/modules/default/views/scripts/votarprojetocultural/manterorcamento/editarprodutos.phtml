@@ -28,7 +28,7 @@ $(document).ready(function(){
 			 return false;
          //$(this).val($(this).val().replace(/\D/g,''));
      });
-     
+
     $("#error").dialog({
         resizable: true,
         width:450,
@@ -49,7 +49,7 @@ $('.btn_salvar').click(function(){
 		}
 	});
 	if(validar == false){
-		$("#error").html('Dados obrigat�rios n�o informados!');
+		$("#error").html('Dados obrigat�rios Não informados!');
 		$("#error").dialog('open');
 //		$(".ui-dialog-titlebar-close").remove();
 	}
@@ -61,7 +61,7 @@ $('.btn_salvar').click(function(){
 			$("#form").submit();
 		}
 });
-	
+
 	$('#uf').change(function(){
 		if($(this).val() == 0){
             $("#municipio").find('option').remove();
@@ -110,7 +110,7 @@ $('.btn_salvar').click(function(){
         });
 		}
 	});
-	
+
 	//Ao clicar no municipio ele desabilita a UF e o Municipio
 	$("#municipio").change(function(){
 		$('#uf').attr('disabled','disabled');
@@ -120,8 +120,8 @@ $('.btn_salvar').click(function(){
 		$('#uf').removeAttr('disabled');
 		$('#municipio').removeAttr('disabled');
 	})
-	
-	//Ao clicar no Item ele desabilita a Etapa e o Item	
+
+	//Ao clicar no Item ele desabilita a Etapa e o Item
 	$("#item").change(function(){
 		$('#item').attr('disabled','disabled');
 		$('#etapa').attr('disabled','disabled');
@@ -190,7 +190,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
                     			<?php } else { ?>
                     			<option value="<?php echo $estados->id ?>"><?php echo $estados->descricao ?></option>
                     			<?php } } ?>
-                    		</select> 
+                    		</select>
                     </td>
                     <td align="left">
                     	<label for="cidade">MUNIC&Iacute;PIO*</label><br />
@@ -202,7 +202,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
                     			<?php } else { ?>
                     			<option value="<?php echo $cidades->id ?>"><?php echo $cidades->descricao ?></option>
                     			<?php } } ?>
-                    		</select> 
+                    		</select>
                     </td>
                     <td align="center">
                     	<br />
@@ -212,7 +212,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
             </table>
         </fieldset>
     </div>
-    
+
     <div style="float: left; width: 50%">
         <fieldset>
             <legend>Etapa / Meta</legend>
@@ -228,7 +228,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
                     			<?php } else { ?>
                     			<option value="<?php echo $etapa->idplanilhaetapa ?>"><?php echo $etapa->Descricao ?></option>
                     			<?php } } ?>
-                    		</select> 
+                    		</select>
                     </td>
                     <td align="left">
                     	<label for="item">&Iacute;TEM*</label><br />
@@ -240,7 +240,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
                     			<?php } else { ?>
                     			<option value="<?php echo $itens->idPlanilhaItens ?>"><?php echo $itens->Descricao ?></option>
                     			<?php } } ?>
-                    		</select> 
+                    		</select>
                     </td>
                     <td align="center">
                     	<br />
@@ -266,7 +266,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
                     			<?php } else { ?>
                     			<option value="<?php echo $recursos->idVerificacao ?>"><?php echo $recursos->VerificacaoDescricao ?></option>
                     			<?php } } ?>
-                    		</select> 
+                    		</select>
                     </td>
                 </tr>
             </table>
@@ -287,7 +287,7 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
                     			<?php } else { ?>
                     			<option value="<?php echo $unidades->idUnidade ?>"><?php echo $unidades->Descricao ?></option>
                     			<?php } } ?>
-                    		</select>  
+                    		</select>
                     </td>
                     <td>
                     	<label for="qtd">QTD*</label><br />
@@ -312,13 +312,13 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
                     </td>
                     <td>
                     	<label for="uf">TOTAL*</label> <br />
-                    		<input type="text" value="" class="input_simples valida" size="15" name="total" id="total" readonly="readonly"></input> 
+                    		<input type="text" value="" class="input_simples valida" size="15" name="total" id="total" readonly="readonly"></input>
                     </td>
                 </tr>
             </table>
         </fieldset>
     </div>
-    
+
     <div style="float: left; width: 25%">
         <fieldset>
             <legend>Tempo de Dura&ccedil;&atilde;o</legend>
@@ -326,13 +326,13 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
                 <tr>
                     <td align="justify">
                     	<label for="uf">QTD DE DIAS*</label> <br />
-                    		<input type="text" class="input_simples valida numero" size="15" value="<?php echo $dados->QtdDias?>" name='qtdDias' id='qtdDias' /> 
+                    		<input type="text" class="input_simples valida numero" size="15" value="<?php echo $dados->QtdDias?>" name='qtdDias' id='qtdDias' />
                     </td>
                 </tr>
             </table>
         </fieldset>
     </div>
-    
+
     <div style="float: left; width: 100%">
         <fieldset>
         <legend>Detalhamento / Justificativa / Observa&ccedil;&otilde;es</legend>
@@ -355,12 +355,12 @@ echo $this->partial('manterorcamento/inc/menu.inc.php', $this);
             </table>
         </fieldset>
     </div>
-</form> 
+</form>
 
             <table class="tabela" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="center">
-                    	<input type="button" class="btn_salvar">                   	
+                    	<input type="button" class="btn_salvar">
                     </td>
                 </tr>
             </table>

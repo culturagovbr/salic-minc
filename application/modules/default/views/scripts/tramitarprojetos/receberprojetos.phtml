@@ -28,7 +28,7 @@
                 EscClose:false,
                 modal:true,
                 buttons:{
-                    'N�o':function(){
+                    'Não':function(){
                         $(this).dialog('close');
                     },
                     'Sim':function(){
@@ -61,7 +61,7 @@
                     }
                 });
                 return false;
-                
+
             } else {
                 if($("#final").val() <= 0 || $("#inicial").val() <= 0){
                     $("#confirm5").dialog("destroy");
@@ -104,7 +104,7 @@
                     EscClose:false,
                     modal:true,
                     buttons:{
-                        'N�o':function(){
+                        'Não':function(){
                             $(this).dialog('close');
                         },
                         'Sim':function(){
@@ -195,10 +195,10 @@
 <div id="confirm3" title="Alerta!" class="sumir">Tem certeza que deseja cancelar o recebimento deste Projeto?</div>
 <div id="confirm4" title="Alerta!" class="sumir">Tem certeza que deseja arquivar este projeto?</div>
 <div id="confirm5" title="Alerta!" class="sumir">O n�mero da caixa deve ser maior que 0.</div>
-<div id="confirm6" title="Alerta!" class="sumir">A caixa inicial n�o poder ser maior que a final!</div>
+<div id="confirm6" title="Alerta!" class="sumir">A caixa inicial Não poder ser maior que a final!</div>
 <div id="VisualizarDespacho" title="Vizualizar Despacho" class="sumir"></div>
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -208,13 +208,13 @@
 </div>
 <!-- ========== FIM BRADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Receber projetos <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <!-- Modal para encaminhar o projeto -->
 
 <div class="sumir" id="modalJustificativa" title="Justificativa de Recusa do Projeto" >
@@ -232,7 +232,7 @@
 
         <table class="tabela">
             <tr>
-                <td><span style="color: red;">*</span> Por favor informe uma justificativa da solicita��o de cancelamento de envio.</td>
+                <td><span style="color: red;">*</span> Por favor informe uma justificativa da Solicitação de cancelamento de envio.</td>
             </tr>
        	</table>
 
@@ -387,7 +387,7 @@
         <table class="tabela">
             <tr>
                 <td class="centro">
-				N�o h� Projetos para serem Recebidos!
+				Não h� Projetos para serem Recebidos!
                 </td>
             </tr>
         </table>
@@ -395,17 +395,17 @@
         <?php
 }
     ?>
-    <!-- ============ PAGINA��O ============ -->
+    <!-- ============ PAGINAÇÂO ============ -->
 <?php if ($this->qtdDoc > 5) {
     echo $this->Destino;
 } ?>
-    <!-- ========== FIM PAGINA��O ========== -->
+    <!-- ========== FIM PAGINAÇÂO ========== -->
 
 
-</div><!-- ========== FIM CONTE�DO ========== -->
+</div><!-- ========== FIM CONTEÚDO ========== -->
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

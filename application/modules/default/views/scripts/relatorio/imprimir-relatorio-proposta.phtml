@@ -95,13 +95,13 @@
     }
 </style>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div class="paginaA4">
     <div align="center">
-        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério da Cidadania"/>
-        <br clear="all" /><span class="TituloMinC">Ministério da Cidadania</span>
-        <br clear="all" /><span class="TituloDoDocumento">Relatório de Propostas - Resultado da pesquisa</span>
-        <br clear="all" /><span class="DataDoDocumento">Data da impressão: <?php echo date('d/m/Y - H:i:s'); ?></span>
+        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministï¿½rio da Cidadania"/>
+        <br clear="all" /><span class="TituloMinC">Ministï¿½rio da Cidadania</span>
+        <br clear="all" /><span class="TituloDoDocumento">Relatï¿½rio de Propostas - Resultado da pesquisa</span>
+        <br clear="all" /><span class="DataDoDocumento">Data da impressï¿½o: <?php echo date('d/m/Y - H:i:s'); ?></span>
         <br clear="all" /><br clear="all" /><span class="QntdRegistros"><?php echo count($this->dados).' propostas listadas'; ?></span>
     </div>
 
@@ -135,13 +135,13 @@
                         } else if($d->stEstado == '1' && $d->Movimentacao == '95' && $d->estadoMovimentacao == '0' && $d->ConformidadeOK == '0' && $d->estadoAvaliacao == '0'){
                             echo 'Proposta diligenciada';
                         } else if($d->stEstado == '1' && $d->Movimentacao == '96' && $d->estadoMovimentacao == '0' && $d->ConformidadeOK == '0' && $d->estadoAvaliacao == '0'){
-                            echo 'Diligência respondida';
+                            echo 'Diligï¿½ncia respondida';
                         } else if($d->stEstado == '1' && $d->Movimentacao == '95' && $d->estadoMovimentacao == '0' && $d->ConformidadeOK == NULL && $d->estadoAvaliacao == '0'){
-                            echo 'Proposta em construção';
+                            echo 'Proposta em construï¿½ï¿½o';
                         } else if($d->stEstado == '1' && $d->Movimentacao == '96' && $d->estadoMovimentacao == '0' && $d->ConformidadeOK == '9' && $d->estadoAvaliacao == '0'){
-                            echo 'Enviada ao MinC p/ avaliação';
+                            echo 'Enviada ao MinC p/ avaliaï¿½ï¿½o';
                         } else {
-                            echo 'Enviada ao MinC p/ avaliação';
+                            echo 'Enviada ao MinC p/ avaliaï¿½ï¿½o';
                         }
                     ?>
                 </td>

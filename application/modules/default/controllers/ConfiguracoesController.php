@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ConfiguracoesController extends MinC_Controller_Action_Abstract
 {
@@ -17,11 +17,11 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
     {
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $this->idUsuario = $auth->getIdentity()->usu_codigo; // usu�rio logado
-        
+
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $this->idOrgao = $GrupoAtivo->codOrgao;
         $this->idPerfil = $GrupoAtivo->codGrupo;
-        
+
         // autentica��o e permiss�es zend (AMBIENTE MINC)
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 128; // T�cnico de Portaria
@@ -33,12 +33,12 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
 
     public function secretariosAction()
     {
-        
+
         //FUN��O ACESSADA SOMENTE PELOS PERFIS DE TEC. DE PORTARIA
         if ($this->idPerfil != 128) {
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
         }
-        
+
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
         if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
@@ -79,11 +79,11 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
         /* ================== PAGINACAO ======================*/
         $where = array();
         $where['a.stEstado = ?'] = 1; // 1=Atual; 0=Historico
-        
+
         $tbManterPortaria = new tbManterPortaria();
         $total = $tbManterPortaria->listaSecretarios($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;
-        
+
         $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
 
@@ -102,21 +102,21 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
             "Itenspag"=>$this->intTamPag,
             "tamanho"=>$tamanho
         );
-        
+
         $this->view->paginacao     = $paginacao;
         $this->view->qtdRegistros  = $total;
         $this->view->dados         = $busca;
         $this->view->intTamPag     = $this->intTamPag;
     }
-    
+
     public function imprimirSecretariosAction()
     {
-        
+
         //FUN��O ACESSADA SOMENTE PELOS PERFIS DE TEC. DE PORTARIA
         if ($this->idPerfil != 128) {
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
         }
-        
+
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
         if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
@@ -166,21 +166,21 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
 
         $busca = $tbManterPortaria->listaSecretarios($where, $order, $tamanho, $inicio);
-        
+
         if (isset($get->xls) && $get->xls) {
             $html = '';
             $html .= '<table style="border: 1px">';
             $html .='<tr><td style="border: 1px dotted black; background-color: #EAF1DD; font-size: 16; font-weight: bold;" colspan="4">Lista de Secret�rios Cadastrados</td></tr>';
             $html .='<tr><td style="border: 1px dotted black; background-color: #EAF1DD; font-size: 10" colspan="4">Data do Arquivo: '. Data::mostraData() .'</td></tr>';
             $html .='<tr><td colspan="4"></td></tr>';
-            
+
             $html .= '<tr>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Nome</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Cargo</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Portaria</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt.&nbsp;Cadastro</th>';
             $html .= '</tr>';
-            
+
             foreach ($busca as $d) {
                 $html .= '<tr>';
                 $html .= '<td style="border: 1px dotted black;">'.$d->dsAssinante.'</td>';
@@ -190,7 +190,7 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
                 $html .= '</tr>';
             }
             $html .= '</table>';
-            
+
             header("Content-Type: application/vnd.ms-excel");
             header("Content-Disposition: inline; filename=Lista_Secretarios.ods;");
             echo $html;
@@ -201,19 +201,19 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
             $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
         }
     }
-    
+
     public function cadastrarSecretarioAction()
     {
     }
-    
+
     public function incluirSecretarioAction()
     {
-        
+
         //FUN��O ACESSADA SOMENTE PELOS PERFIS DE TEC. DE PORTARIA
         if ($this->idPerfil != 128) {
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
         }
-        
+
         $tbManterPortaria = new tbManterPortaria();
 //        $dt = explode('/', $_POST['dataPortaria']);
 //        $data = $dt[2].'-'.$dt[1].'-'.$dt[0];
@@ -226,39 +226,39 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
             'stEstado' => 1
         );
         $tb = $tbManterPortaria->inserir($dados);
-        
+
         if ($tb) {
             parent::message('Dados inseridos com sucesso!', "configuracoes/secretarios", "CONFIRM");
         } else {
             parent::message('Nenhum registro encontrado.', "configuracoes/secretarios", "ERROR");
         }
     }
-    
+
     public function editarSecretarioAction()
     {
-        
+
         //FUN��O ACESSADA SOMENTE PELOS PERFIS DE TEC. DE PORTARIA
         if ($this->idPerfil != 128) {
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
         }
-        
+
         $tbManterPortaria = new tbManterPortaria();
         $idManterPortaria = $_GET['idmp'];
         $dados = $tbManterPortaria->buscar(array('idManterPortaria = ?'=>$idManterPortaria))->current();
         $this->view->dados = $dados;
     }
-    
+
     public function salvarSecretarioAction()
     {
-        
+
         //FUN��O ACESSADA SOMENTE PELOS PERFIS DE TEC. DE PORTARIA
         if ($this->idPerfil != 128) {
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
         }
-        
+
 //        $dt = explode('/', $_POST['dataPortaria']);
 //        $data = $dt[2].'-'.$dt[1].'-'.$dt[0];
-        
+
         $tbManterPortaria = new tbManterPortaria();
         $d = array();
         $d['dsAssinante'] = $_POST['nome'];
@@ -267,32 +267,32 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
 //        $d['dtPortariaPublicacao'] = $data;
         $d['dtPortariaPublicacao'] = new Zend_db_Expr('GETDATE()');
         $d['stEstado'] = 1;
-                
+
         $where = "idManterPortaria = ".$_POST['idmp'];
         $tb = $tbManterPortaria->update($d, $where);
-        
+
         if ($tb) {
             parent::message('Dados salvos com sucesso!', "configuracoes/secretarios", "CONFIRM");
         } else {
             parent::message('Nenhum registro encontrado.', "configuracoes/secretarios", "ERROR");
         }
     }
-    
+
     public function excluirSecretarioAction()
     {
-        
+
         //FUN��O ACESSADA SOMENTE PELOS PERFIS DE TEC. DE PORTARIA
         if ($this->idPerfil != 128) {
-            parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal", "ALERT");
         }
-        
+
         $tbManterPortaria = new tbManterPortaria();
         $idManterPortaria = $_GET['idmp'];
         $dados = array(
             'stEstado' => 0
         );
         $tb = $tbManterPortaria->alterarDados($dados, $idManterPortaria);
-            
+
         if ($tb) {
             parent::message('Dados exclu�dos com sucesso!', "configuracoes/secretarios", "CONFIRM");
         } else {

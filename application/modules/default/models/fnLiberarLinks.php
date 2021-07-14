@@ -128,18 +128,18 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             $idPronac,
             Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_TRANSFERENCIA_RECURSOS
         );
-        
+
         $existeReadequacaoEmEdicao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoEmEdicao(
             $idPronac,
             Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_TRANSFERENCIA_RECURSOS
         );
-        
+
         if (!$existeReadequacaoEmAndamento
             || $existeReadequacaoEmEdicao
         ) {
             $ReadequacaoTransferenciaRecursos = 1;
         }
-        
+
         # Verificar se ha diligencia para responder
         $vDiligencia = $db->select()
            ->from(
@@ -186,7 +186,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             $Analise = 0;
         }
 
-        # FASE 3 - DA LIBERA��O DA PUBLICA��O DA PORTARIA DE APROVA��O AT� A LIBERA��O DA CONTA
+        # FASE 3 - DA LIBERA��O DA PUBLICA��O DA PORTARIA DE aprovação AT� A LIBERA��O DA CONTA
         if ($dadoPortaria->NrPortaria or $dadoPortaria->NrPortaria != '' and $contaLiberada == 'N') {
             $Fase = 3;
             $Analise = 1;

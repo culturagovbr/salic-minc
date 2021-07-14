@@ -72,10 +72,10 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract
 
         if (count($resp) < 1 && count($PronacExistente) > 0) {
             if ($this->modal == "s") {
-                echo "<br/><br/><br/><br/><center><font color='red'>Voc� n�o tem acesso a esta unidade!</font></center>";
+                echo "<br/><br/><br/><br/><center><font color='red'>Voc� Não tem acesso a esta unidade!</font></center>";
                 $this->_helper->viewRenderer->setNoRender(true);
             } else {
-                parent::message("Voc� n�o tem acesso a esta unidade!", "mantercontabancaria/consultar", "ALERT");
+                parent::message("Voc� Não tem acesso a esta unidade!", "mantercontabancaria/consultar", "ALERT");
             }
         }
 
@@ -138,9 +138,9 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract
         $caminho = $this->_request->getParam("caminho"); //caminho de retorno caso a funcionalidade seja aberta em modal
         $ba = new BancoAgencia();
         $AgenciaDados = $ba->buscar(array('Agencia = ?' => $this->_request->getParam('Agencia')));
-        
+
         if (count($AgenciaDados) > 0) {
-            
+
             //INSERE OS DADOS NA TABELA DE HIST�RICO - SAC.dbo.tbHistoricoExclusaoConta
             $dadosInsert = array(
                 'idContaBancaria' => $resp->IdContaBancaria,
@@ -152,7 +152,7 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract
                 'Motivo' => $this->_request->getParam('justificativa'),
                 'idUsuario' => $idagente['usu_codigo']
             );
-            
+
             $id = $he->inserir($dadosInsert);
 
             $dados = array(
@@ -164,11 +164,11 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract
                 'DtLoteRemessaCL' => new Zend_Db_Expr('GETDATE()'),
                 'DtLoteRemessaCB' => new Zend_Db_Expr('GETDATE()')
             );
-            
+
             $id = $cb->alterar($dados, array('idContaBancaria = ?' => $resp->IdContaBancaria));
-            
+
             //parent::message("Cadastro realizado com sucesso!", "mantercontabancaria/alterar?pronac=$pronac", "CONFIRM");
-            
+
             if (!empty($caminho)) {
                 parent::message("Cadastro realizado com sucesso!", $caminho, "CONFIRM");
             } else {

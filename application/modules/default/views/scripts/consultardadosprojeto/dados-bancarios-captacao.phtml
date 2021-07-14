@@ -32,7 +32,7 @@
 
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -44,13 +44,13 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Capta&ccedil;&atilde;o</div>
 </div>
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr class="destacar">
@@ -75,7 +75,7 @@
             <tr class="divFiltroPesquisa">
                 <td class="destacar bold w100">Dt. Capta&ccedil;&atilde;o</td>
                 <td>
-                    <input type="text" name="dtReciboInicio" id="dtReciboInicio" class="input_simples w100" maxlength="10"onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');" onblur="restaurar_campo(this, '');" type="text" value="<?php echo $this->dtReciboInicio; ?>">&nbsp;até&nbsp;
+                    <input type="text" name="dtReciboInicio" id="dtReciboInicio" class="input_simples w100" maxlength="10"onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');" onblur="restaurar_campo(this, '');" type="text" value="<?php echo $this->dtReciboInicio; ?>">&nbsp;atï¿½&nbsp;
                     <input type="text" name="dtReciboFim" id="dtReciboFim" class="input_simples w100" maxlength="10" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');" onblur="restaurar_campo(this, '');" type="text" value="<?php echo $this->dtReciboFim; ?>">
                     <input type="hidden" class="input_simples" name="idPronac" value="<?php echo $this->idPronac; ?>">
                     <input type="button" name="btn_pesquisar" id="btn_pesquisar" class="btn_pesquisar" value="">
@@ -85,7 +85,7 @@
     </form>
 
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINAÃ‡Ã‚O ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -110,12 +110,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    PÃ¡g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por pÃ¡gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="dtReciboInicio" value="<?php echo $this->dtReciboInicio;?>">
@@ -134,7 +134,7 @@
             echo " de ". $this->paginacao['total']. " Projetos listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
     <?php } ?>
 
 
@@ -149,7 +149,7 @@
                 <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=3&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Transfer&ecirc;ncia</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">Vl. Captado</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">% Captado</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">BEM/SERVIÇO</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">BEM/SERVIï¿½O</a></th>
             </tr>
         </thead>
         <tbody>
@@ -191,7 +191,7 @@
 
     <?php if(count($this->dados)>0){ ?>
 
-        <!-- ============ PAGINAÇÃO ============ -->
+        <!-- ============ PAGINAÃ‡Ã‚O ============ -->
         <?php if($this->qtd > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -224,12 +224,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'">
                         <?php } ?>
-                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        PÃ¡g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por pÃ¡gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="dtReciboInicio" value="<?php echo $this->dtReciboInicio;?>">
@@ -241,7 +241,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINAÇÃO ========== -->
+        <!-- ========== FIM PAGINAÃ‡Ã‚O ========== -->
 
     <?php } } ?>
 
@@ -265,7 +265,7 @@
     </form>
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

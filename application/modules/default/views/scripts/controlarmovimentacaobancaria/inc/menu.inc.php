@@ -1,12 +1,12 @@
-<!-- ========== IN�CIO MENU ========== --> 
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 
 
 <div id="menu">
-    <!-- in�cio: conte�do principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
 
-        <!-- in�cio: navega��o local #qm0 -->
+        <!-- INÍCIO: navega��o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido(){
                 var janela = $(window).width();
@@ -43,7 +43,7 @@
                     });
                     $("#produtoDesativado").dialog('open');
                 });
-                
+
                 $('.relatorio').click(function(){
                     $(this).next().toggle('fast');
                 });
@@ -68,7 +68,7 @@
                 <a href="<?php echo $this->url(array('controller' => 'captacao', 'action' => 'index'), '', true); ?>" title="Ir para Registrar Capta&ccedil;&atilde;o" class="no_seta">Registrar Capta&ccedil;&atilde;o</a>
                 <a href="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'upload'), '', true); ?>" title="Ir para Arquivo da Conta Movimenta&ccedil;&atilde;o" class="no_seta">Atualizar arquivo de conta movimento</a>
                 <a href="<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'upload'), '', true); ?>" title="Ir para Arquivo da Conta Capta&ccedil;&atilde;o" class="no_seta">Atualizar arquivo de conta capta&ccedil;&atilde;o</a>
-                
+
                 <?php
                     #removendo UCS nao concluidos do menu
                     /** /

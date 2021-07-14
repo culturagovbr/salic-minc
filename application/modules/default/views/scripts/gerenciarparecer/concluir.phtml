@@ -1,14 +1,14 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl();?>/public/js/tinymce/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
- 
+
   function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
 	var minchar;
 
         countChars  = CountCharacters(fieldName);
-        //Atualização para os contadores de caracteres
+        //Atualizaï¿½ï¿½o para os contadores de caracteres
         document.getElementById("contador" + fieldName).innerHTML = "Caracteres: " + countChars;
-                     
-        //mudança de cor caso ultrapasse o numero de caracteres
+
+        //mudanï¿½a de cor caso ultrapasse o numero de caracteres
         if (countChars <= minchar){
 	    document.getElementById("contador" + fieldName).style.color = "red";
         }else{
@@ -16,9 +16,9 @@
         }
   }
 
-   $(document).ready(function(){    
+   $(document).ready(function(){
 
-        //inicializao e configuração do editor tinyMCE
+        //inicializao e configuraï¿½ï¿½o do editor tinyMCE
         tinymce.init({
 	    plugins:"paste,textcolor",
 	    language: "pt_BR",
@@ -35,11 +35,11 @@
 		});
             }
         });
-        
+
 
     });
-    
-    //Onde é feita a contagem do elemento do contador
+
+    //Onde ï¿½ feita a contagem do elemento do contador
     function CountCharacters(contador) {
         var body = tinymce.get(contador).getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
@@ -50,14 +50,14 @@
     function confirmaConcluir() {    $("#msgmodal").html("Deseja Concluir o Produto?");
         $("#modalConfirm").dialog("destroy");
         $("#modalConfirm").dialog({
-            title :'Confirmação.',
+            title :'ConfirmaÃ§Ã£o.',
             resizable: false,
             width:400,
             height:150,
             modal: true,
             autoOpen:false,
             buttons: {
-                'Não': function() {
+                'NÃ£o': function() {
                     $(this).dialog('close');
                 },
                 'Sim': function() {
@@ -71,10 +71,10 @@
     }
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para Início">Início</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para INÃCIO">INÃCIO</a></li>
         <li><a href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index'),'',true); ?>" title="Localizar Parecer">Gerenciar Pareceres</a></li>
         <li class="last">Concluir</li>
     </ul>
@@ -82,14 +82,14 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>Concluir <?php echo $this->dadosProjeto[0]->stPrincipal == 1 ? 'Produto Principal':'Produto Secundário';?><span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
+    <div>Concluir <?php echo $this->dadosProjeto[0]->stPrincipal == 1 ? 'Produto Principal':'Produto Secundï¿½rio';?><span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <div id="modalConfirm" style="display: none;"><label id="msgmodal"></label></div>
     <form id="form" name="form" action="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'concluiu')); ?>" method="POST">
@@ -110,7 +110,7 @@
                 <td align="left"><?php echo $this->dadosProjeto[0]->Produto;?></td>
             </tr>
         </table>
-        
+
         <table class="tabela">
             <tr>
                 <th width="150">Justificativa</th>
@@ -132,10 +132,10 @@
         </table>
     </form>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

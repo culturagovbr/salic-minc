@@ -7,25 +7,25 @@ $(document).ready(function(){
 </script>
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para InÌcio">InÌcio</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar ¡rea de Trabalho">Visualizar ¡rea de Trabalho</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar ÔøΩrea de Trabalho">Visualizar ÔøΩrea de Trabalho</a></li>
 		<li class="last">Busca Lembretes</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>Lembretes <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 
@@ -47,7 +47,7 @@ $(document).ready(function(){
 
 
 
-<form class="form" name="formBuscar" id="formBuscar" method="post" 
+<form class="form" name="formBuscar" id="formBuscar" method="post"
 	action="<?php echo $this->url(array('controller' => 'lembretes', 'action' => 'buscalembrete')); ?>">
 
 	<table class="tabela_busca">
@@ -58,15 +58,15 @@ $(document).ready(function(){
 			<th class="titulo_campo"><label for="dtlembrete">Data do Lembrete:</label></th>
 			<td>
 				<div class="left"></div>
-				<input type="text" name="dtlembrete" id="dtlembrete" maxlength="10" 
-					onkeyup="mascara(this, format_data);" 
+				<input type="text" name="dtlembrete" id="dtlembrete" maxlength="10"
+					onkeyup="mascara(this, format_data);"
 					onmouseup=" "
-					onclick="limpar_campo(this, '00/00/0000');" value="00/00/0000" 
+					onclick="limpar_campo(this, '00/00/0000');" value="00/00/0000"
 					onkeypress=" "
 					onblur="restaurar_campo(this, '00/00/0000');"
 					onmouseout="restaurar_campo(this, '00/00/0000');"
 					class="input w100" />
-				<div class="right"></div> &nbsp; 
+				<div class="right"></div> &nbsp;
 				<input type="hidden" name="pronac" id="pronac" value="<?php echo $this->escape($tblembretesprojeto->IdPRONAC);?>" />
 				<input type="submit" title=" Pesquisar " class="btn_pesquisar" value=" " />
 			</td>
@@ -74,14 +74,14 @@ $(document).ready(function(){
 	</table>
 
 </form>
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
 
 
 
@@ -92,18 +92,18 @@ $(document).ready(function(){
 <table class="tabela">
 	<tr>
 	<td class="center"> 	<a href="javascript:window.print()"><img src="<?php echo $this->baseUrl(); ?>/public/img/imprimir.gif" alt="Imprimir" /> </a></td>
-	</tr>	
+	</tr>
 </table>
 
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

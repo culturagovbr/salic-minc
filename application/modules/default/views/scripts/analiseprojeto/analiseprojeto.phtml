@@ -9,21 +9,21 @@ window.onload = function()
 <table class="tabela" style="margin:5px auto; width:1000px;">
      <?php foreach($this->analiseprojeto as $tbanaliseprojeto): ?>
 		<tr>
-			<td class="titulo_tabela"> <a href='analiseprojeto?pronac=<?php echo $this->escape($tbanaliseprojeto->idPRONAC); ?>'>Análise Técnica</a></td>
+			<td class="titulo_tabela"> <a href='analiseprojeto?pronac=<?php echo $this->escape($tbanaliseprojeto->idPRONAC); ?>'>AnÃ¡lise TÃ©cnica</a></td>
 			<td class="titulo_tabela"> <a href='proponente?pronac=<?php echo $this->escape($tbanaliseprojeto->idPRONAC); ?>'>Proponente</a></td>
 			<td class="titulo_tabela"> <a href='anexardocumentos?pronac=<?php echo $this->escape($tbanaliseprojeto->idPRONAC); ?>'>Documentos Anexados</a></td>
 			<td class="titulo_tabela"> <a href='lembretes?pronac=<?php echo $this->escape($tbanaliseprojeto->idPRONAC); ?>'>Lembretes</a></td>
-			<td class="titulo_tabela"> <a href='visualizarhistorico?pronac=<?php echo $this->escape($tbanaliseprojeto->idPRONAC); ?>'>Histórico</a></td>	
-			<td class="titulo_tabela"> <a href='dadosprojeto?pronac=<?php echo $this->escape($tbanaliseprojeto->idPRONAC);?>'>Consultar Dados do Projeto</a></td>	
+			<td class="titulo_tabela"> <a href='visualizarhistorico?pronac=<?php echo $this->escape($tbanaliseprojeto->idPRONAC); ?>'>Histï¿½rico</a></td>
+			<td class="titulo_tabela"> <a href='dadosprojeto?pronac=<?php echo $this->escape($tbanaliseprojeto->idPRONAC);?>'>Consultar Dados do Projeto</a></td>
 		</tr>
-	<?php endforeach;?>	
+	<?php endforeach;?>
 </table>
 
 <table class="tabela" style="margin:20px auto; width:1000px;">
 	<?php foreach($this->analiseprojeto as $tbanaliseprojeto): ?>
-		<tr> 
+		<tr>
 			<td align="center">
-				<b>PRONAC:</b> <?php echo $this->escape($tbanaliseprojeto->idPRONAC);?> - 
+				<b>PRONAC:</b> <?php echo $this->escape($tbanaliseprojeto->idPRONAC);?> -
 				<b>Nome do Projeto:</b> <?php echo $this->escape($tbanaliseprojeto->NomeProjeto);?>
 			</td>
 		</tr>
@@ -32,7 +32,7 @@ window.onload = function()
 
 <table class="tabela" style="margin:5px auto; width:1000px;">
 	<tr>
-		<td align="right"><a href="javascript:window.print()"><img src="<?php echo $this->baseUrl(); ?>/public/img/imprimir.gif" /></a></td>	
+		<td align="right"><a href="javascript:window.print()"><img src="<?php echo $this->baseUrl(); ?>/public/img/imprimir.gif" /></a></td>
 		<td align="right"><a href="javascript:history.go(-1);" style="text-decoration:none;"><img src="<?php echo $this->baseUrl(); ?>/public/img/adm_btn_voltar.gif" /> Voltar</a></td>
 	</tr>
 </table>

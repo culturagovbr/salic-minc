@@ -32,14 +32,14 @@ error_reporting(0);
 if (!isset($_GET["tpAgente"])) {
 
 	echo $this->partial('realizarprestacaodecontas/inc/menu.inc.php', $this) // menu de consultar dados do projeto
-	
+
 }
 
 ?>
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">Início</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">INÃCIO</a></li>
         <li>Presta&ccedil;&atilde;o de contas</li>
         <li class="last">Consultar dados do projeto</li>
     </ul>
@@ -52,16 +52,16 @@ if (!isset($_GET["tpAgente"])) {
 </script>
 
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-<!-- ========== INï¿½CIO Tï¿½TULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Consultar dados do projeto <span class="voltar" style="float:right;"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <!-- ========== FIM Tï¿½TULO ========== -->
-<!-- ========== INï¿½CIO CONTEï¿½DO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <?php //include_once 'scripts/consultardadosprojeto/inc/menu.inc.php';
     if(!isset($this->projeto)) {
-        echo '<div align="center">Projeto não encontrado.</div>';
+        echo '<div align="center">Projeto NÃ£o encontrado.</div>';
     } else {
         ?>
     <table  class="tabela">
@@ -71,7 +71,7 @@ if (!isset($_GET["tpAgente"])) {
     </table>
     <table class="tabela">
         <tr class="destacar">
-            <td colspan="6" align="center"><b>Identificação</b></td>
+            <td colspan="6" align="center"><b>Identificaï¿½ï¿½o</b></td>
         </tr>
         <!--<tr>
             <td align="center" colspan="3">
@@ -102,14 +102,14 @@ if (!isset($_GET["tpAgente"])) {
             </td>
         </tr>
         <tr class="destacar">
-            <td colspan="6" align="center"><b>UF / Mecanismo / Área / Segmento / Processo</b></td>
+            <td colspan="6" align="center"><b>UF / Mecanismo / ï¿½rea / Segmento / Processo</b></td>
         </tr>
         <tr>
             <td align="left" colspan="6">
                 <div>
                     <div style="width:10%; float: left;"><b>UF</b>:<br><?php echo $this->projeto->UfProjeto; ?></div>
                     <div style="width:19%; float: left;"><b>Mecanismo</b>:<br><?php echo $this->projeto->Mecanismo; ?></div>
-                    <div style="width:19%; float: left;"><b>Área Cultural</b>:<br><?php echo $this->projeto->Area; ?></div>
+                    <div style="width:19%; float: left;"><b>ï¿½rea Cultural</b>:<br><?php echo $this->projeto->Area; ?></div>
                     <div style="width:19%; float: left;"><b>Segmento</b>:<br><?php echo $this->projeto->Segmento; ?></div>
                     <div style="width:16%; float: left;"><b>Processo</b>:<br><?php echo $this->projeto->Processo; ?></div>
                     <div style="width:13%; float: left;"><b>Enquadramento</b>:<br><?php echo $this->projeto->Enquadramento; ?></div>
@@ -135,24 +135,24 @@ if (!isset($_GET["tpAgente"])) {
                     <div style="width:16%; float: left;"><b>Vl.Proposta (C = A + B):<br><font color="#0000FF"><?php echo @number_format(($this->projeto->ValorSolicitado + $this->projeto->OutrasFontes), 2, ",", "."); ?></font></b></div>
                     <div style="width:16%; float: left;"><b>Aprovado (D):<br><?php echo number_format($this->projeto->ValorAprovado, 2, ",", "."); ?></b></div>
                     <div style="width:16%; float: left;"><b>Vl.Projeto (E = B + D):<br><?php echo @number_format(($this->projeto->OutrasFontes + $this->projeto->ValorAprovado), 2, ",", "."); ?></b></div>
-                    <div style="width:16%; float: left;"><b>Captação / Conv&ecirc;nio (E):<br><?php echo @number_format(($this->projeto->ValorCaptado / ($this->projeto->OutrasFontes + $this->projeto->ValorAprovado)), 2, ",", "."); ?></b></div>
+                    <div style="width:16%; float: left;"><b>Captaï¿½ï¿½o / Conv&ecirc;nio (E):<br><?php echo @number_format(($this->projeto->ValorCaptado / ($this->projeto->OutrasFontes + $this->projeto->ValorAprovado)), 2, ",", "."); ?></b></div>
                 </div>
             </td>
         </tr>
         <tr class="destacar">
-            <td colspan="6" align="center"><b>Situação</b></td>
+            <td colspan="6" align="center"><b>Situaï¿½ï¿½o</b></td>
         </tr>
         <tr>
             <td align="left" colspan="6">
                  <div>
-                    <div style="width:20%; float: left;"><b>Dt.Situação</b>:<br><?php echo $this->projeto->DtSituacao; ?></div>
-                    <div style="width:40%; float: left;"><b>Situação</b>:<br><?php echo $this->projeto->Situacao; ?></div>
+                    <div style="width:20%; float: left;"><b>Dt.Situaï¿½ï¿½o</b>:<br><?php echo $this->projeto->DtSituacao; ?></div>
+                    <div style="width:40%; float: left;"><b>Situaï¿½ï¿½o</b>:<br><?php echo $this->projeto->Situacao; ?></div>
                     <div style="width:40%; float: left;"><b>Provid&ecirc;ncia Tomada</b>:<br><?php echo $this->projeto->ProvidenciaTomada; ?></div>
                  </div>
             </td>
         </tr>
         <tr class="destacar">
-            <td colspan="6" align="center"><b>Última Tramitação</b></td>
+            <td colspan="6" align="center"><b>ï¿½ltima TramitaÃ§Ã£o</b></td>
         </tr>
         <tr>
             <td align="left" colspan="6">
@@ -172,11 +172,11 @@ if (!isset($_GET["tpAgente"])) {
             <td colspan="6" align="left"><b>Despacho</b>:<br><?php echo $this->projeto->meDespacho; ?></td>
         </tr>
         <tr class="destacar">
-            <td colspan="6" align="center"><b>Localização atual do projeto</b></td>
+            <td colspan="6" align="center"><b>Localizaï¿½ï¿½o atual do projeto</b></td>
         </tr>
         <tr>
             <td align="left" colspan="6" >
-                A localização atual do projeto só será alterada após o recebimento do projeto na unidade destino.<br />
+                A localizaï¿½ï¿½o atual do projeto sï¿½ serÃ¡ alterada apï¿½s o recebimento do projeto na unidade destino.<br />
                 <b><?php echo $this->projeto->Origem; ?></b>
             </td>
         </tr>
@@ -188,7 +188,7 @@ if (!isset($_GET["tpAgente"])) {
         <tr>
             <td colspan="6" align="left">
                 <input type="button" class="btn_adicionar" onclick="return toogleAjax('planoDistribuicao', '<?php echo $this->baseUrl(); ?>/plano-distribuicao/consultar-componente?idPreProjeto=<?php echo ($this->projeto->idProjeto)?$this->projeto->idProjeto:0; ?>')"/>
-                Plano de Distribuição
+                Plano de Distribuiï¿½ï¿½o
             </td>
         </tr>
         <tr>
@@ -199,7 +199,7 @@ if (!isset($_GET["tpAgente"])) {
         <tr>
             <td colspan="6" align="left">
                 <input type="button" class="btn_adicionar" onclick="return toogleAjax('planoDivulgacao', '<?php echo $this->baseUrl(); ?>/divulgacao/consultarcomponente?idPreProjeto=<?php echo ($this->projeto->idProjeto)?$this->projeto->idProjeto:0; ?>')"/>
-                Plano de Divulgação
+                Plano de Divulgaï¿½ï¿½o
             </td>
         </tr>
         <tr>
@@ -210,7 +210,7 @@ if (!isset($_GET["tpAgente"])) {
         <tr>
             <td colspan="6" align="left">
                 <input type="button" class="btn_adicionar" onclick="return toogleAjax('localRealizacao', '<?php echo $this->baseUrl(); ?>/localderealizacao/consultarcomponente?idPreProjeto=<?php echo ($this->projeto->idProjeto)?$this->projeto->idProjeto:0; ?>')"/>
-                Local de Realização
+                Local de Realizaï¿½ï¿½o
             </td>
         </tr>
         <tr>
@@ -232,7 +232,7 @@ if (!isset($_GET["tpAgente"])) {
         <tr>
             <td colspan="6" align="left">
                 <input type="button" class="btn_adicionar" onclick="return toogleAjax('planilhaOrcamentaria', '<?php echo $this->baseUrl(); ?>/manterorcamento/consultarcomponente?idPreProjeto=<?php echo ($this->projeto->idProjeto)?$this->projeto->idProjeto:0; ?>')"/>
-                Planilha Orçamentária
+                Planilha Orï¿½amentï¿½ria
             </td>
         </tr>
         <tr>
@@ -252,10 +252,10 @@ if (!isset($_GET["tpAgente"])) {
     </table>
 
 </div>
-<!-- ========== FIM CONTEï¿½DO ========== -->
-<!-- ========== INï¿½CIO RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />
     <?php
 }

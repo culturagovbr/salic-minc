@@ -1,19 +1,19 @@
 <?php
 /**
- * Classe de segurança em geral: sql injection, dentre outros...
+ * Classe de seguranï¿½a em geral: sql injection, dentre outros...
  * @author Equipe RUP - Politec
  * @since 29/03/2010
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Seguranca
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Seguranca
 {
 	/**
-	 * Trata os dados vindos de formulários
+	 * Trata os dados vindos de formulï¿½rios
 	 * @access public
 	 * @static
 	 * @param string $variavel
@@ -21,20 +21,20 @@ class Seguranca
 	 */
 	public static function tratarVar($variavel)
 	{
-		// caso a função get_magic_quotes_gpc() esteja desabilitada, força a inserção da barra antes das aspas
+		// caso a funï¿½ï¿½o get_magic_quotes_gpc() esteja desabilitada, forï¿½a a inserÃ¡ï¿½o da barra antes das aspas
 		$variavel = get_magic_quotes_gpc() ? $variavel : addslashes($variavel);
 
 		// retira as barras antes das aspas
 		$variavel = stripslashes($variavel);
 
-		// converte tags html em entidades e retira os espaços no início e final das variáveis
+		// converte tags html em entidades e retira os espaï¿½os no INÃCIO e final das variï¿½veis
 		return htmlentities(trim($variavel), ENT_QUOTES); // converte aspas simples e duplas
-	}  // fecha método tratarVar()
+	}  // fecha mï¿½todo tratarVar()
 
 
 
 	/**
-	 * Trata os dados vindos via ajax (trata as acentuações)
+	 * Trata os dados vindos via ajax (trata as acentuaï¿½ï¿½es)
 	 * @access public
 	 * @static
 	 * @param string $variavel
@@ -42,9 +42,9 @@ class Seguranca
 	 */
 	public static function tratarVarAjax($variavel)
 	{
-		// a função utf8_decode() converte uma string com caracteres ISO-8859-1 codificadas com UTF-8 (no caso, dados vindos via AJAX)
+		// a funï¿½ï¿½o utf8_decode() converte uma string com caracteres ISO-8859-1 codificadas com UTF-8 (no caso, dados vindos via AJAX)
 		return self::tratarVar(utf8_decode($variavel));
-	} // fecha método tratarVarAjax()
+	} // fecha mï¿½todo tratarVarAjax()
 
 
 
@@ -57,9 +57,9 @@ class Seguranca
 	 */
 	public static function tratarVarAjaxUFT8($variavel)
 	{
-		// a função utf8_decode() converte uma string com caracteres ISO-8859-1 codificadas com UTF-8 (no caso, dados vindos via AJAX)
+		// a funï¿½ï¿½o utf8_decode() converte uma string com caracteres ISO-8859-1 codificadas com UTF-8 (no caso, dados vindos via AJAX)
 		return utf8_decode($variavel);
-	} // fecha método tratarVarAjaxUFT8()
+	} // fecha mï¿½todo tratarVarAjaxUFT8()
 
 
 
@@ -72,8 +72,8 @@ class Seguranca
 	 */
 	public static function tratarVarHTML($variavel)
 	{
-		return html_entity_decode($variavel, ENT_COMPAT); // irá converter aspas e deixar os apostrofos
-	} // fecha método tratarVarHTML()
+		return html_entity_decode($variavel, ENT_COMPAT); // irï¿½ converter aspas e deixar os apostrofos
+	} // fecha mï¿½todo tratarVarHTML()
 
 
 
@@ -90,7 +90,7 @@ class Seguranca
 			return htmlspecialchars(stripslashes($variavel));
 		else
 			return htmlspecialchars($variavel);
-	} // fecha método tratarVarEditor()
+	} // fecha mï¿½todo tratarVarEditor()
 
         /**
 	 *  Transforma o valor enviado para base64 e o ebaralha entre o hash gerado para o segredo enviado
@@ -112,7 +112,7 @@ class Seguranca
 	 * @access public
 	 * @static
 	 * @param string $valor - valor a ser decodificado
-	 * @param string $segredo (opcional) - mesmo segredo enviado no momento de criptografar 
+	 * @param string $segredo (opcional) - mesmo segredo enviado no momento de criptografar
 	 * @return string
 	 */
         public static function dencrypt($valor,$segredo='e@75efR!3450otS')

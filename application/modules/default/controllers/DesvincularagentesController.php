@@ -5,7 +5,7 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -14,11 +14,11 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
             // verifica as permiss�es
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 93;  // Coordenador de Parecerista
-            $PermissoesGrupo[] = 103; // Coordenador de An�lise
+            $PermissoesGrupo[] = 103; // Coordenador de Análise
             $PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
             $PermissoesGrupo[] = 122; // Coordenador de Acompanhamento
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -30,7 +30,7 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
         } // fecha if
-        else { // caso o usu�rio n�o esteja autenticado
+        else { // caso o usu�rio Não esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -88,12 +88,12 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
 
             try {
                 $resultado = DesvincularagentesDAO::desvincularagentes($idAgente, $idVinculoPrincipal);
-                
+
                 parent::message("Agente desvinculado com sucesso!", "desvincularagentes/mostraragentes?cnpjcpf=" . $cnpjcpf . "&nome=" . $nome." ", "CONFIRM");
             } catch (Exception $e) {
                 parent::message("Erro ao desvincular Agentes!", "desvincularagentes/mostraragentes?cnpjcpf=" . $cnpjcpf . "&nome=" . $nome." ", "ERROR");
             }
-        
+
             //$this->_redirect("desvincularagentes/mostraragentes?cnpjcpf=" . $cnpjcpf . "&nome=" . $nome);
         }
     }
@@ -102,18 +102,18 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
     public function buscaragentesAction()
     {
     }
-    
-    
+
+
     public function buscaragentesvinculadosAction()
     {
-        
+
         // caso o formul�rio seja enviado via post
         if ($this->getRequest()->isPOST()) {
             // recebe o cpf/cnpj via post
             $post = Zend_Registry::get('post');
             $cnpjcpf = Mascara::delMaskCNPJ($post->cnpjcpf);
             $nome = $post->nome;
-         
+
             // VALIDA��O
             try {
                 if (!$cnpjcpf && !$nome) {
@@ -125,11 +125,11 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
                         } elseif (strlen($cnpjcpf) > 11 && !Validacao::validarCNPJ($cnpjcpf)) {
                             throw new Exception("O N� do CNPJ � inv�lido!");
                         }
-                        
+
                         if (strlen($cnpjcpf) < 11 || strlen($cnpjcpf) > 14) {
                             throw new Exception("Informe todos os digitos!");
                         }
-                        
+
                         if ($nome) {
                             if (strlen($nome) > 70) {
                                 throw new Exception("Nome inv�lido!");
@@ -140,7 +140,7 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
                             throw new Exception("Nome inv�lido!");
                         }
                     }
-                    
+
                     $this->redirect("desvincularagentes/mostraragentes?cnpjcpf=" . $cnpjcpf . "&nome=" . $nome);
                 }
             } catch (Exception $e) {
@@ -152,33 +152,33 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
     public function mostraragentesAction()
     {
         $vin = new DesvincularagentesDAO();
-        
+
         if ($this->getRequest()->isGET()) {
             // recebe o cpf/cnpj via post
             $get = Zend_Registry::get('get');
             $cnpjcpf = $get->cnpjcpf;
             $nome = $get->nome;
-            
+
             $tbentidade = $vin->buscaentidade($nome, $cnpjcpf);
-            
+
             try {
                 if ($tbentidade) {
-        
-                    // ========== IN�CIO PAGINA��O ==========
+
+                    // ========== INÍCIO PAGINAÇÂO ==========
                     //criando a pagina�ao
                     Zend_Paginator::setDefaultScrollingStyle('Sliding');
                     Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
                     $paginator = Zend_Paginator::factory($tbentidade); // dados a serem paginados
 
-                    // p�gina atual e quantidade de �tens por p�gina
+                    // página atual e quantidade de �tens por página
                     $currentPage = $this->_getParam('page', 1);
                     $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(1);
-                    // ========== FIM PAGINA��O ==========
+                    // ========== FIM PAGINAÇÂO ==========
 
                     $this->view->entidade = $paginator;
                     $this->view->qtdEntidade    = count($tbentidade); // quantidade
                 } else {
-                    throw new Exception("Registro n�o encontrado!");
+                    throw new Exception("Registro Não encontrado!");
                 }
             } catch (Exception $e) {
                 parent::message($e->getMessage(), "desvincularagentes/buscaragentes", "ERROR");

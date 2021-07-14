@@ -8,6 +8,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
 
     public function propostas($where = array(), $order = array(), $start = 0, $limit = 10, $search = null)
     {
+        set_time_limit(-1);
         $db = $this->getAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -35,6 +36,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
 
     public function propostasQuery()
     {
+        set_time_limit(-1);
         $db = $this->getAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -100,6 +102,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
 
     private function obterDatasDiligencias($idProposta, $dtEnvio, $possuiArquivamento)
     {
+        set_time_limit(-1);
         $db = $this->getAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -138,6 +141,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
 
     public function obterDataDesarquivamento($idProposta)
     {
+        set_time_limit(-1);
         $db = $this->getAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -166,6 +170,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
 
     public function obterDiasEmAnalise($idProposta)
     {
+        set_time_limit(-1);
         $db = $this->getAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
         $select = $this->select();
@@ -226,6 +231,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
         Admissibilidade_Model_DistribuicaoAvaliacaoProposta $distribuicaoAvaliacaoProposta = null
     )
     {
+        set_time_limit(-1);
         $db = $this->getAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -250,6 +256,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
         Admissibilidade_Model_DistribuicaoAvaliacaoProposta $distribuicaoAvaliacaoProposta = null
     )
     {
+        set_time_limit(-1);
         $subSelectPropostaParaAvaliacao = $this->obterQueryPropostasParaAvaliacao(
             $where,
             $order,
@@ -281,6 +288,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
         Admissibilidade_Model_DistribuicaoAvaliacaoProposta $distribuicaoAvaliacaoProposta = null
     )
     {
+        set_time_limit(-1);
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from('vwPainelAvaliarPropostas',
@@ -450,6 +458,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
 
     private function obterQueryPenultimaSugestaoEnquadramento()
     {
+        set_time_limit(-1);
         $selectPenultimaDistribuicao = $this->select();
         $selectPenultimaDistribuicao->setIntegrityCheck(false);
         $selectPenultimaDistribuicao->from(
@@ -471,6 +480,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
 
     private function obterRestricaoPropostasParaAvaliacao(Admissibilidade_Model_DistribuicaoAvaliacaoProposta $distribuicaoAvaliacaoProposta)
     {
+        set_time_limit(-1);
         if ($distribuicaoAvaliacaoProposta->getIdPerfil()) {
             $restricaoPropostasParaAvaliacao = '( ';
             if ($distribuicaoAvaliacaoProposta->getIdPerfil() == Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE
@@ -500,6 +510,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
 
     private function obterPerfisDistribuicao(Admissibilidade_Model_DistribuicaoAvaliacaoProposta $distribuicaoAvaliacaoProposta)
     {
+        set_time_limit(-1);
         if ($distribuicaoAvaliacaoProposta->getIdPerfil() != Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE) {
             $perfis = [
                 $distribuicaoAvaliacaoProposta->getIdPerfil()
@@ -515,6 +526,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
 
     public function propostasTotal($where = array(), $order = array(), $start = null, $limit = null, $search = null)
     {
+        set_time_limit(-1);
         $db = $this->getAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 

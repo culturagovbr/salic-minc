@@ -14,7 +14,7 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
 <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.css" />
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para P&aacute;gina Inicial">In&iacute;cio</a></li>
@@ -31,7 +31,7 @@
         <div>Valor de remanejamento maior que o permitido! M&aacute;ximo : <span id="valorpossivelApresentacao"></span></div>
     </div>
 </div>
-<!-- ========== INÍCIO CONTE¿DO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <table class="tabela" >
         <tr>
@@ -154,7 +154,7 @@
             <table class="tabela" style="width: 95%;">
             <tr>
               <td colspan="5">
-                <b>Parecer de Conteúdo do Produto*</b>
+                <b>Parecer de CONTEÃšDO do Produto*</b>
                 <p>
                   <center>
                     <textarea class="textarea_simples" id="ParecerDeConteudo" name="ParecerDeConteudo" rows="10" style="width: 98%;"></textarea>
@@ -253,7 +253,7 @@
 
                                 foreach ($valPlanilha as $camp => $cont) {
                                     $trCampo .= "<th>{$camp}</th>";
-                                    if ($camp == 'Valor Unitário' || $camp == 'Valor Solicitado' || $camp == 'Valor Sugerido pelo Parecerista') {
+                                    if ($camp == 'Valor Unitï¿½rio' || $camp == 'Valor Solicitado' || $camp == 'Valor Sugerido pelo Parecerista') {
                                         if ($camp == 'Valor Sugerido pelo Parecerista') {
                                             $conteudo .= "<td class='ValorSugerido right-align'>{$this->formatarReal($cont)}</td>";
                                         }
@@ -508,7 +508,7 @@
 <div id="confirma" class="sumir"></div>
 <div id="camposObrigatorios" class="sumir"></div>
 
-<!-- ========== FIM RODAP¿ DO CONTE&UACUTE;DO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTE&UACUTE;DO ========== -->
 <input type="hidden" name="grupoAtivo" id="grupoAtivo" value="<?php echo $this->grupoAtivo; ?>" />
 
 <script type="text/javascript">
@@ -711,7 +711,7 @@
         //$('html').css('overflow', 'hidden');
         var este = $('#alteraritemsolicitado');
         este.html('<br><br><br><br><br><br><br><center>Aguarde, carregando dados...<br><img src="/public/img/ajax.gif" /></center><br>');
-	
+
         este.dialog(
             {
                 title:"Alterar Item",
@@ -746,7 +746,7 @@
                             },
                             'Salvar': function() {
                                 var texto = $('#justificativa'+$('#idPlanilhaProjeto').val()).val();
-                                texto = texto.replace(/^\s+|\s+$/g,""); //retirando espa¿os
+                                texto = texto.replace(/^\s+|\s+$/g,""); //retirando espaï¿½os
                                 if (texto.length <= 0 || texto=="")
                                 {
                                     alertar('Dados obrigat\xF3rios n\xE3o informados.');
@@ -771,7 +771,7 @@
                                         var vlSolicitado = '<?php echo $this->vlSolicitado;?>';
                                         var vlTotalSugerido = recuperaTotalSugerido();
                                         var valorpossivel = vlSolicitado - vlTotalSugerido;
-                                        
+
                                         $("#valorpossivel").val(valorpossivel);
 
                                         //atualiza campo de apresentacao do novo valor possivel de remanejamento

@@ -8,7 +8,7 @@ class RecursoXPlanilhaAprovacaoDAO extends Zend_Db_Table
     protected $_primary = "idRecurso";
 
     /**
-     * M�todo para cadastrar informa��es dos recursos na planilha de aprova��o
+     * M�todo para cadastrar informa��es dos recursos na planilha de aprovação
      * @access public
      * @static
      * @param array $dados
@@ -27,9 +27,9 @@ class RecursoXPlanilhaAprovacaoDAO extends Zend_Db_Table
             return false;
         }
     }
-    
+
     /**
-     * M�todo para alterar informa��es dos recursos na planilha de aprova��o
+     * M�todo para alterar informa��es dos recursos na planilha de aprovação
      * @access public
      * @static
      * @param array $dados
@@ -50,4 +50,4 @@ class RecursoXPlanilhaAprovacaoDAO extends Zend_Db_Table
             return false;
         }
     }
-} 
+}

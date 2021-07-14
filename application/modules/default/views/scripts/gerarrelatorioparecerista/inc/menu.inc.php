@@ -4,8 +4,8 @@ $pareceremitidoHref             =   $this->url(array('controller' => 'gerarrelat
 $geraldeanaliseHref             =   $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'geraldeanalise'));
 $consolidacaopareceristaHref    =   $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'consolidacaoparecerista'));
 ?>
-<!-- ========== INÍCIO MENU ========== -->
-        <!-- início: navegaç?o local #qm0 -->
+<!-- ========== INÃCIO MENU ========== -->
+        <!-- INÃCIO: navegaï¿½?o local #qm0 -->
 <script type="text/javascript">
     function layout_fluido()
     {
@@ -29,13 +29,13 @@ $consolidacaopareceristaHref    =   $this->url(array('controller' => 'gerarrelat
     <div class="top"></div>
     <div id="qm0" class="qmmc">
 
-        <a class="no_seta"      href="<?php echo $aguardandoparecerHref;?>"       title="Ir para Projeto aguardando distribuição">Projeto aguardando distribuição</a>
+        <a class="no_seta"      href="<?php echo $aguardandoparecerHref;?>"       title="Ir para Projeto aguardando distribuiï¿½ï¿½o">Projeto aguardando distribuiï¿½ï¿½o</a>
         <a class="no_seta"      href="<?php echo $pareceremitidoHref;?>"          title="Ir para Projeto com parecer">Projeto com parecer</a>
-        <a class="no_seta"      href="<?php echo $geraldeanaliseHref;?>"         title="Ir para Geral de Análise">Geral de Análise</a>
-        <a class="no_seta last" href="<?php echo $consolidacaopareceristaHref;?>" title="Ir para Análises por Pareceristas">Análises por Pareceristas</a>
+        <a class="no_seta"      href="<?php echo $geraldeanaliseHref;?>"         title="Ir para Geral de AnÃ¡lise">Geral de AnÃ¡lise</a>
+        <a class="no_seta last" href="<?php echo $consolidacaopareceristaHref;?>" title="Ir para AnÃ¡lises por Pareceristas">AnÃ¡lises por Pareceristas</a>
             <br clear="left" />
     </div>
     <div class="bottom"></div>
 </div>
-         
+
 <!-- ========== FIM MENU ========== -->

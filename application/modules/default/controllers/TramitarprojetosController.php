@@ -14,7 +14,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
         /*$auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio*/
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -23,7 +23,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97; //Gestor Salic
         $PermissoesGrupo[] = 99; //Acompanhamento
-        $PermissoesGrupo[] = 103; //Coordenador de An�lise
+        $PermissoesGrupo[] = 103; //Coordenador de Análise
         $PermissoesGrupo[] = 104; //Protocolo - (Envio / Recebimento)
         $PermissoesGrupo[] = 91; //Protocolo - Recebimento
         $PermissoesGrupo[] = 109; //Arquivo
@@ -58,7 +58,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 97; //Gestor Salic
             $PermissoesGrupo[] = 99; //Acompanhamento
-            $PermissoesGrupo[] = 103; //Coordenador de An�lise
+            $PermissoesGrupo[] = 103; //Coordenador de Análise
             $PermissoesGrupo[] = 104; //Protocolo - (Envio / Recebimento)
             $PermissoesGrupo[] = 91; //Protocolo - Recebimento
             $PermissoesGrupo[] = 109; //Arquivo
@@ -79,7 +79,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
            parent::perfil(1, $PermissoesGrupo);
 
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -94,7 +94,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
 
         //} // fecha if
         else {
-            // caso o usu�rio n�o esteja autenticado
+            // caso o usu�rio Não esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }*/
 
@@ -446,9 +446,9 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
             }
 
             if ($recusado && !$cadastrado) {
-                parent::message("Projetos com a situa��o RECUSADO n�o foram tramitados!", "/tramitarprojetos/enviarprojetos", "ALERT");
+                parent::message("Projetos com a situa��o RECUSADO Não foram tramitados!", "/tramitarprojetos/enviarprojetos", "ALERT");
             } elseif ($recusado && $cadastrado) {
-                parent::message("Projetos com a situa��o RECUSADO n�o foram tramitados!", "/tramitarprojetos/imprimirguia?idLote=".$idLoteAtual, "ALERT");
+                parent::message("Projetos com a situa��o RECUSADO Não foram tramitados!", "/tramitarprojetos/imprimirguia?idLote=".$idLoteAtual, "ALERT");
             } elseif ($verificaPendencia == 1 && $verificaEnviado == 0) {
                 parent::message("Projeto enviado com sucesso!", "/tramitarprojetos/imprimirguia?idLote=".$idLoteAtual, "CONFIRM");
 //                    parent::message($msgEnviado .  $msgPendencia, "/tramitarprojetos/despacharprojetos", "ALERT");
@@ -495,17 +495,17 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
         $destino = $historicodocumento->pesquisarOrgaosPorDestinoRecebimento(2, 2, $idusuario, $codOrgao);
         $this->view->Destino = $destino;
 
-        // ========== IN�CIO PAGINA��O ==========
+        // ========== INÍCIO PAGINAÇÂO ==========
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
         $paginator = Zend_Paginator::factory($destino); // dados a serem paginados
 
-        // p�gina atual e quantidade de �tens por p�gina
+        // página atual e quantidade de �tens por página
         $currentPage = $this->_getParam('page', 1);
         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(5);
         $this->view->Destino = $paginator;
         $this->view->qtdDoc    = count($destino); // quantidade
-        // ========== FIM PAGINA��O ==========
+        // ========== FIM PAGINAÇÂO ==========
 
         /* =================== FIM PROJETOS RECEBIDOS ====================*/
         if (isset($_POST['idH'])) {
@@ -707,7 +707,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                     TramitarprojetosDAO::arquivarProjeto($idPronac, $stAcao, $cxInicio, $cxFinal, $idusuario, null, 1);
                     parent::message("Projeto arquivado com sucesso!", "tramitarprojetos/receberprojetos?projetoRecebido=true", "CONFIRM");
                 } else {
-                    parent::message("O projeto n�o se encontra na DGI/CGRL/COAL/DCA, transa��o cancelada.", "tramitarprojetos/receberprojetos?projetoRecebido=true", "ALERT");
+                    parent::message("O projeto Não se encontra na DGI/CGRL/COAL/DCA, transa��o cancelada.", "tramitarprojetos/receberprojetos?projetoRecebido=true", "ALERT");
                 }
             }//FIM ELSE $busca2
         }
@@ -742,7 +742,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
         if (isset($_POST)) {
             if ($_POST['projeto']) {
                 try {
-                    //C�digo novo - Jefferson
+                    //Código novo - Jefferson
 
                     //VERIFICAR A EXISTENCIA DO PROJETO
                     $Projetos = new Projetos();
@@ -760,7 +760,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                     $tbHistoricoDocumento = new tbHistoricoDocumento();
                     $dadosTbHistorico = $tbHistoricoDocumento->buscar($whereHistorio);
                     if (count($dadosTbHistorico) > 0) {
-                        parent::message("O projeto n�o pode ser despachado, porque existe documento a ser juntado antes da sua tramita��o para outra unidade.", "tramitarprojetos/despacharprojetos", "ALERT");
+                        parent::message("O projeto Não pode ser despachado, porque existe documento a ser juntado antes da sua Tramitação para outra unidade.", "tramitarprojetos/despacharprojetos", "ALERT");
                     }
 
                     //CHECAR SE O PROJETO NAO ESTA DESPACHADO PARA OUTRA UNIDADE
@@ -771,7 +771,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                     $whereHistorio['stEstado = ?'] = 1;
                     $dadosTbHistorico = $tbHistoricoDocumento->buscar($whereHistorio);
                     if (count($dadosTbHistorico) > 0) {
-                        parent::message("O projeto n�o pode ser despachado novamente, transa��o cancelada.", "tramitarprojetos/despacharprojetos", "ALERT");
+                        parent::message("O projeto Não pode ser despachado novamente, transa��o cancelada.", "tramitarprojetos/despacharprojetos", "ALERT");
                     }
 
                     //SE EXISTIR ALGUM REGISTRO ATIVO, ELE TRANSFORMA PARA HISTORICO
@@ -800,7 +800,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                         'stEstado' => 1
                     );
                     if ($codOrgao == $_POST['idunidade']) {
-                        parent::message("O projeto n�o pode ser despachado para sua pr�pria unidade.", "tramitarprojetos/despacharprojetos", "ALERT");
+                        parent::message("O projeto Não pode ser despachado para sua pr�pria unidade.", "tramitarprojetos/despacharprojetos", "ALERT");
                     } else {
                         $tbHistoricoDocumento->inserir($dados);
                     }
@@ -825,7 +825,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
             if (count($buscaDados)>0) {
                 $idPronac = $buscaDados[0]->IdPRONAC;
             } else {
-                parent::message("Projeto n�o encontrado!", "tramitarprojetos/despacharprojetos", "ALERT");
+                parent::message("Projeto Não encontrado!", "tramitarprojetos/despacharprojetos", "ALERT");
             }
 
             $tbHistoricoDocumento = new tbHistoricoDocumento();
@@ -838,10 +838,10 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
             if ($atualizaDados) {
                 parent::message("Altera��o realizada com sucesso!", "tramitarprojetos/despacharprojetos", "CONFIRM");
             } else {
-                parent::message("N�o foi poss�vel fazer a altera��o!", "tramitarprojetos/despacharprojetos", "ERROR");
+                parent::message("Não foi poss�vel fazer a altera��o!", "tramitarprojetos/despacharprojetos", "ERROR");
             }
         }
-        parent::message("N�o foi poss�vel fazer nenhuma a��o!", "tramitarprojetos/despacharprojetos", "ALERT");
+        parent::message("Não foi poss�vel fazer nenhuma a��o!", "tramitarprojetos/despacharprojetos", "ALERT");
     }
 
     public function enviarprojetosAction()
@@ -979,7 +979,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                 }
             }
             if ($recusado) {
-                parent::message("Projetos com a situa��o RECUSADO n�o foram tramitados!", "/tramitarprojetos/enviarprojetos", "ALERT");
+                parent::message("Projetos com a situa��o RECUSADO Não foram tramitados!", "/tramitarprojetos/enviarprojetos", "ALERT");
             } else {
                 parent::message("Projeto enviado com sucesso!", "/tramitarprojetos/enviarprojetos", "CONFIRM");
             }
@@ -1268,7 +1268,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                     $where = "idPronac =  $idPronac and stEstado = 1 and Acao = 0";
                     $alterar = $historicoDocumentos->alterarHistoricoDocumento($dados, $where);
 
-                    parent::message("Solicita��o Cancelada!", "tramitarprojetos/solicitacoes", "CONFIRM");
+                    parent::message("Solicitação Cancelada!", "tramitarprojetos/solicitacoes", "CONFIRM");
                 }
             }
         }
@@ -1360,7 +1360,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                 }
             } else {
                 $tramitacao = $historicodocumento->projetosDespachados(array(), null, null, $idPronac);
-                if (count($tramitacao)) {    //Se tiver Historico de tramita��o
+                if (count($tramitacao)) {    //Se tiver Historico de Tramitação
                     foreach ($tramitacao as $despachoResu) {
                         $despachos = $despachoResu->despacho;
                         $idPronac = $despachoResu->idPronac;
@@ -1401,9 +1401,9 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                         TramitarprojetosDAO::arquivarProjeto($idPronac, $stAcao, $cxInicio, $cxFinal, $idusuario, null, 1);
                         parent::message("Projeto arquivado com sucesso!", "tramitarprojetos/arquivar", "CONFIRM");
                     } else {
-                        parent::message("O projeto n�o se encontra na DGI/CGRL/COAL/DCA, transa��o cancelada.", "tramitarprojetos/arquivar", "ALERT");
+                        parent::message("O projeto Não se encontra na DGI/CGRL/COAL/DCA, transa��o cancelada.", "tramitarprojetos/arquivar", "ALERT");
                     }
-                }//FIM IF TRAMITA��O
+                }//FIM IF Tramitação
                 else {
                     $despacho = $buscaprojeto->buscarTodosDadosProjeto($idPronac);
 
@@ -1437,7 +1437,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                         TramitarprojetosDAO::arquivarProjeto($idPronac, $stAcao, $cxInicio, $cxFinal, $idusuario, null, 1);
                         parent::message("Projeto arquivado com sucesso!", "tramitarprojetos/arquivar", "CONFIRM");
                     } else {
-                        parent::message("O projeto n�o se encontra na DGI/CGRL/COAL/DCA, transa��o cancelada.", "tramitarprojetos/arquivar", "ALERT");
+                        parent::message("O projeto Não se encontra na DGI/CGRL/COAL/DCA, transa��o cancelada.", "tramitarprojetos/arquivar", "ALERT");
                     }
                 }
             }//FIM ELSE $busca2
@@ -1469,7 +1469,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                 $idArquivamento = $b->idArquivamento;
             }
             if ($stAcao == 1) {
-                parent::message("O projeto N�O se encontra Arquivado nesta Unidade.!", "tramitarprojetos/desarquivar", "ALERT");
+                parent::message("O projeto Não se encontra Arquivado nesta Unidade.!", "tramitarprojetos/desarquivar", "ALERT");
             } else {
                 if (($busca) && ($stAcao == 0)) {
                     TramitarprojetosDAO::alterarStatusArquivamento($idPronac);
@@ -1484,7 +1484,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                     $atualizarProjeto = $buscaprojeto->alterarProjetos($dados, $where);
                     parent::message("Projeto desarquivado com sucesso!", "tramitarprojetos/desarquivar", "CONFIRM");
                 } else {
-                    parent::message("O projeto n�o se encontra na DGI/CGRL/COAL/DCA, transa��o cancelada.", "tramitarprojetos/desarquivar", "ALERT");
+                    parent::message("O projeto Não se encontra na DGI/CGRL/COAL/DCA, transa��o cancelada.", "tramitarprojetos/desarquivar", "ALERT");
                 }
             }
         }
@@ -1767,17 +1767,17 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
             $tipo_cxFinal,
             $cxFinal
         );
-        // ========== IN�CIO PAGINA��O ==========
+        // ========== INÍCIO PAGINAÇÂO ==========
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
         $paginator = Zend_Paginator::factory($arquivados); // dados a serem paginados
 
-        // p�gina atual e quantidade de �tens por p�gina
+        // página atual e quantidade de �tens por página
         $currentPage = $this->_getParam('page', 1);
         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(30);
         $this->view->Arquivados = $paginator;
         $this->view->qtdDocs    = count($arquivados); // quantidade
-        // ========== FIM PAGINA��O ==========
+        // ========== FIM PAGINAÇÂO ==========
 
         if (!$arquivados) {
             parent::message("Nenhum Projeto Encontrado!", "tramitarprojetos/consultarprojetosarquivados", "CONFIRM");
@@ -1793,7 +1793,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
             $stEstado = 1;
             $inserir = TramitarprojetosDAO::inserirSolicitacaoArquivamento($idPronac, $justificativa, $idusuario, $cxInicio, $cxFinal, $acao, $stEstado);
             $alterar = TramitarprojetosDAO::alterarStatusArquivamento($idPronac);
-            parent::message("Solicita��o enviada com sucesso!", "tramitarprojetos/projetosarquivados", "CONFIRM");
+            parent::message("Solicitação enviada com sucesso!", "tramitarprojetos/projetosarquivados", "CONFIRM");
         }
     }
 

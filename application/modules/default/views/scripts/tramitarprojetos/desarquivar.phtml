@@ -10,7 +10,7 @@
             });
             if(validar == false){
                 $("#error").dialog("destroy");
-                $('#error').html('Dados obrigatórios n&atilde;o informados.');
+                $('#error').html('Dados obrigatï¿½rios n&atilde;o informados.');
                 $("#error").dialog({
                     modal: true,
                     draggable: false,
@@ -26,7 +26,7 @@
             }
 
             if (erro == 2){
-                $("#error").html('Pronac tem que ter no mínimo 6 caracteres!');
+                $("#error").html('Pronac tem que ter no mï¿½nimo 6 caracteres!');
                 $("#error").dialog('open');
                 $("#error").dialog({
                     modal: true,
@@ -59,7 +59,7 @@
             }
 
             if (erro == 0){
-                $("#error").html('Este projeto não se encontra nesta Unidade!');
+                $("#error").html('Este projeto NÃ£o se encontra nesta Unidade!');
                 $("#error").dialog('open');
                 $("#error").dialog({
                     modal: true,
@@ -134,7 +134,7 @@
                     }
                 } else {
                     if($("#pronac").val().length < 6){
-                        $("#error").html('Pronac tem que ter no mínimo 6 caracteres!');
+                        $("#error").html('Pronac tem que ter no mï¿½nimo 6 caracteres!');
                         $("#error").dialog('open');
                         $("#error").dialog({
                             modal: true,
@@ -164,7 +164,7 @@
 
 <?php echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -175,14 +175,14 @@
 <!-- ========== FIM BRADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Desarquivamento de projetos <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div id="error" class="sumir" title="Alerta!"></div>
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <form name="form" id="form" method="post">
         <table class="tabela" width="50%" align="center">
@@ -201,10 +201,10 @@
         </table>
     </form>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

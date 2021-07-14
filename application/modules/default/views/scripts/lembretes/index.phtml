@@ -1,9 +1,9 @@
 <?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In�cio">In�cio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'index')); ?>" title="Ir para Visualizar �rea de Trabalho">Visualizar �rea de Trabalho</a></li>
         <li class="last">Lembretes</li>
     </ul>
@@ -12,7 +12,7 @@
 
 
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Lembretes <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -20,7 +20,7 @@
 
 
 
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 
 
@@ -64,12 +64,12 @@
     <?php foreach($this->lembretes as $tblembretes): ?>
     <tr>
         <td>
-            <!-- ========== IN�CIO MODAL ========== -->
+            <!-- ========== INÍCIO MODAL ========== -->
             <div id="analisarProjeto<?php echo $tblembretes->Contador; ?>" style="display:none; height:auto;" title="Altera��o de Lembrete" class="analisarProjeto">
                 <form name="form" action="<?php echo $this->url(array('module'=> 'default' , 'controller'=>'lembretes', 'action' => 'index')); ?>" method="post">
 
                     <table class="tabela">
-                    
+
                     <div class="titulo_tabela">Altera��o de Lembrete</div>
                         <tr>
 
@@ -79,7 +79,7 @@
                                           onkeyup="caracteresTextarea(this.form.descricao, this.form.exibirContadorTextarea, 500);"><?php echo $this->escape($tblembretes->lembrete);?></textarea>
                                 <br />
                                 <p>
-								faltam <input type="text" readonly="readonly" name="exibirContadorTextarea" 
+								faltam <input type="text" readonly="readonly" name="exibirContadorTextarea"
                                                   maxlength="5" value="500"
                                                   style="width:3%;border:none;background:none;" />
 								caracteres.
@@ -100,7 +100,7 @@
             <!-- ========== FIM MODAL ========== -->
 <?php echo $this->escape($tblembretes->dtlembrete);?>
         </td>
-    
+
         <td><textarea  type="text" name="descricao" id="descricao" cols="45" rows="10" disabled="disabled"><?php echo $this->escape($tblembretes->lembrete);?></textarea></td>
 
 
@@ -112,12 +112,12 @@
 
 
 </div>
-<!-- ========== FIM CONTE�DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

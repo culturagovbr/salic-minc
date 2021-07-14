@@ -1,7 +1,7 @@
 
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 
-<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INÃCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 <!--
     function layout_fluido()
@@ -21,7 +21,7 @@
         $("#rodapeConteudo").css("margin-left", "225px");
         $(".sanfonaDiv").css("clear", "both");
         $(".sanfonaDiv").css("width", "91%");
-    } // fecha função layout_fluido()
+    } // fecha funï¿½ï¿½o layout_fluido()
 
     $(document).ready(function()
     {
@@ -36,8 +36,8 @@
 <div id="menuContexto">
     <div class="top"></div>
     <div id="qm0" class="qmmc sanfona">
-        <a class="no_seta" href="<?php echo $this->url(array('controller' => 'edital', 'action' => 'informacao-geral', 'idEdital' => $this->idEdital), '', true); ?>" title="Informações gerais">Informações gerais</a>
-        <a class="no_seta" href="<?php echo $this->url(array('controller' => 'edital', 'action' => 'criterios-avaliacao', 'idEdital' => $this->idEdital), '', true); ?>" title="Critérios de avaliação">Critérios de avaliação</a>
+        <a class="no_seta" href="<?php echo $this->url(array('controller' => 'edital', 'action' => 'informacao-geral', 'idEdital' => $this->idEdital), '', true); ?>" title="Informaï¿½ï¿½es gerais">Informaï¿½ï¿½es gerais</a>
+        <a class="no_seta" href="<?php echo $this->url(array('controller' => 'edital', 'action' => 'criterios-avaliacao', 'idEdital' => $this->idEdital), '', true); ?>" title="Critï¿½rios de avaliaï¿½ï¿½o">Critï¿½rios de avaliaï¿½ï¿½o</a>
     </div>
     <br clear="left" />
     <div class="bottom"></div>

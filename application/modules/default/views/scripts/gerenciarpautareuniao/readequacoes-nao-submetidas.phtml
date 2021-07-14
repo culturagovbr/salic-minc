@@ -64,7 +64,7 @@ include 'inc/menu.inc.php';
 </script>
 
 <div id="titulo">
-    <div>Não submetidos - readequa&ccedil;&otilde;es <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+    <div>NÃ£o submetidos - readequa&ccedil;&otilde;es <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
 
 <div id="conteudo">
@@ -77,12 +77,12 @@ include 'inc/menu.inc.php';
 		<table class="tabela">
             <tr>
                 <th width="5%">N&uacute;mero</th>
-                <th width="10%">Análise do Projeto</th>
+                <th width="10%">AnÃ¡lise do Projeto</th>
                 <th width="5%">PRONAC</th>
                 <th width="35%">Nome do Projeto</th>
-                <th>Tipo Readequação</th>
+                <th>Tipo Readequaï¿½ï¿½o</th>
                 <?php if ($this->grupoativo == '119') { //presidente CNIC ?>
-                    <th width="10%">Área do Projeto</th>
+                    <th width="10%">ï¿½rea do Projeto</th>
                     <th width="10%">Segmento</th>
                 <?php } ?>
                 <th width="15%">Componente da Comiss&atilde;o</th>
@@ -101,7 +101,7 @@ include 'inc/menu.inc.php';
                     ?>
                     <tr class="tradd" id="<?php echo $a."_".$d->idPronac; ?>" aberto="false">
                         <td class="centro"><?php echo $a; ?></td>
-                        <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onclick="abrirdadosReadequacoes('<?php echo $a."_".$d->idPronac; ?>', <?php echo $d->idPronac; ?>, '<?php echo $tipoagente; ?>','s', '<?php echo $d->idReadequacao; ?>', '<?php echo $d->idTipoReadequacao; ?>')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da Análise do Projeto" alt="Dados da Análise do Projeto" width="20px"/></a></td>
+                        <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onclick="abrirdadosReadequacoes('<?php echo $a."_".$d->idPronac; ?>', <?php echo $d->idPronac; ?>, '<?php echo $tipoagente; ?>','s', '<?php echo $d->idReadequacao; ?>', '<?php echo $d->idTipoReadequacao; ?>')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da AnÃ¡lise do Projeto" alt="Dados da AnÃ¡lise do Projeto" width="20px"/></a></td>
                         <td class="centro"><a id="consultarprojetos" href="<?php echo $this->url(array('controller' => 'dadosprojeto', 'action' => 'index', 'idpronac'=>$d->idPronac),'',true); ?>" target="_new" title="Ir para Consultar Projetos"><?php echo $d->PRONAC; ?></a></td>
                         <td><?php echo $d->NomeProjeto; ?></td>
                         <td><?php echo $d->dsReadequacao; ?></td>
@@ -115,11 +115,11 @@ include 'inc/menu.inc.php';
                         <td id="votacao_<?php echo $d->idPronac; ?>" colspan="7" class="destacar"></td>
                     </tr>
                     <?php $a++;
-                }  
+                }
             } else { ?>
             <tr>
                 <td colspan="9" class="centro">
-                    <em><b>Não há projetos não submetidos &agrave; plen&aacute;ria - readequa&ccedil;&otilde;es</b></em>
+                    <em><b>NÃ£o hï¿½ projetos NÃ£o submetidos &agrave; plen&aacute;ria - readequa&ccedil;&otilde;es</b></em>
                 </td>
             </tr>
         <?php } ?>

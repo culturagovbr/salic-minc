@@ -1,11 +1,11 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
-    <!-- início: conteúdo principal #container -->
+    <!-- INÃCIO: CONTEÃšDO principal #container -->
     <div id="container">
 
-        <!-- início: navegação local #qm0 -->
+        <!-- INÃCIO: navegaï¿½ï¿½o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {
@@ -24,7 +24,7 @@
                 $("#rodapeConteudo").css("margin-left", "225px");
                 $(".sanfonaDiv").css("clear", "both");
                 $(".sanfonaDiv").css("width", "91%");
-            } // fecha função layout_fluido()
+            } // fecha funï¿½ï¿½o layout_fluido()
 
             $(document).ready(function(){
 
@@ -59,14 +59,14 @@
                 clear: both;
             }
         </style>
-        <div style="display:none" id="dialog-alert">Solicitação realizada com sucesso!</div>
-        <div style="display:none" id="produtoDesativado">Não há produtos cadastrados para este projeto!</div>
+        <div style="display:none" id="dialog-alert">SolicitaÃ§Ã£o realizada com sucesso!</div>
+        <div style="display:none" id="produtoDesativado">NÃ£o hï¿½ produtos cadastrados para este projeto!</div>
         <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
     ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
 } ?>Tem certeza que deseja Enviar e Finalizar?</div>
-        <div style="display:none" id="validarPlan">Antes de enviar a solicitação é necessário cadastrar os Itens de Custos para os Produtos sem planilha orçamentária!</div>
+        <div style="display:none" id="validarPlan">Antes de enviar a SolicitaÃ§Ã£o ï¿½ necessï¿½rio cadastrar os Itens de Custos para os Produtos sem planilha orï¿½amentï¿½ria!</div>
         <div style="display:none" id="validar15pct"></div>
-        <div style="display:none" id="dialog-em-analise">Há pedido de readequação em análise. Favor aguardar.</div>
+        <div style="display:none" id="dialog-em-analise">Hï¿½ pedido de readequaï¿½ï¿½o em AnÃ¡lise. Favor aguardar.</div>
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
@@ -163,7 +163,7 @@
                 <?php if ($this->buscastatus['stPedidoAlteracao'] == "A") {
                     ?>
                     <div style='background:#f8f8f8;text-align: center'><br /><br /><br />
-                        <!--<input id="menunovo"  class="btn" value="Enviar Solicitação" style="text-align: center">-->
+                        <!--<input id="menunovo"  class="btn" value="Enviar SolicitaÃ§Ã£o" style="text-align: center">-->
                         <input type="button" id="menunovo" class="btn_enviar_solicitacao" />
                     </div>
 
@@ -179,7 +179,7 @@
 
 
             </div>
-            <!-- final: navegação local #qm0 -->
+            <!-- final: navegaï¿½ï¿½o local #qm0 -->
         </div>
     </div>
 </div>
@@ -197,9 +197,9 @@
                 var idAgente = '<?php echo $_GET['idAgente']; ?>';
                 var idTipoPessoa = '<?php echo $_GET['idPessoa']; ?>';
                 var idPedidoAlteracao = <?php echo $this->buscastatus['idPedidoAlteracao']; ?>;
-                                            
+
                 var caminho = "<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'validar-percentual')); ?>";
-                                            
+
                 $.ajax({ //funcao jquery para enviar os formularios via ajax
                     type: "POST",
                     url: caminho,
@@ -210,13 +210,13 @@
                         idAgente: idAgente,
                         idTipoPessoa: idTipoPessoa,
                         atualizar: "atualiza",
-                        acao: "T",                        
+                        acao: "T",
                         idPedidoAlteracao : idPedidoAlteracao
                     },
                     success: function(data)
                     {
                         if (data.error) {
-                            $('#novas_mensagens').append('<div id="validar-pct">'+data.descricao+'<div>');                               
+                            $('#novas_mensagens').append('<div id="validar-pct">'+data.descricao+'<div>');
                             $('#validar-pct').dialog("destroy");
                             $('#validar-pct').dialog
                             ({
@@ -282,7 +282,7 @@
                                 $('.ui-dialog-titlebar-close').remove();
                             }
                             else {
-                                
+
                                     $("#pergunta").dialog
                                     ({
                                         title : 'Alerta!',
@@ -293,7 +293,7 @@
                                         closeOnEscape: true,
                                         autoOpen:true,
                                         buttons: {
-                                            'Não': function()
+                                            'NÃ£o': function()
                                             {
                                                 $(this).dialog('close');
                                                 var idpronac = <?php echo $_GET['idpronac']; ?>;
@@ -323,7 +323,7 @@
                                                         }
                                                     }
                                                 });
-                                        
+
                                             },
                                             'Sim': function()
                                             {
@@ -372,20 +372,20 @@
                                         }
                                     });
                                     $('.ui-dialog-titlebar-close').remove();
-                               
+
                             } // fecha else
 
                         }
                     }
-                                
-                }                
+
+                }
             );
 
 
             });
 
 
-                          
+
         });
 
     </script>

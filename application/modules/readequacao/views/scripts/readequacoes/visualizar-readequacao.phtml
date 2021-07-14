@@ -13,7 +13,7 @@
                     <?php
                     gerarNovoBreadCrumb(
                         [
-                            ['Readequações' => '/readequacao/readequacoes/painel'],
+                            ['Readequaï¿½ï¿½es' => '/readequacao/readequacoes/painel'],
                             [$paginaAtual => '']
                         ]
                     );
@@ -47,7 +47,7 @@
                 <table class="tabela">
                     <tr>
                         <td><input type="button" name="grid1" id="g1_1" class="btn_adicionar" title="Expandir"/>DADOS DA
-                            SOLICITAÇÃO
+                            SolicitaÃ§Ã£o
                         </td>
                     </tr>
                 </table>
@@ -57,7 +57,7 @@
                         $tiposReadequacoesComInfo = array(3, 4, 5, 6, 7, 8, 10, 12, 13, 15, 16, 17, 18, 19, 20, 21);
                         if (in_array($this->dados->idTipoReadequacao, $tiposReadequacoesComInfo)) { ?>
                             <tr>
-                                <td colspan="3" class="destacar bold">Informação que será considerada para readequação
+                                <td colspan="3" class="destacar bold">Informaï¿½ï¿½o que serÃ¡ considerada para readequaï¿½ï¿½o
                                     de <?php echo $this->dados->dsReadequacao; ?></td>
                             </tr>
                             <tr>
@@ -66,7 +66,7 @@
                         <?php } ?>
 
                         <tr>
-                            <td class="destacar bold" colspan="3">Justificativa da Solicitação</td>
+                            <td class="destacar bold" colspan="3">Justificativa da SolicitaÃ§Ã£o</td>
                         </tr>
                         <tr>
                             <td colspan="3"><?php echo $this->dados->dsJustificativa; ?></td>
@@ -115,21 +115,21 @@
                                 <?php } ?>
 
                                 <?php if ($this->dados->idTipoReadequacao == 9) { ?>
-                                    <?php /***** CARREGA LOCAIS DE REALIZAÇÃO *****/ ?>
+                                    <?php /***** CARREGA LOCAIS DE REALIZAï¿½ï¿½O *****/ ?>
                                     <script type="text/javascript">
                                         jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'carregar-locais-de-realizacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'locaisParaRealizacao');
                                     </script>
                                     <div id="locaisParaRealizacao"></div>
-                                    <?php /****** FIM LOCAIS DE REALIZAÇÃO ******/ ?>
+                                    <?php /****** FIM LOCAIS DE REALIZAï¿½ï¿½O ******/ ?>
                                 <?php } ?>
 
                                 <?php if ($this->dados->idTipoReadequacao == 14) { ?>
-                                    <?php /***** CARREGA PLANOS DE DIVULGAÇÃO *****/ ?>
+                                    <?php /***** CARREGA PLANOS DE DIVULGAï¿½ï¿½O *****/ ?>
                                     <script type="text/javascript">
                                         jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'carregar-planos-de-divulgacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'planosDeDivulgacao');
                                     </script>
                                     <div id="planosDeDivulgacao"></div>
-                                    <?php /****** FIM PLANOS DE DIVULGAÇÃO ******/ ?>
+                                    <?php /****** FIM PLANOS DE DIVULGAï¿½ï¿½O ******/ ?>
                                 <?php } ?>
 
                                 <input type="hidden" id="idPronac" name="idPronac"
@@ -159,7 +159,7 @@
                 </div>
                 <table class="tabela">
                     <tr>
-                        <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIAÇÃO
+                        <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIAï¿½ï¿½O
                             DO COORDENADOR
                         </td>
                     </tr>
@@ -167,15 +167,15 @@
                 <div id="div_g1_2" class="sumir">
                     <table class="tabela">
                         <tr>
-                            <td class="destacar bold" style="width: 50%;">Situação</td>
-                            <td class="destacar bold" style="width: 50%;">Dt. Avaliação</td>
+                            <td class="destacar bold" style="width: 50%;">Situaï¿½ï¿½o</td>
+                            <td class="destacar bold" style="width: 50%;">Dt. Avaliaï¿½ï¿½o</td>
                         </tr>
                         <tr>
                             <td><?php echo !empty($this->dados->stAtendimento) ? 'Recebido' : 'Rejeitado'; ?></td>
                             <td><?php echo Data::tratarDataZend($this->dados->dtAvaliador, 'Brasileira'); ?></td>
                         </tr>
                         <tr>
-                            <td class="destacar bold" colspan="2">Descrição da Avaliação</td>
+                            <td class="destacar bold" colspan="2">DescriÃ§Ã£o da Avaliaï¿½ï¿½o</td>
                         </tr>
                         <tr>
                             <td colspan="2"><?php echo $this->dados->dsAvaliacao; ?></td>
@@ -186,13 +186,13 @@
                 <?php if (isset($this->Parecer)) { ?>
                     <table class="tabela">
                         <tr>
-                            <td align="right" class="destacar bold w150">Parecer Favorável?</td>
-                            <td><?php echo (isset($this->Parecer->ParecerFavoravel) && ($this->Parecer->ParecerFavoravel == 2)) ? 'Sim' : 'Não'; ?></td>
+                            <td align="right" class="destacar bold w150">Parecer Favorï¿½vel?</td>
+                            <td><?php echo (isset($this->Parecer->ParecerFavoravel) && ($this->Parecer->ParecerFavoravel == 2)) ? 'Sim' : 'NÃ£o'; ?></td>
                             <td align="right" class="destacar bold w150">Dt. Parecer</td>
                             <td><?php echo (isset($this->Parecer->DtParecer) && !empty($this->Parecer->DtParecer)) ? Data::tratarDataZend($this->Parecer->DtParecer, 'Brasileira') : ''; ?></td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="destacar bold w150">Descriçao do Parecer</td>
+                            <td colspan="4" class="destacar bold w150">Descriï¿½ao do Parecer</td>
                         </tr>
                         <tr>
                             <td colspan="4"><?php echo (isset($this->Parecer->ResumoParecer) && !empty($this->Parecer->ResumoParecer)) ? $this->Parecer->ResumoParecer : ''; ?></td>
@@ -208,7 +208,7 @@
 || $this->dados->idTipoReadequacao == 22
 || $this->dados->idTipoReadequacao == 23) : ?>
     <script src="/public/js/vue.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.core.min.js" type="text/javascript"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.core.min.js" type="text/javascript"></script>
     <script src="/public/scripts/plugins/moment-with-locales.js"></script>
     <script src="/public/scripts/plugins/numeral.min.js" type="text/javascript"></script>
 
@@ -277,7 +277,7 @@
                          break;
                      case 22: // saldo de aplicacao
                          self.componenteAtual = "readequacao-saldo-aplicacao";
-                         break;			 
+                         break;
                      case 23: // transferencia de recursos
                          self.componenteAtual = "readequacao-transferencia-recursos";
                          break;

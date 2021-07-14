@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -26,10 +26,10 @@ class Zend_View_Helper_NomeAgente
             if (count($buscar) > 0) {
                 return $buscar[0]->Descricao;
             } else {
-                return 'Usuário não encontrado.';
+                return 'Usuï¿½rio NÃ£o encontrado.';
             }
         } else {
             return ;
         }
-    } // fecha método formatarMilhar()
+    } // fecha mï¿½todo formatarMilhar()
 } // fecha class

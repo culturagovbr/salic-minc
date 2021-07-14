@@ -6,24 +6,24 @@
     });
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>" title="Consultar dados projeto">Consultar dados projeto</a></li>
-        <li class="last">Dados Convênio</li>
+        <li class="last">Dados Convï¿½nio</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>Dados Convênio <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
+    <div>Dados Convï¿½nio <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr class="destacar">
@@ -35,19 +35,19 @@
             <td align="center"><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
         </tr>
     </table>
-    
-    
+
+
     <?php if(count($this->dados) > 0){ ?>
     <table class="tabela tablesorter">
         <thead>
             <tr class="titulo_tabela">
                 <th>Tipo</th>
-                <th>N&ordm; Convênio</th>
-                <th>Dt. Convênio</th>
-                <th>Dt. Publicação</th>
-                <th>Dt. Início Vigência</th>
-                <th>Dt. Fim Vigência</th>
-                <th>Vl. Convênio</th>
+                <th>N&ordm; Convï¿½nio</th>
+                <th>Dt. Convï¿½nio</th>
+                <th>Dt. Publicaï¿½ï¿½o</th>
+                <th>Dt. INÃCIO Vigï¿½ncia</th>
+                <th>Dt. Fim Vigï¿½ncia</th>
+                <th>Vl. Convï¿½nio</th>
             </tr>
         </thead>
         <tbody>
@@ -66,9 +66,9 @@
             <?php } ?>
         </tbody>
     </table>
-    
+
     <br clear="all" />
-    
+
     <p class="centro"><input type="button" class="btn_imprimir" /></p>
 
 
@@ -86,7 +86,7 @@
     </form>
 </div>
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

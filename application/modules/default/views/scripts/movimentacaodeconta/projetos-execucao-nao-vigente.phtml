@@ -1,6 +1,6 @@
 <script type="text/javascript">
     /**
-     * Fun��es que s�o chamadas ap�s a p�gina ser carregada
+     * Fun��es que s�o chamadas ap�s a página ser carregada
      */
     $(document).ready(function(){
         // m�scaras dos campos
@@ -67,7 +67,7 @@
                 title: 'Corrigir Inconsist�ncia',
                 buttons:
                     {
-                    N�o: function()
+                    Não: function()
                     {
                         $(this).dialog('close');
                         $('#execucao_nao_vigente' + item).find('option[value=""]').attr('selected',true);
@@ -158,8 +158,8 @@
             <?php } ?>
             </td>
             <td align="center"><?php echo Validacao::mascaraCPFCNPJ($projeto->nrCpfCnpjProponente); ?></td>
-            <td align="center"><?php echo !empty($projeto->Agencia) ? $projeto->Agencia : '<em>N�o informada</em>'; ?></td>
-            <td align="center"><?php echo !empty($projeto->ContaBloqueada) ? $projeto->ContaBloqueada : '<em>N�o informada</em>'; ?></td>
+            <td align="center"><?php echo !empty($projeto->Agencia) ? $projeto->Agencia : '<em>Não informada</em>'; ?></td>
+            <td align="center"><?php echo !empty($projeto->ContaBloqueada) ? $projeto->ContaBloqueada : '<em>Não informada</em>'; ?></td>
             <td align="center"><?php echo Validacao::mascaraCPFCNPJ($projeto->nrCpfCnpjIncentivador); ?></td>
             <td align="center"><?php echo $projeto->dtCredito; ?></td>
             <td align="right" class="<?php echo ($projeto->vlValorCredito == 'D') ? 'red' : 'blue' ; ?>"><?php echo $this->formatarReal($projeto->vlValorCredito); ?></td>

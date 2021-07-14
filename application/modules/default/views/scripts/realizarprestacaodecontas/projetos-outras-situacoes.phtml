@@ -37,7 +37,7 @@
     }
 
     function JSEncaminharParaAnalise(idPronac,idOrgaoDestino){
-    
+
         $("body").append("<div id='divDinamica'></div>");
         $("#divDinamica").html("");
         $('#divDinamica').html("<br><br><center>Carregando dados...</center>");
@@ -57,7 +57,7 @@
 
         });
 
-        var title = 'Encaminhar Projeto para Análise';
+        var title = 'Encaminhar Projeto para AnÃ¡lise';
         $("#divDinamica").dialog({
             resizable: true,
             width:750,
@@ -91,23 +91,23 @@
         <!-- MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
         <div style="display: none;" id="modal_encaminhar" title=""></div>
         <!-- FIM DO MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
-        
+
         <table class="tabela">
             <thead>
                 <tr class="titulo_tabela">
-                    <th width="60">Número</th>
+                    <th width="60">Nï¿½mero</th>
                     <th width="60">
                             <!--<a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'coordenadorgeralprestacaocontas')).'?pag=1&campo=1&ordem='.$this->paginacao['novaOrdem'];?>">Pronac<br><?php echo $ordem; ?></a>-->
                             <a href="#resultadoConsultaOutrasSituacoes" class="orderByOS" valorOrdenacaoOS="1">Pronac</a>
                     </th>
                     <th width="200"><a href="#resultadoConsultaOutrasSituacoes" class="orderByOS" valorOrdenacaoOS="5">Nome do Projeto</a></th>
-                    <th width="110"><a href="#resultadoConsultaOutrasSituacoes" class="orderByOS" valorOrdenacaoOS="13">Área / Segmento</a></th>
+                    <th width="110"><a href="#resultadoConsultaOutrasSituacoes" class="orderByOS" valorOrdenacaoOS="13">ï¿½rea / Segmento</a></th>
                     <th width="60"><a href="#resultadoConsultaOutrasSituacoes" class="orderByOS" valorOrdenacaoOS="4">Cidade</a></th>
                     <th width="60"><a href="#resultadoConsultaOutrasSituacoes" class="orderByOS" valorOrdenacaoOS="15">Mecanismo</a></th>
                     <th width="60"><a href="#resultadoConsultaOutrasSituacoes" class="orderByOS" valorOrdenacaoOS="7">Data de Recebimento</a></th>
-                    <!--<th width="130">Analisar Prestação de Contas</th>-->
+                    <!--<th width="130">Analisar Prestaï¿½ï¿½o de Contas</th>-->
                     <?php /*if($this->codGrupo == 125 || $this->codGrupo == 126): //Coord. prestacao de contas?>
-                        <th width="130">Encaminhar para Análise</th>
+                        <th width="130">Encaminhar para AnÃ¡lise</th>
                     <?php endif;*/ ?>
                 </tr>
             </thead>
@@ -145,7 +145,7 @@
     <?php } else { ?>
             <table class="tabela">
                 <tr>
-                    <td align="center"><em>Não foram encontrados projetos de acordo com os parâmetros de pesquisa.</em></td>
+                    <td align="center"><em>NÃ£o foram encontrados projetos de acordo com os parï¿½metros de pesquisa.</em></td>
                 </tr>
             </table>
             <script>$('#paginacaoOS').hide();</script>

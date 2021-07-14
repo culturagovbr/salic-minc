@@ -14,9 +14,9 @@
     });
 </script>
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-    <div>READEQUAÇÃO: PRODUTOS E/OU ITENS DE CUSTO
+    <div>READEQUAï¿½ï¿½O: PRODUTOS E/OU ITENS DE CUSTO
         <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
         <span style="vertical-align: middle;">
             <?php
@@ -69,7 +69,7 @@
     <table class="tabela">
         <thead>
             <tr>
-                <th align="center">Nº PRONAC:</th>
+                <th align="center">Nï¿½ PRONAC:</th>
                 <th align="center">Nome do Projeto:</th>
             </tr>
         </thead>
@@ -132,7 +132,7 @@
                                         if($dados->tpPlanoDistribuicao == 'AP'){
                                             echo "APROVADO";
                                         } elseif($dados->tpPlanoDistribuicao == 'SR'){
-                                            echo "SOLICITAÇÃO DE READEQUAÇÃO";
+                                            echo "SolicitaÃ§Ã£o DE READEQUAï¿½ï¿½O";
                                         } elseif($dados->tpPlanoDistribuicao == 'AT'){ ?>
 
                                         <?php if ($dados->tpAcao != "N") { ?>
@@ -153,12 +153,12 @@
                                         <?php } ?>
 
                                     <?php
-                                            echo "ANÁLISE TÉCNICA";
+                                            echo "AnÃ¡lise TÃ©cnica";
                                         } elseif($dados->tpPlanoDistribuicao == 'CO'){
-                                            echo "COMPONENTE DA COMISSÃO";
+                                            echo "COMPONENTE DA comissÃ£o";
                                         }
                                     ?>
-                                    
+
                                 </b>
                             </td>
                         </tr>
@@ -179,14 +179,14 @@
                                                     <td>
                                                         <b>Produto Principal?</b><br>
                                                         <?php if ($dados->PrdotudoPrincpal == 0) {
-                                                                  echo "Não";
+                                                                  echo "NÃ£o";
                                                               } else {
                                                                   echo "Sim";
                                                               }
                                                           ?>
                                                     </td>
                                                     <td>
-                                                        <b>Área</b><br>
+                                                        <b>ï¿½rea</b><br>
                                                         <?php echo $dados->Area; ?>
                                                     </td>
                                                     <td>
@@ -328,13 +328,13 @@
         </table>
 
     <?php } ?>
-    
+
 <?php endif; ?>
 
 
     <script type="text/javascript">
         /**
-         * Ações que serão executadas após o carregamento da página
+         * Aï¿½ï¿½es que serÃ¡o executadas apï¿½s o carregamento da pÃ¡gina
          */
         $(document).ready(function(){
 
@@ -356,14 +356,14 @@
             });
 
 
-            // controle de exibição da planilha aprovada
+            // controle de exibiï¿½ï¿½o da planilha aprovada
             $(".icn_menos_AP").click(function()
             {
                 abrir_planilha(this, '');
             });
             $(".icn_menos_AP").click();
 
-            // controle de exibição da planilha solicitada
+            // controle de exibiï¿½ï¿½o da planilha solicitada
             $(".icn_menos_SR").click(function()
             {
                 abrir_planilha(this, 'SR');
@@ -394,7 +394,7 @@
         });
 
         /**
-         * Função para expandir/recolher a planilha
+         * Funï¿½ï¿½o para expandir/recolher a planilha
          */
         function abrir_planilha(item, planilha){
             var tipo    = $(item).attr('tipo' + planilha);
@@ -446,7 +446,7 @@
                 cidade  = $(item).attr('cidade' + planilha);
                 $(".cidade" + planilha + "[produto" + planilha + "='" + produto + "'][etapa" + planilha + "='" + etapa + "'][cidade" + planilha + "='" + cidade + "'][fonte" + planilha + "='" + fonte + "']").css('display', adisplay);
             }
-        } // fecha função abrir_planilha()
+        } // fecha funï¿½ï¿½o abrir_planilha()
     </script>
 
 
@@ -465,7 +465,7 @@
 
     <table class="tabela sumir planilhaAprovada">
         <tr>
-            <th colspan="2">Planilha Orçamentária Aprovada</th>
+            <th colspan="2">Planilha Orï¿½amentï¿½ria Aprovada</th>
         </tr>
 
         <?php if (count($this->planAP) <= 0) : ?>
@@ -577,7 +577,7 @@
 
     <table class="tabela planilhaSolicitada">
         <tr>
-            <th>Planilha Orçamentária Readequada</th>
+            <th>Planilha Orï¿½amentï¿½ria Readequada</th>
         </tr>
 
         <?php $nrFonte = 0; $item = 1; foreach ($this->planSR as $fonte => $planilha) : //ForeachFonteIncentivo ?>
@@ -667,9 +667,9 @@
                                             $aval = trim($verificaAnalise[0]->stAvaliacao);
                                         } else {
                                             if ($this->stResult[0]->stAvaliacaoItemPedidoAlteracao == 'EA') {
-                                                echo "Em análise";
+                                                echo "Em AnÃ¡lise";
                                             } else {
-                                                echo "Aguardando análise";
+                                                echo "Aguardando AnÃ¡lise";
                                             }
                                         }
                                         echo "<input value='$aval' class='itensVerificacao sumir' />";
@@ -717,7 +717,7 @@
 </div>
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

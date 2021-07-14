@@ -1,19 +1,19 @@
 <?php
 /**
- * Nomes dos tipos de Inconsistências Bancárias
+ * Nomes dos tipos de Inconsistï¿½ncias Bancï¿½rias
  * @author Equipe RUP - Politec
  * @since 11/02/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_InconsistenciaBancaria
 {
     /**
-     * Método com os tipos de inconsistências bancárias
+     * Mï¿½todo com os tipos de inconsistï¿½ncias bancï¿½rias
      * @access public
      * @param integer $tipo
      * @return string $dsTipo
@@ -21,27 +21,27 @@ class Zend_View_Helper_InconsistenciaBancaria
     public function inconsistenciaBancaria($tipo)
     {
         if ($tipo == 1) {
-            $dsTipo = "O Período de Execução não está vigente.";
+            $dsTipo = "O Perï¿½odo de Execuï¿½ï¿½o NÃ£o estï¿½ vigente.";
         } elseif ($tipo == 2) {
-            $dsTipo = "O Período de Captação não está vigente.";
+            $dsTipo = "O Perï¿½odo de Captaï¿½ï¿½o NÃ£o estï¿½ vigente.";
         } elseif ($tipo == 3) {
-            $dsTipo = "Incentivador não cadastrado.";
+            $dsTipo = "Incentivador NÃ£o cadastrado.";
         } elseif ($tipo == 4) {
-            $dsTipo = "Tipo de Depósito não foi informado.";
+            $dsTipo = "Tipo de Depï¿½sito NÃ£o foi informado.";
         } elseif ($tipo == 5) {
-            $dsTipo = "Não foi possível encontrar o E-mail do Proponente.";
+            $dsTipo = "NÃ£o foi possï¿½vel encontrar o E-mail do Proponente.";
         } elseif ($tipo == 6) {
-            $dsTipo = "Proponente não cadastrado.";
+            $dsTipo = "Proponente NÃ£o cadastrado.";
         } elseif ($tipo == 7) {
-            $dsTipo = "Agência e Conta Bancária não cadastrada.";
+            $dsTipo = "Agï¿½ncia e Conta Bancï¿½ria NÃ£o cadastrada.";
         } elseif ($tipo == 8) {
-            $dsTipo = "O Projeto não possui Enquadramento.";
+            $dsTipo = "O Projeto NÃ£o possui Enquadramento.";
         } elseif ($tipo == 9) {
-            $dsTipo = "Não existe Projeto associado a Conta.";
+            $dsTipo = "NÃ£o existe Projeto associado a Conta.";
         } else {
             $dsTipo = " ";
         }
 
         return $dsTipo;
-    } // fecha método inconsistenciaBancaria()
+    } // fecha mï¿½todo inconsistenciaBancaria()
 } // fecha class

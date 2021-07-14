@@ -147,21 +147,21 @@
     <ul>
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
-        <li class="third">Comprovar RealizaÁ„o do Objeto</li>
-        <li class="last">Modificar Local de RealizaÁ„o</li>
+        <li class="third">Comprovar RealizaÔøΩÔøΩo do Objeto</li>
+        <li class="last">Modificar Local de RealizaÔøΩÔøΩo</li>
     </ul>
 </div>
 
 
 <div id="titulo">
-    <div>Modificar Local de RealizaÁ„o <!--<span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/local-de-realizacao-final?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span>--></div>
+    <div>Modificar Local de RealizaÔøΩÔøΩo <!--<span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/local-de-realizacao-final?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span>--></div>
 </div>
 
 
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">N∫ PRONAC:</th>
+            <th align="center" width="30%">NÔøΩ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -183,15 +183,15 @@
     <form id="formCadastro" action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'salvar-local-realizacao'), '', true); ?>?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" method="post">
         <table class="tabela">
             <tr align="center">
-                <th colspan="7">Dados do Local de RealizaÁ„o (Atual)</th>
+                <th colspan="7">Dados do Local de RealizaÔøΩÔøΩo (Atual)</th>
             </tr>
             <tr align="center">
-                <td class="destacar bold">PaÌs</td>
+                <td class="destacar bold">PaÔøΩs</td>
                 <td class="destacar bold">UF</td>
-                <td class="destacar bold">MunicÌpio</td>
+                <td class="destacar bold">MunicÔøΩpio</td>
                 <td class="destacar bold">Status</td>
-               <?php echo ($this->LocaisDeRealizacao[0]->dtInicioRealizacao)?'<td class="destacar bold" width="1">Dt. In&iacute;cio RealizaÁ„o</td>':'' ?>
-               <?php echo ($this->LocaisDeRealizacao[0]->dtFimRealizacao)?'<td class="destacar bold" width="1">Dt. Fim RealizaÁ„o</td>':'' ?>
+               <?php echo ($this->LocaisDeRealizacao[0]->dtInicioRealizacao)?'<td class="destacar bold" width="1">Dt. In&iacute;cio RealizaÔøΩÔøΩo</td>':'' ?>
+               <?php echo ($this->LocaisDeRealizacao[0]->dtFimRealizacao)?'<td class="destacar bold" width="1">Dt. Fim RealizaÔøΩÔøΩo</td>':'' ?>
                <?php echo ($this->LocaisDeRealizacao[0]->dsJustificativa)?'<td class="destacar bold" width="1">Justificativa</td>':'' ?>
             </tr>
             <tr>
@@ -201,10 +201,10 @@
                 <td align="center">
                     <?php switch($this->LocaisDeRealizacao[0]->siAbrangencia){
                         case 0:
-                            echo 'Sem InformaÁ„o';
+                            echo 'Sem InformaÔøΩÔøΩo';
                             break;
                         case 1:
-                            echo 'N„o Realizado';
+                            echo 'N√£o Realizado';
                             break;
                         case 2:
                             echo 'Realizado';
@@ -230,25 +230,25 @@
         <table class="tabela">
 
             <tr align="center">
-                <th colspan="8">Editar dados do Local de RealizaÁ„o</th>
+                <th colspan="8">Editar dados do Local de RealizaÔøΩÔøΩo</th>
             </tr>
             <tr align="left">
                 <td class="destacar bold" width="20%">Status</td>
                 <td><?php if($this->LocaisDeRealizacao[0]->siAbrangencia != 3){ ?>
                         <select name="siAbrangencia" id="siAbrangencia" class="select_simples obrigatorio w200 selectAbrg input_font_pq">
-                            <option value="0" <?php echo($this->LocaisDeRealizacao[0]->siAbrangencia == 0)?'selected="selected"':''; ?>>Sem InformaÁ„o</option>
-                            <option value="1" <?php echo($this->LocaisDeRealizacao[0]->siAbrangencia == 1)?'selected="selected"':''; ?>>N„o Realizado</option>
+                            <option value="0" <?php echo($this->LocaisDeRealizacao[0]->siAbrangencia == 0)?'selected="selected"':''; ?>>Sem InformaÔøΩÔøΩo</option>
+                            <option value="1" <?php echo($this->LocaisDeRealizacao[0]->siAbrangencia == 1)?'selected="selected"':''; ?>>N√£o Realizado</option>
                             <option value="2" <?php echo($this->LocaisDeRealizacao[0]->siAbrangencia == 2)?'selected="selected"':''; ?>>Realizado</option>
                         </select>
                     <?php } ?>
                 </td>
             </tr>
             <tr align="left" id="dtInicioRealizacao">
-                <td class="destacar bold">Dt. InÌcio RealizaÁ„o</td>
+                <td class="destacar bold">Dt. IN√çCIO RealizaÔøΩÔøΩo</td>
                 <td><input maxlength="10" id="dtInicio" name="dtInicioRealizacao" class="input_simples btn_calendario" value="<?php echo ($this->LocaisDeRealizacao[0]->dtInicioRealizacao)? Data::tratarDataZend($this->LocaisDeRealizacao[0]->dtInicioRealizacao, 'Brasileira') : '';?>"></td>
             </tr>
             <tr align="left" id="dtFimRealizacao">
-                <td class="destacar bold">Dt. Fim RealizaÁ„o</td>
+                <td class="destacar bold">Dt. Fim RealizaÔøΩÔøΩo</td>
                 <td><input maxlength="10" id="dtFim" name="dtFimRealizacao" class="input_simples btn_calendario" value="<?php echo ($this->LocaisDeRealizacao[0]->dtFimRealizacao)? Data::tratarDataZend($this->LocaisDeRealizacao[0]->dtFimRealizacao, 'Brasileira') : '';?>"></td>
             </tr>
             <tr align="left" id="dsJustificativa">
@@ -281,7 +281,7 @@
     </table>
 </div>
 
-<!-- inÔøΩcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

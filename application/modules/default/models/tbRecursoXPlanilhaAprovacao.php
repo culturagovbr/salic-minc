@@ -27,7 +27,7 @@ class tbRecursoXPlanilhaAprovacao extends MinC_Db_Table_Abstract
      */
     public function excluirDados($idPlanilha = null, $idRecurso = null)
     {
-        // exclui todos os recursos vinculados a planilha de aprova��o
+        // exclui todos os recursos vinculados a planilha de aprovação
         if (!empty($idPlanilha)) {
             $where = "idPlanilhaAprovacao = " . $idPlanilha;
         } elseif (!empty($idRecurso)) {

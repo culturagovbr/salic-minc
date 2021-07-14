@@ -5,11 +5,11 @@
 var ExecucaoDaFuncaoLimiterPag = function(fieldName, minchar){
     var minchar,
 	countChars  = CountCharacters(fieldName);
-    
+
     //Atualiza��o para os contadores de caracteres
     $('#contador-' + fieldName).html("Caracteres: " + countChars);
     //document.getElementById("contador-" + fieldName).innerHTML = "Caracteres: " + countChars;
-    
+
     //mudan�a de cor caso ultrapasse o numero de caracteres
     if (countChars <= minchar){
 	$('#contador-' + fieldName).css('color', 'red');
@@ -22,7 +22,7 @@ var ExecucaoDaFuncaoLimiterPag = function(fieldName, minchar){
 var CountCharacters = function(contador) {
     var bodyHTML = tinymce.get(contador).getBody(),
         contentHTML = tinymce.trim(bodyHTML.innerText || bodyHTML.textContent);
-    
+
     return contentHTML.length;
 };
 
@@ -37,10 +37,10 @@ var verificaTipo = function(tipo, count){
     }
 }
 
-// consulta parecerista para verificar se est� habilitado 
+// consulta parecerista para verificar se est� habilitado
 var infoparecerista = function(idAgente){
     var idpronac = $("#idpronac").val();
-    
+
     if(idAgente != 0){
         $("#infoparecerista").hide();
         $("#infopareceristal").show();
@@ -76,11 +76,11 @@ var infoparecerista = function(idAgente){
 }
 
 // inicializa fun��es
- $(document).ready(function(){    
+ $(document).ready(function(){
      $('#idAgenteParecerista').change(function() {
 	 infoparecerista(this.value);
      });
-     
+
      <?php // inicializa loop ?>
      <?php $c = 0; ?>
      <?php foreach($this->dadosProjeto as $p) { ?>
@@ -92,7 +92,7 @@ var infoparecerista = function(idAgente){
      $('#encaminhar<?php echo $c; ?>').click(function() {
 	 verificaTipo(2, <?php echo $c; ?>);
      });
-     
+
      //inicializao e configura��o do editor tinyMCE
      tinymce.init({
 	 plugins:"paste,textcolor",
@@ -113,9 +113,9 @@ var infoparecerista = function(idAgente){
      <?php $c++; ?>
      <?php } ?>
  });
- 
+
 </script>
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -126,7 +126,7 @@ var infoparecerista = function(idAgente){
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Distribuir por produto <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
@@ -134,7 +134,7 @@ var infoparecerista = function(idAgente){
 
 
 <div id="confirma"></div>
-<!-- ========== IN�CIO CONTE�DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr>
@@ -227,10 +227,10 @@ var infoparecerista = function(idAgente){
     <?php } ?>
 
 </div>
-<!-- ========== FIM CONTE�DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

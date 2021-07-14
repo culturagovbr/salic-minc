@@ -1,21 +1,21 @@
 <?php echo $this->partial('parecerista/inc/menu-coordenador.inc.php', $this); ?>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Solicitar Pagamento de Parecerista</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
- 
-<!-- ========== INÕCIO TÕTULO ========== -->
+
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Solicitar Pagamento de Parecerista <span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span></div>
+    <div>Solicitar Pagamento de Parecerista <span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span></div>
 </div>
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
-    
+
     <?php if(count($this->dados)>0):?>
         <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
             <tbody>
@@ -41,12 +41,12 @@
                             <input class="btn_ultimo" id="btn_ultimo" type="button"
                                    onclick="location.href='<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'solicitar-pagamento-parecerista')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'];?>'">
                         <?php } ?>
-                        P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                        P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                                 <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     </form>
@@ -61,8 +61,8 @@
             echo " de ". $this->paginacao['total']. " Registros listados";
             ?>
         </center>
-        <!-- ========== FIM PAGINA«√O ========== -->
-        
+        <!-- ========== FIM PAGINA√á√ÇO ========== -->
+
         <table class="tabela">
             <tr>
                 <th width="100"><a href="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'solicitar-pagamento-parecerista')).'?pag=1&qtde='.$this->paginacao['qtde'].'&campo=7&ordem='.$this->paginacao['novaOrdem'];?>">Despacho</a></th>
@@ -123,7 +123,7 @@
             </form>
             <?php endforeach; ?>
         </table>
-        <!-- ========== PAGINA«AO ========== -->
+        <!-- ========== PAGINAÔøΩAO ========== -->
 
         <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
             <tbody>
@@ -149,12 +149,12 @@
                             <input class="btn_ultimo" id="btn_ultimo" type="button"
                                    onclick="location.href='<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'solicitar-pagamento-parecerista')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'];?>'">
                         <?php } ?>
-                        P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                        P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                                 <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     </form>
@@ -169,7 +169,7 @@
             echo " de ". $this->paginacao['total']. " Registros listados";
             ?>
         </center>
-        <!-- ========== FIM PAGINA«√O ========== -->
+        <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php else: ?>
         <table class="tabela">
             <tr>
@@ -177,21 +177,21 @@
             </tr>
         </table>
     <?php endif; ?>
-    
+
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 <div id="dialog"></div>
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />
 
 <script>
 
     function confirmarPagamento(id){
-        
+
         $("#dialog").html('Deseja enviar para pagamento?');
-        
+
         $("#dialog").dialog("destroy");
         $("#dialog").dialog({
             width: '400px',
@@ -199,9 +199,9 @@
             draggable: false,
             resizable: false,
             closeOnEscape: false,
-            title: 'ConfirmaÁ„o',
-            buttons: { 
-                N„o:function() {
+            title: 'Confirma√ß√£o',
+            buttons: {
+                N√£o:function() {
                     $(this).dialog('close');
                 },
                 Sim:function() {
@@ -213,14 +213,14 @@
         });
 
         $('.ui-dialog-titlebar-close').remove();
-        
-        
+
+
     }
-    
+
     function cancelarPagamento(id){
-        
+
         $("#dialog").html('Deseja cancelar o pagamento?');
-        
+
         $("#dialog").dialog("destroy");
         $("#dialog").dialog({
             width: '400px',
@@ -228,9 +228,9 @@
             draggable: false,
             resizable: false,
             closeOnEscape: false,
-            title: 'ConfirmaÁ„o',
-            buttons: { 
-                N„o:function() {
+            title: 'Confirma√ß√£o',
+            buttons: {
+                N√£o:function() {
                     $(this).dialog('close');
                 },
                 Sim:function() {
@@ -241,7 +241,7 @@
         });
 
         $('.ui-dialog-titlebar-close').remove();
-        
+
     }
 
     function visualizarPagamentos(id){

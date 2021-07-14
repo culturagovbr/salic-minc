@@ -1,13 +1,13 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('.btn_enviar').click(function(){
-            
+
             var erros = 0;
             $('.obrigatorio').each(function(){
                 if($.trim($(this).val()) == '')
                     erros++;
             });
-            
+
             if(!$("input[name='qst1']:checked").val()) {
                 erros++;
             }
@@ -17,10 +17,10 @@
             if(!$("input[name='qst3']:checked").val()) {
                 erros++;
             }
-            
+
             if(erros == 4) {
                 $("#alerta").dialog("destroy");
-                $("#alerta").html("Todos os dados est„o em branco.<br/>Preencha pelo menos um dos campos!");
+                $("#alerta").html("Todos os dados estÔøΩo em branco.<br/>Preencha pelo menos um dos campos!");
                 $("#alerta").dialog({
                     resizable: false,
                     title: 'Alerta!',
@@ -34,12 +34,12 @@
                     }
                 });
                 $('.ui-dialog-titlebar-close').remove();
-            
+
             } else {
                 $('#formCadastro').submit();
             }
         });
-        
+
         $('.btn_cancelar').click(function(){
             voltar();
         });
@@ -54,20 +54,20 @@
 
 <div id="alerta" class="sumir"></div>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para InÔøΩcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="second"><a href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => '')); ?>" title="Ir para Lista de Projetos">Lista de Projetos</a></li>
-        <li class="last">Cadastrar Opini„o</li>
+        <li class="last">Cadastrar OpiniÔøΩo</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <div>Cadastrar Opini„o <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+    <div>Cadastrar OpiniÔøΩo <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 
 
@@ -87,36 +87,36 @@
 
         <table class="tabela">
             <tr>
-                <th colspan="6">Question·rio</th>
+                <th colspan="6">QuestionÔøΩrio</th>
             </tr>
             <tr>
-                <td class="w150 destacar bold">Tem relev‚ncia cultural?</td>
+                <td class="w150 destacar bold">Tem relevÔøΩncia cultural?</td>
                 <td>
                     <label><input type="radio" name="qst1" value="1" style="margin: 0 5px 0 0px;">Sim</label>
-                    <label><input type="radio" name="qst1" value="2" style="margin: 0 5px 0 20px;">N„o</label>
+                    <label><input type="radio" name="qst1" value="2" style="margin: 0 5px 0 20px;">N√£o</label>
                 </td>
                 <td class="w150 destacar bold">Deve ser aprovado?</td>
                 <td>
                     <label><input type="radio" name="qst2" value="1" style="margin: 0 5px 0 0px;">Sim</label>
-                    <label><input type="radio" name="qst2" value="2" style="margin: 0 5px 0 20px;">N„o</label>
+                    <label><input type="radio" name="qst2" value="2" style="margin: 0 5px 0 20px;">N√£o</label>
                 </td>
-                <td class="w150 destacar bold">O custo est· adequado?</td>
+                <td class="w150 destacar bold">O custo estÔøΩ adequado?</td>
                 <td>
                     <label><input type="radio" name="qst3" value="1" style="margin: 0 5px 0 0px;">Sim</label>
-                    <label><input type="radio" name="qst3" value="2" style="margin: 0 5px 0 20px;">N„o</label>
+                    <label><input type="radio" name="qst3" value="2" style="margin: 0 5px 0 20px;">N√£o</label>
                 </td>
             </tr>
         </table>
 
         <table class="tabela">
             <tr>
-                <td class="destacar bold">Coment·rio - Sua opini„o sobre o projeto È muito importante. Participe e comente as suas respostas "Sim ou N„o", com crÌticas, elogios, recomendaÁıes, reinvidicaÁıes e sugestıes.</td>
+                <td class="destacar bold">ComentÔøΩrio - Sua opiniÔøΩo sobre o projeto ÔøΩ muito importante. Participe e comente as suas respostas "Sim ou N√£o", com crÔøΩticas, elogios, recomendaÔøΩÔøΩes, reinvidicaÔøΩÔøΩes e sugestÔøΩes.</td>
             </tr>
             <tr>
                 <td><textarea class="textarea_simples obrigatorio" name="comentario" style="width: 99%" rows="4"></textarea></td>
             </tr>
         </table>
-        
+
         <table class="tabela">
             <tr class="destacar bold">
                 <td class="w300">Caso queira se identificar, coloque aqui seu e-mail:</td>
@@ -124,17 +124,17 @@
             </tr>
         </table>
     </form>
-    
+
     <p class="centro">
         <input type="button" class="btn_enviar">
         <input type="button" class="btn_cancelar">
     </p>
-    
+
     <br clear="all" />
 </div>
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

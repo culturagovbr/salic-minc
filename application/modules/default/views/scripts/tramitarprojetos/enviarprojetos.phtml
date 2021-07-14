@@ -1,11 +1,11 @@
 <script type="text/javascript">
 <!--
 $(document).ready(function () {
-    
+
     $('#enviarPro').click(function(){
         $('a[rel~=external]').attr('target','_blank');
-        setTimeout("javascript:location.reload();", 1000); 
-        
+        setTimeout("javascript:location.reload();", 1000);
+
      });
 });
 
@@ -44,11 +44,11 @@ $(document).ready(function(){
                     }
                 }
             });
-            
+
             return false;
         }
         else{
-  
+
             document.forms["formencaminhar"].submit();
 			return false;
             //$("#confirm").dialog('open');
@@ -93,10 +93,10 @@ function recusar_projeto(idPronac, idDestino, Pronac, NomeProjeto, idLote, idOri
 <?php
 echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 ?>
-<div id="confirm1" title="Confirma&ccedil;&atilde;o" style="display: none">Dados obrigatórios não informados!</div>
+<div id="confirm1" title="Confirma&ccedil;&atilde;o" style="display: none">Dados obrigatï¿½rios NÃ£o informados!</div>
 <div id="confirm2" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja excluir o registro?</div>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -106,11 +106,11 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 </div>
 <!-- ========== FIM BRADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
 	<div>Enviar projetos cadastrados <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 <div style="display:none;" id="modalJustificativa" title="Justificativa de Recusa do Projeto" >
 	<form name="formencaminhar" id="" method="post">
@@ -148,16 +148,16 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
    	</form>
 </div>
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
 <?php if ($this->Despacho){?>
 
-<?php 
+<?php
 	if (isset($this->projetoEnviado) && $this->projetoEnviado == 'true'){
 		$historicodocumento = new HistoricoDocumento();
-?> 
+?>
 <fieldset>
 <legend> Projetos cadastrados </legend>
 <table class="tabela">
@@ -170,14 +170,14 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 	<?php foreach($this->Destino as $destino):?>
 	<?php $Orgao = TramitarprojetosDAO::buscaOrgao ($destino->idDestino); foreach ($Orgao as $nomeOrgao){$nomeDestino = $nomeOrgao->Sigla; }?>
 	<?php if($x > 0){
-		$idAtual = $destino->idDestino; 
+		$idAtual = $destino->idDestino;
 	 }?>
 		<?php if($idAtual != $idAnterior){?>
  		<tr class="fundo_linha2">
  			<td colspan="9" align="left">
  				<img src="<?php echo $this->baseUrl(); ?>/public/img/icn_menos.gif" alt="Recolher" class="<?php echo $destino->idDestino; ?>" style="cursor:pointer;" onclick="sumiraqui('<?php echo $destino->idDestino; ?>');" />
  				<img src="<?php echo $this->baseUrl(); ?>/public/img/icn_mais.gif" alt="Expandir" class="<?php echo $destino->idDestino; ?>" style="cursor:pointer; display:none;" onclick="sumiraqui('<?php  echo $destino->idDestino; ?>');" />
- 			 &nbsp;&nbsp;&nbsp;&nbsp; 
+ 			 &nbsp;&nbsp;&nbsp;&nbsp;
  			 <strong>Destino:</strong> &nbsp; <?php echo $nomeDestino; ?>&nbsp;&nbsp; | &nbsp;
  			 <a id="enviarPro" rel="external" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'despacharprojetos', 'Destino'=>$destino->idDestino)); ?>">Enviar Projetos</a>
  			</td>
@@ -189,7 +189,7 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
  			<th width="120">Despacho</th>
  			<th width="70">Situa&ccedil;&atilde;o</th>
  			<th width="70">Usu&aacute;rio</th>
- 			<th width="70">Data</th> 			
+ 			<th width="70">Data</th>
  		</tr>
  		<?php foreach($this->Despacho as $despacho):?>
 		<?php if ($despacho->idDestino == $destino->idDestino){?>
@@ -200,7 +200,7 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
  			<td align="center"><?php echo $despacho->despacho; ?></td>
  			<td align="center" ><?php if ($despacho->Acao == 4) { echo "<b><font color='red'></font>"; } echo $despacho->Situacao;?></td>
  			<td align="center" ><?php echo $despacho->Emissor ?></td>
- 			<td align="center" ><?php echo $despacho->dtEnvio ?></td> 
+ 			<td align="center" ><?php echo $despacho->dtEnvio ?></td>
  		</tr>
  		<?php }?>
  		<?php $idAnterior = $destino->idDestino; ?>
@@ -210,23 +210,23 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
  		<?php endforeach;?> <!-- FIM FOREACH DESTINO -->
  		<?php }
  		?>
-		
- 		
- </table>	
+
+
+ </table>
 <?php } else{?>
- 
+
 	<table class="tabela">
 		<tr>
-			<td class="centro">Não há projetos para serem enviados!</td>
+			<td class="centro">NÃ£o hï¿½ projetos para serem enviados!</td>
 		</tr>
 	</table>
- 
-<?php 
+
+<?php
 	}
 ?>
-</fieldset>  
+</fieldset>
  <?php }?>
-	
+
 <table class="tabela">
 	<tr>
 		<th class="fundo_linha2"><a href="#" class="abrir">Visualizar Projetos Enviados</a></th>
@@ -236,7 +236,7 @@ echo $this->partial('tramitarprojetos/inc/menu.inc.php', $this) // menu
 <div style="display: none" class="enviados">
 <?php $historicodocumento = new HistoricoDocumento();?>
 <?php if (($this->Dest) && ($this->Desp)){
-$auth = Zend_Auth::getInstance(); // instancia da autenticação
+$auth = Zend_Auth::getInstance(); // instancia da autenticaï¿½ï¿½o
 $idusuario = $auth->getIdentity()->usu_codigo; ?>
 <fieldset><legend> Projetos enviados </legend>
  	<table class="tabela">
@@ -246,14 +246,14 @@ $idusuario = $auth->getIdentity()->usu_codigo; ?>
 	<?php foreach($this->Dest as $destino):?>
 	<?php $Orgao = TramitarprojetosDAO::buscaOrgao ($destino->idDestino); foreach ($Orgao as $nomeOrgao){$nomeDestino = $nomeOrgao->Sigla; }?>
 	<?php if($x > 0){
-		$idAtual = $destino->idDestino; 
+		$idAtual = $destino->idDestino;
 	 }?>
 		<?php if($idAtual != $idAnterior){?>
 		<tr>
  			<td colspan="9" align="left" class="fundo_linha2">
  				<img src="<?php echo $this->baseUrl(); ?>/public/img/icn_menos.gif" class="<?php echo $destino->idDestino; ?>" style="cursor:pointer;" onclick="sumiraqui('<?php echo $destino->idDestino; ?>');" />
  				<img src="<?php echo $this->baseUrl(); ?>/public/img/icn_mais.gif" class="<?php echo $destino->idDestino; ?>" style="cursor:pointer; display:none;" onclick="sumiraqui('<?php  echo $destino->idDestino; ?>');" />
- 			 &nbsp;&nbsp;&nbsp;&nbsp; 
+ 			 &nbsp;&nbsp;&nbsp;&nbsp;
  			 <strong>Lote Nr:</strong> &nbsp;<?php echo $destino->lote; ?> &nbsp;-&nbsp;
  			 <strong>Destino:</strong> &nbsp;<?php echo $nomeDestino; ?>&nbsp;&nbsp;
  			</td>
@@ -280,35 +280,35 @@ $idusuario = $auth->getIdentity()->usu_codigo; ?>
  			<td align="center"><?php echo $despacho->Situacao ?></td>
  			<td align="center"><?php echo $despacho->Emissor ?></td>
  			<td align="center"><input type="button" class="btn_cancelar" onclick="recusar_projeto(<?php echo $despacho->idPronac ?>, <?php echo $destino->idDestino; ?>, '<?php echo $despacho->Pronac; ?>', '<?php echo $despacho->NomeProjeto; ?>', '<?php echo $despacho->idLote; ?>', '<?php echo $despacho->idOrigem; ?>')" />
- 			</td> 
+ 			</td>
  		</tr>
  		<?php  }?>
  		<?php }?>
  		<?php $idAnterior = $destino->idDestino; ?>
  		<?php $x++;?>
- 		<?php endforeach;?>  <!-- FIM FOREACH DESPACHO  --> 
+ 		<?php endforeach;?>  <!-- FIM FOREACH DESPACHO  -->
  		<?php }?>
  		<?php endforeach;?>  <!-- FIM FOREACH DESTINO   -->
- 						
+
  	</table>
-</fieldset> 
+</fieldset>
 <?php } else{?>
 
 	<table class="tabela">
 		<tr>
-			<td class="centro">Não há projetos enviados!</td>
+			<td class="centro">NÃ£o hï¿½ projetos enviados!</td>
 		</tr>
 	</table>
 
-<?php 
+<?php
 }
-?>	   	
+?>
 </div>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
-<!-- ========== INÍCI RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INï¿½CI RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

@@ -2,21 +2,21 @@
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
-        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="CLista de Relatórios">Lista de Relatórios</a></li>
-        <li class="last">Plano de Divulgação</li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="CLista de Relatï¿½rios">Lista de Relatï¿½rios</a></li>
+        <li class="last">Plano de Divulgaï¿½ï¿½o</li>
     </ul>
 </div>
 
 
 <div id="titulo">
-    <div>Plano de Divulgação <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="Voltar">Voltar</a></span></div>
+    <div>Plano de Divulgaï¿½ï¿½o <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico" title="Voltar">Voltar</a></span></div>
 </div>
 
 
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center" width="30%">Nï¿½ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -37,15 +37,15 @@
 
     <table class="tabela">
         <tr align="center">
-            <th colspan="6">Plano de Divulgação</th>
+            <th colspan="6">Plano de Divulgaï¿½ï¿½o</th>
         </tr>
         <tr align="center">
-            <td class="destacar bold">Peça</td>
-            <td class="destacar bold">Veículo</td>
+            <td class="destacar bold">Peï¿½a</td>
+            <td class="destacar bold">Veï¿½culo</td>
             <td class="destacar bold" width="120px">Realizado</td>
             <td class="destacar bold" width="120px">Comprovado</td>
             <td class="destacar bold" width="120px">Arquivo</td>
-            <td class="destacar bold" width="120px">Data da Anexação</td>
+            <td class="destacar bold" width="120px">Data da Anexaï¿½ï¿½o</td>
         </tr>
         <?php foreach ($this->PlanoDeDivulgacao as $PlanoDeDivulgacao) { ?>
         <tr>
@@ -54,9 +54,9 @@
             <td nowrap>
                 <?php
                     if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 0) {
-                        echo 'Sem Informação';
+                        echo 'Sem Informaï¿½ï¿½o';
                     } else if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 1) {
-                        echo 'Não Realizado';
+                        echo 'NÃ£o Realizado';
                     } else if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 2) {
                         echo 'Realizado';
                     } else if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 3) {
@@ -76,12 +76,12 @@
         </tr>
         <?php } ?>
     </table>
-    
+
     <br clear="all" />
 </div>
 
 
-<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÃCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

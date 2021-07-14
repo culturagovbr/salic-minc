@@ -7,7 +7,7 @@
  * @package application
  * @subpackage application.controller.realizaranaliseprojeto.inc
  * @link http://www.cultura.gov.br
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  */
 
 $pronac = (isset($_GET['idPronac']) ? $_GET['idPronac'] : '');
@@ -21,26 +21,26 @@ $pronac = (isset($_GET['idPronac']) ? $_GET['idPronac'] : '');
 } ?>><a href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'parecerconsolidadomodal')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>&idReuniao=<?php echo $_GET['idReuniao']; ?>&tipousuario=<?php echo $_GET['tipousuario']; ?>&tipoprojeto=<?php echo $_GET['tipoprojeto']; ?>">Analisar Parecer Consolidado</a></th>
         <th <?php if (strstr($this->url(), 'analisedeconta') == 'analisedeconta') {
     echo "class=\"bg_white\"";
-} ?>><a href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'analisedeconta')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>&idReuniao=<?php echo $_GET['idReuniao']; ?>&tipousuario=<?php echo $_GET['tipousuario']; ?>&tipoprojeto=<?php echo $_GET['tipoprojeto']; ?>">Análise de Cortes Sugeridos</a></th>
+} ?>><a href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'analisedeconta')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>&idReuniao=<?php echo $_GET['idReuniao']; ?>&tipousuario=<?php echo $_GET['tipousuario']; ?>&tipoprojeto=<?php echo $_GET['tipoprojeto']; ?>">AnÃ¡lise de Cortes Sugeridos</a></th>
         <th <?php if (strstr($this->url(), 'analisedeconteudo') == 'analisedeconteudo') {
     echo "class=\"bg_white\" ";
-} ?>><a href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'analisedeconteudo')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>&idReuniao=<?php echo $_GET['idReuniao']; ?>&tipousuario=<?php echo $_GET['tipousuario']; ?>&tipoprojeto=<?php echo $_GET['tipoprojeto']; ?>">Análise de Conteúdo</a></th>
+} ?>><a href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'analisedeconteudo')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>&idReuniao=<?php echo $_GET['idReuniao']; ?>&tipousuario=<?php echo $_GET['tipousuario']; ?>&tipoprojeto=<?php echo $_GET['tipoprojeto']; ?>">AnÃ¡lise de CONTEÃšDO</a></th>
         <th <?php if (strstr($this->url(), 'analisedecustos') == 'analisedecustos') {
     echo "class=\"bg_white\"";
-} ?>><a href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'analisedecustos')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>&idReuniao=<?php echo $_GET['idReuniao']; ?>&tipousuario=<?php echo $_GET['tipousuario']; ?>&tipoprojeto=<?php echo $_GET['tipoprojeto']; ?>" id="custos">Análise de Custos</a></th>
+} ?>><a href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'analisedecustos')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>&idReuniao=<?php echo $_GET['idReuniao']; ?>&tipousuario=<?php echo $_GET['tipousuario']; ?>&tipoprojeto=<?php echo $_GET['tipoprojeto']; ?>" id="custos">AnÃ¡lise de Custos</a></th>
         <?php
         if ($_GET['tipousuario'] == 'a' and $_GET['tipoprojeto'] == 'S') {
             echo "<th ";
             if (strstr($this->url(), 'aprovarparecer') == 'aprovarparecer') {
                 echo "class=\"bg_white\"";
             }
-            echo"> <a href=\"" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'aprovarparecer')) . "?idPronac=" . $_GET['idPronac'] . "&idReuniao=" . $_GET['idReuniao'] . "&tipoprojeto=" . $_GET['tipoprojeto'] . "&tipousuario=" . $_GET['tipousuario'] . "\">Retirar da Plenária</a></th>";
+            echo"> <a href=\"" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'aprovarparecer')) . "?idPronac=" . $_GET['idPronac'] . "&idReuniao=" . $_GET['idReuniao'] . "&tipoprojeto=" . $_GET['tipoprojeto'] . "&tipousuario=" . $_GET['tipousuario'] . "\">Retirar da Plenï¿½ria</a></th>";
         } elseif ($_GET['tipoprojeto'] == 'N') {
             echo "<th ";
             if (strstr($this->url(), 'aprovarparecer') == 'aprovarparecer') {
                 echo "class=\"bg_white\"";
             }
-            echo"> <a href=\"" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'aprovarparecer')) . "?idPronac=" . $_GET['idPronac'] . "&idReuniao=" . $_GET['idReuniao'] . "&tipoprojeto=" . $_GET['tipoprojeto'] . "&tipousuario=" . $_GET['tipousuario'] . "\">Submeter Plenária</a></th>";
+            echo"> <a href=\"" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'aprovarparecer')) . "?idPronac=" . $_GET['idPronac'] . "&idReuniao=" . $_GET['idReuniao'] . "&tipoprojeto=" . $_GET['tipoprojeto'] . "&tipousuario=" . $_GET['tipousuario'] . "\">Submeter Plenï¿½ria</a></th>";
         }
         ?>
     </tr>
@@ -55,7 +55,7 @@ $pronac = (isset($_GET['idPronac']) ? $_GET['idPronac'] : '');
             {
                 $.get($(this).attr('href'),{idPronac:<?php echo $pronac; ?>},function(data)
                 {
-                    $("#tela").html(data);                    
+                    $("#tela").html(data);
                 });
                 return false;
             });

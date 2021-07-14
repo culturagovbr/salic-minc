@@ -1,7 +1,7 @@
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
         <li class="last">Alterar Nome Projeto</li>
     </ul>
 </div>
@@ -9,15 +9,15 @@
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Alterar Nome Projeto <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 <table class="tabela"  >
@@ -27,16 +27,16 @@
             </tr>
             <tr align="center">
             	<th>Alterar Nome Projeto</th>
-           
+
             </tr>
 </table>
 <table class="tabela"  >
 <?php foreach ($this->resposta as $resposta) {?>
            <tr>
                 <td><strong>CNPJ / CPF:</strong> <br>
-                <?php 
-                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3); 
-                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"]; 
+                <?php
+                	$arr2 = str_split($this->escape($resposta->CgcCpf), 3);
+                	echo $arr2["0"].".".$arr2["1"].".".$arr2["2"]."-".$arr2["3"];
                 ?>
                 </td>
                 <td><strong>Proponente:</strong> <br><?php echo $this->escape($resposta->Nome); ?></td>
@@ -45,11 +45,11 @@
 </table>
 <form action="<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/alterarnovonomeprojeto" method="post" enctype="multipart/form-data">
 	<table class="tabela" >
-	            
-	          
+
+
 	            <tr>
-	            	
-	            <td class="titulo_tabela">AlteraÁ„o do Nome do Projeto</td>
+
+	            <td class="titulo_tabela">AlteraÔøΩÔøΩo do Nome do Projeto</td>
             </tr>
             <tr align="center">
 	            <tr>
@@ -62,7 +62,7 @@
 	            	<td >Anexos<br /><input type="file" name="anexo" />&nbsp;&nbsp;&nbsp;&nbsp;
 	            	<input type="submit" name="nome" value="Anexar Arquivo" /></td>
 	            </tr>
-	           
+
 	            <tr>
 	            	<td ><input type="button" title="Alterar " class="btn_alterar" />
 	            	<input type="button" title="Cancelar" class="btn_cancelar" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/solicitaralteracaoprojeto/index')"/></td>
@@ -72,18 +72,18 @@
 		            <?php } ?>
 	            </tr>
 	            <tr>
-	            	<td ><br>Todos os campos com * s„o obrigatÛrios</td>
+	            	<td ><br>Todos os campos com * sÔøΩo obrigatÔøΩrios</td>
 	            </tr>
 	</table>
 </form>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

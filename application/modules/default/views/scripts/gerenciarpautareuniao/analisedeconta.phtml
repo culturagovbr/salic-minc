@@ -1,6 +1,6 @@
 <?php
 /**
- * An�lise de Cortes Sugeridos
+ * Análise de Cortes Sugeridos
  * @author Equipe RUP - Politec
  * @since 07/06/2010
  * @version 1.0
@@ -10,7 +10,7 @@
  * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
  */
 ?>
-    <!-- ========== IN�CIO T�TULO P�GINA ========== -->
+    <!-- ========== INÍCIO T�TULO página ========== -->
     <table class="tabela">
 
         <tr>
@@ -21,11 +21,11 @@
         </tr>
 
     </table>
-    <!-- ========== FIM T�TULO P�GINA ========== -->
+    <!-- ========== FIM T�TULO página ========== -->
 
 
 
-    <!-- ========== IN�CIO TABELA DE CORTES SUGERIDOS ========== -->
+    <!-- ========== INÍCIO TABELA DE CORTES SUGERIDOS ========== -->
     <table class="tabela">
         <tr>
             <th colspan="8" align="center">Cortes Sugeridos</th>
@@ -33,7 +33,7 @@
 
 
 
-        <!-- ========== IN�CIO ITEM REDUZIDO ========== -->
+        <!-- ========== INÍCIO ITEM REDUZIDO ========== -->
         <?php
         if (count($this->itemReduzido) == 0) {
             echo "<tr>";
@@ -59,8 +59,8 @@
             </tr>
 
             <?php
-            $totalValRed = (float) 0; // valor total da p�gina
-            $totalItensRed = (int) 0; // total itens da p�gina
+            $totalValRed = (float) 0; // valor total da página
+            $totalItensRed = (int) 0; // total itens da página
             // caso tenha projetos
             if (count($this->analiseReduzido) > 0) {
                 foreach ($this->analiseReduzido as $resposta) :
@@ -119,7 +119,7 @@
 
 
 
-            <!-- ========== IN�CIO ITEM RETIRADO ========== -->
+            <!-- ========== INÍCIO ITEM RETIRADO ========== -->
             <?php if ($this->itemRetirado) : ?>
                 <tr>
                     <td colspan="8">&nbsp;</td>
@@ -138,8 +138,8 @@
                 </tr>
 
                 <?php
-                $totalValRet = (float) 0; // valor total da p�gina
-                $totalItensRet = (int) 0; // total itens da p�gina
+                $totalValRet = (float) 0; // valor total da página
+                $totalItensRet = (int) 0; // total itens da página
                 // caso tenha projetos
                 if (count($this->analiseRetirado) > 0) {
                     foreach ($this->analiseRetirado as $resposta) :

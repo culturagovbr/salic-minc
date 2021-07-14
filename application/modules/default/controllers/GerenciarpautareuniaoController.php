@@ -890,12 +890,12 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         $Agente = $usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $buscarReuniaoAberta = $reuniao->buscarReuniaoAberta();
-        
+
         //$reuniaoaberta = $buscarReuniaoAberta['idNrReuniao'];
         if (isset($_POST['votantes'])) {
             $votantesSelecionados = array_unique($_POST['votantes']);
             $buscarVotante = $vt->buscar(array('idReuniao = ?' => $buscarReuniaoAberta['idNrReuniao']))->count();
-            
+
             if ($buscarVotante > 1) {
                 $where = "idReuniao = " . $buscarReuniaoAberta['idNrReuniao'];
                 $vt->apagar($where);
@@ -910,7 +910,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
             parent::message("Votantes cadastrados com sucesso!", "gerenciarpautareuniao/exibirvotantes", "CONFIRM");
         }
         $buscarVotante = $vt->buscar(array('idReuniao = ?' => $buscarReuniaoAberta['idNrReuniao']));
-        
+
         $votanteCadastrado = array();
         foreach ($buscarVotante as $verificarVotante) {
             $votanteCadastrado[] = $verificarVotante->idAgente;
@@ -939,7 +939,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         $membrosnatos = array();
         foreach ($buscarMembrosNatos as $membros) {
             $Agente = $usuario->getIdUsuario($membros->usu_codigo);
-            
+
             if ($Agente['idagente']) {
                 if ($idagenteAtual == $Agente['idagente']) {
                     $idagenteAtual = $Agente['idagente'];
@@ -952,7 +952,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
             }
             $num++;
         }
-        
+
         $this->view->Plenaria = $buscarReuniaoAberta;
         $this->view->membrosnatos = $membrosnatos;
     }
@@ -1209,7 +1209,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
 
         $IN2017 = $projeto->VerificarIN2017($idpronac);
         $this->view->IN2017 = $IN2017;
-        
+
         $parecerAtivo = $tblParecer->buscar(array('idPronac=?'=>$idpronac,'stAtivo=?'=>'1'))->current();
         $analiseparecer = $tblParecer->buscar(array('idTipoAgente in (?)'=>array('1','6'), 'TipoParecer=?'=>$parecerAtivo->TipoParecer, 'idPronac=?'=>$idpronac));
 
@@ -1302,7 +1302,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         /**** FIM - CODIGO DE READEQUACAO ****/
 
         $this->view->ResultProduto = $produtos;
-        
+
         $verificaEnquadramento = RealizarAnaliseProjetoDAO::verificaEnquadramento($idpronac, 'CO', $IN2017);
         if ($IN2017) {
             $this->view->enquadramento = $verificaEnquadramento[0]->stArtigo;
@@ -1349,7 +1349,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
                 if ($dados->tpSolicitacao == 'PI' || $dados->tpSolicitacao == 'EO' || $dados->tpSolicitacao == 'OR') {
                     $d = array();
                     $d['situacao'] = 'B11';
-                    $d['ProvidenciaTomada'] = 'Recurso enviado para avalia��o t�cnica.';
+                    $d['ProvidenciaTomada'] = 'Recurso enviado para avalia��o Técnica.';
                     $d['dtSituacao'] = new Zend_Db_Expr('GETDATE()');
                     $where = "IdPRONAC = $dados->IdPRONAC";
                     $Projetos = new Projetos();
@@ -2312,7 +2312,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         /* ================== PAGINACAO ======================*/
         $where = array();
         $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
-        $where['a.siRecurso = ?'] = 9; // 9=N�o submetidos a plen�ria - Checklist Publica��o
+        $where['a.siRecurso = ?'] = 9; // 9=Não submetidos a plen�ria - Checklist Publica��o
 
         $tbRecurso = new tbRecurso();
         $recursos = $tbRecurso->recursosNaoSubmetidos($where, array());
@@ -2325,7 +2325,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
     /*
      * Alterada em 13/03/14
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Fun��o criada acessar as readequa��es que n�o foram submetidas � plen�ria.
+     * Fun��o criada acessar as readequa��es que Não foram submetidas � plen�ria.
     */
     public function readequacoesNaoSubmetidasAction()
     {
@@ -2335,7 +2335,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         /* ================== PAGINACAO ======================*/
         $where = array();
         $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
-        $where['a.siEncaminhamento = ?'] = 9; // 9=N�o submetidos a plen�ria - Checklist Publica��o
+        $where['a.siEncaminhamento = ?'] = 9; // 9=Não submetidos a plen�ria - Checklist Publica��o
 
         $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $readequacoes = $Readequacao_Model_DbTable_TbReadequacao->readequacoesNaoSubmetidas($where, array());

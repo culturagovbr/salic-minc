@@ -5,7 +5,7 @@
 
 function incluir(){
 
-    document.getElementById("vincular").title = "ConfirmaÁ„o";
+    document.getElementById("vincular").title = "Confirma√ß√£o";
 
 	// modal com os ddos do dirigente
 	$("#vincular").dialog("destroy");
@@ -36,7 +36,7 @@ function excluir(idEdital, idAgente, cpf){
 	$("#idEdit").val(idEdital);
 	$("#idAgen").val(idAgente);
 	$("#cpf2").val(cpf);
-    document.getElementById("excluir").title = "ConfirmaÁ„o";
+    document.getElementById("excluir").title = "Confirma√ß√£o";
 
     $("#excluir").dialog("destroy");
     $("#excluir").dialog
@@ -48,7 +48,7 @@ function excluir(idEdital, idAgente, cpf){
         ,
         buttons:
         {
-            'N„o':function()
+            'N√£o':function()
             {
                 $(this).dialog('close');
                 //return false;
@@ -71,13 +71,13 @@ function excluir(idEdital, idAgente, cpf){
 <input type="hidden" name="cpf2" id="cpf2" value="<?php echo $_GET['cpf'];?>" />
 </form>
 <div id="menu">
-    <!-- inÌcio: conte˙do principal #container -->
+    <!-- IN√çCIO: CONTE√öDO principal #container -->
     <div id="container">
         <?php echo $this->partial('cadastraredital/inc/menu.inc.php', $this);?>
-        <!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="index.html" title="Ir para InÌcio">InÌcio</a></li>
+                <li class="first"><a href="index.html" title="Ir para IN√çCIO">IN√çCIO</a></li>
                 <?php if (isset($_GET['idEdital'])) : ?>
                     <li><a href="<?php echo $this->url(array('controller' => 'cadastraredital', 'action' => 'consultaralterareditais')); ?>">Consultar/Alterar Edital</a></li>
                 <?php endif; ?>
@@ -103,7 +103,7 @@ function excluir(idEdital, idAgente, cpf){
 		        		$nrEdital = $nomeEdital->NrEdital;
 		        		$idOrgao = $nomeEdital->idOrgao;
 		        		$usuario = $nomeEdital->Logon;
-		        		
+
 		        		$nomeEdital = ListareditaisDAO::buscaNomeEdital($idEdital, $idOrgao, $nrEdital, $usuario);
 		        		if($nomeEdital){
 		        		$teste[$i] = Array('idEdital'=> $nomeEdital[0]->idEdital, 'NrEdital'=> $nomeEdital[0]->NrEdital, 'nomeEdital'=> $nomeEdital[0]->nomeEdital);
@@ -113,19 +113,19 @@ function excluir(idEdital, idAgente, cpf){
 	        }?>
 	    <form id="frm2" name="frm2" action="" method="post">
 	    <input type="hidden" name="cpf" id="cpf" value="<?php echo $this->cpf ?>"></input>
-	    
+
 	    <table class="tabela">
 	    <tr>
             <th align="left" colspan="2">Editais Vinculados</th>
         </tr>
-        <?php 
+        <?php
         $t = array();
         if($teste){
 	        foreach ($teste as $bla){
 	        	$t[] = $bla['NrEdital'];
-	        	
-	        }        
-	        array_multisort($t, $teste); //Metodo de OrdenaÁ„o
+
+	        }
+	        array_multisort($t, $teste); //Metodo de OrdenaÔøΩÔøΩo
 	        if($teste){
 		       	foreach ($teste as $bla){?>
 			        <tr>
@@ -143,10 +143,10 @@ function excluir(idEdital, idAgente, cpf){
 	 <?php } else {?>
 	 <tr>
 			<br />
-				<div class="center" align="center">N„o h· Editais vinculados para <?php echo $this->nomeAvaliador; ?></div>
-			<br />	
+				<div class="center" align="center">N√£o hÔøΩ Editais vinculados para <?php echo $this->nomeAvaliador; ?></div>
 			<br />
-	</tr>	
+			<br />
+	</tr>
 	 <?php }?>
     </table>
     <input type="hidden" value="" name="idEdit" id="idEdit"/>
@@ -155,10 +155,10 @@ function excluir(idEdital, idAgente, cpf){
     </form>
    	</div>
 </div>
-        <!-- ========== FIM CONTE⁄DO ========== -->
-        <!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+        <!-- ========== FIM CONTE√öDO ========== -->
+        <!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
         <div id="rodapeConteudo"><span></span></div>
-        <!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+        <!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
         <br clear="all" />
 </div>

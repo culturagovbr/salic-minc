@@ -1,12 +1,12 @@
 <!--
 /**
- * Funções Realizar Análise Projeto
+ * Funï¿½ï¿½es Realizar AnÃ¡lise Projeto
  * @author Equipe RUP - Politec
  * @since 07/06/2010
  * @version 1.0
  * @package public
  * @subpackage public.js
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -26,12 +26,12 @@ function buscar_val_pred_parec_relat(i)
 	ocorrencia_parec_relat     = document.getElementById('ocorrencia' + i + '').value;
 	valor_parec_relat          = document.getElementById('vlunitario' + i + '').value;
 	calcular_total_parec_relat = document.getElementById('calcular_total' + i + '').innerHTML;
-} // fecha função buscar_val_pred_parec_relat()
+} // fecha funï¿½ï¿½o buscar_val_pred_parec_relat()
 
 
 
 /**
- * Verificar se o valor do parecerista é maior que o valor do relator
+ * Verificar se o valor do parecerista ï¿½ maior que o valor do relator
  */
 
 function validar_val_parec_relat(i)
@@ -40,7 +40,7 @@ function validar_val_parec_relat(i)
 	calcular_total = $("#calcular_total"+i).html();
 	calcular_total = calcular_total.replace('R$ ', '');
 
-	// retira os pontos e as vírgulas, deixando somente números
+	// retira os pontos e as vï¿½rgulas, deixando somente nï¿½meros
 	calcular_total = calcular_total.replace(/\D/g, "");
 	calcular_total = calcular_total.replace(/(\d{0})(\d)/, "$1$2");
 
@@ -53,7 +53,7 @@ function validar_val_parec_relat(i)
         valormaximo  = new Number($("#valorpossivel").val())
         somatotal = new Number(totalcalculos+valormaximo);
 //        alert(somatotal+"/"+valormaximo);
-	// se o valor do parecerista é maior que o valor do relator
+	// se o valor do parecerista ï¿½ maior que o valor do relator
 	if (calcular_total > somatotal)
 	{
 		// reseta os campo (atribui os valores iniciais)
@@ -74,49 +74,49 @@ function validar_val_parec_relat(i)
 			buttons:
 			{
 				'Ok':function()
-				{			
+				{
 					$(this).dialog('close'); // fecha a modal
 				}
 			}
 		});
 		$('.ui-dialog-titlebar-close').remove();
 	}
-} // fecha função validar_val_parec_relat()
+} // fecha funï¿½ï¿½o validar_val_parec_relat()
 
 
 
 /**
- * Função para realizar o calculo automático da atualização de planilha do projeto
+ * Funï¿½ï¿½o para realizar o calculo automï¿½tico da atualizaï¿½ï¿½o de planilha do projeto
  */
 
 function calcular_planilha_projeto(cont)
 {
-	// recebe os valores do formulário
+	// recebe os valores do formulï¿½rio
 	qtd        = document.getElementById('qtd' + cont + '').value;
 	ocorrencia = document.getElementById('ocorrencia' + cont + '').value;
 	valor      = document.getElementById('vlunitario' + cont + '').value;
 
-	// retira os pontos e as vírgulas, deixando somente números
+	// retira os pontos e as vï¿½rgulas, deixando somente nï¿½meros
 	valor = valor.replace(/\D/g, "");
 	valor = valor.replace(/(\d{0})(\d)/, "$1$2");
 
 	// adiciona o ponto na casa decimal
 	valor = valor.replace(/(\d)(\d{2})$/, "$1.$2");
 
-	// converte para float e adiciona precisão decimal
+	// converte para float e adiciona precisï¿½o decimal
 	qtd        = parseFloat(qtd).toFixed(2);
 	ocorrencia = parseFloat(ocorrencia).toFixed(2);
 	valor      = parseFloat(valor).toFixed(2);
 
-	// variável com o resultado
+	// variï¿½vel com o resultado
 	resultado = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
 
-	// se não for número
+	// se NÃ£o for nï¿½mero
 	if (isNaN(resultado))
 	{
 		resultado = '';
 	}
-	// caso seja número
+	// caso seja nï¿½mero
 	else
 	{
 		// formata para real
@@ -135,17 +135,17 @@ function calcular_planilha_projeto(cont)
 		resultado = 'R$ ' + resultado;
 	} // fecha else
 	document.getElementById('calcular_total' + cont + '').innerHTML = resultado;
-} // fecha função calcular_planilha_projeto()
+} // fecha funï¿½ï¿½o calcular_planilha_projeto()
 
 
 
 /**
- * Função para escolher Artigo 18 e desabilitar Artigo 26
+ * Funï¿½ï¿½o para escolher Artigo 18 e desabilitar Artigo 26
  */
 
 function escolherArt_18()
 {
-	// recebe os campos do formulário
+	// recebe os campos do formulï¿½rio
     stArtigo18 = "";
     for (i = 0; i < document.form.stArtigo18.length; i++)
     {
@@ -179,17 +179,17 @@ function escolherArt_18()
     	dsAlineaArtigo18.disabled = true;
     	dsAlineaArtigo18.value = '';
     }
-} // fecha função escolherArt_18()
+} // fecha funï¿½ï¿½o escolherArt_18()
 
 
 
 /**
- * Função para escolher Artigo 26 e desabilitar Artigo 18
+ * Funï¿½ï¿½o para escolher Artigo 26 e desabilitar Artigo 18
  */
 
 function escolherArt_26()
 {
-	// recebe os campos do formulário
+	// recebe os campos do formulï¿½rio
     stArtigo18 = "";
     for (i = 0; i < document.form.stArtigo18.length; i++)
     {
@@ -223,12 +223,12 @@ function escolherArt_26()
     	dsAlineaArtigo18.disabled = false;
     	dsAlineaArtigo18.value = AlineaArt18;
     }
-} // fecha função escolherArt_26()
+} // fecha funï¿½ï¿½o escolherArt_26()
 
 
 
 /**
- * Função para desabilitar todos os campos caso a opção selecionada seja não
+ * Funï¿½ï¿½o para desabilitar todos os campos caso a opï¿½ï¿½o selecionada seja NÃ£o
  */
 
 function escolherLei_8313()
@@ -310,7 +310,7 @@ function escolherLei_8313()
 
 
 /**
- * Função para limpar os campos caso a opção selecionada seja não
+ * Funï¿½ï¿½o para limpar os campos caso a opï¿½ï¿½o selecionada seja NÃ£o
  */
 
 function escolherArtigo3()
@@ -340,7 +340,7 @@ function escolherArtigo3()
 
 
 /**
- * Função para limpar os campos caso a opção selecionada seja não
+ * Funï¿½ï¿½o para limpar os campos caso a opï¿½ï¿½o selecionada seja NÃ£o
  */
 
 function escolherDecreto5761()

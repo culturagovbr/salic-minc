@@ -24,7 +24,7 @@ class Agente_Model_DbTable_Internet extends MinC_Db_Table_Abstract
      * @param string $perfil
      * @param string $formato
      * @return void
-     * @todo retirar SP, n�o foi encontrada uso do metodo no sistema, proposta de remo��o.
+     * @todo retirar SP, Não foi encontrada uso do metodo no sistema, proposta de remo��o.
      */
     public function enviarEmail($email, $assunto, $texto, $perfil = "PerfilGrupoPRONAC", $formato = "HTML")
     {

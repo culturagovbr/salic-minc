@@ -3,7 +3,7 @@
     function(){
         verificarReuniao()
     }, 1000);
-    
+
     function verificarReuniao(){
         var stplenariaatual  = '<?php echo $this->dadosReuniaoPlenariaAtual[0]->stPlenaria; ?>';
         $.ajax({
@@ -42,7 +42,7 @@
             $('#cronometro #seg').html(seg);
 
             if(minu==0 && seg==0){
-                $("#alert").html('Plen&aacute;ria iniciada com sucesso!');
+                $("#alert").html('Plenária iniciada com sucesso!');
                 $("#alert").dialog('open');
                 clearInterval(contador);
                 window.location = "<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpautareuniao')); ?>";
@@ -64,9 +64,9 @@
 
         <div id="conteudo">
             <div id="cronometro" style="display: none; font-size: 2em; margin-top: 0.5em; text-align: center; color: red;" >
-                Tempo restante para in&iacute;cio da Plen&aacute;ria = <span id="minu" ></span>' : <span id="seg" ></span>"
+                Tempo restante para in&iacute;cio da Plenária = <span id="minu" ></span>' : <span id="seg" ></span>"
             </div>
-            <label for="menuAnalise">Aguardando An&aacute;lise </label>
+            <label for="menuAnalise">Aguardando Análise </label>
 
             <table class="tbl" width="900" align="center" cellpadding="3" cellspacing="1">
                 <tr class="menutbl">

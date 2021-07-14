@@ -5,17 +5,17 @@
  */
 ?>
 <script>
-    
+
     function adicionarDias(data1, periodo){
         data1 = data1.split("/");
         data1 = new Date(data1[1]+"/"+data1[0]+"/"+data1[2]);
         var datacalculada = new Date(data1.getTime() + (periodo * 24 * 60 * 60 * 1000));
         //dataatual = data1.getFullYear() + '-' + (data1.getMonth()+1) + '-' + data1.getDate();
-        
+
         var dia = datacalculada.getDate();
         var mes = (datacalculada.getMonth()+1)
         var ano = datacalculada.getFullYear();
-        
+
         if (  dia < 10 )
         {
             dia = "0" + dia;
@@ -25,15 +25,15 @@
         {
             mes = "0" + mes;
         }
-        
+
         datacalculada = dia + '/' + mes + '/' + ano;
         return datacalculada;
-      
+
      //return new Date(data.getTime() + (dias * 24 * 60 * 60 * 1000));
-     
+
    }
    $(document).ready(function(){
-        
+
         $('#regularAP').tablesorter({
                             headers: {
                                 2: {
@@ -81,7 +81,7 @@
                                     sorter: false
                                 }
                             }
-            
+
         });
         $('#diligenciaAP').tablesorter({
                             headers: {
@@ -130,7 +130,7 @@
                                     sorter: false
                                 }
                             }
-            
+
         });
         $('#irregularAP').tablesorter({
                             headers: {
@@ -179,9 +179,9 @@
                                     sorter: false
                                 }
                             }
-            
+
         });
-        
+
         $(".btn_adicionar").click(function(){
             var tipo = $(this).attr('tipo');
             var aberto = $(this).attr('aberto');
@@ -194,7 +194,7 @@
                 $(".tabela[tipo="+tipo+"]").removeClass('sumir');
             }
         });
-        
+
         $(".btn_adicionar").click(function(){
             var tipo = $(this).attr('tipo');
             var aberto = $(this).attr('abertoAp');
@@ -207,7 +207,7 @@
                 $(".tabela[tipo="+tipo+"]").removeClass('sumir');
             }
         });
-        
+
         $(".btn_adicionar").click(function(){
             var tipo = $(this).attr('tipo');
             var aberto = $(this).attr('diligenciaAP');
@@ -220,7 +220,7 @@
                 $(".tabela[tipo="+tipo+"]").removeClass('sumir');
             }
         });
-        
+
         $(".btn_adicionar").click(function(){
             var tipo = $(this).attr('tipo');
             var aberto = $(this).attr('irregularAP');
@@ -233,7 +233,7 @@
                 $(".tabela[tipo="+tipo+"]").removeClass('sumir');
             }
         });
-        
+
 
         $('#dtinicioexecucao').mask('99/99/9999');
         $('#dtfimexecucao').mask('99/99/9999');
@@ -261,14 +261,14 @@
         });
 
         $("#MsgAlertas").dialog({
-            title:"ConfirmaÁ„o",
+            title:"Confirma√ß√£o",
             resizable: true,
             width:300,
             height:150,
             modal: true,
             autoOpen:false,
             buttons: {
-                'N√O': function() {
+                'N√£o': function() {
                     $(this).dialog('close')
                 },
                 'SIM': function() {
@@ -281,14 +281,14 @@
         });
 
     }); //fecha document.read
-    
+
     function JSEncaminharPortaria(idpronac){
         var idpronac = idpronac;
         $('html').css('overflow', 'hidden');
         $("body").append("<div id='divDinamica'></div>");
         $("#divDinamica").html("");
         $('#divDinamica').html("<br>Deseja realmente encaminhar o projeto para a publica&ccedil;&atilde;o no DOU?");
-        var title = 'ConfirmaÁ„o';
+        var title = 'Confirma√ß√£o';
         $("#divDinamica").dialog({
             //resizable: true,
             width:300,
@@ -297,7 +297,7 @@
             autoOpen:true,
             title: title,
             buttons: {
-                'N√O': function() {
+                'N√£o': function() {
                     $("#divDinamica").remove();
                     $(this).dialog('close');
                     $('html').css('overflow', 'auto');
@@ -318,7 +318,7 @@
     }
 
     function JSRegularidadeProponente(cfpCnpj){
-        
+
         $('html').css('overflow', 'hidden');
         $("body").append("<div id='divDinamica'></div>");
         $("#divDinamica").html("");
@@ -444,13 +444,13 @@
 </script>
 <div id="MsgAlertas" style="display:none;">
 </div>
-<div id="error" style="display:none;">Dados ObrigatÛrios n„o preenchidos!</div>
+<div id="error" style="display:none;">Dados ObrigatÔøΩrios N√£o preenchidos!</div>
 <div id="load" class="carregando sumir" style="width:100%; height:100%;" title="Carregando..."><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" alt="carregando"><br/><br/>Carregando...<br>Por Favor, aguarde!!</div>
 
 <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
         <li class="last">Checklist de publica&atilde;o</li>
     </ul>
 </div>
@@ -460,7 +460,7 @@
 
 <!-- ========== INICIO TITULO ========== -->
 <div id="titulo">
-    <div>Checklist de publicaÁ&atilde;o <span></span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
+    <div>Checklist de publicaÔøΩ&atilde;o <span></span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
 <!-- ========== FIM TITULO ========== -->
 <!-- ========== INICIO CONTEUDO ========== -->
@@ -472,7 +472,7 @@
     <!-- ================================================================-->
         <table class="tabela">
             <tr>
-                <td><input type="button" name="grid1" id="g1_1" class="btn_remover" title="Recolher" /> PROJETO APROVADO - AGUARDANDO AN¡LISE DOCUMENTAL - PROPONENTE REGULAR</td>
+                <td><input type="button" name="grid1" id="g1_1" class="btn_remover" title="Recolher" /> PROJETO APROVADO - AGUARDANDO An√°lise DOCUMENTAL - PROPONENTE REGULAR</td>
             </tr>
         </table>
         <div id="div_g1_1" class="miolo_grid_01">
@@ -481,16 +481,16 @@
                 <tr>
                     <th>pronac</th>
                     <th>Nome do Projeto</th>
-                    <th>¡rea Cultural/Segmento</th>
+                    <th>ÔøΩrea Cultural/Segmento</th>
                     <th>Resumo</th>
                     <th>UF</th>
                     <th>Art.</th>
-                    <th>PerÌodo de Capta&ccedil;&atilde;o</th>
-                    <th>PerÌodo de Execu&ccedil;&atilde;o</th>
+                    <th>PerÔøΩodo de Capta&ccedil;&atilde;o</th>
+                    <th>PerÔøΩodo de Execu&ccedil;&atilde;o</th>
                     <th>Valor Acumulado</th>
-                    <th>Plen·ria</th>
+                    <th>PlenÔøΩria</th>
                     <?php if (!empty ($this->coordenador ) ){?>
-                        <th>TÈcnico</th>
+                        <th>TÔøΩcnico</th>
                     <?php }?>
                     <th>Status</th>
                     <th>Documentos Pendentes</th>
@@ -571,7 +571,7 @@
                             $diligencia = 3;
 
                             $diligenciado = "notice2.png";
-                            $Titlediligenciado = "DiligÍncia n„o respondida";
+                            $Titlediligenciado = "DiligÔøΩncia N√£o respondida";
                         }
                         else
                         {
@@ -600,7 +600,7 @@
             ?>
             <?php if (count($this->BuscarAprovadosRegularesAprovadosInic) <= 0) : ?>
             <tr>
-                    <td align="center" colspan="<?php if (!empty($this->coordenador)){ echo 17; } else { echo 15; }?>">Nenhum Projeto Aprovado - Aguardando An&aacute;lise Documental - Proponente Regular</td>
+                    <td align="center" colspan="<?php if (!empty($this->coordenador)){ echo 17; } else { echo 15; }?>">Nenhum Projeto Aprovado - Aguardando An√°lise Documental - Proponente Regular</td>
             </tr>
             <?php endif; ?>
         </tbody>
@@ -622,16 +622,16 @@
                 <tr>
                     <th>pronac</th>
                     <th>Nome do Projeto</th>
-                    <th>¡rea Cultural/Segmento</th>
+                    <th>ÔøΩrea Cultural/Segmento</th>
                     <th>Resumo</th>
                     <th>UF</th>
                     <th>Art.</th>
-                    <th>PerÌodo de Capta&ccedil;&atilde;o</th>
-                    <th>PerÌodo de Execu&ccedil;&atilde;o</th>
+                    <th>PerÔøΩodo de Capta&ccedil;&atilde;o</th>
+                    <th>PerÔøΩodo de Execu&ccedil;&atilde;o</th>
                     <th>Valor Acumulado</th>
-                    <th>Plen·ria</th>
+                    <th>PlenÔøΩria</th>
                     <?php if (!empty ($this->coordenador ) ){?>
-                        <th>TÈcnico</th>
+                        <th>TÔøΩcnico</th>
                     <?php }?>
                     <th>Status</th>
                     <th>Documentos Pendentes</th>
@@ -640,7 +640,7 @@
                     <th>Enviar Mensagem</th>
                     <?php if (!empty ($this->coordenador ) ){?>
                         <th>Encaminhar Para Portaria</th>
-                    <?php }?> 
+                    <?php }?>
                 </tr>
             </thead>
             <tbody>
@@ -712,7 +712,7 @@
                             $diligencia = 3;
 
                             $diligenciado = "notice2.png";
-                            $Titlediligenciado = "DiligÍncia n„o respondida";
+                            $Titlediligenciado = "DiligÔøΩncia N√£o respondida";
                         }
                         else
                         {
@@ -766,17 +766,17 @@
                 <tr>
                     <th>pronac</th>
                     <th>Nome do Projeto</th>
-                    <th>¡rea Cultural/Segmento</th>
+                    <th>ÔøΩrea Cultural/Segmento</th>
                     <th>Resumo</th>
                     <th>UF</th>
                     <th>Artigo</th>
-                    <th>PerÌodo de Capta&ccedil;&atilde;o</th>
-                    <th>PerÌodo de Execu&ccedil;&atilde;o</th>
+                    <th>PerÔøΩodo de Capta&ccedil;&atilde;o</th>
+                    <th>PerÔøΩodo de Execu&ccedil;&atilde;o</th>
                     <th>Valor Acumulado</th>
-                    <th>Plen·ria</th>
+                    <th>PlenÔøΩria</th>
                     <th>Documentos Pendentes</th>
                     <?php if (!empty ($this->coordenador ) ){?>
-                        <th>TÈcnico</th>
+                        <th>TÔøΩcnico</th>
                     <?php }?>
                     <th>Status</th>
                     <th>Dilig&ecirc;ncia</th>
@@ -784,7 +784,7 @@
                     <th>Enviar Mensagem</th>
                     <?php if (!empty($this->coordenador)) { ?>
                         <th>Encaminhar Para Portaria</th>
-                    <?php } ?> 
+                    <?php } ?>
                 </tr>
             </thead>
             <tbody>
@@ -857,7 +857,7 @@
                                     $diligencia = 3;
 
                                     $diligenciado = "notice2.png";
-                                    $Titlediligenciado = "DiligÍncia n„o respondida";
+                                    $Titlediligenciado = "DiligÔøΩncia N√£o respondida";
                                 }
                                 else
                                 {

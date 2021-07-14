@@ -2,12 +2,12 @@
 $(document).ready(function() {
 	$('.dataPicker').datepicker({
        dateFormat: 'dd/mm/yy',
-       dayNames: ['Domingo','Segunda','TerÁa','Quarta','Quinta','Sexta','S·bado','Domingo'],
+       dayNames: ['Domingo','Segunda','TerÔøΩa','Quarta','Quinta','Sexta','SÔøΩbado','Domingo'],
        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-       dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','S·b','Dom' ],
-       monthNames: ['Janeiro','Fevereiro','MarÁo','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+       dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','SÔøΩb','Dom' ],
+       monthNames: ['Janeiro','Fevereiro','MarÔøΩo','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-       nextText: 'PrÛximo',
+       nextText: 'PrÔøΩximo',
        prevText: 'Anterior'
    });
 });
@@ -33,10 +33,10 @@ function modoconsulta(campo,valor)
 }
 </script>
 <?php //echo $this->partial('inc/menu.inc.php', $this) // menu ?>
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para InÌcio">InÌcio</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN√çCIO">IN√çCIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres T&eacute;cnicos</a></li>
 		<li class="last">Localizar Pareceres</li>
 	</ul>
@@ -45,15 +45,15 @@ function modoconsulta(campo,valor)
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>Localizar Pareceres<span class="voltar"><a href="#" onclick="window.location='<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>'">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 <form action="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')); ?>" method="post">
@@ -68,7 +68,7 @@ function modoconsulta(campo,valor)
 		<td>Nome do Projeto</td>
 		<td align="center">
 			<select name="nometc" style="width: 200px;" class="input_simples">
-				<option value="1">InÌcio igual</option>
+				<option value="1">IN√çCIO igual</option>
 				<option value="2">Que contenha</option>
 				<option value="3">Diferente</option>
 			</select>
@@ -79,7 +79,7 @@ function modoconsulta(campo,valor)
 		<td>Nome do Proponente</td>
 		<td align="center">
 			<select name="tipoPesqPronente" style="width: 200px;" class="input_simples">
-				<option value="1">InÌcio igual</option>
+				<option value="1">IN√çCIO igual</option>
 				<option value="2">Que contenha</option>
 				<option value="3">Diferente</option>
 			</select>
@@ -87,7 +87,7 @@ function modoconsulta(campo,valor)
 		<td><input type="text" class="input_simples" name="nomeProponente" value="" /></td>
 	</tr>
 	<tr>
-		<td>Data ConsolidaÁ„o</td>
+		<td>Data ConsolidaÔøΩÔøΩo</td>
 		<td align="center">
 			<select name="dtDocumento" style="width: 200px;" class="input_simples" onchange="modoconsulta('dtDocumento',this.value);">
 				<option value="1">Exatamente igual</option>
@@ -100,7 +100,7 @@ function modoconsulta(campo,valor)
 		</td>
 	</tr>
 	<tr>
-		<td>SituaÁ„o</td>
+		<td>SituaÔøΩÔøΩo</td>
 		<td align="center">
 			<select name="situacaotc" style="width: 200px;" class="input_simples" onchange="modoconsulta('dtDocumento',this.value);">
 				<option value="1">Exatamente igual</option>
@@ -111,8 +111,8 @@ function modoconsulta(campo,valor)
 			<select name="situacao" style="width: 400px;" class="input_simples" onchange="modoconsulta('dtDocumento',this.value);">
 				<option value="">Selecione</option>
 				<option value="C09">Projeto fora da pauta - Proponente inabilitado</option>
-				<option value="C20">An·lise tÈcnica concluÌda</option>
-				<option value="C25">Parecer tÈcnico desfavor·vel</option>
+				<option value="C20">An√°lise T√©cnica concluÔøΩda</option>
+				<option value="C25">Parecer tÔøΩcnico desfavorÔøΩvel</option>
 			</select>
 		</td>
 	</tr>
@@ -129,12 +129,12 @@ function modoconsulta(campo,valor)
 
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

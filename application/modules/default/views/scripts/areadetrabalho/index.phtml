@@ -192,7 +192,7 @@
                 height: 200,
                 title: 'Confirma&ccedil;&atilde;o',
                 buttons: {
-                    N„o: function() {
+                    N√£o: function() {
                         fecharModal('cancelar-retirar-pauta');
                         votacao = window.setInterval(function(){verificarReuniao()}, 1000);
                     },
@@ -285,7 +285,7 @@
 
     <!-- ========== INICIO FORMULARIO PARA CANCELAR A RETIRADA DE PAUTA ========== -->
     <div id="cancelar-retirar-pauta" class="sumir">
-            Tem certeza que deseja cancelar solicita&ccedil;&atilde;o de retirada de pauta?<br />O motivo e sua justificativa ser„o deletados.
+            Tem certeza que deseja cancelar solicita&ccedil;&atilde;o de retirada de pauta?<br />O motivo e sua justificativa ser√°o deletados.
         <form name="formCancelarRetirarPauta" id="formCancelarRetirarPauta" action="<?php echo $this->url(array('controller' => 'areadetrabalho', 'action' => 'cancelar-retirar-de-pauta')); ?>" method="post">
             <input type="hidden" name="idRetirarDePauta" id="idRetirarDePauta" />
         </form>
@@ -343,7 +343,7 @@
 //                    $tpAcaoPauta      = isset($this->statusRetirarDePauta($tbanalise->idPRONAC, $this->idAgente)->tpAcao) ? $this->statusRetirarDePauta($tbanalise->idPRONAC, $this->idAgente)->tpAcao : 0;
 //                    $qtPauta          = count($this->statusRetirarDePauta($tbanalise->idPRONAC, $this->idAgente));
 //                    $idRetirarDePauta = isset($this->statusRetirarDePauta($tbanalise->idPRONAC, $this->idAgente)->idRetirarDePauta) ? $this->statusRetirarDePauta($tbanalise->idPRONAC, $this->idAgente)->idRetirarDePauta : 0;
-            
+
             ?>
 
                 <!--<tr class="fundo_<?php //echo $fundo; ?>">-->
@@ -567,7 +567,7 @@
                         <?php } else { ?>
                             <!--<a href="<?php //echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista')); ?>?idPronac=<?php //echo $tbresposta->idPRONAC;?>&situacao=C30&tpDiligencia=126"><?php //echo $this->escape($tbresposta->PRONAC); ?></a>-->
                             <a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado'), '', true); ?>/idpronac/<?php echo $tbresposta->idPRONAC;?>"><?php echo $this->escape($tbresposta->PRONAC); ?></a>
-                        <?php } ?>	
+                        <?php } ?>
                     </td>
                     <td><?php echo $tbresposta->NomeProjeto; ?></td>
                     <td class="centro"><?php echo $tbresposta->ParecerFavoravel; ?></td>

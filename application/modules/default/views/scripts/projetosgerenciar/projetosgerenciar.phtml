@@ -1,20 +1,20 @@
-	
+
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="InÌcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN√çCIO">IN√çCIO</a></li>
         <li class="last">Gerenciar Componente da Comiss&atilde;o</li>
     </ul>
 </div>
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
     <div>Gerenciar Componente da Comiss&atilde;o <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 
@@ -26,9 +26,9 @@
 
                 if($(this).parent().parent().find('#justificativaencaminha').val()=='Digite a justificativa...')
                 {
-                    alert("Dados obrigatÛrios n„o informados");
+                    alert("Dados obrigatÔøΩrios N√£o informados");
                     return false;
-		
+
                 }
                 else{
                     return true;
@@ -51,41 +51,41 @@
 
         function desabilitarAlert(idagente){
             $("#dialog").dialog("destroy");
-	
+
             $("#dialog-desabilitar").dialog({
                 resizable: false,
                 height:130,
                 width: 440,
                 modal: true,
                 buttons: {
-                    'N„o': function() {
+                    'N√£o': function() {
                         $(this).dialog('close');
                     },
                     Sim: function() {
                         $(this).dialog('close');
                         desabilitar(idagente);
-					
+
                     }
                 }
             });
-		
+
         }
         function habilitarAlert(idagente){
             $("#dialog").dialog("destroy");
-	
+
             $("#dialog-habilitar").dialog({
                 resizable: false,
                 height:130,
                 width: 440,
                 modal: true,
                 buttons: {
-                    'N„o': function() {
+                    'N√£o': function() {
                         $(this).dialog('close');
                     },
                     Sim: function() {
                         $(this).dialog('close');
                         habilitar(idagente);
-					
+
                     }
                 }
             });
@@ -94,11 +94,11 @@
     </script>
 
     <div id="dialog-desabilitar" title="Desabilitar" style="display:none">
-		Deseja realmente desabilitar o Componente da Comiss„o?
+		Deseja realmente desabilitar o Componente da comiss√£o?
     </div>
 
     <div id="dialog-habilitar" title="Habilitar" style="display:none">
-		Deseja realmente habilitar o Componente da Comiss„o?
+		Deseja realmente habilitar o Componente da comiss√£o?
     </div>
 
     <div style="width:100%; margin: 0 auto;">
@@ -106,13 +106,13 @@
         <table width="95%" cellspacing="0" cellpadding="0" summary=" ">
             <tr>
                 <td width="66%" style="text-align:left; padding-left:4%" colspan="2">HABILITADOS</td>
-                <td width="18%" align="center">¡rea Cultural</td>
+                <td width="18%" align="center">ÔøΩrea Cultural</td>
                 <td width="8%" align="center">Quantidade de Projetos</td>
                 <td width="8%" align="center">Desabilitar</td>
             </tr>
         </table>
 
-        <!-- Foreach que lista todos os componentes da comiss„o -->
+        <!-- Foreach que lista todos os componentes da comiss√£o -->
 
         <?php foreach ($this->componente as $comp): ?>
 
@@ -129,21 +129,21 @@
             </thead>
         </table>
 
-        <!-- Modal para Desabilitar o componente da comiss„o -->
+        <!-- Modal para Desabilitar o componente da comiss√£o -->
 
 
 
-        <div id="desabilita<?php echo $comp->idAgente; ?>d" title="Desabilitar Componente da Comiss„o" style="display:none;">
+        <div id="desabilita<?php echo $comp->idAgente; ?>d" title="Desabilitar Componente da comiss√£o" style="display:none;">
 
             <form name="formd" id="form<?php echo $comp->idAgente; ?>d" action="<?php echo $this->baseUrl(); ?>/projetosgerenciar/desabilitarcomponente" method="post">
-						Informe o motivo da desabilitaÁ„o do componente da comiss„o:
+						Informe o motivo da desabilitaÔøΩÔøΩo do componente da comiss√£o:
                 <br /><br>
                 <label for="justificativaencaminha">Justificativa</label><br>
                 <textarea name="justificativa" id="justificativaencaminha"rows="6" cols="50" style="width:100%;"
                           onclick="limpar_campo(this, 'Digite a justificativa...');" onkeypress=" "
                           onblur="restaurar_campo(this, 'Digite a justificativa...');">Digite a justificativa...</textarea>
                 <br>
-									* campo com preenchimento obrigatÛrio.
+									* campo com preenchimento obrigatÔøΩrio.
                 <p align="right">
                     <input type="submit" value=" " c value=" " class="btn_salvar salvarencaminhamento" />&nbsp;&nbsp;
                     <input type="reset"  value=" " class="btn_limpar Close"/>
@@ -160,13 +160,13 @@
 
         <?php if ($pro) {
  ?>
-                                                           <!-- foreach que lista os projetos do componente da comiss„o -->
+                                                           <!-- foreach que lista os projetos do componente da comiss√£o -->
 
 <?php foreach ($pro as $projetos): ?>
 
                                                                <!-- Modal para encaminhar o projeto -->
 
-                                                               <div style="display:none;" id="encaminhar<?php echo $projetos->idPRONAC; ?><?php echo $projetos->idAgente; ?>" title="Encaminhar projeto para comiss„o" >
+                                                               <div style="display:none;" id="encaminhar<?php echo $projetos->idPRONAC; ?><?php echo $projetos->idAgente; ?>" title="Encaminhar projeto para comiss√£o" >
                                                                    <form name="formencaminhar" id="form<?php echo $projetos->idPRONAC; ?><?php echo $projetos->idAgente; ?>" action="<?php echo $this->baseUrl(); ?>/projetosgerenciar/encaminharprojeto" method="post">
                                                                        <table>
                                                                            <tr>
@@ -234,7 +234,7 @@
                                                                    echo '<td  style="text-align:left;">' . $projetos->NomeProjeto . '</td>';
                                                                    echo '<td align="center">' . $projetos->Dias . '</td>';
                                                                    echo '<td align="center">' . $projetos->dtDistribuicao . '</td>';
-                                                                   echo '<td align="center"><a href="' . $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem', 'idpronac' => $projetos->idPRONAC)) . '"><img border="0" src="../public/img/table_multiple.png" alt="Visualizar HistÛrico" /> </a></td>';
+                                                                   echo '<td align="center"><a href="' . $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem', 'idpronac' => $projetos->idPRONAC)) . '"><img border="0" src="../public/img/table_multiple.png" alt="Visualizar HistÔøΩrico" /> </a></td>';
                                                                    echo '<td align="center"><img src="../public/img/user_gray.png" onclick="return encaminhar(' . $projetos->idPRONAC . $projetos->idAgente . ')" onkeypress="return encaminhar(' . $projetos->idPRONAC . $projetos->idAgente . ')" alt="Encaminhar" /></td>';
                                                                    echo '</tr>';
                 ?>
@@ -258,7 +258,7 @@
                                                                <table width="95%" cellspacing="0" cellpadding="0" summary=" ">
                                                                    <tr>
                                                                        <td width="74%" style="text-align:left; padding-left:4%;" colspan="2">DESABILITADOS</td>
-                                                                       <td width="18%" align="center">¡rea Cultural</td>
+                                                                       <td width="18%" align="center">ÔøΩrea Cultural</td>
                                                                        <td width="8%" align="center">Habilitar</td>
                                                                    </tr>
                                                                </table>
@@ -272,9 +272,9 @@
 
 <?php foreach ($this->desabilitados as $comp): ?>
 
-                                                                   <div id="habilitar<?php echo $comp->idAgente; ?>" title="Habilitar Componente da Comiss„o" style="display:none;">
+                                                                   <div id="habilitar<?php echo $comp->idAgente; ?>" title="Habilitar Componente da comiss√£o" style="display:none;">
                                                                <form name="forma" id="form<?php echo $comp->idAgente; ?>a" action="<?php echo $this->baseUrl(); ?>/projetosgerenciar/habilitarcomponente" method="post">
-                                                   			Informe o motivo da habilitaÁ„o do componente da comiss„o:
+                                                   			Informe o motivo da habilitaÔøΩÔøΩo do componente da comiss√£o:
                                                                    <br />	<br><label for="justificativaencaminha">Justificativa</label><br>
 
                                                                    <textarea name="justificativa" id="justificativaencaminha"rows="6" cols="50" style="width:100%;"
@@ -282,7 +282,7 @@
                                                                              onblur="restaurar_campo(this, 'Digite a justificativa...');">Digite a justificativa...</textarea>
 
                                                                    <br>
-                                                   				* campo com preenchimento obrigatÛrio.
+                                                   				* campo com preenchimento obrigatÔøΩrio.
                                                                    <p align="right">
                                                                        <input type="submit"  value=" " class="btn_salvar salvarencaminhamento" value=" " />
                                                                        &nbsp;&nbsp;<input type="reset"  value="" class="btn_limpar"/>
@@ -311,7 +311,7 @@
                         </table>
 
                         <div id="hab<?php echo $comp->idAgente; ?>" style="display:none;">
-                            <table width="92%" cellspacing="0" cellpadding="0" style="margin:0 0 0 5%;" summary="Tabela com o motivo da desabilitaÁ„o do agente">
+                            <table width="92%" cellspacing="0" cellpadding="0" style="margin:0 0 0 5%;" summary="Tabela com o motivo da desabilitaÔøΩÔøΩo do agente">
                                 <tr>
                                     <td align="center">Motivo</td>
                                     <td align="center">Desabilitado desde:</td>
@@ -335,12 +335,12 @@
 
 
 
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

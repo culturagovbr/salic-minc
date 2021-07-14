@@ -11,7 +11,7 @@
             alertar('O campo justificativa deve ter no m\xEDnimo 11 caracteres!');
             return false;
         } else {
-            
+
             $("#modal").html('Deseja concluir an\xE1lise e devolver para o Coordenador?');
             $("#modal").dialog({
                 title : 'Alerta',
@@ -34,8 +34,8 @@
                 }
             });
             $("#modal").dialog('open');
-            
-           
+
+
         }
     }
 </script>
@@ -68,7 +68,7 @@
     <div id="conteudo">
     <div id="confirma"></div>
 		<?php if($this->verifica15porcento == 0) { ?>
-    
+
         <?php if ($this->totaldivulgacao != "true") { ?>
             <div class="msgERROR">
                 <div class="float_right"></div>
@@ -103,7 +103,7 @@
                 <td><?php echo $this->dados[0]->Produto; ?></td>
             </tr>
         </table>
-    
+
         <form id="form" name="form" method="post" action="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'analise-inicial', 'action' => 'fechar-parecer'), '', true); ?>">
                 <table class="tabela">
                     <tr>
@@ -118,14 +118,14 @@
                 <input type="hidden" name="idProduto" value="<?php echo $this->dados[0]->idProduto; ?>"/>
                 <input type="hidden" name="idD" value="<?php echo $this->dados[0]->idDistribuirParecer; ?>"/>
                 <input type="hidden" id="idPronac" name="idPronac" value="<?php echo $this->dados[0]->IdPRONAC; ?>"/>
-                        
-                        
+
+
                 <div class="tabela" style="text-align: center;" id="txtDevolver">
                     <input type="button" id="btnDevolver" class="btn_enviar" style="width: 85px;" onclick="devolver();" />
                 </div>
         </form>
         <?php } ?>
-        
+
         <?php } else { ?>
 
         <div class="msgALERT">
@@ -150,13 +150,13 @@
                 </tr>
             </table>
         <?php } ?>
-        
+
     </div>
     <!-- ========== FIM CONTEAšDO ========== -->
 
     <!-- ========== INA� CIO RODAPA‰ DO CONTEAšDO ========== // -->
 
     <div id="rodapeConteudo" ><span></span></div>
-    <!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+    <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
     <br clear="all" />
 </div>

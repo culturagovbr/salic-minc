@@ -75,26 +75,26 @@ if (count($this->readequacoes) > 0):
                             <td colspan="3"><?php echo $r->dsJustificativa; ?></td>
                         </tr>
                     </table>
-                    
+
                     <?php if(in_array($r->siEncaminhamento, array(2,3,4,5,6,7,9,10,15))){ ?>
                     <table class="tabela">
                         <tr>
-                            <td class="destacar bold" style="width: 50%;">Situação</td>
-                            <td class="destacar bold" style="width: 50%;">Dt. Avaliação</td>
+                            <td class="destacar bold" style="width: 50%;">Situaï¿½ï¿½o</td>
+                            <td class="destacar bold" style="width: 50%;">Dt. Avaliaï¿½ï¿½o</td>
                         </tr>
                         <tr>
                             <td><?php echo $r->stAtendimento == 'I' ? 'Rejeitado' : 'Recebido'; ?></td>
                             <td><?php echo Data::tratarDataZend($r->dtAvaliador, 'Brasileira'); ?></td>
                         </tr>
                         <tr>
-                            <td class="destacar bold" colspan="2">Descrição da Avaliação</td>
+                            <td class="destacar bold" colspan="2">DescriÃ§Ã£o da Avaliaï¿½ï¿½o</td>
                         </tr>
                         <tr>
                             <td colspan="2"><?php echo $r->dsAvaliacao; ?></td>
                         </tr>
                     </table>
                     <?php } ?>
-                    
+
                     <?php if(in_array($r->siEncaminhamento, array(15))){
                         foreach ($r->pareceres as $parecer) {
                             $parecer = (object) $parecer;
@@ -118,7 +118,7 @@ if (count($this->readequacoes) > 0):
             </tr>
         </table>
 	<?php } ?>
-		
+
         <?php $ct++;
     endforeach; ?>
 <?php else: ?>
@@ -131,22 +131,22 @@ if (count($this->readequacoes) > 0):
 <?php endif; ?>
 <?php endif; ?>
 
-<?php // pedido de readequação devolvido para o proponente ?>
+<?php // pedido de readequaï¿½ï¿½o devolvido para o proponente ?>
 <?php if (count($this->readequacoesDevolvidas) > 0): ?>
 
 <div style="font-size: 18px; color: #35953f; padding: 20px;">Readequa&ccedil;&otilde;es devolvidas</div>
 <table class="tabela">
   <thead>
-    <th>Tipo de readequação</th>
+    <th>Tipo de readequaï¿½ï¿½o</th>
     <th>Data</th>
-    <th>Avaliação</th>
+    <th>Avaliaï¿½ï¿½o</th>
   </thead>
-  
-  <?php foreach ($this->readequacoesDevolvidas as $rd) : 
+
+  <?php foreach ($this->readequacoesDevolvidas as $rd) :
   $rd = (object) $rd; ?>
   <tr>
     <td align="center"><?php echo $rd->dsReadequacao; ?></td>
-    <td align="center"><?php echo Data::tratarDataZend($rd->dtAvaliador, 'Brasileira'); ?></td>	    
+    <td align="center"><?php echo Data::tratarDataZend($rd->dtAvaliador, 'Brasileira'); ?></td>
     <td align="center"><?php echo $rd->dsAvaliacao; ?></td>
   </tr>
   <?php endforeach; ?>

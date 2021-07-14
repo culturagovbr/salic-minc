@@ -31,7 +31,7 @@
         // id dos campos que utilizarÔøΩo o calendÔøΩrio
         $(".btn_calendario").datepicker($.datepicker.regional['pt-BR']);
 
-        // m·scaras dos campos
+        // mÔøΩscaras dos campos
 	$(".calendario").keyup(function(){
             mascara(this, format_data); // data
 	});
@@ -49,8 +49,8 @@
                     $(this).css('border-color','red');
                 }
             });
-    
-                // verifica se uma data È menor que a outra
+
+                // verifica se uma data ÔøΩ menor que a outra
                 var erroData = false;
                 $('.dtRealizacao').each(function(){
                 var currentType = $(this).attr('id').split('Realizacao')[0],
@@ -58,7 +58,7 @@
                     currentId = "#" + $(this).attr('id'),
                     otherType = (currentType == 'dtInicio') ? 'dtFim' : 'dtInicio',
                     otherId = "#" + otherType + 'Realizacao' + soleId;
-            
+
                 // verifica apenas inputs ativos
                 if (!$(currentId).hasClass("sumir")) {
                     // se ambos estiverem preenchidos, verifica
@@ -76,12 +76,12 @@
                         }
                     }
                 }
-    
+
             });
 
             if (erroData) {
             $("#camposObrigatorios").dialog("destroy");
-            $("#camposObrigatorios").html("Data fim n„o pode ser menor que data inÌcio");
+            $("#camposObrigatorios").html("Data fim N√£o pode ser menor que data IN√çCIO");
             $("#camposObrigatorios").dialog({
                         resizable: false,
                         title: 'Alerta!',
@@ -95,10 +95,10 @@
                         }
             });
             $('.ui-dialog-titlebar-close').remove();
-            
+
             return false;
             }
-	    
+
             if(preenchimento) {
                 $("#camposObrigatorios").dialog("destroy");
                 $("#camposObrigatorios").html("Favor preencher os dados obrigat&oacute;rios!");
@@ -200,7 +200,7 @@
             var btn = $(this),
                 abrg = btn.attr('abrg');
             $("#modalPerguntas").dialog("destroy");
-            $("#modalPerguntas").html("Deseja realmente excluir o Local de RealizaÁ„o?");
+            $("#modalPerguntas").html("Deseja realmente excluir o Local de RealizaÔøΩÔøΩo?");
             $("#modalPerguntas").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -208,7 +208,7 @@
                 height:160,
                 modal: true,
                 buttons : {
-                    'N„o' : function(){
+                    'N√£o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -233,7 +233,7 @@
                                     $('.ui-dialog-titlebar-close').remove();
                                     window.setTimeout('location.reload()', 1000);
                                 } else {
-                                    alertaModal("N„o foi possÌvel excluir o Local de RealizaÁ„o.");
+                                    alertaModal("N√£o foi possÔøΩvel excluir o Local de RealizaÔøΩÔøΩo.");
                                 }
                             },
                             dataType : 'json'
@@ -253,9 +253,9 @@
                 $('.div_'+n[1]).addClass('sumir');
                 $('#dtInicioRealizacao'+n[1]).val('');
                 $('#dtFimRealizacao'+n[1]).val('');
-                $('#justificativa'+n[1]).val('');                
+                $('#justificativa'+n[1]).val('');
             }
-	    
+
             if(n[0] == 1){
                 $('#campoModal').css('border-color','#CCC');
                 $('#campoModal').val('');
@@ -287,7 +287,7 @@
                 });
                 $('.ui-dialog-titlebar-close').remove();
                 $('.div_'+n[1]).addClass('sumir');
-                $('#dtInicioRealizacao'+n[1]).val('');		
+                $('#dtInicioRealizacao'+n[1]).val('');
             } else {
                 $('#justificativa'+n[1]).val('');
                 $('#justificativa'+n[1]).removeClass('obrigatorio');
@@ -334,7 +334,7 @@
             $('.ui-dialog-titlebar-close').remove();
             return false;
         });
-        
+
     });
 
     function alertaModal(msg){
@@ -366,21 +366,21 @@
     <ul>
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
-        <li class="second">Comprovar RealizaÁ„o do Objeto</li>
-        <li class="last">Local de RealizaÁ„o</li>
+        <li class="second">Comprovar RealizaÔøΩÔøΩo do Objeto</li>
+        <li class="last">Local de RealizaÔøΩÔøΩo</li>
     </ul>
 </div>
 
 
 <div id="titulo">
-    <div>Local de RealizaÁ„o <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span></div>
+    <div>Local de RealizaÔøΩÔøΩo <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span></div>
 </div>
 
 
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">N∫ PRONAC:</th>
+            <th align="center" width="30%">NÔøΩ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -402,16 +402,16 @@
     <form id="formCadastro" action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'cadastrar-local-realizacao'), '', true); ?>?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" method="post">
         <table class="tabela">
             <tr align="center">
-                <th colspan="8">Local de RealizaÁ„o</th>
+                <th colspan="8">Local de RealizaÔøΩÔøΩo</th>
             </tr>
             <tr align="center">
                 <td class="destacar bold">Editar</td>
-                <td class="destacar bold">PaÌs</td>
+                <td class="destacar bold">PaÔøΩs</td>
                 <td class="destacar bold">UF</td>
-                <td class="destacar bold">MunicÌpio</td>
+                <td class="destacar bold">MunicÔøΩpio</td>
                 <td class="destacar bold" width="10%">Status</td>
-                <td class="destacar bold" width="1">Dt. In&iacute;cio RealizaÁ„o</td>
-                <td class="destacar bold" width="1">Dt. Fim RealizaÁ„o</td>
+                <td class="destacar bold" width="1">Dt. In&iacute;cio RealizaÔøΩÔøΩo</td>
+                <td class="destacar bold" width="1">Dt. Fim RealizaÔøΩÔøΩo</td>
                 <td class="destacar bold" width="1">Justificativa</td>
             </tr>
             <?php foreach ($this->LocaisDeRealizacao as $LocaisDeRealizacao) { ?>
@@ -424,10 +424,10 @@
                 <td>
                     <?php switch($LocaisDeRealizacao->siAbrangencia){
                         case 0:
-                            echo 'Sem InformaÁ„o';
+                            echo 'Sem InformaÔøΩÔøΩo';
                             break;
                         case 1:
-                            echo 'N„o Realizado';
+                            echo 'N√£o Realizado';
                             break;
                         case 2:
                             echo 'Realizado';
@@ -462,15 +462,15 @@
         </br>
         <table class="tabela">
             <tr align="center">
-                <th colspan="8">Local de RealizaÁ„o (Outras fontes)</th>
+                <th colspan="8">Local de RealizaÔøΩÔøΩo (Outras fontes)</th>
             </tr>
             <tr align="center">
-                <td class="destacar bold">PaÌs</td>
+                <td class="destacar bold">PaÔøΩs</td>
                 <td class="destacar bold">UF</td>
-                <td class="destacar bold">MunicÌpio</td>
+                <td class="destacar bold">MunicÔøΩpio</td>
                 <td class="destacar bold" width="1">Status</td>
-                <td class="destacar bold" width="1">Dt. In&iacute;cio RealizaÁ„o</td>
-                <td class="destacar bold" width="1">Dt. Fim RealizaÁ„o</td>
+                <td class="destacar bold" width="1">Dt. In&iacute;cio RealizaÔøΩÔøΩo</td>
+                <td class="destacar bold" width="1">Dt. Fim RealizaÔøΩÔøΩo</td>
                 <td class="destacar bold" width="1">Justificativa</td>
                 <td class="destacar bold" width="1">Excluir</td>
             </tr>
@@ -546,7 +546,7 @@
         <tr>
             <td>
                 <textarea name="campoModal" id="campoModal" class="textarea_simples" rows="6" cols="" style="width: 98%;"></textarea>
-                <br clear="all" /><span style="color: red; font-size: 11px;">Limite m·ximo de 500 caracteres</span>
+                <br clear="all" /><span style="color: red; font-size: 11px;">Limite mÔøΩximo de 500 caracteres</span>
             </td>
         </tr>
     </table>
@@ -554,7 +554,7 @@
 <!-- FIM MODAL DE CADASTRO DA JUSTIFICATIVA ### -->
 
 
-<!-- MODAL DE VISUALIZA«√O DA JUSTIFICATIVA ### -->
+<!-- MODAL DE VISUALIZAÔøΩÔøΩO DA JUSTIFICATIVA ### -->
 <div id="justificativaModalVisualizar" class="sumir">
     <table width="100%" class="table">
         <tr>
@@ -562,10 +562,10 @@
         </tr>
     </table>
 </div>
-<!-- FIM MODAL DE VISUALIZA«√O DA JUSTIFICATIVA ### -->
+<!-- FIM MODAL DE VISUALIZAÔøΩÔøΩO DA JUSTIFICATIVA ### -->
 
 
-<!-- inÔøΩcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- IN√çCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

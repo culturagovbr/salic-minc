@@ -9,7 +9,7 @@
 </div>
 
 <div id="mostra"></div>
-<!-- ========== IN�CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <form name="formfinalizar" action="<?php echo $this->url(array('controller' => 'verificaralteracaotecnico', 'action' => 'finalizaprop')); ?>" method="post" >
 <div id="titulo">
     <div>READEQUA��O: TROCA DE PROPONENTE
@@ -19,17 +19,17 @@
             $nomeForm = "'solaltrazsoc'";
             if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                 echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stAnalise('.$this->stResult[0]->idAvaliacaoItemPedidoAlteracao . ','. $this->escape($this->idpedidoalteracao) . ',this , '.$nomeForm.' )">';
-                echo "<option value='0' selected='selected'>Aguardando An�lise</option>
-                      <option value='1'>Em An�lise</option>";
+                echo "<option value='0' selected='selected'>Aguardando Análise</option>
+                      <option value='1'>Em Análise</option>";
                 echo '</select>';
             } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "EA") {
                 echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar()">';
-                echo "<option value='1' selected='selected'>Em An�lise</option>";
+                echo "<option value='1' selected='selected'>Em Análise</option>";
                 // Verifica��o se o novo proponente est� inabilitado!
-                if($this->novoproponentehabilitado == true):      
+                if($this->novoproponentehabilitado == true):
                 	echo "<option value='2'>Aprovado</option>";
 				endif;
-                
+
 				echo "<option value='3'>Indeferido</option>";
                 echo '</select>';
             }
@@ -41,7 +41,7 @@
         {
             if( $("#editor1").val() == ''){
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('Favor preencher a An�lise da Proposta e Altera�&atilde;o.');
+                    $('#mostra').html('Favor preencher a Análise da Proposta e Altera�&atilde;o.');
                     $("#mostra").dialog
                     ({
                         height: 180,
@@ -62,7 +62,7 @@
                 } else {
 
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('O projeto ser� finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
+                    $('#mostra').html('O projeto será finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
                     $("#mostra").dialog
                     ({
                         height: 250,
@@ -72,7 +72,7 @@
                         resizable: false,
                         closeOnEscape: false,
                         buttons: {
-                            'N�o': function()
+                            'Não': function()
                             {
                                 document.getElementById('status').options[0].selected = true;
                                 $(this).dialog('close');
@@ -119,7 +119,7 @@
                     </tr>
                 </tbody>
             </table>
-            
+
         <table class="tabela">
             <tr>
                 <th colspan="3">
@@ -146,23 +146,23 @@
                             <?php } ?>
                         </table>
                     </div>
-                    <?php } else { echo '<span style="color: red;">N�o existe projetos para este proponente.</span>'; } ?>
+                    <?php } else { echo '<span style="color: red;">Não existe projetos para este proponente.</span>'; } ?>
                 </td>
             </tr>
             <tr>
-                <th colspan="3">Solicita��o de Altera��o do Proponente</th>
+                <th colspan="3">Solicitação de Altera��o do Proponente</th>
             </tr>
             <tr>
                 <td colspan="3">
                 Novo Proponente: <?php echo $this->escape($this->resultAlteracaoRazaoSocial['nmRazaoSocial']); ?>
-				&nbsp;&nbsp;&nbsp; <?php if($this->novoproponentehabilitado == false){echo "<span class='red'>Proponente Inabilitado!</span>";} ?>                
+				&nbsp;&nbsp;&nbsp; <?php if($this->novoproponentehabilitado == false){echo "<span class='red'>Proponente Inabilitado!</span>";} ?>
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
-                
+
                 	CNPJ/CPF: <?php echo VerificarAlteracaoTecnicoController::VerificarCpfCnpj($this->resultAlteracaoRazaoSocial['CgcCpf']); ?>
-                	
+
                 </td>
             </tr>
             <tr>
@@ -176,7 +176,7 @@
             <tr>
                 <th colspan="3">Anexos:</th>
             </tr>
-            <?php 
+            <?php
             if($this->resultArquivo){
                 foreach ($this->resultArquivo as $arquivo) { ?>
             <tr>
@@ -184,12 +184,12 @@
                     <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivo->idArquivo; ?>"><?php echo $arquivo->nmarquivo ?></a>
                 </td>
             </tr>
-            <?php } } else { echo '<tr><td><span style="color: red;">N�o h� arquivos anexados!</span></td></tr>'; } ?>
+            <?php } } else { echo '<tr><td><span style="color: red;">Não h� arquivos anexados!</span></td></tr>'; } ?>
 
             <?php if ($this->dados->stAvaliacaoItemPedidoAlteracao != 'AG') { ?>
             <tr>
                 <th colspan="3">
-                    AN�LISE DA PROPOSTA E ALTERA��O
+                    Análise DA PROPOSTA E ALTERA��O
                 </th>
             </tr>
             <tr>
@@ -209,13 +209,13 @@
             <input type="hidden" name="idAcao" value="<?php echo $this->dados->idAcaoAvaliacaoItemPedidoAlter; ?>" />
             <input type="hidden" name="IdProposta" value="<?php echo $this->dados->IdProposta; ?>" />
         </table>
-        
+
         <br />
 
 </div>
 </form>
 
-<!-- ========== FIM CONTE�DO ========== --> 
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 <!-- MODAL DILIGENCIAR -->
@@ -231,7 +231,7 @@
                 <td><?php echo $this->resultConsulta['NomeProjeto']; ?></td>
             </tr>
         </table>
-        <br /><label for="solicitacao">Solicita��o:</label><br />
+        <br /><label for="solicitacao">Solicitação:</label><br />
         <textarea name="solicitacao" id="solicitacao" rows="6" class="input_simples" cols="170" style="width:100%;"></textarea>
         <input type="hidden" name="IdPronac" value="<?php echo $this->dados->IdPRONAC; ?>" />
         <p align="left" style="margin-top:1%;">
@@ -242,9 +242,9 @@
 <!-- FIM DO MODAL DILIGENCIAR -->
 
 
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />
 

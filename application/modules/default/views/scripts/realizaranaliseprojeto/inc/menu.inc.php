@@ -1,4 +1,4 @@
-<!-- ========== IN�CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     function carregaDados(url,divRetorno){
@@ -160,9 +160,9 @@
         });
     });
 </script>
-<!-- in�cio: conte�do principal #container -->
+<!-- INÍCIO: CONTEÚDO principal #container -->
 <div id="menu">
-    <!-- in�cio: navega��o local #qm0 -->
+    <!-- INÍCIO: navega��o local #qm0 -->
     <?php $getPronac = $this->idpronac; ?>
 
     <div id="menuContexto">
@@ -184,7 +184,7 @@
             ?>
             <a class="no_seta last" target="_blank" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'), '', true); ?>?idPronac=<?php echo $this->idpronac;?>&situacao=C30&tpDiligencia=126" title="Ir para Diligenciar Proponente">Dilig&ecirc;ncias</a>
             <!--<a class="no_seta" href="<?php //echo $this->url(array('controller' => 'recursos', 'action' => 'detalhar-recurso'), '', true);?>?idPronac=<?php //echo $this->idpronac;?>" title="Ir para Recurso">Recurso</a>-->
-            
+
             <?php /* ?>
             <a class="no_seta" target="_blank" href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'visualizar-opinioes'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idpronac); ?>" title="Ir para Participa&ccedil;&atilde;o Social">Participa&ccedil;&atilde;o Social</a>
             */ ?>

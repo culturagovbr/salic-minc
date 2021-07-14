@@ -34,7 +34,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                 parent::message(" Nenhum Projeto Encontrado", "solicitaralteracao/index", "ERROR");
             }
         } else {
-            parent::message(" Dados Obrigat�rios N�o Informados", "solicitaralteracao/index", "ERROR");
+            parent::message(" Dados Obrigat�rios Não Informados", "solicitaralteracao/index", "ERROR");
         }
     } // fecha m�todo projetosAction()
 
@@ -55,9 +55,9 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
         $idPedidoAlteracao = $valores[0]->idPedidoAlteracao;
         $verificaPlanilhaCusto = $buscaProjetoProduto->buscarProdutoAprovacao($idPronac);
         $this->view->buscaPlanilhaCusto = $verificaPlanilhaCusto;
-        
+
         $status = 1;
-     
+
         if (!empty($idPedidoAlteracao)) {
             $resultadoPedidoAlteracao = $Projetos->buscartbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, 1);
             $resultadoPedidoAlteracao2 = $Projetos->buscartbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, 2);
@@ -91,7 +91,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
             $nomedoprojeto = $_POST["nomeprojeto"];
             $CPFCNPJ = Mascara::delMaskCPF(Mascara::delMaskCNPJ($_POST["CPFCNPJ"]));
             $CpfCnpjAtual = $_POST["CpfCnpjAtual"];
-            
+
             if ($CpfCnpjAtual == $CPFCNPJ) {
                 $status = '1';
             } else {
@@ -125,7 +125,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
                     if (empty($buscatbProposta)) {
@@ -138,7 +138,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscatbProposta($idPedidoAlteracao);
@@ -152,16 +152,16 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message(" Dados Obrigat�rios N�o Informados", "solicitaralteracao/acaoprojeto", "ERROR");
+            parent::message(" Dados Obrigat�rios Não Informados", "solicitaralteracao/acaoprojeto", "ERROR");
         }
     } // fecha m�todo nomeproponente2Action()
 
@@ -181,9 +181,9 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
             } else {
                 $status = '2';
             }
-           
+
             // recebe todo(s) arquivo(s) enviado(s)
-            
+
             $auth = Zend_Auth::getInstance();
             $idSolicitante = $auth->getIdentity()->IdUsuario;
             $dsJustificativa = $_POST["recurso1"];
@@ -191,13 +191,13 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
             $Projetos = new SolicitarAlteracaoDAO();
             $valores = $buscaSoliciatacao->buscarSolicitacao($idPronac);
             $idPedidoAlteracao = $valores[0]->idPedidoAlteracao;
-              
+
             if (empty($idPedidoAlteracao)) {
                 $inserirSolitacao = $buscaSoliciatacao->inserirSolicitacao($idPronac, $idSolicitante, $stPedido);
                 $valores = $buscaSoliciatacao->buscarSolicitacao($idPronac);
                 $idPedidoAlteracao = $valores[0]->idPedidoAlteracao;
                 $resultadoPedidoAlteracao = $Projetos->buscartbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $status);
-               
+
                 if (empty($resultadoPedidoAlteracao)) {
                     $buscatbProposta = $Projetos->buscaNomeProponente($idPedidoAlteracao);
                     if (empty($buscatbProposta)) {
@@ -210,7 +210,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
 
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $idPedidoAlteracao = $valores[0]->idPedidoAlteracao;
                     $buscatbProposta = $Projetos->buscaNomeProponente($idPedidoAlteracao);
@@ -222,7 +222,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                     }
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscaNomeProponente($idPedidoAlteracao);
@@ -235,15 +235,15 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                 if (empty($resultadoPedidoAlteracao)) {
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message(" Dados Obrigat�rios N�o Informados", "solicitaralteracao/acaoprojeto", "ERROR");
+            parent::message(" Dados Obrigat�rios Não Informados", "solicitaralteracao/acaoprojeto", "ERROR");
         }
     } // fecha m�todo nomeproponenteAction()
 
@@ -264,7 +264,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
             $Projetos = new SolicitarAlteracaoDAO();
             $valores = $buscaSoliciatacao->buscarSolicitacao($idPronac);
             $idPedidoAlteracao = $valores[0]->idPedidoAlteracao;
-            
+
             if ($CpfCnpjAtual == $CPFCNPJ) {
                 $status = '1';
             } else {
@@ -278,12 +278,12 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                 $resultadoPedidoAlteracao = $Projetos->buscartbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $status);
                 if (empty($resultadoPedidoAlteracao)) {
                     $buscatbProposta = $Projetos->buscarRazaoSocial($idPedidoAlteracao);
-                    
-                    // caso o usu�rio n�o esteja cadastrado, vai para o manter agentes
+
+                    // caso o usu�rio Não esteja cadastrado, vai para o manter agentes
                     if (!SolicitarAlteracaoDAO::verificarInteressadosAgentes($CPFCNPJ)) {
                         $this->redirect("/agente/manteragentes/agentes?acao=cc&cpf=" . $CPFCNPJ);
                     }
-                    
+
                     if (empty($buscatbProposta)) {
                         $inserirtbProposta = $Projetos->insertRazaoSocial($idPedidoAlteracao, $CPFCNPJ, $razaosocial);
                     } else {
@@ -293,11 +293,11 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscarRazaoSocial($idPedidoAlteracao);
 
-                    // caso o usu�rio n�o esteja cadastrado, vai para o manter agentes
+                    // caso o usu�rio Não esteja cadastrado, vai para o manter agentes
                     if (!SolicitarAlteracaoDAO::verificarInteressadosAgentes($CPFCNPJ)) {
                         $this->redirect("/agente/manteragentes/agentes?acao=cc&cpf=" . $CPFCNPJ);
                     }
@@ -310,12 +310,12 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscarRazaoSocial($idPedidoAlteracao);
 
-                // caso o usu�rio n�o esteja cadastrado, vai para o manter agentes
+                // caso o usu�rio Não esteja cadastrado, vai para o manter agentes
                 if (!SolicitarAlteracaoDAO::verificarInteressadosAgentes($CPFCNPJ)) {
                     $this->redirect("/agente/manteragentes/agentes?acao=cc&cpf=" . $CPFCNPJ);
                 }
@@ -330,16 +330,16 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     $enviarsolicitacao = $buscaSoliciatacao->alterarSolicitacao($idPedidoAlteracao, $stPedido);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message(" Dados Obrigat�rios N�o Informados", "solicitaralteracao/acaoprojeto", "ERROR");
+            parent::message(" Dados Obrigat�rios Não Informados", "solicitaralteracao/acaoprojeto", "ERROR");
         }
     } // fecha m�todo nomeprojeto2Action()
 
@@ -366,7 +366,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
             } else {
                 $status = '2';
             }
-  
+
             if (empty($idPedidoAlteracao)) {
                 $inserirSolitacao = $buscaSoliciatacao->inserirSolicitacao($idPronac, $idSolicitante, $stPedido);
                 $valores = $buscaSoliciatacao->buscarSolicitacao($idPronac);
@@ -376,7 +376,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                 if (empty($resultadoPedidoAlteracao)) {
                     $buscatbProposta = $Projetos->buscarRazaoSocial($idPedidoAlteracao);
 
-                    // caso o usu�rio n�o esteja cadastrado, vai para o manter agentes
+                    // caso o usu�rio Não esteja cadastrado, vai para o manter agentes
                     if (!SolicitarAlteracaoDAO::verificarInteressadosAgentes($CPFCNPJ)) {
                         $this->redirect("/agente/manteragentes/agentes?acao=cc&cpf=" . $CPFCNPJ);
                     }
@@ -389,11 +389,11 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
 
                     $justificativa =  $buscaSoliciatacao->inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $buscatbProposta = $Projetos->buscarRazaoSocial($idPedidoAlteracao);
 
-                    // caso o usu�rio n�o esteja cadastrado, vai para o manter agentes
+                    // caso o usu�rio Não esteja cadastrado, vai para o manter agentes
                     if (!SolicitarAlteracaoDAO::verificarInteressadosAgentes($CPFCNPJ)) {
                         $this->redirect("/agente/manteragentes/agentes?acao=cc&cpf=" . $CPFCNPJ);
                     }
@@ -405,7 +405,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                     }
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 }
             } else {
                 $buscatbProposta = $Projetos->buscarRazaoSocial($idPedidoAlteracao);
@@ -417,7 +417,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                     $justificativa =  $Projetos->updatetbPedidoAlteracaoXTipoAlteracao($idPedidoAlteracao, $dsJustificativa, $status);
                 }
 
-                // caso o usu�rio n�o esteja cadastrado, vai para o manter agentes
+                // caso o usu�rio Não esteja cadastrado, vai para o manter agentes
                 if (!SolicitarAlteracaoDAO::verificarInteressadosAgentes($CPFCNPJ)) {
                     $this->redirect("/agente/manteragentes/agentes?acao=cc&cpf=" . $CPFCNPJ);
                 }
@@ -425,15 +425,15 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
                 if (empty($buscatbProposta)) {
                     $inserirtbProposta = $Projetos->insertRazaoSocial($idPedidoAlteracao, $CPFCNPJ, $razaosocial);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 } else {
                     $updatetbProposta = $Projetos->updateRazaoSocial($idPedidoAlteracao, $CPFCNPJ, $razaosocial);
                     SolicitarAlteracaoController::cadastrarArquivosMult($_FILES, $idPedidoAlteracao, $status);
-                    parent::message("Solicita��o enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
+                    parent::message("Solicitação enviada com sucesso!", "solicitaralteracao/acaoprojeto?idpronac=$idPronac", "CONFIRM");
                 }
             }
         } else {
-            parent::message(" Dados Obrigat�rios N�o Informados", "solicitaralteracao/acaoprojeto", "ERROR");
+            parent::message(" Dados Obrigat�rios Não Informados", "solicitaralteracao/acaoprojeto", "ERROR");
         }
     } // fecha m�todo nomeprojetoAction()
 
@@ -443,7 +443,7 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
     {
         $Projetos = new SolicitarAlteracaoDAO();
         $valor = $_FILES['arquivo']['name'][0];
-           
+
         if (!empty($valor)) {
             for ($i = 0; $i < count($_FILES["arquivo"]["name"]); $i++) {
                 // pega as informa��es do arquivo
@@ -500,13 +500,13 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
         $buscaSoliciatacao = new ReadequacaoProjetos();
         $valores           = $buscaSoliciatacao->buscarSolicitacao($idPronac);
         $idPedidoAlteracao = $valores[0]->idPedidoAlteracao;
-    
+
         if (!empty($idPedidoAlteracao)) {
             $dados = $Projetos->buscarArquivo($idPedidoAlteracao, $status);
-    
+
             // url de exclus�o
             $urlExcluir = Zend_Controller_Front::getInstance()->getBaseUrl().'/solicitaralteracao/excluirarquivo';
-    
+
             echo "
 			<script type='text/javascript'>
 			function excluirArqPedido(idPedidoAlteracao, idArquivo, nmArquivo)
@@ -529,11 +529,11 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
 				}
 			}
 			</script>";
-    
+
             $urlArquivo = Zend_Controller_Front::getInstance()->getBaseUrl().'/upload/abrir?id=';
             foreach ($dados as $arquivos) {
                 echo "<div id='excluirArq".$idPedidoAlteracao.$arquivos->idArquivo."'>
-					<input type='button' class='btn_exclusao' title='Excluir Arquivo' onclick=\"excluirArqRea(".$idPedidoAlteracao.", ".$arquivos->idArquivo.", '".$arquivos->nmArquivo."');\" /> 
+					<input type='button' class='btn_exclusao' title='Excluir Arquivo' onclick=\"excluirArqRea(".$idPedidoAlteracao.", ".$arquivos->idArquivo.", '".$arquivos->nmArquivo."');\" />
 					<a href='".$urlArquivo.$arquivos->idArquivo."' title='Abrir Arquivo'>".$arquivos->nmArquivo."</a>
 				</div>";
             }
@@ -555,13 +555,13 @@ class SolicitarAlteracaoController extends MinC_Controller_Action_Abstract
     public function excluirarquivoAction()
     {
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
-    
+
         // recebe os dados via post
         $post              = Zend_Registry::get('post');
         $idPedidoAlteracao = (int) Seguranca::tratarVarAjaxUFT8($post->idPedidoAlteracao);
         $idArquivo         = (int) Seguranca::tratarVarAjaxUFT8($post->idArquivo);
         $nmArquivo         = Seguranca::tratarVarAjaxUFT8($post->nmArquivo);
-    
+
         if (isset($idPedidoAlteracao) && isset($idArquivo) && !empty($idPedidoAlteracao) && !empty($idArquivo)) {
             SolicitarAlteracaoDAO::excluirArquivo($idPedidoAlteracao, $idArquivo);
             $this->view->nmArquivo = $nmArquivo;

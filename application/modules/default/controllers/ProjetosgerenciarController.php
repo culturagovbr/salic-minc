@@ -251,7 +251,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
         $idpronac = $this->_request->getParam("idpronac");
 
         if ($this->bln_readequacao == "true") {
-            echo "<br><br><br><center><font color='red'><b>Este Projeto encontra-se em An�lise de Readequa��o.</b></font><center>";
+            echo "<br><br><br><center><font color='red'><b>Este Projeto encontra-se em Análise de Readequa��o.</b></font><center>";
             $this->_helper->viewRenderer->setNoRender(true);
         }
 
@@ -425,7 +425,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
             try {
                 //ALTERA SITUACAO DO PROJETO
                 $tblProjeto = new Projetos();
-                $ProvidenciaTomada = 'Projeto devolvido para an�lise t�cnica por solicita��o do Componente.';
+                $ProvidenciaTomada = 'Projeto devolvido para Análise Técnica por Solicitação do Componente.';
                 $tblProjeto->alterarSituacao($idpronac, '', 'B11', $ProvidenciaTomada);
             } catch (Zend_Exception $ex) {
                 parent::message("Erro ao alterar a situa&ccedil;&atilde;o do Projeto - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
@@ -464,10 +464,10 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
 
             if ($tbRetirarDePauta->alterar($dados, $where)) {
 
-                // in�cio devolver pra vinculada
+                // INÍCIO devolver pra vinculada
                 if ($tpAcao == 3) {
                     if ($this->bln_readequacao == "true") {
-                        throw new Exception("Este Projeto encontra-se em An�lise de Readequa��o!");
+                        throw new Exception("Este Projeto encontra-se em Análise de Readequa��o!");
                     }
                     $arrBusca = array();
                     $arrBusca['p.IdPRONAC = ?']    = $idPronac;
@@ -611,7 +611,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
                             try {
                                 //ALTERA SITUACAO DO PROJETO
                                 $tblProjeto = new Projetos();
-                                $ProvidenciaTomada = 'Projeto devolvido para an�lise t�cnica por solicita��o do Componente.';
+                                $ProvidenciaTomada = 'Projeto devolvido para Análise Técnica por Solicitação do Componente.';
                                 $tblProjeto->alterarSituacao($idPronac, '', 'B11', $ProvidenciaTomada);
                             } catch (Zend_Exception $ex) {
                                 parent::message("Erro ao alterar a situa&ccedil;&atilde;o do Projeto - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");

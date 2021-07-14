@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
 {
-    private $getIdUsuario = 0; // c�digo do usu�rio logado
-    private $getIdGrupo   = 0; // c�digo do grupo logado
-    private $getIdOrgao   = 0; // c�digo do �rg�o logado
+    private $getIdUsuario = 0; // Código do usu�rio logado
+    private $getIdGrupo   = 0; // Código do grupo logado
+    private $getIdOrgao   = 0; // Código do �rg�o logado
     private $intTamPag    = 10;
 
     /**
@@ -18,8 +18,8 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
 
         // pega o idAgente do usu�rio logado
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
-        
-        /* ========== IN�CIO PERFIL ==========*/
+
+        /* ========== INÍCIO PERFIL ==========*/
         // define os grupos que tem acesso
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 121; // T�cnico de Acompanhamento
@@ -42,7 +42,7 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
         /* ========== FIM PERFIL ==========*/
 
 
-        /* ========== IN�CIO �RG�O ========== */
+        /* ========== INÍCIO �RG�O ========== */
         $GrupoAtivo   = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $this->getIdGrupo = $GrupoAtivo->codGrupo; // id do grupo ativo
         $this->getIdOrgao = $GrupoAtivo->codOrgao; // id do �rg�o ativo
@@ -65,15 +65,15 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
     public function formPesquisarContaAction()
     {
     }
-    
+
     public function formBloquearContaAction()
     {
         $post = Zend_Registry::get('post');
         $pronac = $post->pronac;
-        
+
         $tbProjeto = new Projetos();
         $rsProjeto = $tbProjeto->buscar(array('Anoprojeto+Sequencial=?'=>$pronac))->current();
-        
+
         if (!empty($rsProjeto)) {
             $tbContaBloqueada = new tbContaBloqueada();
             $where = array();
@@ -83,10 +83,10 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
             $where['tpIdentificacaoConta = ?'] = 1; //(1 - capta��o)
             $rsCBCaptacao = $tbContaBloqueada->buscar($where)->current();
             xd($rsCBCaptacao);
-            
+
             $where['tpIdentificacaoConta = ?'] = 2; //(2-movimento)
             $rsCBMovimento = $tbContaBloqueada->buscar($where)->current();
-            
+
             $this->view->projeto  = $rsProjeto;
             $this->view->contaCapatacaoBloqueada = $rsCBCaptacao;
             $this->view->contaMovimentoBloqueada = $rsCBMovimento;
@@ -101,11 +101,11 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
         $idPronac       = $post->idPronac;
         $tipoConta      = $post->tipoConta;
         $justificativa  = $post->justificativa;
-        
+
         if (empty($idPronac) || empty($tipoConta) || empty($justificativa)) {
             parent::message("Dados obrigat&oacute;rios n&atilde;o informados!", "manterbloqueioconta/listar-contas-desbloqueio", "ALERT");
         }
-        
+
         $tbContaBloqueada = new tbContaBloqueada();
         try {
             //============== INATIVA REGISTROS ===============
@@ -149,13 +149,13 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
                 $dados['tpIdentificacaoConta'] = $tipoConta;
                 $tbContaBloqueada->inserir($dados);
             }
-            
+
             parent::message("Conta(s) bloqueada(s) com sucesso!", "manterbloqueioconta", "CONFIRM");
         } catch (Exception $e) {
             parent::message("Erro ao realizar opera&ccedil;&atilde;o. ".$e->getMessage(), "manterbloqueioconta", "ERROR");
         }
     }
-    
+
     public function gravarArquivoJudicialBloqueioConta()
     {
         try {
@@ -211,14 +211,14 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
             $tbDocumento = new tbDocumento();
             $idDocumento = $tbDocumento->inserir($dadosDoc);
             $idDocumento = $idDocumento['idDocumento'];*/
-        
+
             return $idArquivo;
             $this->_helper->viewRenderer->setNoRender(true);
         } catch (Exception $e) {
             parent::message("Erro ao enviar o arquivo anexado.", "manterbloqueioconta", "ERROR");
         }
     }
-    
+
     public function listarContasDesbloqueioAction()
     {
         $tbContaBloqueada = new tbContaBloqueada();
@@ -227,25 +227,25 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
         $arrBusca['cb.tpIdentificacaoConta in (select TOP 1 max(tpIdentificacaoConta) from SAC..tbcontabloqueada where IdPRONAC = pr.IdPRONAC and stestado=1)'] = "(?)"; //pega apenas um registro por pronac
         $arrBusca['cb.tpAcao = ?']   = 1; //bloqueio sistemico
         $rsBloqueioSistemico = $tbContaBloqueada->buscarContasDesbloqueioSistemico($arrBusca);
-        
+
         $arrBusca['cb.tpAcao = ?'] = 2; //bloqueio judicial
         $rsBloqueioJudicial  = $tbContaBloqueada->buscarContasDesbloqueioJudicial($arrBusca);
-        
+
         $this->view->bloqueioSisitemico = $rsBloqueioSistemico;
         $this->view->bloqueioJudicial   = $rsBloqueioJudicial;
     }
-    
+
     public function formDesbloquearContaAction()
     {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
-        
+
         $post = Zend_Registry::get('post');
         $idPronac = $post->idPronac;
         $tipoDesbloqueio = $post->tipoDesbloqueio;
-        
+
         $tbProjeto = new Projetos();
         $rsProjeto = $tbProjeto->buscar(array('IdPRONAC=?'=>$idPronac))->current();
-        
+
         if (!empty($rsProjeto)) {
             $tbContaBloqueada = new tbContaBloqueada();
             $where = array();
@@ -254,10 +254,10 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
             $where['tpAcao = ?'] = $tipoDesbloqueio; //(1- bloqueio sistemico / 2- bloqueio judicial)
             $where['tpIdentificacaoConta = ?'] = 1; //(1 - capta��o)
             $rsCBCaptacao = $tbContaBloqueada->buscar($where)->current();
-            
+
             $where['tpIdentificacaoConta = ?'] = 2; //(2-movimento)
             $rsCBMovimento = $tbContaBloqueada->buscar($where)->current();
-            
+
             $this->view->projeto  = $rsProjeto;
             $this->view->contaCapatacaoBloqueada = $rsCBCaptacao;
             $this->view->contaMovimentoBloqueada = $rsCBMovimento;
@@ -266,18 +266,18 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
             parent::message("Nenhum projeto encontrado com o Pronac informado", "/manterbloqueioconta/form-pesquisar-conta", "ALERT");
         }
     }
-    
+
     public function gravarDesbloqueioContaAction()
     {
         $post = Zend_Registry::get('post');
         $idPronac       = $post->idPronac;
         $tipoConta      = $post->tipoConta;
         $justificativa  = $post->justificativa;
-        
+
         if (empty($idPronac) || empty($tipoConta) || empty($justificativa)) {
             parent::message("Dados obrigat&oacute;rios n&atilde;o informados!", "manterbloqueioconta/listar-contas-desbloqueio", "ALERT");
         }
-        
+
         $tbContaBloqueada = new tbContaBloqueada();
         try {
             //============== INATIVA REGISTROS ===============
@@ -321,13 +321,13 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
                 $dados['tpIdentificacaoConta'] = $tipoConta;
                 $tbContaBloqueada->inserir($dados);
             }
-            
+
             parent::message("Conta(s) desbloqueada(s) com sucesso!", "manterbloqueioconta/listar-contas-desbloqueio", "CONFIRM");
         } catch (Exception $e) {
             parent::message("Erro ao realizar opera&ccedil;&atilde;o. ".$e->getMessage(), "manterbloqueioconta/listar-contas-desbloqueio", "ERROR");
         }
     }
-    
+
     public function listarContasBloqueadasAction()
     {
         $tbContaBloqueada = new tbContaBloqueada();
@@ -337,12 +337,12 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
         $arrBusca['a.tpIdentificacaoConta in (select TOP 1 max(tpIdentificacaoConta) from SAC..tbcontabloqueada where IdPRONAC = b.IdPRONAC and stestado=1)'] = "(?)"; //pega apenas um registro por pronac
         $arrBusca['a.tpAcao = ?']   = 1; //bloqueio sistemico
         $rsContasDesbloqueioSistemico = $tbContaBloqueada->queryContasDesbloqueioSistemico($arrBusca);
-        
+
         $arrIdsContasDesbloqueio = array();
         foreach ($rsContasDesbloqueioSistemico as $projeto) {
             $arrIdsContasDesbloqueio[] = $projeto->idContaBloqueada;
         }
-        
+
         //BUSCA AS CONTAS QUE NAO PODEM SER DESBLOQUEADAS
         $arrBusca = array();
         if (count($arrIdsContasDesbloqueio)>0) {
@@ -354,7 +354,7 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
         $rsContasBloqueadas = $tbContaBloqueada->buscarContasBloqueadas($arrBusca);
         $this->view->contasBloqueadas = $rsContasBloqueadas;
     }
-    
+
     public function imprimirAction()
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout

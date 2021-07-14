@@ -1,6 +1,6 @@
-<!-- 
+<!--
 /**
- * Variáveis que diz se pelo menos um item foi cadastrado
+ * Variï¿½veis que diz se pelo menos um item foi cadastrado
  */
 var fones      = false;
 var emails     = false;
@@ -10,7 +10,7 @@ var dirigentes = false;
 
 
 /**
- * Função para marcar os campos obrigatórios
+ * Funï¿½ï¿½o para marcar os campos obrigatï¿½rios
  */
 function exibirMsgErro(campo, msg)
 {
@@ -29,12 +29,12 @@ function exibirMsgErro(campo, msg)
         campo.style.borderColor = '';
         return false;
     }
-} // fecha função exibirMsgErro()
+} // fecha funï¿½ï¿½o exibirMsgErro()
 
 
 
 /**
- * Efetua a validação do formulário de agentes
+ * Efetua a validaï¿½ï¿½o do formulï¿½rio de agentes
  */
 function validaAgente()
 {
@@ -48,8 +48,8 @@ function validaAgente()
 
     grupologado     = document.getElementById("grupologado").value;
 
-    
-    
+
+
     flag = false;
 
     if (exibirMsgErro('cpf',         'erroCpf'))         {
@@ -72,28 +72,28 @@ function validaAgente()
 		mostrar_menu_dirigente_agente();
 	}*/
 
-    // validação para emails
+    // validaï¿½ï¿½o para emails
     if (emails == false)
     {
         flag = true;
         mostrar_menu_email_agente();
     }
 
-    // validação para telefones
+    // validaï¿½ï¿½o para telefones
     if (fones == false)
     {
         flag = true;
         mostrar_menu_fone_agente();
     }
 
-    // validação para enderecos
+    // validaï¿½ï¿½o para enderecos
     if (enderecos == false)
     {
         flag = true;
         mostrar_menu_endereco_agente();
     }
 
-    // validação do estado
+    // validaï¿½ï¿½o do estado
     if (uf == '0')
     {
     	flag = true;
@@ -105,7 +105,7 @@ function validaAgente()
     	document.getElementById('erroUf').innerHTML = '';
     }
 
-    // validação para cidade
+    // validaï¿½ï¿½o para cidade
     if (cidade == 0)
     {
     	flag = true;
@@ -117,7 +117,7 @@ function validaAgente()
     	document.getElementById('erroCidade').innerHTML = '';
     }
 
-    // validação para tipo de endereço
+    // validaï¿½ï¿½o para tipo de endereï¿½o
     if (tipoEndereco == 0)
     {
     	flag = true;
@@ -129,7 +129,7 @@ function validaAgente()
     	document.getElementById('erroTipoEndereco').innerHTML = '';
     }
 
-    // validação para tipo de logradouro
+    // validaï¿½ï¿½o para tipo de logradouro
     if (tipoLogradouro == 0)
     {
     	flag = true;
@@ -141,16 +141,16 @@ function validaAgente()
     	document.getElementById('erroTipoLogradouro').innerHTML = '';
     }
 
-    // validação da visão
+    // validaï¿½ï¿½o da visï¿½o
     if ((visao == '0') && (grupologado != '118'))
     {
         flag = true;
         document.getElementById('erroVisao').innerHTML = '*';
         mostrar_menu_dados_agente();
     }
-    else if ((visao == '210') && (grupologado != '118')) // validação de visão para o Componente da Comissão
+    else if ((visao == '210') && (grupologado != '118')) // validaï¿½ï¿½o de visï¿½o para o Componente da comissÃ£o
     {
-        // valida  a área cultural
+        // valida  a ï¿½rea cultural
         if (areaCultural == '0')
         {
             flag = true;
@@ -167,17 +167,17 @@ function validaAgente()
         document.getElementById('erroVisao').innerHTML = '';
     }
 
-    // caso não tenha erros
+    // caso NÃ£o tenha erros
     if (flag == false)
     {
         return true;
     }
-} // fecha função validaAgente()
+} // fecha funï¿½ï¿½o validaAgente()
 
 
 
 /**
- * Efetua a validação do formulário de dirigentes
+ * Efetua a validaï¿½ï¿½o do formulï¿½rio de dirigentes
  */
 function validaDirigente()
 {
@@ -217,15 +217,15 @@ function validaDirigente()
         mostrar_menu_dados_agente();
     }
 
-    // validação para emails
-    
+    // validaï¿½ï¿½o para emails
+
     var tbemails = document.getElementById('tabBuscarEmail').rows.length;
-    
+
     if(tbemails <=1)
     {
     	emails = false;
     }
-    
+
     if (emails == false)
     {
         flag = true;
@@ -233,19 +233,19 @@ function validaDirigente()
     }
 
     var tbtels = document.getElementById('tabBuscarFone').rows.length;
-    
+
     if(tbtels <=1)
     {
     	fones = false;
     }
-    // validação para telefones
+    // validaï¿½ï¿½o para telefones
     if (fones == false)
     {
         flag = true;
         mostrar_menu_fone_agente();
     }
 
-    // validação do estado
+    // validaï¿½ï¿½o do estado
     if (uf == '0')
     {
         flag = true;
@@ -257,7 +257,7 @@ function validaDirigente()
         document.getElementById('erroUf').innerHTML = '';
     }
 
-    // validação para cidade
+    // validaï¿½ï¿½o para cidade
     if (cidade == 0)
     {
         flag = true;
@@ -269,7 +269,7 @@ function validaDirigente()
         document.getElementById('erroCidade').innerHTML = '';
     }
 
-    // validação para tipo de endereço
+    // validaï¿½ï¿½o para tipo de endereï¿½o
     if (tipoEndereco == 0)
     {
         flag = true;
@@ -281,7 +281,7 @@ function validaDirigente()
         document.getElementById('erroTipoEndereco').innerHTML = '';
     }
 
-    // validação para tipo de logradouro
+    // validaï¿½ï¿½o para tipo de logradouro
     if (tipoLogradouro == 0)
     {
         flag = true;
@@ -293,17 +293,17 @@ function validaDirigente()
         document.getElementById('erroTipoLogradouro').innerHTML = '';
     }
 
-    // caso não tenha erros
+    // caso NÃ£o tenha erros
     if (flag == false)
     {
         return true;
     }
-} // fecha função validaDirigente()
+} // fecha funï¿½ï¿½o validaDirigente()
 
 
 
 /**
- * Submete o formulário de agentes
+ * Submete o formulï¿½rio de agentes
  */
 function verificaValidacaoAgente()
 {
@@ -331,12 +331,12 @@ function verificaValidacaoAgente()
     {
         $('#erroGeral').show();
     }
-} // fecha função verificaValidacaoAgente()
+} // fecha funï¿½ï¿½o verificaValidacaoAgente()
 
 
 
 /**
- * Submete o formulário de dirigentes
+ * Submete o formulï¿½rio de dirigentes
  */
 function verificaValidacaoDirigente()
 {
@@ -366,14 +366,14 @@ function verificaValidacaoDirigente()
     {
         $('#erroGeral').show();
     }
-} // fecha função verificaValidacaoDirigente()
+} // fecha funï¿½ï¿½o verificaValidacaoDirigente()
 
 
- 
+
 
 function verificarVisao(valor, usu_codigo)
 {
-	
+
     if ((valor == 210) && (usu_codigo != 118))
     {
         $('#visaocomponente').show();
@@ -391,7 +391,7 @@ function verificarVisao(valor, usu_codigo)
 function salvaragente(cpfId){
 
     cpf_ou_cnpj = document.getElementById("cpf_ou_cnpj").options[document.getElementById("cpf_ou_cnpj").selectedIndex].text;
-	
+
     if(cpf_ou_cnpj == 'CPF')
     {
         cpf = document.getElementById(cpfId).value;
@@ -402,7 +402,7 @@ function salvaragente(cpfId){
         cnpj = document.getElementById(cpfId).value;
         window.location = "./agentes?acao=pr&cpf_ou_cnpj=CNPJ&cpf="+cnpj;
     }
-	
+
 }
 
 
@@ -423,7 +423,7 @@ function validar(id)
         // Define as regras
         rules:{
             justificativa:{
-                // campoNome será obrigatorio (required) e terá tamanho minimo (minLength)
+                // campoNome serÃ¡ obrigatorio (required) e terï¿½ tamanho minimo (minLength)
                 required: true,
                 minlength: 15
             }
@@ -431,17 +431,17 @@ function validar(id)
         // Define as mensagens de erro para cada regra
         messages:{
             justificativa:{
-                required: "<br />Dados obrigatórios não informados.",
-                minlength: "<br />A justificativa deve conter, no mínimo, 15 caracteres"
+                required: "<br />Dados obrigatï¿½rios NÃ£o informados.",
+                minlength: "<br />A justificativa deve conter, no mï¿½nimo, 15 caracteres"
             }
         }
-        
+
     });
 }
 
 
 function modal(){
-	
+
     $('#modalAgentes').modal(
     {
         appendTo:'body',
@@ -452,18 +452,18 @@ function modal(){
         escClose:true
     }
     );
-	
+
     $('#modalAgentes').draggable({
         handle: '#titleAgentes'
     });
-	
-	
+
+
 }
 
 
 
 /**
- * Funções para mostrar as abas
+ * Funï¿½ï¿½es para mostrar as abas
  */
 function mostrar_menu_dados_agente(grupoativo)
 {
@@ -613,9 +613,9 @@ function mudarOpcao()
 
 
 /**
- * Função para adicionar fones no formulário de cadastro
+ * Funï¿½ï¿½o para adicionar fones no formulï¿½rio de cadastro
  */
-var contFone = 0; // linha a ser excluída
+var contFone = 0; // linha a ser excluï¿½da
 function adicionar_fone_agente(validacao)
 {
     // FONE
@@ -634,30 +634,30 @@ function adicionar_fone_agente(validacao)
     }
     if (validacao && tipoFone == "")
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, selecione o Tipo de Telefone!", "tipoFone");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, selecione o Tipo de Telefone!", "tipoFone");
     }
     else if (validacao && ufFone == 0)
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, selecione a UF!", "ufFone");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, selecione a UF!", "ufFone");
     }
     else if (validacao && dddFone == "")
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, selecione o DDD do telefone!", "dddFone");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, selecione o DDD do telefone!", "dddFone");
     }
     else if (validacao && fone == "")
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, informe o Telefone!", "fone");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, informe o Telefone!", "fone");
     }
     else if (validacao && (fone.length != 9 || !(/\d{4}\-\d{4}/.test(fone)) || fone == "0000-0000" ||
         fone == "1111-1111" || fone == "2222-2222" || fone == "3333-3333" ||
         fone == "4444-4444" || fone == "5555-5555" || fone == "6666-6666" ||
         fone == "7777-7777" || fone == "8888-8888" || fone == "9999-9999"))
         {
-        alertar("O número do Telefone é inválido!", "fone");
+        alertar("O nï¿½mero do Telefone ï¿½ invï¿½lido!", "fone");
     }
     else
     {
-        cont = contFone++; // linha a ser excluída
+        cont = contFone++; // linha a ser excluï¿½da
 
         var local = document.getElementById('tabBuscarFone');
         var tblBody = local.tBodies[0];
@@ -685,7 +685,7 @@ function adicionar_fone_agente(validacao)
         newCell4.setAttribute("class", "centro");
 
         var newCell5 = newRow.insertCell(4);
-        newCell5.innerHTML = (divulgarFone == 1 ? 'Sim' : 'Não');
+        newCell5.innerHTML = (divulgarFone == 1 ? 'Sim' : 'NÃ£o');
         newCell5.innerHTML+= '<input type="hidden" name="divulgarFones[]" id="divulgarFones[]" value=' + divulgarFone + '>';
         newCell5.setAttribute("class", "centro");
 
@@ -694,7 +694,7 @@ function adicionar_fone_agente(validacao)
         newCell6.setAttribute("name", "enter");
         newCell6.innerHTML = '<div class="botao_icone"><a class="cancelar_ico" href="#" title=" Excluir Fone " onclick=excluirFoneEmail("#fone' + cont + '"); /></div>';
 
-        // limpa o formulário
+        // limpa o formulï¿½rio
         document.getElementById("tipoFone").options[0].selected = true;
         document.getElementById("ufFone").options[0].selected = true;
         carregar_combo('','dddFone','../ddd/combo','--','');
@@ -707,14 +707,14 @@ function adicionar_fone_agente(validacao)
             msgCadatro();
         }
     }
-} // fecha função adicionar_fone_agente()
+} // fecha funï¿½ï¿½o adicionar_fone_agente()
 
 
 
 /**
- * Função para adicionar e-mails no formulário de cadastro
+ * Funï¿½ï¿½o para adicionar e-mails no formulï¿½rio de cadastro
  */
-var contEndereco = 0; // linha a ser excluída
+var contEndereco = 0; // linha a ser excluï¿½da
 function adicionar_endereco_agente(validacao)
 {
     // ENDERECO
@@ -736,39 +736,39 @@ function adicionar_endereco_agente(validacao)
 
     if (validacao && (cep == 0 || cep == null || cep == ' ' || cep == '' ))
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, informe um CEP!", "cep");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, informe um CEP!", "cep");
         exibirMsgErro('cep','erroCep');
     }
-	
+
     else if (validacao && (cidade == 0 || cidade == null || cidade == ' ' ))
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, selecione uma cidade!", "Cidade");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, selecione uma cidade!", "Cidade");
         exibirMsgErro('cidade','erroCidade');
     }
-        
+
     else if (validacao && (tipoEndereco == 0 || tipoEndereco == null || tipoEndereco == ' ' ))
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, selecione o tipo de endereço!", "tipoEndereco");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, selecione o tipo de endereï¿½o!", "tipoEndereco");
         exibirMsgErro('tipoEndereco','erroTipoEndereco');
     }
 
     else if (validacao && (tipoLogradouro == 0 || tipoLogradouro == null || tipoLogradouro == ' ' ))
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, selecione o tipo de logradouro!", "tipoLogradouro");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, selecione o tipo de logradouro!", "tipoLogradouro");
         exibirMsgErro('tipoLogradouro','erroTipoLogradouro');
     }
 
     else if (validacao && (numero == '' || numero == null)){
-        alertar("Dados obrigatórios não informados:\nPor favor, preencha o campo número!", "numero");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, preencha o campo nï¿½mero!", "numero");
         exibirMsgErro('numero','erroNumero');
     }
     else if (validacao && (bairro == ' ' || bairro == '' || bairro == null)){
-        alertar("Dados obrigatórios não informados:\nPor favor, preencha o campo bairro!", "bairro");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, preencha o campo bairro!", "bairro");
         exibirMsgErro('bairro','erroBairro');
     }
     else if(validacao)
     {
-        cont = contEndereco++; // linha a ser excluída
+        cont = contEndereco++; // linha a ser excluï¿½da
 
         var local = document.getElementById('tabBuscarEndereco');
         var tblBody = local.tBodies[0];
@@ -806,16 +806,16 @@ function adicionar_endereco_agente(validacao)
 
 
         var newCell5 = newRow.insertCell(5);
-        newCell5.innerHTML = ' Correspondências <input type="radio" style="margin:5px" name="correspondenciaEnderecos" id="correspondenciaEnderecos" value="end' + cont +'/>';
+        newCell5.innerHTML = ' Correspondï¿½ncias <input type="radio" style="margin:5px" name="correspondenciaEnderecos" id="correspondenciaEnderecos" value="end' + cont +'/>';
 
 
 
         var newCell6 = newRow.insertCell(6);
         newCell6.setAttribute("class", "centro");
         newCell6.setAttribute("name", "enter");
-        newCell6.innerHTML = '<div class="botao_icone"><a class="cancelar_ico" href="#" title=" Excluir Endereço " onclick=excluirFoneEmail("#endereco' + cont + '"); /></div>';
+        newCell6.innerHTML = '<div class="botao_icone"><a class="cancelar_ico" href="#" title=" Excluir Endereï¿½o " onclick=excluirFoneEmail("#endereco' + cont + '"); /></div>';
 
-        //		 limpa o formulário
+        //		 limpa o formulï¿½rio
         document.getElementById('cep').value = '';
         document.getElementById("uf").options[0].selected = true;
         document.getElementById("cidade").options[0].selected = true;
@@ -832,7 +832,7 @@ function adicionar_endereco_agente(validacao)
         }
     }
     enderecos = true;
-} // fecha função adicionar_email_agente()
+} // fecha funï¿½ï¿½o adicionar_email_agente()
 
 
 
@@ -846,7 +846,7 @@ function adicionar_endereco_agente(validacao)
 
 
 
-var contEmail = 0; // linha a ser excluída
+var contEmail = 0; // linha a ser excluï¿½da
 function adicionar_email_agente(validacao)
 {
     // E-MAIL
@@ -873,19 +873,19 @@ function adicionar_email_agente(validacao)
 
     if (validacao && tipoEmail == 0)
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, selecione o Tipo de E-mail!", "tipoEmail");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, selecione o Tipo de E-mail!", "tipoEmail");
     }
     else if (validacao && email == "")
     {
-        alertar("Dados obrigatórios não informados:\nPor favor, informe o E-mail!", "email");
+        alertar("Dados obrigatï¿½rios NÃ£o informados:\nPor favor, informe o E-mail!", "email");
     }
     else if (validacao && ((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length) || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))))
     {
-        alertar("E-mail inválido!", "email");
+        alertar("E-mail invï¿½lido!", "email");
     }
     else
     {
-        cont = contEmail++; // linha a ser excluída
+        cont = contEmail++; // linha a ser excluï¿½da
 
         var local = document.getElementById('tabBuscarEmail');
         var tblBody = local.tBodies[0];
@@ -903,19 +903,19 @@ function adicionar_email_agente(validacao)
 
         var newCell3 = newRow.insertCell(2);
         newCell3.setAttribute("class", "centro");
-        newCell3.innerHTML = (divulgarEmail=='1' ? 'Sim' : 'Não');
+        newCell3.innerHTML = (divulgarEmail=='1' ? 'Sim' : 'NÃ£o');
         newCell3.innerHTML+= '<input type="hidden" name="divulgarEmails[]" id="divulgarEmails[]" value="' + divulgarEmail + '" />';
 
         var newCell4 = newRow.insertCell(3);
         newCell4.setAttribute("class", "centro");
-        newCell4.innerHTML = (enviarEmail=='1' ? 'Sim' : 'Não');
+        newCell4.innerHTML = (enviarEmail=='1' ? 'Sim' : 'NÃ£o');
         newCell4.innerHTML+= '<input type="hidden" name="enviarEmails[]" id="enviarEmails[]" value="' + enviarEmail + '" />';
 
         var newCell5 = newRow.insertCell(4);
         newCell5.setAttribute("class", "centro");
         newCell5.innerHTML = '<div class="botao_icone"><a class="cancelar_ico" href="#" title=" Excluir E-mail " onclick=excluirFoneEmail("#email' + cont + '"); /></div>';
 
-        // limpa o formulário
+        // limpa o formulï¿½rio
         document.getElementById("tipoEmail").options[0].selected = true;
         document.getElementById('email').value = '';
 
@@ -925,7 +925,7 @@ function adicionar_email_agente(validacao)
             msgCadatro();
         }
     }
-} // fecha função adicionar_email_agente()
+} // fecha funï¿½ï¿½o adicionar_email_agente()
 
 /**
  * Mensagem de cadastro de e-mail e telefone
@@ -951,11 +951,11 @@ function msgCadatro()
 }
 
 /**
- * Mensagem de exclusão de e-mail e telefone
+ * Mensagem de exclusï¿½o de e-mail e telefone
  */
 function msgExclusao()
 {
-    $("#confirma").html("Exlusão realizada com sucesso");
+    $("#confirma").html("Exlusï¿½o realizada com sucesso");
     $("#confirma").dialog({
         title : 'Confirma',
         resizable: false,
@@ -974,7 +974,7 @@ function msgExclusao()
 }
 
 /**
- * Função para exclusão de telefone e email
+ * Funï¿½ï¿½o para exclusï¿½o de telefone e email
  */
 function excluirFoneEmail(idLinha)
 {
@@ -999,24 +999,24 @@ function excluirFoneEmail(idLinha)
                 msgExclusao();
                 return true;
                 }
-            
+
         }
     });
     $("#confirma").dialog('open');
 
 
-} // fecha função excluirFoneEmail()
+} // fecha funï¿½ï¿½o excluirFoneEmail()
 
 
 
 /**
- * Função para adicionar dirigentes no formulário de cadastro
+ * Funï¿½ï¿½o para adicionar dirigentes no formulï¿½rio de cadastro
  */
 function adicionar_dirigente_agente(validacao)
 {
     if (document.getElementById('cpf').length != 18 && $('#erroCpf').html() != "")
     {
-        alertar("Para cadastrar Dirigentes é necessário que o Agente tenha um CNPJ válido!");
+        alertar("Para cadastrar Dirigentes ï¿½ necessï¿½rio que o Agente tenha um CNPJ vï¿½lido!");
         mostrar_menu_dados_agente();
     }
     else
@@ -1042,12 +1042,12 @@ function adicionar_dirigente_agente(validacao)
         });
         $('.ui-dialog-titlebar-close').remove();
     } // fecha else
-} // fecha função adicionar_dirigente_agente()
+} // fecha funï¿½ï¿½o adicionar_dirigente_agente()
 
 
 
 /**
- * Função para alterar dirigentes
+ * Funï¿½ï¿½o para alterar dirigentes
  */
 function alterar_dirigente(cpf)
 {
@@ -1073,7 +1073,7 @@ function alterar_dirigente(cpf)
         }
     });
     $('.ui-dialog-titlebar-close').remove();
-} // fecha função alterar_dirigente()
+} // fecha funï¿½ï¿½o alterar_dirigente()
 
 
 

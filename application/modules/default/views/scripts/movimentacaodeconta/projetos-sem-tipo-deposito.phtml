@@ -15,9 +15,9 @@
 <table class="tabela">
     <?php if ($this->registros->count() <= 0) : ?>
     <tr>
-        <td align="center" ><em>Consulta efetuada com sucesso, por&eacute;m, n&atilde;o existem contas com captações identificadas para o filtro solicitado!</em></td>
+        <td align="center" ><em>Consulta efetuada com sucesso, por&eacute;m, n&atilde;o existem contas com captaï¿½ï¿½es identificadas para o filtro solicitado!</em></td>
     </tr>
-    <?php else: ?>      
+    <?php else: ?>
         <?php $ct=1; $arrProjeto =array(); $arrIncentivador =array();
             foreach($this->registros as $projeto): ?>
             <?php if($ct==1) { ?>
@@ -55,8 +55,8 @@
                     <?php } ?>
                 </td>
                 <td align="center"><?php echo Validacao::mascaraCPFCNPJ($projeto->nrCpfCnpjProponente); ?></td>
-                <td align="center"><?php echo !empty($projeto->Agencia) ? $projeto->Agencia : '<em>Não informada</em>'; ?></td>
-                <td align="center"><?php echo !empty($projeto->ContaBloqueada) ? $projeto->ContaBloqueada : '<em>Não informada</em>'; ?></td>
+                <td align="center"><?php echo !empty($projeto->Agencia) ? $projeto->Agencia : '<em>NÃ£o informada</em>'; ?></td>
+                <td align="center"><?php echo !empty($projeto->ContaBloqueada) ? $projeto->ContaBloqueada : '<em>NÃ£o informada</em>'; ?></td>
                 <td align="center"><?php echo Validacao::mascaraCPFCNPJ($projeto->nrCpfCnpjIncentivador); ?></td>
                 <td align="center"><?php echo $projeto->dtCredito; ?></td>
                 <td align="right" class="<?php echo ($projeto->vlValorCredito == 'D') ? 'red' : 'blue' ; ?>"><?php echo $this->formatarReal($projeto->vlValorCredito); ?></td>
@@ -68,12 +68,12 @@
                 </td>
                 <td class="centro" id="coluna_<?php echo $projeto->tpValidacao."_".$ct; ?>">
                     <select class="input_simples updateTmpCaptacao" idTmpCaptacao="<?php echo $projeto->idTmpCaptacao; ?>">
-                        <option value="0">- Selecione a correção -</option>
-                        <option value="2" <?php echo $projeto->cdPatrocinio == 2 ? 'selected="selected"' : ''; ?>>Patrocínio</option>
-                        <option value="1" <?php echo $projeto->cdPatrocinio == 1 ? 'selected="selected"' : ''; ?>>Doação</option>
-                        <option value="3" <?php echo $projeto->cdPatrocinio == 3 ? 'selected="selected"' : ''; ?>>Devolução Judicial</option>
-                        <option value="5" <?php echo $projeto->cdPatrocinio == 5 ? 'selected="selected"' : ''; ?>>Devolução FNC</option>
-                        <option value="4" <?php echo $projeto->cdPatrocinio == 4 ? 'selected="selected"' : ''; ?>>Outras devoluções</option>
+                        <option value="0">- Selecione a correï¿½ï¿½o -</option>
+                        <option value="2" <?php echo $projeto->cdPatrocinio == 2 ? 'selected="selected"' : ''; ?>>Patrocï¿½nio</option>
+                        <option value="1" <?php echo $projeto->cdPatrocinio == 1 ? 'selected="selected"' : ''; ?>>Doaï¿½ï¿½o</option>
+                        <option value="3" <?php echo $projeto->cdPatrocinio == 3 ? 'selected="selected"' : ''; ?>>Devoluï¿½ï¿½o Judicial</option>
+                        <option value="5" <?php echo $projeto->cdPatrocinio == 5 ? 'selected="selected"' : ''; ?>>Devoluï¿½ï¿½o FNC</option>
+                        <option value="4" <?php echo $projeto->cdPatrocinio == 4 ? 'selected="selected"' : ''; ?>>Outras devoluï¿½ï¿½es</option>
                     </select>
                 </td>
             </tr>

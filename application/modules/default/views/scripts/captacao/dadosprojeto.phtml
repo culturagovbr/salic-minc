@@ -97,7 +97,7 @@
 
                 if ($("#NumeroRecibo").val() == ''){
                     valida = false;
-                    $("#msgNumeroRecibo").html('<font color="red"><b>Informe o Número do Recibo!</b></font>');
+                    $("#msgNumeroRecibo").html('<font color="red"><b>Informe o Nï¿½mero do Recibo!</b></font>');
                     return false;
                 }
 
@@ -301,7 +301,7 @@
         }
         if ((!cpfValido) && (!cnpjValido)) {
             $("#msgCpf").html('');
-            recebe.html('<b>CPF/CNPJ Inválido.</b>');
+            recebe.html('<b>CPF/CNPJ Invï¿½lido.</b>');
             recebe.css("color", "red");
             return false;
         }
@@ -373,7 +373,7 @@
                                     modal: true,
                                     buttons:
                                             {
-                                                'Não': function()
+                                                'NÃ£o': function()
                                                 {
                                                     $(this).dialog('close'); // fecha a modal
                                                 },
@@ -425,7 +425,7 @@
              });
          }
 </script>
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => 'index'), '', true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -435,16 +435,16 @@
 </div>
 <!-- ========== FIM BRADCRUMB (LINKS TOPO) ========== -->
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Registrar Capta&ccedil;&atilde;o <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="divDinamicaAgentes"></div>
 <div id="alerta"></div>
-<div id="confirm" title="Confirma&ccedil;&atilde;o" style="display: none">Interessado não cadastrado. <br>Deseja cadastrá-lo?</div>
+<div id="confirm" title="Confirma&ccedil;&atilde;o" style="display: none">Interessado NÃ£o cadastrado. <br>Deseja cadastrï¿½-lo?</div>
 <div id="conteudo">
     <fieldset><legend>Dados do Projeto</legend>
         <table class="tabela">
@@ -493,13 +493,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="1" align="center" width="10%"><label for="isBemServico">BEM / SERVIÇO</label></td>
+                    <td colspan="1" align="center" width="10%"><label for="isBemServico">BEM / SERVIï¿½O</label></td>
                     <td colspan="2" width="10%">
                        	Sim <input type="radio" name="isBemServico" id="isBemServico" value="1" class="input_simples" />
-                       	Não <input type="radio" name="isBemServico" id="isBemServico" value="0" class="input_simples"  checked="checked"/>
+                       	NÃ£o <input type="radio" name="isBemServico" id="isBemServico" value="0" class="input_simples"  checked="checked"/>
                     </td>
                     <td width="12%">
-                        <label>NÚMERO DO RECIBO</label>
+                        <label>Nï¿½MERO DO RECIBO</label>
                         <td>
                             <input size="1" maxlength="5" type="text" name="NumeroRecibo" name="NumeroRecibo" id="NumeroRecibo" class="input_simples" ></input>
                             <div id="msgNumeroRecibo"></div>
@@ -585,8 +585,8 @@
         </form>
     </fieldset>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

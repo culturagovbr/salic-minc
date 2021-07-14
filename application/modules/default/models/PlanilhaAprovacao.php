@@ -274,7 +274,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
         $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('pAprovacao.nrFonteRecurso = ?', 109); //Incentivo Fiscal Federal
-        $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para n�o listar as que ja foram excluidas
+        $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para Não listar as que ja foram excluidas
         $select->where('(pAprovacao.qtItem*pAprovacao.nrOcorrencia*pAprovacao.vlUnitario) > 0');
 
         $select->order('prod.Descricao');
@@ -2062,7 +2062,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
         $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('pAprovacao.nrFonteRecurso = ?', 109); //Incentivo Fiscal Federal
-        $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para n�o listar as que ja foram excluidas
+        $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para Não listar as que ja foram excluidas
         $select->where('(pAprovacao.qtItem*pAprovacao.nrOcorrencia*pAprovacao.vlUnitario) > 0');
         $select->where("UFT.Sigla = ?", $uf);
         $select->where("CID.idMunicipioIBGE = ?", $idMunicicpio);
@@ -2133,7 +2133,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
         $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('pAprovacao.nrFonteRecurso = ?', 109); //Incentivo Fiscal Federal
-        $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para n�o listar as que ja foram excluidas
+        $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para Não listar as que ja foram excluidas
         $select->where('(pAprovacao.qtItem*pAprovacao.nrOcorrencia*pAprovacao.vlUnitario) > 0');
 
         $select->order('prod.Descricao');
@@ -2672,7 +2672,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
         $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('pAprovacao.nrFonteRecurso = ?', 109); //Incentivo Fiscal Federal
-        $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para n�o listar as que ja foram excluidas
+        $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para Não listar as que ja foram excluidas
         $select->where('(pAprovacao.qtItem*pAprovacao.nrOcorrencia*pAprovacao.vlUnitario) > 0');
 
         $select->order('prod.Descricao');

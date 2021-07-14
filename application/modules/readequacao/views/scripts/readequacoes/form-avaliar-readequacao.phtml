@@ -9,17 +9,17 @@
             var dsParecer = CKEDITOR.instances['dsParecer'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g, ''),
                 texto = CKEDITOR.instances['dsParecer'].getData(),
                 erros = 0,
-                msg = 'Favor preencher os dados obrigatórios!',
+                msg = 'Favor preencher os dados obrigatï¿½rios!',
                 finalizarConfirm = function () {
                     $("#alerta").dialog("destroy");
-                    $("#alerta").html('Deseja realmente finalizar a análise da readequação?<br /><br />Ao finalizar você será direcionado(a) para assinar o parecer técnico e não poderá realizar alterações.');
+                    $("#alerta").html('Deseja realmente finalizar a AnÃ¡lise da readequaï¿½ï¿½o?<br /><br />Ao finalizar vocï¿½ serÃ¡ direcionado(a) para assinar o parecer tï¿½cnico e NÃ£o poderï¿½ realizar alteraï¿½ï¿½es.');
                     $("#alerta").dialog({
                         resizable: false,
                         title: 'Alerta!',
                         width: 400,
                         modal: true,
                         buttons: {
-                            'Não': function () {
+                            'NÃ£o': function () {
                                 $(this).dialog('close');
                             },
                             'Sim': function () {
@@ -62,7 +62,7 @@
                 $('.ui-dialog-titlebar-close').remove();
             } else {
 
-                // se for planilha orçamentária
+                // se for planilha orï¿½amentï¿½ria
                 var parecerProjeto = ($("input[name='parecerProjeto']:checked").val() == '2') ? true : false;
 
                 if ($('#idTipoReadequacao').val() == 2 && parecerProjeto) {
@@ -88,9 +88,9 @@
                                 finalizarConfirm();
 
                             } else {
-                                // retorna mensagens de erro de limites orçamentários
+                                // retorna mensagens de erro de limites orï¿½amentï¿½rios
 
-                                var saidaHtml = "<table class='tabela'><thead><th colspan='2'>Verificação de limites orçamentários</th></thead>";
+                                var saidaHtml = "<table class='tabela'><thead><th colspan='2'>Verificaï¿½ï¿½o de limites orï¿½amentï¿½rios</th></thead>";
 
                                 for (var m = 0; m < resposta.mensagens.length; m++) {
                                     var item = resposta.mensagens[m];
@@ -115,14 +115,14 @@
                 } else {
                     finalizarConfirm();
                 }
-            } // verificação de erros
+            } // verificaï¿½ï¿½o de erros
         });
 
         $('#btn_salvar').click(function () {
             var dsParecer = CKEDITOR.instances['dsParecer'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g, ''),
                 texto = CKEDITOR.instances['dsParecer'].getData(),
                 erros = 0,
-                msg = 'Favor preencher os dados obrigatórios!';
+                msg = 'Favor preencher os dados obrigatï¿½rios!';
 
             if (dsParecer == '') {
                 erros++;
@@ -168,7 +168,7 @@
             } else if (tpAcao == 'A') {
                 msg = 'Tem certeza que deseja reintegrar o valor do item?';
             } else {
-                msg = 'Tem certeza que deseja restaurar o item excluído pelo proponente?';
+                msg = 'Tem certeza que deseja restaurar o item excluï¿½do pelo proponente?';
             }
 
             $("#alerta").dialog("destroy");
@@ -179,7 +179,7 @@
                 modal: true,
                 title: 'Alerta!',
                 buttons: {
-                    'Não': function () {
+                    'NÃ£o': function () {
                         $(this).dialog('close');
                     },
                     'Sim': function () {
@@ -208,7 +208,7 @@
             var idPlanilhaAprovacao = $(this).attr('idPlanilhaAprovacao'),
                 itemClicado = $(this);
 
-            //AO ABRIR A MODAL, LIMPA TODOS OS CAMPOS EDITÁVEIS
+            //AO ABRIR A MODAL, LIMPA TODOS OS CAMPOS EDITï¿½VEIS
             $('.modalObrigatorios').each(function () {
                 $(this).css('border-color', '#CCCCCC');
                 $(this).val('');
@@ -218,7 +218,7 @@
             $('#TotalCalculado').css('color', '#222222');
             $('#textoErroValores').html('');
 
-            //BUSCA OS DADOS DO ITEM PARA VISUALIZAÇÃO DOS NA MODAL
+            //BUSCA OS DADOS DO ITEM PARA VISUALIZAï¿½ï¿½O DOS NA MODAL
             $.ajax({
                 type: 'POST',
                 url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'alterar-item-solicitacao'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
@@ -259,7 +259,7 @@
                             valorParaMsgErro = data.dadosPlanilhaAtiva.TotalSolicitado,
                             mensagem = '';
 
-                        //MOSTRA OS DADOS NA MODAL APÓS ABRI-LA
+                        //MOSTRA OS DADOS NA MODAL APï¿½S ABRI-LA
                         $("#modalItem").dialog("destroy");
                         $("#modalItem").dialog({
                             resizable: false,
@@ -294,13 +294,13 @@
                                     });
 
                                     if (obrigatorios > 0) {
-                                        mensagem += '- Favor preencher os dados obrigatórios.<br/>';
+                                        mensagem += '- Favor preencher os dados obrigatï¿½rios.<br/>';
                                     }
 
                                     var TotalCalculadoComponente = $('#TotalCalculado').html().replace(/[^\d]/g, "");
                                     if (parseInt(TotalCalculadoComponente) < parseInt(vlComprovadoDoItemValidacao)) {
                                         //$('#TotalCalculado').css('color','red');
-                                        mensagem += '- O valor total do item não pode ser menor do que o valor comprovado de ' + data.valoresDoItem.vlComprovadoDoItem + '.<br/>';
+                                        mensagem += '- O valor total do item NÃ£o pode ser menor do que o valor comprovado de ' + data.valoresDoItem.vlComprovadoDoItem + '.<br/>';
                                         erros++;
                                     }
 
@@ -361,30 +361,30 @@
         });
 
         $('.multiplicarValores').keyup(function () {
-            // recebe os valores do formulário
+            // recebe os valores do formulï¿½rio
             var qtd = $('#modalQuantidade').val(),
                 ocorrencia = $('#modalOcorrencia').val(),
                 valor = $('#modalValorUnitario').val();
 
-            // retira os pontos e as vírgulas, deixando somente números
+            // retira os pontos e as vï¿½rgulas, deixando somente nï¿½meros
             valor = valor.replace(/\D/g, "")
                 .replace(/(\d{0})(\d)/, "$1$2")
                 // adiciona o ponto na casa decimal
                 .replace(/(\d)(\d{2})$/, "$1.$2");
 
-            // converte para float e adiciona precisão decimal
+            // converte para float e adiciona precisï¿½o decimal
             qtd = parseFloat(qtd).toFixed(2);
             ocorrencia = parseFloat(ocorrencia).toFixed(2);
             valor = parseFloat(valor).toFixed(2);
 
-            // variável com o resultado
+            // variï¿½vel com o resultado
             resultado = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
 
-            // se não for número
+            // se NÃ£o for nï¿½mero
             if (isNaN(resultado)) {
                 resultado = '';
             }
-            // caso seja número
+            // caso seja nï¿½mero
             else {
                 // formata para real
                 resultado = resultado.replace(/\D/g, "");
@@ -406,7 +406,7 @@
 
         $("#modalValorUnitario").priceFormat();
 
-        //Atividades iniciados ao terminar o carregameto da página.
+        //Atividades iniciados ao terminar o carregameto da pÃ¡gina.
         CKEDITOR.replace('dsParecer', {toolbar: []});
     });
 
@@ -470,7 +470,7 @@
                 <table class="tabela">
                     <tr>
                         <td><input type="button" name="grid1" id="g1_1" class="btn_adicionar" title="Expandir"/>DADOS DA
-                            SOLICITAÇÃO
+                            SolicitaÃ§Ã£o
                         </td>
                     </tr>
                 </table>
@@ -481,7 +481,7 @@
                         $tiposReadequacoesComInfo = array(3, 4, 5, 6, 7, 8, 10, 12, 13, 15, 16, 17, 18, 19, 20, 21);
                         if (in_array($this->dados->idTipoReadequacao, $tiposReadequacoesComInfo)) { ?>
                             <tr>
-                                <td colspan="3" class="destacar bold">Informação que será considerada para readequação
+                                <td colspan="3" class="destacar bold">Informaï¿½ï¿½o que serÃ¡ considerada para readequaï¿½ï¿½o
                                     de <?php echo $this->dados->dsReadequacao; ?></td>
                             </tr>
                             <tr>
@@ -490,7 +490,7 @@
                         <?php } ?>
 
                         <tr>
-                            <td class="destacar bold" colspan="3">Justificativa da Solicitação</td>
+                            <td class="destacar bold" colspan="3">Justificativa da SolicitaÃ§Ã£o</td>
                         </tr>
                         <tr>
                             <td colspan="3"><?php echo $this->dados->dsJustificativa; ?></td>
@@ -536,21 +536,21 @@
                     <?php } ?>
 
                     <?php if ($this->dados->idTipoReadequacao == 9) { ?>
-                        <?php /***** CARREGA LOCAIS DE REALIZAÇÃO *****/ ?>
+                        <?php /***** CARREGA LOCAIS DE REALIZAï¿½ï¿½O *****/ ?>
                         <script type="text/javascript">
                             jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'carregar-locais-de-realizacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'locaisParaRealizacao');
                         </script>
                         <div id="locaisParaRealizacao"></div>
-                        <?php /****** FIM LOCAIS DE REALIZAÇÃO ******/ ?>
+                        <?php /****** FIM LOCAIS DE REALIZAï¿½ï¿½O ******/ ?>
                     <?php } ?>
 
                     <?php if ($this->dados->idTipoReadequacao == 14) { ?>
-                        <?php /***** CARREGA PLANOS DE DIVULGAÇÃO *****/ ?>
+                        <?php /***** CARREGA PLANOS DE DIVULGAï¿½ï¿½O *****/ ?>
                         <script type="text/javascript">
                             jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'carregar-planos-de-divulgacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'planosDeDivulgacao');
                         </script>
                         <div id="planosDeDivulgacao"></div>
-                        <?php /****** FIM PLANOS DE DIVULGAÇÃO ******/ ?>
+                        <?php /****** FIM PLANOS DE DIVULGAï¿½ï¿½O ******/ ?>
                     <?php } ?>
 
                     <input type="hidden" id="idPronac" name="idPronac"
@@ -578,7 +578,7 @@
 
                 <table class="tabela">
                     <tr>
-                        <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIAÇÃO
+                        <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIAï¿½ï¿½O
                             DO COORDENADOR
                         </td>
                     </tr>
@@ -586,14 +586,14 @@
                 <div id="div_g1_2" class="sumir">
                     <table class="tabela">
                         <tr>
-                            <td class="destacar bold" colspan="3">Descrição da Avaliação</td>
+                            <td class="destacar bold" colspan="3">DescriÃ§Ã£o da Avaliaï¿½ï¿½o</td>
                         </tr>
                         <tr>
                             <td colspan="2"><?php echo $this->dados->dsAvaliacao; ?></td>
                         </tr>
                         <tr>
-                            <td class="destacar bold" style="width: 50%;">Situação</td>
-                            <td class="destacar bold" style="width: 50%;">Dt. Avaliação</td>
+                            <td class="destacar bold" style="width: 50%;">Situaï¿½ï¿½o</td>
+                            <td class="destacar bold" style="width: 50%;">Dt. Avaliaï¿½ï¿½o</td>
                         </tr>
                         <tr>
                             <td><?php echo !empty($this->dados->stAtendimento) ? 'Deferido' : ''; ?></td>
@@ -608,17 +608,17 @@
                       method="post">
                     <table class="tabela">
                         <tr>
-                            <th colspan="2">Parecer Técnico</th>
+                            <th colspan="2">Parecer Tï¿½cnico</th>
                         </tr>
                         <tr>
-                            <td align="right" class="destacar bold w150">Parecer Favorável?</td>
+                            <td align="right" class="destacar bold w150">Parecer Favorï¿½vel?</td>
                             <td>
                                 <label style="margin-right:25px; font-weight: normal;"><input type="radio"
                                                                                               name="parecerProjeto"
                                                                                               value="2"
                                                                                               checked="checked"/>Sim</label>
                                 <label style="font-weight: normal;"><input type="radio" name="parecerProjeto"
-                                                                           value="1" <?php echo (isset($this->Parecer) && $this->Parecer->ParecerFavoravel == 1) ? 'checked="checked"' : ''; ?> />Não</label>
+                                                                           value="1" <?php echo (isset($this->Parecer) && $this->Parecer->ParecerFavoravel == 1) ? 'checked="checked"' : ''; ?> />NÃ£o</label>
                             </td>
                         </tr>
                         <tr>
@@ -666,7 +666,7 @@
 
                 <br clear="all"/>
 
-                <?php //MODAL DE AVALIAÇÃO DO ITEM ?>
+                <?php //MODAL DE AVALIAï¿½ï¿½O DO ITEM ?>
                 <div id="modalItem" class="sumir">
                     <table class="tabela">
                         <tr>
@@ -691,8 +691,8 @@
                         <tr class="centro">
                             <td class="destacar bold">Unidade</td>
                             <td class="destacar bold">Qtd</td>
-                            <td class="destacar bold">Ocorrência</td>
-                            <td class="destacar bold">Vl. Unitário</td>
+                            <td class="destacar bold">Ocorrï¿½ncia</td>
+                            <td class="destacar bold">Vl. Unitï¿½rio</td>
                             <td class="destacar bold">Dias</td>
                             <td class="destacar bold">Total</td>
                         </tr>
@@ -708,13 +708,13 @@
 
                     <table class="tabela">
                         <tr>
-                            <th colspan="6">Dados para a readequação</th>
+                            <th colspan="6">Dados para a readequaï¿½ï¿½o</th>
                         </tr>
                         <tr class="centro">
                             <td class="destacar bold">Unidade</td>
                             <td class="destacar bold">Qtd</td>
-                            <td class="destacar bold">Ocorrência</td>
-                            <td class="destacar bold">Vl. Unitário</td>
+                            <td class="destacar bold">Ocorrï¿½ncia</td>
+                            <td class="destacar bold">Vl. Unitï¿½rio</td>
                             <td class="destacar bold">Dias</td>
                             <td class="destacar bold">Total</td>
                         </tr>
@@ -744,7 +744,7 @@
                             <td id="TotalCalculado" class="direita" style="width: 125px;"></td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="destacar bold centro">Justificativa da Readequação <span class="red">*</span>
+                            <td colspan="6" class="destacar bold centro">Justificativa da Readequaï¿½ï¿½o <span class="red">*</span>
                                 <span id="textoErroValores" style="float:right; color: red;"></span></td>
                         </tr>
                         <tr>
@@ -757,7 +757,7 @@
                         </tr>
                     </table>
                 </div>
-                <?php //FIM MODAL DE AVALIAÇÃO DO ITEM ?>
+                <?php //FIM MODAL DE AVALIAï¿½ï¿½O DO ITEM ?>
             </div>
         </div>
     </div>
@@ -767,7 +767,7 @@
 || $this->dados->idTipoReadequacao == 22
 || $this->dados->idTipoReadequacao == 23) : ?>
     <script src="/public/js/vue.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.core.min.js" type="text/javascript"></script>                                                                                                                                                                                              
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.core.min.js" type="text/javascript"></script>
     <script src="/public/scripts/plugins/moment-with-locales.js"></script>
     <script src="/public/scripts/plugins/numeral.min.js" type="text/javascript"></script>
 
@@ -836,7 +836,7 @@
                             break;
                      case 22: // saldo de aplicacao
                          self.componenteAtual = "readequacao-saldo-aplicacao";
-                         break;			 
+                         break;
                     case 23: // transferencia de recursos
                             self.componenteAtual = "readequacao-transferencia-recursos";
                             break;

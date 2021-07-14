@@ -1,11 +1,11 @@
 <?php
 /**
- * PrestaÁ„o de Contas (UC45) - Coordenador de PrestaÁ„o de Contas
+ * PrestaÔøΩÔøΩo de Contas (UC45) - Coordenador de PrestaÔøΩÔøΩo de Contas
  * @author Equipe RUP - Politec
  * @since 27/12/2010
  * @version 1.0
  * @subpackage application.view.scripts.chefedivisaoprestacaocontas
- * @copyright © 2010 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2010 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -17,7 +17,7 @@
                 filtro = $('#tipoFiltro').val();
             window.location = "<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')); ?>?pag=1&tipoFiltro="+filtro+"&pronac="+pronac;
         });
-        
+
         $('#pronacPesquisa').keydown(function(event){
             if(event.keyCode == 13){
                 $("#btn_pesquisar").click();
@@ -28,7 +28,7 @@
             $('#addCampoXls').remove();
             $('#formImpressao').submit();
         });
-        
+
         $('.btn_xls').click(function(){
             $('#addCampoXls').remove();
             $('#formImpressao').append('<input id="addCampoXls" type="hidden" name="xls" value="1">');
@@ -63,7 +63,7 @@
         }else if(idOrgaoDestino == 12){
             title = 'Consultoria - CONJUR';
         }else{
-            title = 'Encaminhar Projeto para An·lise';
+            title = 'Encaminhar Projeto para An√°lise';
         }
         $("#divDinamica").dialog({
             resizable: true,
@@ -88,7 +88,7 @@
         });
     }
 
-    function JSEncaminharParaTecnico(idPronac,idOrgaoDestino,tipoFiltro,ocultarJustificativa){               
+    function JSEncaminharParaTecnico(idPronac,idOrgaoDestino,tipoFiltro,ocultarJustificativa){
         $('html').css('overflow', 'hidden');
         $("body").append("<div id='divDinamica'></div>");
         $("#divDinamica").html("");
@@ -109,7 +109,7 @@
             type : 'post'
         });
 
-        var title = 'Encaminhar Projeto para TÈcnico';
+        var title = 'Encaminhar Projeto para TÔøΩcnico';
         $("#divDinamica").dialog({
             resizable: true,
             width:750,
@@ -179,7 +179,7 @@
 <div id="breadcrumb">
     <ul>
         <li class="first">
-            <a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">InÌcio</a>
+            <a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN√çCIO</a>
         </li>
         <li>Presta&ccedil;&atilde;o de contas</li>
         <li class="last">Analisar presta&ccedil;&atilde;o de contas</li>
@@ -187,9 +187,9 @@
 </div>
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
-    <?php $filtroNome = array('' => 'Aguardando An·lise', 'emanalise' => 'Em an·lise', 'analisados' => 'Analisados'); ?>
+    <?php $filtroNome = array('' => 'Aguardando An√°lise', 'emanalise' => 'Em An√°lise', 'analisados' => 'Analisados'); ?>
     <div>Analisar presta&ccedil;&atilde;o de contas - <?php echo $filtroNome[$this->filtro]; ?>
         <span class="voltar" style="float: right;">
             <a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a>
@@ -197,10 +197,10 @@
     </div>
     <span class="sembarra"></span>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <table class="tabela">
 	<tr>
@@ -210,8 +210,8 @@
             </td>
             <td width="150">
                 <select name="tipoFiltro" id="tipoFiltro" class="input_simples">
-                    <option value="">Aguardando an·lise</option>
-                    <option value="emanalise" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'emanalise') ? 'selected="selected"' : '';  ?>>Em an·lise</option>
+                    <option value="">Aguardando An√°lise</option>
+                    <option value="emanalise" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'emanalise') ? 'selected="selected"' : '';  ?>>Em An√°lise</option>
                     <option value="analisados" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'analisados') ? 'selected="selected"' : '';  ?>>Analisados</option>
                 </select>
             </td>
@@ -222,7 +222,7 @@
     </table>
 
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINA«√O ============ -->
+    <!-- ============ PAGINA√á√ÇO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -247,12 +247,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronacProjeto; ?>'">
                     <?php } ?>
-                    P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
+                    &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
                     <input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
@@ -272,7 +272,7 @@
             echo " de ". $this->paginacao['total']. " Projetos listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php } ?>
 
     <?php if($this->qtdRegistros > 0){ ?>
@@ -282,17 +282,17 @@
                 <th width="1px">#</th>
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=2&ordem='.$this->paginacao['novaOrdem'];?>">PRONAC</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=3&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Projeto</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">SituaÁ„o</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=7&ordem='.$this->paginacao['novaOrdem'];?>">¡rea / Segmento</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">SituaÔøΩÔøΩo</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=7&ordem='.$this->paginacao['novaOrdem'];?>">ÔøΩrea / Segmento</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=9&ordem='.$this->paginacao['novaOrdem'];?>">Mecanismo</a></th>
 		<?php if($this->filtro != '') { ?>
-		<th>TÈcnico</th>
+		<th>TÔøΩcnico</th>
 		<?php } ?>
 		<th>Encaminhar para T&eacute;cnico</th>
-				    
-		<?php if($this->filtro == 'analisados') { ?>	
-                <th>Analisar PrestaÁ„o de Contas</th>
-		<th>DiligÍncia</th>
+
+		<?php if($this->filtro == 'analisados') { ?>
+                <th>Analisar PrestaÔøΩÔøΩo de Contas</th>
+		<th>DiligÔøΩncia</th>
 		<?php } ?>
                 <?php if(isset($_GET['tipoFiltro']) && ($_GET['tipoFiltro'] == 'emanalise' || $_GET['tipoFiltro'] == 'analisados')){ ?>
 		    <th>Hist&oacute;rico</th>
@@ -316,11 +316,11 @@
 		<td align="center"><?php echo $projeto->Tecnico; ?></td>
 		<?php } ?>
                 <td align="center">
-                    <img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/user_gray.png" onclick="return JSEncaminharParaTecnico('<?php echo $projeto->idPronac; ?>','<?php echo $this->codOrgao; ?>','<?php echo (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) ? $_GET['tipoFiltro'] : 0; ?>',true)" alt="Encaminhar para tÈcnico" />
-                </td>                        
-		<?php if($this->filtro == 'analisados') { ?>	    
+                    <img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/user_gray.png" onclick="return JSEncaminharParaTecnico('<?php echo $projeto->idPronac; ?>','<?php echo $this->codOrgao; ?>','<?php echo (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) ? $_GET['tipoFiltro'] : 0; ?>',true)" alt="Encaminhar para tÔøΩcnico" />
+                </td>
+		<?php if($this->filtro == 'analisados') { ?>
                 <td align="center"><img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" onclick="window.location='<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria', 'idPronac' => $projeto->idPronac)); ?>'" alt="Analisar"></td>
-		
+
                 <td background="" align="center">
                     <?php
                         $arrPrazo = $this->prazoRespostaDiligencia($projeto->idPronac, 174);
@@ -341,7 +341,7 @@
 
     <?php if(count($this->dados)>0){ ?>
 
-        <!-- ============ PAGINA«√O ============ -->
+        <!-- ============ PAGINA√á√ÇO ============ -->
         <?php if($this->qtdRegistros > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -374,12 +374,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronacProjeto; ?>'">
                         <?php } ?>
-                        P·g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P√°g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
+                        &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>">
                         <input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
@@ -392,7 +392,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINA«√O ========== -->
+        <!-- ========== FIM PAGINA√á√ÇO ========== -->
     <?php } } ?>
 
     <?php } else { ?>
@@ -412,12 +412,12 @@
         <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
         <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto;?>">
     </form>
-    
-</div>
-<!-- ========== FIM CONTE⁄DO ========== -->
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+</div>
+<!-- ========== FIM CONTE√öDO ========== -->
+
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

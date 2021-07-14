@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 $formapagamentoHref         =   $this->url(array('controller' => 'cadastraredital', 'action' => 'formapagamento'))."?nrFormDocumento=".$_GET['nrFormDocumento']."&nrVersaoDocumento=".$_GET['nrVersaoDocumento']."&idEdital=".$_GET['idEdital']."&idUsuario=".$_GET['idUsuario'];
@@ -17,9 +17,9 @@ $vinculareditaisHref            =   $this->url(array('controller' => 'cadastrare
 
 
 ?>
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INÃCIO MENU ========== -->
 
-<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INÃCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 <!--
 function layout_fluido()
@@ -39,7 +39,7 @@ function layout_fluido()
 	$("#rodapeConteudo").css("margin-left", "225px");
 	$(".sanfonaDiv").css("clear", "both");
 	$(".sanfonaDiv").css("width", "91%");
-} // fecha função layout_fluido()
+} // fecha funï¿½ï¿½o layout_fluido()
 
 $(document).ready(function()
 {
@@ -55,13 +55,13 @@ $(document).ready(function()
     <div class="top"></div>
     <div id="qm0" class="qmmc">
         <a class="no_seta"      href="<?php echo $dadosgeraisHref;?>"       title="Ir para Dados do Edital">Dados do Edital</a>
-        <a class="no_seta"      href="<?php echo $criteriosavaliacaoHref;?>"       title="Ir para Formulario de Elaboraç&atilde;o de Critérios de Avaliaç&atilde;o">Critérios de Avaliaç&atilde;o</a>
-        <a class="no_seta"      href="<?php echo $formapagamentoHref;?>"          title="Ir para Formulario de Elaboraç&atilde;o de Forma de Pagamento">Forma de Pagamento</a>
-        <a class="no_seta"      href="<?php echo $propostacustomizavelHref?>"         title="Ir para Formulario de Elaboraç&atilde;o de Proposta Customizável">Proposta Customizável</a>
+        <a class="no_seta"      href="<?php echo $criteriosavaliacaoHref;?>"       title="Ir para Formulario de Elaboraï¿½&atilde;o de Critï¿½rios de Avaliaï¿½&atilde;o">Critï¿½rios de Avaliaï¿½&atilde;o</a>
+        <a class="no_seta"      href="<?php echo $formapagamentoHref;?>"          title="Ir para Formulario de Elaboraï¿½&atilde;o de Forma de Pagamento">Forma de Pagamento</a>
+        <a class="no_seta"      href="<?php echo $propostacustomizavelHref?>"         title="Ir para Formulario de Elaboraï¿½&atilde;o de Proposta Customizï¿½vel">Proposta Customizï¿½vel</a>
         <a class="no_seta last"      href="<?php echo $vinculareditaisHref?>"         title="Ir para Vincular Avaliador">Vincular Avaliador</a>
             <br clear="left" />
     </div>
     <div class="bottom"></div>
 </div>
-         
+
 <!-- ========== FIM MENU ========== -->

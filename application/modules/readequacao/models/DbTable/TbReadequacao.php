@@ -164,7 +164,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     private function painelCoordenadorReadequacaoAnalisadosQuery() {
         $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
         $idPerfil = $grupoAtivo->codGrupo;
-        
+
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -218,7 +218,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
 	   END"),
              'idOrgao' => 'tbDistribuirReadequacao.idUnidade',
              'idOrgaoOrigem' => new Zend_Db_Expr("
-       CASE 
+       CASE
 	     WHEN projetos.Orgao in (" . Orgaos::ORGAO_SUPERIOR_SAV . "," . Orgaos::ORGAO_SAV_SAL . "," . Orgaos::SAV_DPAV . ")
 		   THEN " . Orgaos::ORGAO_SAV_CAP . "
 	     WHEN projetos.Orgao in (" . Orgaos::ORGAO_SUPERIOR_SEFIC . "," . Orgaos::SEFIC_DEIPC .")
@@ -325,7 +325,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                 ];
                 break;
         }
-        
+
         $select->where('tbReadequacao.stEstado = ?', self::ST_ESTADO_EM_ANDAMENTO);
         $select->where('tbReadequacao.siEncaminhamento IN (?)', $listaSiEncaminhamento);
 
@@ -356,7 +356,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'dtEnvio' => 'tbReadequacao.dtEnvio',
              ]
         );
-                
+
         $select->joinInner(
             ['projetos' => 'projetos'],
             'projetos.idPronac = tbReadequacao.idPronac',
@@ -377,7 +377,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             ['dsOrientacao'],
             $this->_schema
         );
-        
+
         $select->joinLeft(
             array('usuarios' => 'Usuarios'),
             'tbReadequacao.idAvaliador = usuarios.usu_codigo',
@@ -391,13 +391,13 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             ['Descricao AS dsNomeSolicitante'],
             $this->getSchema('agentes')
         );
-        
+
         $select->where('tbReadequacao.siEncaminhamento IN (?)',
                        [
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_MINC,
                        ]);
         $select->where('tbReadequacao.stEstado = ?', self::ST_ESTADO_EM_ANDAMENTO);
-        
+
         return $select;
     }
 
@@ -445,14 +445,14 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'dtEnvio' => 'tbReadequacao.dtEnvio',
             ]
         );
-        
+
         $select->joinInner(
             ['projetos' => 'projetos'],
             'projetos.idPronac = tbReadequacao.idPronac',
             [],
             $this->_schema
         );
-        
+
         $select->joinInner(
             ['tbDistribuirReadequacao' => 'tbDistribuirReadequacao'],
             'tbDistribuirReadequacao.idReadequacao = tbReadequacao.idReadequacao',
@@ -473,7 +473,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             [],
             $this->_schema
         );
-        
+
         $select->joinLeft(
             ['usuarios_a' => 'Usuarios'],
             'tbReadequacao.idAvaliador = usuarios_a.usu_codigo',
@@ -487,7 +487,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             [],
             $this->getSchema('Tabelas')
         );
-        
+
         $select->joinInner(
             ['nomes' => 'Nomes'],
             'nomes.idAgente = tbReadequacao.idSolicitante',
@@ -501,7 +501,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             [],
             $this->_schema
         );
-        
+
         $select->where('tbReadequacao.siEncaminhamento IN (?)',
                        [
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE,
@@ -511,11 +511,11 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENCAMINHADA_UNIDADE_ANALISE_CNIC,
                        ]);
         $select->where('tbReadequacao.stEstado = ?', self::ST_ESTADO_EM_ANDAMENTO);
-        
+
         return $select;
     }
 
-    
+
     public function vwPainelReadequacaoAguardandoPublicacao()
     {
         $select = $this->select();
@@ -543,7 +543,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'dtEnvio' => 'tbReadequacao.dtEnvio',
             ]
         );
-                
+
         $select->joinInner(
             ['projetos' => 'projetos'],
             'projetos.idPronac = tbReadequacao.idPronac',
@@ -557,14 +557,14 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             [],
             $this->_schema
         );
-        
+
         $select->joinInner(
             ['tbDistribuirReadequacao' => 'tbDistribuirReadequacao'],
             'tbDistribuirReadequacao.idReadequacao = tbReadequacao.idReadequacao',
             ['dsOrientacao'],
             $this->_schema
         );
-        
+
         $select->joinInner(
             array('usuarios' => 'Usuarios'),
             'tbReadequacao.idAvaliador = usuarios.usu_codigo',
@@ -585,17 +585,17 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             [],
             $this->_schema
         );
-        
+
         $select->where('tbReadequacao.siEncaminhamento IN (?)',
                        [
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CHECKLIST_PUBLICACAO,
                        ]);
         $select->where('tbReadequacao.stEstado = ?', self::ST_ESTADO_FINALIZADO);
-        
+
         return $select;
     }
-    
-    
+
+
     /**
      * painelReadequacoesCoordenadorAcompanhamento
      *
@@ -646,7 +646,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             }
             $select->limit($tamanho, $tmpInicio);
         }
-        
+
         $stmt = $db->query($select);
 
         while ($o = $stmt->fetchObject()) {
@@ -902,7 +902,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     /*
      * Criada em 16/03/2014
      * @author: Jefferson Alessandro
-     * Fun��o usada para detalhar a readequa��o para an�lise do componente da comiss�o.
+     * Fun��o usada para detalhar a readequa��o para Análise do componente da comissão.
      */
     public function buscarDadosReadequacoesCnic($where = array(), $order = array())
     {
@@ -1059,7 +1059,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     /*
      * Criada em 14/03/2014
      * @author: Jefferson Alessandro
-     * Fun��o acessada pelo componente da comiss�o.
+     * Fun��o acessada pelo componente da comissão.
      */
     public function painelReadequacoesComponente($where = array(), $order = array(), $tamanho = -1, $inicio = -1, $qtdeTotal = false)
     {
@@ -1189,11 +1189,11 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         $select->from(
             array('a' => $this->_name),
             new Zend_Db_Expr("
-                a.idReadequacao, 
-                c.DtParecer, 
-                c.ResumoParecer, 
-                c.ParecerFavoravel, 
-                c.Logon as idAvaliador, 
+                a.idReadequacao,
+                c.DtParecer,
+                c.ResumoParecer,
+                c.ParecerFavoravel,
+                c.Logon as idAvaliador,
                 d.usu_nome as nmAvaliador
             ")
         );
@@ -1419,7 +1419,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                         tbReadequacao.dtEnvio
                 ")
             );
-            
+
             $select->joinInner(
                 ['dtDistribuicao' => 'tbDistribuirReadequacao'],
                 'tbReadequacao.idReadequacao = dtDistribuicao.idReadequacao',
@@ -1465,7 +1465,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                 [],
                 $this->_schema
             );
-            
+
             $select->joinLeft(
                 ['tbDocumentoAssinatura' => 'tbDocumentoAssinatura'],
                 "tbDocumentoAssinatura.idAtoDeGestao = tbReadequacaoXParecer.idParecer
@@ -1541,7 +1541,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                  projetos.Segmento,
                  tbTipoReadequacao.dsReadequacao as tpReadequacao,
                  tbdistribuirReadequacao.dtEnvioAvaliador as dtDistribuicao,
-                 DATEDIFF(DAY,    
+                 DATEDIFF(DAY,
                  tbdistribuirReadequacao.dtEnvioAvaliador,
                  GETDATE()) as qtDiasEmAnalise,
                  tbdistribuirReadequacao.idAvaliador,
@@ -1978,7 +1978,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
-        
+
         $where = [
             'a.idTipoReadequacao = ?' => $idTipoReadequacao,
             'a.stEstado = ?' => Readequacao_Model_DbTable_TbReadequacao::ST_ESTADO_EM_ANDAMENTO
@@ -2066,14 +2066,14 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                                 Proposta_Model_Verificacao::INCENTIVO_FISCAL_FEDERAL
                             ]
         )->current();
-        
+
         $readequacao = $this->buscar(['idReadequacao = ?' => $idReadequacao])->current();
-        
+
         $retorno = [];
         $retorno['saldoDeclarado'] = floatval($readequacao['dsSolicitacao']);
         $retorno['saldoValorUtilizado'] = round($PlanilhaReadequada['Total'] -  $PlanilhaAtiva['Total'], 3);
         $retorno['valorTotalDisponivelParaUso'] = $retorno['saldoDeclarado'] - $retorno['saldoValorUtilizado'];
-        
+
         if ($PlanilhaReadequada['Total'] > 0) {
             if ($PlanilhaAtiva['Total'] == $PlanilhaReadequada['Total']) {
                 $retorno['statusPlanilha'] = 'neutro';
@@ -2301,7 +2301,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
 
 
         $query->where(
-            new Zend_Db_Expr("NOT EXISTS(SELECT TOP 1 * 
+            new Zend_Db_Expr("NOT EXISTS(SELECT TOP 1 *
                        FROM     sac.dbo.TbAssinatura          j
                      INNER JOIN sac.dbo.tbDocumentoAssinatura k ON (j.idDocumentoAssinatura = k.idDocumentoAssinatura)
 	                 INNER JOIN sac.dbo.TbAtoAdministrativo   l ON (j.idAtoAdministrativo   = l.idAtoAdministrativo)
@@ -2342,7 +2342,7 @@ select grupo from sac..tbAtoAdministrativo where idAtoAdministrativo = (
     {
         $this->auth = Zend_Auth::getInstance();
         $this->grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
-        
+
         $query = $this->select();
         $query->setIntegrityCheck(false);
         $query->from(
@@ -2368,7 +2368,7 @@ select grupo from sac..tbAtoAdministrativo where idAtoAdministrativo = (
                 'stEstado',
             ]
         );
-        
+
         $query->joinInner(
             ['tbTipoReadequacao' => 'tbTipoReadequacao'],
             'tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao',
@@ -2382,7 +2382,7 @@ select grupo from sac..tbAtoAdministrativo where idAtoAdministrativo = (
             ['Descricao AS dsNomeSolicitante'],
             $this->getSchema('agentes')
         );
-        
+
         $query->joinLeft(
             ['usuarios' => 'Usuarios'],
             'tbReadequacao.idAvaliador = usuarios.usu_codigo',
@@ -2394,63 +2394,63 @@ select grupo from sac..tbAtoAdministrativo where idAtoAdministrativo = (
             $query->where($coluna, $valor);
         }
         $result = $this->fetchAll($query);
-        
+
         return $result;
     }
 
     public function finalizarSolicitacao($idReadequacao)
     {
         $readequacao = $this->buscar(['idReadequacao = ?' => $idReadequacao])->current();
-        
+
         if ($readequacao->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_LOCAL_REALIZACAO) {
             $tbAbrangencia = new \Readequacao_Model_DbTable_TbAbrangencia();
 
             $dados = [];
             $dados['idReadequacao'] = $idReadequacao;
-            
+
             $where = [];
             $where['idPronac = ?'] = $readequacao->idPronac;
             $where['stAtivo = ?'] = $readequacao->stAtivo;
             $where['idReadequacao IS NULL'] = '';
-            
+
             $tbAbrangencia->update($dados, $where);
-            
+
         } elseif ($readequacao->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANO_DISTRIBUICAO) {
             $tbPlanoDistribuicao = new \Readequacao_Model_DbTable_TbPlanoDistribuicao();
 
             $dados = [];
             $dados['idReadequacao'] = $idReadequacao;
-            
+
             $where = [];
             $where['idPronac = ?'] = $readequacao->idPronac;
             $where['stAtivo = ?'] = $readequacao->stAtivo;
             $where['idReadequacao IS NULL'] = '';
 
             $tbPlanoDistribuicao->update($dados, $where);
-            
+
         } elseif ($r->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANO_DIVULGACAO) {
             $tbPlanoDivulgacao = new \tbPlanoDivulgacao();
 
             $dados = [];
             $dados['idReadequacao'] = $idReadequacao;
-            
+
             $where = [];
             $where['idPronac = ?'] = $readequacao->idPronac;
             $where['stAtivo = ?'] = $readequacao->stAtivo;
             $where['idReadequacao IS NULL'] = '';
-            
+
             $tbPlanoDivulgacao->update($dados, $where);
         }
-        
+
         $dadosSolicitacao = [];
         $dados['siEncaminhamento'] = Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_MINC;
         $dados['dtEnvio'] = new \Zend_Db_Expr('GETDATE()');
-        
+
         $where = [];
         $where['siEncaminhamento = ?'] = Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE;
         $where['stEstado = ?'] = Readequacao_Model_DbTable_TbReadequacao::ST_ESTADO_EM_ANDAMENTO;
         $where['idReadequacao = ?'] = $idReadequacao;
-        
+
         $finalizar = $this->update(
             $dados,
             $where

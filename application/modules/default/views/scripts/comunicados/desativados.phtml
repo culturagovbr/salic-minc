@@ -1,13 +1,13 @@
 <?php
 /**
- * Exemplo de UtilizaÁ„o do Layout
- * @author TarcÌsio Angelo - XTI
+ * Exemplo de UtilizaÔøΩÔøΩo do Layout
+ * @author TarcÔøΩsio Angelo - XTI
  * @since 11/01/2012
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.comunicados
  * @link http://salic.cultura.gov.br
- * @copyright © 2011 - MinistÈrio da Cultura - Todos os direitos reservados.
+ * @copyright ÔøΩ 2011 - MinistÔøΩrio da Cultura - Todos os direitos reservados.
  */
 
 echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
@@ -17,11 +17,11 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 	jqAjaxLink('<?php echo $this->Url(array('controller' => 'comunicados', 'action' => 'listar-comunicados', 'stEstado' => '0')) ?>', '', 'resultadoConsulta');
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para P·gina Inicial">InÌcio</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'index'), '', true); ?>" title="Ir para P·gina Comunicados">Comunicados</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p√°gina Inicial">IN√çCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'index'), '', true); ?>" title="Ir para p√°gina Comunicados">Comunicados</a></li>
 		<li class="last">Comunicados desativados</li>
 	</ul>
 </div>
@@ -29,29 +29,29 @@ echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO TÔøΩTULO ========== -->
 <div id="titulo">
 	<div>
 		Comunicados desativados
-		<span class="voltar"><a href="javascript:voltar();" title="P·gina Anterior">Voltar</a></span>
+		<span class="voltar"><a href="javascript:voltar();" title="p√°gina Anterior">Voltar</a></span>
 	</div>
 </div>
-<!-- ========== FIM TÕTULO ========== -->
+<!-- ========== FIM TÔøΩTULO ========== -->
 
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
 
 	<div id="resultadoConsulta"><br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br></div>
 
 </div>
-<!-- ========== FIM CONTE⁄DO ========== -->
+<!-- ========== FIM CONTE√öDO ========== -->
 
 
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 
 <br clear="all" />

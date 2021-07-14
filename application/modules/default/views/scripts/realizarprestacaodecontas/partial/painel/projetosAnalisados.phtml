@@ -4,11 +4,11 @@
             <tr>
                 <th>PRONAC</th>
                 <th>Nome do Projeto</th>
-                <th>Situação</th>
-                <th>Área / Segmento</th>
+                <th>Situaï¿½ï¿½o</th>
+                <th>ï¿½rea / Segmento</th>
                 <th>Mecanismo</th>
                 <th>Laudo final</th>
-                <th>Encaminhar para Análise</th>
+                <th>Encaminhar para AnÃ¡lise</th>
                 <th>Consultoria AECI</th>
                 <th>Consultoria CONJUR</th>
                 <th>Hist&oacute;rico</th>
@@ -29,14 +29,14 @@
                 <td align="center"><img style="cursor: pointer;" src="../public/img/table_multiple.png" onclick="window.location='<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'laudofinal') ) . '?idPronac=' . $projeto->idPronac; ?>'" alt="Analisar" /></td>
                 <td align="center">
                     <button class="btn" onclick="return JSEncaminharParaAnalise('<?php echo $projeto->idPronac; ?>','<?php echo $this->codOrgao; ?>','<?php echo (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) ? $_GET['tipoFiltro'] : 0; ?>',true)" alt="Encaminhar">
-                        <i class=" tiny material-icons">assignment_ind</i> 
+                        <i class=" tiny material-icons">assignment_ind</i>
                     </button>
                 </td>
                 <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return JSEncaminharParaConsultoria('<?php echo $projeto->idPronac;?>','177','<?php echo (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) ? $_GET['tipoFiltro'] : 0; ?>')" alt="Encaminhar" /></td>
                 <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return JSEncaminharParaConsultoria('<?php echo $projeto->idPronac;?>','12','<?php echo (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) ? $_GET['tipoFiltro'] : 0; ?>')" alt="Encaminhar" /></td>
                 <td align="center">
                     <button class="btn" onclick="return JShistoricoEncaminhamento('<?php echo $projeto->idPronac; ?>')" alt="Encaminhar">
-                        <i class=" tiny material-icons">history</i> 
+                        <i class=" tiny material-icons">history</i>
                     </button>
                 </td>
             </tr>

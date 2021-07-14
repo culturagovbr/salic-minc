@@ -4,10 +4,10 @@
     <table class="tabela" id="tbCriterioAvaliacao" style="margin-bottom: 0px !important; padding-bottom: 0px !important;">
         <tbody>
             <tr>
-                <th colspan="2" style="font-size: 14px">Critério de Participa&ccedil;&atilde;o</th>
+                <th colspan="2" style="font-size: 14px">Critï¿½rio de Participa&ccedil;&atilde;o</th>
             </tr>
             <tr>
-                <td class="destacar bold w150 esquerdo">Descrição do crit&eacute;rio <span style="color: red;">*</span></td>
+                <td class="destacar bold w150 esquerdo">DescriÃ§Ã£o do crit&eacute;rio <span style="color: red;">*</span></td>
                 <td>
                     <input type="text" name="dsCriterioParticipacao" size="80" class="input_simples">
                 </td>
@@ -24,12 +24,12 @@
                 </td>
             </tr>
             <tr id="trRespostas" class="sumir">
-                <td class="destacar bold w150 esquerdo">Opções de resposta <span style="color: red;">*</span></td>
+                <td class="destacar bold w150 esquerdo">Opï¿½ï¿½es de resposta <span style="color: red;">*</span></td>
                 <td style="margin: 0px !important; padding: 0px !important;">
                     <input type="hidden" name="numOpcaoResposta" id="numOpcaoResposta" value="0">
                     <table id="tblOpcaoResposta" class="tabela" style="margin: 2px !important; width: 400px;">
                         <tbody><tr>
-                                <td colspan="2" class="direita">Adicionar opção de resposta: <input type="button" class="btn_adicionar" onclick="JSAdicionaOpcaoResposta()"></td>
+                                <td colspan="2" class="direita">Adicionar opï¿½ï¿½o de resposta: <input type="button" class="btn_adicionar" onclick="JSAdicionaOpcaoResposta()"></td>
                             </tr>
                             <tr>
                                 <td class="destacar bold centro">Texto da resposta</td>
@@ -43,7 +43,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold w150 esquerdo">Resposta Obrigatória <span style="color: red;">*</span></td>
+                <td class="destacar bold w150 esquerdo">Resposta Obrigatï¿½ria <span style="color: red;">*</span></td>
                 <td>
                     <input type="checkbox" name="respostaObrigatoria" value="1">
                 </td>
@@ -62,17 +62,17 @@
 
     <table class="tabela" id="tblCriteriosAdicionada" style="margin-top: 0px !important; padding-top: 0px !important; border-top: 1px #fff solid !important; ">
         <tbody><tr>
-                <td colspan="4" class="destacar centro bold">CRITÉRIOS ADICIONADOS</td>
+                <td colspan="4" class="destacar centro bold">CRITï¿½RIOS ADICIONADOS</td>
             </tr>
             <tr>
-                <td class="destacar bold" style="width: 40%">Descrição do critério</td>
+                <td class="destacar bold" style="width: 40%">DescriÃ§Ã£o do critï¿½rio</td>
                 <td class="destacar bold " style="width: 15%">Regra para o campo</td>
-                <td class="destacar bold centro" style="width: 15%">Ações</td>
+                <td class="destacar bold centro" style="width: 15%">Aï¿½ï¿½es</td>
             </tr>
             <?php if (empty($this->criterioparticipacao)) {
     ?>
             <tr id="trCriterio_zero">
-                <td colspan="3" class="centro"><em>Nenhum critério adicionado</em></td>
+                <td colspan="3" class="centro"><em>Nenhum critï¿½rio adicionado</em></td>
             </tr>
             <?php
 } else {
@@ -109,7 +109,7 @@
         <tbody><tr onclick="abrirDinamico('#trCadGuia', $(this))" style="cursor:pointer">
                 <th style="font-size: 14px; text-transform: none">
                     <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left">
-                    CADASTRAR GUIA (Questionário)
+                    CADASTRAR GUIA (Questionï¿½rio)
                 </th>
             </tr>
             <tr id="trCadGuia" class="sumir">
@@ -155,7 +155,7 @@
                                 <tr>
                                     <td class="destacar bold" style="width: 35%">Nome da Guia</td>
                                     <td class="destacar bold " style="width: 55%">Texto de ajuda da Guia</td>
-                                    <td class="destacar bold centro" style="width: 10%">Ações</td>
+                                    <td class="destacar bold centro" style="width: 10%">Aï¿½ï¿½es</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -187,7 +187,7 @@
         <tbody><tr onclick="abrirDinamico('#trCadQuestao', $(this))" style="cursor:pointer">
                 <th style="font-size: 14px; text-transform: none">
                     <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left">
-                    CADASTRAR QUESTÕES (Questionário)
+                    CADASTRAR QUESTï¿½ES (Questionï¿½rio)
                 </th>
             </tr>
             <tr id="trCadQuestao" class="sumir">
@@ -211,14 +211,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="destacar bold w150 esquerdo">Texto da Questão <span style="color: red;">*</span></td>
+                                    <td class="destacar bold w150 esquerdo">Texto da Questï¿½o <span style="color: red;">*</span></td>
                                     <td>
                                         <input maxlength="200" type="text" name="textoQuestao" id="textoQuestao" class="input_simples w400"><br>
                                         <label id="msgErrorTextoQuestao" class="error"></label>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="destacar bold w150 esquerdo">Texto de ajuda da questão (opcional)</td>
+                                    <td class="destacar bold w150 esquerdo">Texto de ajuda da questï¿½o (opcional)</td>
                                     <td>
                                         <textarea style="width: 99%; height: 80px" name="textoAjudaQuestao" id="textoAjudaQuestao" class="input_simples w400"></textarea>
                                         <label id="msgErrorTextoAjudaQuestao" class="error"></label>
@@ -239,12 +239,12 @@
                                     </td>
                                 </tr>
                                 <tr id="trRespostasQuestionario" style="display: none;">
-                                    <td class="destacar bold w150 esquerdo">Opções de resposta <span style="color: red;">*</span></td>
+                                    <td class="destacar bold w150 esquerdo">Opï¿½ï¿½es de resposta <span style="color: red;">*</span></td>
                                     <td style="margin: 0px !important; padding: 0px !important;">
                                         <table id="tblOpcaoRespostaQuestionario" class="tabela" style="margin: 2px !important;">
                                             <thead>
                                                 <tr>
-                                                    <td colspan="3" class="direita">Adicionar opção de resposta: <input type="button" class="btn_adicionar" onclick="JSAdicionaOpcaoRespostaQuestionario()"></td>
+                                                    <td colspan="3" class="direita">Adicionar opï¿½ï¿½o de resposta: <input type="button" class="btn_adicionar" onclick="JSAdicionaOpcaoRespostaQuestionario()"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="destacar bold centro">&nbsp;</td>
@@ -291,20 +291,20 @@
                                 <table class="tabela" id="tblQuestaoAdicionada" style="margin-top: 0px !important; padding-top: 0px !important; border-top: 1px #fff solid !important; ">
                                     <thead>
                                         <tr nodrag="true">
-                                            <td colspan="4" class="destacar centro bold">QUESTÕS ADICIONADAS - <?php echo $guia['nmGuia']; ?></td>
+                                            <td colspan="4" class="destacar centro bold">QUESTï¿½S ADICIONADAS - <?php echo $guia['nmGuia']; ?></td>
                                         </tr>
                                         <tr nodrag="true">
-                                            <td class="destacar bold" style="width: 35%">Texto da Questão</td>
-                                            <td class="destacar bold " style="width: 35%">Texto de ajuda da Questão</td>
+                                            <td class="destacar bold" style="width: 35%">Texto da Questï¿½o</td>
+                                            <td class="destacar bold " style="width: 35%">Texto de ajuda da Questï¿½o</td>
                                             <td class="destacar bold " style="width: 15%">Tipo Resposta</td>
-                                            <td class="destacar bold centro" style="width: 15%">Ações</td>
+                                            <td class="destacar bold centro" style="width: 15%">Aï¿½ï¿½es</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                             if (empty($this->questoes)) :
                                                 echo '<tr id="trQuestao_zero" style="cursor: move;">';
-                                                    echo '<td colspan="4" class="centro"><em>Nenhuma questão adicionada</em></td>';
+                                                    echo '<td colspan="4" class="centro"><em>Nenhuma questï¿½o adicionada</em></td>';
                                                 echo '</tr>';
                                             endif;
                                             foreach ($this->questoes as $questao) :

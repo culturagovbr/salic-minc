@@ -1,61 +1,61 @@
 <?php
 /**
- * Busca todos os Comprovantes do PRONAC 'Em Avaliação' (Acesso: TÉCNICOS)
+ * Busca todos os Comprovantes do PRONAC 'Em Avaliaï¿½ï¿½o' (Acesso: Tï¿½CNICOS)
  * @author Equipe RUP - Politec
  * @since 28/04/2010
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicadoprojeto
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÃCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="last">Comprovação de Execução Física do Projeto</li>
+		<li class="last">Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INÃCIO Tï¿½TULO ========== -->
 <div id="titulo">
-	<div>Comprovação de Execução Física do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'aguardandoavaliacao')); ?>');">Voltar</a></span></div>
+	<div>Comprovaï¿½ï¿½o de Execuï¿½ï¿½o Fï¿½sica do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'aguardandoavaliacao')); ?>');">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INÃCIO CONTEÃšDO ========== -->
 <div id="conteudo">
 
 
 
-	<!-- ========== INÍCIO INFORMAÇÕES DO PRONAC ========== -->
+	<!-- ========== INÃCIO INFORMAï¿½ï¿½ES DO PRONAC ========== -->
 	<table class="tabela">
 		<tr class="titulo_tabela">
-			<th>COMPROVANTES DE EXECUÇÃO FÍSICA DO PROJETO</th>
+			<th>COMPROVANTES DE EXECUï¿½ï¿½O Fï¿½SICA DO PROJETO</th>
 		<tr>
 
 		<?php foreach ($this->buscarPronac as $p): ?>
 		<tr>
 			<td class="centro">
-				<strong>Pronac Nº <?php echo $p->pronac; ?> - <?php echo $p->NomeProjeto; ?></strong>
+				<strong>Pronac Nï¿½ <?php echo $p->pronac; ?> - <?php echo $p->NomeProjeto; ?></strong>
 			</td>
 		</tr>
 		<?php endforeach; ?>
 
 	</table>
-	<!-- ========== FIM INFORMAÇÕES DO PRONAC ========== -->
+	<!-- ========== FIM INFORMAï¿½ï¿½ES DO PRONAC ========== -->
 
 
 
-	<!-- ========== INÍCIO COMPROVANTES DO PRONAC ========== -->
+	<!-- ========== INÃCIO COMPROVANTES DO PRONAC ========== -->
 	<?php if (count($this->paginacao) > 0) : // caso tenha comprovantes ?>
-	
+
 	<table class="tabela">
 		<tr class="titulo_tabela">
 			<th>Tipo Documento</th>
@@ -65,25 +65,25 @@
 			<th>Data de Recebimento</th>
 			<th>Data de Resposta</th>
 			<th>Status</th>
-			<th>Ação</th>
+			<th>Aï¿½ï¿½o</th>
 		</tr>
 
 
 
 		<?php
-		$cont = 1; // conta as linhas (servirá para abrir e fechar o histórico)
-		foreach ($this->paginacao as $comprovantes): // últimos documentos
+		$cont = 1; // conta as linhas (servirï¿½ para abrir e fechar o histï¿½rico)
+		foreach ($this->paginacao as $comprovantes): // ï¿½ltimos documentos
 			$d = $comprovantes['comprovantes']; // comprovantes
-			$h = @$comprovantes[0]['historicos']; // histórico dos comprovantes
+			$h = @$comprovantes[0]['historicos']; // histï¿½rico dos comprovantes
 		?>
-	
-		<!-- ========== INÍCIO COMPROVANTES ========== -->
+
+		<!-- ========== INÃCIO COMPROVANTES ========== -->
 		<tr class="fundo_linha2" onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);">
 			<td>
-				<?php if ($h) { // verifica se tem histórico ?>
+				<?php if ($h) { // verifica se tem histï¿½rico ?>
 					<div id="exibir<?php echo $cont;?>"><a href="#" title="Expandir" onclick="aparecer('<?php echo $cont;?>', 'exibir<?php echo $cont;?>', 'ocultar<?php echo $cont;?>'); return false;"><div class="icn_mais"><span><?php echo $d->dsTipoDocumento; ?></span></div></a></div>
 					<div id="ocultar<?php echo $cont;?>" class="sumir" style="display:none;"><a href="#" title="Recolher" onclick="esconder('<?php echo $cont;?>', 'exibir<?php echo $cont;?>', 'ocultar<?php echo $cont;?>'); return false;"><div class="icn_menos"><span><?php echo $d->dsTipoDocumento; ?></span></div></a></div>
-				<?php } else { // sem histórico ?>
+				<?php } else { // sem histï¿½rico ?>
 				<?php echo $d->dsTipoDocumento; ?>
 				<?php } ?>
 			</td>
@@ -94,7 +94,7 @@
 			<td class="centro"><?php echo (isset($d->dtJustificativaCoordenador)) ? $d->dtJustificativaCoordenador : ''; ?></td>
 			<td class="centro <?php echo $d->stParecerComprovante; ?>"><?php echo $this->statusCompFisicaProjeto($d->stParecerComprovante); ?></td>
 			<td class="centro">
-				<?php if ($d->stParecerComprovante == "AG") { // 'Aguardando Avaliação' ?>
+				<?php if ($d->stParecerComprovante == "AG") { // 'Aguardando Avaliaï¿½ï¿½o' ?>
 				<input type="button" class="btn_avaliar" title=" Avaliar " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'avaliarcomprovante')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $d->idComprovante; ?>');" />
 				<?php } else { // outros status ?>
 				<input type="button" class="btn_ver" title=" Ver " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'visualizardocumentos')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $d->idComprovante; ?>');" />
@@ -105,14 +105,14 @@
 
 
 
-		<!-- ========== INÍCIO HISTÓRICO ========== -->
+		<!-- ========== INÃCIO HISTï¿½RICO ========== -->
 		<tbody id="<?php echo $cont;?>" class="sumir">
 		<?php
-		// busca o histórico
+		// busca o histï¿½rico
 		for ($i = 0; $i < sizeof(@$comprovantes[0]['historicos']); $i++) :
 			$h = $comprovantes[0]['historicos'][$i];
-	
-			if (!empty($h)): // caso tenha histórico
+
+			if (!empty($h)): // caso tenha histï¿½rico
 		?>
 
 		<tr class="fundo_linha1" onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);">
@@ -124,7 +124,7 @@
 			<td class="centro"><?php echo $h->dtJustificativaCoordenador; ?></td>
 			<td class="centro <?php echo $h->stParecerComprovante; ?>"><?php echo $this->statusCompFisicaProjeto($h->stParecerComprovante); ?></td>
 			<td class="centro">
-				<?php if ($h->stParecerComprovante == "AG") { // 'Aguardando Avaliação' ?>
+				<?php if ($h->stParecerComprovante == "AG") { // 'Aguardando Avaliaï¿½ï¿½o' ?>
 				<input type="button" class="btn_avaliar" title=" Avaliar " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'avaliarcomprovante')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $h->idComprovante; ?>');" />
 				<?php } else { // outros status ?>
 				<input type="button" class="btn_ver" title=" Ver " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'visualizardocumentos')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $h->idComprovante; ?>');" />
@@ -134,39 +134,39 @@
 
 			<?php endif; ?>
 
-		<?php endfor; // histórico ?>
+		<?php endfor; // histï¿½rico ?>
 		</tbody>
-		<!-- ========== FIM HISTÓRICO ========== -->
-	
+		<!-- ========== FIM HISTï¿½RICO ========== -->
+
 		<?php $cont++; ?>
-		<?php endforeach; // últimos documentos ?>
-	
-	
-	
+		<?php endforeach; // ï¿½ltimos documentos ?>
+
+
+
 	</table>
-	
+
 	<?php endif; ?>
 	<!-- ========== FIM COMPROVANTES DO PRONAC ========== -->
-	
-	
-	
-	<!-- ========== PAGINAÇÃO ========== -->
+
+
+
+	<!-- ========== PAGINAÃ‡Ã‚O ========== -->
 	<?php if ($this->qtdComprovantes > 20) { echo $this->paginacao; } ?>
-	
-	
-	
-	<!-- ========== BOTÕES VOLTAR E ETC ========== -->
+
+
+
+	<!-- ========== BOTï¿½ES VOLTAR E ETC ========== -->
 	<table class="tabela">
 		<tr>
 			<td>
 				<div class="float_left">
-					<input type="button" class="btn_voltar" title=" Página Anterior "
-						onkeypress=" " 
+					<input type="button" class="btn_voltar" title=" pÃ¡gina Anterior "
+						onkeypress=" "
 						onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'aguardandoavaliacao')); ?>');" />
 				</div>
 				<?php if ($this->qtdComprovantes > 0) : ?>
 				<div class="float_right total_itens">
-					Total de Comprovantes do PRONAC Nº <?php echo $p->pronac; ?>: <strong><?php echo $this->qtdComprovantes; ?></strong>
+					Total de Comprovantes do PRONAC Nï¿½ <?php echo $p->pronac; ?>: <strong><?php echo $this->qtdComprovantes; ?></strong>
 				</div>
 				<?php endif; ?>
 			</td>
@@ -176,12 +176,12 @@
 
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 
 <br clear="all" />

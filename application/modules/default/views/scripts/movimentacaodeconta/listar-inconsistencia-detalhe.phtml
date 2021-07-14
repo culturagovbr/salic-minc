@@ -1,5 +1,5 @@
 <?php $projetoUrl = $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')) . "?idPronac={$this->projeto->IdPRONAC}"; ?>
-<div id="titulo"><div>Detalhe Projeto / Inconsistência</div></div>
+<div id="titulo"><div>Detalhe Projeto / Inconsistï¿½ncia</div></div>
 <div id="conteudo">
     <table class="tabela">
         <thead>
@@ -17,8 +17,8 @@
                     <a target="_blank" href='<?php echo $projetoUrl; ?>'><?php echo $this->projeto->pronac; ?></a>
                 </td>
                 <td><?php echo $this->projeto->NomeProjeto; ?></td>
-                <td align="center"><?php echo!empty($this->projeto->Agencia) ? $this->projeto->Agencia : '<em>Não informada</em>'; ?></td>
-                <td align="center"><?php echo!empty($this->projeto->ContaBloqueada) ? $this->projeto->ContaBloqueada : '<em>Não informada</em>'; ?></td>
+                <td align="center"><?php echo!empty($this->projeto->Agencia) ? $this->projeto->Agencia : '<em>NÃ£o informada</em>'; ?></td>
+                <td align="center"><?php echo!empty($this->projeto->ContaBloqueada) ? $this->projeto->ContaBloqueada : '<em>NÃ£o informada</em>'; ?></td>
                 <td align="center">
                     <b><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao')); ?>?idPronac=<?php echo $this->idPronac; ?>" style="color: blue !important;" target="new">R$ <?php echo number_format($this->projeto->ValorCaptado, 2, ',', '.'); ?></a></b>
                 </td>
@@ -29,17 +29,17 @@
     <table class="tabela">
         <thead>
             <tr>
-                <td align="center" class="destacar bold" colspan="8">CAPTAÇÕES</td>
+                <td align="center" class="destacar bold" colspan="8">CAPTAï¿½ï¿½ES</td>
             </tr>
             <tr>
                 <th>#</th>
                 <th>Nome Incentivador</th>
                 <th>CPF / CNPJ Proponente</th>
                 <th>CPF / CNPJ Incentivador</th>
-                <th>Data do Crédito</th>
-                <th>Valor do Crédito</th>
-                <th width="10px">Diligência</th>
-                <th width="10px">Ações</th>
+                <th>Data do Crï¿½dito</th>
+                <th>Valor do Crï¿½dito</th>
+                <th width="10px">Diligï¿½ncia</th>
+                <th width="10px">Aï¿½ï¿½es</th>
             </tr>
         </thead>
         <tbody>
@@ -98,7 +98,7 @@
         event.preventDefault();
         var clickedElement = $(this);
         $("#msgAlerta").dialog("destroy");
-        $("#msgAlerta").html("Tem certeza que deseja remover esta captação?");
+        $("#msgAlerta").html("Tem certeza que deseja remover esta captaï¿½ï¿½o?");
         $("#msgAlerta").dialog
         ({
             width:310,
@@ -108,7 +108,7 @@
             resizable: true,
             closeOnEscape: false,
             modal:true,
-            title: "Remover Captação",
+            title: "Remover Captaï¿½ï¿½o",
             buttons:
             {
                 'Cancelar': function(){
@@ -131,7 +131,7 @@
                         },
                         error: function(response) {
                             $("#msgAlerta").dialog("destroy");
-                            message('Ocorreu um erro ao tentar realizar a operação para atualizar as inconsistências.', 'ERROR');
+                            message('Ocorreu um erro ao tentar realizar a operaï¿½ï¿½o para atualizar as inconsistï¿½ncias.', 'ERROR');
                         }
                     });
                 }
@@ -154,7 +154,7 @@
                 }
             },
             error: function(data) {
-                message('Ocorreu um erro ao tentar realizar a operação para atualizar as inconsistências.', 'ERROR');
+                message('Ocorreu um erro ao tentar realizar a operaï¿½ï¿½o para atualizar as inconsistï¿½ncias.', 'ERROR');
             },
             dataType: 'json'
         });
@@ -181,13 +181,13 @@ var resolverInconsistencia = function (event) {
                     </div>');
                 }
                 $("#carregando table tbody tr td").append(
-                    $('<p>Inconsistência resolvida com sucesso.</p>')
+                    $('<p>Inconsistï¿½ncia resolvida com sucesso.</p>')
                 );
             $('#row-' + idTmpCaptacao + ' .nomeIncentivador').html(event.detail.nome);
             $('#row-' + idTmpCaptacao + ' .cpfcnpjIncentivador').html( formatCpfOrCnpj(event.detail.cnpjcpf));
-            $("[data-id-tmp-captacao=" + idTmpCaptacao + "]").replaceWith("<font color='green'>[Correção enviada]</font>");
+            $("[data-id-tmp-captacao=" + idTmpCaptacao + "]").replaceWith("<font color='green'>[Correï¿½ï¿½o enviada]</font>");
 
-            $('#btnValidarProponenteIncentivadorIguais-' + idTmpCaptacao).closest('td').html("<font color='green'>[Correção enviada]</font>");
+            $('#btnValidarProponenteIncentivadorIguais-' + idTmpCaptacao).closest('td').html("<font color='green'>[Correï¿½ï¿½o enviada]</font>");
         },
         error: function (data) {
             $("#carregando table tbody tr td").append(

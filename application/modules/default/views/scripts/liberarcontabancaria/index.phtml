@@ -58,7 +58,7 @@
                 height:180,
                 modal:true,
                 buttons: {
-                    'N�o': function(){
+                    'Não': function(){
                         $("#msgAlerta").dialog("destroy");
                     },
                     'Sim': function() {
@@ -215,7 +215,7 @@
     </table>
 
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINA��O ============ -->
+    <!-- ============ PAGINAÇÂO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -242,12 +242,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'liberarcontabancaria', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].'&pronac='.$this->pronac; ?>'">
                     <?php } ?>
-                    P�g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p�gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="pronac" value="<?php echo $this->pronac;?>">
@@ -264,7 +264,7 @@
             echo " de ". $this->paginacao['total']. " projetos listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINA��O ========== -->
+    <!-- ========== FIM PAGINAÇÂO ========== -->
     <?php } ?>
 
 
@@ -332,7 +332,7 @@
 
     <?php if(count($this->dados)>0){ ?>
 
-        <!-- ============ PAGINA��O ============ -->
+        <!-- ============ PAGINAÇÂO ============ -->
         <?php if($this->qtdRegistros > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -367,12 +367,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'liberarcontabancaria', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].'&pronac='.$this->pronac; ?>'">
                         <?php } ?>
-                        P�g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p�gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="pronac" value="<?php echo $this->pronac;?>">
@@ -382,7 +382,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINA��O ========== -->
+        <!-- ========== FIM PAGINAÇÂO ========== -->
 
     <?php } } ?>
 
@@ -395,7 +395,7 @@
         </tr>
     </table>
     <?php } ?>
-    
+
     <br clear="all" />
 
     <form name="formImpressao" id="formImpressao" action="<?php echo $this->url(array('controller' => 'liberarcontabancaria', 'action' => 'imprimir-projetos-a-liberar'));?>" method="post" target="_blank">
@@ -403,7 +403,7 @@
         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
         <input type="hidden" name="pronac" value="<?php echo $this->pronac;?>">
      </form>
-    
+
 </div>
 
 <!-- ========== INICIO RODAPE DO CONTEUDO ========== -->

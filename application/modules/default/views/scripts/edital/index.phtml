@@ -4,14 +4,14 @@
 ?>
 
 <script>
-    
+
     $(document).ready(function(){
-        
+
         $('#tipoEdital').change( function(){
             if($(this).val() == 0){
-                
+
                 $('input').attr('disabled','true');
-                
+
                 $('.lista_3').show();
                 $('.lista_4').show();
                 $('.lista_comp_6').show();
@@ -19,9 +19,9 @@
                 $('.lista_comp_8').show();
                 $('.lista_comp_9').show();
                 $('.lista_comp_10').show();
-                
+
             } else if($(this).val() == 1){
-                
+
                 $('.lista_3').show();
                 $('.lista_4').show();
                 $('.lista_comp_6').show();
@@ -29,9 +29,9 @@
                 $('.lista_comp_8').show();
                 $('.lista_comp_9').show();
                 $('.lista_comp_10').show();
-                
+
             } else if($(this).val() == 2){
-                
+
                 $('.lista_3').hide();
                 $('.lista_4').show();
                 $('.lista_comp_6').show();
@@ -39,10 +39,10 @@
                 $('.lista_comp_8').show();
                 $('.lista_comp_9').show();
                 $('.lista_comp_10').hide();
-               
-                
+
+
             } else if($(this).val() == 3){
-                
+
                 $('.lista_3').hide();
                 $('.lista_4').hide();
                 $('.lista_comp_6').hide();
@@ -50,14 +50,14 @@
                 $('.lista_comp_8').hide();
                 $('.lista_comp_9').hide();
                 $('.lista_comp_10').hide();
-            
+
             } else {
-                
+
                 $('input').removeAttr('disabled');
-                
+
             }
         });
-        
+
         $('.marcatodos').click(function (){
             var filhos = $(this).attr('data-filho');
             if($(this).is(':checked')){
@@ -66,35 +66,35 @@
                 $('.filho_'+filhos).removeAttr('checked');
             }
         });
-        
+
         $('.check').click(function (){
-            
+
             var filhos = $(this).attr('data-filho');
-            
+
             if($(this).is(':checked')){
-                
+
                 $('.pai_'+filhos).attr('checked','checked');
-                
+
             }else{
-                
+
                 var check = 0;
-                
+
                 $('.filho_'+filhos).each(function () {
                     if(this.checked) {
                         check = 1;
                     }
-                    
+
                 });
-                 
+
                 if(check == 0) {
                     $('.pai_'+filhos).attr('checked','');
                 }
 
             }
         });
-        
+
     });
-    
+
 </script>
 <style>
     label.error{color:red;}
@@ -122,7 +122,7 @@
  <fieldset>
         <legend> Passo 01 - Definir fluxo do Edital </legend>
         <form id="formularioProcuracao" action="<?php echo $this->url(array('controller' => 'edital', 'action' => 'salvar-fluxo-edital')); ?>" method="post" enctype="multipart/form-data">
-            <div>    
+            <div>
                 <table class="tabela">
                     <tr>
                         <th colspan="2" colspan="2" style="font-size: 15px">Edital</th>
@@ -137,7 +137,7 @@
                                 <option value="0">- Selecione -</option>
                                 <?php foreach ($this->tipoedital as $tped) { ?>
                                     <option value="<?php echo $tped['idTpEdital']; ?>"><?php echo $tped['dsTpEdital']; ?></option>
-                                <?php } ?> 
+                                <?php } ?>
                             </select>
                         </td>
                     </tr>
@@ -162,29 +162,29 @@
                                                 <input type="checkbox" name="fluxo[]" value="<?php echo $fl['idFluxo']; ?>" data-filho="<?php echo $fl['idFluxo']; ?>" class="marcatodos pai_<?php echo $fl['idFluxo']; ?>" style="vertical-align: middle;"/>&nbsp;<strong><?php echo $fl['dsFluxo']; ?></strong><br />
                                                 <div style="width: 200px; padding-left: 20px; ">
                                                     <?php foreach ($this->tipoitemfluxo as $itfl): ?>
-                                                    
+
                                                         <?php if(($fl['idFluxo'] == 3)): ?>
-                                                    
+
                                                             <?php if($itfl['idItemFluxo'] == 4): ?>
 
                                                                 <input type="checkbox" name="fluxoFilho[]" value="<?php echo $fl['idFluxo'].','.$itfl['idItemFluxo']; ?>" data-filho="<?php echo $fl['idFluxo']; ?>" class="filho_<?php echo $fl['idFluxo']; ?> check" style="vertical-align: middle"/>
                                                                 &nbsp;<span style="font-size: 11px;"><?php echo $itfl['dsItemFluxo']; ?></span><br />
 
                                                             <?php endif; ?>
-                                                                
+
                                                         <?php else: ?>
-                                                    
+
                                                             <?php if($itfl['idItemFluxo'] != 1): ?>
 
                                                                 <input type="checkbox" name="fluxoFilho[]" value="<?php echo $fl['idFluxo'].','.$itfl['idItemFluxo']; ?>" data-filho="<?php echo $fl['idFluxo']; ?>" class="filho_<?php echo $fl['idFluxo']; ?> check" style="vertical-align: middle"/>
                                                                 &nbsp;<span style="font-size: 11px;"><?php echo $itfl['dsItemFluxo']; ?></span><br />
 
                                                             <?php endif; ?>
-                                                                
+
                                                         <?php endif; ?>
-                                                            
-                                                            
-                                                    <?php endforeach; ?>    
+
+
+                                                    <?php endforeach; ?>
                                                 </div>
                                             </td>
                                         </tr>
@@ -198,11 +198,11 @@
                 <div style="float: left; width: 50%">
                     <table class="tabela">
                         <tr>
-                            <th colspan="2" style="font-size: 15px">Composição do edital</th>
+                            <th colspan="2" style="font-size: 15px">Composiï¿½ï¿½o do edital</th>
                         </tr>
                         <tr>
                             <td class="bold w200 esquerdo destacar">
-                                Defina os itens que irão compor o edital
+                                Defina os itens que irï¿½o compor o edital
                             </td>
                             <td colspan="3">
                                 <table class="tabela">
@@ -238,8 +238,8 @@
 
 <!-- ========== FIM TABELA DADOS ========== -->
 
-<!-- ========== INï¿½CIO RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
 
-<!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

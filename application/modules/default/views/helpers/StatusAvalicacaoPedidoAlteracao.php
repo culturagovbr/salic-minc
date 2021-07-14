@@ -25,7 +25,7 @@ class Zend_View_Helper_StatusAvalicacaoPedidoAlteracao
                 if ($tipo) {
                     $resposta = 2;
                 } else {
-                    $resposta = "Aguardando Aprovação";
+                    $resposta = "Aguardando aprovaÃ§Ã£o";
                 }
             } else {
                 if (!empty($resultadobusca[0]->dsRetornoCoordenador) and !empty($resultadobusca[0]->dtRetornoCoordenador)
@@ -33,14 +33,14 @@ class Zend_View_Helper_StatusAvalicacaoPedidoAlteracao
                     if ($tipo) {
                         $resposta = 3;
                     } else {
-                        $resposta = "Retorno ao Técnico";
+                        $resposta = "Retorno ao Tï¿½cnico";
                     }
                 } else {
                     if (!empty($resultadobusca[0]->dsJustificativaAvaliacao) and !empty($resultadobusca[0]->dtAvaliacao) and !empty($resultadobusca[0]->idAvaliador) and $resultadobusca[0]->stDeferimentoAvaliacao=='I') {
                         if ($tipo) {
                             $resposta = 4;
                         } else {
-                            $resposta = "Não Aprovado/Indeferido";
+                            $resposta = "NÃ£o Aprovado/Indeferido";
                         }
                     }
                     if (!empty($resultadobusca[0]->dsJustificativaAvaliacao) and !empty($resultadobusca[0]->dtAvaliacao) and !empty($resultadobusca[0]->idAvaliador) and $resultadobusca[0]->stDeferimentoAvaliacao=='D') {

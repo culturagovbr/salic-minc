@@ -64,7 +64,7 @@
                                     );
                                 ?>
                                 <td>
-                                    <?php 
+                                    <?php
                                         $urlEdit = [
                                             'module' => 'prestacao-contas',
                                             'controller' => 'gerenciar',
@@ -77,10 +77,10 @@
                                         ];
                                     ?>
                                     <?php if($this->diligenciaTodosItens): ?>
-                                        <?php if ($comprovante->stItemAvaliado == 4): /* n¿o analisado ou recusado */ ?>
+                                        <?php if ($comprovante->stItemAvaliado == 4): /* NÃ£o analisado ou recusado */ ?>
                                             Aguardando Analise
                                         <?php endif; ?>
-                                        <?php if ($comprovante->stItemAvaliado == ComprovantePagamentoxPlanilhaAprovacao::RECUSADO): /* n¿o analisado ou recusado */ ?>
+                                        <?php if ($comprovante->stItemAvaliado == ComprovantePagamentoxPlanilhaAprovacao::RECUSADO): /* NÃ£o analisado ou recusado */ ?>
                                             <a
                                                 class="small btn btn-primary"
                                                 href="

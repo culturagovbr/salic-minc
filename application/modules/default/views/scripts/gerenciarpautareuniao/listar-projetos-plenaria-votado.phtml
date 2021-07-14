@@ -20,11 +20,11 @@
     <thead>
         <tr class="titulo_tabela">
             <th>N&uacute;mero</th>
-            <th>Análise do Projeto</th>
+            <th>AnÃ¡lise do Projeto</th>
             <th width="5%">PRONAC</th>
             <th width="35%">Nome do Projeto</th>
             <?php if ($this->grupoativo == '119') { //presidente CNIC ?>
-                <th width="10%">Área do Projeto</th>
+                <th width="10%">ï¿½rea do Projeto</th>
                 <th width="10%">Segmento</th>
             <?php } ?>
             <th width="5%">Parecer Favor&aacute;vel</th>
@@ -32,7 +32,7 @@
             <?php if ($this->grupoativo == '118' || $this->grupoativo == '133') { //118 = componente da comissao  133 = membros natos ?>
                 <th>Seu Voto</th>
             <?php } ?>
-            <th>Resultado da Reunião</th>
+            <th>Resultado da Reuniï¿½o</th>
         </tr>
     </thead>
     <?php
@@ -43,7 +43,7 @@
             ?>
             <tr class="tradd" id="<?php echo $a."_".$plenario['IdPRONAC']; ?>" aberto="false">
                 <td class="centro"><?php echo $a ?></td>
-                <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onClick="abrirdados('<?php echo $a."_".$plenario['IdPRONAC']; ?>', <?php echo $plenario['IdPRONAC']; ?>, '<?php echo $tipoagente; ?>','s')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da Análise do Projeto" alt="Dados da Análise do Projeto" width="20px"/></a></td>
+                <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onClick="abrirdados('<?php echo $a."_".$plenario['IdPRONAC']; ?>', <?php echo $plenario['IdPRONAC']; ?>, '<?php echo $tipoagente; ?>','s')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da AnÃ¡lise do Projeto" alt="Dados da AnÃ¡lise do Projeto" width="20px"/></a></td>
                 <!--<td class="centro"><a id="consultarprojetos" href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $plenario['IdPRONAC'];?>" target="_new" title="Ir para Consultar Projetos"><?php echo $plenario['pronac'] ?></a></td>-->
                 <td class="centro"><a id="consultarprojetos" href="<?php echo $this->url(array('controller' => 'dadosprojeto', 'action' => 'index', 'idpronac'=>$plenario['IdPRONAC']),'',true); ?>" target="_new" title="Ir para Consultar Projetos"><?php echo $plenario['pronac'] ?></a></td>
                 <td><?php echo $plenario['NomeProjeto'] ?></td>
@@ -59,12 +59,12 @@
                 <td class="centro"><?php echo $plenario['resultadoPlenaria'] ?></td>
             </tr>
             <?php $a++;
-        } 
-        
+        }
+
     }else{ ?>
     <tr>
         <td colspan="9" class="centro">
-            <em><b>Não há projetos votados</b></em>
+            <em><b>NÃ£o hï¿½ projetos votados</b></em>
         </td>
     </tr>
 <?php } ?>

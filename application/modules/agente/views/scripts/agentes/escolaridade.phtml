@@ -3,27 +3,27 @@
     <div class="col s12 m10 l10">
 
 
-        <!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="#" title="Ir para InÌcio">InÌcio</a></li>
-                <li><a href="#" title="TramitaÁ„o de Documentos">Manter Agentes</a></li>
+                <li class="first"><a href="#" title="Ir para IN√çCIO">IN√çCIO</a></li>
+                <li><a href="#" title="Tramita√ß√£o de Documentos">Manter Agentes</a></li>
                 <li class="last">Escolaridade/cursos</li>
             </ul>
         </div>
         <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-        <!-- ========== INÕCIO TÕTULO ========== -->
+        <!-- ========== IN√çCIO TÔøΩTULO ========== -->
         <div id="titulo">
             <div>Escolaridade / Cursos<span>ID #23A</span> <span class="voltar"><a href="#"
                                                                                    onclick="voltar();">Voltar</a></span>
             </div>
         </div>
-        <!-- ========== FIM TÕTULO ========== -->
+        <!-- ========== FIM TÔøΩTULO ========== -->
 
 
-        <!-- ========== INÕCIO CONTE⁄DO ========== -->
+        <!-- ========== IN√çCIO CONTE√öDO ========== -->
         <div id="conteudo">
 
             <?php echo $this->partial('agentes/inc/cabecalho.php', $this) ?>
@@ -62,7 +62,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><span style="color: red; font-weight: bold;">*</span> InstituiÁ„o:</td>
+                            <td><span style="color: red; font-weight: bold;">*</span> InstituiÔøΩÔøΩo:</td>
                             <td colspan="3"><input type="text" name="instituicao" id="instituicao" value=""
                                                    class="input_simples" style="width: 190px;"/></td>
                         </tr>
@@ -83,7 +83,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><span style="color: red; font-weight: bold;">*</span> PaÌs:</td>
+                            <td><span style="color: red; font-weight: bold;">*</span> PaÔøΩs:</td>
                             <td colspan="3">
                                 <select name="pais" id="pais" class="input_simples" style="width: 200px;">
                                     <?php foreach ($this->pais as $p): ?>
@@ -116,10 +116,10 @@
                     <tr>
                         <td width="140" align="center"><b>TIPO</b></td>
                         <td width="140" align="center"><b>CURSO</b></td>
-                        <td width="170" align="center"><b>INSTITUI«√O</b></td>
+                        <td width="170" align="center"><b>INSTITUIÔøΩÔøΩO</b></td>
                         <td width="120" align="center"><b>DATA ENTRADA</b></td>
-                        <td width="120" align="center"><b>DATA SAÕDA</b></td>
-                        <td width="120" align="center"><b>PAÕS</b></td>
+                        <td width="120" align="center"><b>DATA SAÔøΩDA</b></td>
+                        <td width="120" align="center"><b>PAÔøΩS</b></td>
                         <td align="center"><b>DOCUMENTO</b></td>
                     </tr>
                     <?php foreach ($this->escolaridades as $es): ?>
@@ -209,12 +209,12 @@
             return false;
         }
         else if (dtinicio > dtAtual) {
-            alertar('O perÌodo n„o pode ser inferior a data de hoje!');
+            alertar('O perÔøΩodo N√£o pode ser inferior a data de hoje!');
 
             return false;
         }
         else if ((instituicao == '') || (curso == '')) {
-            alertar("Dados obrigatÛrios n„o preenchidos!");
+            alertar("Dados obrigatÔøΩrios N√£o preenchidos!");
         }
         else {
             $("#form").submit();

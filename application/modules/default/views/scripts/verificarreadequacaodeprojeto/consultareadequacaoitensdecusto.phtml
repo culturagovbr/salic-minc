@@ -9,7 +9,7 @@
 </div>
 
 <div id="titulo">
-    <div>READEQUAÇÃO: ITENS DE CUSTO
+    <div>READEQUAï¿½ï¿½O: ITENS DE CUSTO
         <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
     </div>
 </div>
@@ -39,14 +39,14 @@
     }
 </script>
 
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 <div id="conteudo">
 	<!--<script type='text/javascript' src='<?php echo $this->baseUrl(); ?>/public/js/projetosGerenciar.js'></script>-->
 
         <table class="tabela">
         <thead>
             <tr>
-                <th align="center">Nº PRONAC:</th>
+                <th align="center">Nï¿½ PRONAC:</th>
                 <th align="center">Nome do Projeto:</th>
             </tr>
         </thead>
@@ -108,11 +108,11 @@
                                         if($dados->tpPlanoDistribuicao == 'AP'){
                                             echo "APROVADO";
                                         } elseif($dados->tpPlanoDistribuicao == 'SR'){
-                                            echo "SOLICITAÇÃO DE READEQUAÇÃO";
+                                            echo "SolicitaÃ§Ã£o DE READEQUAï¿½ï¿½O";
                                         } elseif($dados->tpPlanoDistribuicao == 'AT'){
-                                            echo "ANÁLISE TÉCNICA";
+                                            echo "AnÃ¡lise TÃ©cnica";
                                         } elseif($dados->tpPlanoDistribuicao == 'CO'){
-                                            echo "COMPONENTE DA COMISSÃO";
+                                            echo "COMPONENTE DA comissÃ£o";
                                         }
                                     ?>
                                 </b>
@@ -135,14 +135,14 @@
                                                     <td>
                                                         <b>Produto Principal?</b><br>
                                                         <?php if ($dados->PrdotudoPrincpal == 0) {
-                                                                  echo "Não";
+                                                                  echo "NÃ£o";
                                                               } else {
                                                                   echo "Sim";
                                                               }
                                                           ?>
                                                     </td>
                                                     <td>
-                                                        <b>Área</b><br>
+                                                        <b>ï¿½rea</b><br>
                                                         <?php echo $dados->Area; ?>
                                                     </td>
                                                     <td>
@@ -286,7 +286,7 @@
 
 <script type="text/javascript">
     /**
-     * Ações que serão executadas após o carregamento da página
+     * Aï¿½ï¿½es que serÃ¡o executadas apï¿½s o carregamento da pÃ¡gina
      */
     $(document).ready(function(){
 
@@ -307,14 +307,14 @@
             $('#planilhaSolicitada').addClass('fundo_linha2');
         });
 
-	// controle de exibição da planilha aprovada
+	// controle de exibiï¿½ï¿½o da planilha aprovada
 	$(".icn_menos_AP").click(function(){
             abrir_planilha(this, '');
 	});
 
 	$(".icn_menos_AP").click();
 
-	// controle de exibição da planilha solicitada
+	// controle de exibiï¿½ï¿½o da planilha solicitada
 	$(".icn_menos_SR").click(function(){
             abrir_planilha(this, 'SR');
 	});
@@ -340,7 +340,7 @@
     });
 
     /**
-     * Função para expandir/recolher a planilha
+     * Funï¿½ï¿½o para expandir/recolher a planilha
      */
     function abrir_planilha(item, planilha){
         var tipo    = $(item).attr('tipo' + planilha);
@@ -385,7 +385,7 @@
             cidade  = $(item).attr('cidade' + planilha);
             $(".cidade" + planilha + "[produto" + planilha + "='" + produto + "'][etapa" + planilha + "='" + etapa + "'][cidade" + planilha + "='" + cidade + "'][fonte" + planilha + "='" + fonte + "']").css('display', adisplay);
         }
-    } // fecha função abrir_planilha()
+    } // fecha funï¿½ï¿½o abrir_planilha()
 </script>
 
 <?php $resultado = $this->buscaprojeto;
@@ -400,7 +400,7 @@
 
     <table class="tabela sumir planilhaAprovada">
         <tr>
-            <th>Planilha Orçamentária Aprovada</th>
+            <th>Planilha Orï¿½amentï¿½ria Aprovada</th>
         </tr>
 
         <?php if (count($this->planAP) <= 0){ ?>
@@ -512,7 +512,7 @@
 
             <table class="tabela planilhaSolicitada">
             	<tr>
-                    <th>Planilha Orçamentária Readequada</th>
+                    <th>Planilha Orï¿½amentï¿½ria Readequada</th>
             	</tr>
 
 		<?php $nrFonte = 0; $item = 1; foreach ($this->planSR as $fonte => $planilha) : //ForeachFonteIncentivo ?>
@@ -562,7 +562,7 @@
                                         <th>Vl. Unit&aacute;rio</th>
                                         <th>Vl. Solicitado</th>
                                         <th>Justificativa</th>
-                                        <th>Ação</th>
+                                        <th>Aï¿½ï¿½o</th>
                                     </tr>
                                     <?php $totalUF = 0;
                                         if (is_array($this->planSR[$fonte][$produto][$etapa][$cidade]))
@@ -687,7 +687,7 @@
 </script>
 
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INÃCIO RODAPÃ‰ DO CONTEÃšDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPÃ‰ DO CONTEÃšDO ========== -->
 <br clear="all" />

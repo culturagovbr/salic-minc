@@ -1,4 +1,4 @@
-<!-- ========== IN�CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     function layout_fluido()
@@ -27,9 +27,9 @@
     		$(this).next().toggle('fast');
     	});
     });
-    
+
     function JSExcluirProposta(idPreProjeto) {
-        
+
         $("#modalExcluirProposta").html("Deseja realmente excluir sua proposta?");
         $("#modalExcluirProposta").dialog("destroy");
         $("#modalExcluirProposta").dialog
@@ -55,7 +55,7 @@
     }
 </script>
 
-        <!-- in�cio: navega��o local #qm0 -->
+        <!-- INÍCIO: navega��o local #qm0 -->
         <?php
 
             $get = Zend_Registry::get("get");
@@ -81,7 +81,7 @@
 		</div>
         <div id="alertar"></div>
         <!-- final: navega��o local #qm0 -->
-   
+
 <div id="modalExcluirProposta" style="display:none"></div>
         </div>
 <!-- ========== FIM MENU ========== -->

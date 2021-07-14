@@ -27,7 +27,7 @@
 	        	<input type="button" id="" class="btn_adicionar projeto" onclick="$('.produtos_<?php echo $projetos['IdPRONAC']?>').toggle()" />
 	        	<label id="pronac">Pronac:</label>
 	        	<a target="_blank" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'))."?idPronac=$projetos[IdPRONAC]"?>'><?php echo $projetos['Pronac']; ?></a>
-	        	&nbsp;&nbsp;&nbsp;&nbsp;<label id="nome projeto">Nome Projeto:</label> 
+	        	&nbsp;&nbsp;&nbsp;&nbsp;<label id="nome projeto">Nome Projeto:</label>
 	        	<a href='<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'carregarhistorico'))."?Pronac=$projetos[Pronac]&idPronac=$projetos[IdPRONAC]"?>'><?php echo $projetos['NomeProjeto']; ?></a>
 	        </td>
 	    </tr>
@@ -60,7 +60,7 @@
 				        <td><?php if ($produto->stPrincipal == 1) {
             echo 'Sim';
         } else {
-            echo 'Nâo';
+            echo 'NÃ£o';
         } ?></td>
 				        <td><?php echo $this->formatarReal($produto->vlPagamento); ?></td>
 				        <td><?php echo $produto->memorando; ?></td>

@@ -4,7 +4,7 @@ class ComprovarPagamentoServiceController extends ServicoController
 {
 
     /**
-     * Action que define a classe de servico que será publicada como serviço
+     * Action que define a classe de servico que serÃ¡ publicada como serviï¿½o
      * pelo protocolo soap
      */
     public function comprovarPagamentoAction()

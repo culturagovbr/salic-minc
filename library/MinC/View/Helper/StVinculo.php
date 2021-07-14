@@ -1,19 +1,19 @@
 <?php
 /**
- * Cores alternativas dos registros de uma tabela (cor sim, cor não)
+ * Cores alternativas dos registros de uma tabela (cor sim, cor NÃ£o)
  * @author Equipe RUP - Politec
  * @since 29/03/2010
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_StVinculo
 {
 	/**
-	 * Método com as cores alternativas das linhas da tabela
+	 * Mï¿½todo com as cores alternativas das linhas da tabela
 	 * @access public
 	 * @param integer $i
 	 * @return string
@@ -33,6 +33,6 @@ class Zend_View_Helper_StVinculo
                 $return =  "Desvinculado";
             }
             return $return;
-	} // fecha método corLinha()
+	} // fecha mï¿½todo corLinha()
 
 } // fecha class

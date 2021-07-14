@@ -388,7 +388,7 @@ class Fiscalizacao_FiscalizarprojetoculturalController extends MinC_Controller_A
 
 //        $Usuario = $usuarios->getIdUsuario($idUsuario);
 //        if(!isset($Usuario->idAgente)){
-//            parent::message("N�o foi poss�vel realizar a opera��o. Favor entrar em contato com os gestores do sistema!", "fiscalizacao/pesquisarprojetofiscalizacao/grid?tipoFiltro=analisados", "ERROR");
+//            parent::message("Não foi poss�vel realizar a opera��o. Favor entrar em contato com os gestores do sistema!", "fiscalizacao/pesquisarprojetofiscalizacao/grid?tipoFiltro=analisados", "ERROR");
 //        }
 //        $idAvaliador = $Usuario->idAgente;
 
@@ -494,7 +494,7 @@ class Fiscalizacao_FiscalizarprojetoculturalController extends MinC_Controller_A
             if ($idDocumentoAssinatura) {
                 parent::message("Fiscaliza&ccedil;&atilde;o aprovada com sucesso! </br>
                  Um documento foi gerado e est&aacute; dispon&iacute;vel para o t&eacute;cnico respons&aacute;vel. </br>
-                 Voc&ecirc; dever&aacute; assinar o documento ap&oacute;s o t&eacute;cnico. Acompanhe em 
+                 Voc&ecirc; dever&aacute; assinar o documento ap&oacute;s o t&eacute;cnico. Acompanhe em
                  <u><a class='white-text' href='/assinatura/index/gerenciar-assinaturas'>Assinatura</a></u> no menu.",
                     "fiscalizacao/pesquisarprojetofiscalizacao/grid?tipoFiltro=analisados",
                     "CONFIRM"

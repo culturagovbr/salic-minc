@@ -234,7 +234,7 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
         }
 
         $tbTmpCaptacao = new tbTmpCaptacao();
-        
+
         $total = $tbTmpCaptacao->listarProjetosInconsistentes($this->view->usuario->usu_org_max_superior, $pronac, null, null, null)->count();
         $fim = $inicio + $this->intTamPag;
 
@@ -1711,7 +1711,7 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
                                         // abre o arquivo para leitura
                                         $abrir_arquivo = fopen($arquivoTXT, 'r');
 
-                                // in�cio while de leitura do arquivo linha por linha
+                                // INÍCIO while de leitura do arquivo linha por linha
                                 $i = 0;
                                 $dsInformacao = array();
                                 while (!feof($abrir_arquivo)) {

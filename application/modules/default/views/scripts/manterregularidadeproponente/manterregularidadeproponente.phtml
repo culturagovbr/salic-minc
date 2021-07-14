@@ -18,23 +18,23 @@ if (  $this->modal == "s"  ) {?>
     </ul>
 </div> <!-- final: #breadcrumb -->
 
-<!-- inï¿½cio: #titulo -->
+<!-- INÃCIO: #titulo -->
 <div id="titulo">
     <div>Certid&otilde;es negativas</div>
 </div>
 <?php } ?>
 <script type="text/javascript">
-    
+
     function verificaNumero(e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
             return false;
         }
     }
-    
+
     function addDia(dtEmissao,tipo,campo){
-      
+
         if ( dtEmissao.length == 10 ){
-      
+
             $('html').css('overflow', 'hidden');
             $("body").append("<div id='divDinamica'></div>");
             $("#divDinamica").html("");
@@ -49,7 +49,7 @@ if (  $this->modal == "s"  ) {?>
                 draggable:false,
                 title: title
             });
-        
+
             $.ajax({
                 url : '<?php echo $this->url(array('controller' => 'manterregularidadeproponente', 'action' => 'calculadataemissaoduracao')); ?>',
                 data :
@@ -58,7 +58,7 @@ if (  $this->modal == "s"  ) {?>
                     tipo: tipo
                 },
                 success: function(data){
-                    
+
                     if( data.error ){
                         $("#divDinamica").remove();
                         if( campo == "federal" ){
@@ -85,7 +85,7 @@ if (  $this->modal == "s"  ) {?>
                             $('#txtDtFutINSSSpan').html('');
                         }
                     }
-                    
+
                     if ( data.existe )
                     {
                         $('#'+campo).val(data.data);
@@ -103,7 +103,7 @@ if (  $this->modal == "s"  ) {?>
                 dataType : 'json'
             });
             $('.ui-dialog-titlebar-close').remove();
-            
+
         }
     }
 
@@ -112,12 +112,12 @@ if (  $this->modal == "s"  ) {?>
         var valorCampo = $('#'+idCampo).val();
         if ( valorCampo.length >= 6 ){
             if ( idPronac != "" ) {
-    
+
                 $('html').css('overflow', 'hidden');
                 $("body").append("<div id='divDinamica'></div>");
                 $("#divDinamica").html("");
                 $('#divDinamica').html("<br><br><center>Verificando PRONAC! Aguarde, por favor...</center>");
-            
+
                 var title = 'Alerta';
                 $("#divDinamica").dialog('close');
                 $("#divDinamica").dialog({
@@ -153,7 +153,7 @@ if (  $this->modal == "s"  ) {?>
         }
     }
     function habilitarEnvio(){
-    
+
         var check = $("input:checkbox:checked").length;
         if ( check  <= 0 ){
             //JSBloquearAlteracaoFormulario();
@@ -164,7 +164,7 @@ if (  $this->modal == "s"  ) {?>
             });
         }
     }
-    
+
     function enviarForm(){
         if(!validarCampo()){
             $("#frmCertidao").submit();
@@ -176,20 +176,20 @@ if (  $this->modal == "s"  ) {?>
         $('#btCancelar').click(function(){
             window.location = "<?php echo $this->url(array('controller' => 'manterregularidadeproponente', 'action' => 'index')); ?>";
         });
-        
+
         $('.botao_limpar').click(function(){
             var cpfcnpj = $(this).attr('cpfcnpj'),
                 cod = $(this).attr('cod');
-            
+
             $("#alerta").dialog("destroy");
-            $("#alerta").html('Deseja realmente limpar os dados dessa certidão?');
+            $("#alerta").html('Deseja realmente limpar os dados dessa certidï¿½o?');
             $("#alerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
                 width: 430,
                 modal: true,
                 buttons : {
-                    'Não' : function(){
+                    'NÃ£o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -213,10 +213,10 @@ if (  $this->modal == "s"  ) {?>
                                     });
                                     $('.ui-dialog-titlebar-close').remove();
                                     window.setTimeout('recarregarPagina("'+cpfcnpj+'")', 1000);
-                                    
+
                                 } else {
                                     $("#alerta").dialog("destroy");
-                                    $("#alerta").html("Não encontramos os dados dessa certidão!");
+                                    $("#alerta").html("NÃ£o encontramos os dados dessa certidï¿½o!");
                                     $("#alerta").dialog({
                                         resizable: false,
                                         title: 'Alerta!',
@@ -273,7 +273,7 @@ if (  $this->modal == "s"  ) {?>
                 $('#federal').focus();
             }
         });
-        
+
         $("#quitacaoFederalDias").keypress(verificaNumero);
         $("#quitacaoFederalProjeto").keypress(verificaNumero);
 //        $("#quitacaoFederalProtocolo").keypress(verificaNumero);
@@ -291,15 +291,15 @@ if (  $this->modal == "s"  ) {?>
         $("#quitacaoCEPIMDias").keypress(verificaNumero);
         $("#quitacaoCEPIMProjeto").keypress(verificaNumero);
 //        $("#quitacaoCEPIMProtocolo").keypress(verificaNumero);
-        
+
         habilitarEnvio();
-        
+
         $('.botao_imprimir').click(function(){
             window.open('<?php echo $this->url(array('controller' => 'manterregularidadeproponente', 'action' => 'imprimir')); ?>?cpfCnpj=<?php echo $_REQUEST['cpfCnpj'] ?>');
         });
 
         // calendï¿½rio
-        $.datepicker.regional['pt-BR'] = 
+        $.datepicker.regional['pt-BR'] =
             {
             closeText: 'Fechar',
             prevText: '&#x3c;Anterior',
@@ -318,13 +318,13 @@ if (  $this->modal == "s"  ) {?>
             yearSuffix: ''
         };
         $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
- 
+
         // id dos campos que utilizarï¿½o o calendï¿½rio
         $("#txtDtFut, #txtDtFutEstadual, #txtDtFutFGTS, #quitacaoFGTSValidade, #txtDtFutINSS, #txtDtFutCADIN, #txtDtFutCEPIM").datepicker($.datepicker.regional['pt-BR']);
 
         colorirLinha();
     });
-    
+
     function recarregarPagina(cpfCnpj){
         <?php if($this->pronacEnviado){ ?>
             window.location = "<?php echo $this->url(array('controller' => 'manterregularidadeproponente', 'action' => 'manterregularidadeproponente')); ?>?cpfCnpj="+cpfCnpj+"&pronacEnviado=<?php echo $this->pronacEnviado; ?>";
@@ -332,9 +332,9 @@ if (  $this->modal == "s"  ) {?>
             window.location = "<?php echo $this->url(array('controller' => 'manterregularidadeproponente', 'action' => 'manterregularidadeproponente')); ?>?cpfCnpj="+cpfCnpj;
         <?php } ?>
     }
-    
+
     function validarCampo(){
-    
+
         var checkFederal = $("input:checkbox[name='checkFederal']:checked").length;
         var checkFGTS = $("input:checkbox[name='checkFGTS']:checked").length;
         var checkINSS = $("input:checkbox[name='checkINSS']:checked").length;
@@ -342,13 +342,13 @@ if (  $this->modal == "s"  ) {?>
         //var checkCEPIM = $("input:checkbox[name='checkCEPIM']:checked").length;
 
         var bln_validacao = false;
-        
+
         if ( checkFederal == 1 ){
-            
+
             var txtDtFut = $("#txtDtFut").val();
             var federal = $("#federal").val();
             var quitacaoFederalProjeto = $("#quitacaoFederalProjeto").val();
-            
+
             if(!txtDtFut){
                 bln_validacao = true;
                 $('#txtDtFutSpan').html('<br><font color="red">Campo obrigat&oacute;rio</font>');
@@ -375,13 +375,13 @@ if (  $this->modal == "s"  ) {?>
                 $('#quitacaoFederalProjetoSpan').html('');
             }
         }
-        
+
         if ( checkFGTS == 1 ){
 
             var txtDtFutFGTS = $("#txtDtFutFGTS").val();
             var fgts = $("#fgts").val();
             var quitacaoFGTSProjeto = $("#quitacaoFGTSProjeto").val();
-        
+
             if(!txtDtFutFGTS){
                 bln_validacao = true;
                 $('#txtDtFutFGTSSpan').html('<br><font color="red">Campo obrigat&oacute;rio</font>');
@@ -408,15 +408,15 @@ if (  $this->modal == "s"  ) {?>
             else{
                 $('#quitacaoFGTSProjetoSpan').html('');
             }
-            
+
         }
-        
+
         if ( checkINSS == 1 ){
-            
+
             var txtDtFutINSS = $("#txtDtFutINSS").val();
             var inss = $("#inss").val();
             var quitacaoINSSProjeto = $("#quitacaoINSSProjeto").val();
-        
+
             if(!txtDtFutINSS){
                 bln_validacao = true;
                 $('#txtDtFutINSSSpan').html('<br><font color="red">Campo obrigat&oacute;rio</font>');
@@ -442,15 +442,15 @@ if (  $this->modal == "s"  ) {?>
             else{
                 $('#quitacaoINSSProjetoSpan').html('');
             }
-        
+
         }
-        
+
         if ( checkCADIN == 1 ){
-            
+
             var txtDtFutCADIN = $("#txtDtFutCADIN").val();
             var quitacaoCADINProjeto =  $("#quitacaoCADINProjeto").val();
             var quitacaoCADINSituacao = $("#quitacaoCADINSituacao").val();
-        
+
             if(!quitacaoCADINProjeto){
                 bln_validacao = true;
                 $('#quitacaoCADINProjetoSpan').html('<br><font color="red">Campo obrigat&oacute;rio</font>');
@@ -471,7 +471,7 @@ if (  $this->modal == "s"  ) {?>
             }
 
         }
-        
+
 //        if ( checkCEPIM == 1 ){
 //
 //            var txtDtFutCEPIM = $("#txtDtFutCEPIM").val();
@@ -500,23 +500,23 @@ if (  $this->modal == "s"  ) {?>
 //        }
         return bln_validacao;
     }
-    
+
     function colorirLinha(){
-        
+
         var dtAtual = "<?php echo date("Ymd"); ?>";
         var dtTmp = null;
         var arrTmp = null;
-        
+
         //DATA FEDERAL
         if($("#federal").val().length == 10){
             var dtValidadeFederal = $("#federal").val();
             dtTmp = dtValidadeFederal;
-            arrTmp = dtTmp.split("/");    
+            arrTmp = dtTmp.split("/");
             dtValidadeFederal = arrTmp[2]+arrTmp[1]+arrTmp[0];
         }else{
             var dtValidadeFederal = dtAtual;
-        }   
-        
+        }
+
         if(dtValidadeFederal < dtAtual){
             $("#linhaFederal").addClass("vencida");
             $("#linhaFederal").addClass("vencidaInput");
@@ -525,19 +525,19 @@ if (  $this->modal == "s"  ) {?>
             $("#linhaFederal").removeClass("vencidaInput");
         }
 
-            <?php if($this->proponente == "PJ"): ?>         
+            <?php if($this->proponente == "PJ"): ?>
         //DATA FGTS
         dtTmp = null;
         arrTmp = null;
         if($("#fgts").val().length == 10){
             var dtValidadeFgts = $("#fgts").val();
             dtTmp = dtValidadeFgts;
-            arrTmp = dtTmp.split("/");    
+            arrTmp = dtTmp.split("/");
             dtValidadeFgts = arrTmp[2]+arrTmp[1]+arrTmp[0];
         }else{
             var dtValidadeFgts = dtAtual;
         }
-        
+
         if(dtValidadeFgts < dtAtual){
             $("#linhaFgts").addClass("vencida");
             $("#linhaFgts").addClass("vencidaInput");
@@ -545,19 +545,19 @@ if (  $this->modal == "s"  ) {?>
             $("#linhaFgts").removeClass("vencida");
             $("#linhaFgts").removeClass("vencidaInput");
         }
-        
+
         //DATA INSS
         dtTmp = null;
         arrTmp = null;
         if($("#inss").val().length == 10){
             var dtValidadeInss = $("#inss").val();
             dtTmp = dtValidadeInss;
-            arrTmp = dtTmp.split("/");    
+            arrTmp = dtTmp.split("/");
             dtValidadeInss = arrTmp[2]+arrTmp[1]+arrTmp[0];
         }else{
             var dtValidadeInss = dtAtual;
         }
-        
+
         if(dtValidadeInss < dtAtual){
             $("#linhaInss").addClass("vencida");
             $("#linhaInss").addClass("vencidaInput");
@@ -566,7 +566,7 @@ if (  $this->modal == "s"  ) {?>
             $("#linhaInss").removeClass("vencidaInput");
         }
 	    <?php endif; ?>
-       
+
     }
 </script>
 
@@ -579,7 +579,7 @@ if (  $this->modal == "s"  ) {?>
     $dataatual = date('Y-m-d');
 ?>
 
-<!-- inï¿½cio: área principal #conteudo -->
+<!-- INÃCIO: ï¿½rea principal #conteudo -->
 <?php if (  $this->modal == "s"  ) {?>
     <div id="conteudo">
         <table class="tabela">
@@ -633,36 +633,36 @@ if (  $this->modal == "s"  ) {?>
 
                 <td>Quita&ccedil;&atilde;o de Tributos Federais</td>
                 <td>
-                    <input name="txtDtFut" id="txtDtFut" onclick="limpar_campo(this);" 
+                    <input name="txtDtFut" id="txtDtFut" onclick="limpar_campo(this);"
                            onchange="addDia(this.value,1,$('#federal').attr('id')),validaData(this,'frmCertidao');"
-                           class="input_simples btn_calendario" onkeydown="mascara(this, format_data)" 
-                           onkeypress="mascara(this, format_data)" onkeyup="mascara(this, format_data)" 
+                           class="input_simples btn_calendario" onkeydown="mascara(this, format_data)"
+                           onkeypress="mascara(this, format_data)" onkeyup="mascara(this, format_data)"
                            maxlength="10" type="text" value="<?php echo $this->dtemissaoqf ?>" />
                     <span id="txtDtFutSpan" ></span>
                 </td>
                 <!--<td>&nbsp;</td>
                 <td>
-                    <input id="quitacaoFederalDias" class="input_simples" name="txtDias" maxlength="3"                            
-                           onblur="calculaDia(this.value,$('#txtDtFut').val(),$('#federal').attr('id'))" 
+                    <input id="quitacaoFederalDias" class="input_simples" name="txtDias" maxlength="3"
+                           onblur="calculaDia(this.value,$('#txtDtFut').val(),$('#federal').attr('id'))"
                            type="text" value="<?php //echo $this->diasqf ?>"/>
                     <span id="quitacaoFederalDiasSpan" ></span>
                 </td>-->
                 <td>
-                    <input id="federal" name="quitacaoFederalValidade" readonly="readonly" maxlength="10" 
+                    <input id="federal" name="quitacaoFederalValidade" readonly="readonly" maxlength="10"
                            onblur="" onkeydown="mascara(this, format_data)"
-                           onkeyup="mascara(this, format_data)" onkeypress="mascara(this, format_data)" 
+                           onkeyup="mascara(this, format_data)" onkeypress="mascara(this, format_data)"
                            class="input_simples btn_calendario" type="text" value="<?php echo $this->dtvalidadeqf ?>"/>
                     <span id="federalSpan" ></span>
                 </td>
                 <td>
-                    <input maxlength="7" class="input_simples" type="text" id="quitacaoFederalProjeto" 
+                    <input maxlength="7" class="input_simples" type="text" id="quitacaoFederalProjeto"
                            name="quitacaoFederalProjeto" onblur="buscaPronac(this.value,this.id)" value="<?php echo $this->pronacqf ?>" />
                     <span id="quitacaoFederalProjetoSpan" ></span>
                     <input type="hidden" id="verificaqf" name="verificaqf" value="" />
                     <input type="hidden" id="idcertidaoqf" name="idcertidaoqf" value="<?php echo $this->idcertidaoqf ?>" />
                 </td>
                 <!--<td>
-                    <input maxlength="15" class="input_simples" type="text" id="quitacaoFederalProtocolo" 
+                    <input maxlength="15" class="input_simples" type="text" id="quitacaoFederalProtocolo"
                            name="quitacaoFederalProtocolo" value="<?php echo $this->cdprotocolonegativaqf ?>" />
                     <input type="hidden" id="verificaqf" name="verificaqf" value="" />
                     <input type="hidden" id="idcertidaoqf" name="idcertidaoqf" value="<?php echo $this->idcertidaoqf ?>" />
@@ -695,36 +695,36 @@ if (  $this->modal == "s"  ) {?>
                 <td align="center"><input type="checkbox" value=""  name="checkFGTS" onclick="habilitaCampos(3), habilitarEnvio()" /></td>
                 <td>FGTS</td>
                 <td>
-                    <input id="txtDtFutFGTS"  name="txtDtFutFGTS" class="input_simples btn_calendario" 
-                           onchange="addDia(this.value,3,$('#fgts').attr('id'))" 
+                    <input id="txtDtFutFGTS"  name="txtDtFutFGTS" class="input_simples btn_calendario"
+                           onchange="addDia(this.value,3,$('#fgts').attr('id'))"
                            onkeydown="mascara(this, format_data)" onkeyup="mascara(this, format_data)"
-                           onkeypress="mascara(this, format_data)" maxlength="10" type="text" 
+                           onkeypress="mascara(this, format_data)" maxlength="10" type="text"
                            value="<?php echo $this->dtemissaofgts ?>"/>
                     <span id="txtDtFutFGTSSpan" ></span>
                 </td>
                 <!--<td>&nbsp;</td>
                 <td>
-                    <input class="input_simples" onblur="calculaDia(this.value,$('#txtDtFutFGTS').val(),$('#fgts').attr('id'))" 
+                    <input class="input_simples" onblur="calculaDia(this.value,$('#txtDtFutFGTS').val(),$('#fgts').attr('id'))"
                            maxlength="3" type="text" name="txtDiasFGTS" id="quitacaoFGTSDias" value="<?php //echo $this->diasfgts ?>"  />
                     <span id="quitacaoFGTSDiasSpan" ></span>
                 </td>-->
                 <td>
                     <input id="fgts"  name="quitacaoFGTSValidade" readonly="readonly" maxlength="10"
-                           onkeydown="mascara(this, format_data)" onkeyup="mascara(this, format_data)" 
-                           onkeypress="mascara(this, format_data)event);" class="input_simples btn_calendario" type="text" 
+                           onkeydown="mascara(this, format_data)" onkeyup="mascara(this, format_data)"
+                           onkeypress="mascara(this, format_data)event);" class="input_simples btn_calendario" type="text"
                            value="<?php echo $this->dtvalidadefgts ?>"/>
                     <span id="quitacaoFGTSValidadeSpan" ></span>
                 </td>
                 <td>
-                    <input id="quitacaoFGTSProjeto" name="quitacaoFGTSProjeto" maxlength="7" class="input_simples" type="text" 
-                           onblur="buscaPronac(this.value,this.id)" 
+                    <input id="quitacaoFGTSProjeto" name="quitacaoFGTSProjeto" maxlength="7" class="input_simples" type="text"
+                           onblur="buscaPronac(this.value,this.id)"
                            value="<?php echo $this->pronacfgts ?>" />
                     <span id="quitacaoFGTSProjetoSpan" ></span>
                     <input type="hidden" id="verificafgts" name="verificafgts" value="" />
                     <input type="hidden" id="idcertidaofgts" name="idcertidaofgts" value="<?php echo $this->idcertidaofgts ?>" />
                 </td>
                 <!--<td>
-                    <input maxlength="15" class="input_simples" type="text" id="quitacaoFGTSProtocolo" 
+                    <input maxlength="15" class="input_simples" type="text" id="quitacaoFGTSProtocolo"
                            name="quitacaoFGTSProtocolo" value="<?php echo $this->cdprotocolonegativafgts ?>" />
                     <input type="hidden" id="verificafgts" name="verificafgts" value="" />
                     <input type="hidden" id="idcertidaofgts" name="idcertidaofgts" value="<?php echo $this->idcertidaofgts ?>" />
@@ -746,7 +746,7 @@ if (  $this->modal == "s"  ) {?>
                 </td>
                 <td align="center"><a class="botao_limpar waves-effect waves-light btn btn-default small" cpfcnpj="<?php echo $this->cgccpf; ?>" cod="51" >
                     <i class="material-icons left">delete</i>limpar</a>
-                </td>                                             
+                </td>
             </tr>
 
             <!------------------------------------------------------------------------------------------------------------------>
@@ -757,34 +757,34 @@ if (  $this->modal == "s"  ) {?>
                 <td align="center"><input type="checkbox" value="" name="checkINSS" <?php echo $this->stylealidadeinss ?> onclick="habilitaCampos(2), habilitarEnvio()" /></td>
                 <td>INSS</td>
                 <td>
-                    <input class="input_simples btn_calendario" onchange="addDia(this.value,2,$('#inss').attr('id')), validaData(this);" 
-                           onkeydown="mascara(this, format_data)" onkeyup="mascara(this, format_data)" 
-                           onkeypress="mascara(this, format_data)" maxlength="10" type="text" 
+                    <input class="input_simples btn_calendario" onchange="addDia(this.value,2,$('#inss').attr('id')), validaData(this);"
+                           onkeydown="mascara(this, format_data)" onkeyup="mascara(this, format_data)"
+                           onkeypress="mascara(this, format_data)" maxlength="10" type="text"
                            name="txtDtFutINSS" id="txtDtFutINSS" value="<?php echo $this->dtemissaoinss ?>" />
                     <span id="txtDtFutINSSSpan" ></span>
                 </td>
                 <!--<td>&nbsp;</td>
                 <td>
-                    <input name="txtDiasINSS" id="quitacaoINSSDias" onblur="calculaDia(this.value,$('#txtDtFutINSS').val(),$('#inss').attr('id'))"  
+                    <input name="txtDiasINSS" id="quitacaoINSSDias" onblur="calculaDia(this.value,$('#txtDtFutINSS').val(),$('#inss').attr('id'))"
                            class="input_simples" maxlength="3" type="text" value="<?php //echo $this->diasinss ?>"  />
                     <span id="quitacaoINSSDiasSpan" ></span>
                 </td>-->
                 <td>
-                    <input id="inss" name="quitacaoINSSValidade" readonly="readonly" maxlength="10" onblur="" 
-                           onkeyup="mascara(this, format_data)" onkeypress="mascara(this, format_data)" 
-                           class="input_simples btn_calendario" 
+                    <input id="inss" name="quitacaoINSSValidade" readonly="readonly" maxlength="10" onblur=""
+                           onkeyup="mascara(this, format_data)" onkeypress="mascara(this, format_data)"
+                           class="input_simples btn_calendario"
                            type="text" value="<?php echo $this->dtvalidadeinss ?>"  />
                     <span id="quitacaoINSSValidadeSpan" ></span>
                 </td>
                 <td>
-                    <input id="quitacaoINSSProjeto" name="quitacaoINSSProjeto" maxlength="7" class="input_simples" type="text" 
+                    <input id="quitacaoINSSProjeto" name="quitacaoINSSProjeto" maxlength="7" class="input_simples" type="text"
                            onblur="buscaPronac(this.value,this.id)" value="<?php echo $this->pronacinss ?>" />
                     <span id="quitacaoINSSProjetoSpan" ></span>
                     <input type="hidden" id="verificainss" name="verificainss" value="" />
                     <input type="hidden" id="idcertidaoinss" name="idcertidaoinss" value="<?php echo $this->idcertidaoinss ?>" />
                 </td>
                 <!--<td>
-                    <input id="quitacaoINSSProtocolo" name="quitacaoINSSProtocolo" maxlength="15" class="input_simples" type="text" 
+                    <input id="quitacaoINSSProtocolo" name="quitacaoINSSProtocolo" maxlength="15" class="input_simples" type="text"
                            value="<?php echo $this->cdprotocolonegativainss ?>" />
                     <input type="hidden" id="verificainss" name="verificainss" value="" />
                     <input type="hidden" id="idcertidaoinss" name="idcertidaoinss" value="<?php echo $this->idcertidaoinss ?>" />
@@ -806,7 +806,7 @@ if (  $this->modal == "s"  ) {?>
                 </td>
                 <td align="center"><a class="botao_limpar waves-effect waves-light btn btn-default small" cpfcnpj="<?php echo $this->cgccpf; ?>" cod="52" >
                     <i class="material-icons left">delete</i>limpar</a>
-                </td>                                             
+                </td>
             </tr>
             <?php endif;?>
             <!--==============================================================================================================-->
@@ -817,22 +817,22 @@ if (  $this->modal == "s"  ) {?>
                 <td align="center"><input type="checkbox" value="" name="checkCADIN" onclick="habilitaCampos(4), habilitarEnvio()" /></td>
                 <td>CADIN</td>
                 <td>
-                    <input  name="txtDtFutCADIN" id="txtDtFutCADIN" readonly="readonly" class="input_simples btn_calendario" onchange="validaData(this);" 
-                            onkeydown="mascara(this, format_data)" onkeyup="mascara(this, format_data)" 
-                            onkeypress="mascara(this, format_data)" maxlength="10" type="text" 
+                    <input  name="txtDtFutCADIN" id="txtDtFutCADIN" readonly="readonly" class="input_simples btn_calendario" onchange="validaData(this);"
+                            onkeydown="mascara(this, format_data)" onkeyup="mascara(this, format_data)"
+                            onkeypress="mascara(this, format_data)" maxlength="10" type="text"
                             value="<?php echo ($this->dtemissaocadin) ? $this->dtemissaocadin: date("d/m/Y"); ?>" />
                     <span id="txtDtFutCADINSpan" ></span>
                 </td>
                 <!--<td>
-                    <input id="quitacaoCADINHora" name="quitacaoCADINHora" maxlength="8" onblur="" 
-                           OnKeyUp="mascara_hora(this.value, 4);" OnKeyDown="mascara_hora(this.value, 4)" 
-                           OnKeyPress="mascara_hora(this.value, 4)" class="input_simples btn_relogio" type="text" 
+                    <input id="quitacaoCADINHora" name="quitacaoCADINHora" maxlength="8" onblur=""
+                           OnKeyUp="mascara_hora(this.value, 4);" OnKeyDown="mascara_hora(this.value, 4)"
+                           OnKeyPress="mascara_hora(this.value, 4)" class="input_simples btn_relogio" type="text"
                            value="<?php echo $this->horacadin; ?>" />
                     <span id="quitacaoCADINHoraSpan" ></span>
                 </td>-->
                 <td>&nbsp;</td>
                 <td>
-                    <input id="quitacaoCADINProjeto" name="quitacaoCADINProjeto" maxlength="7" class="input_simples" type="text" 
+                    <input id="quitacaoCADINProjeto" name="quitacaoCADINProjeto" maxlength="7" class="input_simples" type="text"
                            onblur="buscaPronac(this.value,this.id)" value="<?php echo $this->pronaccadin ?>" />
                     <span id="quitacaoCADINProjetoSpan" ></span>
                 </td>
@@ -872,7 +872,7 @@ if (  $this->modal == "s"  ) {?>
                     <input type="hidden" id="cgcCpf" name="cgcCpf" value="<?php echo $this->cgccpf ?>" />
                 </td>
                 <!--<td>
-                    <input  id="quitacaoCADINProtocolo" name="quitacaoCADINProtocolo" maxlength="15" class="input_simples" 
+                    <input  id="quitacaoCADINProtocolo" name="quitacaoCADINProtocolo" maxlength="15" class="input_simples"
                             type="text" value="<?php echo $this->cdprotocolonegativacadin ?>" />
                     <span id="quitacaoCADINProtocoloSpan" ></span>
                     <input type="hidden" id="verificacadin" name="verificacadin" value="" />
@@ -902,7 +902,7 @@ if (  $this->modal == "s"  ) {?>
                 </td>-->
                 <td align="center"><a class="botao_limpar waves-effect waves-light btn btn-default small" cpfcnpj="<?php echo $this->cgccpf; ?>" cod="244" >
                     <i class="material-icons left">delete</i>limpar</a>
-                </td>                                             
+                </td>
             </tr>
 
 
@@ -994,10 +994,10 @@ if (  $this->modal == "s"  ) {?>
     <br />
 <?php if (  $this->modal == "s"  ) {?>
 </div>
-<!-- final: conteï¿½do principal #conteudo -->
+<!-- final: CONTEÃšDO principal #conteudo -->
 
 
-<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÃCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

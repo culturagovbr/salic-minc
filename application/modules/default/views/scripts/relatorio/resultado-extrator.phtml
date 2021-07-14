@@ -26,15 +26,15 @@
                 }
             }
         });
-        
-        
+
+
         $('#btn_xls').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="xls" value="xls"/>');
             $('#frmPaginacao').submit();
             $('#frmPaginacao').attr('target','');
-            $('#xls').remove(); 
+            $('#xls').remove();
         });
-        
+
         $('#btn_imprimir').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="pdf" value="pdf"/>');
             $('#frmPaginacao').submit();
@@ -54,7 +54,7 @@
         $("#tipoOrdenacao").val(tipo);
         paginar(1);
     }
-    
+
     function DoubleScroll(element) {
         var scrollbar= document.createElement('div');
         scrollbar.appendChild(document.createElement('div'));
@@ -85,8 +85,8 @@
         <?php if(@in_array("cmpsOrd_processo", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="8">Processo</a></th><?php endif; ?>
         <?php if(@in_array("cmpsOrd_uf", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="9">UF</a></th><?php endif; ?>
         <?php if(@in_array("cmpsOrd_dtprotocolo", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="10">Dt. Protocolo</a></th><?php endif; ?>
-        <?php if(@in_array("cmpsOrd_orgao", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="33">Órg&atilde;o</a></th><?php endif; ?>
-        <?php if(@in_array("cmpsOrd_orgaoorigem", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="34">Órg&atilde;o de Origem</a></th><?php endif; ?>
+        <?php if(@in_array("cmpsOrd_orgao", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="33">ï¿½rg&atilde;o</a></th><?php endif; ?>
+        <?php if(@in_array("cmpsOrd_orgaoorigem", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="34">ï¿½rg&atilde;o de Origem</a></th><?php endif; ?>
         <?php if(@in_array("cmpsOrd_situacao", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="35">Situa&ccedil;&atilde;o</a></th><?php endif; ?>
         <?php if(@in_array("cmpsOrd_dtsituacao", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="14">Dt. Situa&ccedil;&atilde;o</a></th><?php endif; ?>
         <?php if(@in_array("cmpsOrd_sintese", $this->parametrosBusca["visaoAgente"])): ?><th align="center" valign="middle"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="15">S&iacute;ntese do Projeto</a></th><?php endif; ?>
@@ -193,4 +193,4 @@
         </td>
     </tr>
 </table>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEÃšDO ========== -->
