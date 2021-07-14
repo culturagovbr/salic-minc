@@ -70,7 +70,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
             . 'template'
         );
 
-        $view->titulo = 'Parecer T&eacute;cnico de Readequa&ccedil;&atilde;o do Projeto';
+        $view->titulo = 'Parecer Técnico de Readequação do Projeto';
         $view->IdPRONAC = $this->idPronac;
 
         $objProjeto = new \Projeto_Model_DbTable_Projetos();

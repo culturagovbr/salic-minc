@@ -30,7 +30,7 @@
                 $("#rodape").css("width",fluidRodape);
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }
-            
+
             function carregaDados(url,divRetorno){
                 //alert( url );
                 //$("#titulo").html('');
@@ -44,14 +44,14 @@
                 });
             }
         </script>
-        
+
         <style type="text/css">
             .sanfonaDiv {
                 clear: both;
                 display: none;
             }
         </style>
-        
+
         <?php
             $get = Zend_Registry::get("get");
             //define id do PreProjeto que sera passado as outras implementacoes
@@ -69,7 +69,7 @@
             $IdPronac = $this->idPronac;
 
             $resp = array();
-       
+
             # urls
             $diligenciaUrl = $this->url(
                 array(
@@ -85,18 +85,18 @@
             );
         ?>
 
-    <!-- ========== FIM AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== --> 
+    <!-- ========== FIM AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
     <div id="menuContexto">
         <div class="top"></div>
         <div id="qm0" class="qmmc sanfona">
-            
+
             <div id="corfirma" title="Confirmação" style='display:none;'></div>
             <div id="ok" title="Confirmação" style='display:none;'></div>
 
             <?php
             /*Alysson - Menu do Corrdenador Geral presção de Contas*/
             if ($this->grupoAtivo == 121) { ?>
-            <a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico/parecer-tecnico?idpronac=<?php echo $this->idPronac; ?>&relatorio=<?php echo $this->idRelatorio; ?>" title="Parecer T&eacute;cnico" class="no_seta">Parecer T&eacute;cnico</a>
+            <a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico/parecer-tecnico?idpronac=<?php echo $this->idPronac; ?>&relatorio=<?php echo $this->idRelatorio; ?>" title="Parecer Técnico" class="no_seta">Parecer Técnico</a>
             <a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico/etapas-de-trabalho?idpronac=<?php echo $this->idPronac; ?>&relatorio=<?php echo $this->idRelatorio; ?>" title="Etapas de Trabalho" class="no_seta">Etapas de Trabalho</a>
             <a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico/local-de-realizacao?idpronac=<?php echo $this->idPronac; ?>&relatorio=<?php echo $this->idRelatorio; ?>" title="Local de Realiza&ccedil;&atilde;o" class="no_seta">Local de Realiza&ccedil;&atilde;o</a>
             <a href="<?php echo $this->baseUrl(); ?>/analisarexecucaofisicatecnico/plano-de-divulgacao?idpronac=<?php echo $this->idPronac; ?>&relatorio=<?php echo $this->idRelatorio; ?>" title="Plano de Divulga&ccedil;&atilde;o" class="no_seta">Plano de Divulga&ccedil;&atilde;o</a>
@@ -139,7 +139,7 @@
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'relatorio-final')); ?><?php echo $codPronac; ?>','pagina'); return false"  title="Ir para Relat&oacute;rio de cumprimento do objeto">Relat&oacute;rio de cumprimento do objeto</a>
                     </div>
                     <div class="sanfonaDiv" style="display:none;"></div>
-                    
+
                     <!--<a class="no_seta" href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'relatoriofinal')).'?idPronac='.$id; ?>" title="Ir para Relatorio de Execução do Objeto">Relatório de Comprovação do Objeto</a>-->
                     <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'relatorio-final')).'?idPronac='.$id; ?>" title="Ir para Relatorio de Execução do Objeto">Relatório de Comprovação do Objeto</a>-->
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria')).'?idPronac='.$id; ?>" title="Ir para Relatorio de Execução do Objeto">Execução Financeira Comprovada</a>
@@ -190,7 +190,7 @@
                } ?>
 
             </div>
-            <br clear="left" class="br" /> 
+            <br clear="left" class="br" />
             <div class="bottom"></div>
             <div id="space_menu"></div>
         </div>
@@ -202,7 +202,7 @@
         $('.ancoraPrestacaoContas').click(function(){
             $(this).next().toggle('fast');
         });
-        
+
         $('#lnkDespacho').click(function(event){
             event.preventDefault();
             <?php if ($this->codGrupo != 132) { //SE chefe de divisao?>

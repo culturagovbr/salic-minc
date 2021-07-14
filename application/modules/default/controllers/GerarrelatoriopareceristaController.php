@@ -1152,7 +1152,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                         <th>Produto				</th>
                                         <th>PRODUTO PRINCIPAL</th>
                                         <th width=\"100\">Dt. de fechamento da Análise Técnica</th>
-                                        <th width=\"150\">&Aacute;rea				</th>
+                                        <th width=\"150\">Área				</th>
                                         <th width=\"150\">Segmento Cultural	</th>
                                     </tr>
                                     ";
@@ -1224,7 +1224,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                                         <th>Produto				</th>
                                         <th>PRODUTO PRINCIPAL</th>
                                         <th width=\"100\">Dt. de fechamento da Análise Técnica</th>
-                                        <th width=\"150\">&Aacute;rea				</th>
+                                        <th width=\"150\">Área				</th>
                                         <th width=\"150\">Segmento Cultural	</th>
                                     </tr>
                                     ";

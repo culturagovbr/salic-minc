@@ -19,7 +19,7 @@ $pronac = $this->idpronac;
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado'));?>">Parecer T&eacute;cnico Consolidado</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado'));?>">Parecer Técnico Consolidado</a></th>
 
 <?php if (!$this->VerificarIN2017($this->idpronac)) : ?>
             <?php if ($this->bln_readequacao == "false") {

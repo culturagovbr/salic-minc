@@ -49,7 +49,7 @@
                 <tr class="destacar">
                     <th align="center"><b>UF</b></th>
                     <th align="center"><b>Mecanismo</b></th>
-                    <th align="center"><b>&Aacute;rea Cultural</b></th>
+                    <th align="center"><b>Área Cultural</b></th>
                     <th align="center"><b>Segmento Cultural</b></th>
                     <th align="center"><b>Processo</b></th>
                 </tr>

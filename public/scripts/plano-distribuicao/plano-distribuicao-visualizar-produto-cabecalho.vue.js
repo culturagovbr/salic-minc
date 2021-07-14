@@ -4,7 +4,7 @@ Vue.component('plano-distribuicao-visualizar-produto-cabecalho', {
         <table class="bordered">
             <thead>
                <tr>
-                    <th>&Aacute;rea</th>
+                    <th>Área</th>
                     <th>Segmento</th>
                     <th>Principal</th>
                     <th>Canal aberto?</th>

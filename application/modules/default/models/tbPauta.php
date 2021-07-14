@@ -960,7 +960,7 @@ class tbPauta extends MinC_Db_Table_Abstract
         $slct3->from(
             array('a' => 'tbReadequacao'),
             array(
-                new Zend_Db_Expr("'Readequa&ccedil;&atilde;o' AS TipoAprovacao,d.dsReadequacao AS Tipo,b.IdPRONAC,b.AnoProjeto+b.Sequencial AS PRONAC, b.NomeProjeto"),
+                new Zend_Db_Expr("'Readequação' AS TipoAprovacao,d.dsReadequacao AS Tipo,b.IdPRONAC,b.AnoProjeto+b.Sequencial AS PRONAC, b.NomeProjeto"),
                 new Zend_Db_Expr("(SELECT COUNT(d.stVoto) FROM BDCORPORATIVO.scSAC.tbVotacao d WHERE d.stVoto = 'A' and d.idPronac = a.IdPRONAC and d.tpTipoReadequacao = a.idTipoReadequacao) as QtdeVotoAprovacao"),
                 new Zend_Db_Expr("(SELECT COUNT(e.stVoto) FROM BDCORPORATIVO.scSAC.tbVotacao e WHERE e.stVoto = 'B' and e.idPronac = a.IdPRONAC and e.tpTipoReadequacao = a.idTipoReadequacao) as QtdeVotoAbstencao"),
                 new Zend_Db_Expr("(SELECT COUNT(f.stVoto) FROM BDCORPORATIVO.scSAC.tbVotacao f WHERE f.stVoto = 'I' and f.idPronac = a.IdPRONAC and f.tpTipoReadequacao = a.idTipoReadequacao) as QtdeVotoIndeferimento"),

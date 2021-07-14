@@ -15,7 +15,7 @@
      });
 
      $('#IncluirReadequacao').click(function(){
-         $("#msgAlerta").html('Deseja incluir essa solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
+         $("#msgAlerta").html('Deseja incluir essa solicita&ccedil;&atilde;o de readequação?');
          $("#msgAlerta").dialog({
              resizable: false,
              title: 'Alerta!',
@@ -43,7 +43,7 @@
      $('.btn_exclusao').click(function(){
          var idReadequacao = $(this).attr('readequacao');
          $("#msgAlerta").dialog("destroy");
-         $("#msgAlerta").html('Deseja excluir a solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
+         $("#msgAlerta").html('Deseja excluir a solicita&ccedil;&atilde;o de readequação?');
          $("#msgAlerta").dialog({
              resizable: false,
              title: 'Alerta!',
@@ -377,7 +377,7 @@
 		     // sem problemas de limites orcamentarios
 
 		     $("#msgAlerta").dialog("destroy");
-		     $("#msgAlerta").html('Deseja realmente finalizar as solicita&ccedil;&otilde;es de readequa&ccedil;&atilde;o cadastradas?<br /><br />Ao finalizar, todas as solicita&ccedil;&otilde;es ser&atilde;o encaminhadas ao MinC.');
+		     $("#msgAlerta").html('Deseja realmente finalizar as solicita&ccedil;&otilde;es de readequação cadastradas?<br /><br />Ao finalizar, todas as solicita&ccedil;&otilde;es ser&atilde;o encaminhadas ao MinC.');
 		     $("#msgAlerta").dialog({
 			 resizable: false,
 			 title: 'Alerta!',
@@ -946,7 +946,7 @@
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'principalproponente', 'action' => ''), null, true); ?>" title="Ir para p&aacute;gina inicial" onclick="carregandoModal();">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index'), null, true); ?><?php echo '?idPronac='. Seguranca::encrypt($this->idPronac); ?>" title="Ir para In&iacute;cio">Consultar dados do Projeto</a></li>
-        <li class="last">Readequa&ccedil;&atilde;o de Planilha Or&ccedil;ament&aacute;ria</li>
+        <li class="last">Readequação de Planilha Or&ccedil;ament&aacute;ria</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
@@ -954,7 +954,7 @@
 
 <!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
-    <div>Readequa&ccedil;&atilde;o de Planilha Or&ccedil;ament&aacute;ria<span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+    <div>Readequação de Planilha Or&ccedil;ament&aacute;ria<span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
@@ -1142,7 +1142,7 @@
 
         <table class="tabela">
             <tr>
-                <th colspan="3">Dados para a readequa&ccedil;&atilde;o</th>
+                <th colspan="3">Dados para a readequação</th>
             </tr>
 	    <tr class="centro">
 		<td colspan="6" class="destacar bold">Fonte de recursos</td>
@@ -1183,7 +1183,7 @@
                 <td id="TotalCalculado" class="direita" style="width: 125px;"></td>
             </tr>
             <tr>
-                <td colspan="6" class="destacar bold centro">Justificativa da Readequa&ccedil;&atilde;o <span class="red-text">*</span> <span id="textoErroValores" style="float:right; color: red;"></span></td>
+                <td colspan="6" class="destacar bold centro">Justificativa da Readequação <span class="red-text">*</span> <span id="textoErroValores" style="float:right; color: red;"></span></td>
             </tr>
             <tr>
                 <td colspan="6" class="centro">

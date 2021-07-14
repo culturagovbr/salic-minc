@@ -135,7 +135,7 @@
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'certidoes-negativas')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Certid&otilde;es Negativas">Certid&otilde;es Negativas</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'dados-complementares')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Dados complementares do projeto">Dados complementares do projeto</a>
-  <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'documentos-anexados')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Documentos anexados">Documentos anexados</a>                    
+  <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'documentos-anexados')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Documentos anexados">Documentos anexados</a>
 <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'local-realizacao-deslocamento')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Local de realiza&ccedil;&atilde;o/ Deslocamento">Local de realiza&ccedil;&atilde;o/ Deslocamento</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'plano-de-distribuicao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Plano de distribui&ccedil;&atilde;o">Plano de distribui&ccedil;&atilde;o</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'plano-de-divulgacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Plano de divulga&ccedil;&atilde;o">Plano de divulga&ccedil;&atilde;o</a>
@@ -217,7 +217,7 @@
                 <?php if ($this->blnProponente && ($this->fnLiberarLinks['Readequacao'] || $this->fnLiberarLinks['Readequacao_50'])) {
             ?>
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequa&ccedil;&atilde;o</a>
+                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequação</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <?php if ($this->fnLiberarLinks['Readequacao_50']) {
                 ?>

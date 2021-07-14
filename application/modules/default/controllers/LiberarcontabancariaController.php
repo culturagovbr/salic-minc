@@ -21,7 +21,7 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 121; // Coordenador de Acompanhamento
 
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est no array de permisses
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, orgos e grupos do usurio (pega todos os grupos)
@@ -168,10 +168,10 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract
 
         $vwPainelDeLiberacao = new vwPainelDeLiberacao();
         $busca = $vwPainelDeLiberacao->listaRelatorios($where, $order);
-        
+
         $this->view->dados = $busca;
     }
-       
+
 //    public function listarProjetosAction() {
 //
 //        $orgao = $this->cod_orgao;
@@ -258,7 +258,7 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract
             'Logon' => $idusuario,
             'VlLiberado' => $vlCaptado
         );
-        
+
         $liberar = new Liberacao();
         $buscar = $liberar->buscar(array('AnoProjeto = ?' => $AnoProjeto, 'Sequencial = ?' => $Sequencial))->toArray();
 
@@ -448,7 +448,7 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract
 
         $Liberacao = new Liberacao();
         $busca = $Liberacao->consultarLiberacoes($where, $order);
-        
+
         $this->view->dados = $busca;
         $this->view->vlrTotalGrid = $Liberacao->consultarLiberacoesTotalValorGrid($where);
     }

@@ -128,7 +128,7 @@
                         <option value="reducao" <?php echo $this->filtro=='reducao'?'selected="selected"':''; ?>>Redu&ccedil;&atilde;o</option>
                         <option value="aprovacaoPrestacao" <?php echo $this->filtro=='aprovacaoPrestacao'?'selected="selected"':''; ?>>Aprova&ccedil;&atilde;o - Presta&ccedil;&atilde;o de Contas</option>
                         <option value="reprovacaoPrestacao" <?php echo $this->filtro=='reprovacaoPrestacao'?'selected="selected"':''; ?>>Reprova&ccedil;&atilde;o - Presta&ccedil;&atilde;o de Contas</option>
-                        <option value="readequacao" <?php echo $this->filtro=='readequacao'?'selected="selected"':''; ?>>Readequa&ccedil;&atilde;o</option>
+                        <option value="readequacao" <?php echo $this->filtro=='readequacao'?'selected="selected"':''; ?>>Readequação</option>
                     </select>
                 </td>
                 <td class="destacar bold" width="180" align="center">Localiza&ccedil;&atilde;o Atual do Projeto</td>
@@ -209,7 +209,7 @@
                     <th width="80px"><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=1&ordem='.$this->paginacao['novaOrdem'];?>">PRONAC</a></th>
                     <th><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=2&ordem='.$this->paginacao['novaOrdem'];?>">NOME DO PROJETO</a></th>
                     <th><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">LOCALIZA&Ccedil;&Atilde;O ATUAL DO PROJETO</a></th>
-                    <th><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">&Aacute;REA</a></th>
+                    <th><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">Área</a></th>
                     <?php if($this->filtro != 'readequacao'){ ?>
                     <th width="150px"><a href="<?php echo $this->url(array('controller' => 'publicacaodou', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&situacao='.$this->filtro.'&pronac='.$this->pronac.'&orgaoFiltro='.$this->orgaoFiltro.'&campo=8&ordem='.$this->paginacao['novaOrdem'];?>">VALOR APROVADO</a></th>
                     <?php } ?>

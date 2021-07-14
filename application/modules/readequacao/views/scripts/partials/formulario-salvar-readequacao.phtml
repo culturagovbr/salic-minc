@@ -55,7 +55,7 @@
             <a
                 href="javascript:void(0)"
                 class="btn waves-effect waves-light btn-danger btn-excluir"
-                title="Excluir readequa&ccedil;&atilde;o"
+                title="Excluir readequação"
                 readequacao="<?php echo $this->readequacao['idReadequacao']; ?>"
             > Excluir
                 <i class="material-icons right">delete</i>
@@ -154,7 +154,7 @@
                 $('.ui-dialog-titlebar-close').remove();
             } else {
                 $("#msgAlertaFormulario").dialog("destroy");
-                $("#msgAlertaFormulario").html('Deseja incluir essa solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
+                $("#msgAlertaFormulario").html('Deseja incluir essa solicita&ccedil;&atilde;o de readequação?');
                 $("#msgAlertaFormulario").dialog({
                     resizable: false,
                     title: 'Alerta!',
@@ -188,7 +188,7 @@
         $('.btn-excluir').click(function () {
             var idReadequacao = $(this).attr('readequacao');
             $("#msgAlertaFormulario").dialog("destroy");
-            $("#msgAlertaFormulario").html('Deseja excluir a solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
+            $("#msgAlertaFormulario").html('Deseja excluir a solicita&ccedil;&atilde;o de readequação?');
             $("#msgAlertaFormulario").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -219,7 +219,7 @@
         $('#btn_finalizar').click(function () {
             var idReadequacao = $(this).attr('readequacao');
             $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html('Deseja realmente finalizar a solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o cadastrada?<br /><br />' +
+            $("#msgAlerta").html('Deseja realmente finalizar a solicita&ccedil;&atilde;o de readequação cadastrada?<br /><br />' +
                 'Salve as altera&ccedil;&otilde;es antes de finalizar.<br />' +
                 '<br />Ao finalizar, apenas esta solicita&ccedil;&atilde;o ser&aacute; encaminhadas ao MinC.');
             $("#msgAlerta").dialog({

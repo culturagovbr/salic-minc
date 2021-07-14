@@ -169,7 +169,7 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
 
             $get = Zend_Registry::get('get');
             if (!filter_input(INPUT_GET, 'idReadequacao')) {
-                throw new Exception("Identificador da readequa&ccedil;&atilde;o necess&aacute;rio para acessar essa funcionalidade.");
+                throw new Exception("Identificador da readequação necess&aacute;rio para acessar essa funcionalidade.");
             }
             $idReadequacao = $get->idReadequacao;
 

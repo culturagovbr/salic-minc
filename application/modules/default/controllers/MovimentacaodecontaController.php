@@ -66,7 +66,7 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
         $this->getIdOrgao = $GrupoAtivo->codOrgao; // id do orgao ativo
 
         if ($this->getIdOrgao != 166 && $this->getIdOrgao != 272 && $this->getIdOrgao != 340&& $this->getIdOrgao != 341) { // aceita somente o �rg�o SEFIC/SACAV && SAV/CAP
-            parent::message("Voc&ecirc; nao tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+            parent::message("Voc&ecirc; nao tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
         }
         /* ========== FIM ORGAO ========== */
 

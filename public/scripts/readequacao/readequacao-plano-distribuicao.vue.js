@@ -9,7 +9,7 @@ Vue.component('readequacao-plano-distribuicao', {
                         <br>
                         <a class="waves-effect waves-light btn white-text btn-incluir-novo-item pulse"
                            @click.prevent="criarReadequacao"
-                           ><i class="material-icons left">add</i><strong>Iniciar readequa&ccedil;&atilde;o</strong>
+                           ><i class="material-icons left">add</i><strong>Iniciar readequação</strong>
                         </a>
                     </p>
                 </div>
@@ -18,7 +18,7 @@ Vue.component('readequacao-plano-distribuicao', {
                 <li>
                     <div class="collapsible-header active"><i class="material-icons">edit</i>
                         <span v-if="!disabled">Readequar Plano de Distribui&ccedil;&atilde;o</span>
-                        <span v-else>Readequa&ccedil;&atilde;o do Plano de Distribui&ccedil;&atilde;o</span>
+                        <span v-else>Readequação do Plano de Distribui&ccedil;&atilde;o</span>
                     </div>
                     <div class="collapsible-body padding10">
                         <plano-distribuicao-listagem
@@ -34,8 +34,8 @@ Vue.component('readequacao-plano-distribuicao', {
                 </li>
                 <li>
                     <div class="collapsible-header"><i class="material-icons">assignment</i>
-                        <span v-if="!disabled">Justificar readequa&ccedil;&atilde;o</span>
-                        <span v-else>Justificativa da readequa&ccedil;&atilde;o</span>
+                        <span v-if="!disabled">Justificar readequação</span>
+                        <span v-else>Justificativa da readequação</span>
                     </div>
                     <div class="collapsible-body padding10">
                         <readequacao-formulario
@@ -73,7 +73,7 @@ Vue.component('readequacao-plano-distribuicao', {
                         <div class="col s11">
                             <p><b>Solicita&ccedil;&atilde;o enviada com sucesso!</b></p>
                             <p>Sua solicita&ccedil;&atilde;o agora est&atilde; para an&atilde;lise t&etilde;cnica do MinC.</p>
-                            <p>Para acompanhar, acesse o menu lateral "Execu&ccedil;&atilde;o -> Dados das readequa&ccedil;&otilde;es" 
+                            <p>Para acompanhar, acesse o menu lateral "Execu&ccedil;&atilde;o -> Dados das readequa&ccedil;&otilde;es"
                             em <a :href="'/default/consultardadosprojeto/index?idPronac=' + idPronacHash">consultar dados do projeto</a>.</p>
                         </div>
                     </div>

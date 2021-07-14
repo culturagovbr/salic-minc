@@ -11,7 +11,7 @@
             <td class="destacar" align="center"><b>Locais</b></td>
         </tr>
     </table>
-    
+
     <table  id="tableItensCusto" class="tabela">
         <tr>
             <td class='destacar' align='center'>
@@ -32,13 +32,13 @@
             </tr>
         <?php } ?>
     </table>
-    
+
     <table  id="tableItensCusto" class="tabela" >
         <tr>
             <td class="destacar" align="center"><b>Oficializar Fiscaliza&ccedil;&atilde;o</b></td>
         </tr>
     </table>
-    
+
     <table class="tabela">
         <tr>
             <td>
@@ -86,7 +86,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="destacar" align="center"><b>Identificaç&atilde;o do T&eacute;cnico</b></td>
+                        <td colspan="2" class="destacar" align="center"><b>Identificaç&atilde;o do Técnico</b></td>
                     </tr>
                     <tr>
                         <td>
@@ -109,7 +109,7 @@
                 if (is_object($this->dadosOrgaos))
                     foreach ($this->dadosOrgaos as $key => $value) {
                         ?>
-                        
+
                 <table class='tabela'>
                     <tr>
                         <td colspan="2" class="destacar" align="center"><b>&Oacute;rg&atilde;o:</b> <?php echo $value->Sigla; ?></td>
@@ -139,10 +139,10 @@
             </td>
         </tr>
     </table>
-    
+
     <br clear="all"/>
-    
-    
+
+
     <!-- =======================   INICIO DOS DADOS DA FISCALIZAÇ?O ===================================>-->
     <?php $y = 1;
     // INICIO RELATORIO
@@ -152,7 +152,7 @@
             <td class="destacar" align="center"><b>Fiscalizaç&atilde;o Conclu&iacute;da para Parecer</b></td>
         </tr>
     </table>
-            
+
     <table class="tabela">
         <!-- ************************************** Resumo da Execuç&atilde;o ************************************ -->
         <tr>
@@ -461,7 +461,7 @@
             </td>
         </tr>
         <?php } ?>
-        
+
         <?php if($dtInicioFiscalizacao < $dtDeCorte){ ?>
         <tr>
             <td colspan="2"><?php echo $y++.'.'; ?> Ocorreu saldo após o encerramento do projeto?</td>
@@ -874,7 +874,7 @@
                 </td>
             </tr>
     </table>
-        
+
     <?php } else { ?>
     <div align="center">
         <table class="tabela">
@@ -884,7 +884,7 @@
         </table>
     </div>
     <?php } ?>
-        
+
     <br clear="all"/>
     <!-- =======================   FIM DOS DADOS DA FISCALIZAÇ?O ===================================>-->
 

@@ -141,7 +141,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
                     $wherenaopublicados['ap.TipoAprovacao = ?'] = 6;
                     break;
                 case 'readequacao':
-                    $this->view->nmPagina = 'Readequa&ccedil;&atilde;o';
+                    $this->view->nmPagina = 'Readequação';
                     $wherenaopublicados['r.siEncaminhamento = ?'] = 9;
                     $wherenaopublicados['ap.TipoAprovacao = ?'] = 8;
                     break;
@@ -277,7 +277,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
             $table.= '<tr>';
             $table.= '<th width="80px">pronac</th>';
             $table.= '<th>nome projeto</th>';
-            $table.= '<th width="200px">&aacute;rea</th>';
+            $table.= '<th width="200px">Área</th>';
             $table.= '<th width="125px">valor aprovado</th>';
             $table.= '</tr>';
 

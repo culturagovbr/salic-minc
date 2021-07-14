@@ -120,7 +120,7 @@ class Readequacao_Model_TbPlanoDistribuicaoMapper extends MinC_Db_Mapper
     public function excluirReadequacaoPlanoDistribuicaoAtiva($idPronac)
     {
         if (empty($idPronac)) {
-            throw new Exception("Pronac é obrigatório");
+            throw new Exception("Pronac ï¿½ obrigatï¿½rio");
         }
 
         $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
@@ -133,7 +133,7 @@ class Readequacao_Model_TbPlanoDistribuicaoMapper extends MinC_Db_Mapper
         ))->current();
 
         if (empty($readequacaoAtiva)) {
-            throw new Exception("Nenhuma readequa&ccedil;&atilde;o encontrada!");
+            throw new Exception("Nenhuma readequaÃ§Ã£o encontrada!");
         }
 
         if (!empty($readequacaoAtiva->idDocumento)) {
@@ -243,7 +243,7 @@ class Readequacao_Model_TbPlanoDistribuicaoMapper extends MinC_Db_Mapper
                 $avaliacao = $planoReadequado['tpAnaliseTecnica'];
             }
 
-            //Se a avaliação foi deferida, realiza as mudanças necessárias na tabela original.
+            //Se a avaliaï¿½ï¿½o foi deferida, realiza as mudanï¿½as necessï¿½rias na tabela original.
             if ($avaliacao == 'D' && !empty($idPlanoDistribuicaoOriginal)
             ) {
                 // pega dados da tabela temporaria (tbPlanoDistribuicao) e faz update em PlanoDistribuicaoProduto

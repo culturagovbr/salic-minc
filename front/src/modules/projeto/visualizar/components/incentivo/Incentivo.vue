@@ -44,7 +44,7 @@
                 <tr class="destacar">
                     <td class="centro"><b>UF</b></td>
                     <td class="centro"><b>Mecanismo</b></td>
-                    <td class="centro"><b>&Aacute;rea Cultural</b></td>
+                    <td class="centro"><b>Área Cultural</b></td>
                     <td class="centro"><b>Segmento Cultural</b></td>
                     <td class="centro"><b>Enquadramento</b></td>
                 </tr>

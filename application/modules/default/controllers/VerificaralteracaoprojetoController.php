@@ -15,7 +15,7 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
             $PermissoesGrupo[] = 93;
             $PermissoesGrupo[] = 103;
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) {
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);

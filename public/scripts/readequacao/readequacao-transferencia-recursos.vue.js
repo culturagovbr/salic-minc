@@ -5,7 +5,7 @@ Vue.component('readequacao-transferencia-recursos', {
     v-if="loading"
     class="center-align"
     >
-    <h4>Carregando readequa&ccedil;&atilde;o...</h4>
+    <h4>Carregando readequação...</h4>
     <div class="progress">
       <div class="indeterminate"/>
     </div>
@@ -23,7 +23,7 @@ Vue.component('readequacao-transferencia-recursos', {
           <b>Projeto: </b><span v-html="projetoTransferidor.nome"></span>
         </div>
         <div class="col s2">
-          <b>&Aacute;rea: </b><span v-html="projetoTransferidor.area"></span>
+          <b>Área: </b><span v-html="projetoTransferidor.area"></span>
         </div>
         <div class="col s2">
           <strong>Total transferido: </strong><span style="white-space:nowrap;">R$ {{ valorFormatado(totalRecebido) }} </span>
@@ -38,7 +38,7 @@ Vue.component('readequacao-transferencia-recursos', {
   </div>
   <ul v-if="!disabled"  class="collapsible">
     <li id="collapsible-first">
-      <div class="collapsible-header active"><i class="material-icons">assignment</i>Solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o</div>
+      <div class="collapsible-header active"><i class="material-icons">assignment</i>Solicita&ccedil;&atilde;o de readequação</div>
       <div class="collapsible-body">
 	      <readequacao-formulario
 					ref="formulario"
@@ -73,7 +73,7 @@ Vue.component('readequacao-transferencia-recursos', {
 									<a href="javascript:void(0)"
 										 v-on:click="excluirRecebedor(index, projeto.idSolicitacaoTransferenciaRecursos)"
 										 class="btn small">
-										<i class="material-icons">delete</i>					
+										<i class="material-icons">delete</i>
 									</a>
 								</td>
 							</tr>
@@ -88,20 +88,20 @@ Vue.component('readequacao-transferencia-recursos', {
 					</table>
 					<form class="row">
 						<div v-if="disponivelAdicionarRecebedor">
-							
+
 							<div class="col s6">
 								<label>Pronac recebedor</label>
 								<input
-                                  type="text" 
+                                  type="text"
                                   ref="projetoRecebedorIdPronac"
-								  v-model="projetoRecebedor.pronac" 
+								  v-model="projetoRecebedor.pronac"
                                   @blur="selecionaPronacRecebedor"
                                   @keyup="selecionaPronacRecebedor"
                                   />
 								<span>{{ projetoRecebedor.nome }}</span>
 								</span>
 							</div>
-							
+
  							<div class="input-field col s3">
                                 <formatar-moeda
 									ref="projetoRecebedorValorRecebido"
@@ -110,14 +110,14 @@ Vue.component('readequacao-transferencia-recursos', {
 									:disabled="!disponivelAdicionarRecebedor"
                                 />
 								<label for="valor_recebido">Valor recebido</label>
-							</div>		
+							</div>
 							<div class="center-align padding20 col s3">
 								<a href="javascript:void(0)"
 									 v-on:click="incluirRecebedor"
 									 :disabled="!disponivelAdicionarRecebedor"
 									 class="btn">Adicionar recebedor</a>
 							</div>
-							
+
 						</div>
 					</form>
 				</div>
@@ -192,7 +192,7 @@ Vue.component('readequacao-transferencia-recursos', {
 			</a>
 			<a class="modal-close waves-effect waves-green btn-flat"
 				 href="#!">Cancelar
-			</a>												
+			</a>
 		</div>
 	</div>
 	<div id="modalExcluir" class="modal" style="height:auto">
@@ -205,7 +205,7 @@ Vue.component('readequacao-transferencia-recursos', {
 			</a>
 			<a class="modal-close waves-effect waves-green btn-flat"
 				 href="#!">Cancelar
-			</a>												
+			</a>
 		</div>
 	</div>
 	<div id="modalCarregando" class="modal" style="height:auto">
@@ -506,7 +506,7 @@ Vue.component('readequacao-transferencia-recursos', {
         finalizarReadequacao() {
             $3('#modalFinalizar .modal-content h4').html('Enviando solicita&ccedil;&atilde;o...');
             $3('#modalFinalizar .modal-footer').html('<div class="progress"><div class="indeterminate"/></div>');
-            
+
             let self = this;
             $3.ajax({
                 type: "POST",
@@ -517,7 +517,7 @@ Vue.component('readequacao-transferencia-recursos', {
                 }
             }).done((response) => {
                 if (response.error) {
-                    self.mensagemAlerta("Ocorreu um erro na finaliza&ccedil;&atilde;o da readequa&ccedil;&atilde;o.");
+                    self.mensagemAlerta("Ocorreu um erro na finaliza&ccedil;&atilde;o da readequação.");
                 } else {
                     self.mensagemSucesso("Solicita&ccedil;&atilde;o de transfer&ecirc;ncia de recursos finalizada.");
                     $3('#modalFinalizar').modal('close');

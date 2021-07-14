@@ -85,7 +85,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     {
 
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         if (empty($this->idPronac)) {
@@ -98,7 +98,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
         }
 
         if ($this->_existeSolicitacaoEmAnalise) {
-            parent::message('J&aacute; existe uma solicita&ccedil;ao de readequa&ccedil;&atilde;o em an&aacute;lise!', $urlCallback, "ERROR");
+            parent::message('J&aacute; existe uma solicita&ccedil;ao de readequação em an&aacute;lise!', $urlCallback, "ERROR");
         }
 
         try {
@@ -120,7 +120,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
 
             $arrDoc = [];
             $arrDoc['idTipoDocumento'] = Arquivo_Model_TbTipoDocumento::TIPO_DOCUMENTO_SOLICITACAO_READEQUACAO;
-            $arrDoc['dsDocumento'] = 'Solicita&ccedil;&atilde;o de Readequa&ccedil;&atilde;o';
+            $arrDoc['dsDocumento'] = 'Solicita&ccedil;&atilde;o de Readequação';
             $mapperArquivo = new Arquivo_Model_TbDocumentoMapper();
             $idDocumento = $mapperArquivo->saveCustom($arrDoc, new Zend_File_Transfer());
 
@@ -278,7 +278,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
                 $this->_helper->json(array('resposta' => false, 'msg' => "Erro ao salvar!"));
             }
         } else {
-            $msg = utf8_encode('N&atilde;o foi poss&iacute;vel salvar sua solicita&ccedil;&atilde;o, delete a readequa&ccedil;&atilde;o antes de alterar!');
+            $msg = utf8_encode('N&atilde;o foi poss&iacute;vel salvar sua solicita&ccedil;&atilde;o, delete a readequação antes de alterar!');
             $this->_helper->json(array('resposta' => false, 'msg' => $msg));
         }
         $this->_helper->viewRenderer->setNoRender(true);
@@ -403,11 +403,11 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             }
 
             if ($this->idPerfil !== Autenticacao_Model_Grupos::PROPONENTE) {
-                throw new Exception("Voc&ecirc; n&atilde;o pode criar uma readequa&ccedil;&atilde;o");
+                throw new Exception("Voc&ecirc; n&atilde;o pode criar uma readequação");
             }
 
             if ($this->_existeSolicitacaoEmAnalise) {
-                throw new Exception("Readequa&ccedil;&atilde;o em an&aacute;lise");
+                throw new Exception("Readequação em an&aacute;lise");
             }
 
             $tbPlanoDistribuicaoMapper = new Readequacao_Model_TbPlanoDistribuicaoMapper($this->projeto);
@@ -417,7 +417,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             $this->getResponse()->setHttpResponseCode(412);
             $this->_helper->json(
                 [
-                    'msg' => "Erro ao criar readequa&ccedil;&atilde;o. " . $e->getMessage(),
+                    'msg' => "Erro ao criar readequação. " . $e->getMessage(),
                     'data' => [],
                     'success' => 'false'
                 ]
@@ -460,7 +460,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             }
 
             if ($this->_existeSolicitacaoEmAnalise) {
-                throw new Exception("Readequa&ccedil;&atilde;o em an&aacute;lise");
+                throw new Exception("Readequação em an&aacute;lise");
             }
 
             $detalhamentoMapper = new Readequacao_Model_TbDetalhaPlanoDistribuicaoReadequacaoMapper();
@@ -488,7 +488,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             }
 
             if ($this->_existeSolicitacaoEmAnalise) {
-                throw new Exception("Readequa&ccedil;&atilde;o em an&aacute;lise");
+                throw new Exception("Readequação em an&aacute;lise");
             }
 
             $mdlDetalhaReadequacao = new Readequacao_Model_TbDetalhaPlanoDistribuicaoReadequacao();
@@ -524,7 +524,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     {
 
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!");
+            throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!");
         }
 
         if (empty($data['idPronac'])) {
@@ -532,11 +532,11 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
         }
 
         if ($this->_existeSolicitacaoEmAnalise) {
-            throw new Exception("Readequa&ccedil;&atilde;o em an&aacute;lise");
+            throw new Exception("Readequação em an&aacute;lise");
         }
 
         if (count(trim($data['justificativa'])) == 0) {
-            throw new Exception("Readequa&ccedil;&atilde;o em an&aacute;lise");
+            throw new Exception("Readequação em an&aacute;lise");
         }
 
         $dados = [
@@ -555,7 +555,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     {
         try {
             if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!");
+                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!");
             }
 
             if (empty($this->idPronac)) {
@@ -563,7 +563,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             }
 
             if ($this->_existeSolicitacaoEmAnalise) {
-                throw new Exception("Readequa&ccedil;&atilde;o em an&aacute;lise");
+                throw new Exception("Readequação em an&aacute;lise");
             }
 
             $tbReadequacaoMapper = new Readequacao_Model_TbPlanoDistribuicaoMapper();
@@ -582,17 +582,17 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             $params = $this->getRequest()->getParams();
 
             if (empty($params['idTipoReadequacao'])) {
-                throw new Exception('Tipo da readequa&ccedil;&atilde;o n&atilde;o informada!');
+                throw new Exception('Tipo da readequação n&atilde;o informada!');
             }
 
             if (empty($params['idReadequacao'])) {
-                throw new Exception('Readequa&ccedil;&atilde;o n&atilde;o encontrada');
+                throw new Exception('Readequação n&atilde;o encontrada');
             }
 
             $idReadequacao = $this->salvarReadequacao($params);
 
             if (empty($idReadequacao)) {
-                throw new Exception("Erro ao salvar readequa&ccedil;&atilde;o");
+                throw new Exception("Erro ao salvar readequação");
             }
 
             $tbPlanoDistribuicao = new Readequacao_Model_DbTable_TbPlanoDistribuicao();
@@ -616,7 +616,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
                 throw new Exception("N&atilde;o foi poss&iacute;vel finalizar a solicita&ccedil;&atilde;o");
             }
 
-            $this->_helper->json(array('data' => $status, 'success' => 'true', 'msg' => 'Readequa&ccedil;&atilde;o finalizada com sucesso!'));
+            $this->_helper->json(array('data' => $status, 'success' => 'true', 'msg' => 'Readequação finalizada com sucesso!'));
         } catch (Exception $e) {
             $this->getResponse()->setHttpResponseCode(412);
             $this->_helper->json(array('data' => $params, 'success' => 'false', 'msg' => $e->getMessage()));

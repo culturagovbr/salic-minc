@@ -73,7 +73,7 @@
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc">
-                <a class="no_seta last" href="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'gerencial')); ?>" title="An&aacute;lise visual por t&eacute;cnico">An&aacute;lise visual por t&eacute;cnico</a>
+                <a class="no_seta last" href="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'gerencial')); ?>" title="An&aacute;lise visual por Técnico">An&aacute;lise visual por Técnico</a>
                 <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'parecer-projetos')); ?>" title="Parecer">Parecer</a>-->
             </div>
 			<div class="bottom"></div>

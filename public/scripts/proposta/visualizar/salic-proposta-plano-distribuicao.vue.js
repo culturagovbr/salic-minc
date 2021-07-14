@@ -13,7 +13,7 @@ Vue.component('salic-proposta-plano-distribuicao', {
                     <table class="bordered">
                         <thead>
                            <tr>
-                                <th>&Aacute;rea</th>
+                                <th>Área</th>
                                 <th>Segmento</th>
                                 <th>Principal</th>
                                 <th>Canal aberto?</th>
@@ -99,8 +99,8 @@ Vue.component('salic-proposta-plano-distribuicao', {
                             </tr>
                         </tbody>
                     </table>
-                    
-                    <salic-proposta-detalhamento-plano-distribuicao 
+
+                    <salic-proposta-detalhamento-plano-distribuicao
                         :arrayDetalhamentos="detalhamentosByID(detalhamentos, produto.idPlanoDistribuicao)">
                     </salic-proposta-detalhamento-plano-distribuicao>
                 </div>

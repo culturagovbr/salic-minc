@@ -428,7 +428,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
                     <th>UF</th>
                     <th>Munic&iacute;pio</th>
                     <th>Enquadramento</th>
-                    <th>&Aacute;rea</th>
+                    <th>Área</th>
                     <th>Segmento</th>
                     <th>Avalia&ccedil;&atilde;o</th>
 		    <th>Dt. In&iacute;cio Execu&ccedil;&atilde;o</th>

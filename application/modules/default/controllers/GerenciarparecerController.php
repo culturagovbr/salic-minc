@@ -25,7 +25,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA;
 
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -423,7 +423,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                     $orgaos = new Orgaos();
                     $orgao = $orgaos->pesquisarNomeOrgao($codOrgao);
 
-                    $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Encaminhado para <strong>' . $orgao[0]->NomeOrgao . ' para an&aacute;lise e emiss&atilde;o de parecer t&eacute;cnico</strong>.');
+                    $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Encaminhado para <strong>' . $orgao[0]->NomeOrgao . ' para an&aacute;lise e emiss&atilde;o de parecer Técnico</strong>.');
                 } else {
                     $msg = "Distribui&ccedil;&atilde;o Realizada com sucesso!";
 
@@ -676,7 +676,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                     $orgaos = new Orgaos();
                     $orgao = $orgaos->pesquisarNomeOrgao($codOrgao);
 
-                    $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Encaminhado para <strong>' . $orgao[0]->NomeOrgao . ' para an&aacute;lise e emiss&atilde;o de parecer t&eacute;cnico</strong>.');
+                    $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Encaminhado para <strong>' . $orgao[0]->NomeOrgao . ' para an&aacute;lise e emiss&atilde;o de parecer Técnico</strong>.');
 
                     parent::message("Enviado os Produtos/Projeto para a entidade!", "parecer/gerenciar-parecer/index?tipoFiltro=" . $tipoFiltro, "CONFIRM");
                 } else {
@@ -839,7 +839,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
         if ($credenciamento == 0) {
             $situacao = '0';
-            $situacaoTexto .= '<br /> Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto!';
+            $situacaoTexto .= '<br /> Parecerista n&atilde;o credenciado na Área e segmento do Produto!';
         }
         //$situacaoTexto .= '<br /> Area: '.$projeto[0]->Area.' Segmento: '.$projeto[0]->Segmento.' idAgente: '.$idAgente;
 

@@ -129,7 +129,7 @@ $filtros = array(
 		<?php } ?>
 
 		<?php } else if ($this->tipoFiltro == 'validados') { ?>
-		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TecnicoValidador&ordem='.$this->paginacao['novaOrdem'];?>">T&eacute;cnico validador</a></th>
+		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TecnicoValidador&ordem='.$this->paginacao['novaOrdem'];?>">Técnico validador</a></th>
 		<th width="80"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtValidacao&ordem='.$this->paginacao['novaOrdem'];?>">Dt. valida&ccedil;&atilde;o</a></th>
 		<?php } else if ($this->tipoFiltro == 'devolvida') { ?>
 		<th width="50"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'listaprojetos')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=JustComponente&ordem='.$this->paginacao['novaOrdem'];?>">Justificativa do componente</a></th>

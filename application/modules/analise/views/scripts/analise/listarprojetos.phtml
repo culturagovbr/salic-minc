@@ -3,12 +3,12 @@
         <div class="page-title">
             <div class="row">
                 <div class="col s12 m9 l10">
-                    <h1>Avaliar adequa&ccedil;&atilde;o de projetos</h1>
+                    <h1>Avaliar adequação de projetos</h1>
 
                     <?php
                     gerarNovoBreadCrumb(
                         [
-                            ['Avaliar adequa&ccedil;&atilde;o de projetos' => '']
+                            ['Avaliar adequação de projetos' => '']
                         ]
                     );
                     ?>
@@ -32,12 +32,12 @@
                             <th>Nome do projeto</th>
                             <th>Proponente</th>
                             <th>UF</th>
-                            <th>&Aacute;rea Cultural</th>
+                            <th>Área Cultural</th>
                             <th>Segmento Cultural</th>
                             <th>Dias</th>
                             <th>Enquadramento</th>
                             <th>Vl. Projeto</th>
-                            <th>T&eacute;cnico</th>
+                            <th>Técnico</th>
                             <th title="Redistribuir">Redist.</th>
                             <th title="Avaliar">Avaliar</th>
                         </tr>
@@ -138,7 +138,7 @@
                             render: function (data, type, row) {
                                 return '<a class="btn waves-effect waves-darrk white black-text small" href="<?php echo $this->baseUrl(); ?>/analise/analise/redistribuiranaliseitem?idpronac=' + data.IdPRONAC + '">'
                                     + '<i class="material-icons" '
-                                    + 'title="Redistribuir projeto para outro t&eacute;cnico" alt="Redistribuir projeto para outro t&eacute;cnico">forward</i></a>'
+                                    + 'title="Redistribuir projeto para outro Técnico" alt="Redistribuir projeto para outro Técnico">forward</i></a>'
                             }
                         },
                         {

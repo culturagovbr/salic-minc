@@ -1241,7 +1241,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                     die();
                 }
             } else { //fecha IF se encontrou tecnicos para enviar a proposta
-                parent::message("A Proposta n&atilde;o foi enviado ao Minist&eacute;rio da TURISMO. T&eacute;cnico n&atilde;o localizado", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
+                parent::message("A Proposta n&atilde;o foi enviado ao Minist&eacute;rio da TURISMO. Técnico n&atilde;o localizado", "/proposta/manterpropostaedital/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
                 die();
             }
         } else {

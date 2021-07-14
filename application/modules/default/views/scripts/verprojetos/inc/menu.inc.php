@@ -217,7 +217,7 @@
                 <?php if ($this->blnProponente && ($this->fnLiberarLinks['Readequacao'] || $this->fnLiberarLinks['Readequacao_50'])) {
             ?>
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequa&ccedil;&atilde;o</a>
+                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequação</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <?php if ($this->fnLiberarLinks['Readequacao_50']) {
                 ?>

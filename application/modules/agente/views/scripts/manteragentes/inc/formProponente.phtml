@@ -190,7 +190,7 @@
 	</tr>
 
 	<tr class="titulo_tabela">
-		<th colspan="4">LISTA DE &Aacute;REA</th>
+		<th colspan="4">LISTA DE Área</th>
 	</tr>
 	<tr>
 		<td colspan="4" class="center">
@@ -204,12 +204,12 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<label for="areaCultural">&Aacute;rea Cultural *</label>
+			<label for="areaCultural">Área Cultural *</label>
 			<select name="areaCultural" id="areaCultural"
 				onchange="carregar_combo(this.value,
 					'segmentoCultural',
 					'../segmentocultural/combo',
-					' - Selecione uma &Aacute;rea Cultural - ');">
+					' - Selecione uma Área Cultural - ');">
 
 				<?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
 				<option value=""> - Selecione - </option>
@@ -229,7 +229,7 @@
 			<select name="segmentoCultural" id="segmentoCultural">
 
 				<?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
-				<option value=""> - Selecione uma &Aacute;rea Cultural - </option>
+				<option value=""> - Selecione uma Área Cultural - </option>
 				<?php } else { ?>
 
 					<?php if (!isset($this->segmentoCultural) || empty($this->segmentoCultural)) { ?>

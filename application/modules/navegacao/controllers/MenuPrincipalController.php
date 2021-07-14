@@ -140,7 +140,7 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
         ];
 
         $arrMenu['analise']['menu'][] = [
-            'label' => 'Avaliar adequa&ccedil;&atilde;o de projeto',
+            'label' => 'Avaliar adequação de projeto',
             'title' => 'Ir para Avaliar adequa&ccedi;&atilde;o de projeto',
             'url' => ['module' => 'analise', 'controller' => 'analise', 'action' => 'listarprojetos'],
             'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_ANALISE, Autenticacao_Model_Grupos::TECNICO_ANALISE],
@@ -176,8 +176,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             ]
         ];
         $arrMenu['analise']['menu'][] = [
-            'label' => 'Imprimir Parecer T&eacute;cnico',
-            'title' => 'Ir para Imprimir Parecer T&eacute;cnico',
+            'label' => 'Imprimir Parecer Técnico',
+            'title' => 'Ir para Imprimir Parecer Técnico',
             'url' => ['module' => 'default', 'controller' => 'gerenciarpareceres', 'action' => 'imprimir-parecer-tecnico'],
             'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::GESTOR_SALIC, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 137]
         ];
@@ -274,8 +274,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             'grupo' => [Autenticacao_Model_Grupos::PARECERISTA]
         ];
         $arrMenu['analise']['menu'][] = [
-            'label' => 'Parecer T&eacute;cnico FNC',
-            'title' => 'Ir para Parecer T&eacute;cnico FNC',
+            'label' => 'Parecer Técnico FNC',
+            'title' => 'Ir para Parecer Técnico FNC',
             'url' => ['module' => 'default', 'controller' => 'aprovacaoeparecer', 'action' => 'index'],
             'grupo' => [143]
         ];
@@ -570,8 +570,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
                 Autenticacao_Model_Grupos::SECRETARIO,
             ],
             'url' => ['module' => 'readequacao', 'controller' => 'readequacao-assinatura', 'action' => 'gerenciar-assinaturas'],
-            'title' => 'Ir para Readequa&ccedil;&atilde;o - Gerenciar Assinaturas',
-            'label' => 'Gerenciar Assinaturas - Readequa&ccedil;&atilde;o'
+            'title' => 'Ir para Readequação - Gerenciar Assinaturas',
+            'label' => 'Gerenciar Assinaturas - Readequação'
         ];
 
         $arrMenu['assinatura']['menu'][] = [
@@ -651,8 +651,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             'grupo' => [122, 123]
         ];
         $arrMenu['acompanhamento']['menu'][] = [
-            'title' => 'Verificar Readequa&ccedil;&atilde;o de Projetos',
-            'label' => 'Verificar Readequa&ccedil;&atilde;o de Projeto',
+            'title' => 'Verificar Readequação de Projetos',
+            'label' => 'Verificar Readequação de Projeto',
             'url' => ['module' => 'default', 'controller' => 'verificarreadequacaodeprojeto', 'action' => 'verificarreadequacaodeprojetocoordparecerista'],
             'grupo' => [93]
         ];

@@ -724,7 +724,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
                 $dp->IdPRONAC,
                 null,
                 'B11',
-                'Devolvido para unidade ' . $orgao[0]->NomeOrgao . ' para revis&atilde;o do parecer t&eacute;cnico.');
+                'Devolvido para unidade ' . $orgao[0]->NomeOrgao . ' para revis&atilde;o do parecer Técnico.');
 //                $db->commit();
             parent::message("Devolvido com sucesso!", "gerenciarpareceres/index", "CONFIRM");
         } catch (Zend_Exception $ex) {

@@ -68,7 +68,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         );
         /** ============== Titulo do Documento ========================================== ===*/
 
-        $view->titulo = 'Parecer T&eacute;cnico de Avalia&ccedil;&atilde;o de Resultado';
+        $view->titulo = 'Parecer Técnico de Avalia&ccedil;&atilde;o de Resultado';
 
         /** =============== Consulta DB para aquisição das informações do parecer Tecnico ================= */
 

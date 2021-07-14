@@ -77,7 +77,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                 // permiss�es para UC25
 
                 if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                    parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                    parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
                 }
 
                 // pega as unidades autorizadas, �rg�os e grupos do usu�rio (pega todos os grupos)

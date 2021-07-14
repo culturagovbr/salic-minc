@@ -71,11 +71,11 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         );
         switch ((int)$this->idTipoDoAtoAdministrativo) {
             case (int)\Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_AJUSTE_DE_PROJETO:
-                $view->titulo = 'Parecer T&eacute;cnico de Ajuste de Projeto';
+                $view->titulo = 'Parecer Técnico de Ajuste de Projeto';
                 break;
             case (int)\Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_VINCULADAS:
             case (int)\Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_PROJETOS_MINC:
-                $view->titulo = 'Parecer T&eacute;cnico de Readequa&ccedil;&atilde;o de Projeto';
+                $view->titulo = 'Parecer Técnico de Readequação de Projeto';
                 break;
         }
         $view->IdPRONAC = $this->idPronac;
@@ -93,7 +93,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         $dadosUsuarioLogado = $auth->getIdentity();
         $orgaoSuperior = $dadosUsuarioLogado->orgao_ativo;
         $view->orgaoSuperior = $orgaoSuperior;
-        
+
         if((int)$orgaoSuperior == (int)\Orgaos::ORGAO_SUPERIOR_SEFIC) {
             $view->secretaria = 'Secretaria de Fomento e Incentivo &agrave; Cultura - SEFIC';
         } else if ((int)$orgaoSuperior == \Orgaos::ORGAO_SUPERIOR_SAV) {
@@ -101,12 +101,12 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         } else {
             $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
             $codOrgao = $grupoAtivo->codOrgao;
-            
+
             $objOrgao = new \Orgaos();
             $resultOrgao = $objOrgao->pesquisarNomeOrgao($codOrgao);
             $view->secretaria = $resultOrgao[0]['NomeOrgao'];
         }
-        
+
         $tbParecer = new \Parecer_Model_DbTable_Parecer();
         $parecer = $tbParecer->buscar([
             'IdParecer = ?' => $this->idAtoDeGestao
@@ -134,7 +134,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         $tbReadequacaoDbTable = new \Readequacao_Model_DbTable_TbReadequacao();
         $readequacaoDetalhada = $tbReadequacaoDbTable->obterReadequacaoDetalhada($tbReadequacaoXParecer['idReadequacao']);
         $view->dsTipoReadequacao = $readequacaoDetalhada['dsTipoReadequacao'];
-        
+
         return $view->render('documento-assinatura.phtml');
     }
 }
