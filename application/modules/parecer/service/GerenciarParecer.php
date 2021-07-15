@@ -55,7 +55,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         if (empty($params['idDistribuirParecer'])
             || empty($params['idPronac'])
             || empty($params['idProduto'])) {
-            throw new \Exception("Dados obrigat&oacute;rios não informados");
+            throw new \Exception("Dados obrigatórios não informados");
         }
 
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
@@ -131,7 +131,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $params = $this->request->getParams();
 
         if (empty($params['idDistribuirParecer']) || empty($params['siAnalise'])) {
-            throw new \Exception("Dados obrigat&oacute;rios não informados");
+            throw new \Exception("Dados obrigatórios não informados");
         }
 
         if ($params['tipoAnalise'] == \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_CUSTO_PRODUTO) {

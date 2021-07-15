@@ -72,7 +72,7 @@
                 idRecurso = $(this).attr('idRecurso');
 
             $("#alerta").dialog("destroy");
-            $("#alerta").html('Deseja realmente finalizar a an&aacute;lise do recurso?<br /><br />Ao finalizar o recurso ser&aacute; devolvido ao MinC.');
+            $("#alerta").html('Deseja realmente finalizar a análise do recurso?<br /><br />Ao finalizar o recurso será devolvido ao MinC.');
             $("#alerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -103,7 +103,7 @@
                                     $('.ui-dialog-titlebar-close').remove();
                                     window.setTimeout('location.reload()', 1000);
                                 } else {
-                                    alertaModal("Não foi poss&iacute;vel finalizar o recurso.");
+                                    alertaModal("Não foi possível finalizar o recurso.");
                                 }
                             },
                             dataType : 'json'
@@ -123,26 +123,26 @@
     });
 </script>
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta" class="sumir"></div>
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para Início">Início</a></li>
         <li>Avaliar Recursos</li>
-        <li class="last"><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An&aacute;lise'; ?></li>
+        <li class="last"><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando Análise'; ?></li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== IN&iacute;CIO T&iacute;TULO ========== -->
+<!-- ========== INÍCIO TÍTULO ========== -->
 <div id="titulo">
-    <div><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An&aacute;lise'; ?></div>
+    <div><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando Análise'; ?></div>
 </div>
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <?php if($this->idPerfil == 93){ ?>
     <form name="formPesquisa" id="formPesquisa" action="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos'));?>" method="get">
@@ -159,8 +159,8 @@
                 <td class="destacar bold" width="60">Situa&ccedil;&atilde;o</td>
                 <td width="200">
                     <select name="tipoFiltro" style="width: 160px;" class="input_simples" id="situacao_projetos">
-                        <option value="">Aguardando An&aacute;lise</option>
-			<option value="emanalise" <?php echo filter_input(INPUT_GET, 'tipoFiltro') == 'emanalise' ? 'selected="selected"' : 'emanalise'; ?>>Em An&aacute;lise</option>
+                        <option value="">Aguardando Análise</option>
+			<option value="emanalise" <?php echo filter_input(INPUT_GET, 'tipoFiltro') == 'emanalise' ? 'selected="selected"' : 'emanalise'; ?>>Em Análise</option>
                         <option value="analisados" <?php echo filter_input(INPUT_GET, 'tipoFiltro') == 'analisados' ? 'selected="selected"' : ''; ?>>Analisados</option>
                     </select>
                 </td>
@@ -198,12 +198,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac; ?>'">
                     <?php } ?>
-                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -268,7 +268,7 @@
                         $tpDiligencia = 0;
                         if($this->idPerfil == 94){ //Parecerista
                             $tpDiligencia = 563;
-                        } else if($this->idPerfil == 110){ //T&eacute;cnico de An&aacute;lise
+                        } else if($this->idPerfil == 110){ //Técnico de Análise
                             $tpDiligencia = 565;
                         }
                         $arrPrazo = $this->prazoRespostaDiligencia($d->IdPRONAC, $tpDiligencia);
@@ -376,12 +376,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac; ?>'">
                         <?php } ?>
-                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -415,7 +415,7 @@
 
 </div>
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />

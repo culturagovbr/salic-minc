@@ -19,7 +19,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
      * @param mixed $idagente
      * @static
      * @access public
-     * @deprecated Utilizar m&eacute;todo da DbTable
+     * @deprecated Utilizar método da DbTable
      */
     public static function buscarEnderecoNacional($idAgente)
     {
@@ -62,7 +62,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
      * @static
      * @access public
      * @return void
-     * @deprecated Utilizar m&eacute;todo da DbTable
+     * @deprecated Utilizar método da DbTable
      */
     public static function gravarEnderecoNacional($dados)
     {
@@ -87,7 +87,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
      * @static
      * @access public
      * @return void
-     * @deprecated Utilizar m&eacute;todo da DbTable
+     * @deprecated Utilizar método da DbTable
      */
     public static function atualizaEnderecoNacional($idAgente, $dados)
     {
@@ -106,7 +106,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
      * @static
      * @access public
      * @return void
-     * @deprecated Utilizar m&eacute;todo da DbTable
+     * @deprecated Utilizar método da DbTable
      *
      */
     public static function deletarEnderecoNacional($idEndereco)
@@ -126,7 +126,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
      * @static
      * @access public
      * @return void
-     * @deprecated Utilizar m&eacute;todo da DbTable
+     * @deprecated Utilizar método da DbTable
      */
     public static function mudaCorrespondencia($idAgente)
     {
@@ -146,7 +146,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
      * @static
      * @access public
      * @return void
-     * @deprecated Utilizar m&eacute;todo da DbTable
+     * @deprecated Utilizar método da DbTable
      */
     public static function novaCorrespondencia($idAgente)
     {

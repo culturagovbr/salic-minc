@@ -11,7 +11,7 @@
         $(".cmpNome").attr("maxlength", "50");
 
         $("#area").change(function(){
-            carregar_combo(this.value, 'segmento', '<?php echo $this->url(array('controller' => 'segmentocultural', 'action' => 'combo-z')); ?>', ' - Selecione uma &aacute;rea Cultural - ');
+            carregar_combo(this.value, 'segmento', '<?php echo $this->url(array('controller' => 'segmentocultural', 'action' => 'combo-z')); ?>', ' - Selecione uma Área Cultural - ');
         });
 
     });
@@ -19,7 +19,7 @@
 
 <?php echo $this->partial('operacional/inc/menu.inc.php', $this); ?>
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Projetos com voto alterado na Plen&aacute;ria</div>
 </div>
@@ -66,7 +66,7 @@
                         </td>
                 </tr>
                 <tr>
-                        <td align="left">&aacute;rea Cultural</td>
+                        <td align="left">Área Cultural</td>
                         <td align="left" colspan="2">
                             <select name="tipoPesqArea" id="tipoPesqArea" style="width: 140px;" class="input_simples">
                                 <option value="EIG">Exatamente igual</option>
@@ -85,7 +85,7 @@
                     <td align="left" colspan="2">
                         <div style="float: left; width: 140px" >Exatamente igual &nbsp;</div>
                         <select name="segmento" id="segmento" style="width: 200px;" class="input_simples">
-                            <option selected="selected" value=""> - Selecione uma &aacute;rea Cultural - </option>
+                            <option selected="selected" value=""> - Selecione uma Área Cultural - </option>
                         </select>
                     </td>
                 </tr>
@@ -120,12 +120,12 @@
 <div id="resultadoConsulta"></div>
 
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

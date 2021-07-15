@@ -1,7 +1,7 @@
 <?php include_once 'inc/menu.infger.inc.php'; ?>
 <div id="breadcrumb">
     <ul>
-        <li class="first">IN&iacute;CIO</li>
+        <li class="first">INÍCIO</li>
         <li class=""><a href="edital/index">Criar Edital - Passo 1</a></li>
         <li class="">Criar Edital - Passo 2</li>
     </ul>
@@ -12,7 +12,7 @@
 </div>
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <fieldset>
         <legend> Passo 2 - Definir informa��es gerais do Edital</legend>
@@ -51,14 +51,14 @@
                     <tr>
                         <td class="destacar bold esquerdo">Fase de Inscri��o <span style="color: red;">*</span></td>
                         <td colspan="<?php echo $this->existePRP == 1 ? '1':'3'?>">
-                            Dt. IN&iacute;CIO &nbsp;<input onkeyup="mascara(this, format_data);" name="dtInicioElaboracao" id="dtInicioElaboracao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital) ? Data::tratarDataZend($this->dadosEdital->dtInicioEdital, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
+                            Dt. INÍCIO &nbsp;<input onkeyup="mascara(this, format_data);" name="dtInicioElaboracao" id="dtInicioElaboracao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital) ? Data::tratarDataZend($this->dadosEdital->dtInicioEdital, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             Dt. Fim &nbsp;<input onkeyup="mascara(this, format_data);" name="dtFimElaboracao" id="dtFimElaboracao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital) ? Data::tratarDataZend($this->dadosEdital->dtFimEdital, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
                         </td>
                         <?php if($this->existePRP == 1):?>
                         <td class="destacar bold esquerdo">Realiza��o do projeto</td>
                         <td colspan="1">
-                            Dt. IN&iacute;CIO &nbsp;<input onkeyup="mascara(this, format_data);" name="dtInicioRealizacao" id="dtInicioRealizacao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital->dtInicioRealizacao) ? Data::tratarDataZend($this->dadosEdital->dtInicioRealizacao, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
+                            Dt. INÍCIO &nbsp;<input onkeyup="mascara(this, format_data);" name="dtInicioRealizacao" id="dtInicioRealizacao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital->dtInicioRealizacao) ? Data::tratarDataZend($this->dadosEdital->dtInicioRealizacao, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             Dt. Fim &nbsp;<input onkeyup="mascara(this, format_data);" name="dtFimRealizacao" id="dtFimRealizacao" size="10" maxlength="10" value="<?php echo ($this->dadosEdital->dtFimRealizacao) ? Data::tratarDataZend($this->dadosEdital->dtFimRealizacao, 'brasileira') : '';  ?>" class="input_simples cmpData btn_calendario required"/>
                         </td>
@@ -154,7 +154,7 @@
         </div>
     </fieldset>
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 <!-- ========== INICIO RODAPE DO CONTEUDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
@@ -297,13 +297,13 @@
             var dtFimRealizacao   = $('#dtFimRealizacao').val();
 
             if( (new Date(dtAtual).getTime() > new Date(dtInicioElaboracao).getTime())){
-                $('#txtmsg').append('<br />Fase de Inscri��o: A data de IN&iacute;CIO Não pode ser menor que a data atual.');
+                $('#txtmsg').append('<br />Fase de Inscri��o: A data de INÍCIO Não pode ser menor que a data atual.');
                 $('#msg').show();
                 enviar = 1;
             }
 
             if( (new Date(dtInicioElaboracao).getTime() > new Date(dtFimElaboracao).getTime())){
-                $('#txtmsg').append('<br />Fase de Inscri��o: A data de IN&iacute;CIO Não pode ser maior que a do fim.');
+                $('#txtmsg').append('<br />Fase de Inscri��o: A data de INÍCIO Não pode ser maior que a do fim.');
                 $('#msg').show();
                 enviar = 1;
             }
@@ -311,13 +311,13 @@
             <?php if($this->existePRP == 1):?>
 
                 if( (new Date(dtInicioRealizacao).getTime() > new Date(dtFimRealizacao).getTime())){
-                    $('#txtmsg').append('<br />Realiza��o do projeto: A data de IN&iacute;CIO Não pode ser maior que a do fim.');
+                    $('#txtmsg').append('<br />Realiza��o do projeto: A data de INÍCIO Não pode ser maior que a do fim.');
                     $('#msg').show();
                     enviar = 1;
                 }
 
                 if( (new Date(dtFimElaboracao).getTime() > new Date(dtInicioRealizacao).getTime())){
-                    $('#txtmsg').append('<br />Realiza��o do projeto: A data de IN&iacute;CIO Não pode ser maior que a do fim da Fase de Inscri��o.');
+                    $('#txtmsg').append('<br />Realiza��o do projeto: A data de INÍCIO Não pode ser maior que a do fim da Fase de Inscri��o.');
                     $('#msg').show();
                     enviar = 1;
                 }

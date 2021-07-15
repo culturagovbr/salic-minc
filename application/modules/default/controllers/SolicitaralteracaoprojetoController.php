@@ -14,7 +14,7 @@ class SolicitaralteracaoprojetoController extends MinC_Controller_Action_Abstrac
 //TODO aplicar Refactoring function init
     public function init()
     {
-        /*  $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
+        /*  $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
           $auth              = Zend_Auth::getInstance(); // pega a autentica��o
           $Usuario           = new UsuarioDAO(); // objeto usu�rio
           $GrupoAtivo        = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -44,7 +44,7 @@ class SolicitaralteracaoprojetoController extends MinC_Controller_Action_Abstrac
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 93;  // Coordenador de Parecerista
         $PermissoesGrupo[] = 94;  // Parecerista
-        $PermissoesGrupo[] = 103; // Coordenador de An&aacute;lise
+        $PermissoesGrupo[] = 103; // Coordenador de Análise
         $PermissoesGrupo[] = 118; // Componente da comissão
         $PermissoesGrupo[] = 119; // Presidente da Mesa
         $PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC

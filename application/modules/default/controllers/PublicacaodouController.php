@@ -277,7 +277,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
             $table.= '<tr>';
             $table.= '<th width="80px">pronac</th>';
             $table.= '<th>nome projeto</th>';
-            $table.= '<th width="200px">&aacute;rea</th>';
+            $table.= '<th width="200px">Área</th>';
             $table.= '<th width="125px">valor aprovado</th>';
             $table.= '</tr>';
 
@@ -490,8 +490,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
                     $textoPortaria = '17 de 12 de janeiro de 2010 e o art. 4&ordm; da Portaria n&ordm; 120, de 30 de Mar&ccedil;o de 2010';
                     $nm = 'Ivan Domingues das Neves';
                 }
-                $this->view->cargo = strtoupper(strtr($cargo, "&aacute;&eacute;&iacute;&oacute;&uacute;âêôãõàèìòùç", "&aacute;&eacute;&iacute;&oacute;&uacute;ÂÊÔÃÕÀÈÌÒÙÇ"));
-                $this->view->nome = strtoupper(strtr($nm, "&aacute;&eacute;&iacute;&oacute;&uacute;âêôãõàèìòùç", "&aacute;&eacute;&iacute;&oacute;&uacute;ÂÊÔÃÕÀÈÌÒÙÇ"));
+                $this->view->cargo = strtoupper(strtr($cargo, "áéíóúâêôãõàèìòùç", "ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
+                $this->view->nome = strtoupper(strtr($nm, "áéíóúâêôãõàèìòùç", "ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
 
                 $this->view->tipoPublicacao = $tipoPublicacao;
                 $this->view->textoPortaria = $textoPortaria;
@@ -856,8 +856,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
         $textoPortaria = trim(strip_tags($dados->dsPortaria));
         $nm = $dados->dsAssinante;
 
-        $this->view->cargo = strtoupper(strtr($dados->dsCargo, "&aacute;&eacute;&iacute;&oacute;&uacute;âêôãõàèìòùç", "&aacute;&eacute;&iacute;&oacute;&uacute;ÂÊÔÃÕÀÈÌÒÙÇ"));
-        $this->view->nome = strtoupper(strtr($nm, "&aacute;&eacute;&iacute;&oacute;&uacute;âêôãõàèìòùç", "&aacute;&eacute;&iacute;&oacute;&uacute;ÂÊÔÃÕÀÈÌÒÙÇ"));
+        $this->view->cargo = strtoupper(strtr($dados->dsCargo, "áéíóúâêôãõàèìòùç", "ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
+        $this->view->nome = strtoupper(strtr($nm, "áéíóúâêôãõàèìòùç", "ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
         $this->view->tipoPublicacao = isset($_POST['imprimitipoPublicacao']) && !empty($_POST['imprimitipoPublicacao']) ? $_POST['imprimitipoPublicacao'] : '';
         $this->view->textoPortaria = $textoPortaria;
 

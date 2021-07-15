@@ -40,7 +40,7 @@ class AvaliacaoResultados_Events_Encaminhar
         return function($t) {
             $params = $t->getParams();
             $projeto = new Projetos();
-            $projeto->alterarSituacao($params['idPronac'], '', 'E27', 'Comprova&ccedil;&atilde;o Financeira do Projeto em An&aacute;lise');
+            $projeto->alterarSituacao($params['idPronac'], '', 'E27', 'Comprova&ccedil;&atilde;o Financeira do Projeto em Análise');
         };
     }
 

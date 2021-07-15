@@ -2574,7 +2574,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
 
-        #verificar se a proposta est&aacute; com o proponente
+        #verificar se a proposta está com o proponente
         $whereMovimentacao = array(
             'idProjeto = ?' => $idPreProjeto,
             'Movimentacao <> ?' => 95,
@@ -2710,7 +2710,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
                     }
                 }
 
-                // Verifica se o proponente Proposta aprovado em editais (618) ou Proposta  com contratos de patroc&iacute;nios (619)
+                // Verifica se o proponente Proposta aprovado em editais (618) ou Proposta  com contratos de patrocínios (619)
                 $sql = $db->select()
                     ->from($this->_name, $this->_getCols(), $this->_schema)
                     ->where('idPreProjeto = ?', $idPreProjeto);
@@ -2808,7 +2808,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
                     $validacao->Url = array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index', 'idPreProjeto' => $idPreProjeto);
                     $listaValidacao[] = clone($validacao);
                 } elseif ($quantidade > 1) {
-                    $validacao->dsInconsistencia = 'S&oacute; poder&aacute; haver um produto principal em cada proposta, a sua est&aacute; com mais de um produto.';
+                    $validacao->dsInconsistencia = 'Só poder&aacute; haver um produto principal em cada proposta, a sua est&aacute; com mais de um produto.';
                     $validacao->Observacao = 'PENDENTE';
                     $validacao->Url = array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index', 'idPreProjeto' => $idPreProjeto);
                     $listaValidacao[] = clone($validacao);
@@ -2949,12 +2949,12 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
 
         //$sql = " SELECT idPlanilhaEtapa as idEtapa, Descricao as DescricaoEtapa FROM SAC.dbo.tbPlanilhaEtapa WHERE tpCusto = 'P' ";
 
-        throw new Exception('M&eacute;todo transferido para Proposta_Model_DbTable_TbPlanilhaEtapa');
+        throw new Exception('Método transferido para Proposta_Model_DbTable_TbPlanilhaEtapa');
 
         return $db->fetchAll($sql);
     }
 
-    //@todo lugar certo &eacute; tbPlanilhaProposta, remover do ManterOrcamentoDAO tbm
+    //@todo lugar certo é tbPlanilhaProposta, remover do ManterOrcamentoDAO tbm
     public function listarItensProdutos($idPreProjeto, $idItem = null, $fetchMode = Zend_DB::FETCH_OBJ)
     {
         $db = Zend_Db_Table::getDefaultAdapter();

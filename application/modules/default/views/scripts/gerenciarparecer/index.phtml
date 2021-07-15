@@ -27,10 +27,10 @@
     }
 </script>
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Gerenciar Parecer">Gerenciar Pareceres</a></li>
         <li class="last">Localizar Pareceres</li>
     </ul>
@@ -38,14 +38,14 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Localizar Pareceres<span class="voltar"><a href="#" onclick="window.location='<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>'">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <br clear="all" />
     <form action="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index')); ?>" method="post">
@@ -59,7 +59,7 @@
                 <td>Nome do Projeto</td>
                 <td align="center">
                     <select name="nometc" style="width: 200px;" class="input_simples">
-                        <option value="1">IN&iacute;CIO igual</option>
+                        <option value="1">INÍCIO igual</option>
                         <option value="2">Que contenha</option>
                         <option value="3">Diferente</option>
                     </select>
@@ -73,8 +73,8 @@
                     <select name="situacao" style="width: 220px;" class="input_simples" onchange="modoconsulta('dtDocumento',this.value);">
                         <option value="0">Todos</option>
                         <option value="1">Aguardando distribui��o</option>
-                        <option value="2">An&aacute;lise conclu�da</option>
-                        <option value="3">Devolvida para nova An&aacute;lise</option>
+                        <option value="2">Análise conclu�da</option>
+                        <option value="3">Devolvida para nova Análise</option>
                     </select>
                 </td>
             </tr>
@@ -88,11 +88,11 @@
     </form>
     <br clear="all" />
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

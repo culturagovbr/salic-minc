@@ -66,7 +66,7 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
         $this->getIdOrgao = $GrupoAtivo->codOrgao; // id do orgao ativo
 
         if ($this->getIdOrgao != 166 && $this->getIdOrgao != 272 && $this->getIdOrgao != 340&& $this->getIdOrgao != 341) { // aceita somente o �rg�o SEFIC/SACAV && SAV/CAP
-            parent::message("Voc&ecirc; nao tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+            parent::message("Voc&ecirc; nao tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
         }
         /* ========== FIM ORGAO ========== */
 
@@ -1557,12 +1557,12 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
      */
     public function uploadAction()
     {
-        /*if ($this->getIdGrupo != 121 && $this->getIdGrupo != 129) // s&oacute; T&eacute;cnico de Acompanhamento que pode acessar
+        /*if ($this->getIdGrupo != 121 && $this->getIdGrupo != 129) // só Técnico de Acompanhamento que pode acessar
         {
-        parent::message('Voce nao tem permissão para acessar essa &aacute;rea do sistema!', 'principal/index', 'ALERT');
+        parent::message('Voce nao tem permissão para acessar essa área do sistema!', 'principal/index', 'ALERT');
         }*/
 
-        // caso o formul&aacute;rio seja enviado via post
+        // caso o formulário seja enviado via post
         if ($this->getRequest()->isPost()) {
             // configuração o php.ini para 100MB
             @set_time_limit(0);
@@ -1711,7 +1711,7 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
                                         // abre o arquivo para leitura
                                         $abrir_arquivo = fopen($arquivoTXT, 'r');
 
-                                // IN&iacute;CIO while de leitura do arquivo linha por linha
+                                // INÍCIO while de leitura do arquivo linha por linha
                                 $i = 0;
                                 $dsInformacao = array();
                                 while (!feof($abrir_arquivo)) {

@@ -87,7 +87,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
             $post = $this->getRequest()->getPost();
             $observacao = trim($post['observacao']);
             if (empty($observacao)) {
-                throw new Exception("O campo 'Justificativa' &eacute; de preenchimento obrigat&oacute;rio.");
+                throw new Exception("O campo 'Justificativa' é de preenchimento obrigatório.");
             }
 
             $get = $this->getRequest()->getParams();
@@ -135,7 +135,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         $this->view->projeto = $projeto;
 
         if (count($this->view->comboareasculturais) < 1) {
-            throw new Exception("N&atilde;o foram encontradas &aacute;reas Culturais para o PRONAC informado.");
+            throw new Exception("N&atilde;o foram encontradas Áreas Culturais para o PRONAC informado.");
         }
         $objSegmentocultural = new Segmentocultural();
         $this->view->combosegmentosculturais = $objSegmentocultural->buscarSegmento($projeto['Area']);

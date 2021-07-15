@@ -22,7 +22,7 @@ class AvaliacaoResultados_LaudoController extends MinC_Controller_Rest_Abstract
 
     public function headAction()
     {
-        $this->renderJsonResponse(["Nenhum conte&uacute;do"], 204);
+        $this->renderJsonResponse(["Nenhum conteúdo"], 204);
     }
 
     public function indexAction()
@@ -83,7 +83,7 @@ class AvaliacaoResultados_LaudoController extends MinC_Controller_Rest_Abstract
     public function deleteAction()
     {
 //        403 Proibido
-        $this->customRenderJsonResponse(["M&eacute;todo não permitido"], 405);
+        $this->customRenderJsonResponse(["Método não permitido"], 405);
     }
 
 }

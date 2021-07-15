@@ -275,7 +275,7 @@ class LoginController extends MinC_Controller_Action_Abstract
     {
         // autentica��o proponente (Novo Salic)
 
-        /* ========== IN&iacute;CIO ID DO USU�RIO LOGADO ========== */
+        /* ========== INÍCIO ID DO USU�RIO LOGADO ========== */
         $auth    = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
@@ -400,7 +400,7 @@ class LoginController extends MinC_Controller_Action_Abstract
         parent::perfil(0);
         // autentica��o proponente (Novo Salic)
 
-        /* ========== IN&iacute;CIO ID DO USU�RIO LOGADO ========== */
+        /* ========== INÍCIO ID DO USU�RIO LOGADO ========== */
         $auth    = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
@@ -549,7 +549,7 @@ class LoginController extends MinC_Controller_Action_Abstract
         // autentica��o proponente (Novo Salic)
         parent::perfil(4);
 
-        /* ========== IN&iacute;CIO ID DO USU�RIO LOGADO ========== */
+        /* ========== INÍCIO ID DO USU�RIO LOGADO ========== */
         $auth    = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new Autenticacao_Model_DbTable_Usuario();
 

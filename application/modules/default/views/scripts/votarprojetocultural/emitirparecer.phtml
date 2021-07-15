@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicaprojeto
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -15,7 +15,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== IN&iacute;CIO T�TULO p&aacute;gina ========== -->
+<!-- ========== INÍCIO T�TULO página ========== -->
 <table class="w1000" style="margin:10px auto;">
 
 	<?php foreach ($this->pronac as $p) : ?>
@@ -28,9 +28,9 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 	<?php endforeach; ?>
 
 </table>
-<!-- ========== FIM T�TULO p&aacute;gina ========== -->
+<!-- ========== FIM T�TULO página ========== -->
 
-<!-- ========== IN&iacute;CIO FORMUL�RIO ========== -->
+<!-- ========== INÍCIO FORMUL�RIO ========== -->
 <form action="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'emitirparecer')); ?>" method="post">
 	<input type="hidden" name="idPlanilha" value="<?php echo $_GET['idPlanilha']; ?>" />
 	<input type="hidden" name="idPronac" value="<?php echo $_GET['idPronac']; ?>" />

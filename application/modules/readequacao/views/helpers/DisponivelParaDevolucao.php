@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto est&aacute; dispon&iacute;vel para devolução
+ * Helper para verificar se projeto está disponível para devolução
  */
 
 class Zend_View_Helper_DisponivelParaDevolucao
 {
     /**
-     * M&eacute;todo para verificar se o projeto est&aacute; dispon&iacute;vel para devolução
+     * Método para verificar se o projeto está disponível para devolução
      * @access public
      * @param integer $siEncaminhamento
      * @return string

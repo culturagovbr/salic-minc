@@ -43,7 +43,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         $buscaProjetoProduto = new SolicitarReadequacaoCustoDAO();
 
 
-        // ========== IN&iacute;CIO MENSAGEM DE REDU��O, COMPLEMENTO OU REMANEJAMENTO ==========
+        // ========== INÍCIO MENSAGEM DE REDU��O, COMPLEMENTO OU REMANEJAMENTO ==========
         $verificarReadequacao = $buscaProjetoProduto->verificarreadequacao($idPronac);
 
         $totalPlanilhaAprovada = !empty($verificarReadequacao[0]['totalAprovado']) ? $verificarReadequacao[0]['totalAprovado'] : 0;
@@ -223,7 +223,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
                 }
 //                $valorFinal =  explode(".", $_POST['vlUnitario']);
 //                $valorFinal = $valorFinal[0] . $valorFinal[1] . "." . $valorFinal[2];
-                // diz se a Solicitação de readequa��o ser&aacute; inclu�da ou alterada
+                // diz se a Solicitação de readequa��o será inclu�da ou alterada
                 $PA = new PlanilhaAprovacao();
                 $buscarPlanilhaAprovacaoPai = $PA->buscar(array('idPlanilhaAprovacaoPai = ?' => $_POST['idPlanilhaAP'], 'tpPlanilha = ?' => 'SR'));
                 if (count($buscarPlanilhaAprovacaoPai) > 0) :

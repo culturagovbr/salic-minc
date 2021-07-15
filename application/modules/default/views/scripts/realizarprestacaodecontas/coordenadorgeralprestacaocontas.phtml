@@ -5,19 +5,19 @@
  * @since 28/01/2011
  * @version 1.0
  * @subpackage application.view.scripts.prestacaodeocontas
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl (); ?>" title="IN&iacute;CIO">IN&iacute;CIO</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl (); ?>" title="INÍCIO">INÍCIO</a></li>
         <li class="second"><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => '')); ?>" title="Ir para Presta&ccedil;&atilde;o de contas">Presta&ccedil;&atilde;o de contas</a></li>
         <li class="last">Analisar presta&ccedil;&atilde;o de contas</li>
     </ul>
 </div>
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Analisar presta&ccedil;&atilde;o de contas <span class="voltar"><a href="<?php echo $this->url ( array ('controller' => 'realizarprestacaodecontas', 'action' => '' ));?>" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
@@ -125,7 +125,7 @@
     <?php endif;?>
 </script>
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 
 <?php if($this->bln_envioufiltro == 'false' && $this->totalAguardandoAnalise==0 &&  $this->totalDevolvidosAposAnalise==0 &&  $this->totalDiligenciados==0 &&  $this->totalProjetosTCE==0): ?>
@@ -207,7 +207,7 @@
         <table class="tabela">
             <tr>
 
-                <td><input type="button" id="devolvidosaposanalise" class="btn_adicionar"  onclick="JSMostraOcultaElemento('devolvidosaposanalise')" />DEVOLVIDOS AP�S An&aacute;lise</td>
+                <td><input type="button" id="devolvidosaposanalise" class="btn_adicionar"  onclick="JSMostraOcultaElemento('devolvidosaposanalise')" />DEVOLVIDOS AP�S Análise</td>
                 <td width="100" align="right" >Quantidade: <?php echo $this->totalDevolvidosAposAnalise;?></td>
             </tr>
         </table>
@@ -314,7 +314,7 @@
 
 </div><!-- fecha div conteudo -->
 
-<!-- IN&iacute;CIO: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÍCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 <br clear="all" />

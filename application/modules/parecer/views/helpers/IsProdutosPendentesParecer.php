@@ -1,12 +1,12 @@
  <?php
 /**
- * Helper para verificar se h&aacute; produtos pendentes de parecer
+ * Helper para verificar se há produtos pendentes de parecer
  */
 
 class Zend_View_Helper_IsProdutosPendentesParecer
 {
     /**
-     * M&eacute;todo para verificar se h&aacute; produtos pendentes de parecer
+     * Método para verificar se há produtos pendentes de parecer
      * @access public
      * @param integer $idPronac
      * @param integer $idProduto

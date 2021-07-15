@@ -13,19 +13,19 @@
 class Autenticacao_PerfilController extends MinC_Controller_Action_Abstract
 {
     /**
-     * Altera o pefil do usu&aacute;rio
+     * Altera o pefil do usuário
      * @access public
      * @param void
      * @return void
      */
     public function alterarperfilAction()
     {
-        $codGrupo = $this->getRequest()->getParam('codGrupo'); // grupo do usu&aacute;rio logado
-        $codOrgao = $this->getRequest()->getParam('codOrgao'); // &oacute;rgão do usu&aacute;rio logado
+        $codGrupo = $this->getRequest()->getParam('codGrupo'); // grupo do usuário logado
+        $codOrgao = $this->getRequest()->getParam('codOrgao'); // órgão do usuário logado
         $auth   = Zend_Auth::getInstance();
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
         $GrupoAtivo->codGrupo = $codGrupo; // armazena o grupo ativo na sessão
-        $GrupoAtivo->codOrgao = $codOrgao; // armazena o &oacute;rgão ativo na sessão
+        $GrupoAtivo->codOrgao = $codOrgao; // armazena o órgão ativo na sessão
 
         if ($GrupoAtivo->codGrupo == "1111" && $GrupoAtivo->codOrgao == "2222") {
             $tblSGCacesso = new Autenticacao_Model_Sgcacesso();
@@ -43,7 +43,7 @@ class Autenticacao_PerfilController extends MinC_Controller_Action_Abstract
             $codOrgaoMaxSuperior = $tblUsuario->recuperarOrgaoMaxSuperior($codOrgao);
             $_SESSION['Zend_Auth']['storage']->usu_org_max_superior = $codOrgaoMaxSuperior;
 
-            // redireciona para a p&aacute;gina inicial do sistema
+            // redireciona para a página inicial do sistema
             parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principal", "INFO");
         }
     }

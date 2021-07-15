@@ -31,7 +31,7 @@
     label.error{ color:red; font-weight: normal; }
 </style>
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <form name="frmDevolver" id="frmDevolver" action="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'devolverprojeto')); ?>" method="post">
     <?php foreach($this->dados as $d):?>
     <input type="hidden" class="input_simples" name="idpronac"  value="<?php echo $d->IdPRONAC; ?>" />
@@ -69,4 +69,4 @@
     </div>
     <?php endforeach; ?>
 </form>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->

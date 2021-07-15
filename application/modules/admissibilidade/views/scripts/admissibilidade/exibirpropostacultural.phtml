@@ -23,7 +23,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
 </style>
 <script type="text/javascript">
     /*
-     * Fun&ccedil;&atilde;o respons�vel pela exibi&ccedil;&atilde;o ou ocultamento de CONTE&uacute;DO,
+     * Fun&ccedil;&atilde;o respons�vel pela exibi&ccedil;&atilde;o ou ocultamento de CONTEÚDO,
      * mudando a imagem.
      **/
     $(document).ready(function () {
@@ -453,7 +453,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                             </table>
                         </fieldset>
                         <fieldset>
-                            <legend>Ficha T&eacute;cnica</legend>
+                            <legend>Ficha Técnica</legend>
                             <table class="tabela">
                                 <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
                                     <tr>
@@ -483,7 +483,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                             </table>
                         </fieldset>
                         <fieldset>
-                            <legend>Especifica�&otilde;es T&eacute;cnicas do produto</legend>
+                            <legend>Especifica�&otilde;es Técnicas do produto</legend>
                             <table class="tabela">
                                 <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
                                     <tr>
@@ -648,7 +648,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                         foreach ($this->AnaliseCustos as $resposta) :
                             // contador dos itens
                             /**
-                             * IN&iacute;CIO FOREACH PRODUTOS
+                             * INÍCIO FOREACH PRODUTOS
                              * Percorre todos os produtos
                              */
                             // vari&aacute;veis que servir�o para fazer compara&ccedil;�o dos itens j&aacute; existentes,
@@ -659,7 +659,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                             $comparadorUFs = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa . $resposta->idUF . $resposta->idMunicipio;
                             ?>
 
-                            <!-- ========== IN&iacute;CIO T�TULO INCENTIVO FISCAL FEDERAL ========== -->
+                            <!-- ========== INÍCIO T�TULO INCENTIVO FISCAL FEDERAL ========== -->
                             <?php if (!in_array($comparadorIncentivo, $arrayIncentivo)): ?>
                             <tr>
                                 <td colspan="9">
@@ -679,10 +679,10 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                             <!-- ========== FIM T�TULO INCENTIVO FISCAL FEDERAL ========== -->
 
 
-                            <!-- ========== IN&iacute;CIO BUSCA POR PRODUTO ========== -->
+                            <!-- ========== INÍCIO BUSCA POR PRODUTO ========== -->
 
                             <?php if (!in_array($comparadorProdutos, $arrayProdutos)): ?>
-                            <!-- ========== IN&iacute;CIO T�TULO PRODUTOS ========== -->
+                            <!-- ========== INÍCIO T�TULO PRODUTOS ========== -->
                             <tr class="IFF<?php echo $comparadorIncentivo; ?> linha">
                                 <td colspan="9">
                                     <strong>
@@ -702,7 +702,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
 
 
                             <?php if (!in_array($comparadorEtapas, $arrayEtapas)): ?>
-                            <!-- ========== IN&iacute;CIO T�TULO ETAPAS ========== -->
+                            <!-- ========== INÍCIO T�TULO ETAPAS ========== -->
                             <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?>">
                                 <td colspan="9">
                                     <strong style="margin-left:2%;">
@@ -718,12 +718,12 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                                     </strong>
                                 </td>
                             </tr>
-                            <!-- ========== IN&iacute;CIO T�TULO ETAPAS ========== -->
+                            <!-- ========== INÍCIO T�TULO ETAPAS ========== -->
                         <?php endif; ?>
 
 
                             <?php if (!in_array($comparadorUFs, $arrayUFs)): ?>
-                            <!-- ========== IN&iacute;CIO T�TULO UF ========== -->
+                            <!-- ========== INÍCIO T�TULO UF ========== -->
                             <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?>">
                                 <td colspan="9">
                                     <strong style="margin-left:3%;">
@@ -742,7 +742,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                             <!-- ========== FIM T�TULO UF ========== -->
 
 
-                            <!-- ========== IN&iacute;CIO TITULO �TENS ========== -->
+                            <!-- ========== INÍCIO TITULO �TENS ========== -->
                             <tr class="destacar IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>">
                                 <td>&nbsp;</td>
                                 <td width="20%">Item</td>
@@ -761,7 +761,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                             <!-- ========== FIM TITULO �TENS ========== -->
                         <?php endif; ?>
 
-                            <!-- ========== IN&iacute;CIO �TENS ========== -->
+                            <!-- ========== INÍCIO �TENS ========== -->
                             <?php
                             $totalItens = 0;
 
@@ -812,7 +812,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                             <!-- ========== FIM TOTAL UF ========== -->
 
 
-                            <!-- ========== IN&iacute;CIO TOTAL ETAPAS ========== -->
+                            <!-- ========== INÍCIO TOTAL ETAPAS ========== -->
                             <?php
                             // ===== CALCULA TOTAL ETAPAS =====
                             $totalVal_01_Etapa += (float)$resposta->VlSolicitado;
@@ -836,7 +836,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                             ?>
                             <!-- ========== FIM TOTAL ETAPAS ========== -->
 
-                            <!-- ========== IN&iacute;CIO TOTAL PRODUTOS ========== -->
+                            <!-- ========== INÍCIO TOTAL PRODUTOS ========== -->
                             <?php
                             // ===== CALCULA TOTAL PRODUTOS =====
                             $totalVal_01_Produto += (float)$resposta->VlSolicitado;
@@ -1027,7 +1027,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                         <table class="tabela" id="planoDivulgacao">
                             <tr class="destacar">
                                 <td align="left"><b>Peça de Divulga&ccedil;&atilde;o</b></td>
-                                <td align="left"><b>Ve&iacute;culo de Divulga&ccedil;&atilde;o</b></td>
+                                <td align="left"><b>Veículo de Divulga&ccedil;&atilde;o</b></td>
                             </tr>
                             <?php if (is_array($this->itensPlanoDivulgacao) and count($this->itensPlanoDivulgacao) > 0)
                                 foreach ($this->itensPlanoDivulgacao as $divulgacao) {

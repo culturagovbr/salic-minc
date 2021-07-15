@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright � 2012 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2012 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 

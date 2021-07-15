@@ -1,21 +1,21 @@
 <?php echo $this->partial('procuracao/inc/menu.inc.php', $this); ?>
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('module'=>'default', 'controller' => 'principalproponente', 'action' => 'index')); ?>" title="Ir para IN&iacute;CIO">In&iacute;cio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('module'=>'default', 'controller' => 'principalproponente', 'action' => 'index')); ?>" title="Ir para INÍCIO">In&iacute;cio</a></li>
         <li class="">Procura&ccedil;&atilde;o</li>
         <li class="last">Procura&ccedil;&otilde;es cadastradas</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Procura&ccedil;&otilde;es cadastradas <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <?php if(count($this->buscarprocuracao) > 0){ ?>
@@ -54,9 +54,9 @@
         <?php } ?>
     </table>
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />

@@ -3,7 +3,7 @@
 class PlanilhaitensController extends Zend_Controller_Action
 {
     /**
-     * M&eacute;todo para buscar os itens de uma etapa
+     * Método para buscar os itens de uma etapa
      * Busca como XML para o AJAX
      * @access public
      * @param void

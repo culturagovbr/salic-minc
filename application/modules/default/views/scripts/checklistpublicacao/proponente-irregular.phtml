@@ -63,12 +63,12 @@
                 <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="28">T�cnico</a></th>
             <?php }?>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="29">Status</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="31">Tempo de An&aacute;lise</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="31">Tempo de Análise</a></th>
             <th>Regularidade do Proponente</th>
             <th>Dilig&ecirc;ncia</th>
             <th id="testetoltip">Alterar</th>
             <th>Enviar Mensagem</th>
-            <th>Finalizar An&aacute;lise</th>
+            <th>Finalizar Análise</th>
             <?php if (!empty ($this->coordenador ) ){?>
                 <th>Encaminhar Para Portaria</th>
             <?php }?>
@@ -132,7 +132,7 @@
                 </td>
                 <td id="colunafinalizar<?php echo ($projeto['idpronac']); ?>">
                     <?php if($projeto['stAnaliseProjeto'] == '1' || $projeto['stAnaliseProjeto'] == '2' ): ?>
-                        <input type="button" name="finalizar" id="finalizar" class="btn_finalizar" onclick="JSFinalizarAnalise('<?php echo ($projeto['idpronac']); ?>','<?php echo ($projeto['idAprovacao']); ?>','proponenteirregular')"  title="Finalizar An&aacute;lise">
+                        <input type="button" name="finalizar" id="finalizar" class="btn_finalizar" onclick="JSFinalizarAnalise('<?php echo ($projeto['idpronac']); ?>','<?php echo ($projeto['idAprovacao']); ?>','proponenteirregular')"  title="Finalizar Análise">
                     <?php else: ?>
                         <input type="button" name="finalizar" id="finalizar" class="btn_finalizar-off">
                     <?php endif; ?>

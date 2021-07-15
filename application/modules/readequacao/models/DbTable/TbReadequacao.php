@@ -735,7 +735,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
 
 
     /**
-     * M&eacute;todo para buscar id da readequacao ativa
+     * Método para buscar id da readequacao ativa
      * @access public
      * @param integer $idPronac
      * @param integer $idTipoReadequacao
@@ -902,7 +902,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     /*
      * Criada em 16/03/2014
      * @author: Jefferson Alessandro
-     * Fun��o usada para detalhar a readequa��o para An&aacute;lise do componente da comissão.
+     * Fun��o usada para detalhar a readequa��o para Análise do componente da comissão.
      */
     public function buscarDadosReadequacoesCnic($where = array(), $order = array())
     {
@@ -1632,7 +1632,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
 
 
     /**
-     * M&eacute;todo para verificar se existe qualquer tipo de readequação em andamento
+     * Método para verificar se existe qualquer tipo de readequação em andamento
      * @access public
      * @param integer $idPronac
      * @param integer $idTipoReadequacao
@@ -1667,7 +1667,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo para verificar se existe readequacao em edição
+     * Método para verificar se existe readequacao em edição
      * @access public
      * @param integer $idPronac
      * @param integer $idTipoReadequacao
@@ -1706,7 +1706,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo para verificar se existe readequacao de planilha em edição
+     * Método para verificar se existe readequacao de planilha em edição
      * @access public
      * @param integer $idPronac
      * @return boolean
@@ -1720,7 +1720,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo para verificar se existe readequacao parcial em edição
+     * Método para verificar se existe readequacao parcial em edição
      * @access public
      * @param integer $idPronac
      * @return boolean
@@ -1748,7 +1748,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo para obter a readequacao em andamento
+     * Método para obter a readequacao em andamento
      * @access public
      * @param integer $idPronac
      * @return boolean
@@ -1778,7 +1778,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo para verificar se est&aacute; o projeto est&aacute; disponivel para edição da readequacao de planilha
+     * Método para verificar se está o projeto está disponivel para edição da readequacao de planilha
      * @access public
      * @param integer $idPronac
      * @return boolean
@@ -1802,7 +1802,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo para verificar se est&aacute; o projeto est&aacute; disponivel para edição do remanejamento de planilha
+     * Método para verificar se está o projeto está disponivel para edição do remanejamento de planilha
      * @access public
      * @param integer $idPronac
      * @return boolean
@@ -1833,7 +1833,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo para verificar se est&aacute; o projeto est&aacute; disponivel para adição de itens da readequacao de planilha
+     * Método para verificar se está o projeto está disponivel para adição de itens da readequacao de planilha
      * @access public
      * @param integer $idPronac
      * @return boolean
@@ -1861,7 +1861,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo para retornar idPronac do projeto com readequação em andamento mais recentemente criada, com, prazo de execução vigente
+     * Método para retornar idPronac do projeto com readequação em andamento mais recentemente criada, com, prazo de execução vigente
      * @param integer $idTipoReadequacao
      * @return integer
      */
@@ -1897,7 +1897,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         }
     }
 
-    // TODO: quase abstraido - mover para controller / m&oacute;dulo / serviço espec&iacute;fico de gerenciamento arquivo
+    // TODO: quase abstraido - mover para controller / módulo / serviço específico de gerenciamento arquivo
     public function inserirDocumento()
     {
         $tbArquivoDAO = new tbArquivo();
@@ -1906,19 +1906,19 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
 
         // ==================== Dados do arquivo de upload ===============================
         $arquivoNome = $_FILES['arquivo']['name']; // nome
-        $arquivoTemp = $_FILES['arquivo']['tmp_name']; // nome tempor&aacute;rio
+        $arquivoTemp = $_FILES['arquivo']['tmp_name']; // nome temporário
         $arquivoTipo = $_FILES['arquivo']['type']; // tipo
         $arquivoTamanho = $_FILES['arquivo']['size']; // tamanho
 
         $idDocumento = null;
         if (!empty($arquivoTemp)) {
             $arquivoExtensao = Upload::getExtensao($arquivoNome); // extensão
-            $arquivoBinario = Upload::setBinario($arquivoTemp); // bin&aacute;rio
+            $arquivoBinario = Upload::setBinario($arquivoTemp); // binário
             $arquivoHash = Upload::setHash($arquivoTemp); // hash
 
             if ($arquivoExtensao != 'pdf' && $arquivoExtensao != 'PDF') { // extensão do arquivo
                 throw new Exception('A extens&atilde;o do arquivo &eacute; inv&aacute;lida, envie somente arquivos <strong>.pdf</strong>!');
-            } elseif ($arquivoTamanho > 5242880) { // tamanho m&aacute;ximo do arquivo: 5MB
+            } elseif ($arquivoTamanho > 5242880) { // tamanho máximo do arquivo: 5MB
                 throw new Exception('O arquivo n&atilde;o pode ser maior do que <strong>5MB</strong>!');
             }
 
@@ -2013,7 +2013,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo criar readequação de planilha (orçament&aacute;ria/saldo aplicação
+     * Método criar readequação de planilha (orçamentária/saldo aplicação
      * @access private
      * @param integer $idPronac
      * @param integer $idTipoReadequacao

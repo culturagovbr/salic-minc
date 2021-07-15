@@ -6,15 +6,15 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.recurso
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'recursos', 'action' => 'recurso')); ?>" title="Ir para Recurso">Recurso</a></li>
 		<li class="last">Projetos Indeferidos</li>
 	</ul>
@@ -23,7 +23,7 @@
 
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
 	<div>Projetos Indeferidos <span>ID #23A</span> <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -31,12 +31,12 @@
 
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 
 	<br />
 
-	<!-- ========== IN&iacute;CIO TABELA RECURSO ========== -->
+	<!-- ========== INÍCIO TABELA RECURSO ========== -->
 	<table class="tabela">
 		<tr>
 			<th>Pronac</th>
@@ -81,7 +81,7 @@
 
 
 
-	<!-- ========== IN&iacute;CIO FORMUL�RIO JUSTIFICATIVA ========== -->
+	<!-- ========== INÍCIO FORMUL�RIO JUSTIFICATIVA ========== -->
 	<div id="dialog-alert" class="sumir">Por favor, digite sua justificativa!</div>
 	<form name="form" id="form" action="<?php echo $this->url(array('controller' => 'recursos', 'action' => 'indeferidos')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>" method="post">
 	<table class="tabela">
@@ -142,7 +142,7 @@
 				</p>
 				<br />
 				<p>
-					<input type="button" class="btn" value=" An&aacute;lise do Projeto " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado', 'idpronac' => $_GET['idPronac'])); ?>');" onkeypress=" " /> &nbsp;
+					<input type="button" class="btn" value=" Análise do Projeto " onclick="redirecionar('<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado', 'idpronac' => $_GET['idPronac'])); ?>');" onkeypress=" " /> &nbsp;
 					<input type="submit" class="btn" value=" Salvar " /> &nbsp;
 
 					<input type="reset" class="btn" value=" Cancelar " onclick="redirecionar('<?php echo $this->url(array('controller' => 'recursos', 'action' => 'index')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>');" onkeypress=" " /> &nbsp;
@@ -156,12 +156,12 @@
 
 
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

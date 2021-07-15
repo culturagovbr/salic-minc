@@ -1489,7 +1489,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
             // Monta o array com o id do ultimo registro cadastrado
             $dados = array('idAlteracao' => $ultimoRegistro[0]->id);
 
-            // Alterar o ultimo registro cadastrado colocando o seu pr&oacute;prio id no campo idalteracao
+            // Alterar o ultimo registro cadastrado colocando o seu próprio id no campo idalteracao
             $altera = $tbAusencia->alteraAusencia($dados, $ultimoRegistro[0]->id);
 
             parent::message("Suas f&eacute;rias foram agendas para " . $dtInicio . " &agrave; " . $dtFim . ". Aguarde Aprova&ccedil;&atilde;o do Coordenador.
@@ -1727,7 +1727,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
             // Monta o array com o id do ultimo registro cadastrado
             $dados = array('idAlteracao' => $ultimoRegistro[0]->id);
 
-            // Alterar o ultimo registro cadastrado colocando o seu pr&oacute;prio id no campo idalteracao
+            // Alterar o ultimo registro cadastrado colocando o seu próprio id no campo idalteracao
             $altera = $tbAusencia->alteraAusencia($dados, $ultimoRegistro[0]->id);
 
 
@@ -1851,13 +1851,13 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
 
         $qtdArea = $tbCredenciamentoParecerista->QtdArea($idAgente);
         if ((($qtdArea[0]->qtd) >= 3) and (($qtdSegmento[0]->qtd) == 0)) {
-            parent::message("Voc&ecirc; s&oacute; pode credenciar  3 (tr&ecirc;s) &aacute;reas culturais!", "agente/agentes/credenciamento/id/" . $idAgente, "ALERT");
+            parent::message("Voc&ecirc; s&oacute; pode credenciar  3 (tr&ecirc;s) Áreas culturais!", "agente/agentes/credenciamento/id/" . $idAgente, "ALERT");
         }
 
         $verificarCadastrado = $tbCredenciamentoParecerista->verificarCadastrado($idAgente, $segmentoCultural, $areaCultural);
 
         if (count($verificarCadastrado) > 0) {
-            parent::message("&aacute;rea e segmento j&aacute; credenciado!", "agente/agentes/credenciamento/id/" . $idAgente, "ALERT");
+            parent::message("Área e segmento j&aacute; credenciado!", "agente/agentes/credenciamento/id/" . $idAgente, "ALERT");
         }
 
         try {
@@ -2016,7 +2016,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
             $areaCultural = $this->_request->getParam("areaCultural");
             $segmentoCultural = $this->_request->getParam("segmentoCultural");
 
-            // s&oacute; salva area e segmento para a visao de Componente da Comissao e se os campos titular e areaCultural forem informados
+            // só salva area e segmento para a visao de Componente da Comissao e se os campos titular e areaCultural forem informados
             if ((int)$Visao == VisaoModel::COMPONENTE_DA_COMISSAO && ((int)$titular == 0 || (int)$titular == 1) && !empty($areaCultural)) {
                 $GravarComponente = array(// insert
                         'idAgente' => $idAgente,
@@ -2041,7 +2041,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                         $i = TitulacaoConselheiroDAO::atualizaComponente($idAgente, $AtualizarComponente);
                     }
                 } catch (Exception $e) {
-                    throw new Exception("Erro ao salvar a &aacute;rea e segmento: " . $e->getMessage());
+                    throw new Exception("Erro ao salvar a Área e segmento: " . $e->getMessage());
                 }
             }
 
@@ -2383,7 +2383,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
         $areaCultural = $this->_request->getParam("areaCultural");
         $segmentoCultural = $this->_request->getParam("segmentoCultural");
 
-        // s&oacute; salva area e segmento para a visao de Componente da Comissao e se os campos titular e areaCultural forem informados
+        // só salva area e segmento para a visao de Componente da Comissao e se os campos titular e areaCultural forem informados
         if ((int) $Visao == 210 && ((int) $titular == 0 || (int) $titular == 1) && !empty($areaCultural)) {
             $GravarComponente = array(// insert
                     'idAgente' => $idAgente,
@@ -2408,7 +2408,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                     $i = TitulacaoConselheiroDAO::atualizaComponente($idAgente, $AtualizarComponente);
                 }
             } catch (Exception $e) {
-                parent::message("Erro ao salvar a &aacute;rea e segmento: " . $e->getMessage(), $e->getMessage(), "agente/agentes/incluirdirigente/id/" . $idAgenteGeral, "ERROR");
+                parent::message("Erro ao salvar a Área e segmento: " . $e->getMessage(), $e->getMessage(), "agente/agentes/incluirdirigente/id/" . $idAgenteGeral, "ERROR");
             }
         }
 
@@ -2666,7 +2666,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
 
         if (!$buscar) {
             // redireciona para a pagina de cadastro de agentes, e, exibe uma notificacao relativa ao cadastro
-            parent::message("Agente n&atilde;o cadastrado!<br /><br />Por favor, cadastre o mesmo no formul&aacute;rio abaixo!", "/agente/manteragentes/agentes?acao=cc&cpf=" . $cpf . "&nome=" . $nome, "ALERT");
+            parent::message("Agente n&atilde;o cadastrado!<br /><br />Por favor, cadastre o mesmo no formulário abaixo!", "/agente/manteragentes/agentes?acao=cc&cpf=" . $cpf . "&nome=" . $nome, "ALERT");
         } else {
             // ========== INICIO PAGINACAO ==========
             // criando a paginacao
@@ -2921,7 +2921,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                     $dados = array(
                         'idagente' => $idAgente,
                         'visao' => $visao,
-                        'usuario' => $this->getIdUsuario, // c&oacute;digo do usuario logado
+                        'usuario' => $this->getIdUsuario, // código do usuario logado
                         'stativo' => 'A');
                     $visaoTable->cadastrarVisao($dados);
                 }
@@ -3168,7 +3168,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
     }
 
     /**
-     * Este metodo &eacute; para correcao de erro ao transformar projeto em proposta
+     * Este metodo é para correcao de erro ao transformar projeto em proposta
      * o erro acontece quando existe agente com usuario invalido
      */
     public function salvarUsuarioAgenteAction()

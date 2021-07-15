@@ -26,7 +26,7 @@
                 if(preenchimento){
                     mensagem = 'Favor preencher os dados obrig&aacute;torios e cadastrar o Agente.';
                 } else {
-                    mensagem = '&eacute; necess&aacute;rio cadastrar o Agente!';
+                    mensagem = 'É necessário cadastrar o Agente!';
                 }
                 preenchimento = true;
             }
@@ -83,7 +83,7 @@
                         }
                     });
                     if(vlBeneficiario > parseInt($('#totalBeneficiario'+id).val())){
-                        alertaModal('Ultrapassou a quantidade de Produtos aprovados destinados ao Benefici&aacute;rio.');
+                        alertaModal('Ultrapassou a quantidade de Produtos aprovados destinados ao Beneficiário.');
                         return false;
                     }
                 }
@@ -143,7 +143,7 @@
                                 modal: true,
                                 autoOpen:true,
                                 draggable:false,
-                                title: 'Cadastrar Benefici&aacute;rio',
+                                title: 'Cadastrar Beneficiário',
                                 buttons: {
                                     'Fechar': function() {
                                         $("#divDinamicaAgentes").remove();
@@ -211,7 +211,7 @@
                                     $('.ui-dialog-titlebar-close').remove();
                                     window.setTimeout('location.reload()', 1000);
                                 } else {
-                                    alertaModal("Não foi poss&iacute;vel excluir o Plano de Distribuição.");
+                                    alertaModal("Não foi possível excluir o Plano de Distribuição.");
                                 }
                             },
                             dataType : 'json'
@@ -361,7 +361,7 @@
         <table class="tabela">
             <tr align="center">
                 <td class="destacar bold">Produto</td>
-                <td class="destacar bold">Benefici&aacute;rio do Produto Cultural</td>
+                <td class="destacar bold">Beneficiário do Produto Cultural</td>
                 <td class="destacar bold">CNPJ/CPF</td>
                 <td class="destacar bold">Quantidade</td>
                 <td class="destacar bold">Arquivo</td>
@@ -401,11 +401,11 @@
     <?php if(count($this->PlanosCadastrados)>0) { ?>
     <table class="tabela">
         <tr align="center">
-            <th colspan="7">Benefici&aacute;rios de Produto Cultural</th>
+            <th colspan="7">Beneficiários de Produto Cultural</th>
         </tr>
         <tr align="center">
             <td class="destacar bold">Produto</td>
-            <td class="destacar bold">Tipo Benefici&aacute;rio</td>
+            <td class="destacar bold">Tipo Beneficiário</td>
             <td class="destacar bold">CNPJ/CPF</td>
             <td class="destacar bold">Nome</td>
             <td class="destacar bold">Quantidade</td>
@@ -424,7 +424,7 @@
                         echo 'Divulgação';
                         $classNomeCampo = 'qtdDivulgacao'.$PlanosCadastrados->idPlanoDistribuicao;
                     } else {
-                        echo 'Benefici&aacute;rio';
+                        echo 'Beneficiário';
                         $classNomeCampo = 'qtdBeneficiario'.$PlanosCadastrados->idPlanoDistribuicao;
                     }
                 ?>

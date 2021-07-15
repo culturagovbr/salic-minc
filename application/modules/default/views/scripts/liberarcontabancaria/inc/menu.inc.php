@@ -50,7 +50,7 @@
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc">
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'aprovacaoeparecer', 'action' => 'parecertecnico')); ?>">Parecer T&eacute;cnico</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'aprovacaoeparecer', 'action' => 'parecertecnico')); ?>">Parecer Técnico</a>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'aprovacaoeparecer', 'action' => 'aprovacao')); ?>">Aprova&ccedil;&atilde;o</a>
             </div>
             <div class="bottom"></div>

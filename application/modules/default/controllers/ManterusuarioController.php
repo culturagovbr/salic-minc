@@ -573,7 +573,7 @@ class ManterusuarioController extends MinC_Controller_Action_Abstract
 
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
         $codGrupo = $GrupoAtivo->codGrupo; //  Grupo ativo na sessao
-        $codOrgao = $GrupoAtivo->codOrgao; //  &oacute;rgao ativo na sessao
+        $codOrgao = $GrupoAtivo->codOrgao; //  Órgao ativo na sessao
 
         $this->view->codOrgao = $codOrgao;
         $this->view->idUsuarioLogado = $idusuario;
@@ -709,7 +709,7 @@ class ManterusuarioController extends MinC_Controller_Action_Abstract
                 }
             }
 
-            //============Trazer a Unidade para cadastrar o Perfil/Usuario externo, faz um tratamento para nao trazer &oacute;rgao em branco=================
+            //============Trazer a Unidade para cadastrar o Perfil/Usuario externo, faz um tratamento para nao trazer órgao em branco=================
             $orgaos = new Orgaos();
             $this->view->orgaos = $orgaos->pesquisarUnidades(array('o.Sigla != ?' => ''));
 

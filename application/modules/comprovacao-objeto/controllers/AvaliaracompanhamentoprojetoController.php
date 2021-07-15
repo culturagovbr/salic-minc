@@ -31,7 +31,7 @@ class ComprovacaoObjeto_AvaliaracompanhamentoprojetoController extends MinC_Cont
             $PermissoesGrupo[] = Autenticacao_Model_Grupos::TECNICO_PRESTACAO_DE_CONTAS;
             $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_PRESTACAO_DE_CONTAS;
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo esta no array de permissoes
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             $grupos = $Usuario->buscarUnidades(isset($auth->getIdentity()->usu_codigo) ? $auth->getIdentity()->usu_codigo : $auth->getIdentity()->IdUsuario, 21);
@@ -290,7 +290,7 @@ class ComprovacaoObjeto_AvaliaracompanhamentoprojetoController extends MinC_Cont
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt. Relat&oacute;rio</th>';
             if (isset($tipoFiltro) && $tipoFiltro != 'aguardando') {
-                $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">T&eacute;cnico</th>';
+                $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Técnico</th>';
             }
             $html .= '</tr>';
 
@@ -925,7 +925,7 @@ class ComprovacaoObjeto_AvaliaracompanhamentoprojetoController extends MinC_Cont
                     }
 
                     if (empty($post['resultadoAvaliacao'])) {
-                        throw new Exception("Avalia&ccedil;&atilde;o &eacute; obrigat&oacute;rio");
+                        throw new Exception("Avalia&ccedil;&atilde;o é obrigat&oacute;rio");
                     }
                 }
 

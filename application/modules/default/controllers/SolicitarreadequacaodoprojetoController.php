@@ -1925,7 +1925,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
             $idPronac = $_GET["idpronac"];
             $auth = Zend_Auth::getInstance();
             $idSolicitante = $auth->getIdentity()->IdUsuario;
-            $dsJustificativa = 'inser&aacute;�o';
+            $dsJustificativa = 'inserá�o';
             $buscaSoliciatacao = new ReadequacaoProjetos();
             $Projetos = new SolicitarAlteracaoDAO();
             $valores = $buscaSoliciatacao->buscarSolicitacao($idPronac);

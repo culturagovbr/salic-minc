@@ -5,7 +5,7 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da p&aacute;gina
+        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance();
         $Usuario = new UsuarioDAO();
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -15,7 +15,7 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
             $PermissoesGrupo[] = 93;
             $PermissoesGrupo[] = 103;
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) {
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);

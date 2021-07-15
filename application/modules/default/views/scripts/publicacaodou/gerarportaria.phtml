@@ -122,7 +122,7 @@ if($this->tipoPublicacao == 'prorrogacao') {
 }
 
 
-// IN&iacute;CIO foreach Artigo 18
+// INÍCIO foreach Artigo 18
 $existeArt18 = false;
 $areaprojetoAnterior = 0;
 $areaprojetoAnterior2 = 0;
@@ -154,7 +154,7 @@ foreach ($this->portaria as $portaria)
     }
 
     if($areaprojetoCodigo != $areaprojetoAnterior){
-        $linhaArea = '<p class="saltoLinha_primeira">&aacute;rea:&nbsp;&nbsp;' . $areaprojetoCodigo . '&nbsp;&nbsp;' . $areaprojeto . '&nbsp;&nbsp;(' . $artigo . ' , &sect;  1&ordm; )</p>';
+        $linhaArea = '<p class="saltoLinha_primeira">Área:&nbsp;&nbsp;' . $areaprojetoCodigo . '&nbsp;&nbsp;' . $areaprojeto . '&nbsp;&nbsp;(' . $artigo . ' , &sect;  1&ordm; )</p>';
     } else {
         $linhaArea = '';
     }
@@ -200,7 +200,7 @@ foreach ($this->portaria as $portaria)
     } // fecha if
     $areaprojetoAnterior = $areaprojetoCodigo;
 } // fim foreach Artigo 18
-// IN&iacute;CIO foreach Artigo 26
+// INÍCIO foreach Artigo 26
 $existeArt26 = false;
 foreach ($this->portaria as $portaria)
 {
@@ -229,7 +229,7 @@ foreach ($this->portaria as $portaria)
     }
 
     if($areaprojetoCodigo != $areaprojetoAnterior2){
-        $linhaArea = '<p class="saltoLinha_primeira">&aacute;rea:&nbsp;&nbsp;' . $areaprojetoCodigo . '&nbsp;&nbsp;' . $areaprojeto . '&nbsp;&nbsp;(' . $artigo . ' , &sect;  1&ordm; )</p>';
+        $linhaArea = '<p class="saltoLinha_primeira">Área:&nbsp;&nbsp;' . $areaprojetoCodigo . '&nbsp;&nbsp;' . $areaprojeto . '&nbsp;&nbsp;(' . $artigo . ' , &sect;  1&ordm; )</p>';
     } else {
         $linhaArea = '';
     }
@@ -262,7 +262,7 @@ foreach ($this->portaria as $portaria)
     {
         $tituloAnexo = (($existeArt26 == true) ? '' : '<p id="TituloGeral">ANEXO II</p>');
         $relatorio .= $tituloAnexo . '
-                        <p class="saltoLinha_primeira">&aacute;rea:&nbsp;&nbsp;' . $areaprojetoCodigo . '&nbsp;&nbsp;' . $areaprojeto . '&nbsp;&nbsp;(' . $artigo . ' , &sect;  1&ordm )</p>
+                        <p class="saltoLinha_primeira">Área:&nbsp;&nbsp;' . $areaprojetoCodigo . '&nbsp;&nbsp;' . $areaprojeto . '&nbsp;&nbsp;(' . $artigo . ' , &sect;  1&ordm )</p>
                         <p class="saltoLinha">' . $pronac . '&nbsp;-&nbsp;' . $nomeprojeto . '</p>
                         <p class="saltoLinha">NOME DO PROPONENTE:&nbsp;&nbsp;' . htmlentities($nomeproponente) . '</p>
                         <p class="saltoLinha">CNPJ/CPF:&nbsp;&nbsp;' . $cpfcnpj . '</p>

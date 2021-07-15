@@ -5,7 +5,7 @@ class spValidarDepositoIdentificado extends MinC_Db_Table_Abstract
     protected $_name    = "spValidarDepositoIdentificado";
 
     /**
-     * M&eacute;todo para executar a SP de movimentação banc&aacute;ria.
+     * Método para executar a SP de movimentação bancária.
      * A mesma verifica se as inconsistências foram corrigidas.
      */
     public function verificarInconsistencias($idUsuarioLogado)

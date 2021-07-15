@@ -46,7 +46,7 @@ class Readequacao_DistribuirReadequacaoController extends MinC_Controller_Rest_A
             try {
                 $distribuir = $readequacaoService->distribuirReadequacao();
                 if ($distribuir) {
-                    $data['message'] = "Readequação encaminhada para t&eacute;cnico.";
+                    $data['message'] = "Readequação encaminhada para técnico.";
                 }
             } catch (\Exception $objException) {
                 $this->customRenderJsonResponse([

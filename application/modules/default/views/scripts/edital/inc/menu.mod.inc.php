@@ -1,7 +1,7 @@
 
-<!-- ========== IN&iacute;CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 
-<!-- ========== IN&iacute;CIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
  <style type="text/css">
             /*demo page css*/
             .demoHeaders { margin-top: 2em; }

@@ -6,9 +6,9 @@
  * @package application
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @author Equipe RUP - Politec
- * @author Vin&iacute;cius Feitosa da Silva <viniciusfesil@gmail.com>
+ * @author Vinícius Feitosa da Silva <viniciusfesil@gmail.com>
  */
 class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_Action_Abstract
 {
@@ -21,7 +21,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -226,7 +226,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $rst = $projetosDAO->buscarDadosUC75($idPronac);
             $this->view->projeto = $rst[0];
 
-            //UNIDADES DE An&aacute;lise
+            //UNIDADES DE Análise
             $vwProjetoDistribuidoVinculada = new vwProjetoDistribuidoVinculada();
             $this->view->unidadesAnalise = $vwProjetoDistribuidoVinculada->buscarUnidades(array('Pronac = ?'=>$pronac), array('Produto','DescricaoAnalise'));
 

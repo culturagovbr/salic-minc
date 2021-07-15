@@ -21,7 +21,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract
         // verifica as permissoes
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
-        $PermissoesGrupo[] = 103;  // Coordenador de An&aacute;lise
+        $PermissoesGrupo[] = 103;  // Coordenador de Análise
         $PermissoesGrupo[] = 122;  // Coordenador de Acompanhamento
 
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o

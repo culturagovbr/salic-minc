@@ -9,7 +9,7 @@
  * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
  * @author Cleber Santos <oclebersantos@gmail.com>
  * @since 18/10/2016
- * @deprecated esse arquivo dever&aacute; ter seus metodos transferidos para Proposta_Model_DbTable_TbPlanilhaProposta
+ * @deprecated esse arquivo deverá ter seus metodos transferidos para Proposta_Model_DbTable_TbPlanilhaProposta
  * @link http://salic.cultura.gov.br
  */
 class Proposta_Model_DbTable_PlanilhaProposta extends MinC_Db_Table_Abstract
@@ -39,7 +39,7 @@ class Proposta_Model_DbTable_PlanilhaProposta extends MinC_Db_Table_Abstract
      */
     protected $_primary = 'idPlanilhaProposta';
 
-//    @todo : esse arquivo dever&aacute; ter seus metodos transferidos para Proposta_Model_DbTable_TbPlanilhaProposta e o arquivo apagado
+//    @todo : esse arquivo deverá ter seus metodos transferidos para Proposta_Model_DbTable_TbPlanilhaProposta e o arquivo apagado
     /*
      * @deprecated Todos os metodos deste arquivo, foram migrados para o arquivo TbPlanilhaPrposta.php (Proposta_Model_DbTable_TbPlanilhaProposta).
      */

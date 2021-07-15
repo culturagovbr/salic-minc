@@ -79,7 +79,7 @@ class Encaminhamento
                 ) {
                     // altera a situacao do projeto AO ENCAMINHAR PARA O TECNICO
                     $tblProjeto = new \Projetos();
-                    $tblProjeto->alterarSituacao($idPronac, '', 'E27', 'Comprova&ccedil;&atilde;o Financeira do Projeto em An&aacute;lise');
+                    $tblProjeto->alterarSituacao($idPronac, '', 'E27', 'Comprova&ccedil;&atilde;o Financeira do Projeto em Análise');
                 } elseif ($this->codGrupo == 124 && $idGrupoDestino == 132) {
                     // SE O ENCAMINHAMENTO FOR DO TECNICO PARA O CHEFE/COORDENADOR (DEVOLUCAO) - ALTERAR SITUACAO DO PROJETO
                     $tblProjeto = new \Projetos();

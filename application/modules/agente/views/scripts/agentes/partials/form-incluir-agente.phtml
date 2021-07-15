@@ -116,7 +116,7 @@
         <div id="visaocomponente" class="sumir">
             <table id="tbvisaocomponente" class="tabela sumir">
                 <tr class="titulo_tabela">
-                    <th colspan="4">LISTA DE &aacute;rea</th>
+                    <th colspan="4">LISTA DE Área</th>
                 </tr>
                 <tr>
                     <td colspan="4" align="center">
@@ -132,9 +132,9 @@
                 </tr>
                 <tr>
                     <td colspan="2" valign="top">
-                        <label for="areaCultural">&aacute;rea Cultural *</label>
+                        <label for="areaCultural">Área Cultural *</label>
                         <select name="areaCultural" id="areaCultural"
-                                onchange="carregar_combo(this.value, 'segmentoCultural', '<?= $this->url(array('controller' => 'segmentocultural', 'action' => 'combo')); ?>', ' - Selecione uma &aacute;rea Cultural - '), buscarareasegmento();">
+                                onchange="carregar_combo(this.value, 'segmentoCultural', '<?= $this->url(array('controller' => 'segmentocultural', 'action' => 'combo')); ?>', ' - Selecione uma Área Cultural - '), buscarareasegmento();">
 
                             <?php if (!isset($this->areaCultural) || empty($this->areaCultural)): ?>
                                 <option value="0"> - Selecione -</option>
@@ -161,7 +161,7 @@
                         <select name="segmentoCultural" id="segmentoCultural" onchange="buscarareasegmento();">
 
                             <?php if (!isset($this->areaCultural) || empty($this->areaCultural)) : ?>
-                                <option value="0"> - Selecione uma &aacute;rea Cultural -</option>
+                                <option value="0"> - Selecione uma Área Cultural -</option>
                             <?php else : ?>
 
                                 <?php if (!isset($this->segmentoCultural) || empty($this->segmentoCultural)) : ?>

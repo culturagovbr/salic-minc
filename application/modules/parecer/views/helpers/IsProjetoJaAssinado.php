@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto j&aacute; foi assinado
+ * Helper para verificar se projeto já foi assinado
  */
 
 class Zend_View_Helper_IsProjetoJaAssinado
 {
     /**
-     * M&eacute;todo para verificar se projeto j&aacute; foi assinado na fase atual
+     * Método para verificar se projeto já foi assinado na fase atual
      * @access public
      * @param integer $idPronac
      * @param integer $idTipoDoAtoAdministrativo

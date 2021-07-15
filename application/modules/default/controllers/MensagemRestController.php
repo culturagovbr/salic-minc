@@ -31,7 +31,7 @@ class MensagemRestController extends Minc_Controller_AbstractRest
             'offset' => $offset,
             'idRegistration' => $idRegistration,
             'new' => $new);
-        # Verifica se existe necessidade de buscar o n&uacute;mero total de registros da consulta
+        # Verifica se existe necessidade de buscar o número total de registros da consulta
         if (!$total) {
             $total = $modelMensagem->buscarTotalListarDeDispositivo($objParam);
         }

@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -31,7 +31,7 @@ class Zend_View_Helper_StatusCompFisicaProjeto
         } elseif ($status == 'AI') {
             $nomeStatus = "Avaliado - Indeferido";
         } elseif ($status == 'CS') {
-            $nomeStatus = "Comprovante Substitu&iacute;do";
+            $nomeStatus = "Comprovante Substituído";
         } else {
             $nomeStatus = "Avaliado";
         }

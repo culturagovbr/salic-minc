@@ -4,7 +4,7 @@
  * Description of VisaoModel
  *
  * @author colaborador
- * @todo migrar para o m&oacute;dulo de agentes
+ * @todo migrar para o módulo de agentes
  */
 class VisaoModel implements ModelInterface
 {

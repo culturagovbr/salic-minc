@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.dbf
- * @copyright � 2011 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2011 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -20,7 +20,7 @@ $cnpj = '01.264.142/0001-29';
 $ano_atual = date('Y');
 ?>
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -32,7 +32,7 @@ $ano_atual = date('Y');
 
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
 	<div>Gerar DBF</div>
 </div>
@@ -40,7 +40,7 @@ $ano_atual = date('Y');
 
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 
 	<script type="text/javascript">
@@ -65,7 +65,7 @@ $ano_atual = date('Y');
 
 
 	/**
-	 * Fun��es que s�o chamadas ap�s a p&aacute;gina ser carregada
+	 * Fun��es que s�o chamadas ap�s a página ser carregada
 	 */
 	$(document).ready(function()
 	{
@@ -127,7 +127,7 @@ $ano_atual = date('Y');
 
 
 
-	<!-- ========== IN&iacute;CIO FORMUL�RIO ========== -->
+	<!-- ========== INÍCIO FORMUL�RIO ========== -->
 	<form name="formGerar" id="formGerar" method="post"
 		action="<?php echo $this->url(array('controller' => 'dbf', 'action' => 'gerar-dbf')); ?>" enctype="multipart/form-data">
 
@@ -177,12 +177,12 @@ $ano_atual = date('Y');
 
 
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

@@ -10,7 +10,7 @@
 
 
 <?php if($this->dados){ ?>
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>READEQUA��O: PROPOSTA PEDAG�GICA
         <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
@@ -29,8 +29,8 @@
 <div id="conteudo">
     <script type='text/javascript' src='<?php echo $this->baseUrl(); ?>/public/js/projetosGerenciar.js'></script>
 
-    <!-- MODAL PARA NOTA T&eacute;cnica -->
-    <div style="display:none;" id="notatec" title="Nota T&eacute;cnica do Projeto" >
+    <!-- MODAL PARA NOTA Técnica -->
+    <div style="display:none;" id="notatec" title="Nota Técnica do Projeto" >
         <form name="formencaminhar" id="form" method="post">
             <table>
                 <tr>
@@ -53,7 +53,7 @@
                 </p>
             </form>
         </div>
-        <!-- FIM DO MODAL NOTA T&eacute;cnica -->
+        <!-- FIM DO MODAL NOTA Técnica -->
 
 
         <?php foreach ($this->dados as $dados): ?>
@@ -89,7 +89,7 @@
                         <th colspan="2">CURSOS APROVADOS</th>
                     </tr>
                     <tr>
-                        <td colspan="2" class="destacar bold">ESPECIFICA��O T&eacute;cnica</td>
+                        <td colspan="2" class="destacar bold">ESPECIFICA��O Técnica</td>
                     </tr>
                     <tr>
                         <td colspan="2"><center><textarea name="justificativa" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo empty($dados->EspecificacaoTecnica) ? strip_tags("Não Aplic�vel") : strip_tags($dados->EspecificacaoTecnica); ?></textarea></center></td>
@@ -104,7 +104,7 @@
                         <th colspan="2">SOLICITADO PELO PROPONENTE</th>
                     </tr>
                     <tr>
-                        <td colspan="2" class="destacar bold">NOVA ESPECIFICA��O T&eacute;cnica</td>
+                        <td colspan="2" class="destacar bold">NOVA ESPECIFICA��O Técnica</td>
                     </tr>
                     <tr>
                         <td colspan="2"><center><textarea name="solicitacao" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo strip_tags($dados->dsEspecificacaoSolicitacao); ?></textarea></center></td>
@@ -123,17 +123,17 @@
                     </tr>
                     <?php if(!empty($dados->Justificativa)) { ?>
                     <tr>
-                        <th colspan="2">An&aacute;lise DA PROPOSTA DE READEQUA��O</th>
+                        <th colspan="2">Análise DA PROPOSTA DE READEQUA��O</th>
                     </tr>
                     <!--<tr>
                         <td colspan="2" style="padding-left: 2em; padding-right: 2em;">
-                            An&aacute;lise DA ESTRAT�GIA DE EXECU��O:<br /><br />
+                            Análise DA ESTRAT�GIA DE EXECU��O:<br /><br />
                             <?php //echo strip_tags($dados->dsEstrategiaExecucao); ?>
                         </td>
                     </tr>-->
                     <tr>
                         <td colspan="2" style="padding-left: 2em; padding-right: 2em;">
-                            An&aacute;lise DA ESPECIFICA��O T&eacute;cnica:<br /><br />
+                            Análise DA ESPECIFICA��O Técnica:<br /><br />
                             <?php echo strip_tags($dados->Justificativa); ?>
                         </td>
                     </tr>
@@ -149,7 +149,7 @@
 
 <?php } else { ?>
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>READEQUA��O: PROPOSTA PEDAG�GICA
         <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
@@ -162,8 +162,8 @@
 
 <?php } ?>
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

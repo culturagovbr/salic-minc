@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.realizaranaliseprojeto
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -29,13 +29,13 @@
 
 <table class="tabela">
     <tr>
-        <td><input type="button" id="projetoNaoSubmetidos" class="btn_remover" onclick="JSMostraOcultaElemento('projetoNaoSubmetidos');" /><b>Projetos analisados (<?php echo ($this->readequacao=='true') ? 'readequa��o' : 'An&aacute;lise inicial';?>) <div style="float: right">Quantidade: (<span id="qtdeProjPlenaria"><?php echo $this->qtdplenario; ?></span>)</div></b></td>
+        <td><input type="button" id="projetoNaoSubmetidos" class="btn_remover" onclick="JSMostraOcultaElemento('projetoNaoSubmetidos');" /><b>Projetos analisados (<?php echo ($this->readequacao=='true') ? 'readequa��o' : 'Análise inicial';?>) <div style="float: right">Quantidade: (<span id="qtdeProjPlenaria"><?php echo $this->qtdplenario; ?></span>)</div></b></td>
     </tr>
 </table>
 <table class="tabela tablesorter projetoNaoSubmetidos">
     <tr class="titulo_tabela">
         <th width="5%">N&uacute;mero</th>
-        <th width="10%">An&aacute;lise do Projeto</th>
+        <th width="10%">Análise do Projeto</th>
         <th width="5%">PRONAC</th>
         <th width="35%">Nome do Projeto</th>
         <?php if ($this->grupoativo == '119') { //presidente CNIC ?>
@@ -61,7 +61,7 @@
             ?>
             <tr class="tradd" id="<?php echo $a."_".$plenario['IdPRONAC']; ?>" aberto="false">
                 <td class="centro"><?php echo $a ?></td>
-                <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onClick="abrirdados('<?php echo $a."_".$plenario['IdPRONAC']; ?>', <?php echo $plenario['IdPRONAC']; ?>, '<?php echo $tipoagente; ?>','n')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da An&aacute;lise do Projeto" alt="Dados da An&aacute;lise do Projeto" width="20px"/></a></td>
+                <td class="centro"><a style="text-decoration:underline;cursor:pointer;" onClick="abrirdados('<?php echo $a."_".$plenario['IdPRONAC']; ?>', <?php echo $plenario['IdPRONAC']; ?>, '<?php echo $tipoagente; ?>','n')" title="An&aacute;lise do Projeto"><img src="<?php echo $this->baseUrl();?>/public/img/ico/kdict.png" title="Dados da Análise do Projeto" alt="Dados da Análise do Projeto" width="20px"/></a></td>
                 <!--<td class="centro"><a id="consultarprojetos" href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $plenario['IdPRONAC'];?>" target="_new" title="Ir para Consultar Projetos"><?php echo $plenario['pronac'] ?></a></td>-->
                 <td class="centro"><a id="consultarprojetos" href="<?php echo $this->url(array('controller' => 'dadosprojeto', 'action' => 'index', 'idpronac'=>$plenario['IdPRONAC']),'',true); ?>" target="_new" title="Ir para Consultar Projetos"><?php echo $plenario['pronac'] ?></a></td>
                 <td><?php echo $plenario['NomeProjeto'] ?></td>

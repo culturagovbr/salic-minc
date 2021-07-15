@@ -39,7 +39,7 @@ if (!isset($_GET["tpAgente"])) {
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN&iacute;CIO</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">INÍCIO</a></li>
         <li>Presta&ccedil;&atilde;o de contas</li>
         <li class="last">Consultar dados do projeto</li>
     </ul>
@@ -52,12 +52,12 @@ if (!isset($_GET["tpAgente"])) {
 </script>
 
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Consultar dados do projeto <span class="voltar" style="float:right;"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <?php //include_once 'scripts/consultardadosprojeto/inc/menu.inc.php';
     if(!isset($this->projeto)) {
@@ -176,7 +176,7 @@ if (!isset($_GET["tpAgente"])) {
         </tr>
         <tr>
             <td align="left" colspan="6" >
-                A localiza��o atual do projeto s� ser&aacute; alterada ap�s o recebimento do projeto na unidade destino.<br />
+                A localiza��o atual do projeto s� será alterada ap�s o recebimento do projeto na unidade destino.<br />
                 <b><?php echo $this->projeto->Origem; ?></b>
             </td>
         </tr>
@@ -252,10 +252,10 @@ if (!isset($_GET["tpAgente"])) {
     </table>
 
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />
     <?php
 }

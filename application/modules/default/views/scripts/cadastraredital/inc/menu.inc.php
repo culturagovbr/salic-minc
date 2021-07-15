@@ -17,9 +17,9 @@ $vinculareditaisHref            =   $this->url(array('controller' => 'cadastrare
 
 
 ?>
-<!-- ========== IN&iacute;CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 
-<!-- ========== IN&iacute;CIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
 <script type="text/javascript">
 <!--
 function layout_fluido()

@@ -258,7 +258,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
 
             if ($Avaliacao == null && $stDecisao == Proposta_Model_PreProjeto::ESTADO_ARQUIVADO) {
                 $success = false;
-                $message = "&eacute; necess&aacute;rio descrever a avaliação!";
+                $message = "É necessário descrever a avaliação!";
             } else {
                 $data2['Avaliacao'] = $Avaliacao;
             }
@@ -284,12 +284,12 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
 
                 $corpoEmail = '<p>Senhor(a) Proponente,</p></br>';
                 if($stDecisao == Proposta_Model_PreProjeto::ESTADO_ATIVO){
-                    $corpoEmail = '<p>O pedido de desarquivamento referente à proposta supracitada foi aceito.  A proposta ser&aacute; desarquivada e seguir&aacute; em an&aacute;lise. Dessa forma, acompanhe diariamente a proposta no sistema em virtude de novas diligências e comunicados</p>';
+                    $corpoEmail = '<p>O pedido de desarquivamento referente à proposta supracitada foi aceito.  A proposta será desarquivada e seguirá em análise. Dessa forma, acompanhe diariamente a proposta no sistema em virtude de novas diligências e comunicados</p>';
 
                 } else {
                     $corpoEmail .= '<p>O pedido de desarquivamento referente à proposta supracitada não foi aceito pelo seguinte motivo:<p/></br>';
                     $corpoEmail .= "<p>{$Avaliacao}</p></br>";
-                    $corpoEmail .= '<p>Salientamos que o proponente poder&aacute; inscrever e enviar novamente a mesma proposta ao MinC desde que observada a restrição contida na al&iacute;nea "c", inciso I do artigo 23 da Instrução Normativa nº 05/2017 do Minist&eacute;rio da Cultura.</p></br>';
+                    $corpoEmail .= '<p>Salientamos que o proponente poderá inscrever e enviar novamente a mesma proposta ao MinC desde que observada a restrição contida na alínea "c", inciso I do artigo 23 da Instrução Normativa nº 05/2017 do Ministério da Cultura.</p></br>';
                 }
 
                 $email = new StdClass();

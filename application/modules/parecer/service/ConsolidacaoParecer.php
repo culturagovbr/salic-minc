@@ -96,7 +96,7 @@ class ConsolidacaoParecer implements \MinC\Servico\IServicoRestZend
         try {
 
             if (empty($idPronac) || count($resumoParecer) > 10 || empty($parecerFavoravel) ) {
-                throw new \Exception("Dados obrigat&oacute;rios não informados");
+                throw new \Exception("Dados obrigatórios não informados");
             }
 
             if (!$this->isPermitidoAvaliar($idPronac, $idProduto)) {

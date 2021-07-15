@@ -5,7 +5,7 @@
  * @since 28/01/2011
  * @version 1.0
  * @subpackage application.view.scripts.prestacaodeocontas
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -17,7 +17,7 @@
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">IN&iacute;CIO</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">INÍCIO</a></li>
         <li class="last">Analisar presta&ccedil;&atilde;o de contas</li>
     </ul>
 </div>
@@ -25,13 +25,13 @@
 
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
 <div>Analisar presta&ccedil;&atilde;o de contas <span class="voltar" style="float:right;"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo"><script>
 
 $(document).ready(function() {
@@ -147,7 +147,7 @@ window.onload = function() {areadetrabalho();};
     	$("#idPronac").val(idPronac);
 
 	$("#encaminhar2").dialog({
-         title : 'Encaminhar Projeto para An&aacute;lise',
+         title : 'Encaminhar Projeto para Análise',
          resizable: false,
          width:560,
          height:580,
@@ -210,7 +210,7 @@ window.onload = function() {areadetrabalho();};
 	  </script>
 
 <div style="display: none;" id="encaminhar2"
-	title="Encaminhar projeto para An&aacute;lise">
+	title="Encaminhar projeto para Análise">
 <form name="formencaminhar"
 	id="form<?php //echo $AnaliseGeral->ID_PRONAC; ?>"
 	action="<?php echo $this->url(array('controller'=>'realizarprestacaodecontas', 'action'=>'encaminharprestacaodecontas')); ?>"
@@ -249,7 +249,7 @@ window.onload = function() {areadetrabalho();};
                             </select></td>
 </tr>
 <tr>
-	<td><b style="margin-left: 2.6em;">Destinat&aacute;rio:</b></td>
+	<td><b style="margin-left: 2.6em;">Destinatário:</b></td>
 	<td><select name="recebeValor" id="recebeValor"
 		style="width: 70%; margin-top: 0.5em;"></select></td>
 </tr>
@@ -267,7 +267,7 @@ window.onload = function() {areadetrabalho();};
 	<tr>
 		<th>Data de Envio</th>
 		<th>Remetente</th>
-		<th>Destinat&aacute;rio</th>
+		<th>Destinatário</th>
 		<th>�rg�o</th>
 	</tr>
 	<tr>
@@ -286,7 +286,7 @@ window.onload = function() {areadetrabalho();};
 <table class="tabela">
 	<tr>
 		<td><input type="button" id="abrir_fechar" class="btn_adicionar" />AGUARDANDO
-		An&aacute;lise</td>
+		Análise</td>
 	</tr>
 </table>
         <?php foreach($this->CordenadorGeralPresContas as $chave => $prescontas){ ?>
@@ -302,7 +302,7 @@ window.onload = function() {areadetrabalho();};
 			<th width="220">�rea / Segmento</th>
 			<th width="60">Cidade</th>
 			<th width="60">Mecanismo</th>
-			<th width="130">Encaminhar para An&aacute;lise</th>
+			<th width="130">Encaminhar para Análise</th>
 			<th width="60">Data de Recebimento</th>
 			<th width="60">Controle</th>
 		</tr>
@@ -354,7 +354,7 @@ window.onload = function() {areadetrabalho();};
 <table class="tabela">
 	<tr>
 		<td><input type="button" id="abrir_fechar1" class="btn_adicionar" />DEVOLVIDOS
-		AP�S An&aacute;lise</td>
+		AP�S Análise</td>
 	</tr>
 </table>
         <?php foreach($this->ProjetosApos as $chaves => $prescontasApos){ ?>
@@ -533,7 +533,7 @@ window.onload = function() {areadetrabalho();};
 </div>
 
 
-<!-- IN&iacute;CIO: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÍCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 <br clear="all" />

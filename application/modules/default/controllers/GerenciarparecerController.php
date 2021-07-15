@@ -11,7 +11,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da p&aacute;gina
+        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -25,7 +25,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA;
 
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -395,7 +395,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                 if ($tipoescolha == 2) {    // encaminhar
                     $msg = "Enviado os Produtos/Projeto para a entidade!";
 
-                    // ALTERAR UNIDADE DE An&aacute;lise ( COORDENADOR DE PARECER )
+                    // ALTERAR UNIDADE DE Análise ( COORDENADOR DE PARECER )
 
                     $dadosE = array(
                         'idOrgao' => $orgaoDestino,
@@ -423,7 +423,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                     $orgaos = new Orgaos();
                     $orgao = $orgaos->pesquisarNomeOrgao($codOrgao);
 
-                    $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Encaminhado para <strong>' . $orgao[0]->NomeOrgao . ' para an&aacute;lise e emiss&atilde;o de parecer T&eacute;cnico</strong>.');
+                    $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Encaminhado para <strong>' . $orgao[0]->NomeOrgao . ' para an&aacute;lise e emiss&atilde;o de parecer Técnico</strong>.');
                 } else {
                     $msg = "Distribui&ccedil;&atilde;o Realizada com sucesso!";
 
@@ -648,7 +648,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
                 // encaminhar
                 if ($tipoescolha == 2) {
-                    // ALTERAR UNIDADE DE An&aacute;lise ( COORDENADOR DE PARECER )
+                    // ALTERAR UNIDADE DE Análise ( COORDENADOR DE PARECER )
 
                     $dadosE = array(
                         'idOrgao' => $orgaoDestino,
@@ -676,7 +676,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                     $orgaos = new Orgaos();
                     $orgao = $orgaos->pesquisarNomeOrgao($codOrgao);
 
-                    $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Encaminhado para <strong>' . $orgao[0]->NomeOrgao . ' para an&aacute;lise e emiss&atilde;o de parecer T&eacute;cnico</strong>.');
+                    $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Encaminhado para <strong>' . $orgao[0]->NomeOrgao . ' para an&aacute;lise e emiss&atilde;o de parecer Técnico</strong>.');
 
                     parent::message("Enviado os Produtos/Projeto para a entidade!", "parecer/gerenciar-parecer/index?tipoFiltro=" . $tipoFiltro, "CONFIRM");
                 } else {
@@ -715,7 +715,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
 
     /*
-     * DEPRECATED - tela removida / funcionalidades no m&oacute;dulo parecer
+     * DEPRECATED - tela removida / funcionalidades no módulo parecer
      */
     public function concluirAction()
     {
@@ -740,7 +740,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
     }
 
     /*
-     * DEPRECATED - movida para m&oacute;dulo parecer
+     * DEPRECATED - movida para módulo parecer
      */
     public function concluiuAction()
     {
@@ -839,12 +839,12 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
         if ($credenciamento == 0) {
             $situacao = '0';
-            $situacaoTexto .= '<br /> Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto!';
+            $situacaoTexto .= '<br /> Parecerista n&atilde;o credenciado na Área e segmento do Produto!';
         }
         //$situacaoTexto .= '<br /> Area: '.$projeto[0]->Area.' Segmento: '.$projeto[0]->Segmento.' idAgente: '.$idAgente;
 
 
-        // An&aacute;lises em eberto
+        // Análises em eberto
         $whereAnalise['distribuirParecer.idAgenteParecerista = ?'] = $idAgente;
         $analiseEmAberto = $projetosDAO->buscaProjetosProdutosParaAnalise($whereAnalise);
         $situacaoTexto .= '<br /> An&aacute;lise em aberto: ' . count($analiseEmAberto);

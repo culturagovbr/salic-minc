@@ -6,7 +6,7 @@ class Agente_Model_DbTable_Verificacao extends MinC_Db_Table_Abstract
     protected $_name = 'verificacao';
 
     const PROPOSTA_PARA_ANALISE_INICIAL = 96;
-    const PROPOSTA_EM_CONFORMIDADE_VISUAL_OU_AN&aacute;LISE_DOCUMENTAL = 97;
+    const PROPOSTA_EM_CONFORMIDADE_VISUAL_OU_ANÁLISE_DOCUMENTAL = 97;
     const PROPOSTA_EM_ANALISE_FINAL = 128;
 
     public function combosNatureza($idTipo)

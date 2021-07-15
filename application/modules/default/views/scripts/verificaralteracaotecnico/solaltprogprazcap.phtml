@@ -9,7 +9,7 @@
 </div>
 
 <div id="mostra"></div>
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <form name="formfinalizar" action="<?php echo $this->url(array('controller' => 'verificaralteracaotecnico', 'action' => 'finalizaprop')); ?>" method="post" >
 <div id="titulo">
     <div>READEQUA��O: PRORROGA��O DE PRAZOS - CAPTA��O
@@ -19,12 +19,12 @@
             $nomeForm = "'solaltprogprazcap'";
             if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                 echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stAnalise('.$this->stResult[0]->idAvaliacaoItemPedidoAlteracao . ','. $this->escape($this->idpedidoalteracao) . ',this , '.$nomeForm.' )">';
-                echo "<option value='0' selected='selected'>Aguardando An&aacute;lise</option>
-                      <option value='1'>Em An&aacute;lise</option>";
+                echo "<option value='0' selected='selected'>Aguardando Análise</option>
+                      <option value='1'>Em Análise</option>";
                 echo '</select>';
             } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "EA") {
                 echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar()">';
-                echo "<option value='1' selected='selected'>Em An&aacute;lise</option>
+                echo "<option value='1' selected='selected'>Em Análise</option>
                       <option value='2'>Aprovado</option>
                       <option value='3'>Indeferido</option>";
                 echo '</select>';
@@ -38,7 +38,7 @@
         {
             if( $("#editor1").val() == ''){
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('Favor preencher a An&aacute;lise da Proposta e Altera�&atilde;o.');
+                    $('#mostra').html('Favor preencher a Análise da Proposta e Altera�&atilde;o.');
                     $("#mostra").dialog
                     ({
                         height: 180,
@@ -59,7 +59,7 @@
                 } else {
 
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('O projeto ser&aacute; finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
+                    $('#mostra').html('O projeto será finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
                     $("#mostra").dialog
                     ({
                         height: 250,
@@ -166,7 +166,7 @@
                 </th>
             </tr>
             <tr>
-                <td>Data IN&iacute;CIO:</td>
+                <td>Data INÍCIO:</td>
                 <td colspan="2">Data Final:</td>
             </tr>
             <tr>
@@ -179,7 +179,7 @@
                 </th>
             </tr>
             <tr>
-                <td>Data IN&iacute;CIO:</td>
+                <td>Data INÍCIO:</td>
                 <td colspan="2">Data Final:</td>
             </tr>
             <tr>
@@ -192,7 +192,7 @@
                 </th>
             </tr>
             <tr>
-                <td>Data IN&iacute;CIO:</td>
+                <td>Data INÍCIO:</td>
                 <td colspan="2">Data Final:</td>
             </tr>
             <tr>
@@ -220,7 +220,7 @@
             <?php if ($this->dados->stAvaliacaoItemPedidoAlteracao != 'AG') { ?>
             <tr>
                 <th colspan="3">
-                    An&aacute;lise DA PROPOSTA E ALTERA��O
+                    Análise DA PROPOSTA E ALTERA��O
                 </th>
             </tr>
             <tr>
@@ -252,7 +252,7 @@
 </div>
 </form>
 
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 <!-- MODAL DILIGENCIAR -->
@@ -279,9 +279,9 @@
 <!-- FIM DO MODAL DILIGENCIAR -->
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />
 

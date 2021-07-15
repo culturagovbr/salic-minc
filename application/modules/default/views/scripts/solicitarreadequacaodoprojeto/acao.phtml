@@ -8,9 +8,9 @@ if ($menu=="Bot�o") {
 	$readonly = '';
 }
 ?>
-<!-- IN&iacute;CIO: navega��o local #qm0 -->
+<!-- INÍCIO: navega��o local #qm0 -->
 <div id="Teste" class="sumir" title="Alterar Produto"><p>Produto alterado com sucesso!</p><p>Solicitação de readequa��o realizada com sucesso! Deseja fazer nova readequa��o?</p></div>
-<div id="Excluir" class="sumir" title="Excluir"><p>Tem certeza que deseja excluir este Produto? As planilhas de custos ser&aacute;o deletadas!</p></div>
+<div id="Excluir" class="sumir" title="Excluir"><p>Tem certeza que deseja excluir este Produto? As planilhas de custos seráo deletadas!</p></div>
 <div id="Excluido" class="sumir" title="Excluir"><p>Produto exclu�do com sucesso!</p><p>Solicitação de readequa��o realizada com sucesso! Deseja fazer nova readequa��o?</p></div>
 <script type="text/javascript">
 
@@ -169,7 +169,7 @@ function Proposta()
 	 */
 	function somaIngressos()
 	{
-		/* ========== IN&iacute;CIO SOMA DE INGRESSOS ========== */
+		/* ========== INÍCIO SOMA DE INGRESSOS ========== */
 		campo1 = document.getElementById('Patrocinador').value;
 		campo1 = campo1.replace(/\D/g, ""); // retira os pontos e as v�rgulas, deixando somente n�meros
 		campo1 = campo1.replace(/(\d{0})(\d)/, "$1$2");
@@ -224,7 +224,7 @@ function Proposta()
 		/* ========== FIM SOMA DE INGRESSOS ========== */
 
 
-		/* ========== IN&iacute;CIO CALCULO DE INGRESSOS ========== */
+		/* ========== INÍCIO CALCULO DE INGRESSOS ========== */
 		campo6 = document.getElementById('Normal_Uni').value;
 		campo6 = campo6.replace(/\D/g, ""); // retira os pontos e as v�rgulas, deixando somente n�meros
 		campo6 = campo6.replace(/(\d{0})(\d)/, "$1$2");
@@ -321,7 +321,7 @@ function Proposta()
 
     } // fecha fun��o somaIngressos()
 </script>
-<!-- IN&iacute;CIO: #breadcrumb -->
+<!-- INÍCIO: #breadcrumb -->
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('module'=>'default', 'controller' => 'principalproponente', 'action' => 'index')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
@@ -331,12 +331,12 @@ function Proposta()
 </div>
 <!-- final: #breadcrumb -->
 
-<!-- IN&iacute;CIO: #titulo -->
+<!-- INÍCIO: #titulo -->
 <div id="titulo"><div>Dados do projeto com Op��es de Readequa��es <span class="voltar"><a  href="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'index')); ?>?idpronac=<?php echo $_POST['idPronac'] ?>">Voltar</a></span></div>
 </div>
 <!-- final: #titulo -->
 
-<!-- IN&iacute;CIO: �rea principal #conteudo -->
+<!-- INÍCIO: �rea principal #conteudo -->
 <div id="conteudo">
     <div id="miolo">
 
@@ -817,9 +817,9 @@ function areaCultural(idSegmento, dsSegmento)
             }
         ?>
 <?php } ?>
-    <!-- final: CONTE&uacute;DO principal #conteudo -->
+    <!-- final: CONTEÚDO principal #conteudo -->
 </div>
-<!-- IN&iacute;CIO: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÍCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

@@ -44,7 +44,7 @@
 <table class="tabela tablesorter" id="regularAP" tipo="regularAP">
     <?php if (count($this->aguardandoAnalise) <= 0) : ?>
     <tr>
-            <td align="center" colspan="<?php if (!empty($this->coordenador)){ echo 18; } else { echo 16; }?>"><em>Nenhum Projeto Aprovado - Aguardando An&aacute;lise Documental - Proponente Regular</em></td>
+            <td align="center" colspan="<?php if (!empty($this->coordenador)){ echo 18; } else { echo 16; }?>"><em>Nenhum Projeto Aprovado - Aguardando Análise Documental - Proponente Regular</em></td>
     </tr>
     <?php else: ?>
     <thead>
@@ -63,12 +63,12 @@
                 <th><a href="#aguardandoanalise_resultado" class="orderByAG" valorOrdenacaoAG="28">T�cnico</a></th>
             <?php }?>
             <th><a href="#aguardandoanalise_resultado" class="orderByAG" valorOrdenacaoAG="29">Status</a></th>
-            <th><a href="#aguardandoanalise_resultado" class="orderByAG" valorOrdenacaoAG="31">Tempo de An&aacute;lise</a></th>
+            <th><a href="#aguardandoanalise_resultado" class="orderByAG" valorOrdenacaoAG="31">Tempo de Análise</a></th>
             <th>Regularidade do Proponente</th>
             <th>Dilig&ecirc;ncia</th>
             <th id="testetoltip">Alterar</th>
             <th>Enviar Mensagem</th>
-            <th>Finalizar An&aacute;lise</th>
+            <th>Finalizar Análise</th>
             <?php if (!empty ($this->coordenador ) ){?>
                 <th>Encaminhar Para Portaria</th>
             <?php }?>
@@ -134,7 +134,7 @@
             <td class="centro"><a target='_blank' href='<?php echo $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem'), '', true); ?>/idpronac/<?php echo $projeto['idpronac'] ?>'><img src='<?php echo $this->baseUrl() ?>/public/img/buttons/sair-p.gif' title='Enviar mensagem'/></a></td>
             <td id="colunafinalizar<?php echo ($projeto['idpronac']); ?>">
                 <?php if($projeto['stAnaliseProjeto'] == '1' || $projeto['stAnaliseProjeto'] == '2' ): ?>
-                    <input type="button" name="finalizar" id="finalizar" class="btn_finalizar" onclick="JSFinalizarAnalise('<?php echo ($projeto['idpronac']); ?>','<?php echo ($projeto['idAprovacao']); ?>','aguardandoanalise')"  title="Finalizar An&aacute;lise">
+                    <input type="button" name="finalizar" id="finalizar" class="btn_finalizar" onclick="JSFinalizarAnalise('<?php echo ($projeto['idpronac']); ?>','<?php echo ($projeto['idAprovacao']); ?>','aguardandoanalise')"  title="Finalizar Análise">
                 <?php else: ?>
                     <input type="button" name="finalizar" id="finalizar" class="btn_finalizar-off">
                 <?php endif; ?>

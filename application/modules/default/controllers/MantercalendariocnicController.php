@@ -13,13 +13,13 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
     public function init()
     {
         $auth = Zend_Auth::getInstance(); // pega a autentica�?o
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
 
         // 3 => autentica�?o scriptcase e autentica�?o/permiss?o zend (AMBIENTE PROPONENTE E MINC)
         // utilizar quando a Controller ou a Action for acessada via scriptcase e zend
         // define as permiss?es
         $PermissoesGrupo = array();
-        $PermissoesGrupo[] = 103; // Coordenador de An&aacute;lise
+        $PermissoesGrupo[] = 103; // Coordenador de Análise
         $PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
         parent::perfil(3, $PermissoesGrupo);
         if (isset($auth->getIdentity()->usu_codigo)) {

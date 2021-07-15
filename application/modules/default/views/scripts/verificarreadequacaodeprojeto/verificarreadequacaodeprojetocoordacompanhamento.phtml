@@ -11,14 +11,14 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 </div>
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Verificar readequação de projeto</div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <div id="erro" class="sumir">Dados obrigat�rios Não preenchidos!</div>
     <script type='text/javascript' src='<?php echo $this->baseUrl(); ?>/public/js/projetosGerenciar.js'></script>
@@ -103,7 +103,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
             });
       </script>
 
-        <div style="display:none;" id="encaminhar<?php echo $AnaliseGeral->ID_PRONAC.$AnaliseGeral->tpAlteracaoProjeto; ?>" title="Encaminhar projeto para An&aacute;lise" >
+        <div style="display:none;" id="encaminhar<?php echo $AnaliseGeral->ID_PRONAC.$AnaliseGeral->tpAlteracaoProjeto; ?>" title="Encaminhar projeto para Análise" >
             <form name="formencaminhar" id="form<?php echo $AnaliseGeral->ID_PRONAC; ?>" action="<?php echo $this->baseUrl(); ?>/verificarreadequacaodeprojeto/encaminhacoordacompanhamento" method="post" onsubmit="return validaForm()">
 
                 <table class="tabela">
@@ -139,7 +139,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         </td>
                     </tr>
                     <tr>
-                        <td class="destacar bold" width="130px;">Destinat&aacute;rio:</td>
+                        <td class="destacar bold" width="130px;">Destinatário:</td>
                         <td>
                             <select name="recebeValor" id="recebeValor" class="select_simples" style="width:100%;"></select>
                         </td>
@@ -238,7 +238,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 		});
 	  </script>
 
-        <div style="display:none;" id="encaminhar2<?php echo $AnaliseGeral->ID_PRONAC.$AnaliseGeral->tpAlteracaoProjeto; ?>" title="Encaminhar projeto para An&aacute;lise" >
+        <div style="display:none;" id="encaminhar2<?php echo $AnaliseGeral->ID_PRONAC.$AnaliseGeral->tpAlteracaoProjeto; ?>" title="Encaminhar projeto para Análise" >
             <form name="formencaminhar" id="form<?php echo $AnaliseGeral->ID_PRONAC; ?>" action="<?php echo $this->baseUrl(); ?>/verificarreadequacaodeprojeto/encaminhacoordacompanhamento" method="post" onsubmit="return validaForm()">
 
                 <table class="tabela">
@@ -273,7 +273,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         </td>
                     </tr>
                     <tr>
-                        <td><b style="margin-left: 2.6em;">Destinat&aacute;rio:</b></td>
+                        <td><b style="margin-left: 2.6em;">Destinatário:</b></td>
                         <td>
                             <select name="recebeValor" id="recebeValor" style="width: 70%; margin-top: 0.5em;" class="select_simples"></select>
                         </td>
@@ -363,7 +363,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 		});
 	  </script>
 
-        <div style="display:none;" id="reencaminhar<?php echo $AnaliseGeralDev->ID_PRONAC.$AnaliseGeralDev->tpAlteracaoProjeto; ?>" title="Reencaminhar projeto para An&aacute;lise" >
+        <div style="display:none;" id="reencaminhar<?php echo $AnaliseGeralDev->ID_PRONAC.$AnaliseGeralDev->tpAlteracaoProjeto; ?>" title="Reencaminhar projeto para Análise" >
             <form name="formreencaminhar" id="form<?php echo $AnaliseGeralDev->ID_PRONAC; ?>" action="<?php echo $this->baseUrl(); ?>/verificarreadequacaodeprojeto/reencaminhacoordacompanhamento" method="post">
                 <table class="tabela">
                     <tr>
@@ -398,7 +398,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         </td>
                     </tr>
                     <tr>
-                        <td><b style="margin-left: 2.6em;">Destinat&aacute;rio:</b></td>
+                        <td><b style="margin-left: 2.6em;">Destinatário:</b></td>
                         <td>
                             <select name="recebeValor" id="recebeValor" style="width: 70%; margin-top: 0.5em;" class="select_simples"></select>
                         </td>
@@ -473,7 +473,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 		});
 	  </script>
 
-        <div style="display:none;" id="reencaminhar2<?php echo $AnaliseGeralDev->ID_PRONAC.$AnaliseGeralDev->tpAlteracaoProjeto; ?>" title="Reencaminhar projeto para An&aacute;lise" >
+        <div style="display:none;" id="reencaminhar2<?php echo $AnaliseGeralDev->ID_PRONAC.$AnaliseGeralDev->tpAlteracaoProjeto; ?>" title="Reencaminhar projeto para Análise" >
             <form name="formreencaminhar" id="form<?php echo $AnaliseGeralDev->ID_PRONAC; ?>" action="<?php echo $this->baseUrl(); ?>/verificarreadequacaodeprojeto/reencaminhacoordacompanhamento" method="post">
                 <table class="tabela">
                     <tr>
@@ -508,7 +508,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         </td>
                     </tr>
                     <tr>
-                        <td><b style="margin-left: 2.6em;">Destinat&aacute;rio:</b></td>
+                        <td><b style="margin-left: 2.6em;">Destinatário:</b></td>
                         <td>
                             <select name="recebeValor" id="recebeValor" style="width: 70%; margin-top: 0.5em;" class="select_simples"></select>
                         </td>
@@ -548,9 +548,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 	<!-- MODAL PARA Confirmação DE ENCAMINHAMENTO-->
 
 
-	<table class="tabela" summary="Aguardando An&aacute;lise">
+	<table class="tabela" summary="Aguardando Análise">
 	   <tr class="destacar bold">
-	     <td><input type="button" name="grid1" id="g1_analise" class="btn_remover" title="Recolher" /> AGUARDANDO An&aacute;lise</td>
+	     <td><input type="button" name="grid1" id="g1_analise" class="btn_remover" title="Recolher" /> AGUARDANDO Análise</td>
 	     <td width="150px" align="center"><?php echo $this->AguardAnaliseQNTD;?></td>
 	   </tr>
 	</table>
@@ -573,7 +573,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise5 as $AguardAnalise5){ ?>
@@ -619,7 +619,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise2 as $AguardAnalise2){ ?>
@@ -665,7 +665,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise4 as $AguardAnalise4){ ?>
@@ -712,7 +712,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise1 as $AguardAnalise1){ ?>
@@ -743,9 +743,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
             </div>
 
 
-            <table class="tabela" summary="ficha T&eacute;cnica">
+            <table class="tabela" summary="ficha Técnica">
                <tr>
-                 <td width="94%"><input type="button" name="grid1" id="g1_analise_fichatecnica" class="btn_adicionar" title="Expandir" />  Ficha T&eacute;cnica</td>
+                 <td width="94%"><input type="button" name="grid1" id="g1_analise_fichatecnica" class="btn_adicionar" title="Expandir" />  Ficha Técnica</td>
                  <td width="6%" align="center"><?php echo count($this->AguardAnalise3);?></td>
                </tr>
             </table>
@@ -759,7 +759,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise3 as $AguardAnalise3){ ?>
@@ -806,7 +806,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise8 as $AguardAnalise8){ ?>
@@ -853,7 +853,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar Mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise9 as $AguardAnalise9){ ?>
@@ -900,7 +900,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar Mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise7 as $AguardAnalise7){ ?>
@@ -947,7 +947,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar Mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise6 as $AguardAnalise6){ ?>
@@ -994,7 +994,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="10%" align="center">Estado(s)</th>
                         <th>Visualizar Readequação</th>
                         <!--<th>Enviar Mensagem</th>-->
-                        <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
+                        <th width="8%" align="center">Encaminhar p/ Análise</th>
                         <th width="5%" align="center">Controle</th>
                     </tr>
                     <?php foreach($this->AguardAnalise10 as $AguardAnalise10){ ?>
@@ -1026,9 +1026,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
         </div>
     </div>
 
-    <table class="tabela" summary="Devolvidos ap�s An&aacute;lise">
+    <table class="tabela" summary="Devolvidos ap�s Análise">
         <tr class="destacar bold">
-          <td><input type="button" name="grid1" id="g1_devolvido" class="btn_remover" title="Recolher" /> DEVOLVIDOS AP�S An&aacute;lise</td>
+          <td><input type="button" name="grid1" id="g1_devolvido" class="btn_remover" title="Recolher" /> DEVOLVIDOS AP�S Análise</td>
           <td width="150px" align="center"><?php echo $this->DevolvAnaliseQNTD;?></td>
         </tr>
     </table>
@@ -1047,9 +1047,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th>Visualizar Readequação</th>
                     <th>Diligenciar</th>
@@ -1102,9 +1102,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th>Visualizar Readequação</th>
                     <th>Diligenciar</th>
@@ -1157,9 +1157,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th>Visualizar Readequação</th>
                     <th>Diligenciar</th>
@@ -1212,9 +1212,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th>Visualizar Readequação</th>
                     <th>Diligenciar</th>
@@ -1255,9 +1255,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
         </div>
 
 
-        <table class="tabela" summary="ficha T&eacute;cnica">
+        <table class="tabela" summary="ficha Técnica">
            <tr>
-             <td width="94%"><input type="button" name="grid1" id="g1_devolvido_fichatecnica" class="btn_adicionar" title="Expandir" /> Ficha T&eacute;cnica</td>
+             <td width="94%"><input type="button" name="grid1" id="g1_devolvido_fichatecnica" class="btn_adicionar" title="Expandir" /> Ficha Técnica</td>
              <td width="6%" align="center"><?php echo count($this->DevolvAnalise3);?></td>
            </tr>
         </table>
@@ -1267,9 +1267,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th>Visualizar Readequação</th>
                     <th>Diligenciar</th>
@@ -1322,9 +1322,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th>Visualizar Readequação</th>
                     <th>Diligenciar</th>
@@ -1377,9 +1377,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th>Visualizar Readequação</th>
                     <th>Diligenciar</th>
@@ -1432,9 +1432,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th>Visualizar Readequação</th>
                     <th>Diligenciar</th>
@@ -1487,9 +1487,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th>Visualizar Readequação</th>
                     <th>Diligenciar</th>
@@ -1542,9 +1542,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">PRONAC</th>
                     <th width="35%" style="text-align:left;">Nome do projeto</th>
                     <th width="15%" align="center">�rea / Segmento</th>
-                    <th width="7%" align="center">Data de envio para An&aacute;lise</th>
-                    <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
-                    <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
+                    <th width="7%" align="center">Data de envio para Análise</th>
+                    <th width="8%" align="center">Data de recebimento da Análise</th>
+                    <th width="7%" align="center">Reencaminhar p/ Análise</th>
                     <th width="8%" align="center">Visualizar Hist�rico</th>
                     <th width="7%" align="center">Encaminhar p/ Componente</th>
                     <th>Visualizar Readequação</th>
@@ -1643,12 +1643,12 @@ $("textarea[maxlength]").keypress(function(event){
 });
 </script>
 
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

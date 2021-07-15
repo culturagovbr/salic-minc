@@ -804,7 +804,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
         $buscarProponente = $Projetos->buscarProjetoXProponente(array('p.IdPRONAC = ?' => $idPronac))->current();
         $this->view->dadosProjeto = $buscarProponente; // manda as informa��es para a vis�o
 
-        // busca os dados aprovados da ficha T&eacute;cnica e da proposta pedag�gica
+        // busca os dados aprovados da ficha Técnica e da proposta pedag�gica
         $buscarPedido = $PreProjeto->buscar(array('idPreProjeto = ?' => $this->idPreProjeto))->current();
         $this->view->dadosPedido = $buscarPedido; // manda as informa��es para a vis�o
 
@@ -4756,11 +4756,11 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
         if ($this->intFaseProjeto=='0' || $this->intFaseProjeto=='1') {
             $qtdePag = 1;
         }
-        $msg = "O retatorio contem 1(uma) p&aacute;gina, deseja imprimi-la?";
+        $msg = "O retatorio contem 1(uma) página, deseja imprimi-la?";
         if ($this->intFaseProjeto=='2' || $this->intFaseProjeto=='3' || $this->intFaseProjeto=='4') {
             $qtdePag = 3;
         }
-        $msg = "O retatorio contem 3(tr�s) p&aacute;ginas, deseja imprimir a {$numPagina} pagina?";
+        $msg = "O retatorio contem 3(tr�s) páginas, deseja imprimir a {$numPagina} pagina?";
 
         $this->view->msgImpressao =  $msg;
         $this->view->qtdePagImpressao =  $qtdePag;

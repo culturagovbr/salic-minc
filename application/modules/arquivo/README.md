@@ -1,4 +1,4 @@
-M&oacute;dulo de Arquivo
+Módulo de Arquivo
 =========================
 
 #### Sobre

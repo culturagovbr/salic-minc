@@ -170,7 +170,7 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
     public function finalizarReadequacaoAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $params = $this->getRequest()->getParams();
@@ -213,7 +213,7 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
         $this->_helper->layout->disableLayout();
 
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $idPronac = $this->_request->getParam("idPronac");
@@ -295,7 +295,7 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
 
     /*
      * função copiada de Readequacao_ReadequacoesController->alterarItemSolicitacaoAction()
-     * - removendo formatação num&eacute;rica, prefixo e retornando float
+     * - removendo formatação numérica, prefixo e retornando float
      *
      */
     public function obterItemSolicitacaoAction()

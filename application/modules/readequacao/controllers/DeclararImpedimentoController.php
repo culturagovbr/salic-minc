@@ -44,7 +44,7 @@ class Readequacao_DeclararImpedimentoController extends MinC_Controller_Rest_Abs
         } else {
             $encaminhar = $readequacaoService->declararImpedimento();
             if ($encaminhar) {
-                $data['message'] = "Readequação devolvida para o coordenador de acompanhamento ap&oacute;s declarar impedimento.";
+                $data['message'] = "Readequação devolvida para o coordenador de acompanhamento após declarar impedimento.";
             }
         }
 

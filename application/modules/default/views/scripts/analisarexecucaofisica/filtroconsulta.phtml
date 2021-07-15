@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright ? 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright ? 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -45,7 +45,7 @@
         $("#tpPeriodoExecucao").change(function(){
             var opcao = $(this).val();
             if(opcao == '1'){
-                $('#labelTipo1').html('Dt. IN&iacute;CIO:');
+                $('#labelTipo1').html('Dt. INÍCIO:');
                 $('#labelTipo2').html('Dt. Fim:');
                 $("#spandtExecucaoIni").show();
                 $("#spandtExecucaoFim").show();
@@ -151,10 +151,10 @@
 </script>
 
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>/principal" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>/principal" title="Ir para INÍCIO">INÍCIO</a></li>
         <li class="last">Analisar Relat&oacute;rios Trimestrais</li>
     </ul>
 </div>
@@ -279,8 +279,8 @@
                 <td colspan="3">
                     <select name='stRelatorio' class='select_simples habilitar focus'>
                         <option value='0' selected>- Selecione -</option>
-                        <option value="1">Aguardando An&aacute;lise</option>
-                        <option value="2">Em An&aacute;lise</option>
+                        <option value="1">Aguardando Análise</option>
+                        <option value="2">Em Análise</option>
                         <option value="3">Analisado</option>
                     </select>
                 </td>
@@ -300,7 +300,7 @@
     </form>
 </div><!-- final: conteudo principal #conteudo -->
 
-<!-- IN&iacute;CIO: detalhe final da div conteudo #rodapeConteudo -->
+<!-- INÍCIO: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

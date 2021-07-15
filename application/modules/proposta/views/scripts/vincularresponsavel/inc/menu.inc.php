@@ -41,7 +41,7 @@
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
-                <a class="no_seta last" target="_blank" href="<?php echo $this->url(array('controller' => 'vincularresponsavel', 'action' => 'consultarresponsavel')); 	?>" title="Ir para Consultar Respons&aacute;vel">Consultar Respons&aacute;vel </a>
+                <a class="no_seta last" target="_blank" href="<?php echo $this->url(array('controller' => 'vincularresponsavel', 'action' => 'consultarresponsavel')); 	?>" title="Ir para Consultar Responsável">Consultar Responsável </a>
             </div>
             <div class="bottom">
             </div>

@@ -71,13 +71,13 @@ function excluir(idEdital, idAgente, cpf){
 <input type="hidden" name="cpf2" id="cpf2" value="<?php echo $_GET['cpf'];?>" />
 </form>
 <div id="menu">
-    <!-- IN&iacute;CIO: CONTE&uacute;DO principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
         <?php echo $this->partial('cadastraredital/inc/menu.inc.php', $this);?>
-        <!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="index.html" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
+                <li class="first"><a href="index.html" title="Ir para INÍCIO">INÍCIO</a></li>
                 <?php if (isset($_GET['idEdital'])) : ?>
                     <li><a href="<?php echo $this->url(array('controller' => 'cadastraredital', 'action' => 'consultaralterareditais')); ?>">Consultar/Alterar Edital</a></li>
                 <?php endif; ?>
@@ -155,10 +155,10 @@ function excluir(idEdital, idAgente, cpf){
     </form>
    	</div>
 </div>
-        <!-- ========== FIM CONTE&uacute;DO ========== -->
-        <!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+        <!-- ========== FIM CONTEÚDO ========== -->
+        <!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
         <div id="rodapeConteudo"><span></span></div>
-        <!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+        <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
         <br clear="all" />
 </div>

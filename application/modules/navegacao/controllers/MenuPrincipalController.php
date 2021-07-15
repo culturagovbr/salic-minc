@@ -176,8 +176,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             ]
         ];
         $arrMenu['analise']['menu'][] = [
-            'label' => 'Imprimir Parecer T&eacute;cnico',
-            'title' => 'Ir para Imprimir Parecer T&eacute;cnico',
+            'label' => 'Imprimir Parecer Técnico',
+            'title' => 'Ir para Imprimir Parecer Técnico',
             'url' => ['module' => 'default', 'controller' => 'gerenciarpareceres', 'action' => 'imprimir-parecer-tecnico'],
             'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::GESTOR_SALIC, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 137]
         ];
@@ -274,8 +274,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             'grupo' => [Autenticacao_Model_Grupos::PARECERISTA]
         ];
         $arrMenu['analise']['menu'][] = [
-            'label' => 'Parecer T&eacute;cnico FNC',
-            'title' => 'Ir para Parecer T&eacute;cnico FNC',
+            'label' => 'Parecer Técnico FNC',
+            'title' => 'Ir para Parecer Técnico FNC',
             'url' => ['module' => 'default', 'controller' => 'aprovacaoeparecer', 'action' => 'index'],
             'grupo' => [143]
         ];

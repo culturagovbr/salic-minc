@@ -262,7 +262,7 @@
             var idAcao = $(this).attr('idAcao'),
                 filtro = $(this).attr('tipoFiltro');
             $("#alerta").dialog("destroy");
-            $('#alerta').html('Deseja validar a An&aacute;lise realizada?');
+            $('#alerta').html('Deseja validar a Análise realizada?');
             $("#alerta").dialog({
                 modal: true,
                 draggable: false,
@@ -317,7 +317,7 @@
 
 
 <!-- INICIO DA MODAL DE ENCAMINHAMENTO -->
-<div class="sumir" id="modalEncaminhar" title="Encaminhar projeto para An&aacute;lise" >
+<div class="sumir" id="modalEncaminhar" title="Encaminhar projeto para Análise" >
     <form name="formencaminhar" id="formEncaminhamento" action="<?php echo $this->baseUrl(); ?>/manterreadequacao/encaminhar-painel-coord-acomp" method="post">
 
         <table class="tabela">
@@ -353,7 +353,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold" width="130px;">Destinat&aacute;rio:</td>
+                <td class="destacar bold" width="130px;">Destinatário:</td>
                 <td>
                     <select name="destinatario" id="destinatario" class="select_simples obrigatorioEncaminhamento" style="width:100%;">
                         <option value=""> - Selecione - </option>
@@ -375,7 +375,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold" width="130px;">Destinat&aacute;rio:</td>
+                <td class="destacar bold" width="130px;">Destinatário:</td>
                 <td>
                     <select name="destinatario" id="destinatario" class="select_simples obrigatorioEncaminhamento" style="width:100%;">
                         <option value=""> - Selecione - </option>
@@ -394,12 +394,12 @@
 <!-- FIM DO MODAL PARA ENCAMINHAMENTO -->
 
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="camposObrigatorios" class="sumir"></div>
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>">IN&iacute;CIO</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>">INÍCIO</a></li>
         <li class="sencond">Verificar Readequa��o de Projeto</li>
         <li class="last">Verificar readequa��o de projeto</li>
     </ul>
@@ -407,13 +407,13 @@
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>Verificar readequa��o de projeto</div>
 </div>
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <table class="tabela">
 	<tr>
@@ -424,10 +424,10 @@
             </td>
             <td>
                 <select class="input_simples comboFiltro" style="width: 250px;" name="tipoFiltro">
-                    <optgroup label="Aguardando An&aacute;lise">
+                    <optgroup label="Aguardando Análise">
                         <option value="1:a" <?php echo '1:a' == $this->filtro ? 'selected="selected"' : ''; ?>>Nome do proponente</option>
                         <option value="2:a" <?php echo '2:a' == $this->filtro ? 'selected="selected"' : ''; ?>>Troca de Agente</option>
-                        <option value="3:a" <?php echo '3:a' == $this->filtro ? 'selected="selected"' : ''; ?>>Ficha T&eacute;cnica</option>
+                        <option value="3:a" <?php echo '3:a' == $this->filtro ? 'selected="selected"' : ''; ?>>Ficha Técnica</option>
                         <option value="4:a" <?php echo '4:a' == $this->filtro ? 'selected="selected"' : ''; ?>>Local de realiza��o</option>
                         <option value="5:a" <?php echo '5:a' == $this->filtro ? 'selected="selected"' : ''; ?>>Nome do projeto</option>
                         <option value="6:a" <?php echo '6:a' == $this->filtro ? 'selected="selected"' : ''; ?>>Proposta Pedag�gica</option>
@@ -435,10 +435,10 @@
                         <option value="8:a" <?php echo '8:a' == $this->filtro ? 'selected="selected"' : ''; ?>>Prorroga��o de Prazos - Capta��o</option>
                         <option value="9:a" <?php echo '9:a' == $this->filtro ? 'selected="selected"' : ''; ?>>Prorroga��o de Prazos - Execu��o</option>
                     </optgroup>
-                    <optgroup label="Devolvidos Ap�s An&aacute;lise">
+                    <optgroup label="Devolvidos Ap�s Análise">
                         <option value="1:d" <?php echo '1:d' == $this->filtro ? 'selected="selected"' : ''; ?>>Nome do proponente</option>
                         <option value="2:d" <?php echo '2:d' == $this->filtro ? 'selected="selected"' : ''; ?>>Troca de Agente</option>
-                        <option value="3:d" <?php echo '3:d' == $this->filtro ? 'selected="selected"' : ''; ?>>Ficha T&eacute;cnica</option>
+                        <option value="3:d" <?php echo '3:d' == $this->filtro ? 'selected="selected"' : ''; ?>>Ficha Técnica</option>
                         <option value="4:d" <?php echo '4:d' == $this->filtro ? 'selected="selected"' : ''; ?>>Local de realiza��o</option>
                         <option value="5:d" <?php echo '5:d' == $this->filtro ? 'selected="selected"' : ''; ?>>Nome do projeto</option>
                         <option value="6:d" <?php echo '6:d' == $this->filtro ? 'selected="selected"' : ''; ?>>Proposta Pedag�gica</option>
@@ -477,12 +477,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'manterreadequacao', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronacProjeto; ?>'">
                     <?php } ?>
-                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -513,7 +513,7 @@
                 <th>�rea / Segmento</th>
                 <th><a href="<?php echo $this->url(array('controller' => 'manterreadequacao', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=2&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Recebimento</a></th>
                 <th width="1px">Visualizar Readequa��o</th>
-                <th width="1px">Encaminhar p/ An&aacute;lise</th>
+                <th width="1px">Encaminhar p/ Análise</th>
                 <th width="1px">Controle</th>
             </tr>
             <?php } else { //CABECALHO - DEVOLVIDOS APOS ANALISE ?>
@@ -521,9 +521,9 @@
                 <th width="70px"><a href="<?php echo $this->url(array('controller' => 'manterreadequacao', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">PRONAC</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'manterreadequacao', 'action' => 'index')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Projeto</a></th>
                 <th>�rea / Segmento</th>
-                <th width="1px">Data de envio para An&aacute;lise</th>
-                <th width="1px">Data de recebimento da An&aacute;lise</th>
-                <th width="1px">Reencaminhar p/ An&aacute;lise</th>
+                <th width="1px">Data de envio para Análise</th>
+                <th width="1px">Data de recebimento da Análise</th>
+                <th width="1px">Reencaminhar p/ Análise</th>
                 <th width="1px">Visualizar Hist�rico</th>
                 <th width="1px">Visualizar Readequa��o</th>
                 <th width="1px">Diligenciar</th>
@@ -607,7 +607,7 @@
                     <td><?php echo Data::tratarDataZend($d->dtInicioAvaliacao, 'Brasileira'); ?></td>
                     <td><?php echo Data::tratarDataZend($d->dtFimAvaliacao, 'Brasileira'); ?></td>
                     <td align="center">
-                        <img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/user_gray.png" alt="Reencaminhar" class="reencaminharProjeto" numPronac="<?php echo $d->PRONAC; ?>" nmProjeto="<?php echo $d->NomeProjeto; ?>" idPronac="<?php echo $d->IdPRONAC; ?>" idPedidoAlteracao="<?php echo $d->idPedidoAlteracao; ?>" tpAlteracaoProjeto="<?php echo $d->tpAlteracaoProjeto; ?>" idAcao="<?php echo $d->idAcao; ?>" alt="Reencaminhar p/ An&aacute;lise" title="Reencaminhar p/ An&aacute;lise" />
+                        <img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/user_gray.png" alt="Reencaminhar" class="reencaminharProjeto" numPronac="<?php echo $d->PRONAC; ?>" nmProjeto="<?php echo $d->NomeProjeto; ?>" idPronac="<?php echo $d->IdPRONAC; ?>" idPedidoAlteracao="<?php echo $d->idPedidoAlteracao; ?>" tpAlteracaoProjeto="<?php echo $d->tpAlteracaoProjeto; ?>" idAcao="<?php echo $d->idAcao; ?>" alt="Reencaminhar p/ Análise" title="Reencaminhar p/ Análise" />
                     </td>
                     <td align="center">
                         <img style="cursor: pointer;" border="0" class="visualizarHistorico" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" idAvaliacao="<?php echo $d->idAvaliacaoItemPedidoAlteracao; ?>" alt="Visualizar Hist�rico" title="Visualizar Hist�rico" />
@@ -711,12 +711,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('controller' => 'manterreadequacao', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronacProjeto; ?>'">
                         <?php } ?>
-                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -741,7 +741,7 @@
     <br clear="all" />
 
 </div>
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />

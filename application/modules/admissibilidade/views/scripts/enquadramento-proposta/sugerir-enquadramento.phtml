@@ -31,7 +31,7 @@
                         ?>
                         <div class="row">
                             <div class="input-field col s12 m12 center" style="margin-bottom:80px">
-                            <span class="red-text">OBS: A sele&ccedil;&atilde;o dos campos <strong>&aacute;rea</strong> e <strong>Segmento</strong> &eacute;
+                            <span class="red-text">OBS: A sele&ccedil;&atilde;o dos campos <strong>Área</strong> e <strong>Segmento</strong> &eacute;
                                 essencial para encaminhar a avalia&ccedil;&atilde;o da Proposta Cultural</span>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                     <option value="<?php echo $key; ?>" <?php echo $key == $this->ultimaSugestaoPerfil['id_area'] ? 'selected="selected"' : ''; ?> ><?php echo $value; ?></option>
                                 <?php } ?>
                             </select>
-                            <label>&aacute;rea Cultural</label>
+                            <label>Área Cultural</label>
                             &nbsp; <span id="erroAreaCultural" class="spanError"></span>
                         </div>
                             <?php
@@ -71,7 +71,7 @@
                             ?>
                         <div class="input-field col s12 m6">
                             <select name="id_segmento" id="id_segmento">
-                                <option value=""> - Selecione uma &aacute;rea Cultural -</option>
+                                <option value=""> - Selecione uma Área Cultural -</option>
                                 <?php foreach ($this->combosegmentos as $value) {
                                     $selected = $value['id'] == $this->ultimaSugestaoPerfil['id_segmento'] ? 'selected="selected"' : '';
                                     echo '<option data-tp_enquadramento="'.$value['tp_enquadramento'].'" value="'.$value['id'].'" ' . $selected . '>'.($value['descricao']).'</option>';

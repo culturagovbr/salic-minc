@@ -63,7 +63,7 @@ $arrMenu['analise']['menu'][] = array('label' => 'Avaliar Recursos', 'title' => 
     'grupo' => array(118)
 );
 
-$arrMenu['analise']['menu'][] = array('label' => 'Parecer T&eacute;cnico FNC', 'title' => 'Ir para Parecer T&eacute;cnico FNC',
+$arrMenu['analise']['menu'][] = array('label' => 'Parecer Técnico FNC', 'title' => 'Ir para Parecer Técnico FNC',
     'url' => $this->url(array('controller' => 'aprovacaoeparecer', 'action' => 'index'), '', true),
     'grupo' => array(143)
 );
@@ -114,7 +114,7 @@ $arrMenu['analise']['menu'][] = array('label' => 'Certid&otilde;es Negativas', '
     'url' => $this->url(array('module' => 'default', 'controller' => 'manterregularidadeproponente', 'action' => 'index')),
     'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_ANALISE,Autenticacao_Model_Grupos::TECNICO_ANALISE,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO)
 );
-$arrMenu['analise']['menu'][] = array('label' => 'Imprimir Parecer T&eacute;cnico', 'title' => 'Ir para Imprimir Parecer T&eacute;cnico',
+$arrMenu['analise']['menu'][] = array('label' => 'Imprimir Parecer Técnico', 'title' => 'Ir para Imprimir Parecer Técnico',
     'url' => $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'imprimir-parecer-tecnico'), '', true),
     'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,Autenticacao_Model_Grupos::GESTOR_SALIC,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,137)
 );

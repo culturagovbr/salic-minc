@@ -1,4 +1,4 @@
-M&oacute;dulo de Planilha
+Módulo de Planilha
 =================
 
 M&oacute;dulo de parecer

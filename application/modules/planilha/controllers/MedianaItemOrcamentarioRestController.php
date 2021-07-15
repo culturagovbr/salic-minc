@@ -23,7 +23,7 @@ class Planilha_MedianaItemOrcamentarioRestController extends MinC_Controller_Res
                 || empty($params['idUfDespesa'])
                 || empty($params['idMunicipioDespesa'])
             ) {
-                throw new Exception("Dado obrigat&oacute;rio não informado!");
+                throw new Exception("Dado obrigatório não informado!");
             }
 
             $spCalcularMedianaItemOrcamentario = new Planilha_Model_DbTable_SpCalcularMedianaItemOrcamentario();

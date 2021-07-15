@@ -773,7 +773,7 @@
                         </tr>
                     <?php } ?>
                     <tr>
-                        <th colspan="15">Ficha T&eacute;cnica</th>
+                        <th colspan="15">Ficha Técnica</th>
                     </tr>
                     <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
                         <tr>
@@ -797,7 +797,7 @@
                         </tr>
                     <?php } ?>
                     <tr>
-                        <th colspan="15">Especifica�&otilde;es T&eacute;cnicas do produto</th>
+                        <th colspan="15">Especifica�&otilde;es Técnicas do produto</th>
                     </tr>
                     <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
                         <tr>
@@ -953,7 +953,7 @@
                     foreach ($this->AnaliseCustos as $resposta) :
                         // contador dos itens
 
-                        //* IN&iacute;CIO FOREACH PRODUTOS
+                        //* INÍCIO FOREACH PRODUTOS
                         //* Percorre todos os produtos
 
 
@@ -967,7 +967,7 @@
                         $comparadorUFs = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa . $resposta->idUF . $resposta->idMunicipio;
 
 
-                        //<!-- ========== IN&iacute;CIO T�TULO INCENTIVO FISCAL FEDERAL ========== -->
+                        //<!-- ========== INÍCIO T�TULO INCENTIVO FISCAL FEDERAL ========== -->
                         if (!in_array($comparadorIncentivo, $arrayIncentivo)) { ?>
 
                             <tr>
@@ -978,9 +978,9 @@
 
                         <?php }
                         //<!-- ========== FIM T�TULO INCENTIVO FISCAL FEDERAL ========== -->
-                        //<!-- ========== IN&iacute;CIO BUSCA POR PRODUTO ========== -->
+                        //<!-- ========== INÍCIO BUSCA POR PRODUTO ========== -->
                         if (!in_array($comparadorProdutos, $arrayProdutos)):
-                            //<!-- ========== IN&iacute;CIO T�TULO PRODUTOS ========== -->
+                            //<!-- ========== INÍCIO T�TULO PRODUTOS ========== -->
                             $html .= "<tr class=\"linha\">
                                             <td colspan=\"15\">
                                                     <strong>
@@ -991,23 +991,23 @@
                             //<!-- ========== FIM T�TULO PRODUTOS ========== -->
                         endif;
                         if (!in_array($comparadorEtapas, $arrayEtapas)):
-                            //<!-- ========== IN&iacute;CIO T�TULO ETAPAS ========== -->
+                            //<!-- ========== INÍCIO T�TULO ETAPAS ========== -->
                             $html .= "<tr>
                                                 <td colspan=\"15\">
                                                     " . utf8_decode(htmlentities($resposta->Etapa)) . "
                                                 </td>
                                         </tr>";
-                            //<!-- ========== IN&iacute;CIO T�TULO ETAPAS ========== -->
+                            //<!-- ========== INÍCIO T�TULO ETAPAS ========== -->
                         endif;
                         if (!in_array($comparadorUFs, $arrayUFs)):
-                            //<!-- ========== IN&iacute;CIO T�TULO UF ========== -->
+                            //<!-- ========== INÍCIO T�TULO UF ========== -->
                             $html .= "<tr>
                                             <td colspan=\"15\">
                                                             <span class=\"black del_link\">{$resposta->UF} - " . utf8_decode(htmlentities($resposta->Municipio)) . "</span>
                                             </td>
                                     </tr>";
                             //<!-- ========== FIM T�TULO UF ========== -->
-                            //<!-- ========== IN&iacute;CIO TITULO �TENS ========== -->
+                            //<!-- ========== INÍCIO TITULO �TENS ========== -->
                             $html .= "<tr class=\"destacar \">";
                             $html .= "<td class=\"titulo\">&nbsp;</td>
                                             <td class=\"titulo\">Item</td>
@@ -1021,7 +1021,7 @@
                                     </tr>";
                             //<!-- ========== FIM TITULO �TENS ========== -->
                         endif;
-                        //<!-- ========== IN&iacute;CIO �TENS ========== -->
+                        //<!-- ========== INÍCIO �TENS ========== -->
                         $totalItens = 0;
                         //$i = $resposta->idPlanilhaProjeto; // criar&aacute; id �nico
                         $totalItens--;
@@ -1037,7 +1037,7 @@
                                             <td colspan=\"7\" class=\"direita\">" . strip_tags($this->escape($resposta->JustificativaProponente)) . "</td>
                                     </tr>";
                         //<!-- ========== FIM �TENS ========== -->
-                        //<!-- ========== IN&iacute;CIO TOTAL UF ========== -->
+                        //<!-- ========== INÍCIO TOTAL UF ========== -->
                         // ===== CALCULA TOTAL UFS =====
                         $totalVal_01_UF += (float)$resposta->VlSolicitado;
                         $totalVal_02_UF += (float)$resposta->Sugerido;
@@ -1054,7 +1054,7 @@
                             $totalVal_02_UF = (float)0;
                         endif;
                         //<!-- ========== FIM TOTAL UF ========== -->
-                        //<!-- ========== IN&iacute;CIO TOTAL ETAPAS ========== -->
+                        //<!-- ========== INÍCIO TOTAL ETAPAS ========== -->
                         // ===== CALCULA TOTAL ETAPAS =====
                         $totalVal_01_Etapa += (float)$resposta->VlSolicitado;
                         $totalVal_02_Etapa += (float)$resposta->Sugerido;
@@ -1072,7 +1072,7 @@
                             $totalVal_02_Etapa = (float)0;
                         endif;
                         //<!-- ========== FIM TOTAL ETAPAS ========== -->
-                        //<!-- ========== IN&iacute;CIO TOTAL PRODUTOS ========== -->
+                        //<!-- ========== INÍCIO TOTAL PRODUTOS ========== -->
                         // ===== CALCULA TOTAL PRODUTOS =====
                         $totalVal_01_Produto += (float)$resposta->VlSolicitado;
                         $totalVal_02_Produto += (float)$resposta->Sugerido;
@@ -1294,7 +1294,7 @@
                 <td align="center">
                     <img id="brasao" src="<?php //echo $this->baseUrl() . "/public/img/brasaoArmas.jpg" ?>"/><br>
                     <b>
-                    Minist&eacute;rio DA CULTURA<br>
+                    Ministério DA CULTURA<br>
                     PROGRAMA NACIONAL DE APOIO � CULTURA<br>
                     </b>
                 </td>
@@ -1399,7 +1399,7 @@
                     <th colspan="3">Localiza��o Atual do Projeto</th>
                 </tr>
                 <tr class="destacar">
-                    <td><b>Localiza&ccedil;&atilde;o</b><br>(<font size="1em">A localiza��o atual do projeto s� ser&aacute;
+                    <td><b>Localiza&ccedil;&atilde;o</b><br>(<font size="1em">A localiza��o atual do projeto s� será
                             alterada ap�s o recebimento do projeto na unidade destino.</font>)
                     </td>
                 </tr>

@@ -27,7 +27,7 @@ class fnVerificarProjetoAprovadoIN2017 extends MinC_Db_Table_Abstract
     }
 
     /**
-     * FUNÇÃO QUE VERIFICA SE PROJETO EST&aacute; SOB A IN 2017
+     * FUNÇÃO QUE VERIFICA SE PROJETO ESTÁ SOB A IN 2017
      * @param null $idPronac
      * @return bool
      */

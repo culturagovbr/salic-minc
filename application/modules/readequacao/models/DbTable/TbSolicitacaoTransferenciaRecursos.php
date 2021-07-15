@@ -7,7 +7,7 @@ class Readequacao_Model_DbTable_TbSolicitacaoTransferenciaRecursos extends MinC_
     protected $_name    = "tbSolicitacaoTransferenciaRecursos";
 
     /**
-     * M&eacute;todo para buscar projetos recebedores de uma readequação ou pronac
+     * Método para buscar projetos recebedores de uma readequação ou pronac
      * @access public
      * @param integer $idReadequacao
      * @param integer $idPronacRecebedor

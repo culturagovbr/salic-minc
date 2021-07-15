@@ -6,7 +6,7 @@
 class Zend_View_Helper_GetIdDocumentoAssinatura
 {
     /**
-     * M&eacute;todo para retornar idDocumentoAssinatura
+     * Método para retornar idDocumentoAssinatura
      * @access public
      * @param integer $idPronac
      * @return string

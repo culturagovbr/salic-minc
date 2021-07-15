@@ -8,7 +8,7 @@ class Enquadramento
         'data_avaliacao' => 'Data',
         'usu_nome' => 'Avaliador',
         'org_sigla' => 'Unidade',
-        'area' => '&aacute;rea',
+        'area' => 'Área',
         'segmento' => 'Segmento',
         'enquadramento' => 'Enquadramento',
         'descricao_motivacao' => 'Parecer'

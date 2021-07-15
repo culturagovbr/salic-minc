@@ -62,13 +62,13 @@
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
         <li class="second"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Relat&oacute;rio Trimestral">Relat&oacute;rio Trimestral</a></li>
-        <li class="last">Visualizar Relat&oacute;rio Trimestral</li>
+        <li class="last">Visualizar Relatório Trimestral</li>
     </ul>
 </div>
 
 
 <div id="titulo">
-    <div>Visualizar Relat&oacute;rio Trimestral <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span></div>
+    <div>Visualizar Relatório Trimestral <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span></div>
 </div>
 
 
@@ -105,13 +105,13 @@
             <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsEtapasExecutadas; ?><br /><br /></td>
         </tr>
         <tr>
-            <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE F&iacute;SICA</td>
+            <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE FÍSICA</td>
         </tr>
         <tr>
             <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsAcessibilidade; ?><br /><br /></td>
         </tr>
         <tr>
-            <td class="destacar bold">MEDIDAS DE EST&iacute;MULO À FRU&iacute;ÇÃO DE DEMOCRATIZAÇÃO AO ACESSO P&uacute;BLICO</td>
+            <td class="destacar bold">MEDIDAS DE ESTÍMULO À FRUÍÇÃO DE DEMOCRATIZAÇÃO AO ACESSO PÚBLICO</td>
         </tr>
         <tr>
             <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsDemocratizacaoAcesso; ?><br /><br /></td>
@@ -132,9 +132,9 @@
         </tr>
         <?php if(count($this->LocaisDeRealizacao) > 0) { ?>
         <tr align="center">
-            <td class="destacar bold">Pa&iacute;s</td>
+            <td class="destacar bold">País</td>
             <td class="destacar bold">UF</td>
-            <td class="destacar bold">Munic&iacute;pio</td>
+            <td class="destacar bold">Município</td>
             <td class="destacar bold" width="120px">Realizado</td>
             <td class="destacar bold" width="120px" nowrap>Dt.&nbsp;Realização</td>
             <td class="destacar bold" width="120px">Justificativa</td>
@@ -186,7 +186,7 @@
         <?php if(count($this->PlanoDeDivulgacao) > 0) { ?>
         <tr align="center">
             <td class="destacar bold">Peça</td>
-            <td class="destacar bold">Ve&iacute;culo</td>
+            <td class="destacar bold">Veículo</td>
             <td class="destacar bold" width="120px">Realizado</td>
             <td class="destacar bold" width="120px">Comprovado</td>
             <td class="destacar bold" width="120px">Arquivo</td>
@@ -268,12 +268,12 @@
 
     <table class="tabela">
         <tr align="center">
-            <th colspan="6">Benefici&aacute;rios de Produto Cultural</th>
+            <th colspan="6">Beneficiários de Produto Cultural</th>
         </tr>
         <?php if(count($this->PlanosCadastrados) > 0) { ?>
         <tr align="center">
             <td class="destacar bold">Produto</td>
-            <td class="destacar bold">Tipo Benefici&aacute;rio</td>
+            <td class="destacar bold">Tipo Beneficiário</td>
             <td class="destacar bold">CNPJ/CPF</td>
             <td class="destacar bold">Nome</td>
             <td class="destacar bold">Quantidade</td>
@@ -291,7 +291,7 @@
                         echo 'Divulgação';
                         $classNomeCampo = 'qtdDivulgacao'.$PlanosCadastrados->idPlanoDistribuicao;
                     } else {
-                        echo 'Benefici&aacute;rio';
+                        echo 'Beneficiário';
                         $classNomeCampo = 'qtdBeneficiario'.$PlanosCadastrados->idPlanoDistribuicao;
                     }
                 ?>
@@ -318,7 +318,7 @@
         <?php if(count($this->DadosCompMetas) > 0) { ?>
         <tr align="center">
             <th>&nbsp;</th>
-            <th colspan="3">Meta F&iacute;sica</th>
+            <th colspan="3">Meta Física</th>
             <th colspan="3">Meta Financeira</th>
             <th>&nbsp;</th>
         </tr>
@@ -355,12 +355,12 @@
 
     <table class="tabela">
         <tr align="center">
-            <th colspan="8" class="titulo_tabela">COMPROVAÇÃO DE ITENS ORÇAMENT&aacute;RIOS</th>
+            <th colspan="8" class="titulo_tabela">COMPROVAÇÃO DE ITENS ORÇAMENTÁRIOS</th>
         </tr>
         <?php if(count($this->DadosItensOrcam)> 0) { ?>
         <tr align="center">
             <th>&nbsp;</th>
-            <th colspan="3">F&iacute;sica</th>
+            <th colspan="3">Física</th>
             <th colspan="3">Financeira</th>
             <th>&nbsp;</th>
         </tr>
@@ -385,7 +385,7 @@
             <td><?php echo number_format($DadosItensOrcam->PercFinanceiro, 2, ',', '').'%'; ?></td>
             <td><?php echo 'R$ '.number_format($DadosItensOrcam->SaldoAExecutar, 2, ",", "."); ?></td>
         </tr>
-        <!-- IN&iacute;CIO HIST&oacute;RICO -->
+        <!-- INÍCIO HISTÓRICO -->
 		<tbody id="tbody_<?php echo $DadosItensOrcam->idPlanilhaAprovacao; ?>" class="sumir">
             <tr>
                 <td colspan="8">
@@ -404,7 +404,7 @@
                 </td>
             </tr>
         </tbody>
-		<!-- FIM HIST&oacute;RICO -->
+		<!-- FIM HISTÓRICO -->
         <?php } ?>
         <?php } else { ?>
         <tr>
@@ -433,7 +433,7 @@
                     if($DadosComprovantes->idTipoDocumento == 22){
                         echo 'Fotos';
                     } else if($DadosComprovantes->idTipoDocumento == 23){
-                        echo 'V&iacute;deos';
+                        echo 'Vídeos';
                     } else if($DadosComprovantes->idTipoDocumento == 24){
                         echo 'Arquivo';
                     }
@@ -456,7 +456,7 @@
     <?php if($this->DadosRelatorio->siComprovanteTrimestral == 6){ ?>
     <table class="tabela">
         <tr>
-            <th>PARECER T&eacute;CNICO</th>
+            <th>PARECER TÉCNICO</th>
         </tr>
         <tr>
             <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsParecerTecnico; ?><br /><br /></td>

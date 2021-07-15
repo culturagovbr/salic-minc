@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto est&aacute; dispon&iacute;vel para assinatura
+ * Helper para verificar se projeto está disponível para assinatura
  */
 
 class Zend_View_Helper_DisponivelParaAssinatura
 {
     /**
-     * M&eacute;todo para verificar se o projeto est&aacute; dispon&iacute;vel para assinatura
+     * Método para verificar se o projeto está disponível para assinatura
      * @access public
      * @param integer $siEncaminhamento
      * @param integer $idDocumentoAssinatura

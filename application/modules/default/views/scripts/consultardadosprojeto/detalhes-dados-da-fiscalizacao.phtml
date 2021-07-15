@@ -86,7 +86,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="destacar" align="center"><b>Identificaç&atilde;o do T&eacute;cnico</b></td>
+                        <td colspan="2" class="destacar" align="center"><b>Identificaç&atilde;o do Técnico</b></td>
                     </tr>
                     <tr>
                         <td>
@@ -444,7 +444,7 @@
                         echo 'N&atilde;o se aplica'; ?>
             </td>
         </tr>
-        <?php if($dtInicioFiscalizacao > $dtDeCorte){ //Campo novo. S&oacute; aparece se o mesmo foi feito ap&oacute;s a data de corte. ?>
+        <?php if($dtInicioFiscalizacao > $dtDeCorte){ //Campo novo. Só aparece se o mesmo foi feito após a data de corte. ?>
         <tr>
             <td colspan="2"><?php echo $y++.'.'; ?> Os recursos captados est&atilde;o sendo aplicados em conformidade com a legisla&ccedil;&atilde;o vigente?</td>
             <td>
@@ -464,7 +464,7 @@
 
         <?php if($dtInicioFiscalizacao < $dtDeCorte){ ?>
         <tr>
-            <td colspan="2"><?php echo $y++.'.'; ?> Ocorreu saldo ap&oacute;s o encerramento do projeto?</td>
+            <td colspan="2"><?php echo $y++.'.'; ?> Ocorreu saldo após o encerramento do projeto?</td>
             <td>
                 <?php if (isset($relatorio->stSaldoAposEncerramento))
                         $selected = $relatorio->stSaldoAposEncerramento; ?>
@@ -791,7 +791,7 @@
                         echo 'N&atilde;o se aplica'; ?>
             </td>
         </tr>
-        <?php if($dtInicioFiscalizacao > $dtDeCorte){ //Campo novo. S&oacute; aparece se o mesmo foi feito ap&oacute;s a data de corte. ?>
+        <?php if($dtInicioFiscalizacao > $dtDeCorte){ //Campo novo. Só aparece se o mesmo foi feito após a data de corte. ?>
         <tr>
             <td colspan="3"><?php echo $y++.'.'; ?> Observa&ccedil;&otilde;es</td>
         </tr>
@@ -900,7 +900,7 @@
                         <td style="width: 25%; padding-left: 5%; text-decoration: underline;" colspan="2"><a href="<?php echo $this->url(array("module" => "default", "controller" => "upload", "action" => "abrir")) ?>?id=<?php echo  $arquivo->idArquivo ?>"><?php echo $arquivo->nmArquivo;?></a></td>
                     </tr>
            <?php } } else { ?>
-                <tr><td style="color:red;" colspan="2">Não h&aacute; arquivos anexados!</td></tr>
+                <tr><td style="color:red;" colspan="2">Não há arquivos anexados!</td></tr>
             <?php
             }
        }//FIM - RELATORIO FISCALIZACAO

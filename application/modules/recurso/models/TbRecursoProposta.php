@@ -10,11 +10,11 @@ class Recurso_Model_TbRecursoProposta extends MinC_Db_Model
      */
     protected $_dsRecursoProponente;
     /**
-     * @var $_idProponente Proponente que est&aacute; solicitando o recurso (idAgente)
+     * @var $_idProponente Proponente que está solicitando o recurso (idAgente)
      */
     protected $_idProponente;
     /**
-     * @var $_idAvaliadorTecnico C&oacute;digo do usu&aacute;rio que est&aacute; avaliando o recurso (Tabelas.dbo.Usuarios.usu_codigo)
+     * @var $_idAvaliadorTecnico C&oacute;digo do usuário que está avaliando o recurso (Tabelas.dbo.Usuarios.usu_codigo)
      */
     protected $_idAvaliadorTecnico;
     protected $_dtAvaliacaoTecnica;
@@ -34,8 +34,8 @@ class Recurso_Model_TbRecursoProposta extends MinC_Db_Model
     /**
      * @var $_stAtendimento
             'N' => Sem avaliação
-            'I' => Quando &eacute; indeferido
-            'D' => Quando &eacute; deferido (movimenta para frente)
+            'I' => Quando é indeferido
+            'D' => Quando é deferido (movimenta para frente)
      */
     protected $_stAtendimento;
     protected $_idArquivo;
@@ -55,13 +55,13 @@ class Recurso_Model_TbRecursoProposta extends MinC_Db_Model
 
     /**
      * Quando o proponente o proponente não concordar com o enquadramento
-     * ele poder&aacute; entrar um pedido de reconsideração.
+     * ele poderá entrar um pedido de reconsideração.
      * 1ª vez
      */
     const TIPO_RECURSO_PEDIDO_DE_RECONSIDERACAO = 1;
     /**
      * Quando o Avalialiador não concordar com o pedido de reconsideração
-     * (faz o indeferimento) o proponente poder&aacute; entrar com outro pedido.
+     * (faz o indeferimento) o proponente poderá entrar com outro pedido.
      * 2ª vez
      */
     const TIPO_RECURSO_RECURSO = 2;
@@ -77,8 +77,8 @@ class Recurso_Model_TbRecursoProposta extends MinC_Db_Model
 
     /*
      *  'N' => Sem avaliação
-        'I' => Quando &eacute; indeferido
-        'D' => Quando &eacute; deferido (movimenta para frente)
+        'I' => Quando é indeferido
+        'D' => Quando é deferido (movimenta para frente)
      */
 
     /**

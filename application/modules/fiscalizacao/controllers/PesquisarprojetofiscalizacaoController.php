@@ -30,7 +30,7 @@ class Fiscalizacao_PesquisarprojetofiscalizacaoController extends MinC_Controlle
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::TECNICO_FISCALIZACAO;
 
         if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
         }
 
         $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
@@ -105,7 +105,7 @@ class Fiscalizacao_PesquisarprojetofiscalizacaoController extends MinC_Controlle
             switch ($filtro) {
                 case 'analisados':
                     $where['b.stFiscalizacaoProjeto = ?'] = '2';
-                    $this->view->nmPagina = 'Fiscaliza&ccedil;&atilde;o conclu&iacute;da pelo T&eacute;cnico';
+                    $this->view->nmPagina = 'Fiscaliza&ccedil;&atilde;o conclu&iacute;da pelo Técnico';
                     break;
                 case 'concluidos':
                     $where['b.stFiscalizacaoProjeto = ?'] = '3';
@@ -191,7 +191,7 @@ class Fiscalizacao_PesquisarprojetofiscalizacaoController extends MinC_Controlle
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Regi&atilde;o'] = $val->Regiao;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['UF'] = $val->uf;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Cidade'] = $val->cidade;
-            $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['&aacute;rea'] = $val->dsArea;
+            $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Área'] = $val->dsArea;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Segmento'] = $val->dsSegmento;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Valor'] = number_format($val->somatorio, 2, ',', '.');
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Mecanismo'] = $val->dsMecanismo;
@@ -350,7 +350,7 @@ class Fiscalizacao_PesquisarprojetofiscalizacaoController extends MinC_Controlle
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Regi&atilde;o'] = $val->Regiao;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['UF'] = $val->uf;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Cidade'] = $val->cidade;
-            $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['&aacute;rea'] = $val->dsArea;
+            $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Área'] = $val->dsArea;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Segmento'] = $val->dsSegmento;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Valor'] = number_format($val->somatorio, 2, ',', '.');
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Mecanismo'] = $val->dsMecanismo;

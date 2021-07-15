@@ -42,7 +42,7 @@
         $('.devolverRecurso').click(function(){
             var id = $(this).attr('idRecurso');
             $("#alerta").dialog("destroy");
-            $("#alerta").html('Deseja realmente devolver o recurso para uma nova An&aacute;lise?');
+            $("#alerta").html('Deseja realmente devolver o recurso para uma nova Análise?');
             $("#alerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -88,7 +88,7 @@
 
             } else {
                 $("#alerta").dialog("destroy");
-                $("#alerta").html('Deseja realmente enviar o recurso para a An&aacute;lise da CNIC?<br /><br />Ao enviar o recurso ser&aacute; removido do seu painel.');
+                $("#alerta").html('Deseja realmente enviar o recurso para a Análise da CNIC?<br /><br />Ao enviar o recurso será removido do seu painel.');
                 $("#alerta").dialog({
                     resizable: false,
                     title: 'Alerta!',
@@ -133,26 +133,26 @@
     });
 </script>
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta"></div>
 
 <div id="breadcrumb">
     <ul>
-        <li class="first">IN&iacute;CIO</li>
+        <li class="first">INÍCIO</li>
         <li>Recurso</li>
-        <li class="last"><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An&aacute;lise'; ?></li>
+        <li class="last"><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando Análise'; ?></li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
-    <div><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An&aacute;lise'; ?></div>
+    <div><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando Análise'; ?></div>
 </div>
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <form name="formPesquisa" id="formPesquisa" action="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'index'));?>" method="get">
         <table class="tabela">
@@ -170,8 +170,8 @@
                 <td class="destacar bold" width="60">Situa&ccedil;&atilde;o</td>
                 <td width="200">
                     <select name="tipoFiltro" style="width: 160px;" class="input_simples comboFiltro">
-                        <option value="">Aguardando An&aacute;lise</option>
-                        <option value="emanalise" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='emanalise')?'selected="selected"':''; ?>>Em An&aacute;lise</option>
+                        <option value="">Aguardando Análise</option>
+                        <option value="emanalise" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='emanalise')?'selected="selected"':''; ?>>Em Análise</option>
                         <option value="analisados" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='analisados')?'selected="selected"':''; ?>>Analisados</option>
                         <option value="analisados_cnic" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro']=='analisados_cnic')?'selected="selected"':''; ?>>Analisados CNIC</option>
                     </select>
@@ -209,12 +209,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac; ?>'">
                     <?php } ?>
-                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -274,7 +274,7 @@
                 <?php } ?>
 
                 <?php if($this->filtro == 'analisados' || $this->filtro == 'analisados_cnic'){ ?>
-                <th>Devolver para An&aacute;lise</th>
+                <th>Devolver para Análise</th>
                 <?php } ?>
             </tr>
         </thead>
@@ -304,7 +304,7 @@
                     <?php
                         switch ($d->siRecurso) {
                             case 3:
-                                echo 'Encaminhado do MinC para a  Unidade de An&aacute;lise';
+                                echo 'Encaminhado do MinC para a  Unidade de Análise';
                                 break;
                             case 4:
                                 echo 'Encaminhado para Parecerista /  T�cnico';
@@ -332,7 +332,7 @@
                         <option value="<?php echo $conselheiro->id; ?>"><?php echo $conselheiro->nome; ?></option>
                         <?php } ?>
                     </select>
-                    <?php } else { echo 'Em An&aacute;lise na CNIC'; } ?>
+                    <?php } else { echo 'Em Análise na CNIC'; } ?>
                 </td>
                 <?php } ?>
 
@@ -395,12 +395,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'index')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac; ?>'">
                         <?php } ?>
-                        P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -483,7 +483,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold" width="130px;">Destinat&aacute;rio:</td>
+                <td class="destacar bold" width="130px;">Destinatário:</td>
                 <td>
                     <select name="destinatario" id="destinatario" class="select_simples" disabled="disabled" style="width:100%;"></select>
                 </td>
@@ -493,7 +493,7 @@
 </div>
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />

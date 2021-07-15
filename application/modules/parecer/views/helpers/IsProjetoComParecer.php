@@ -6,7 +6,7 @@
 class Zend_View_Helper_IsProjetoComParecer
 {
     /**
-     * M&eacute;todo para verificar se o projeto tem parecer
+     * Método para verificar se o projeto tem parecer
      * @access public
      * @param integer $idPronac
      * @return string

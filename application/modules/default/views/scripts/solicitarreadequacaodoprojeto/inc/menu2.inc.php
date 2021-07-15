@@ -1,4 +1,4 @@
-<!-- ========== IN&iacute;CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
  <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
@@ -6,12 +6,12 @@
 } ?>Tem certeza que deseja Enviar e Finalizar?</div>
  <div style="display:none" id="validarPlan">Antes de enviar a Solicitação � necess�rio cadastrar os Itens de Custos para os Produtos sem planilha or�ament�ria!</div>
  <div style="display:none" id="dialog-alerta">Solicitação realizada com sucesso!</div>
- <div style="display:none" id="dialog-em-analise">H� pedido de readequa��o em An&aacute;lise. Favor aguardar.</div>
+ <div style="display:none" id="dialog-em-analise">H� pedido de readequa��o em Análise. Favor aguardar.</div>
 
-    <!-- IN&iacute;CIO: CONTE&uacute;DO principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
 
-        <!-- IN&iacute;CIO: navega��o local #qm0 -->
+        <!-- INÍCIO: navega��o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {

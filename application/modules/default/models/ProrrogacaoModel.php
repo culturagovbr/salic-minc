@@ -145,7 +145,7 @@ class ProrrogacaoModel implements ModelInterface
      * @param type $logon
      * @param type $dataInicial
      * @param type $dataFinal
-     * @param datetime $opcaoDeferimento Decide se vai deferir enviando para An&aacute;lise do coordenador
+     * @param datetime $opcaoDeferimento Decide se vai deferir enviando para Análise do coordenador
      * ou diretamente para o publica��o do di�rio oficial
      * @throws InvalidArgumentException
      */
@@ -198,7 +198,7 @@ class ProrrogacaoModel implements ModelInterface
      * @param int $logon
      * @param datetime $dataInicial
      * @param datetime $dataFinal
-     * @param datetime $opcaoDeferimento Decide se vai deferir enviando para An&aacute;lise do coordenador
+     * @param datetime $opcaoDeferimento Decide se vai deferir enviando para Análise do coordenador
      * ou diretamente para o publica��o do di�rio oficial
      * @throws InvalidArgumentException
      */

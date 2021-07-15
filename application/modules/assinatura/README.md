@@ -1,4 +1,4 @@
-M&oacute;dulo de Assinatura
+Módulo de Assinatura
 =========================
 
 #### Sobre
@@ -19,14 +19,14 @@ Nesta tabela &eacute; poss&iacute;vel identificar informa&ccedil;&otilde;es tais
 
 Um exemplo pr&aacute;tico podemos levantar a seguinte situal&ccedil;&atilde;o para o enquadramento, quando o usu&aacute;rio com perfil Coordenador Geral assinar, caso o projeto seja movimentado, a pr&oacute;xima assinatura deve ser do Secret&aacute;rio.
 
-Na tabela "TbAssinatura" do schema "sac", quando o Projeto Cultural possui todas as assinaturas de acordo com a tabela "TbAtoAdministrativo" &eacute; poss&iacute;vel finalizar a assinatura.
+Na tabela "TbAssinatura" do schema "sac", quando o Projeto Cultural possui todas as assinaturas de acordo com a tabela "TbAtoAdministrativo" é possível finalizar a assinatura.
 
-O processo de finalização da assinatura &eacute; particular para cada m&oacute;dulo e não fica dentro deste m&oacute;dulo, pois cada m&oacute;dulo apresenta necessidades diferentes tanto para alteração de situações quanto para o acionamento de outras funcionalidades dentro do sistema.
-Portanto cada m&oacute;dulo que necessitar desta funcionalidade precisa implementa-lo de acordo com a necessidade fora deste m&oacute;dulo.
+O processo de finalização da assinatura é particular para cada módulo e não fica dentro deste módulo, pois cada módulo apresenta necessidades diferentes tanto para alteração de situações quanto para o acionamento de outras funcionalidades dentro do sistema.
+Portanto cada módulo que necessitar desta funcionalidade precisa implementa-lo de acordo com a necessidade fora deste módulo.
 
 #### Gestão de Atos Administrativos
 
-O Workflow do m&oacute;dulo depente de atos admnistrativos que são armazenados na tabela tbAtoAdministrativo.
+O Workflow do módulo depente de atos admnistrativos que são armazenados na tabela tbAtoAdministrativo.
 
 Cada Ato Administrativo possui ligação como :
  * Tipo do Ato Administrativo
@@ -40,7 +40,7 @@ Para gerir os itens mencionados acima de um Ato Administrativo basta acessar com
 
 #### Dependências
 
-Este m&oacute;dulo depende da library 'MinC_Assinatura_Assinatura' e utiliza serviços como:
+Este módulo depende da library 'MinC_Assinatura_Assinatura' e utiliza serviços como:
   * MinC_Assinatura_Servico_Assinatura
   * MinC_Assinatura_Servico_Autenticacao
   * MinC_Assinatura_Servico_DocumentoAssinatura

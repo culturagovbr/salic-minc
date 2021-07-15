@@ -257,7 +257,7 @@ if ($menu != 0) {
 
                 <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))) {
         ?>
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'areasegmento'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar &aacute;rea/segmento">&aacute;rea / Segmento</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'areasegmento'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar Área/segmento">Área / Segmento</a>
                 <?php
     } ?>
 

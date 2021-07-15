@@ -3,11 +3,11 @@
 class Zend_View_Helper_ContadorTextarea
 {
     /**
-     * M&eacute;todo com os parametros com contador
+     * Método com os parametros com contador
      * @access public
      * @param string $campo (campo textarea)
      * @param string $contador (campo que exibe a quantidade de caracteres restantes)
-     * @param integer $limite (quantidade m&aacute;xima de caracteres)
+     * @param integer $limite (quantidade máxima de caracteres)
      * @return string $eventos
      */
     public function contadorTextarea($campo, $contador, $limite)

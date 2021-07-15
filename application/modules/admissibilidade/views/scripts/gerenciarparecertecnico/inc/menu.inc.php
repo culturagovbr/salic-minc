@@ -1,4 +1,4 @@
-<!-- ========== IN&iacute;CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
@@ -14,10 +14,10 @@
         });
     </script>
 
-    <!-- IN&iacute;CIO: CONTE&uacute;DO principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
 
-        <!-- IN&iacute;CIO: navega��o local #qm0 -->
+        <!-- INÍCIO: navega��o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {
@@ -42,8 +42,8 @@
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
                 <a class="no_seta" href='<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'imprimiretiqueta')); ?>'>Imprimir Etiqueta</a>
-				<a class="no_seta" href='<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'imprimirparecertecnico')); ?>'>Imprimir Parecer T&eacute;cnico</a>
-				<a class="no_seta" href='<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'parecertecnico')); ?>'>Parecer T&eacute;cnico</a>
+				<a class="no_seta" href='<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'imprimirparecertecnico')); ?>'>Imprimir Parecer Técnico</a>
+				<a class="no_seta" href='<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'parecertecnico')); ?>'>Parecer Técnico</a>
             </div>
             <div class="bottom">
             </div>

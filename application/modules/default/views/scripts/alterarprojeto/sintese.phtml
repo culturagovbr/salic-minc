@@ -6,17 +6,17 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright (c) 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright (c) 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 ?>
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">IN&iacute;CIO</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">INÍCIO</a></li>
         <li class="second"><a href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'consultarprojeto')); ?>" title="Ir para alterar projeto">Alterar projeto</a></li>
         <li class="last">Alterar s�ntese do projeto</li>
     </ul>
@@ -38,11 +38,11 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
             // Define as regras
             rules:{
                 sinteseProjeto:{
-                    // campoNome ser&aacute; obrigat�rio (required) e ter� tamanho m�nimo (minLength)
+                    // campoNome será obrigat�rio (required) e ter� tamanho m�nimo (minLength)
                     required: true
                 },
                 justificativa:{
-                    // campoEmail ser&aacute; obrigat�rio (required) e precisar� ser um e-mail v�lido (email)
+                    // campoEmail será obrigat�rio (required) e precisar� ser um e-mail v�lido (email)
                     required: true
                 }
             },
@@ -158,9 +158,9 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
     </form>
 </div>
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />
 <iframe name="enviar_arquivo" id="enviar_arquivo" style="height: 20px; display: none;"></iframe>

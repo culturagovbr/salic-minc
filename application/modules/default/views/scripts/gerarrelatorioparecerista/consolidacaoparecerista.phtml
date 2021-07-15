@@ -5,13 +5,13 @@ $resconsolidacaopareceristaHref = $this->url(array('controller' => 'gerarrelator
 include_once 'inc/funcoes.inc.php';
 ?>
 <div id="menu">
-    <!-- IN&iacute;CIO: CONTE&uacute;DO principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
         <?php echo $this->partial('gerarrelatorioparecerista/inc/menu.inc.php', $this);?>
-        <!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+        <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
             <ul>
-                <li class="first"><a href="index.phtml" title="Ir para IN&iacute;CIO">In&iacute;cio</a></li>
+                <li class="first"><a href="index.phtml" title="Ir para INÍCIO">In&iacute;cio</a></li>
 
                 <li class="last">Principal</li>
             </ul>
@@ -72,7 +72,7 @@ include_once 'inc/funcoes.inc.php';
                         </td>
                     </tr>
                     <tr>
-                        <td>&aacute;rea</td>
+                        <td>Área</td>
                         <td>
 	                        <select name="Area" id="Area" onchange="carregar_combo(this.value, 'Seguimento', '<?php echo $this->url(array('controller' => 'segmentocultural', 'action' => 'combo')); ?>', ' - Selecione uma �rea Cultural - ')" class="input_simples" style="width: 200px;">
 
@@ -94,7 +94,7 @@ include_once 'inc/funcoes.inc.php';
                             <select name="Seguimento" id="Seguimento"  class="input_simples" style="width: 200px;">
 
 								<?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
-								<option value="0"> - Selecione uma &aacute;rea Cultural - </option>
+								<option value="0"> - Selecione uma Área Cultural - </option>
 								<?php } else { ?>
 
 									<?php if (!isset($this->segmentoCultural) || empty($this->segmentoCultural)) { ?>
@@ -137,10 +137,10 @@ include_once 'inc/funcoes.inc.php';
                 </table>
             </form>
         </div>
-        <!-- ========== FIM CONTE&uacute;DO ========== -->
-        <!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+        <!-- ========== FIM CONTEÚDO ========== -->
+        <!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
         <div id="rodapeConteudo"><span></span></div>
-        <!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+        <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
         <br clear="all" />
     </div>

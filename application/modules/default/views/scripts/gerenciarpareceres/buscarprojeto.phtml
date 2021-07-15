@@ -33,11 +33,11 @@ function modoconsulta(campo,valor)
 }
 </script>
 <?php //echo $this->partial('inc/menu.inc.php', $this) // menu ?>
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres T&eacute;cnicos</a></li>
+		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Gerenciar Pareceres Técnicos</a></li>
 		<li class="last">Localizar Pareceres</li>
 	</ul>
 </div>
@@ -45,7 +45,7 @@ function modoconsulta(campo,valor)
 
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
 	<div>Localizar Pareceres<span class="voltar"><a href="#" onclick="window.location='<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index'),'',true); ?>'">Voltar</a></span></div>
 </div>
@@ -53,7 +53,7 @@ function modoconsulta(campo,valor)
 
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 
 <form action="<?php echo $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'index')); ?>" method="post">
@@ -68,7 +68,7 @@ function modoconsulta(campo,valor)
 		<td>Nome do Projeto</td>
 		<td align="center">
 			<select name="nometc" style="width: 200px;" class="input_simples">
-				<option value="1">IN&iacute;CIO igual</option>
+				<option value="1">INÍCIO igual</option>
 				<option value="2">Que contenha</option>
 				<option value="3">Diferente</option>
 			</select>
@@ -79,7 +79,7 @@ function modoconsulta(campo,valor)
 		<td>Nome do Proponente</td>
 		<td align="center">
 			<select name="tipoPesqPronente" style="width: 200px;" class="input_simples">
-				<option value="1">IN&iacute;CIO igual</option>
+				<option value="1">INÍCIO igual</option>
 				<option value="2">Que contenha</option>
 				<option value="3">Diferente</option>
 			</select>
@@ -111,7 +111,7 @@ function modoconsulta(campo,valor)
 			<select name="situacao" style="width: 400px;" class="input_simples" onchange="modoconsulta('dtDocumento',this.value);">
 				<option value="">Selecione</option>
 				<option value="C09">Projeto fora da pauta - Proponente inabilitado</option>
-				<option value="C20">An&aacute;lise T&eacute;cnica conclu�da</option>
+				<option value="C20">Análise Técnica conclu�da</option>
 				<option value="C25">Parecer t�cnico desfavor�vel</option>
 			</select>
 		</td>
@@ -129,12 +129,12 @@ function modoconsulta(campo,valor)
 
 
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

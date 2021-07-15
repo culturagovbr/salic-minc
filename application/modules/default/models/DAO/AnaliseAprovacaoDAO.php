@@ -1,5 +1,5 @@
 <?php
-/* DAO An&aacute;lise Aprovacao
+/* DAO Análise Aprovacao
  * @author Equipe RUP - Politec
  * @since 02/06/2010
  * @version 1.0
@@ -19,7 +19,7 @@ class AnaliseAprovacaoDAO extends Zend_Db_Table
 
 
     /**
-     * M�todo para alterar os dados da An&aacute;lise de CONTE&uacute;DO na planilha do conselheiro/ministro
+     * M�todo para alterar os dados da Análise de CONTEÚDO na planilha do conselheiro/ministro
      * @access public
      * @static
      * @param array $dados

@@ -2461,12 +2461,12 @@ class CadastrareditalController extends MinC_Controller_Action_Abstract
             $dadosEdital = ManterAvaliadorDAO::listarEditaisAvaliador(); //BUSCA DA MODAL EDITAIS
             $this->view->dadosEditalAvaliador = $dadosEdital;
 
-            // ========== IN&iacute;CIO PAGINAÇÂO ==========
+            // ========== INÍCIO PAGINAÇÂO ==========
             Zend_Paginator::setDefaultScrollingStyle('Sliding');
             Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
             $paginator = Zend_Paginator::factory($dadosEdital); // dados a serem paginados
 
-            // p&aacute;gina atual e quantidade de �tens por p&aacute;gina
+            // página atual e quantidade de �tens por página
             $currentPage = $this->_getParam('page', 1);
             $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(5);
             $this->view->dadosEditalAvaliador = $paginator;

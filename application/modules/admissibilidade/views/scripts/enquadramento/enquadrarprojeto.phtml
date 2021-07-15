@@ -40,13 +40,13 @@
                                         value="<?php echo $key; ?>" <?php if ($this->projeto['Area'] == $key) echo "selected=\"selected\""; ?>><?php echo $value; ?></option>
                                 <?php } ?>
                             </select>
-                            <label>&aacute;rea Cultural</label>
+                            <label>Área Cultural</label>
                             &nbsp; <span id="erroAreaCultural" class="spanError"></span>
                         </div>
                         <div class="input-field col s12 m6">
                             <select name="segmentoCultural" id="segmentoCultural">
                                 <?php if (!isset($this->projeto['Area']) || empty($this->projeto['Area'])) { ?>
-                                    <option value=""> - Selecione uma &aacute;rea Cultural -</option>
+                                    <option value=""> - Selecione uma Área Cultural -</option>
                                 <?php } else { ?>
 
                                     <?php if (!isset($this->projeto['Segmento']) || empty($this->projeto['Segmento'])) { ?>

@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto est&aacute; dispon&iacute;vel para encaminhamento
+ * Helper para verificar se projeto está disponível para encaminhamento
  */
 
 class Zend_View_Helper_DisponivelEncaminharAnalise
 {
     /**
-     * M&eacute;todo para verificar se o projeto est&aacute; dispon&iacute;vel para assinatura
+     * Método para verificar se o projeto está disponível para assinatura
      * @access public
      * @param integer $idPerfil
      * @param integer $idVinculada

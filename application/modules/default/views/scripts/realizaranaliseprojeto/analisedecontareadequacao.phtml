@@ -1,18 +1,18 @@
 <?php
 /**
- * An&aacute;lise de Cortes Sugeridos
+ * Análise de Cortes Sugeridos
  * @author Equipe RUP - Politec
  * @since 07/06/2010
  * @version 1.0
  * @package application
  * @subpackage application.controller.realizaranaliseprojeto
  * @link http://www.cultura.gov.br
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  */
 echo $this->partial('inc/menu.inc.php', $this) // menu
 ?>
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -24,7 +24,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>An&aacute;lise de Cortes Sugeridos <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span></div>
 </div>
@@ -32,7 +32,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 
 
@@ -155,7 +155,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
             <div>Os campos ter&atilde;o seus valores redefinidos!</div>
         </div>
     </div>
-    <!-- ========== IN&iacute;CIO T�TULO p&aacute;gina ========== -->
+    <!-- ========== INÍCIO T�TULO página ========== -->
     <table class="tabela">
 
         <tr>
@@ -166,11 +166,11 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
         </tr>
 
     </table>
-    <!-- ========== FIM T�TULO p&aacute;gina ========== -->
+    <!-- ========== FIM T�TULO página ========== -->
 
 
 
-    <!-- ========== IN&iacute;CIO TABELA DE CORTES SUGERIDOS ========== -->
+    <!-- ========== INÍCIO TABELA DE CORTES SUGERIDOS ========== -->
     <table class="tabela">
         <tr>
             <th colspan="8" align="center">Cortes Sugeridos</th>
@@ -178,7 +178,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-        <!-- ========== IN&iacute;CIO ITEM REDUZIDO ========== -->
+        <!-- ========== INÍCIO ITEM REDUZIDO ========== -->
         <?php
         if (count($this->itemReduzido) == 0) {
             echo "<tr>";
@@ -204,8 +204,8 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
             </tr>
 
             <?php
-            $totalValRed = (float) 0; // valor total da p&aacute;gina
-            $totalItensRed = (int) 0; // total itens da p&aacute;gina
+            $totalValRed = (float) 0; // valor total da página
+            $totalItensRed = (int) 0; // total itens da página
             // caso tenha projetos
             if (count($this->analiseReduzido) > 0) {
                 foreach ($this->analiseReduzido as $resposta) :
@@ -404,7 +404,7 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 
 
 
-            <!-- ========== IN&iacute;CIO ITEM RETIRADO ========== -->
+            <!-- ========== INÍCIO ITEM RETIRADO ========== -->
             <?php if ($this->itemRetirado) : ?>
                 <tr>
                     <td colspan="8">&nbsp;</td>
@@ -423,8 +423,8 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
                 </tr>
 
                 <?php
-                $totalValRet = (float) 0; // valor total da p&aacute;gina
-                $totalItensRet = (int) 0; // total itens da p&aacute;gina
+                $totalValRet = (float) 0; // valor total da página
+                $totalItensRet = (int) 0; // total itens da página
                 // caso tenha projetos
                 if (count($this->analiseRetirado) > 0) {
                     foreach ($this->analiseRetirado as $resposta) :
@@ -625,12 +625,12 @@ echo $this->partial('inc/menu.inc.php', $this) // menu
 <input id="valorpossivel" value="<?php echo $this->totalproponente - $this->totalcomponente;?>" type="hidden"/>
 
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

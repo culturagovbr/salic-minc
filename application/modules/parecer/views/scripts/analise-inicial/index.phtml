@@ -245,7 +245,7 @@
                                     <?php endif; ?>
 
                                     <?php if (($d->stPrincipal == 0) && ($isProdutosPendentesParecer == 0) && ($dilig == 0)): ?>
-                                        <?php /* fechamento do produto secund&aacute;rio */ ?>
+                                        <?php /* fechamento do produto secundário */ ?>
                                         <?php $parametrosAssinatura = "?idPronac=" . $d->IdPRONAC . "&idProduto=" . $d->idProduto . "&situacao=" . $d->situacao . "&idD=" . $d->idDistribuirParecer . "&stPrincipal=" . $d->stPrincipal . "&concluir=1"; ?>
                                         <a class="btn waves-effect waves-light tooltipped small btn cyan modal-trigger"
                                            href="#modalConfirmacao"

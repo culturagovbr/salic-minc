@@ -1,7 +1,7 @@
 <script type="text/javascript">
     function retirarAcento(text) {
         var varString = text;
-        var stringAcentos = new String('àâêôûãõ&aacute;&eacute;&iacute;&oacute;&uacute;çüÀÂÊÔÛÃÕ&aacute;&eacute;&iacute;&oacute;&uacute;ÇÜ');
+        var stringAcentos = new String('àâêôûãõáéíóúçüÀÂÊÔÛÃÕÁÉÍÓÚÇÜ');
         var stringSemAcento = new String('aaeouaoaeioucuAAEOUAOAEIOUCU');
 
         var i = new Number();
@@ -201,7 +201,7 @@
 </script>
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para P&aacute;gina Inicial">In&iacute;cio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para Página Inicial">In&iacute;cio</a></li>
         <li><a href="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'projeto'), '', true); ?>" title="Ir para Relatorio">Gerar Relat&oacute;rio An&aacute;lise</a></li>
         <li class="last">Projeto</li>
     </ul>
@@ -241,7 +241,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="120" class="destacar bold">&aacute;rea</td>
+                    <td width="120" class="destacar bold">Área</td>
                     <td align="left" colspan="2">
                         <select class="select_simples w200 cmpDesabilitar" name="area" id="area">
                             <option value="">Todos</option>

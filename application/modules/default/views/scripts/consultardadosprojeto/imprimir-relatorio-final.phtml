@@ -98,7 +98,7 @@
 <div class="paginaA4">
 
     <div align="center">
-        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Minist&eacute;rio da TURISMO"/>
+        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério da TURISMO"/>
         <br clear="all" /><span class="TituloMinC">Minist&eacute;rio da TURISMO</span>
         <br clear="all" /><span class="QntdRegistros">PRONAC: <?php echo empty($this->DadosProjeto->pronac) ? '<em>Dados n&atilde;o informados!</em>' : $this->DadosProjeto->pronac; ?> - <?php echo empty($this->DadosProjeto->NomeProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->DadosProjeto->NomeProjeto; ?></span>
         <br clear="all" /><span class="QntdRegistros">Proponente: <?php echo empty($this->DadosProjeto->NomeProponente) ? '<em>Dados n&atilde;o informados!</em>' : $this->DadosProjeto->NomeProponente; ?></span>
@@ -459,7 +459,7 @@
         </tr>
         <?php foreach ($this->BensCadastrados as $bens) { ?>
         <tr>
-            <td><?php echo ($bens->tpBem == 'M') ? 'M&oacute;vel' : 'Im&oacute;vel'; ?></td>
+            <td><?php echo ($bens->tpBem == 'M') ? 'Móvel' : 'Imóvel'; ?></td>
             <td><?php echo $bens->ItemOrcamentario; ?></td>
             <td align="center"><?php echo (strlen($bens->CNPJCPF) == 11) ? Mascara::addMaskCPF($bens->CNPJCPF) : Mascara::addMaskCNPJ($bens->CNPJCPF); ?></td>
             <td><?php echo $bens->NomeAgente; ?></td>

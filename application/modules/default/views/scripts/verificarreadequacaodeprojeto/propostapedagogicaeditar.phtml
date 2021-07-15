@@ -43,7 +43,7 @@
         <!-- FIM DO MODAL DILIGENCIAR -->
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <form name="formfinalizar"  id="formfinalizar" action="<?php echo $this->url(array('controller' => 'verificarreadequacaodeprojeto', 'action' => 'finalizaproppedag')); ?>" method="post" >
 <div id="titulo">
     <div>READEQUA��O: PROPOSTA PEDAG�GICA
@@ -57,12 +57,12 @@
                 $dados = (object) $dados;
                 if ($dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stProposta('.$this->dados[0]['idAvaliacao']. ','. $this->dados[0]['IdPRONAC']. ',this)">';
-                    echo "<option value='0' selected='selected'>Aguardando An&aacute;lise</option>
-                          <option value='1'>Em An&aacute;lise</option>";
+                    echo "<option value='0' selected='selected'>Aguardando Análise</option>
+                          <option value='1'>Em Análise</option>";
                     echo '</select>';
                 } else if ($dados->stAvaliacaoItemPedidoAlteracao == "EA") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar()">';
-                    echo "<option value='1' selected='selected'>Em An&aacute;lise</option>
+                    echo "<option value='1' selected='selected'>Em Análise</option>
                           <option value='2'>Aprovado</option>
                           <option value='3'>Indeferido</option>";
                     echo '</select>';
@@ -76,7 +76,7 @@
         {
             if( $("#editor1").val() == '' && $("#editor2").val() == ''){
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('Favor preencher os campos relacionados a An&aacute;lise da Proposta de Readequa�&atilde;o.');
+                    $('#mostra').html('Favor preencher os campos relacionados a Análise da Proposta de Readequa�&atilde;o.');
                     $("#mostra").dialog
                     ({
                         height: 180,
@@ -98,7 +98,7 @@
                 } else {
 
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('O projeto ser&aacute; finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
+                    $('#mostra').html('O projeto será finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
                     $("#mostra").dialog
                     ({
                         height: 220,
@@ -163,7 +163,7 @@
                 <th colspan="2">CURSOS APROVADOS</th>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">ESPECIFICA��O T&eacute;cnica</td>
+                <td colspan="2" class="destacar bold">ESPECIFICA��O Técnica</td>
             </tr>
             <tr>
                 <td colspan="2"><center><textarea name="especificacaoAprovada" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo empty($dados->EspecificacaoTecnica) ? strip_tags("Não Aplic�vel") : strip_tags($dados->EspecificacaoTecnica); ?></textarea></center></td>
@@ -178,7 +178,7 @@
                 <th colspan="2">SOLICITADO PELO PROPONENTE</th>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">NOVA ESPECIFICA��O T&eacute;cnica</td>
+                <td colspan="2" class="destacar bold">NOVA ESPECIFICA��O Técnica</td>
             </tr>
             <tr>
                 <td colspan="2"><center><textarea name="especificacaoSolicitada" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo strip_tags($dados->dsEspecificacaoTecnica); ?></textarea></center></td>
@@ -199,10 +199,10 @@
 
             <?php if ($dados->stAvaliacaoItemPedidoAlteracao != "AG") { ?>
             <tr>
-                <th colspan="2">An&aacute;lise DA PROPOSTA DE READEQUA��O</th>
+                <th colspan="2">Análise DA PROPOSTA DE READEQUA��O</th>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">An&aacute;lise T&eacute;cnica DA Solicitação</td>
+                <td colspan="2" class="destacar bold">Análise Técnica DA Solicitação</td>
             </tr>
             <tr>
                 <td colspan="2"><center><textarea name="justificativaTecnico" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100"></textarea></center></td>
@@ -224,7 +224,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="destacar bold">An&aacute;lise DA ESPECIFICA��O T&eacute;cnica</td>
+                <td colspan="2" class="destacar bold">Análise DA ESPECIFICA��O Técnica</td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -269,7 +269,7 @@
 
 <?php } else { ?>
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>READEQUA��O: PROPOSTA PEDAG�GICA
         <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
@@ -282,8 +282,8 @@
 
 <?php } ?>
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

@@ -44,7 +44,7 @@
                             <label for="visao"> </label>
                             <select class="select w300 browser-default" name="visao[]" id="visao" multiple="multiple" size="7">
                                 <?php foreach ($this->visao as $visao) : ?>
-                                    <?php if (!in_array($visao['idVerificacao'], $arrayIdVisao)) : // s&oacute; mostra as visoes que o agente NAO possui ?>
+                                    <?php if (!in_array($visao['idVerificacao'], $arrayIdVisao)) : // só mostra as visoes que o agente NAO possui ?>
                                         <option
                                             value="<?php echo $visao['idVerificacao']; ?>"><?php echo $visao['Descricao']; ?></option>
                                     <?php endif; ?>

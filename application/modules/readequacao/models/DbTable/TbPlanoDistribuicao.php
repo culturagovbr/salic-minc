@@ -424,8 +424,8 @@ class Readequacao_Model_DbTable_TbPlanoDistribuicao extends MinC_Db_Table_Abstra
             new Zend_Db_Expr('COALESCE(sum(qtPopularIntegral), 0) as qtdeVendaPopularNormal'),
             new Zend_Db_Expr('COALESCE(sum(qtPopularParcial), 0) as qtdeVendaPopularPromocional'),
             new Zend_Db_Expr('COALESCE(avg(vlUnitarioPopularIntegral), 0) as vlUnitarioPopularNormal'),
-            new Zend_Db_Expr('COALESCE(sum(vlReceitaPopularIntegral + vlReceitaPopularParcial) / nullif((sum(qtPopularIntegral + qtPopularParcial)), 0), 0) AS receitaPopularNormal'), #valor m&eacute;dio ponderado do preco popular
-            new Zend_Db_Expr('COALESCE(sum(vlReceitaProponenteIntegral + vlReceitaProponenteParcial) / nullif((sum(qtProponenteIntegral + qtProponenteParcial)), 0), 0) AS precoUnitarioNormal'), # valor m&eacute;dio ponderado do proponente
+            new Zend_Db_Expr('COALESCE(sum(vlReceitaPopularIntegral + vlReceitaPopularParcial) / nullif((sum(qtPopularIntegral + qtPopularParcial)), 0), 0) AS receitaPopularNormal'), #valor médio ponderado do preco popular
+            new Zend_Db_Expr('COALESCE(sum(vlReceitaProponenteIntegral + vlReceitaProponenteParcial) / nullif((sum(qtProponenteIntegral + qtProponenteParcial)), 0), 0) AS precoUnitarioNormal'), # valor médio ponderado do proponente
             new Zend_Db_Expr('COALESCE(sum(qtProponenteIntegral), 0) as qtVendaNormal'),
             new Zend_Db_Expr('COALESCE(sum(qtProponenteParcial), 0) as qtVendaPromocional'),
             new Zend_Db_Expr('COALESCE(avg(vlUnitarioProponenteIntegral),0) as vlUnitarioNormal'),

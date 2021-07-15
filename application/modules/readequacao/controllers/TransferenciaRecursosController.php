@@ -197,7 +197,7 @@ class Readequacao_TransferenciaRecursosController extends Readequacao_GenericCon
             ]);
         } catch (Exception $objException) {
             $this->_helper->json([
-                'msg' => 'Não h&aacute; projetos dispon&iacute;veis para o pronac fornecido.',
+                'msg' => 'Não há projetos disponíveis para o pronac fornecido.',
                 'error' => $objException->getMessage()
             ]);
         }
@@ -314,7 +314,7 @@ class Readequacao_TransferenciaRecursosController extends Readequacao_GenericCon
         $this->_helper->layout->disableLayout();
 
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $idPronac = $this->_request->getParam("idPronac");
@@ -364,7 +364,7 @@ class Readequacao_TransferenciaRecursosController extends Readequacao_GenericCon
             $params = $this->getRequest()->getParams();
 
             if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!");
+                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!");
             }
 
             if (empty($this->idPronac)) {

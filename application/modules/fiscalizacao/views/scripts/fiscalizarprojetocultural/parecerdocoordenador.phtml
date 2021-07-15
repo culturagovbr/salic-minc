@@ -62,7 +62,7 @@ echo $this->partial("fiscalizarprojetocultural/inc/menu-suspenso.phtml", $this);
                         <td colspan="2"><?php echo $projeto->cidade; ?></td>
                     </tr>
                     <tr>
-                        <th colspan="2">&aacute;rea</th>
+                        <th colspan="2">Área</th>
                         <th colspan="2">Segmento</th>
                     </tr>
                     <tr>
@@ -793,7 +793,7 @@ echo $this->partial("fiscalizarprojetocultural/inc/menu-suspenso.phtml", $this);
 
                 <p align="center">
                     <input id="Aprovar" class="btn" type="button" value="Aprovar" style="margin-left: 5px;">
-                    <input id="DevolverTecnico" class="btn" type="submit" value="Devolver para T&eacute;cnico"
+                    <input id="DevolverTecnico" class="btn" type="submit" value="Devolver para Técnico"
                            style="margin-left: 5px;">
                     <input id="Salvar" class="btn_salvar" type="button" style="margin-left: 5px;">
                     <input id="Cancelar" class="btn_cancelar" type="button" style="margin-left: 5px;">
@@ -802,7 +802,7 @@ echo $this->partial("fiscalizarprojetocultural/inc/menu-suspenso.phtml", $this);
             </form>
         </div>
         <div id="rodapeConteudo"><span></span></div>
-        <!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+        <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
     </div>
     <br clear="all"/>
 </div>
@@ -877,7 +877,7 @@ echo $this->partial("fiscalizarprojetocultural/inc/menu-suspenso.phtml", $this);
                             preencheTextarea();
 
 
-                            if (validarFormulario('#formParecerCoordenador', 'Dados obrigat&oacute;rios n&atilde;o informados!')) {
+                            if (validarFormulario('#formParecerCoordenador', 'Dados obrigatórios n&atilde;o informados!')) {
                                 $('#formParecerCoordenador').submit();
                             }
                             $(this).dialog('close');
@@ -887,7 +887,7 @@ echo $this->partial("fiscalizarprojetocultural/inc/menu-suspenso.phtml", $this);
                 removerBtFechar: true,
                 title: 'Alerta'
             });
-            nomeJanelaAlerta.divConteudo.html(' sfdgfgh Deseja devolver para o T&eacute;cnico? <table><tr><th colspan="4">Justificativa:</th></tr><tr><td colspan="4"><textarea null="false" id="justTecnico" name="justTecnico" cols="1" rows="3" style="width: 80%;"><?php if (isset($relatorio->dsJustificativaDevolucao)) echo $relatorio->dsJustificativaDevolucao;?></textarea></td></tr></table>');
+            nomeJanelaAlerta.divConteudo.html(' sfdgfgh Deseja devolver para o Técnico? <table><tr><th colspan="4">Justificativa:</th></tr><tr><td colspan="4"><textarea null="false" id="justTecnico" name="justTecnico" cols="1" rows="3" style="width: 80%;"><?php if (isset($relatorio->dsJustificativaDevolucao)) echo $relatorio->dsJustificativaDevolucao;?></textarea></td></tr></table>');
             alert('aeaeaea');
             nomeJanelaAlerta.abrirJanela();
             return false;

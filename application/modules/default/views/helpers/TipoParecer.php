@@ -1,12 +1,12 @@
 <?php
 /**
- * Descrição dos tipos de parecer da An&aacute;lise do projeto
+ * Descrição dos tipos de parecer da Análise do projeto
  * @author Equipe RUP - Politec
  * @since 14/06/2010
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 

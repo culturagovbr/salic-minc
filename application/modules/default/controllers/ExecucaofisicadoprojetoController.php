@@ -10,7 +10,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
 
         parent::init();
     }
@@ -65,9 +65,9 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                         throw new Exception("Registro Não encontrado!");
                     }
                     // caso o PRONAC esteja cadastrado,
-                    // vai para a p&aacute;gina de busca dos documentos (comprovantes) do pronac
+                    // vai para a página de busca dos documentos (comprovantes) do pronac
                     else {
-                        // redireciona o pronac para a p&aacute;gina com seus documentos (comprovantes)
+                        // redireciona o pronac para a página com seus documentos (comprovantes)
                         $this->redirect("execucaofisicadoprojeto/buscardocumentos?pronac=" . $pronac);
                     }
                 } // fecha else
@@ -115,7 +115,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 if (!$resultPronac) {
                     throw new Exception("Registro Não encontrado!");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a p&aacute;gina de busca
+                // caso o PRONAC esteja cadastrado, vai para a página de busca
                 // dos seus documentos (comprovantes)
                 else {
                     // manda o pronac para a vis�o
@@ -152,13 +152,13 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                         endfor;
 
 
-                        // ========== IN&iacute;CIO PAGINAÇÂO ==========
+                        // ========== INÍCIO PAGINAÇÂO ==========
                         //criando a pagina�ao
                         Zend_Paginator::setDefaultScrollingStyle('Sliding');
                         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
                         $paginator = Zend_Paginator::factory($arrayComprovantes); // dados a serem paginados
 
-                        // p&aacute;gina atual e quantidade de �tens por p&aacute;gina
+                        // página atual e quantidade de �tens por página
                         $currentPage = $this->_getParam('page', 1);
                         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
                         // ========== FIM PAGINAÇÂO ==========
@@ -227,7 +227,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 if (!$resultado) {
                     parent::message("Registro Não encontrado!", "execucaofisicadoprojeto/buscarpronac", "ERROR");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a p&aacute;gina de busca
+                // caso o PRONAC esteja cadastrado, vai para a página de busca
                 else {
                     $this->view->buscarPronac = $resultado;
                 }
@@ -314,7 +314,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $this->view->descricao     = $descricao;
             }
         }
-        // quando a p&aacute;gina � aberta
+        // quando a página � aberta
         else {
             // recebe o pronac via get
             $get    = Zend_Registry::get('get');
@@ -334,7 +334,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     if (!$resultado) {
                         throw new Exception("Regisitro Não encontrado!");
                     }
-                    // caso o PRONAC esteja cadastrado, vai para a p&aacute;gina de busca
+                    // caso o PRONAC esteja cadastrado, vai para a página de busca
                     else {
                         $this->view->buscarPronac = $resultado;
                     }
@@ -401,7 +401,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 if (!$resultadoPronac || !$resultadoComprovante) {
                     parent::message("Registro Não encontrado!", "execucaofisicadoprojeto/buscarpronac", "ERROR");
                 }
-                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p&aacute;gina de busca
+                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                 else {
                     $this->view->buscarPronac = $resultadoPronac;
                     $this->view->buscarDoc    = $resultadoComprovante;
@@ -472,7 +472,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $this->view->descricao     = $descricao;
             }
         }
-        // quando a p&aacute;gina � aberta
+        // quando a página � aberta
         else {
             // recebe o pronac e comprovante via get
             $get    = Zend_Registry::get('get');
@@ -496,7 +496,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     if (!$resultadoPronac || !$resultadoComprovante) {
                         throw new Exception("Registro Não encontrado!");
                     }
-                    // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p&aacute;gina de busca
+                    // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                     else {
                         $this->view->buscarPronac = $resultadoPronac;
                         $this->view->buscarDoc    = $resultadoComprovante;
@@ -567,7 +567,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 if (!$resultadoPronac || !$resultadoComprovante) {
                     parent::message("Registro Não encontrado!", "execucaofisicadoprojeto/buscarpronac", "ERROR");
                 }
-                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p&aacute;gina de busca
+                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                 else {
                     $this->view->buscarPronac = $resultadoPronac;
                     $this->view->buscarDoc    = $resultadoComprovante;
@@ -597,7 +597,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 } elseif (!empty($arquivoTemp) && ArquivoDAO::verificarHash($arquivoHash)) { // hash do arquivo
                     throw new Exception("O arquivo enviado j� est� cadastrado na base de dados! Por favor, informe outro!");
                 }
-                // faz a inser&aacute;�o (substitui��o) no banco de dados
+                // faz a inserá�o (substitui��o) no banco de dados
                 else {
                     // cadastra o arquivo caso o mesmo tenha sido enviado
                     if (!empty($arquivoTemp)) {
@@ -675,7 +675,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $this->view->justificativaCoordenador = $justificativaCoordenador;
             }
         }
-        // quando a p&aacute;gina � aberta
+        // quando a página � aberta
         else {
             // recebe o pronac via get
             $get    = Zend_Registry::get('get');
@@ -699,7 +699,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                     if (!$resultadoPronac || !$resultadoComprovante) {
                         throw new Exception("Registro Não encontrado!");
                     }
-                    // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p&aacute;gina de busca
+                    // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                     else {
                         $this->view->buscarPronac = $resultadoPronac;
                         $this->view->buscarDoc    = $resultadoComprovante;
@@ -755,7 +755,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 if (!$resultadoPronac || !$resultadoComprovante) {
                     throw new Exception("Registro Não encontrado!");
                 }
-                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a p&aacute;gina de busca
+                // caso o PRONAC e o Comprovante estejam cadastrados, vai para a página de busca
                 else {
                     $this->view->buscarPronac = $resultadoPronac;
                     $this->view->buscarDoc    = $resultadoComprovante;
@@ -844,13 +844,13 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
         } // fecha else
 
 
-        // ========== IN&iacute;CIO PAGINAÇÂO ==========
+        // ========== INÍCIO PAGINAÇÂO ==========
         //criando a pagina�ao
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
         $paginator = Zend_Paginator::factory($resultado); // dados a serem paginados
 
-        // p&aacute;gina atual e quantidade de �tens por p&aacute;gina
+        // página atual e quantidade de �tens por página
         $currentPage = $this->_getParam('page', 1);
         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
         // ========== FIM PAGINAÇÂO ==========
@@ -902,7 +902,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 if (!$resultPronac) {
                     throw new Exception("Registro Não encontrado!");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a p&aacute;gina de busca
+                // caso o PRONAC esteja cadastrado, vai para a página de busca
                 // dos seus documentos (comprovantes)
                 else {
                     // manda o pronac para a vis�o
@@ -939,13 +939,13 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                         endfor;
 
 
-                        // ========== IN&iacute;CIO PAGINAÇÂO ==========
+                        // ========== INÍCIO PAGINAÇÂO ==========
                         //criando a pagina�ao
                         Zend_Paginator::setDefaultScrollingStyle('Sliding');
                         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
                         $paginator = Zend_Paginator::factory($arrayComprovantes); // dados a serem paginados
 
-                        // p&aacute;gina atual e quantidade de �tens por p&aacute;gina
+                        // página atual e quantidade de �tens por página
                         $currentPage = $this->_getParam('page', 1);
                         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
                         // ========== FIM PAGINAÇÂO ==========
@@ -1047,7 +1047,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 $this->view->parecer      = $parecer;
             }
         } // fecha if
-        // quando a p&aacute;gina � aberta
+        // quando a página � aberta
         else {
             // recebe os dados via get
             $get    = Zend_Registry::get("get");
@@ -1170,13 +1170,13 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
         } // fecha else
 
 
-        // ========== IN&iacute;CIO PAGINAÇÂO ==========
+        // ========== INÍCIO PAGINAÇÂO ==========
         //criando a pagina�ao
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
         $paginator = Zend_Paginator::factory($resultado); // dados a serem paginados
 
-        // p&aacute;gina atual e quantidade de �tens por p&aacute;gina
+        // página atual e quantidade de �tens por página
         $currentPage = $this->_getParam('page', 1);
         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
         // ========== FIM PAGINAÇÂO ==========
@@ -1228,7 +1228,7 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                 if (!$resultPronac) {
                     throw new Exception("Registro Não encontrado!");
                 }
-                // caso o PRONAC esteja cadastrado, vai para a p&aacute;gina de busca
+                // caso o PRONAC esteja cadastrado, vai para a página de busca
                 // dos seus documentos (comprovantes)
                 else {
                     // manda o pronac para a vis�o
@@ -1265,13 +1265,13 @@ class ExecucaofisicadoprojetoController extends MinC_Controller_Action_Abstract
                         endfor;
 
 
-                        // ========== IN&iacute;CIO PAGINAÇÂO ==========
+                        // ========== INÍCIO PAGINAÇÂO ==========
                         //criando a pagina�ao
                         Zend_Paginator::setDefaultScrollingStyle('Sliding');
                         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
                         $paginator = Zend_Paginator::factory($arrayComprovantes); // dados a serem paginados
 
-                        // p&aacute;gina atual e quantidade de �tens por p&aacute;gina
+                        // página atual e quantidade de �tens por página
                         $currentPage = $this->_getParam('page', 1);
                         $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(20);
                         // ========== FIM PAGINAÇÂO ==========

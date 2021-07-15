@@ -6,7 +6,7 @@ class Solicitacao_Model_SpSelecionarTecnicoSolicitacao extends MinC_Db_Table_Abs
     protected $_name = 'spSelecionarTecnicoSolicitacao';
 
     /**
-     * Busca o t&eacute;cnico respons&aacute;vel por analisar a solicitação de acordo com o projeto ou proposta
+     * Busca o técnico responsável por analisar a solicitação de acordo com o projeto ou proposta
      * @param $id - idPronac(projeto) ou idPreProjeto(proposta)
      * @param string $tipo aceita 'projeto ou proposta'
      * @retorno idOrgao, idPerfil, idTecnico

@@ -14,7 +14,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
     const TIPO_PLANILHA_SALDO_APLICACAO = 7;
 
     /**
-     * Retorna planilha orçament&aacute;ria
+     * Retorna planilha orçamentária
      *
      * @param integer $idPronac
      * @param integer $tipoPlanilha

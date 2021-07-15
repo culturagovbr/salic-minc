@@ -2,7 +2,7 @@
 class Zend_View_Helper_PrazoRespostaDiligencia
 {
     /**
-     * M&eacute;todo que retorna as informacoes sobre o prazo de resposta da diligencia, incluindo o icone que deve ser apresentado na tela
+     * Método que retorna as informacoes sobre o prazo de resposta da diligencia, incluindo o icone que deve ser apresentado na tela
      * @access public
      * @param integer $idPronac (id do Projeto que deseja saber informacoes sobre a diligencia)
      * @param integer $idTipoDiligencia (id do tipo de diligencia, cada modulo possui um codigo especifico)

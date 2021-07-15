@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se o item est&aacute; dispon&iacute;vel para edição no remanejamento
+ * Helper para verificar se o item está disponível para edição no remanejamento
  */
 
 class Zend_View_Helper_ItemDisponivelParaEdicaoRemanejamento extends Zend_View_Helper_Abstract
 {
     /**
-     * M&eacute;todo para verificar se o item est&aacute; dispon&iacute;vel para edição no remanejamento
+     * Método para verificar se o item está disponível para edição no remanejamento
      * @access public
      * @param array $planilha
      * @param integer $fonte

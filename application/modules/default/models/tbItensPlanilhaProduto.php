@@ -260,7 +260,7 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
     }
 
     /**
-     * M&eacute;todo que retorna uma lista de itens filtrados pela etapa, produto, munic&iacute;pio e projeto
+     * Método que retorna uma lista de itens filtrados pela etapa, produto, município e projeto
      *
      * @param integer $idEtapa
      * @param integer $idProduto

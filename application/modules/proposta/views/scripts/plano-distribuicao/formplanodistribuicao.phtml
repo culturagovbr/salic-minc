@@ -128,10 +128,10 @@
                 </td>
             </tr>
             <tr>
-                <td class="destacar bold" style="width: 1px;">&aacute;rea <span style="color: red;">*</span></td>
+                <td class="destacar bold" style="width: 1px;">Área <span style="color: red;">*</span></td>
                 <td>
                     <select class="input_simples obrigatorio" name="areaCultural" id="areaCultural">
-                        <option value=""> - Selecione uma &aacute;rea Cultural - </option>
+                        <option value=""> - Selecione uma Área Cultural - </option>
                         <?php foreach ($this->comboareasculturais as $comboareacultural): ?>
                             <option value="<?php echo $comboareacultural->id; ?>" <?php echo ($comboareacultural->id == $this->planoDistribuicao['Area']) ? " selected='selected'" : ""; ?>>
                                 <?php echo $comboareacultural->descricao; ?>

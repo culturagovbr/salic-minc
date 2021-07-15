@@ -85,7 +85,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
             . 'template'
         );
 
-        $view->titulo = 'Parecer T&eacute;cnico do Projeto';
+        $view->titulo = 'Parecer Técnico do Projeto';
         $view->IdPRONAC = $this->idPronac;
         $objPlanoDistribuicaoProduto = new \Projeto_Model_vwPlanoDeDistribuicaoProduto();
         $view->dadosProducaoProjeto = $objPlanoDistribuicaoProduto->obterProducaoProjeto(array(

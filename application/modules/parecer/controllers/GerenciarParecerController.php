@@ -255,11 +255,11 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                             if ($tipoFiltro == 'validados' || $tipoFiltro == 'devolvida') {
                                 $projeto->alterarSituacao($idPronac, null, 'C20', 'Anlise t&eacute;cnica conclu&iacute;da');
                             } elseif ($tipoFiltro == 'em_validacao') {
-                                $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer T&eacute;cnico');
+                                $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer Técnico');
                             }
                         } else {
                             // fora das unidades acima
-                            $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer T&eacute;cnico');
+                            $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer Técnico');
                         }
                     } else {
                         // inabilitado
@@ -411,7 +411,7 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                     // somente presidente
                     $projeto->alterarSituacao($idPronac, null, 'C20', 'An&aacute;lise t&eacute;cnica conclu&iacute;da');
                 } else {
-                    $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer T&eacute;cnico');
+                    $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer Técnico');
                 }
             } else {
                 // inabilitado

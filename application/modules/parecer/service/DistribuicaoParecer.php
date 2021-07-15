@@ -86,7 +86,7 @@ class DistribuicaoParecer implements \MinC\Servico\IServicoRestZend
             || empty($params['idPronac'])
             || empty($params['idProduto'])
         ) {
-            throw new \Exception("Dados obrigat&oacute;rios não informados");
+            throw new \Exception("Dados obrigatórios não informados");
         }
 
         $whereDistribuicaoAtual = ["idDistribuirParecer = ?" => $params['idDistribuirParecer']];

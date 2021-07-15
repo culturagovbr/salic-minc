@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se o projeto j&aacute; foi enquadrado
+ * Helper para verificar se o projeto já foi enquadrado
  */
 
 class Zend_View_Helper_IsProjetoEnquadrado
 {
     /**
-     * M&eacute;todo para verificar se o projeto j&aacute; foi enquadrado
+     * Método para verificar se o projeto já foi enquadrado
      * @access public
      * @param integer $idPronac
      * @return string

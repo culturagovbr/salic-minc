@@ -14,7 +14,7 @@ class VisualizarhistoricoController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
         $auth              = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario           = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo        = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -24,7 +24,7 @@ class VisualizarhistoricoController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo = array();
             //$PermissoesGrupo[] = 93;  // Coordenador de Parecerista
             //$PermissoesGrupo[] = 94;  // Parecerista
-            $PermissoesGrupo[] = 103; // Coordenador de An&aacute;lise
+            $PermissoesGrupo[] = 103; // Coordenador de Análise
             $PermissoesGrupo[] = 118; // Componente da comissão
             //$PermissoesGrupo[] = 119; // Presidente da Mesa
             //$PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
@@ -101,7 +101,7 @@ class VisualizarhistoricoController extends MinC_Controller_Action_Abstract
                 } elseif (empty($componenteComissao)) {
                     throw new Exception("Por favor, Selecione o Componente da comissão!");
                 } else {
-                    // realiza a inser&aacute;�o do hist�rico
+                    // realiza a inserá�o do hist�rico
                     $resultado = $mens->inserirMensagem($pronac, $componenteComissao, $mensagem);
                     if ($resultado) {
                         parent::message("Mensagem enviada com sucesso!", "visualizarhistorico/index?pronac=" . $pronac, "CONFIRM");

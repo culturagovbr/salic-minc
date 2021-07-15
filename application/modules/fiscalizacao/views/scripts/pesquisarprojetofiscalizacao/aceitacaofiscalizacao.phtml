@@ -46,7 +46,7 @@ gerarBreadCrumb($links);
 									<td><?php echo Validacao::mascaraCPFCNPJ($this->infoProjeto[0]->CgcCpf); ?></td>
 									<td><?php echo $this->infoProjeto[0]->nmAgente; ?></td>
 								</tr>
-									<th colspan="2">&aacute;rea</th>
+									<th colspan="2">Área</th>
 								</tr>
 								<tr>
 									<td colspan="2"><?php echo $this->infoProjeto[0]->dsArea; ?></td>
@@ -142,7 +142,7 @@ if ($this->infoProjeto[0]->dtFimFiscalizacaoProjeto != '') {
                                 </div>
 
                                 <div style="margin-top: 5px;">
-                                    <div style="float: left;width: 300px;">Identifica&ccedil;&atilde;o do T&eacute;cnico*</div>
+                                    <div style="float: left;width: 300px;">Identifica&ccedil;&atilde;o do Técnico*</div>
                                     <div style="float: left;width: 100%;margin-top: 5px;margin-left: 20px;">
                                         <div style="float: left;width: 180px;">CPF</div>
                                         <div style="float: left;"><?php echo Validacao::mascaraCPFCNPJ($this->infoProjeto[0]->cpfTecnico); ?></div>

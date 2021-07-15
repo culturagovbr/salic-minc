@@ -165,7 +165,7 @@
                         <?php if (($this->grupoativo == "120") || ($this->grupoativo == "97")) {
             ?>
                             <li>
-                                <a class="no_seta" href="<?php echo $this->url(array('module'=>'agente', 'controller' => 'agentes', 'action' => 'area-cultural', 'id' => $this->id), '', true); ?>" title="Ir para &aacute;rea Cultural">&aacute;rea Cultural</a>
+                                <a class="no_seta" href="<?php echo $this->url(array('module'=>'agente', 'controller' => 'agentes', 'action' => 'area-cultural', 'id' => $this->id), '', true); ?>" title="Ir para Área Cultural">Área Cultural</a>
                             </li>
                         <?php
         } ?>

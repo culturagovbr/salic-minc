@@ -368,7 +368,7 @@
 
     function JSFinalizarAnalise(idPronac,idAprovacao,grid){
 
-        $('#colunafinalizar'+idPronac).html('<center>Finalizando An&aacute;lise, aguarde...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
+        $('#colunafinalizar'+idPronac).html('<center>Finalizando Análise, aguarde...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
         $('#idpronac').val(idPronac);
         $('#idAprovacao').val(idAprovacao);
         $('#grid').val(grid);
@@ -377,7 +377,7 @@
         //CONFIRMACAO DA FINALIZACAO
         /*$('html').css('overflow', 'hidden');
         $("body").append("<div id='divDinamica'></div>");
-        $("#divDinamica").html("Deseja realmente finalizar a An&aacute;lise do projeto? ");
+        $("#divDinamica").html("Deseja realmente finalizar a Análise do projeto? ");
         $("#divDinamica").dialog({
             title: "Confirmação",
             resizable: true,
@@ -505,7 +505,7 @@
 <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para IN&iacute;CIO">IN&iacute;CIO</a></li>
+        <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
         <li class="last">Checklist de public&atilde;o</li>
     </ul>
 </div>
@@ -537,7 +537,7 @@
     <!-- ================================================================-->
     <table class="tabela">
         <tr>
-            <td><input type="button" id="aguardandoanalise" class="btn_adicionar" title="Expandir" onclick="JSMostraOcultaElemento('aguardandoanalise')" />PROJETO APROVADO - AGUARDANDO An&aacute;lise DOCUMENTAL - PROPONENTE REGULAR</td>
+            <td><input type="button" id="aguardandoanalise" class="btn_adicionar" title="Expandir" onclick="JSMostraOcultaElemento('aguardandoanalise')" />PROJETO APROVADO - AGUARDANDO Análise DOCUMENTAL - PROPONENTE REGULAR</td>
             <!--<td width="100" align="right" >Quantidade: <span id="qtdeAguardandoAnalise" style="font-weight: bold"><?php //echo $this->totalAguardandoAnalise; ?></span></td>-->
         </tr>
     </table>

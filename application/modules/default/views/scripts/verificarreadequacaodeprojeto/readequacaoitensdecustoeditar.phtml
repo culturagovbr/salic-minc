@@ -39,7 +39,7 @@
     }
 </script>
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
     <div>READEQUA��O: ITENS DE CUSTO
         <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
@@ -59,14 +59,14 @@
             <?php $prodFinalizados = false;
                 if ($stResult->stAvaliacaoItemPedidoAlteracao == "AG") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stReadequacao('.$stResult->idAvaliacaoItemPedidoAlteracao . ','. $this->idPronac . ',this )">';
-                    echo "<option value='0' selected='selected'>Aguardando An&aacute;lise</option>
-                          <option value='1'>Em An&aacute;lise</option>";
+                    echo "<option value='0' selected='selected'>Aguardando Análise</option>
+                          <option value='1'>Em Análise</option>";
                     echo '</select>';
                 } else if ($stResult->stAvaliacaoItemPedidoAlteracao == "EA") {
                     $emAnalise = true;
                     $disabledEA = ($todosAvaliados) ? "" : "disabled=\"disabled\"";
                     echo '<select name="status" '.$disabledEA.' id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar_avaliacao(this.value)">';
-                    echo "<option value='1' selected='selected'>Em An&aacute;lise</option>";
+                    echo "<option value='1' selected='selected'>Em Análise</option>";
                     if ($todosAvaliados)
                     {
                         echo "<option value='2'>Finalizar</option>";
@@ -83,7 +83,7 @@
 </div>
 
 <div id="modal-item-pedido" class="sumir">
-    <p>Deseja alterar o status da An&aacute;lise de Produtos?</p>
+    <p>Deseja alterar o status da Análise de Produtos?</p>
 </div>
 
 <style type="text/css">
@@ -202,7 +202,7 @@
                                         <?php } ?>
 
                                     <?php
-                                            echo "An&aacute;lise T&eacute;cnica";
+                                            echo "Análise Técnica";
                                         } elseif($dados->tpPlanoDistribuicao == 'CO'){
                                             echo "COMPONENTE DA comissão";
                                         }
@@ -577,7 +577,7 @@
 <form method="post" id="formularioFinalizar" name="formularioFinalizar" action="<?php echo $this->url(array('controller' => 'verificarreadequacaodeprojeto', 'action' => 'finalizarprodutositens')); ?>">
     <table class="tabela">
         <tr align="center">
-            <td class="destacar bold">An&aacute;lise T&eacute;cnica DA Solicitação</td>
+            <td class="destacar bold">Análise Técnica DA Solicitação</td>
         </tr>
         <tr>
             <td>
@@ -595,7 +595,7 @@
 
     <script type="text/javascript">
         /**
-         * A��es que ser&aacute;o executadas ap�s o carregamento da p&aacute;gina
+         * A��es que seráo executadas ap�s o carregamento da página
          */
         $(document).ready(function(){
 
@@ -932,9 +932,9 @@
                                             $aval = trim($verificaAnalise[0]->stAvaliacao);
                                         } else {
                                             if ($this->stResult[0]->stAvaliacaoItemPedidoAlteracao == 'EA') {
-                                                echo "Em An&aacute;lise";
+                                                echo "Em Análise";
                                             } else {
-                                                echo "Aguardando An&aacute;lise";
+                                                echo "Aguardando Análise";
                                             }
                                         }
                                         echo "<input value='$aval' class='itensVerificacao sumir' />";
@@ -1020,7 +1020,7 @@
 
                 if($('#analisetecnica').val() == ''){
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('Favor preencher o campo da An&aacute;lise T&eacute;cnica para finalizar a sua An&aacute;lise de Produtos.');
+                    $('#mostra').html('Favor preencher o campo da Análise Técnica para finalizar a sua Análise de Produtos.');
                     $("#mostra").dialog({
                         height: 180,
                         width: 340,
@@ -1038,7 +1038,7 @@
                     });
                 } else {
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('Deseja finalizar a An&aacute;lise dos Produtos?');
+                    $('#mostra').html('Deseja finalizar a Análise dos Produtos?');
                     $("#mostra").dialog({
                         height: 180,
                         width: 320,
@@ -1072,7 +1072,7 @@
 
     function avaliacaodoitem(idPlano, avaliacao)
     {
-        // ========== IN&iacute;CIO MODAL VALIDA��O JUSTIFICATIVA ==========
+        // ========== INÍCIO MODAL VALIDA��O JUSTIFICATIVA ==========
         dsJustificativa = document.getElementById('justificativaPropRead' + idPlano).value;
         if (dsJustificativa == "")
         {
@@ -1100,7 +1100,7 @@
         } // fecha if
         else
         {
-            // ========== IN&iacute;CIO MODAL DE Confirmação DE ENVIO DO FORMUL�RIO ==========
+            // ========== INÍCIO MODAL DE Confirmação DE ENVIO DO FORMUL�RIO ==========
             $("#modal-item-pedido").dialog("destroy");
             $("#modal-item-pedido").html("Deseja alterar o status do Produto?");
             $("#modal-item-pedido").dialog
@@ -1136,7 +1136,7 @@
 
 <div id="mostra"></div>
 <div id="modal-validacao"></div>
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 <br clear="all" />

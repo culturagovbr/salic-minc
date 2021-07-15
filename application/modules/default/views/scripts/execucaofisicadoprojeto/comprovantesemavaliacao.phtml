@@ -6,12 +6,12 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.execucaofisicadoprojeto
- * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
 		<li class="last">Comprova��o de Execu��o F�sica do Projeto</li>
@@ -21,7 +21,7 @@
 
 
 
-<!-- ========== IN&iacute;CIO T�TULO ========== -->
+<!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
 	<div>Comprova��o de Execu��o F�sica do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'aguardandoavaliacao')); ?>');">Voltar</a></span></div>
 </div>
@@ -29,12 +29,12 @@
 
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 
 
 
-	<!-- ========== IN&iacute;CIO INFORMA��ES DO PRONAC ========== -->
+	<!-- ========== INÍCIO INFORMA��ES DO PRONAC ========== -->
 	<table class="tabela">
 		<tr class="titulo_tabela">
 			<th>COMPROVANTES DE EXECU��O F�SICA DO PROJETO</th>
@@ -53,7 +53,7 @@
 
 
 
-	<!-- ========== IN&iacute;CIO COMPROVANTES DO PRONAC ========== -->
+	<!-- ========== INÍCIO COMPROVANTES DO PRONAC ========== -->
 	<?php if (count($this->paginacao) > 0) : // caso tenha comprovantes ?>
 
 	<table class="tabela">
@@ -77,7 +77,7 @@
 			$h = @$comprovantes[0]['historicos']; // hist�rico dos comprovantes
 		?>
 
-		<!-- ========== IN&iacute;CIO COMPROVANTES ========== -->
+		<!-- ========== INÍCIO COMPROVANTES ========== -->
 		<tr class="fundo_linha2" onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);">
 			<td>
 				<?php if ($h) { // verifica se tem hist�rico ?>
@@ -105,7 +105,7 @@
 
 
 
-		<!-- ========== IN&iacute;CIO HIST�RICO ========== -->
+		<!-- ========== INÍCIO HIST�RICO ========== -->
 		<tbody id="<?php echo $cont;?>" class="sumir">
 		<?php
 		// busca o hist�rico
@@ -160,7 +160,7 @@
 		<tr>
 			<td>
 				<div class="float_left">
-					<input type="button" class="btn_voltar" title=" p&aacute;gina Anterior "
+					<input type="button" class="btn_voltar" title=" página Anterior "
 						onkeypress=" "
 						onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'aguardandoavaliacao')); ?>');" />
 				</div>
@@ -176,12 +176,12 @@
 
 
 </div>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

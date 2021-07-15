@@ -26,7 +26,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 148;
             $PermissoesGrupo[] = 151;
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo esta no array de permissoes
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, orgaos e grupos do usuario (pega todos os grupos)
@@ -1349,7 +1349,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
                 if ($dados->tpSolicitacao == 'PI' || $dados->tpSolicitacao == 'EO' || $dados->tpSolicitacao == 'OR') {
                     $d = array();
                     $d['situacao'] = 'B11';
-                    $d['ProvidenciaTomada'] = 'Recurso enviado para avalia��o T&eacute;cnica.';
+                    $d['ProvidenciaTomada'] = 'Recurso enviado para avalia��o Técnica.';
                     $d['dtSituacao'] = new Zend_Db_Expr('GETDATE()');
                     $where = "IdPRONAC = $dados->IdPRONAC";
                     $Projetos = new Projetos();

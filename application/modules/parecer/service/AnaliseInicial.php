@@ -439,7 +439,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $params = $this->request->getParams();
 
         if (empty($params['idDistribuirParecer'])) {
-            throw new \Exception("Dados obrigat&oacute;rios não informado");
+            throw new \Exception("Dados obrigatórios não informado");
         }
 
         $whereDistribuicaoAtual = [];
@@ -471,7 +471,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $params = $this->request->getParams();
 
         if (empty($params['idDistribuirParecer'])) {
-            throw new \Exception("Dados obrigat&oacute;rios não informado");
+            throw new \Exception("Dados obrigatórios não informado");
         }
 
         $whereDistribuicaoAtual = [];

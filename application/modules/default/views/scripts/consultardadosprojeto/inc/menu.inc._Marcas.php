@@ -1,4 +1,4 @@
-<!-- ========== IN&iacute;CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
@@ -15,10 +15,10 @@
         });
     </script>
 
-    <!-- IN&iacute;CIO: CONTE&uacute;DO principal #container -->
+    <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
 
-        <!-- IN&iacute;CIO: navega�?o local #qm0 -->
+        <!-- INÍCIO: navega�?o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {
@@ -152,7 +152,7 @@
               $qtdHabilitado = ceil($diasExecutados/90); */
 //                        x('Dt Inicio = '.$resp->DtInicioExecucao.' e Dt Fim = '.$resp->DtFimExecucao);
 //                        x('Qtd de relat�rios esperados para o projeto = '.$qtdRelatorioEsperado);
-//                        x('Qtd de dias ap�s o IN&iacute;CIO da execu�?o = '.$diasExecutados);
+//                        x('Qtd de dias ap�s o INÍCIO da execu�?o = '.$diasExecutados);
 //                        x('Qtd de relat�rios habilitados para o cadastro = '.$qtdHabilitado);
 //                        x('Qtd de relat�rios cadastrados = '.count($totalReg));
         }

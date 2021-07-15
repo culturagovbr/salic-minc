@@ -246,7 +246,7 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
                 $dadosReadequacao['idPronac'] = $idPronac;
                 $dadosReadequacao['dtSolicitacao'] = new Zend_Db_Expr('GETDATE()');
                 $dadosReadequacao['idSolicitante'] = $rsAgente->idAgente;
-                $dadosReadequacao['dsJustificativa'] = utf8_decode('Readequação at&eacute; 50%');
+                $dadosReadequacao['dsJustificativa'] = utf8_decode('Readequação até 50%');
                 $dadosReadequacao['stEstado'] = Readequacao_Model_DbTable_TbReadequacao::ST_ESTADO_FINALIZADO;
                 $update = $Readequacao_Model_DbTable_TbReadequacao->update(
                     $dadosReadequacao,
@@ -628,7 +628,7 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
         $planilhaAtiva = $tbPlanilhaAprovacao->buscarItemAtivoId($idPlanilhaAprovacao);
 
-        /* DADOS ORIGINAIS PARA REFERÊNCIA DE M&iacute;NIMO E M&aacute;XIMO */
+        /* DADOS ORIGINAIS PARA REFERÊNCIA DE MÍNIMO E MÁXIMO */
         $resComprovado = $tbPlanilhaAprovacao->buscarItemValorComprovado($planilhaAtiva);
         $planilhaOriginal = $tbPlanilhaAprovacao->buscarRemanejamentoPlanilhaOriginal($planilhaAtiva);
         //$planilhaAprovado = $tbPlanilhaAprovacao->buscarRemanejamentoPlanilhaOriginal($planilhaAtiva);
@@ -785,7 +785,7 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
             $mensagem = (
                 $itemAlterado['vlTotal'] < $valoresAtuais['vlAtualMin']
             )
-                      ? "O valor total do item desejado &eacute; menor que o m&iacute;nimo de " . $valoresAtuais['vlAtualMin']
+                      ? "O valor total do item desejado é menor que o mínimo de " . $valoresAtuais['vlAtualMin']
                       : "O valor total do item ultrapassou a margem de ". Readequacao_Model_DbTable_TbReadequacao::PERCENTUAL_REMANEJAMENTO . "%.";
 
             $this->_helper->json(
@@ -828,7 +828,7 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
     }
 
     /**
-     * M&eacute;todo criar readequação de planilha orçament&aacute;ria
+     * Método criar readequação de planilha orçamentária
      * @access private
      * @param integer $idPronac
      * @return Bool
@@ -845,7 +845,7 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
         $dados['idTipoReadequacao'] = Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL;
         $dados['dtSolicitacao'] = new Zend_Db_Expr('GETDATE()');
         $dados['idSolicitante'] = $rsAgente->idAgente;
-        $dados['dsJustificativa'] = utf8_decode('Readequação at&eacute; 50%');
+        $dados['dsJustificativa'] = utf8_decode('Readequação até 50%');
         $dados['dsSolicitacao'] = '';
         $dados['stAtendimento'] = 'D';
         $dados['idDocumento'] = null;
@@ -867,7 +867,7 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
      * Função para verificar e copiar planilha
      *
      * @access public
-     * @return Bool   True se foi poss&iacute;vel criar a planilha ou se ela existe
+     * @return Bool   True se foi possível criar a planilha ou se ela existe
      */
     public function verificarPlanilhaAtivaAction()
     {
@@ -909,7 +909,7 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
     }
 
     /**
-     * M&eacute;todo que copia planilha associando a um idReadequacao
+     * Método que copia planilha associando a um idReadequacao
      * @access private
      * @param integer $idPronac
      * @param integer $idReadequacao

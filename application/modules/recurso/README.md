@@ -1,10 +1,10 @@
-# M&oacute;dulo Recurso
+# Módulo Recurso
 
 ## Controller RecursoProposta
 
 
 Dependências
-- M&oacute;dulo Default
+- Módulo Default
     - UploadController
-- M&oacute;dulo Proposta
+- Módulo Proposta
     - ManterpropostaincentivofiscalController

@@ -28,7 +28,7 @@
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
-        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/avaliaracompanhamentoprojeto/index-tecnico" title="Lista de Relat&oacute;rios">Lista de Relat&oacute;rios</a></li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/avaliaracompanhamentoprojeto/index-tecnico" title="Lista de Relatórios">Lista de Relat&oacute;rios</a></li>
         <li class="last">Bens Doados</li>
     </ul>
 </div>
@@ -78,7 +78,7 @@
         </tr>
         <?php foreach ($this->BensCadastrados as $bens) { ?>
         <tr>
-            <td><?php echo ($bens->tpBem == 'M') ? 'M&oacute;vel' : 'Im&oacute;vel'; ?></td>
+            <td><?php echo ($bens->tpBem == 'M') ? 'Móvel' : 'Imóvel'; ?></td>
             <td><?php echo $bens->ItemOrcamentario; ?></td>
             <td align="center"><?php echo (strlen($bens->CNPJCPF) == 11) ? Mascara::addMaskCPF($bens->CNPJCPF) : Mascara::addMaskCNPJ($bens->CNPJCPF); ?></td>
             <td><?php echo $bens->NomeAgente; ?></td>

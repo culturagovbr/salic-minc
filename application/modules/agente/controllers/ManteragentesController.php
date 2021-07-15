@@ -158,13 +158,13 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
             try {
                 // validacao dos campos
                 if (empty($cpf) && empty($nome)) {
-                    throw new Exception("Dados obrigat&oacute;rios não informados:<br /><br />&eacute; necess&aacute;rio informar o CPF/CNPJ ou o Nome!");
+                    throw new Exception("Dados obrigatórios não informados:<br /><br />É necessário informar o CPF/CNPJ ou o Nome!");
                 } elseif (!empty($cpf) && strlen($cpf) != 11 && strlen($cpf) != 14) { // valida cnpj/cpf
-                    throw new Exception("O CPF/CNPJ informado &eacute; inv&aacute;lido!");
+                    throw new Exception("O CPF/CNPJ informado é inválido!");
                 } elseif (!empty($cpf) && strlen($cpf) == 11 && !Validacao::validarCPF($cpf)) { // valida cpf
-                    throw new Exception("O CPF informado &eacute; inv&aacute;lido!");
+                    throw new Exception("O CPF informado é inválido!");
                 } elseif (!empty($cpf) && strlen($cpf) == 14 && !Validacao::validarCNPJ($cpf)) { // valida cnpj
-                    throw new Exception("O CNPJ informado &eacute; inv&aacute;lido!");
+                    throw new Exception("O CNPJ informado é inválido!");
                 } else {
                     // redireciona para a pagina com a busca dos dados com paginacao
                     $this->redirect("agente/manteragentes/listaragente?cpf=" . $cpf . "&nome=" . $nome);
@@ -198,7 +198,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
 
         if (!$buscar) {
             // redireciona para a pagina de cadastro de agentes, e, exibe uma notificacao relativa ao cadastro
-            parent::message("Agente não cadastrado!<br /><br />Por favor, cadastre o mesmo no formul&aacute;rio abaixo!", "agente/manteragentes/agentes?acao=cc&cpf=" . $cpf . "&nome=" . $nome, "ALERT");
+            parent::message("Agente não cadastrado!<br /><br />Por favor, cadastre o mesmo no formulário abaixo!", "agente/manteragentes/agentes?acao=cc&cpf=" . $cpf . "&nome=" . $nome, "ALERT");
         } else {
             // ========== INICIO PAGINACAO ==========
             // criando a paginacao
@@ -338,7 +338,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
                     $dados = array(
                         'idAgente' => $idAgente,
                         'Visao' => $visao,
-                        'Usuario' => $this->getIdUsuario, // c&oacute;digo do usuario logado
+                        'Usuario' => $this->getIdUsuario, // código do usuario logado
                         'stAtivo' => 'A');
                 $cadastrar = $visaoTable->cadastrarVisao($dados);
                 endforeach;
@@ -640,7 +640,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
 
             // caso nao existam mais vagas para titular e suplentes
             if ($Q_titulares[0]->QTD >= 1 && $Q_suplentes[0]->QTD >= 2) {
-                $novos_dados[$i]['msgAS'] = utf8_encode('A &aacute;rea Cultural selecionada j&aacute; conta com 1 Titular e 2 Suplentes!');
+                $novos_dados[$i]['msgAS'] = utf8_encode('A Área Cultural selecionada já conta com 1 Titular e 2 Suplentes!');
             } elseif ($Q_titulares[0]->QTD == 0 && $Q_suplentes[0]->QTD == 0) {
                 $novos_dados[0]['Nome'] = 'Sem cadastro';
                 $novos_dados[0]['Titular'] = '';

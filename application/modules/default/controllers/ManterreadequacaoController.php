@@ -92,13 +92,13 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
             $where['b.Area = ?'] = 0;  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
         }
 
-        $stCombo = 'A'; //Aguardando An&aacute;lise
+        $stCombo = 'A'; //Aguardando Análise
         if (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) {
             $comboView = explode(':', $_GET['tipoFiltro']);
             $this->view->filtro = $_GET['tipoFiltro'];
             $where['e.tpAlteracaoProjeto = ?'] = $comboView[0];
             if ($comboView[1] == 'd') {
-                $stCombo = 'D'; //Devolvidos Ap�s An&aacute;lise
+                $stCombo = 'D'; //Devolvidos Ap�s Análise
             }
         }
 
@@ -522,7 +522,7 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
                      * ==============================================================
                      */
                 } elseif ($tpAlt == 3) {
-                    //FICHA T&eacute;cnica
+                    //FICHA Técnica
                     $fichatecAtual = FichaTecnicaDAO::buscarFichaTecnicaFinal($idPronac, $idPedidoAlt);
                     $Atual = $fichatecAtual[0]->FichaTecnica;
                     $idPreProjeto = $fichatecAtual[0]->idPreProjeto;

@@ -509,7 +509,7 @@ class ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjeto extends MinC_Db_Table_
     }
 
     /**
-     * M&eacute;todo que diz se projeto possui ou não um relat&oacute;rio de cumprimento de objeto
+     * Método que diz se projeto possui ou não um relatório de cumprimento de objeto
      *
      * @param integer $idPronac
      * @return bool

@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se h&aacute; produtos secund&aacute;rios analisados
+ * Helper para verificar se há produtos secundários analisados
  */
 
 class Zend_View_Helper_IsProdutosSecundariosAnalisados
 {
     /**
-     * M&eacute;todo para verificar se h&aacute; produtos secund&aacute;rios analisados
+     * Método para verificar se há produtos secundários analisados
      * @access public
      * @param integer $idPronac
      * @param integer $idTipoDoAtoAdministrativo

@@ -6,24 +6,24 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.manteragentes
- * @copyright ? 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
+ * @copyright ? 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
 
 
-<!-- ========== IN&iacute;CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="IN&iacute;CIO">IN&iacute;CIO</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="INÍCIO">INÍCIO</a></li>
 		<li><a href="<?php echo $this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')); ?>">Calend�rio CNIC</a></li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <script>
 $(function()
     {
@@ -261,7 +261,7 @@ function validarForm(){
      if(document.getElementById("NrReuniao").value == ""){
          alert("Numero da Reuni?o � um campo de preenchimento obrigat�rio");
      }else if(document.getElementById("DtInicio").value == "" || document.getElementById("DtInicio").value == "00/00/0000"){
-         alert("Data IN&iacute;CIO � um campo de preenchimento obrigat�rio");
+         alert("Data INÍCIO � um campo de preenchimento obrigat�rio");
      }else if(document.getElementById("DtFinal").value == "" || document.getElementById("DtFinal").value == "00/00/0000"){
         alert("Data Final � um campo de preenchimento obrigat�rio");
      }else if(document.getElementById("DtFechamento").value == "" || document.getElementById("DtFechamento").value == "00/00/0000"){
@@ -297,7 +297,7 @@ function validarForm(){
                         </td>
                     </tr>
                     <tr>
-                        <td>Data IN&iacute;CIO</td>
+                        <td>Data INÍCIO</td>
                         <td><input type="text" name="DtInicio" id="DtInicio" class="input_simples w200" maxlength="10" value="" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '00/00/0000');" onblur="restaurar_campo(this, '00/00/0000');" type="text"></td>
                     </tr>
                     <tr>
@@ -344,7 +344,7 @@ function validarForm(){
                                                     <select class="select w150" name="colunas[]" id="visao" multiple="multiple" size="7">
 
                                                             <option value="N.Reuniao">N. Reuni?o</option>
-                                                            <option value="Dt.Inicio">Dt. IN&iacute;CIO </option>
+                                                            <option value="Dt.Inicio">Dt. INÍCIO </option>
                                                             <option value="Dt.Final">Dt. Final</option>
                                                             <option value="Dt.Fechamento">Dt. Fechamento</option>
                                                             <option value="Mecanismo">Mecanismo </option>
@@ -384,7 +384,7 @@ function validarForm(){
 
 <div id="titulo"><div>Reuni&atilde;o da CNIC<span class="voltar"><a href="#">Voltar</a></span></div></div></form><div id="conteudo">
     <div id="cronometro" style="display: none; font-size: 2em; margin-top: 0.5em; text-align: center; color: red;" >
-        Tempo restante para IN&iacute;CIO da Plen�ria = <span id="minu" ></span>' : <span id="seg" ></span>"
+        Tempo restante para INÍCIO da Plen�ria = <span id="minu" ></span>' : <span id="seg" ></span>"
     </div>
 
     <div id="miolo">

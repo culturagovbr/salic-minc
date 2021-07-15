@@ -333,7 +333,7 @@ class Recurso_RecursoPropostaController extends Proposta_GenericController
                 );
             } else {
                 parent::message(
-                    'Não foi poss&iacute;vel remover o arquivo..',
+                    'Não foi possível remover o arquivo..',
                     "/recurso/recurso-proposta/visao-proponente/idPreProjeto/{$id_preprojeto}",
                     'ALERT'
                 );

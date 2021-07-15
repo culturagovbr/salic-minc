@@ -289,7 +289,7 @@ class IndexController extends MinC_Controller_Action_Abstract
         $codOrgaoMaxSuperior = $tblUsuario->recuperarOrgaoMaxSuperior($codOrgao);
         $_SESSION['Zend_Auth']['storage']->usu_org_max_superior = $codOrgaoMaxSuperior;
 
-        // redireciona para a p&aacute;gina inicial do sistema
+        // redireciona para a página inicial do sistema
         parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principal", "INFO");
     } // fecha alterarPerfilAction()
 

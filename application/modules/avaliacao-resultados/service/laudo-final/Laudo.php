@@ -17,7 +17,7 @@ class Laudo
         return $model->laudoFinal($idPronac);
     }
 
-    /** @todo se a regra for apenas um laudo por idPronac o idLaudoFinal nao &eacute; necessario */
+    /** @todo se a regra for apenas um laudo por idPronac o idLaudoFinal nao é necessario */
     public function salvarLaudo($idLaudoFinal, $idPronac, $siManifestacao, $dsLaudoFinal)
     {
         $auth = \Zend_Auth::getInstance();

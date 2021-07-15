@@ -5,7 +5,7 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p&aacute;gina
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -14,7 +14,7 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
             // verifica as permiss�es
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 93;  // Coordenador de Parecerista
-            $PermissoesGrupo[] = 103; // Coordenador de An&aacute;lise
+            $PermissoesGrupo[] = 103; // Coordenador de Análise
             $PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
             $PermissoesGrupo[] = 122; // Coordenador de Acompanhamento
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
@@ -164,13 +164,13 @@ class DesvincularagentesController extends MinC_Controller_Action_Abstract
             try {
                 if ($tbentidade) {
 
-                    // ========== IN&iacute;CIO PAGINAÇÂO ==========
+                    // ========== INÍCIO PAGINAÇÂO ==========
                     //criando a pagina�ao
                     Zend_Paginator::setDefaultScrollingStyle('Sliding');
                     Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
                     $paginator = Zend_Paginator::factory($tbentidade); // dados a serem paginados
 
-                    // p&aacute;gina atual e quantidade de �tens por p&aacute;gina
+                    // página atual e quantidade de �tens por página
                     $currentPage = $this->_getParam('page', 1);
                     $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(1);
                     // ========== FIM PAGINAÇÂO ==========

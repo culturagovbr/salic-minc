@@ -14,7 +14,7 @@
     <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
     <div id="breadcrumb">
         <ul>
-            <li class="first"><a href="index" title="Ir para IN&iacute;CIO">In&iacute;cio</a></li>
+            <li class="first"><a href="index" title="Ir para INÍCIO">In&iacute;cio</a></li>
             <li class="second"><a href="<?php echo $this->url(array('controller' => 'mantercontabancaria', 'action' => 'consultar')); ?>" title="Ir para Liberar conta banc&aacute;ria">Manter conta banc&aacute;ria</a></li>
             <li class="last">Cadastrar conta banc&aacute;ria</li>
         </ul>
@@ -176,12 +176,12 @@
     });
 </script>
 <?php  if($this->modal != "s"): ?>
-<!-- ========== IN&iacute;CIO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 <?php  endif; ?>
     <div id="erro"></div>
 
-        <!-- ========== IN&iacute;CIO FORMUL�RIO DE BUSCA ========== -->
+        <!-- ========== INÍCIO FORMUL�RIO DE BUSCA ========== -->
         <form class="form" name="formBuscar" id="formBuscar" method="post" action="<?php echo $this->url(array('controller' => 'mantercontabancaria', 'action' => 'salvar')); ?>">
             <table class="tabela">
                 <tr>
@@ -291,7 +291,7 @@
 <?php if(count($this->Historicos) > 0){ foreach ($this->Historicos as $historicos) { ?>
 <div style="display: none;" id="modalHistorico<?php echo $historicos->idHistoricoExclusaoConta ?>"><?php echo $historicos->Motivo ?></div>
 <?php } } ?>
-<!-- ========== FIM CONTE&uacute;DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 <script type="text/javascript">
@@ -345,9 +345,9 @@
 
 
 <?php  if($this->modal != "s"): ?>
-<!-- ========== IN&iacute;CIO RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP&eacute; DO CONTE&uacute;DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />
 

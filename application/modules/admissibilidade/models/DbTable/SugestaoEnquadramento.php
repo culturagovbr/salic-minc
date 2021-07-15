@@ -261,7 +261,7 @@ class Admissibilidade_Model_DbTable_SugestaoEnquadramento extends MinC_Db_Table_
 
         $descricao_motivacao = trim($dadosSugestaoEnquadramento['descricao_motivacao']);
         if (empty($descricao_motivacao)) {
-            throw new Exception("O campo 'Parecer de Enquadramento' &eacute; de preenchimento obrigat&oacute;rio.");
+            throw new Exception("O campo 'Parecer de Enquadramento' é de preenchimento obrigatório.");
         }
 
         if (!$sugestaoEnquadramento->isPermitidoSugerirEnquadramento()) {
@@ -344,7 +344,7 @@ class Admissibilidade_Model_DbTable_SugestaoEnquadramento extends MinC_Db_Table_
         }
 
         /**
-         * @todo Mover bloco abaixo para o m&eacute;todo "Cadastrar Recurso de proposta"
+         * @todo Mover bloco abaixo para o método "Cadastrar Recurso de proposta"
          */
         $planoDistribuicao = (new Proposta_Model_DbTable_PlanoDistribuicaoProduto())->buscar(
             [
