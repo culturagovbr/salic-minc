@@ -28,7 +28,7 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
     }
 
     /**
-     * Metodo para buscar os dados do usuï¿½rio de acordo com id (login scriptcase)
+     * Metodo para buscar os dados do usuário de acordo com id (login scriptcase)
      * @access public
      * @dinamic
      * @param @cod (codigo do usuario)
@@ -70,21 +70,21 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
                 ->setIdentityColumn('cpf')
                 ->setCredentialColumn('senha');
 
-            // seta as credenciais informada pelo usuï¿½rio
+            // seta as credenciais informada pelo usuário
             $authAdapter
                 ->setIdentity($buscar[0]->Cpf)
                 ->setCredential($buscar[0]->Senha);
 
-            // tenta autenticar o usuï¿½rio
+            // tenta autenticar o usuário
             $auth = Zend_Auth::getInstance();
             $acesso = $auth->authenticate($authAdapter);
 
             // verifica se o acesso foi permitido
             if ($acesso->isValid()) {
-                // pega os dados do usuï¿½rio com exceï¿½ï¿½o da senha
+                // pega os dados do usuário com exceção da senha
                 $authData = $authAdapter->getResultRowObject(null, 'senha');
 
-                // armazena os dados do usuï¿½rio
+                // armazena os dados do usuário
                 $objAuth = $auth->getStorage()->write($authData);
 
                 return true;

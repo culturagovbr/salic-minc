@@ -996,7 +996,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 
     /**
      * Metodo novoresponsavel()
-     * UC 89 - Fluxo FA4 - Vincular Responsï¿½vel
+     * UC 89 - Fluxo FA4 - Vincular Responsável
      * @access public
      * @param void
      * @return void

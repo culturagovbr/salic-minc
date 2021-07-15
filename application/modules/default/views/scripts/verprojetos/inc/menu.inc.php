@@ -1,4 +1,4 @@
-<!-- ========== INï¿½CIO MENU ========== -->
+<!-- ========== INCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
     <script type="text/javascript">
@@ -13,9 +13,9 @@
         });
     </script>
 
-    <!-- inï¿½cio: conteï¿½do principal #container -->
+    <!-- início: conteúdo principal #container -->
     <div id="container">
-        <!-- inï¿½cio: navegaï¿½?o local #qm0 -->
+        <!-- início: navegação local #qm0 -->
         <script type="text/javascript">
             function layout_fluido(){
                 var janela = $(window).width();
@@ -94,7 +94,7 @@
                     $('#msgErroImpressao').html("");
                     $('#frmOpcoesImpressao').submit();
                 }else{
-                    $('#msgErroImpressao').html("<center><font color='red'>ï¿½ obrigatï¿½rio selecionar ao menos uma informaï¿½ï¿½o para impressï¿½o.</font></center>");
+                    $('#msgErroImpressao').html("<center><font color='red'>É obrigatório selecionar ao menos uma informação para impressão.</font></center>");
                 }
             }
 
