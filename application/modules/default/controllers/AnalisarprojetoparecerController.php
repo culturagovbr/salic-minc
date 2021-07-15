@@ -16,7 +16,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
+        $this->view->title = "Salic - Sistema de Apoio às Leis de Incentivo à Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -29,7 +29,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = Autenticacao_Model_Grupos::PARECERISTA;
             parent::perfil(1, $PermissoesGrupo);
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc&ecirc; no tem permiss&atilde;o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Você no tem permissão para acessar essa área do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -639,7 +639,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         $idD = $this->_request->getParam("idD");
 
         if ($idPronac == '') {
-            parent::message("N&uacute;mero de PRONAC n&atilde;o fornecido!", "parecer/analise-inicial", "ERROR");
+            parent::message("Número de PRONAC n&atilde;o fornecido!", "parecer/analise-inicial", "ERROR");
         }
 
         $projetos = new Projetos();

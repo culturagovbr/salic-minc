@@ -14,7 +14,7 @@
 <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="last">Comprova��o de Execu��o F�sica do Projeto</li>
+		<li class="last">Comprova&ccedil;&atilde;o de Execu&ccedil;&atilde;o F&iacaute;sica do Projeto</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
@@ -23,7 +23,7 @@
 
 <!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
-	<div>Comprova��o de Execu��o F�sica do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'buscarpronac')); ?>');">Voltar</a></span></div>
+	<div>Comprova&ccedil;&atilde;o de Execu&ccedil;&atilde;o F&iacautesica do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'buscarpronac')); ?>');">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
@@ -37,13 +37,13 @@
 	<!-- ========== INÍCIO INFORMA��ES DO PRONAC ========== -->
 	<table class="tabela">
 		<tr>
-			<th>COMPROVANTES DE EXECU��O F�SICA DO PROJETO</th>
+			<th>COMPROVANTES DE EXECU&Ccedil;&Atilde;O F&IacauteSICA DO PROJETO</th>
 		<tr>
 
 		<?php foreach ($this->buscarPronac as $p): ?>
 		<tr>
 			<td class="centro">
-				<strong>Pronac N� <?php echo $p->pronac; ?> - <?php echo $p->NomeProjeto; ?></strong>
+				<strong>Pronac N&order; <?php echo $p->pronac; ?> - <?php echo $p->NomeProjeto; ?></strong>
 			</td>
 		</tr>
 		<?php endforeach; ?>
@@ -79,7 +79,7 @@
 			<th>Data de Envio</th>
 			<th>Data de Recebimento</th>
 			<th>Status</th>
-			<th>A��o</th>
+			<th>A&ccedil;&atilde;o</th>
 		</tr>
 
 
@@ -106,7 +106,7 @@
 			<td class="centro"><?php echo $this->converterBytes($d->nrTamanhoArquivo); ?></td>
 			<td class="centro"><?php echo $d->dtEnvioComprovante; ?></td>
 			<td class="centro"><?php echo (isset($d->dtJustificativaCoordenador)) ? $d->dtJustificativaCoordenador : ''; ?></td>
-			<td class="centro <?php echo $d->stParecerComprovante; ?>"><?php echo ($d->stParecerComprovante == 'EA' ? 'Em Avalia��o' : $this->statusCompFisicaProjeto($d->stParecerComprovante)); ?></td>
+			<td class="centro <?php echo $d->stParecerComprovante; ?>"><?php echo ($d->stParecerComprovante == 'EA' ? 'Em Avalia&ccedil;&atilde;o' : $this->statusCompFisicaProjeto($d->stParecerComprovante)); ?></td>
 			<td class="centro">
 				<?php if ($d->stParecerComprovante == "AG") { // 'Aguardando Avalia��o' ?>
 				<input type="button" class="btn_alterar" title=" Alterar " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'alterardocumentos')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $d->idComprovante; ?>');" />
@@ -138,7 +138,7 @@
 			<td class="centro"><?php echo $this->converterBytes($h->nrTamanhoArquivo); ?></td>
 			<td class="centro"><?php echo $h->dtEnvioComprovante; ?></td>
 			<td class="centro"><?php echo $h->dtJustificativaCoordenador; ?></td>
-			<td class="centro <?php echo $h->stParecerComprovante; ?>"><?php echo ($h->stParecerComprovante == 'EA' ? 'Em Avalia��o' : $this->statusCompFisicaProjeto($h->stParecerComprovante)); ?></td>
+			<td class="centro <?php echo $h->stParecerComprovante; ?>"><?php echo ($h->stParecerComprovante == 'EA' ? 'Em Avaliação' : $this->statusCompFisicaProjeto($h->stParecerComprovante)); ?></td>
 			<td class="centro">
 				<?php if ($h->stParecerComprovante == "AG") { // 'Aguardando Avalia��o' ?>
 				<input type="button" class="btn_alterar" title=" Alterar " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'alterardocumentos')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $h->idComprovante; ?>');" />
@@ -184,7 +184,7 @@
 				</div>
 				<?php if ($this->qtdComprovantes > 0) : ?>
 				<div class="float_right total_itens">
-					Total de Comprovantes do PRONAC N� <?php echo $p->pronac; ?>: <strong><?php echo $this->qtdComprovantes; ?></strong>
+					Total de Comprovantes do PRONAC N&order; <?php echo $p->pronac; ?>: <strong><?php echo $this->qtdComprovantes; ?></strong>
 				</div>
 				<?php endif; ?>
 			</td>

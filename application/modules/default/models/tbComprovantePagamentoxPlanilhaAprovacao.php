@@ -295,7 +295,7 @@ class tbComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
             array(
                 new Zend_Db_Expr("
                     CASE
-                        WHEN tpDocumento = 1 THEN 'Boleto Banc�rio'
+                        WHEN tpDocumento = 1 THEN 'Boleto Bancário'
                         WHEN tpDocumento = 2 THEN 'Cupom Fiscal'
                         WHEN tpDocumento = 3 THEN 'Nota Fiscal / Fatura'
                         WHEN tpDocumento = 4 THEN 'Recibo de Pagamento'

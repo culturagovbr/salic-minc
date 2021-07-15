@@ -145,7 +145,7 @@ $arrMenu['assinatura']['menu'][] = array(
             'controller' => 'index',
             'action' => 'visualizar-assinaturas'
         ), '', true),
-    'title' => 'Ir para Visualização de Assinaturas',
+    'title' => 'Ir para Visualiza&ccedil;&atilde;o de Assinaturas',
     'label' => 'Visualizar Assinaturas'
 );
 
@@ -166,8 +166,8 @@ $arrMenu['assinatura']['menu'][] = array(
             'controller' => 'readequacao-assinatura',
             'action' => 'gerenciar-assinaturas'
         ), '', true),
-    'title' => 'Ir para Readequação - Gerenciar Assinaturas',
-    'label' => 'Gerenciar Assinaturas - Readequação'
+    'title' => 'Ir para Readequa&ccedil;&atilde;o - Gerenciar Assinaturas',
+    'label' => 'Gerenciar Assinaturas - Readequa&ccedil;&atilde;o'
 );
 
 $arrMenu['assinatura']['menu'][] = array(
@@ -227,10 +227,10 @@ $arrMenu['acompanhamento']['menu'][] = array('label' => 'CheckList para Publica&
 );
 $arrMenu['acompanhamento']['menu'][] = array('label' => 'Movimenta&ccedil;&atilde;o Banc&aacute;ria', 'title' => 'Ir para Movimenta&ccedil;&atilde;o Banc&aacute;ria',
     'url' => $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'resultado-extrato-de-conta-captacao'), '', true),
-    'grupo' => array(272, 166, 121, 122, 123, 129, 148, 151) // restringe ao órgao SACAV && CAP
+    'grupo' => array(272, 166, 121, 122, 123, 129, 148, 151) // restringe ao &oacute;rgao SACAV && CAP
 );
 //                        =======  TEC. DE ACOMPANHAMENTO / COORD. ADMISSIBLIDADE / TECNICO ADMISSBILIDADE ============
-$arrMenu['acompanhamento']['menu'][] = array('label' => 'Certid&otilde;es Negativas', 'title' => 'Ir para Certid&otilde;es Negativas',
+$arrMenu['acompanhamento']['menu'][] = array('label' => 'Certidões Negativas', 'title' => 'Ir para Certidões Negativas',
     'url' => $this->url(array('module' => 'default', 'controller' => 'manterregularidadeproponente', 'action' => 'index')),
     'grupo' => array(108, 121, 122, 123, 124, 125, 134, 135, 138, 139)
 );
@@ -238,7 +238,7 @@ $arrMenu['acompanhamento']['menu'][] = array('label' => 'Analisar Relat&oacute;r
     'url' => $this->url(array('controller' => 'analisarexecucaofisica', 'action' => 'projetos'), '', true),
     'grupo' => array(122, 123)
 );
-$arrMenu['acompanhamento']['menu'][] = array('label' => 'Verificar Readequação de Projeto', 'title' => 'Verificar Readequação de Projetos',
+$arrMenu['acompanhamento']['menu'][] = array('label' => 'Verificar Readequa&ccedil;&atilde;o de Projeto', 'title' => 'Verificar Readequa&ccedil;&atilde;o de Projetos',
     'url' => $this->url(array('controller' => 'verificarreadequacaodeprojeto', 'action' => 'verificarreadequacaodeprojetocoordparecerista'), '', true),
     'grupo' => array(93)
 );
@@ -477,8 +477,8 @@ $arrMenu['admissibilidade']['menu'][] = array(
         Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE
     ],
     'url' => $this->url(array('module' => 'default', 'controller' => 'manterregularidadeproponente', 'action' => 'index')),
-    'title' => 'Ir para Certid&otilde;es Negativas',
-    'label' => 'Certid&otilde;es Negativas'
+    'title' => 'Ir para Certidões Negativas',
+    'label' => 'Certidões Negativas'
 );
 
 $arrMenu['admissibilidade']['menu'][] = array(
@@ -788,8 +788,8 @@ $arrMenu['seguranca']['menu'][] = array(
 $arrMenu['seguranca']['menu'][] = array(
     'grupo' => array(97),
     'url' => $this->url(array('module' => 'default', 'controller' => 'manterusuario', 'action' => 'permissoessalic')) . '?session=x&pag=1',
-    'title' => 'Ir para Permiss&otilde;es do SalicWeb',
-    'label' => 'Permiss&otilde;es do SalicWeb'
+    'title' => 'Ir para Permissões do SalicWeb',
+    'label' => 'Permissões do SalicWeb'
 );
 $auth = array_change_key_case((array)Zend_Auth::getInstance()->getIdentity());
 if (trim($auth['usu_identificacao']) == 23969156149) {
@@ -851,7 +851,7 @@ $arrMenu['aulas']['menu'][] = array('label' => '2. Normativos', 'title' => 'Ir p
     'target' => '_blank'
 );
 
-$arrMenu['aulas']['menu'][] = array('label' => '3. D&uacute;vidas', 'title' => 'Ir para Aula 3',
+$arrMenu['aulas']['menu'][] = array('label' => '3. Dúvidas', 'title' => 'Ir para Aula 3',
     'url' => $this->url(array('controller' => 'public', 'action' => 'videos'), '', true) . '/introducao-a-analise-de-projetos/aula3.m4v',
     'grupo' => array(94, 137),
     'target' => '_blank'
