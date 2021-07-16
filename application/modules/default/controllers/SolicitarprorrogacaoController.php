@@ -136,7 +136,7 @@ class SolicitarprorrogacaoController extends MinC_Controller_Action_Abstract
             $vw = new vwSolicitarProrrogacaoPrazoCaptacao();
             $vw->inserir($dados);
 
-            parent::message("Pedido de prorroga&ccedil;&atilde;o enviado ao Minist&eacute;rio da TURISMO com sucesso!", "consultardadosprojeto/index?idPronac=". Seguranca::encrypt($DadosProjeto->IdPRONAC), "CONFIRM");
+            parent::message("Pedido de prorroga&ccedil;&atilde;o enviado ao Minist&eacute;rio do Turismo com sucesso!", "consultardadosprojeto/index?idPronac=". Seguranca::encrypt($DadosProjeto->IdPRONAC), "CONFIRM");
         }
     }
 }

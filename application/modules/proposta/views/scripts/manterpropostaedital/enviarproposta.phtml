@@ -10,12 +10,12 @@
 <?php
         $links = array(
             array('Lista de Propostas' => array('controller' => 'manterpropostaincentivofiscal','action' => 'listarproposta')),
-            array('Confirmar envio da proposta cultural ao Minist&eacute;rio da TURISMO' => array())
+            array('Confirmar envio da proposta cultural ao Minist&eacute;rio do Turismo' => array())
         );
 gerarBreadCrumb($links);
 ?>
 <div id="titulo">
-    <div>Confirmar envio da proposta cultural ao Minist&eacute;rio da TURISMO<?php echo montaBotaoVoltar($controller, $links); ?></div>
+    <div>Confirmar envio da proposta cultural ao Minist&eacute;rio do Turismo<?php echo montaBotaoVoltar($controller, $links); ?></div>
 </div>
 <div id="conteudo">
 
@@ -51,7 +51,7 @@ gerarBreadCrumb($links);
 
                     <?php if(isset($this->movimentacaoAtual) && $this->movimentacaoAtual == '95') { ?>
                     <br>
-                    <font color="red">A Proposta n&atilde;o pode ser enviada ao Minist&eacute;rio da TURISMO.</font>
+                    <font color="red">A Proposta n&atilde;o pode ser enviada ao Minist&eacute;rio do Turismo.</font>
                     <br>
                     <?php } ?>
 

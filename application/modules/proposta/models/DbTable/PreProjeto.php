@@ -2585,7 +2585,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
         $movimentacao = $tbMovimentacao->buscar($whereMovimentacao, array(), 1)->current();
 
         if (!empty($movimentacao) && !$alterarprojeto) {
-            $validacao->dsInconsistencia = 'A proposta cultural encontra-se no minist&eacute;rio da TURISMO';
+            $validacao->dsInconsistencia = 'A proposta cultural encontra-se no minist&eacute;rio do Turismo';
             $validacao->Observacao = '';
             $validacao->Url = '';
             $listaValidacao[] = clone($validacao);
@@ -2635,7 +2635,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
 
                 $regularidadeProponente = $db->fetchAll($sql);
                 if (!empty($regularidadeProponente)) {
-                    $validacao->dsInconsistencia = 'Proponente em situa&ccedil;&atilde;o IRREGULAR no Minist&eacute;rio da TURISMO.';
+                    $validacao->dsInconsistencia = 'Proponente em situa&ccedil;&atilde;o IRREGULAR no Minist&eacute;rio do Turismo.';
                     $validacao->Observacao = 'PENDENTE';
                     $validacao->Url = '';
                     $listaValidacao[] = clone($validacao);
@@ -2889,7 +2889,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
             $validacao->Url = '';
             return $validacao;
         } else {
-            $validacao->dsInconsistencia = '<font color=red><b> A PROPOSTA CULTURAL N&Atilde;O FOI ENVIADA AO MINIST&Eacute;RIO DA TURISMO DEVIDO &Agrave;S PEND&Ecirc;NCIAS ASSINALADAS ACIMA.</b></font>';
+            $validacao->dsInconsistencia = '<font color=red><b> A PROPOSTA CULTURAL N&Atilde;O FOI ENVIADA AO MINIST&Eacute;RIO DO TURISMO DEVIDO &Agrave;S PEND&Ecirc;NCIAS ASSINALADAS ACIMA.</b></font>';
             $validacao->Observacao = '';
             $validacao->Url = '';
             $listaValidacao[] = clone($validacao);

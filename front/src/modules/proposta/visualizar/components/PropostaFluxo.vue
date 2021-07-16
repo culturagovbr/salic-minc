@@ -75,7 +75,7 @@ export default {
                 {
                     id: 'proposta_analise_inicial',
                     label: 'Em Avalia&ccedil;&atilde;o',
-                    descricao: 'A proposta est&aacute; em avaliação pelo Minist&eacute;rio da TURISMO, acompanhe na aba hist&oacute;rico de avaliações.',
+                    descricao: 'A proposta est&aacute; em avaliação pelo Minist&eacute;rio do Turismo, acompanhe na aba hist&oacute;rico de avaliações.',
                     icon: 'how_to_reg',
                     childrens: [
                         {
