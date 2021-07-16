@@ -17,7 +17,7 @@ class MovimentacaoDeContaDAO extends Zend_Db_Table
                                 @recipients = '".$email."',
                                 @body = '".$texto."',
                                 @body_format = 'HTML',
-                                @subject = 'Dilig�ncia na capta��o do Projeto',
+                                @subject = 'Dilig&ecirc;ncia na capta&ccedil;&atilde;o do Projeto',
                                 @exclude_query_output = 1;";
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -56,7 +56,7 @@ class MovimentacaoDeContaDAO extends Zend_Db_Table
 
     public static function buscarPatrocinador($cpf_cnpj)
     {
-        $sql = "SELECT N.descricao nome 
+        $sql = "SELECT N.descricao nome
 				FROM AGENTES.dbo.Agentes A, AGENTES.dbo.Nomes N
         		WHERE A.idAgente = N.idAgente
         		AND A.CNPJCPF = '".$cpf_cnpj."'";
@@ -68,7 +68,7 @@ class MovimentacaoDeContaDAO extends Zend_Db_Table
 
         return $resultado;
     }
-    
+
     public static function buscarEnquadramento($PRONAC)
     {
         $sql = "SELECT Enquadramento FROM SAC.dbo.Enquadramento WHERE AnoProjeto+Sequencial = ".$PRONAC;
@@ -142,7 +142,7 @@ class MovimentacaoDeContaDAO extends Zend_Db_Table
     public static function deletaContigencia()
     {
         $sql = "DELETE FROM SAC.dbo.tbTmpInconsistenciaCaptacao ";
-        
+
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $db->query($sql);
@@ -159,10 +159,10 @@ class MovimentacaoDeContaDAO extends Zend_Db_Table
 				nrCpfCnpjIncentivador,
 				CONVERT(CHAR(10), dtCredito,111) as dtCredito,
 				vlValorCredito,
-				cdPatrocinio 
+				cdPatrocinio
 					FROM SAC.dbo.tbTmpCaptacao
 					WHERE nrAnoProjeto is not null AND nrAnoProjeto != '' OR nrSequencial is not null AND nrSequencial != ''";
-        
+
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->query($sql);

@@ -2,12 +2,12 @@
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li class="second">Acompanhamento</li>
-        <li class="last">Verificar readequação de projeto</li>
+        <li class="last">Verificar readequa&ccedil;&atilde;o de projeto</li>
     </ul>
 </div>
 
 <div id="titulo">
-    <div>READEQUA��O: PRODUTOS E/OU ITENS DE CUSTO
+    <div>READEQUA&Ccedil;&Atilde;O: PRODUTOS E/OU ITENS DE CUSTO
         <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
     </div>
 </div>
@@ -98,11 +98,11 @@
                                     if($dados->tpPlanoDistribuicao == 'AP') {
                                         echo "APROVADO";
                                     } elseif($dados->tpPlanoDistribuicao == 'SR') {
-                                        echo "Solicitação DE READEQUA��O";
+                                        echo "Solicitação DE READEQUA&Ccedil;&Atilde;O";
                                     } elseif($dados->tpPlanoDistribuicao == 'AT') {
                                         echo "Análise Técnica";
                                     } elseif($dados->tpPlanoDistribuicao == 'CO') {
-                                        echo "COMPONENTE DA comissão";
+                                        echo "COMPONENTE DA comiss&atilde;o";
                                     }
                                 ?>
                             </b>
@@ -132,7 +132,7 @@
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <b>�rea</b><br>
+                                                    <b>&Aacute;rea</b><br>
                                                     <?php echo $dados->Area; ?>
                                                 </td>
                                                 <td>
@@ -385,7 +385,7 @@
 
     <table class="tabela sumir planilhaAprovada">
         <tr>
-            <th>Planilha Or�ament�ria Aprovada</th>
+            <th>Planilha Or&ccedilament&aacuteria Aprovada</th>
         </tr>
 
         <?php if (count($this->planAP) <= 0) { ?>
@@ -497,7 +497,7 @@ endforeach; //fechaForeachFonteIncentivo
 
     <table class="tabela planilhaSolicitada">
         <tr>
-            <th>Planilha Or�ament�ria Readequada</th>
+            <th>Planilha Or&ccedil;ament&aacute;ria Readequada</th>
         </tr>
 
 <?php $nrFonte = 0;
@@ -550,7 +550,7 @@ foreach ($this->planSR as $fonte => $planilha) : //ForeachFonteIncentivo ?>
                         <th>Vl. Unit&aacute;rio</th>
                         <th>Vl. Solicitado</th>
                         <th>Justificativa</th>
-                        <th>A��o</th>
+                        <th>A&ccedil;&atilde;o</th>
                     </tr>
                                                 <?php $totalUF = 0;
                                                 if (is_array($this->planSR[$fonte][$produto][$etapa][$cidade]))

@@ -28,7 +28,7 @@ class LocalizacaoFisicaController extends MinC_Controller_Action_Abstract
                 }
             }
         }
-                        
+
         isset($auth->getIdentity()->usu_codigo) ? parent::perfil(1, $this->permissoesGrupo) : parent::perfil(4, $this->permissoesGrupo);
 
         $this->usuarioLogado = isset($auth->getIdentity()->usu_codigo) ? $auth->getIdentity()->usu_codigo : $auth->getIdentity()->IdUsuario;
@@ -38,7 +38,7 @@ class LocalizacaoFisicaController extends MinC_Controller_Action_Abstract
         /* ==== VERIFICA PERMISSAO DE ACESSO DO PROPONENTE A PROPOSTA OU AO PROJETO ====== */
         /* =============================================================================== */
         $this->verificarPermissaoAcesso(true, false, false);
-        
+
         # Paginator
         Zend_Paginator::setDefaultScrollingStyle('Sliding');
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacaoMinc.phtml');
@@ -50,14 +50,14 @@ class LocalizacaoFisicaController extends MinC_Controller_Action_Abstract
     public function indexAction()
     {
         $this->view->filtro = 'pronac';
-            
+
         if (!empty($_GET) || !empty($_POST)) {
             $filtro = $this->_getParam('filtro');
             $pronac = $this->_getParam('pronac');
             if (isset($filtro) && 'pronac' == $filtro && empty($pronac)) {
-                parent::message("Digite o n�mero do Pronac!", "localizacao-fisica/index", "ALERT");
+                parent::message("Digite o n&uacute;mero do Pronac!", "localizacao-fisica/index", "ALERT");
             }
-                
+
             $this->intTamPag = 10;
 
             //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
@@ -105,7 +105,7 @@ class LocalizacaoFisicaController extends MinC_Controller_Action_Abstract
                 $filtro = isset($_POST['filtro']) ? $_POST['filtro'] : $_GET['filtro'];
                 $this->view->filtro = $filtro;
             }
-                
+
             if ((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))) {
                 $where['p.AnoProjeto+p.Sequencial = ?'] = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
                 $this->view->pronac = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
@@ -130,13 +130,13 @@ class LocalizacaoFisicaController extends MinC_Controller_Action_Abstract
             $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
 
             $busca = $LocalizacaoFisicaModel->localizarProjetos($where, $order, $tamanho, $inicio);
-                
+
             if ((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))) {
                 if (!in_array($busca[0]->Codigo, $this->permissoesOrgao)) {
                     parent::message("Usu�rio sem autoriza��o no �rg�o do projeto! Este projeto se encontra em {$busca[0]->Sigla}.", "localizacao-fisica/index", "ALERT");
                 }
             }
-                
+
             $paginacao = array(
                     "pag"=>$pag,
                     "qtde"=>$this->intTamPag,
@@ -157,16 +157,16 @@ class LocalizacaoFisicaController extends MinC_Controller_Action_Abstract
             $this->view->dados         = $busca;
             $this->view->intTamPag     = $this->intTamPag;
         }
-        
+
         $localizacaoFisicaModel = new LocalizacaoFisicaModel();
         $this->view->tecnicos = $localizacaoFisicaModel->getTecnicos(array(Zend_Auth::getInstance()->getIdentity()->usu_orgao));
         $this->view->vinculadas = $localizacaoFisicaModel->getVinculadas($this->permissoesOrgao);
     }
-        
+
     public function imprimirLocalizacaoFisicaProjetoAction()
     {
         $this->intTamPag = 10;
-            
+
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
         if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
@@ -258,7 +258,7 @@ class LocalizacaoFisicaController extends MinC_Controller_Action_Abstract
             $x=1;
             foreach ($busca as $d) {
                 $cpfcnpj = Validacao::mascaraCPFCNPJ($d->CgcCpf);
-                            
+
                 $html .= '<tr>';
                 $html .= '<td style="border: 1px dotted black;">'.$x.'</td>';
                 $html .= '<td style="border: 1px dotted black;">'.$d->Pronac.'</td>';
@@ -346,7 +346,7 @@ class LocalizacaoFisicaController extends MinC_Controller_Action_Abstract
             $localizacao->Localizacao = utf8_encode($localizacao->Localizacao);
         }
     }
-        
+
     /**
      *
      */

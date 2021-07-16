@@ -18,7 +18,7 @@
 	</tr>
 	<tr>
 		<td>54326</td>
-		<td>Espet�culo de Artes C�nicas</td>
+		<td>Espet&aacute;culo de Artes C&eacute;nicas</td>
 	</tr>
 	<tr>
 		<th>CNPJ/CPF</th>
@@ -26,6 +26,6 @@
 	</tr>
 	<tr>
 		<td>999.999/0001-99</td>
-		<td>Jo�o Barbosa de Lima</td>
+		<td>Jo&atilde;o Barbosa de Lima</td>
 	</tr>
 </table>

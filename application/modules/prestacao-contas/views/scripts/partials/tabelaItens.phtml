@@ -34,7 +34,7 @@
                                            Recusado
                                            <?php break; ?>
                                         <?php default: ?>
-                                           Aguardando Analise
+                                           Aguardando An&aacute;lise
                                     <?php endswitch ?>
                                 </td>
                                 <td nowrap><?php echo $comprovante->CNPJCPF; ?></td>
@@ -78,7 +78,7 @@
                                     ?>
                                     <?php if($this->diligenciaTodosItens): ?>
                                         <?php if ($comprovante->stItemAvaliado == 4): /* Não analisado ou recusado */ ?>
-                                            Aguardando Analise
+                                            Aguardando An&aacute;lise
                                         <?php endif; ?>
                                         <?php if ($comprovante->stItemAvaliado == ComprovantePagamentoxPlanilhaAprovacao::RECUSADO): /* Não analisado ou recusado */ ?>
                                             <a

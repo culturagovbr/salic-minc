@@ -140,8 +140,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
         ];
 
         $arrMenu['analise']['menu'][] = [
-            'label' => 'Avaliar adequação de projeto',
-            'title' => 'Ir para Avaliar adequa&ccedi;&atilde;o de projeto',
+            'label' => 'Avaliar adequa&ccedil;&atilde;o de projeto',
+            'title' => 'Ir para Avaliar adequa&ccedil;&atilde;o de projeto',
             'url' => ['module' => 'analise', 'controller' => 'analise', 'action' => 'listarprojetos'],
             'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_ANALISE, Autenticacao_Model_Grupos::TECNICO_ANALISE],
         ];

@@ -21,7 +21,7 @@ class Zend_View_Helper_SituacaoProcuracao
     public function situacaoProcuracao($stvinculo)
     {
         if ($stvinculo == 0) {
-            $return =  "Aguardando Análise";
+            $return =  "Aguardando An&aacute;lise";
         }
         if ($stvinculo == 1) {
             $return =  "Aprovado";

@@ -92,7 +92,7 @@ class AvaliacaoResultados_DiligenciaController extends MinC_Controller_Rest_Abst
 
         $rowDiligencia = $diligenciaDAO->inserir($dados);
         $projeto = new Projetos();
-        $projeto->alterarSituacao($idPronac, null, 'E17', 'Diligência na prestação de contas');
+        $projeto->alterarSituacao($idPronac, null, 'E17', 'Dilig&ecirc;ncia na presta&ccedil;&atilde;o de contas');
 
         $this->view->assign('data',['message' => 'criadosssss!']);
         $this->getResponse()->setHttpResponseCode(201);

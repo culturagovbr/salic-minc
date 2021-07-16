@@ -52,22 +52,16 @@
                 <td>
                     <?php
                     switch($dados->stRelatorioTrimestral){
-                        case 2:
-                            echo "Aguardando Análise";
-                            break;
                         case 3:
-                            echo "Aguardando Análise";
+                        case 2:
+                            echo "Aguardando An&aacute;lise";
                             break;
+                        case 6:
                         case 4:
                             echo "Em Análise";
                             break;
-                        case 5:
-                            echo "Analisado";
-                            break;
-                        case 6:
-                            echo "Em Análise";
-                            break;
                         case 7:
+                        case 5:
                             echo "Analisado";
                             break;
                     } ?>

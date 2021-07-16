@@ -77,7 +77,7 @@
 	        },
 	        error: function (data)
 			{
-	        	divMsg.html("Falha na recupera��o dos dados.\nNão foi poss�vel carregar agente!");
+	        	divMsg.html("Falha na recupera&ccedil;&atilde;o dos dados.\nNão foi poss&iacute;vel carregar agente!");
 			}
 	    });
             }else{
@@ -144,7 +144,7 @@
 	        },
 	        error: function (data)
 			{
-	        	divMsg.html("Falha na recupera��o dos dados.\nNão foi poss�vel carregar agente!");
+	        	divMsg.html("Falha na recupera&ccedil;&atildeo dos dados.\nNão foi poss&iacute;vel carregar agente!");
 			}
 	    });
 	});
@@ -210,7 +210,7 @@
 <div id="breadcrumb">
 	<ul>
 		<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''),'',true); ?>" title="Ir para INÍCIO">INÍCIO</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'gerarrelatorios', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Relat�rios</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'gerarrelatorios', 'action' => 'index'),'',true); ?>" title="Gerenciar Pareceres">Relat&oacute;rios</a></li>
 		<li class="last">Principal</li>
 	</ul>
 </div>
@@ -220,7 +220,7 @@
 
 <!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
-	<div>Relat�rios<span class="voltar"><a id="escondeDiv" href="#" >Voltar</a></span></div>
+	<div>Relat&oacute;rios<span class="voltar"><a id="escondeDiv" href="#" >Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
@@ -241,7 +241,7 @@
 				<option value="1" <?php if($this->relatorio == 1)echo 'selected';?> >Propostas Cadastradas</option>
 				<option value="2" <?php if($this->relatorio == 2)echo 'selected';?> >Propostas Conformidade</option>
 				<option value="3" <?php if($this->relatorio == 3)echo 'selected';?> >Todos os Projetos</option>
-				<option value="4" <?php if($this->relatorio == 4)echo 'selected';?> >Propostas com conformidade que Não viraram projetos</option>
+				<option value="4" <?php if($this->relatorio == 4)echo 'selected';?> >Propostas com conformidade que N&atilde;o viraram projetos</option>
 			</select>
 		</td>
 	</tr>
@@ -265,7 +265,7 @@
 			</select>
 		</td>
 		<td align="left">
-			<label style="font-family: Arial;">Classifica��o do edital</label>
+			<label style="font-family: Arial;">Classifica&ccedil;&atilde;o do edital</label>
 			<br />
 			<select name="classificacao" id="classificacao" class="input_simples"
 			onchange="carregar_combo2('edital','<?php echo $this->url(array('controller'=>'gerarrelatorios', 'action'=>'comboedital')); ?>',' - Selecione - ');" >
@@ -316,7 +316,7 @@
 			</select>
 		</td>
                 <td colspan="2" align="left">
-			<label style="font-family: Arial;">Munic�pio</label>
+			<label style="font-family: Arial;">Munic&iacute;pio</label>
 			<br />
 			<select name="cidade" id="cidade"  style="width: 300px;" class="input_simples">
 				<option value=""> - Selecione primeiro a UF - </option>

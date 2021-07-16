@@ -57,12 +57,12 @@
                 $dados = (object) $dados;
                 if ($dados->stAvaliacaoItemPedidoAlteracao == "AG") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stProposta('.$this->dados[0]['idAvaliacao']. ','. $this->dados[0]['IdPRONAC']. ',this)">';
-                    echo "<option value='0' selected='selected'>Aguardando Análise</option>
-                          <option value='1'>Em Análise</option>";
+                    echo "<option value='0' selected='selected'>Aguardando An&aacute;lise</option>
+                          <option value='1'>Em An&aacute;lise</option>";
                     echo '</select>';
                 } else if ($dados->stAvaliacaoItemPedidoAlteracao == "EA") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar()">';
-                    echo "<option value='1' selected='selected'>Em Análise</option>
+                    echo "<option value='1' selected='selected'>Em An&aacute;lise</option>
                           <option value='2'>Aprovado</option>
                           <option value='3'>Indeferido</option>";
                     echo '</select>';

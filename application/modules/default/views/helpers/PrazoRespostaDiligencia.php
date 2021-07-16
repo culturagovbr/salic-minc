@@ -116,20 +116,20 @@ class Zend_View_Helper_PrazoRespostaDiligencia
         //diligencia nao respondida
         elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null && $prazoResposta > $prazoPadrao) {
             $arrIcones['icone'] = "notice2.png";
-            $arrIcones['title'] = "Dilig�ncia Não respondida";
+            $arrIcones['title'] = "Dilig&ecirc;ncia Não respondida";
         }
         //diligencia respondida
         elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta != null) {
             //se respondeu mais nao enviou a resposta
             if ($rsDiligencia->stEnviado == 'N' && $prazoResposta > $prazoPadrao) {
                 $arrIcones['icone'] = "notice2.png";
-                $arrIcones['title'] = "Dilig�ncia Não respondida";
+                $arrIcones['title'] = "Dilig&ecirc;ncia Não respondida";
             } elseif ($rsDiligencia->stEnviado == 'N' && $prazoResposta <= $prazoPadrao) {
                 $arrIcones['icone'] = "notice.png";
                 $arrIcones['title'] = "Diligenciado";
             } else {
                 $arrIcones['icone'] = "notice3.png";
-                $arrIcones['title'] = "Diligencia respondida";
+                $arrIcones['title'] = "Dilig&ecirc;ncia respondida";
             }
         }
         //a diligenciar

@@ -89,7 +89,7 @@
                     <v-tab
                         v-if="perfilAceito(['coordenador'])"
                         href="#aguardando_distribuicao"
-                    >Aguardando distribuição
+                    >Aguardando distribui&ccedil;&atilde;o
                         <v-icon>
                             forward
                         </v-icon>
@@ -121,7 +121,7 @@
                     <v-tab
                         v-if="perfilAceito(['coordenador_acompanhamento'])"
                         href="#aguardando_publicacao"
-                    >Aguardando publicação
+                    >Aguardando publica&ccedil;&atilde;o
                         <v-icon>
                             schedule
                         </v-icon>

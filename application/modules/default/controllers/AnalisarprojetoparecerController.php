@@ -221,10 +221,10 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
                     $ProjetosProdutos['projetos'][$cont]['Dilig&ecirc;ncia'] = "<p style='text-align: center;'><a href='{$this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'))}?idPronac={$val->IdPRONAC}&idProduto={$val->idProduto}'><img src='/NovoSalic/public/img/notice.png' title='Diligenciado' width='30px'/></a></p>";
                     break;
                 case 2:
-                    $ProjetosProdutos['projetos'][$cont]['Dilig&ecirc;ncia'] = "<p style='text-align: center;'><a href='{$this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'))}?idPronac={$val->IdPRONAC}&idProduto={$val->idProduto}'><img src='/NovoSalic/public/img/notice2.png' title='Dilig?ncia n?o respondida' width='30px'/></a></p>";
+                    $ProjetosProdutos['projetos'][$cont]['Dilig&ecirc;ncia'] = "<p style='text-align: center;'><a href='{$this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'))}?idPronac={$val->IdPRONAC}&idProduto={$val->idProduto}'><img src='/NovoSalic/public/img/notice2.png' title='Dilig&ecirc;ncia n&atilde;o respondida' width='30px'/></a></p>";
                     break;
                 case 3:
-                    $ProjetosProdutos['projetos'][$cont]['Dilig&ecirc;ncia'] = "<p style='text-align: center;'><a href='{$this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'))}?idPronac={$val->IdPRONAC}&idProduto={$val->idProduto}&situacao=B14&tpDiligencia=124'><img src='/NovoSalic/public/img/notice3.png' title='Dilig?ncia respondida' width='30px'/></a></p>";
+                    $ProjetosProdutos['projetos'][$cont]['Dilig&ecirc;ncia'] = "<p style='text-align: center;'><a href='{$this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'))}?idPronac={$val->IdPRONAC}&idProduto={$val->idProduto}&situacao=B14&tpDiligencia=124'><img src='/NovoSalic/public/img/notice3.png' title='Dilig&ecirc;ncia respondida' width='30px'/></a></p>";
                     break;
             }
             if ($tempoDiligencia) {

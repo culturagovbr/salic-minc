@@ -70,7 +70,7 @@
         foreach ($this->buscarProd as $resposta) :
             // contador dos itens
             /**
-             * INÍCIO FOREACH PRODUTOS
+             * IN&Iacute;CIO FOREACH PRODUTOS
              * Percorre todos os produtos
              */
 
@@ -83,7 +83,7 @@
 
             ?>
 
-            <!-- ========== INÍCIO TÍTULO INCENTIVO FISCAL FEDERAL ========== -->
+            <!-- ========== IN&Iacute;CIO TÍTULO INCENTIVO FISCAL FEDERAL ========== -->
             <?php if (!in_array($comparadorIncentivo, $arrayIncentivo)): ?>
             <tr>
                 <td colspan="13">&nbsp;</td>
@@ -104,10 +104,10 @@
             <!-- ========== FIM TÍTULO INCENTIVO FISCAL FEDERAL ========== -->
 
 
-            <!-- ========== INÍCIO BUSCA POR PRODUTO ========== -->
+            <!-- ========== IN&Iacute;CIO BUSCA POR PRODUTO ========== -->
 
             <?php if (!in_array($comparadorProdutos, $arrayProdutos)): ?>
-            <!-- ========== INÍCIO TÍTULO PRODUTOS ========== -->
+            <!-- ========== IN&Iacute;CIO TÍTULO PRODUTOS ========== -->
             <tr class="IFF<?php echo $comparadorIncentivo; ?> linha">
                 <td colspan="13">
                     <strong>
@@ -126,7 +126,7 @@
 
 
             <?php if (!in_array($comparadorEtapas, $arrayEtapas)): ?>
-            <!-- ========== INÍCIO TÍTULO ETAPAS ========== -->
+            <!-- ========== IN&Iacute;CIO TÍTULO ETAPAS ========== -->
             <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?>">
                 <td colspan="13">
                     <strong style="margin-left:2%;">
@@ -141,12 +141,12 @@
                     </strong>
                 </td>
             </tr>
-            <!-- ========== INÍCIO TÍTULO ETAPAS ========== -->
+            <!-- ========== IN&Iacute;CIO TÍTULO ETAPAS ========== -->
         <?php endif; ?>
 
 
             <?php if (!in_array($comparadorUFs, $arrayUFs)): ?>
-            <!-- ========== INÍCIO TÍTULO UF ========== -->
+            <!-- ========== IN&Iacute;CIO TÍTULO UF ========== -->
             <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?>">
                 <td colspan="13">
                     <strong style="margin-left:3%;">
@@ -163,7 +163,7 @@
             <!-- ========== FIM TÍTULO UF ========== -->
 
 
-            <!-- ========== INÍCIO TITULO ÍTENS ========== -->
+            <!-- ========== IN&Iacute;CIO TITULO ÍTENS ========== -->
             <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>">
                 <th>&nbsp;</th>
                 <th width="20%">Item</th>
@@ -182,7 +182,7 @@
             <!-- ========== FIM TITULO ÍTENS ========== -->
         <?php endif; ?>
 
-            <!-- ========== INÍCIO ÍTENS ========== -->
+            <!-- ========== IN&Iacute;CIO ÍTENS ========== -->
             <?php
             $totalItens = 0;
 
@@ -213,7 +213,7 @@
             <!-- ========== FIM ÍTENS ========== -->
 
 
-            <!-- ========== INÍCIO TOTAL UF ========== -->
+            <!-- ========== IN&Iacute;CIO TOTAL UF ========== -->
             <?php
             // ===== CALCULA TOTAL UFS =====
             $totalVal_01_UF += (float)$resposta->VlSolicitado;
@@ -241,7 +241,7 @@
             <!-- ========== FIM TOTAL UF ========== -->
 
 
-            <!-- ========== INÍCIO TOTAL ETAPAS ========== -->
+            <!-- ========== IN&Iacute;CIO TOTAL ETAPAS ========== -->
             <?php
             // ===== CALCULA TOTAL ETAPAS =====
             $totalVal_01_Etapa += (float)$resposta->VlSolicitado;
@@ -271,7 +271,7 @@
             <!-- ========== FIM TOTAL ETAPAS ========== -->
 
 
-            <!-- ========== INÍCIO TOTAL PRODUTOS ========== -->
+            <!-- ========== IN&Iacute;CIO TOTAL PRODUTOS ========== -->
             <?php
             // ===== CALCULA TOTAL PRODUTOS =====
             $totalVal_01_Produto += (float)$resposta->VlSolicitado;

@@ -91,7 +91,7 @@ export default {
                     cor: 'green lighten-3',
                     corIcone: 'green darken-4',
                     corBadge: 'grey lighten-1',
-                    texto: 'Diligência respondida',
+                    texto: 'Dilig&ecirc;ncia respondida',
                 };
                 break;
             case 3:

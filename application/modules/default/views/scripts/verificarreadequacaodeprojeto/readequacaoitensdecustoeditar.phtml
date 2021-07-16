@@ -59,14 +59,14 @@
             <?php $prodFinalizados = false;
                 if ($stResult->stAvaliacaoItemPedidoAlteracao == "AG") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stReadequacao('.$stResult->idAvaliacaoItemPedidoAlteracao . ','. $this->idPronac . ',this )">';
-                    echo "<option value='0' selected='selected'>Aguardando Análise</option>
-                          <option value='1'>Em Análise</option>";
+                    echo "<option value='0' selected='selected'>Aguardando An&aacute;lise</option>
+                          <option value='1'>Em An&aacute;lise</option>";
                     echo '</select>';
                 } else if ($stResult->stAvaliacaoItemPedidoAlteracao == "EA") {
                     $emAnalise = true;
                     $disabledEA = ($todosAvaliados) ? "" : "disabled=\"disabled\"";
                     echo '<select name="status" '.$disabledEA.' id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar_avaliacao(this.value)">';
-                    echo "<option value='1' selected='selected'>Em Análise</option>";
+                    echo "<option value='1' selected='selected'>Em An&aacute;lise</option>";
                     if ($todosAvaliados)
                     {
                         echo "<option value='2'>Finalizar</option>";
@@ -932,9 +932,9 @@
                                             $aval = trim($verificaAnalise[0]->stAvaliacao);
                                         } else {
                                             if ($this->stResult[0]->stAvaliacaoItemPedidoAlteracao == 'EA') {
-                                                echo "Em Análise";
+                                                echo "Em An&aacute;lise";
                                             } else {
-                                                echo "Aguardando Análise";
+                                                echo "Aguardando An&aacute;lise";
                                             }
                                         }
                                         echo "<input value='$aval' class='itensVerificacao sumir' />";

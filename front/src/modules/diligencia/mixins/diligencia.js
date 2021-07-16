@@ -14,14 +14,14 @@ export default {
                 diligencia = {
                     cor: 'green lighten-3',
                     corIcone: 'green darken-4',
-                    texto: 'Diligência respondida',
+                    texto: 'Dilig&ecirc;ncia respondida',
                 };
                 break;
             case 3:
                 diligencia = {
                     cor: 'orange lighten-3',
                     corIcone: 'orange darken-4',
-                    texto: 'Diligência não respondida',
+                    texto: 'Dilig&ecirc;ncia n&atilde;o respondida',
                 };
                 break;
             default:

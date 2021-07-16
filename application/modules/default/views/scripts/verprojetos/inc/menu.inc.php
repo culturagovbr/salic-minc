@@ -13,9 +13,9 @@
         });
     </script>
 
-    <!-- início: conteúdo principal #container -->
+    <!-- IN&Iacute;CIO: conteúdo principal #container -->
     <div id="container">
-        <!-- início: navegação local #qm0 -->
+        <!-- IN&Iacute;CIO: navegação local #qm0 -->
         <script type="text/javascript">
             function layout_fluido(){
                 var janela = $(window).width();

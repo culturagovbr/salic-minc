@@ -40,10 +40,10 @@ class Zend_View_Helper_StatusDiligencia
                 $diligencias['msg'] = "Diligenciado";
             } elseif ($d[0]->DtSolicitacao && $d[0]->DtResposta != null) {
                 $diligencias['img'] = "notice3.png";
-                $diligencias['msg'] = "Diligencia respondida";
+                $diligencias['msg'] = "Dilig&ecirc;ncia respondida";
             } elseif ($d[0]->DtSolicitacao && round(data::CompararDatas($d[0]->DtDistribuicao)) > $d[0]->tempoFimDiligencia) {
                 $diligencias['img'] = "notice2.png";
-                $diligencias['msg'] = "Diligencia Não respondida";
+                $diligencias['msg'] = "Dilig&ecirc;ncia Não respondida";
             } else {
                 $diligencias['img'] = "notice1.png";
                 $diligencias['msg'] = "A Diligenciar";

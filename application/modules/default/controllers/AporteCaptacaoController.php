@@ -40,7 +40,7 @@ class AporteCaptacaoController extends MinC_Controller_Action_Abstract
         /* ========== FIM PERFIL ==========*/
 
 
-        /* ========== INÍCIO ÓRGÃO ========== */
+        /* ========== IN&Iacute;CIO ÓRGÃO ========== */
         $GrupoAtivo   = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
         $this->getIdGrupo = $GrupoAtivo->codGrupo; // id do grupo ativo
         $this->getIdOrgao = $GrupoAtivo->codOrgao; // id do órgão ativo
