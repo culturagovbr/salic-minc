@@ -10,7 +10,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     }
 
     /**
-     * Tela de cadastro de readequações - visão do proponente
+     * Tela de cadastro de readequaç&otilde;es - visão do proponente
      * @require idPronac
      */
     public function indexAction()
@@ -18,7 +18,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $this->view->idPerfil = $this->idPerfil;
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
             parent::message(
-                "Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!",
+                "Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &Aacute;rea do sistema!",
                 "principal",
                 "ALERT"
             );
@@ -166,7 +166,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
 
 
     /**
-     * Essa função é acessada para alterar o item da planilha orçamentária.
+     * Essa função é acessada para alterar o item da planilha orçament&aacute;ria.
      */
     public function alterarItemSolicitacaoAction()
     {
@@ -268,7 +268,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     }
 
     /**
-     * Esse função é usada pelo proponente para solicitar a exclusão de um item da planilha orçamentária.
+     * Esse função é usada pelo proponente para solicitar a exclusão de um item da planilha orçament&aacute;ria.
      */
     public function excluirItemSolicitacaoAction()
     {
@@ -279,7 +279,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $idPronac = Seguranca::dencrypt($idPronac);
         }
 
-        /* DADOS DO ITEM PARA EXCLUSAO LÓGICA DO ITEM DA READEQUACAO */
+        /* DADOS DO ITEM PARA EXCLUSAO L&Oacute;GICA DO ITEM DA READEQUACAO */
         $dados = array();
         $dados['tpAcao'] = 'E';
 
@@ -378,7 +378,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $this->_helper->json(
                 array(
                     'resposta' => false,
-                    'msg' => 'ITEM DUPLICADO: Já existe um item igual na mesma fonte / produto / etapa / município.'
+                    'msg' => 'ITEM DUPLICADO: J&aacute; existe um item igual na mesma fonte / produto / etapa / município.'
                 )
             );
         } else {
@@ -451,7 +451,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     /*
      * Criada em 06/03/14
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Essa função é usada para alterar os dados do item da planilha orçamentária.
+     * Essa função é usada para alterar os dados do item da planilha orçament&aacute;ria.
      */
     public function salvarAvaliacaoDoItemAction()
     {
@@ -1494,7 +1494,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                 'stAtivo' => 0
             );
 
-            # @todo isso pode causar inconsistência se existir mais de uma readquação em analise
+            # @todo isso pode causar inconsist&ecirc;ncia se existir mais de uma readquação em analise
             $whereUpdateParecer = 'IdPRONAC = ' . $idPronac;
             $alteraParecer = $parecerDAO->alterar($parecerAntigo, $whereUpdateParecer);
 
@@ -1557,7 +1557,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     /*
      * Alterada em 14/03/14
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Função acessada pelo componente da comissão para analisar as readequações - painel.
+     * Função acessada pelo componente da comissão para analisar as readequaç&otilde;es - painel.
     */
     public function analisarReadequacoesCnicAction()
     {
@@ -1647,7 +1647,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     /*
      * Alterada em 17/03/2014
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Função acessada pelo componente da comissão para avaliar as readequações.
+     * Função acessada pelo componente da comissão para avaliar as readequaç&otilde;es.
     */
     public function formAvaliarReadequacaoCnicAction()
     {
@@ -1694,7 +1694,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
 
     /*
      * Alterada em 15/05/2015
-     * Função acessada pelo componente da comissão para avaliar as readequações.
+     * Função acessada pelo componente da comissão para avaliar as readequaç&otilde;es.
     */
     public function componenteComissaoSalvarAvaliacaoAction()
     {
@@ -1920,7 +1920,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                                 );
                                 $idAprovacao = $tbAprovacao->inserir($dadosAprovacao);
 
-                            } elseif ($read->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_AGENCIA_BANCARIA) { //Se for readequação de agência bancária, atualiza os dados na SAC.dbo.PreProjeto.// READEQUAÇÃO DE ALTERAÇÃO DE RAZÃO SOCIAL
+                            } elseif ($read->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_AGENCIA_BANCARIA) { //Se for readequação de ag&ecirc;ncia bancária, atualiza os dados na SAC.dbo.PreProjeto.// READEQUAÇÃO DE ALTERAÇÃO DE RAZÃO SOCIAL
                                 $Projetos = new Projetos();
                                 $dadosPrj = $Projetos->buscar(array('IdPRONAC=?' => $read->idPronac))->current();
                                 $agenciaBancaria = str_replace('-', '', $read->dsSolicitacao);
@@ -1998,7 +1998,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                                     if ($avaliacao == 'D') {
                                         if ($abg->tpSolicitacao == 'E') { //Se a abrangencia foi excluída, atualiza os status da abrangencia na SAC.dbo.Abrangencia
                                             $Abrangencia->delete(array('idProjeto = ?' => $dadosPrj->idProjeto, 'idPais = ?' => $abg->idPais, 'idUF = ?' => $abg->idUF, 'idMunicipioIBGE = ?' => $abg->idMunicipioIBGE));
-                                        } elseif ($abg->tpSolicitacao == 'I') { //Se a abangência foi incluída, cria um novo registro na tabela SAC.dbo.Abrangencia
+                                        } elseif ($abg->tpSolicitacao == 'I') { //Se a abang&ecirc;ncia foi incluída, cria um novo registro na tabela SAC.dbo.Abrangencia
                                             $novoLocalRead = array();
                                             $novoLocalRead['idProjeto'] = $dadosPrj->idProjeto;
                                             $novoLocalRead['idPais'] = $abg->idPais;

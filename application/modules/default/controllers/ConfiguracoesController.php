@@ -24,7 +24,7 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
 
         // autentica��o e permiss�es zend (AMBIENTE MINC)
         $PermissoesGrupo = array();
-        $PermissoesGrupo[] = 128; // T�cnico de Portaria
+        $PermissoesGrupo[] = 128; // T&eacute;cnico de Portaria
         parent::perfil(1, $PermissoesGrupo);
 
         parent::init();
@@ -170,7 +170,7 @@ class ConfiguracoesController extends MinC_Controller_Action_Abstract
         if (isset($get->xls) && $get->xls) {
             $html = '';
             $html .= '<table style="border: 1px">';
-            $html .='<tr><td style="border: 1px dotted black; background-color: #EAF1DD; font-size: 16; font-weight: bold;" colspan="4">Lista de Secret�rios Cadastrados</td></tr>';
+            $html .='<tr><td style="border: 1px dotted black; background-color: #EAF1DD; font-size: 16; font-weight: bold;" colspan="4">Lista de Secret&aacute;rios Cadastrados</td></tr>';
             $html .='<tr><td style="border: 1px dotted black; background-color: #EAF1DD; font-size: 10" colspan="4">Data do Arquivo: '. Data::mostraData() .'</td></tr>';
             $html .='<tr><td colspan="4"></td></tr>';
 

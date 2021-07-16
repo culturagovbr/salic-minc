@@ -129,9 +129,9 @@
                 <a href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'index')); ?>?idPronac=<?php echo Seguranca::encrypt($id); ?>' class="no_seta" title="Ir para Projeto Atual">Projeto Atual</a>
 
 
-                <!-- ======================= Outras Informações  =======================   -->
+                <!-- ======================= Outras Informaç&otilde;es  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Outras Informações" class="ancoraOutrasInformacoes" onclick="return false;">Outras Informações</a>
+                <a href="#" title="Outras Informaç&otilde;es" class="ancoraOutrasInformacoes" onclick="return false;">Outras Informaç&otilde;es</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'certidoes-negativas')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Certid&otilde;es Negativas">Certid&otilde;es Negativas</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-complementares')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Dados complementares do projeto">Dados complementares do projeto</a>
@@ -146,20 +146,20 @@
                     <?php
         } ?>
                 </div>
-                <!-- ==================== FIM - Outras Informações  =======================   -->
+                <!-- ==================== FIM - Outras Informaç&otilde;es  =======================   -->
 
 
                 <?php if (($this->fnLiberarLinks['Analise'] && in_array($this->fnLiberarLinks['FaseDoProjeto'], array('2','3','4'))) || $this->usuarioInterno) {
             ?>
-                <!-- ======================= Análise e Aprovação  =======================   -->
+                <!-- ======================= An&aacute;lise e Aprovação  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Análise e Aprovação" class="ancoraAnaliseAprovacao" onclick="return false;">Análise e Aprovação</a>
+                <a href="#" title="An&aacute;lise e Aprovação" class="ancoraAnaliseAprovacao" onclick="return false;">An&aacute;lise e Aprova&ccedil;&atilde;o</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'analise-projeto')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para An&aacute;lise do projeto">An&aacute;lise do projeto</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'aprovacao')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para Aprova&ccedil;&atilde;o">Aprova&ccedil;&atilde;o</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'recurso')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para Recursos">Recursos</a>
                 </div>
-                <!-- ==================== FIM - Análise e Aprovação  =======================   -->
+                <!-- ==================== FIM - An&aacute;lise e Aprovação  =======================   -->
                 <?php
         } ?>
 

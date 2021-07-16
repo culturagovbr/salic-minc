@@ -44,7 +44,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     {
         $tbPedidoAlteracaoProjeto = new tbPedidoAlteracaoProjeto();
 
-        // busca os id do �ltimo pedido de readequa��o Não finalizado
+        // busca os id do �ltimo pedido de readequa&ccedil;&atilde;o Não finalizado
         $wherePedido                    = array('IdPRONAC = ?' => $idPronac, 'siVerificacao IN (?)' => array(0, 1), 'stPedidoAlteracao = ?' => 'I');
         $orderPedido                    = array('idPedidoAlteracao DESC');
         $buscarPedidoAlteracao          = $tbPedidoAlteracaoProjeto->buscar($wherePedido, $orderPedido)->current();
@@ -180,8 +180,8 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
         // ========== DEFINE QUAIS PROJETOS DETERMINADOS PERFIS PODER�O VISUALIZAR ==========
         // S� quem visualiza os Projetos s�o os Coordenadores de Acompanhamento da SAV/CGAV/CAP e da SEFIC/GEAR/SACAV.
-        // Caso o �rg�o logado seja SAV/CGAV/CAP (166) pega somente os projetos da �rea de Audiovisual (2).
-        // SeNão, quando o �rg�o for SEFIC/GEAR/SACAV (272), busca os Projetos das �reas que Não seja a de Audiovisual.
+        // Caso o �rg�o logado seja SAV/CGAV/CAP (166) pega somente os projetos da &aacute;rea de Audiovisual (2).
+        // SeNão, quando o �rg�o for SEFIC/GEAR/SACAV (272), busca os Projetos das &aacute;reas que Não seja a de Audiovisual.
         // O �rg�o/unidade � passada atrav�s de $this->getIdOrgao
         $unidade_autorizada = ($this->getIdOrgao == 166 || $this->getIdOrgao == 272) ? $this->getIdOrgao : 0;
 
@@ -752,7 +752,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Readequa��o de Produtos
+    * Fun��o que chama a view Readequa&ccedil;&atilde;o de Produtos
     * ************************************************************************************************************************/
     public function consultareadequacaoprodutosAction()
     {
@@ -792,7 +792,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Readequa��o de Itens de Custo
+    * Fun��o que chama a view Readequa&ccedil;&atilde;o de Itens de Custo
     * ************************************************************************************************************************/
     public function consultareadequacaoitensdecustoAction()
     {
@@ -1037,7 +1037,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Readequa��o de Produtos
+    * Fun��o que chama a view Readequa&ccedil;&atilde;o de Produtos
     * ************************************************************************************************************************/
     public function readequacaoprodutosAction()
     {
@@ -1090,7 +1090,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Readequa��o de Itens de Custo
+    * Fun��o que chama a view Readequa&ccedil;&atilde;o de Itens de Custo
     * ************************************************************************************************************************/
     public function readequacaoitensdecustoAction()
     {
@@ -1227,7 +1227,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-     * SALVA A READEQUA��O
+     * SALVA A Readequa&Ccedil;&Atilde;o
      * ************************************************************************************************************************/
     public function salvarreadequacaoAction()
     {
@@ -1280,7 +1280,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * FINALIZA A READEQUA��O
+    * FINALIZA A Readequa&Ccedil;&Atilde;o
     * ************************************************************************************************************************/
     public function finalizarreadequacaoAction()
     {
@@ -1475,7 +1475,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * Fun��o que altera o status da Solicitação na view Readequa��o de Produtos
+    * Fun��o que altera o status da Solicitação na view Readequa&ccedil;&atilde;o de Produtos
     * ************************************************************************************************************************/
     public function readequacaoprodutoseditarAction()
     {
@@ -1529,7 +1529,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * Fun��o que altera o status da Solicitação na view Readequa��o de Produtos
+    * Fun��o que altera o status da Solicitação na view Readequa&ccedil;&atilde;o de Produtos
     * ************************************************************************************************************************/
     public function readequacaoitensdecustoeditarAction()
     {
@@ -1679,11 +1679,11 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 //                        $where = " idpedidoalteracao = $idpedidoalteracao";
 //                        //$avaliacao = $buscaInformacoes->atualizarAvaliacaopedido($dados, $where);
 //
-//                        //parent::message("N&atilde;o h�  readequa�&otilde;es para produto, por favor verifique os itens de custo", "/verificarsolicitacaodereadequacoes/planilhasolicitada?idPronac=$id_Pronac", "ALERT");
+//                        //parent::message("N&atilde;oh&aacute;  readequa�&otilde;es para produto, por favor verifique os itens de custo", "/verificarsolicitacaodereadequacoes/planilhasolicitada?idPronac=$id_Pronac", "ALERT");
 //                        $this->_redirect('verificarsolicitacaodereadequacoes/planilhasolicitada?idPronac='.$id_Pronac);
 //                }
 //
-//		//LISTA COMBO DE "�REA" NA VIEW
+//		//LISTA COMBO DE "&Aacute;rea" NA VIEW
 //		$sqlListaArea = ReadequacaoProjetos::retornaSQLproposta("sqlListaArea","NULL");
 //		$ListaArea = $db->fetchAll($sqlListaArea);
 //

@@ -644,11 +644,11 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
             } elseif ($Q_titulares[0]->QTD == 0 && $Q_suplentes[0]->QTD == 0) {
                 $novos_dados[0]['Nome'] = 'Sem cadastro';
                 $novos_dados[0]['Titular'] = '';
-                $novos_dados[0]['msgAS'] = utf8_encode('Você pode cadastrar <strong> 1 </strong> Titular e <strong>  2 </strong> Suplente(s)!');
+                $novos_dados[0]['msgAS'] = utf8_encode('Voc&ecirc; pode cadastrar <strong> 1 </strong> Titular e <strong>  2 </strong> Suplente(s)!');
             } else {
                 $titularesDisponives = 1 - (int)$Q_titulares[0]->QTD;
                 $suplentesDisponives = 2 - (int)$Q_suplentes[0]->QTD;
-                $novos_dados[$i]['msgAS'] = utf8_encode('Você pode cadastrar <strong>' . $titularesDisponives . '</strong> Titular e <strong>' . $suplentesDisponives . '</strong> Suplente(s)!');
+                $novos_dados[$i]['msgAS'] = utf8_encode('Voc&ecirc; pode cadastrar <strong>' . $titularesDisponives . '</strong> Titular e <strong>' . $suplentesDisponives . '</strong> Suplente(s)!');
             }
 
             // pega os nomes de titulares e suplentes cadastrados

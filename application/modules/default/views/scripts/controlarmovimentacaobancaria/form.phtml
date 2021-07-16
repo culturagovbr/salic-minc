@@ -38,7 +38,7 @@ endif;
 	<script type="text/javascript">
 	<!--
 	/**
-	 * Fun��o para mostrar/ocultar a faixa de per�odo fixo
+	 * Fun��o para mostrar/ocultar a faixa de per&iacute;odo fixo
 	 */
 	function alterar_periodo(periodo)
 	{
@@ -100,14 +100,14 @@ endif;
 		});
 
 
-		// altera��o de per�odo
+		// altera��o de per&iacute;odo
 		$('#periodo').change(function()
 		{
 			alterar_periodo(this.value);
 		});
 
 
-		// passa para o per�odo final assim que o per�odo inicial for preenchido
+		// passa para o per&iacute;odo final assim que o per&iacute;odo inicial for preenchido
 		$('#periodo1').keyup(function()
 		{
 			if (document.getElementById('periodo1').value.length == '10')
@@ -120,7 +120,7 @@ endif;
 		// valida��es antes do envio do formul�rio
 		$('#enviar').click(function()
 		{
-			// valida��o do per�odo fixo
+			// valida��o do per&iacute;odo fixo
 			if (!verificar_data())
 			{
 				return false;

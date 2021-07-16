@@ -20,7 +20,7 @@
         });
 
         $("#area").change(function(){
-            carregar_combo(this.value, 'segmento', '<?php echo $this->url(array('controller' => 'segmentocultural', 'action' => 'combo-z')); ?>', ' - Selecione uma Área Cultural - ');
+            carregar_combo(this.value, 'segmento', '<?php echo $this->url(array('controller' => 'segmentocultural', 'action' => 'combo-z')); ?>', ' - Selecione uma &Aacute;rea Cultural - ');
         });
 
         $(function()
@@ -240,7 +240,7 @@
                         </td>
                 </tr>-->
                 <tr>
-                        <td align="left">Área Cultural</td>
+                        <td align="left">&Aacute;rea Cultural</td>
                         <td align="left" colspan="2">
                             <select name="tipoPesqArea" id="tipoPesqArea" style="width: 140px;" class="input_simples">
                                 <option value="EIG">Exatamente igual</option>
@@ -259,7 +259,7 @@
                     <td align="left" colspan="2">
                         <div style="float: left; width: 140px" >Exatamente igual &nbsp;</div>
                         <select name="segmento" id="segmento" style="width: 200px;" class="input_simples">
-                            <option selected="selected" value=""> - Selecione uma Área Cultural - </option>
+                            <option selected="selected" value=""> - Selecione uma &Aacute;rea Cultural - </option>
                         </select>
                     </td>
                 </tr>

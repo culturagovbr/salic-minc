@@ -1044,7 +1044,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
     }
 
     /**
-     * Este metodo deve estar igual à regra de negocio 1.3 da spCheckListParaApresentacaoDeProposta
+     * Este metodo deve estar igual &agrave; regra de negocio 1.3 da spCheckListParaApresentacaoDeProposta
      * @param $idPreProjeto
      * @return ArrayObject|bool|mixed
      */

@@ -78,14 +78,14 @@ if (count($this->readequacoes) > 0):
                     <table class="tabela">
                         <tr>
                             <td class="destacar bold" style="width: 50%;">Situa��o</td>
-                            <td class="destacar bold" style="width: 50%;">Dt. Avalia��o</td>
+                            <td class="destacar bold" style="width: 50%;">Dt. Avalia&Ccedil;&Atilde;o</td>
                         </tr>
                         <tr>
                             <td><?php echo $r->stAtendimento == 'I' ? 'Rejeitado' : 'Recebido'; ?></td>
                             <td><?php echo Data::tratarDataZend($r->dtAvaliador, 'Brasileira'); ?></td>
                         </tr>
                         <tr>
-                            <td class="destacar bold" colspan="2">Descrição da Avalia��o</td>
+                            <td class="destacar bold" colspan="2">Descrição da Avalia&Ccedil;&Atilde;o</td>
                         </tr>
                         <tr>
                             <td colspan="2"><?php echo $r->dsAvaliacao; ?></td>

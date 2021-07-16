@@ -11,7 +11,7 @@ class AnaliseprojetoController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio às Leis de Incentivo à Cultura"; // t�tulo da página
+        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da página
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -24,7 +24,7 @@ class AnaliseprojetoController extends Zend_Controller_Action
             $PermissoesGrupo[] = 119;
             $PermissoesGrupo[] = 120;
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Você Não tem permissão para acessar essa àrea do sistema!", "principal/index", "ALERT");
+                parent::message("Você Não tem permissão para acessar essa &agrave;rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)

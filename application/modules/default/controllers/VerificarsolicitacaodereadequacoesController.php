@@ -360,7 +360,7 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
                 }
 
                 if ($_POST['tpAcao'] == "N" || empty($_POST['tpAcao'])) {
-                    parent::message("N&atilde;o h� solicita�&atilde;o de readequa�&atilde;o para este item.", "/verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$idPronac", "ALERT");
+                    parent::message("N&atilde;oh&aacute; solicita�&atilde;o de readequa�&atilde;o para este item.", "/verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$idPronac", "ALERT");
                 }
                 $this->_helper->viewRenderer->setNoRender(true);
             }

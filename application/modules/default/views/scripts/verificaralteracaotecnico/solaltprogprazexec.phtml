@@ -4,15 +4,15 @@
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li>Acompanhamento</li>
-        <li class="last">Verificar readequação de projeto</li>
+        <li class="last">Verificar readequa&ccedil;&atilde;o de projeto</li>
     </ul>
 </div>
 
 <div id="mostra"></div>
-<!-- ========== INÍCIO T�TULO ========== -->
+<!-- ========== In&iacute;cio T�TULO ========== -->
 <form name="formfinalizar" action="<?php echo $this->url(array('controller' => 'verificaralteracaotecnico', 'action' => 'finalizaprop')); ?>" method="post" >
 <div id="titulo">
-    <div>READEQUA��O: PRORROGA��O DE PRAZOS - EXECU��O
+    <div>READEQUA&Ccedil;&Atilde;O: PRORROGA&Ccedil;&Atilde;O DE PRAZOS - EXECU&Ccedil;&Atilde;O
         <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
         <span style="vertical-align: middle;">
             <?php
@@ -37,7 +37,7 @@
         {
             if( $("#editor1").val() == ''){
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('Favor preencher a Análise da Proposta e Altera�&atilde;o.');
+                    $('#mostra').html('Favor preencher a An&aacute;lise da Proposta e Altera&ccedil;&atilde;o.');
                     $("#mostra").dialog
                     ({
                         height: 180,
@@ -58,7 +58,7 @@
                 } else {
 
                     $("#mostra").dialog("destroy");
-                    $('#mostra').html('O projeto será finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
+                    $('#mostra').html('O projeto ser&aacute; finalizado e encaminhado ao Coordenador de Acompanhamento.<br/><br/>Deseja continuar?');
                     $("#mostra").dialog
                     ({
                         height: 250,
@@ -93,7 +93,7 @@
             <table class="tabela">
                 <thead>
                     <tr>
-                        <th align="center">N� PRONAC:</th>
+                        <th align="center">N&ordm; PRONAC:</th>
                         <th align="center">Nome do Projeto:</th>
                     </tr>
                 </thead>
@@ -119,12 +119,12 @@
         <table class="tabela">
             <tr>
                 <th colspan="3">
-                    Conta Banc�ria
+                    Conta Banc&aacute;ria
                 </th>
             </tr>
             <tr>
                 <td>Banco:</td>
-                <td colspan="2">Ag�ncia:</td>
+                <td colspan="2">Ag&ecirc;ncia:</td>
             </tr>
             <tr>
                 <td><?php echo $this->escape($this->resultDadosBanc['Banco']); ?></td>
@@ -132,13 +132,13 @@
             </tr>
             <tr>
                 <th colspan="3">
-                    Conta Capta��o
+                    Conta Capta&ccedil;&atilde;o
                 </th>
             </tr>
             <tr>
-                <td>N�mero:</td>
+                <td>N&uacute;mero:</td>
                 <td>Data Abertura:</td>
-                <td>% de Capta��o</td>
+                <td>% de Capta&ccedil;&atilde;o</td>
             </tr>
             <tr>
                 <td><?php echo $this->escape($this->resultDadosBanc['ContaBloqueada']); ?></td>
@@ -147,12 +147,12 @@
             </tr>
             <tr>
                 <th colspan="3">
-                    Conta Movimenta��o
+                    Conta Movimenta&ccedil;&atilde;o
                 </th>
             </tr>
 
             <tr>
-                <td>N�mero:</td>
+                <td>N&uacute;mero:</td>
                 <td colspan="2">Data Abertura:</td>
             </tr>
             <tr>
@@ -161,11 +161,11 @@
             </tr>
             <tr>
                 <th colspan="3">
-                    Per�odo de Execu��o Atual
+                    Per&iacute;odo de Execu&ccedil;&atilde;o Atual
                 </th>
             </tr>
             <tr>
-                <td>Data INÍCIO:</td>
+                <td>Data In&iacute;cio:</td>
                 <td colspan="2">Data Final:</td>
             </tr>
             <tr>
@@ -174,11 +174,11 @@
             </tr>
             <tr>
                 <th colspan="3">
-                    Solicitação de Prorroga��o do Per�odo de Execu��o
+                    Solicita&ccedil;&atilde;o de Prorroga&ccedil;&atilde;o do Per&iacute;odo de Execu&ccedil;&atilde;o
                 </th>
             </tr>
             <tr>
-                <td>Data INÍCIO:</td>
+                <td>Data In&iacute;cio:</td>
                 <td colspan="2">Data Final:</td>
             </tr>
             <tr>
@@ -200,12 +200,12 @@
             <tr>
                 <td style="width: 25%; padding-left: 5%; text-decoration: underline;" colspan="3"><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivo->idArquivo; ?>"><?php echo $arquivo->nmarquivo ?></a></td>
             </tr>
-            <?php } } else { echo '<tr><td colspan="3"><span style="color: red;">Não h� arquivos anexados!</span></td></tr>'; } ?>
+            <?php } } else { echo '<tr><td colspan="3"><span style="color: red;">Nãoh&aacute; arquivos anexados!</span></td></tr>'; } ?>
 
             <?php if ($this->dados->stAvaliacaoItemPedidoAlteracao != 'AG') { ?>
             <tr>
                 <th colspan="3">
-                    Análise DA PROPOSTA E ALTERA��O
+                    An&aacute;lise DA PROPOSTA E ALTERA&Ccedil;&Atilde;O
                 </th>
             </tr>
             <tr>
@@ -265,7 +265,7 @@
 <!-- FIM DO MODAL DILIGENCIAR -->
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== In&iacute;cio RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 

@@ -252,7 +252,7 @@ class LocalizacaoFisicaController extends MinC_Controller_Action_Abstract
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">CPF / CNPJ</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Proponente</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Localiza��o</th>';
-            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">T�cnico</th>';
+            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">T&eacute;cnico</th>';
             $html .= '</tr>';
 
             $x=1;

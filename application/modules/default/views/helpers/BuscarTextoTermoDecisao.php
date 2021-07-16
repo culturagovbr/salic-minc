@@ -39,7 +39,7 @@ class Zend_View_Helper_BuscarTextoTermoDecisao
     //retorna codigo do termo no banco de dados
     public function parseTag($textoTermo, $arrDados)
     {
-        $prefixoSugestaoPlenaria = "<b>c) Sugest�o da Plen�ria da CNIC</b><br><br>";
+        $prefixoSugestaoPlenaria = "<b>c) Sugest�o da Plen&aacute;ria da CNIC</b><br><br>";
         $sugestaoPlenaria = (!empty($arrDados['parecerCNIC'])) ? $prefixoSugestaoPlenaria.$arrDados['parecerCNIC'] : "";
 
         $arr1 = array("{@SUGESTAO_PARECER@}",//====== 1

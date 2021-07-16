@@ -17,7 +17,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
         $PermissoesGrupo[] = 129;
-        $PermissoesGrupo[] = 121; // T�cnico de Acompanhamento
+        $PermissoesGrupo[] = 121; // T&eacute;cnico de Acompanhamento
         parent::perfil(1, $PermissoesGrupo);
 
         $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usu�rio
@@ -27,7 +27,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $this->getIdAgente = $idagente['idAgente'];
         $this->getIdGrupo = $GrupoAtivo->codGrupo;
         $this->getIdOrgao = $GrupoAtivo->codOrgao;
-        
+
         parent::init();
     }
 
@@ -247,7 +247,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $projetos = new Projetos();
         $DadosProjeto = $projetos->buscarProjetoXProponente(array('idPronac = ?' => $idpronac))->current();
         $this->view->DadosProjeto = $DadosProjeto;
-        
+
         $this->view->idPronac = $idpronac;
         $this->view->idRelatorio = $idrelatorio;
 
@@ -497,7 +497,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
 
         $tbComprovante = new ComprovacaoObjeto_Model_DbTable_TbComprovanteTrimestral();
         $dadosRel = $tbComprovante->buscarComprovantes(array('IdPRONAC=?'=>$idpronac,'nrComprovanteTrimestral=?'=>$DadosRelatorio[0]->nrComprovanteTrimestral,'idTecnicoAvaliador=?'=>$idusuario));
-        
+
         $siComprovante = 4;
         $msg = 'Relat&oacute;rio salvo com sucesso!';
         $controller = "analisarexecucaofisicatecnico/parecer-tecnico?idpronac=".$idpronac."&relatorio=".$DadosRelatorio[0]->nrComprovanteTrimestral;

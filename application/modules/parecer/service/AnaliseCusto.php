@@ -171,7 +171,7 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
         unset($params['action']);
 
         if (!$params['idPlanilhaProjeto'] || !$params['IdPRONAC'] || !$params['idProduto']) {
-            throw new \Exception('Dados obrigatórios não informado');
+            throw new \Exception('Dados obrigat&oacute;rios não informado');
         }
 
         if (strlen(trim($params['dsJustificativaParecerista'])) < 10) {
@@ -183,7 +183,7 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
         }
 
         if (!$this->isPermitidoAvaliar($params['IdPRONAC'], $params['idProduto'])) {
-            throw new \Exception('Você não tem permissão para alterar');
+            throw new \Exception('Voc&ecirc; não tem permissão para alterar');
         }
 
         if ($params['stCustoPraticado'] == 1) {
@@ -194,7 +194,7 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
                 || empty($params['idUfDespesa'])
                 || empty($params['idMunicipioDespesa'])
             ) {
-                throw new \Exception("Dado obrigatório não informado!");
+                throw new \Exception("Dado obrigat&oacute;rio não informado!");
             }
 
             $spCalcularMedianaItemOrcamentario = new \Planilha_Model_DbTable_SpCalcularMedianaItemOrcamentario();
@@ -253,7 +253,7 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
         }
 
         if (!$this->isPermitidoAvaliar($params['idPronac'], $params['id'])) {
-            throw new \Exception('Você não tem permissão para alterar!');
+            throw new \Exception('Voc&ecirc; não tem permissão para alterar!');
         }
 
         $idsProdutos = [$params['id']];

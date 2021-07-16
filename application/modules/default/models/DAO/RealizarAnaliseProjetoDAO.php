@@ -192,7 +192,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     } // fecha m�todo cadastrarSubmeterCNIC()
 
     /**
-    * M�todo para trazer a Elabora��o, Valor do Componente da Comissao
+    * M�todo para trazer a Elabora&ccedil;&atilde;o, Valor do Componente da Comissao
     * @access public
     * @static
     * @param integer $idPronac, $tipoBusca = S: Sugerido pelo componente da comissao, E: Elaboracao e agenciamento
@@ -221,7 +221,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         return $db->fetchAll($sql);
     }
     /**
-    * M�todo para trazer a Elabora��o
+    * M�todo para trazer a Elabora&ccedil;&atilde;o
     * @access public
     * @static
     * @param integer
@@ -734,7 +734,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     }
 
     /**
-     * M�todo que busca a reuni�o aberta
+     * M�todo que busca a reuni&atilde;o aberta
      * @access public
      * @static
      * @return object

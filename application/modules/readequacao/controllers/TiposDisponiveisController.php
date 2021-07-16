@@ -13,7 +13,7 @@ class Readequacao_TiposDisponiveisController extends MinC_Controller_Rest_Abstra
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::PROPONENTE
@@ -29,22 +29,22 @@ class Readequacao_TiposDisponiveisController extends MinC_Controller_Rest_Abstra
     public function indexAction(){
         $data = [];
         $code = 200;
-        
+
         $idPronac = $this->getRequest()->getParam('idPronac');
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para visualizar esta readequação';
+            $data['message'] = 'Voc&ecirc; não tem permissão para visualizar esta readequação';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $data = $readequacaoService->buscarTiposDisponiveis($idPronac);
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

@@ -176,8 +176,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             ]
         ];
         $arrMenu['analise']['menu'][] = [
-            'label' => 'Imprimir Parecer Técnico',
-            'title' => 'Ir para Imprimir Parecer Técnico',
+            'label' => 'Imprimir Parecer T&eacute;cnico',
+            'title' => 'Ir para Imprimir Parecer T&eacute;cnico',
             'url' => ['module' => 'default', 'controller' => 'gerenciarpareceres', 'action' => 'imprimir-parecer-tecnico'],
             'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::GESTOR_SALIC, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 137]
         ];

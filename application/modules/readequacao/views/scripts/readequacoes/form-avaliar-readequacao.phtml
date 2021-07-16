@@ -12,7 +12,7 @@
                 msg = 'Favor preencher os dados obrigat�rios!',
                 finalizarConfirm = function () {
                     $("#alerta").dialog("destroy");
-                    $("#alerta").html('Deseja realmente finalizar a Análise da readequa��o?<br /><br />Ao finalizar voc� será direcionado(a) para assinar o parecer t�cnico e Não poder� realizar altera��es.');
+                    $("#alerta").html('Deseja realmente finalizar a An&aacute;lise da readequa&ccedil;&atilde;o?<br /><br />Ao finalizar voc&ecirc; ser&aacute; direcionado(a) para assinar o parecer t&eacute;cnico e N&atilde;o poder&aacute; realizar altera&ccedil;&atilde;es.');
                     $("#alerta").dialog({
                         resizable: false,
                         title: 'Alerta!',
@@ -406,7 +406,7 @@
 
         $("#modalValorUnitario").priceFormat();
 
-        //Atividades iniciados ao terminar o carregameto da página.
+        //Atividades iniciados ao terminar o carregameto da p&aacute;gina.
         CKEDITOR.replace('dsParecer', {toolbar: []});
     });
 
@@ -481,7 +481,7 @@
                         $tiposReadequacoesComInfo = array(3, 4, 5, 6, 7, 8, 10, 12, 13, 15, 16, 17, 18, 19, 20, 21);
                         if (in_array($this->dados->idTipoReadequacao, $tiposReadequacoesComInfo)) { ?>
                             <tr>
-                                <td colspan="3" class="destacar bold">Informa��o que será considerada para readequa��o
+                                <td colspan="3" class="destacar bold">Informa&ccedil;&atilde;o que ser&aacute; considerada para readequa&ccedil;&atilde;o
                                     de <?php echo $this->dados->dsReadequacao; ?></td>
                             </tr>
                             <tr>
@@ -578,7 +578,7 @@
 
                 <table class="tabela">
                     <tr>
-                        <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIA��O
+                        <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIA&Ccedil;&Atilde;O
                             DO COORDENADOR
                         </td>
                     </tr>
@@ -586,14 +586,14 @@
                 <div id="div_g1_2" class="sumir">
                     <table class="tabela">
                         <tr>
-                            <td class="destacar bold" colspan="3">Descrição da Avalia��o</td>
+                            <td class="destacar bold" colspan="3">Descrição da Avalia&ccedil;&atilde;o</td>
                         </tr>
                         <tr>
                             <td colspan="2"><?php echo $this->dados->dsAvaliacao; ?></td>
                         </tr>
                         <tr>
-                            <td class="destacar bold" style="width: 50%;">Situa��o</td>
-                            <td class="destacar bold" style="width: 50%;">Dt. Avalia��o</td>
+                            <td class="destacar bold" style="width: 50%;">Situa&ccedil;&atilde;o</td>
+                            <td class="destacar bold" style="width: 50%;">Dt. Avalia&ccedil;&atilde;o</td>
                         </tr>
                         <tr>
                             <td><?php echo !empty($this->dados->stAtendimento) ? 'Deferido' : ''; ?></td>
@@ -608,10 +608,10 @@
                       method="post">
                     <table class="tabela">
                         <tr>
-                            <th colspan="2">Parecer T�cnico</th>
+                            <th colspan="2">Parecer T&eacute;cnico</th>
                         </tr>
                         <tr>
-                            <td align="right" class="destacar bold w150">Parecer Favor�vel?</td>
+                            <td align="right" class="destacar bold w150">Parecer Favor&aacute;vel?</td>
                             <td>
                                 <label style="margin-right:25px; font-weight: normal;"><input type="radio"
                                                                                               name="parecerProjeto"
@@ -666,7 +666,7 @@
 
                 <br clear="all"/>
 
-                <?php //MODAL DE AVALIA��O DO ITEM ?>
+                <?php //MODAL DE Avalia&Ccedil;&Atilde;o DO ITEM ?>
                 <div id="modalItem" class="sumir">
                     <table class="tabela">
                         <tr>
@@ -691,8 +691,8 @@
                         <tr class="centro">
                             <td class="destacar bold">Unidade</td>
                             <td class="destacar bold">Qtd</td>
-                            <td class="destacar bold">Ocorr�ncia</td>
-                            <td class="destacar bold">Vl. Unit�rio</td>
+                            <td class="destacar bold">Ocorr&ecir;ncia</td>
+                            <td class="destacar bold">Vl. Unit&aacute;rio</td>
                             <td class="destacar bold">Dias</td>
                             <td class="destacar bold">Total</td>
                         </tr>
@@ -708,13 +708,13 @@
 
                     <table class="tabela">
                         <tr>
-                            <th colspan="6">Dados para a readequa��o</th>
+                            <th colspan="6">Dados para a readequa&ccedil;&atilde;o</th>
                         </tr>
                         <tr class="centro">
                             <td class="destacar bold">Unidade</td>
                             <td class="destacar bold">Qtd</td>
-                            <td class="destacar bold">Ocorr�ncia</td>
-                            <td class="destacar bold">Vl. Unit�rio</td>
+                            <td class="destacar bold">Ocorr&ecirc;ncia</td>
+                            <td class="destacar bold">Vl. Unit&aacute;rio</td>
                             <td class="destacar bold">Dias</td>
                             <td class="destacar bold">Total</td>
                         </tr>
@@ -744,7 +744,7 @@
                             <td id="TotalCalculado" class="direita" style="width: 125px;"></td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="destacar bold centro">Justificativa da Readequa��o <span class="red">*</span>
+                            <td colspan="6" class="destacar bold centro">Justificativa da Readequa&ccedil;&atilde;o <span class="red">*</span>
                                 <span id="textoErroValores" style="float:right; color: red;"></span></td>
                         </tr>
                         <tr>
@@ -757,7 +757,7 @@
                         </tr>
                     </table>
                 </div>
-                <?php //FIM MODAL DE AVALIA��O DO ITEM ?>
+                <?php //FIM MODAL DE Avalia&Ccedil;&Atilde;o DO ITEM ?>
             </div>
         </div>
     </div>

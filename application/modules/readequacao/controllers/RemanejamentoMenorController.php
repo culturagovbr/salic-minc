@@ -628,7 +628,7 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
         $planilhaAtiva = $tbPlanilhaAprovacao->buscarItemAtivoId($idPlanilhaAprovacao);
 
-        /* DADOS ORIGINAIS PARA REFERÊNCIA DE MÍNIMO E MÁXIMO */
+        /* DADOS ORIGINAIS PARA REFER&ecirc;NCIA DE MÍNIMO E MÁXIMO */
         $resComprovado = $tbPlanilhaAprovacao->buscarItemValorComprovado($planilhaAtiva);
         $planilhaOriginal = $tbPlanilhaAprovacao->buscarRemanejamentoPlanilhaOriginal($planilhaAtiva);
         //$planilhaAprovado = $tbPlanilhaAprovacao->buscarRemanejamentoPlanilhaOriginal($planilhaAtiva);

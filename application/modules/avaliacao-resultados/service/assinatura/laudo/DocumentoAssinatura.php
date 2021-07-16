@@ -69,7 +69,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
         $view->titulo = 'Laudo Final da Avalia&ccedil;&atilde;o de Resultado';
 
-        /** =============== Consulta DB para aquisição das informações do parecer Tecnico ================= */
+        /** =============== Consulta DB para aquisição das informaç&otilde;es do parecer Tecnico ================= */
 
         $vwResultadoDaAvaliacaoFinanceira = new \AvaliacaoResultados_Model_DbTable_vwResultadoDaAvaliacaoFinanceira();
         $dadosAvaliacaoFinanceira = $vwResultadoDaAvaliacaoFinanceira->buscarConsolidacaoComprovantes($this->idPronac);

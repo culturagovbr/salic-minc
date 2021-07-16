@@ -118,7 +118,7 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
         }
 
         if (!$this->isPermitidoAvaliar($idPronac, $idProduto)) {
-            throw new \Exception('Você não tem permissão para analisar');
+            throw new \Exception('Voc&ecirc; não tem permissão para analisar');
         }
 
         if (strlen(trim($parecerDeConteudo)) == 0) {

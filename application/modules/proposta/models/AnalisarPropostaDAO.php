@@ -390,7 +390,7 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
     {
         try {
 
-            //insert da avalia��o
+            //insert da Avalia&Ccedil;&Atilde;o
             $sql = "INSERT INTO sac.dbo.tbAvaliacaoProposta
                    (idProjeto,idTecnico, DtEnvio, DtAvaliacao, Avaliacao, ConformidadeOK, stEstado, stEnviado)
                     values (" . $dado['idPreProjeto'] . "," . $dado['idTecnico'] . "," . $dado['dtEnvio'] . "," . $dado['dtAvaliacao'] . ",'" . $dado['avaliacao'] . "'," . $dado['conformidade'] . "," . $dado['estado'] . ",'N');";

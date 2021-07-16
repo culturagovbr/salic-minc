@@ -80,7 +80,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
         $this->getIdOrgao = $GrupoAtivo->codOrgao; // id do �rg�o ativo
 
         if (isset($auth->getIdentity()->usu_codigo) && $this->getIdOrgao != 251 && $this->getIdOrgao != 272 && $this->getIdOrgao != 166) { // aceita somente o �rg�o SEFIC/SACAV
-            parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+            parent::message("Voc� Não tem permiss�o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
         }
         /* ========== FIM �RG�O ========== */
 
@@ -156,8 +156,8 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
             endif;
 
             try {
-                // para o projeto com per�odo de execu��o superior a 24 meses,
-                // quando na consulta a op��o selecionada for "Todo o per�odo".
+                // para o projeto com per&iacute;odo de execu��o superior a 24 meses,
+                // quando na consulta a op��o selecionada for "Todo o per&iacute;odo".
                 $this->Projetos   = new Projetos();
                 $periodo_execucao = $this->Projetos->buscarPeriodoExecucao(null, $pronac);
 
@@ -247,7 +247,7 @@ class ControlarmovimentacaobancariaController extends MinC_Controller_Action_Abs
     public function uploadAction()
     {
         if ($this->getIdGrupo != 121 && $this->getIdGrupo != 122 && $this->getIdGrupo != 129) { // s� T�cnico de Acompanhamento que pode acessar
-            parent::message('Voc� Não tem permiss�o para acessar essa �rea do sistema!', 'principal/index', 'ALERT');
+            parent::message('Voc� Não tem permiss�o para acessar essa &aacute;rea do sistema!', 'principal/index', 'ALERT');
         }
 
         // caso o formul�rio seja enviado via post

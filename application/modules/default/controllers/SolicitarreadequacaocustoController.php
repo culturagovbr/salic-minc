@@ -223,7 +223,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
                 }
 //                $valorFinal =  explode(".", $_POST['vlUnitario']);
 //                $valorFinal = $valorFinal[0] . $valorFinal[1] . "." . $valorFinal[2];
-                // diz se a Solicitação de readequa��o será inclu�da ou alterada
+                // diz se a Solicitação de readequa&ccedil;&atilde;o será inclu�da ou alterada
                 $PA = new PlanilhaAprovacao();
                 $buscarPlanilhaAprovacaoPai = $PA->buscar(array('idPlanilhaAprovacaoPai = ?' => $_POST['idPlanilhaAP'], 'tpPlanilha = ?' => 'SR'));
                 if (count($buscarPlanilhaAprovacaoPai) > 0) :
@@ -270,11 +270,11 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
 
                 if ($_POST['acao'] == 'E' or $_POST['acao'] == 'A') {
 
-                    // inclus�o da Solicitação de readequa��o
+                    // inclus�o da Solicitação de readequa&ccedil;&atilde;o
                     if ($acaoSR == 'I') {
                         $insertItem = SolicitarReadequacaoCustoDAO::inserirNovoProduto($dados);
                     }
-                    // altera��o da Solicitação de readequa��o
+                    // altera��o da Solicitação de readequa&ccedil;&atilde;o
                     else {
                         $where = "tpPlanilha = 'SR' AND stAtivo = 'N' AND $colunaSR = " . $_POST['idPlanilhaAP'];
                         $updateItem = SolicitarReadequacaoCustoDAO::atualizaItem($dados, $where);

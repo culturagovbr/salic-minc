@@ -20,25 +20,25 @@ class Readequacao_SolicitarSaldoController extends MinC_Controller_Rest_Abstract
             ]
         ];
         $this->setProtectedMethodsProfilesPermission($permissionsPerMethod);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
     public function getAction() {
         $data = [];
         $code = 200;
-        
+
         $idPronac = $this->getRequest()->getParam('id');
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto($idPronac);
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = utf8_encode('Você não tem permissão para solicitar o uso do saldo de aplicação');
+            $data['message'] = utf8_encode('Voc&ecirc; não tem permissão para solicitar o uso do saldo de aplicação');
             $this->customRenderJsonResponse($data, $code);
         } else {
             $data = $readequacaoService->solicitarSaldo($idPronac);
         }
-        
+
         $this->renderJsonResponse(\TratarArray::utf8EncodeArray($data), $code);
     }
 

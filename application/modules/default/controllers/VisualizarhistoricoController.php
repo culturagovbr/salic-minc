@@ -29,7 +29,7 @@ class VisualizarhistoricoController extends MinC_Controller_Action_Abstract
             //$PermissoesGrupo[] = 119; // Presidente da Mesa
             //$PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc� Não tem permiss�o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)

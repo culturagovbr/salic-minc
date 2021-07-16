@@ -230,7 +230,7 @@ $arrMenu['acompanhamento']['menu'][] = array('label' => 'Movimenta&ccedil;&atild
     'grupo' => array(272, 166, 121, 122, 123, 129, 148, 151) // restringe ao &oacute;rgao SACAV && CAP
 );
 //                        =======  TEC. DE ACOMPANHAMENTO / COORD. ADMISSIBLIDADE / TECNICO ADMISSBILIDADE ============
-$arrMenu['acompanhamento']['menu'][] = array('label' => 'Certidões Negativas', 'title' => 'Ir para Certidões Negativas',
+$arrMenu['acompanhamento']['menu'][] = array('label' => 'Certid&otilde;es Negativas', 'title' => 'Ir para Certid&otilde;es Negativas',
     'url' => $this->url(array('module' => 'default', 'controller' => 'manterregularidadeproponente', 'action' => 'index')),
     'grupo' => array(108, 121, 122, 123, 124, 125, 134, 135, 138, 139)
 );
@@ -477,8 +477,8 @@ $arrMenu['admissibilidade']['menu'][] = array(
         Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE
     ],
     'url' => $this->url(array('module' => 'default', 'controller' => 'manterregularidadeproponente', 'action' => 'index')),
-    'title' => 'Ir para Certidões Negativas',
-    'label' => 'Certidões Negativas'
+    'title' => 'Ir para Certid&otilde;es Negativas',
+    'label' => 'Certid&otilde;es Negativas'
 );
 
 $arrMenu['admissibilidade']['menu'][] = array(
@@ -788,8 +788,8 @@ $arrMenu['seguranca']['menu'][] = array(
 $arrMenu['seguranca']['menu'][] = array(
     'grupo' => array(97),
     'url' => $this->url(array('module' => 'default', 'controller' => 'manterusuario', 'action' => 'permissoessalic')) . '?session=x&pag=1',
-    'title' => 'Ir para Permissões do SalicWeb',
-    'label' => 'Permissões do SalicWeb'
+    'title' => 'Ir para Permiss&otilde;es do SalicWeb',
+    'label' => 'Permiss&otilde;es do SalicWeb'
 );
 $auth = array_change_key_case((array)Zend_Auth::getInstance()->getIdentity());
 if (trim($auth['usu_identificacao']) == 23969156149) {

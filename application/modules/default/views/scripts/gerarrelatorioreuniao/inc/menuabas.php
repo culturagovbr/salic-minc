@@ -1,12 +1,12 @@
 <?php
 
     $somaProjetosSubmetidos = 0;
-    
+
     foreach ($this->consultaGeraInfo as $valueReuniao) {
         $numeroReuniao = $valueReuniao->NrReuniao;
         $dataInicio = $valueReuniao->DtInicio;
         $dataFechamento = $valueReuniao->DtFechamento;
-        
+
         if ($valueReuniao->stEnvioPlenario == "S") {
             $somaProjetosSubmetidos++;
         }
@@ -17,7 +17,7 @@
         echo "<table style=\"margin-left:10px; border:0; background:none;\">";
         echo "<tr colspan=1>";
         echo "<td>";
-        echo "Informações sobre a reunião Reunião";
+        echo "Informaï¿½ï¿½es sobre a Reuni&atilde;o";
         echo "</td>";
         echo "<td>";
         echo $numeroReuniao;
@@ -25,7 +25,7 @@
         echo "</tr>";
         echo "<tr colspan=1>";
         echo "<td>";
-        echo "Período para inclusão de projetos";
+        echo "Per&iacute;odo para inclusï¿½o de projetos";
         echo "</td>";
         echo "<td>";
         echo $dataInicio . " " . $dataFechamento;

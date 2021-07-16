@@ -53,11 +53,11 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
 
 <form id="formpdf" action="<?php echo $this->url(array('controller' => 'tramitardocumentos', 'action' => 'gerarpdf'),'',true); ?>" method="post">
 	<input type="hidden" name="html" value="" id="htmlpdf" />
-	<input type="hidden" name="nomearquivo" value="Guias de Tramitação" id="nomearquivo" />
+	<input type="hidden" name="nomearquivo" value="Guias de Tramita&ccedil;ão" id="nomearquivo" />
 </form>
 <form id="formxls" action="<?php echo $this->url(array(' controller' => 'tramitardocumentos', 'action' => 'gerarxls')); ?>" method="post">
 	<input type="hidden" name="html" value="" id="htmlxls" />
-	<input type="hidden" name="nomearquivo" value="Guias de Tramitação" id="nomearquivo" />
+	<input type="hidden" name="nomearquivo" value="Guias de Tramita&ccedil;ão" id="nomearquivo" />
 </form>
 
 <!--  habilitar  em versao superior 1.5 do UC
@@ -118,7 +118,7 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
 	<table class="tabela">
 		<tr>
 			<td class="centro">
-				Não h� guias de Tramitação!
+				Não h&acute; guias de Tramita&ccedil;ão!
 			</td>
 		</tr>
 	</table>
@@ -126,9 +126,9 @@ echo $this->partial('tramitardocumentos/inc/menu.inc.php', $this) // menu
  </div>
 </fieldset>
 
-<!-- ============ PAGINAÇÂO ============ -->
+<!-- ============ PAGINA&Ccedil;ÂO ============ -->
 <?php if ($this->qtdDocumentos > 5) { echo $this->dados; } ?>
-<!-- ========== FIM PAGINAÇÂO ========== -->
+<!-- ========== FIM PAGINA&Ccedil;ÂO ========== -->
 
 </div>
 <!-- ========== FIM CONTEÚDO ========== -->

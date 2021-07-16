@@ -34,7 +34,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
     public function iniciarFluxo() :int
     {
         if (!$this->idPronac) {
-            throw new \Exception("Identificador do Projeto não informado.");
+            throw new \Exception("Identificador do Projeto n&atilde;o informado.");
         }
 
         $objTbProjetos = new \Projeto_Model_DbTable_Projetos();
@@ -87,7 +87,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
             $this->idPronac,
             null,
             'B04',
-            'Proposta em avaliação.'
+            'Proposta em avaliaç&atilde;o.'
         );
 
         $orgaoDestino = \Orgaos::ORGAO_SAV_DAP;

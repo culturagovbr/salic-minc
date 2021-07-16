@@ -13,7 +13,7 @@ class Readequacao_IndexController extends MinC_Controller_Rest_Abstract
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::PROPONENTE
@@ -23,7 +23,7 @@ class Readequacao_IndexController extends MinC_Controller_Rest_Abstract
 
         $subRoutes = [];
         $this->registrarSubRoutes($subRoutes);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
@@ -40,20 +40,20 @@ class Readequacao_IndexController extends MinC_Controller_Rest_Abstract
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
-        
+
         $idTipoReadequacao = $this->getRequest()->getParam('idTipoReadequacao');
         $stStatusAtual = $this->getRequest()->getParam('stStatusAtual');
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
         if (!$permissao) {
             $data['permissao'] = false;
             $code = 203;
-            $data['message'] = 'Você não tem permissão para acessar este projeto';
+            $data['message'] = 'Voc&ecirc; não tem permissão para acessar este projeto';
         } else {
             $data = $readequacaoService->buscarReadequacoes($idPronac, $idTipoReadequacao, $stStatusAtual);
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

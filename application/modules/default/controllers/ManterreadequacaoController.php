@@ -85,11 +85,11 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
         $where['e.tpAlteracaoProjeto = ?'] = 1; //Nome do Proponente
 
         if ($this->getIdOrgao == 166) {
-            $where['b.Area = ?'] = 2;  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            $where['b.Area = ?'] = 2;  // quando for SAV/CGAV/CAP pega somente os projetos da &aacute;rea de Audiovisual
         } elseif ($this->getIdOrgao == 272) {
-            $where['b.Area <> ?'] = 2; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que Não sejam de Audiovisual
+            $where['b.Area <> ?'] = 2; // quando for SEFIC/GEAR/SACAV pega somente os projetos das &aacute;reas que Não sejam de Audiovisual
         } else {
-            $where['b.Area = ?'] = 0;  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            $where['b.Area = ?'] = 0;  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da &aacute;rea de Audiovisual
         }
 
         $stCombo = 'A'; //Aguardando Análise
@@ -632,7 +632,7 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
                             'Sequencial' => $DadosProj[0]->Sequencial,
                             'TipoAprovacao' => 3,
                             'DtAprovacao' => new Zend_Db_Expr('GETDATE()'),
-                            // 'ResumoAprovacao' => 'Solicitação de Readequa��o',
+                            // 'ResumoAprovacao' => 'Solicitação de Readequa&ccedil;&atilde;o',
                             'DtInicioCaptacao' => $datas['dtInicioNovoPrazo'],
                             'DtFimCaptacao' => $datas['dtFimNovoPrazo'],
                             'Logon' => $idagente

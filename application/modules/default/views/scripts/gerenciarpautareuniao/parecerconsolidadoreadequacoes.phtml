@@ -22,7 +22,7 @@
     $tiposReadequacoesComInfo = array(3,4,5,6,7,8,10,12,13,15,16,17,18,19,20,21);
     if(in_array($this->dados->idTipoReadequacao, $tiposReadequacoesComInfo)){ ?>
     <tr>
-        <td colspan="3" class="destacar bold">Informa��o considerada para readequa��o de <?php echo $this->dados->dsReadequacao; ?></td>
+        <td colspan="3" class="destacar bold">Informa��o considerada para readequa&ccedil;&atilde;o de <?php echo $this->dados->dsReadequacao; ?></td>
     </tr>
     <tr>
         <td colspan="3"><?php echo $this->dados->dsSolicitacao; ?></td>
@@ -102,17 +102,17 @@
 
 <table class="tabela">
     <tr>
-        <th colspan="2">AVALIA��O DO COORDENADOR</th>
+        <th colspan="2">Avalia&Ccedil;&Atilde;o DO COORDENADOR</th>
     </tr>
     <tr>
-        <td class="destacar bold" colspan="2">Descrição da Avalia��o</td>
+        <td class="destacar bold" colspan="2">Descrição da Avalia&Ccedil;&Atilde;o</td>
     </tr>
     <tr>
         <td colspan="2"><?php echo $this->dados->dsAvaliacao; ?></td>
     </tr>
     <tr>
         <td class="destacar bold">Situa��o</td>
-        <td class="destacar bold">Dt. Avalia��o</td>
+        <td class="destacar bold">Dt. Avalia&Ccedil;&Atilde;o</td>
     </tr>
     <tr>
         <td><?php echo !empty($this->dados->stAtendimento) ? 'Deferido' : ''; ?></td>
@@ -123,7 +123,7 @@
 <?php foreach ($this->Pareceres as $parecer){ ?>
 <table class="tabela">
     <tr>
-        <th colspan="3">Avalia��o do <?php echo $parecer->tpAvaliador; ?></th>
+        <th colspan="3">Avalia&Ccedil;&Atilde;o do <?php echo $parecer->tpAvaliador; ?></th>
     </tr>
     <tr>
         <td colspan="3" class="destacar bold w150">Descri�ao do Parecer</td>

@@ -50,10 +50,10 @@ class RelatorioController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 131; // Coord. de Admissibilidade
         $PermissoesGrupo[] = 132; // Chefe de Divis�o
         $PermissoesGrupo[] = 135; // Tec. De Fiscaliza��o
-        $PermissoesGrupo[] = 138; // Coord. de Avalia��o
-        $PermissoesGrupo[] = 139; // Tec. de Avalia��o
-        $PermissoesGrupo[] = 151; // Coord. de Avalia��o
-        $PermissoesGrupo[] = 148; // Tec. de Avalia��o
+        $PermissoesGrupo[] = 138; // Coord. de Avalia&Ccedil;&Atilde;o
+        $PermissoesGrupo[] = 139; // Tec. de Avalia&Ccedil;&Atilde;o
+        $PermissoesGrupo[] = 151; // Coord. de Avalia&Ccedil;&Atilde;o
+        $PermissoesGrupo[] = 148; // Tec. de Avalia&Ccedil;&Atilde;o
         parent::perfil(1, $PermissoesGrupo);
 
         parent::init();
@@ -482,9 +482,9 @@ class RelatorioController extends MinC_Controller_Action_Abstract
                 } elseif ($v->stEstado == '1' && $v->Movimentacao == '95' && $v->estadoMovimentacao == '0' && is_null($v->ConformidadeOK) && is_null($v->estadoAvaliacao)) {
                     $estado = 'Proposta em constru��o';
                 } elseif ($v->stEstado == '1' && $v->Movimentacao == '96' && $v->estadoMovimentacao == '0' && $v->ConformidadeOK == '9' && $v->estadoAvaliacao == '0') {
-                    $estado = 'Enviada ao MinC p/ avalia��o';
+                    $estado = 'Enviada ao MinC p/ Avalia&Ccedil;&Atilde;o';
                 } else {
-                    $estado = 'Enviada ao MinC p/ avalia��o';
+                    $estado = 'Enviada ao MinC p/ Avalia&Ccedil;&Atilde;o';
                 }
 
                 $html .= '<tr>';

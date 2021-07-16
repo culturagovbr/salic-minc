@@ -2707,7 +2707,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
             $where = ['idProjeto= ?' => $idPreProjeto];
             $tbSolicitacaoDbTable->update($dados, $where);
 
-            # INSERIR INFORMAÇÕES NA TABELA CONTABANCARIA
+            # INSERIR INFORMAÇ&Otilde;ES NA TABELA CONTABANCARIA
             $sqlContaBancaria = "INSERT INTO SAC.dbo.ContaBancaria (AnoProjeto,Sequencial,Mecanismo,Banco,Agencia,Logon)
                                  SELECT '{$AnoProjeto}', '{$NrProjeto}', Mecanismo, '001', AgenciaBancaria, {$idUsuario}
                                    FROM SAC.dbo.PreProjeto
@@ -2718,7 +2718,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
                 throw new Exception("N&atilde;o &eacute; poss&iacute;vel incluir mais de %d registros na ContaBancaria");
             }
 
-            # CARREGAR INFORMAÇÕES PARA ENVIAR EMAIL
+            # CARREGAR INFORMAÇ&Otilde;ES PARA ENVIAR EMAIL
             $sqlHistoricoEmail = "SELECT TOP 1 * FROM SAC.dbo.tbHistoricoEmail WHERE idPronac = {$idPronac} and
                                   idTextoEmail = 12 and (CONVERT(char(10),(DtEmail),111) = CONVERT(char(10),getdate(),111))";
             $arrayHistoricoEmail = $db->fetchRow($sqlHistoricoEmail);

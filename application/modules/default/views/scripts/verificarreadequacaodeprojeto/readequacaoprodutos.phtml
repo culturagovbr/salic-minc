@@ -122,7 +122,7 @@
                                         if($dados->tpPlanoDistribuicao == 'AP'){
                                             echo "APROVADO";
                                         } elseif($dados->tpPlanoDistribuicao == 'SR'){
-                                            echo "Solicitação DE READEQUA��O";
+                                            echo "Solicitação DE Readequa&Ccedil;&Atilde;o";
                                         } elseif($dados->tpPlanoDistribuicao == 'AT'){ ?>
 
                                             <span style="float: right;">
@@ -134,7 +134,7 @@
                                             </span>
 
                                         <?php
-                                            echo "Análise Técnica";
+                                            echo "An&aacute;lise Técnica";
                                         } elseif($dados->tpPlanoDistribuicao == 'CO'){
                                             echo "COMPONENTE DA comissão";
                                         }
@@ -166,7 +166,7 @@
                                                           ?>
                                                     </td>
                                                     <td>
-                                                        <b>�rea</b><br>
+                                                        <b>&Aacute;rea</b><br>
                                                         <?php echo $dados->Area; ?>
                                                     </td>
                                                     <td>
@@ -293,7 +293,7 @@
 
                                     <?php if(!empty($dados->dsAvaliacao)){ ?>
                                     <tr>
-                                        <td align='center' width="20%" class="destacar"><b>Análise Técnica do Produto</b></td>
+                                        <td align='center' width="20%" class="destacar"><b>An&aacute;lise T&eacute;cnica do Produto</b></td>
                                     </tr>
                                     <tr>
                                         <td width="80%"><?php echo $dados->dsAvaliacao;?></td>

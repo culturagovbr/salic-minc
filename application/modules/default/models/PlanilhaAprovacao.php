@@ -1411,7 +1411,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
 
 
     /**
-     * M�todo para buscar a planilha de custos no m�dulo de readequa��o
+     * M�todo para buscar a planilha de custos no m�dulo de readequa&ccedil;&atilde;o
      * @access public
      * @param array $where (filtros)
      * @param array $order (ordena��o)
@@ -1521,7 +1521,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
 
 
     /**
-     * Busca o hist�rico de readequa��o
+     * Busca o hist�rico de readequa&ccedil;&atilde;o
      * @access public
      * @param array $where (filtros)
      * @param array $order (ordena��o)

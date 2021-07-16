@@ -13,7 +13,7 @@ class Readequacao_FinalizarController extends MinC_Controller_Rest_Abstract
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::PROPONENTE
@@ -23,7 +23,7 @@ class Readequacao_FinalizarController extends MinC_Controller_Rest_Abstract
 
         $subRoutes = [];
         $this->registrarSubRoutes($subRoutes);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
@@ -36,19 +36,19 @@ class Readequacao_FinalizarController extends MinC_Controller_Rest_Abstract
     public function postAction(){
         $data = [];
         $code = 200;
-        
+
         $idReadequacao = $this->getRequest()->getParam('idReadequacao');
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para alterar esta readequação';
+            $data['message'] = 'Voc&ecirc; não tem permissão para alterar esta readequação';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $data = $readequacaoService->finalizarSolicitacao($idReadequacao);
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

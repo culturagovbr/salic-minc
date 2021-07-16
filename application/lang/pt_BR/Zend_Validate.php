@@ -33,7 +33,7 @@ return array(
         "Remove Filters" => "Remover Filtros",
         "Remove Filters and Order" => "Remover Filtros e Ordenação",
         "Page" => "Página",
-        "Next" => "Próxima",
+        "Next" => "Pr&oacute;xima",
         "Last" => "Última",
         "First" => "Primeira",
         "Previous" => "Anterior",
@@ -69,7 +69,7 @@ return array(
 
     // Zend_Validate_Ccnum
     "'%value%' must contain between 13 and 19 digits" => "'%value%' deve conter entre 13 e 19 dígitos",
-    "Luhn algorithm (mod-10 checksum) failed on '%value%'" => "O algoritmo de Luhn (checksum de módulo 10) falhou em '%value%'",
+    "Luhn algorithm (mod-10 checksum) failed on '%value%'" => "O algoritmo de Luhn (checksum de m&oacute;dulo 10) falhou em '%value%'",
 
     // Zend_Validate_CreditCard
     "'%value%' must contain only digits" => "'%value%' deve conter apenas dígitos",
@@ -167,7 +167,7 @@ return array(
     "File '%value%' exceeds the defined form size" => "O arquivo '%value%' excede o tamanho definido do formulário",
     "File '%value%' was only partially uploaded" => "O arquivo '%value%' foi apenas parcialmente enviado",
     "File '%value%' was not uploaded" => "O arquivo '%value%' não foi enviado",
-    "No temporary directory was found for file '%value%'" => "Nenhum diretório temporário foi encontrado para o arquivo '%value%'",
+    "No temporary directory was found for file '%value%'" => "Nenhum diret&oacute;rio temporário foi encontrado para o arquivo '%value%'",
     "File '%value%' can't be written" => "O arquivo '%value%' não pôde ser escrito",
     "A PHP extension returned an error while uploading the file '%value%'" => "Uma extensão do PHP retornou um erro enquanto o arquivo '%value%' era enviado",
     "File '%value%' was illegally uploaded. This could be a possible attack" => "O arquivo '%value%' foi enviado ilegalmente. Este poderia ser um possível ataque",
@@ -225,10 +225,10 @@ return array(
 
     // Zend_Validate_NotEmpty
     "Invalid type given, value should be float, string, array, boolean or integer" => "Tipo especificado inválido, o valor deve ser float, string, matriz, booleano ou inteiro",
-    "Value is required and can't be empty" => "O campo é obrigatório e não pode estar vazio",
+    "Value is required and can't be empty" => "O campo é obrigat&oacute;rio e não pode estar vazio",
 
     // Zend_Validate_PostCode
-    "'%value%' does not appear to be an postal code" => "'%value%' não parece ser um código postal",
+    "'%value%' does not appear to be an postal code" => "'%value%' não parece ser um c&oacute;digo postal",
 
     // Zend_Validate_Regex
     "'%value%' does not match against pattern '%pattern%'" => "'%value%' não corresponde ao padrão '%pattern%'",

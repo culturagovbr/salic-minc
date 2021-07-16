@@ -55,7 +55,7 @@
                 $('.ui-dialog-titlebar-close').remove();
             } else {
                 $("#alerta").dialog("destroy");
-                $("#alerta").html('Deseja realmente finalizar a Análise da readequa��o?');
+                $("#alerta").html('Deseja realmente finalizar a Análise da readequa&ccedil;&atilde;o?');
                 $("#alerta").dialog({
                     resizable: false,
                     title: 'Alerta!',
@@ -448,7 +448,7 @@
                         $tiposReadequacoesComInfo = array(3, 4, 5, 6, 7, 8, 10, 12, 13, 15, 16, 17, 18, 19, 20, 21);
                         if (in_array($this->dados->idTipoReadequacao, $tiposReadequacoesComInfo)) { ?>
                             <tr>
-                                <td colspan="3" class="destacar bold">Informa��o que será considerada para readequa��o
+                                <td colspan="3" class="destacar bold">Informa��o que será considerada para readequa&ccedil;&atilde;o
                                     de <?php echo $this->dados->dsReadequacao; ?></td>
                             </tr>
                             <tr>
@@ -500,7 +500,7 @@
 
                 <table class="tabela">
                     <tr>
-                        <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIA��O
+                        <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>Avalia&Ccedil;&Atilde;o
                             DO
                             COORDENADOR
                         </td>
@@ -516,7 +516,7 @@
                         </tr>
                         <tr>
                             <td class="destacar bold" style="width: 50%;">Situa��o</td>
-                            <td class="destacar bold" style="width: 50%;">Dt. Avalia��o</td>
+                            <td class="destacar bold" style="width: 50%;">Dt. Avalia&Ccedil;&Atilde;o</td>
                         </tr>
                         <tr>
                             <td><?php echo !empty($this->dados->stAtendimento) ? 'Deferido' : ''; ?></td>
@@ -528,9 +528,9 @@
                 <?php if (isset($this->avaliacaoTecnica) && !empty($this->avaliacaoTecnica)) { ?>
                     <table class="tabela">
                         <tr>
-                            <td><input type="button" name="grid1" id="g1_3" class="btn_adicionar" title="Expandir"/>AVALIA��O
+                            <td><input type="button" name="grid1" id="g1_3" class="btn_adicionar" title="Expandir"/>Avalia&Ccedil;&Atilde;o
                                 DO
-                                T�CNICO / PARECERISTA
+                                T&eacute;cnico / PARECERISTA
                             </td>
                         </tr>
                     </table>
@@ -545,7 +545,7 @@
                             <tr>
                                 <td class="destacar bold" style="width: 33%;">Dt. Parecer</td>
                                 <td class="destacar bold" style="width: 33%;">Parecer Favor�vel</td>
-                                <td class="destacar bold" style="width: 33%;">T�cnico / Parecerista</td>
+                                <td class="destacar bold" style="width: 33%;">T&eacute;cnico / Parecerista</td>
                             </tr>
                             <tr>
                                 <td><?php echo Data::tratarDataZend($this->avaliacaoTecnica->DtParecer, 'Brasileira'); ?></td>
@@ -557,16 +557,16 @@
                 <?php } else { ?>
                     <table class="tabela">
                         <tr>
-                            <td><input type="button" name="grid1" id="g1_3" class="btn_adicionar" title="Expandir"/>AVALIA��O
+                            <td><input type="button" name="grid1" id="g1_3" class="btn_adicionar" title="Expandir"/>Avalia&Ccedil;&Atilde;o
                                 DO
-                                T�CNICO / PARECERISTA
+                                T&eacute;cnico / PARECERISTA
                             </td>
                         </tr>
                     </table>
                     <div id="div_g1_3" class="sumir">
                         <table class="tabela">
                             <tr>
-                                <td>Não houve avali��o Técnica. A readequa��o foi encaminhada diretamente para o
+                                <td>Não houve avali��o Técnica. A readequa&ccedil;&atilde;o foi encaminhada diretamente para o
                                     conselheiro.
                                 </td>
                             </tr>
@@ -623,7 +623,7 @@
                       method="post">
                     <table class="tabela">
                         <tr>
-                            <th colspan="2">Parecer T�cnico</th>
+                            <th colspan="2">Parecer T&eacute;cnico</th>
                         </tr>
                         <tr>
                             <td align="right" class="destacar bold w150">Parecer Favor�vel?</td>
@@ -675,7 +675,7 @@
 <div id="modalPlenaria" class="sumir">
     <table class="tabela">
         <tr>
-            <td class="destacar bold">Enviar para a plen�ria da CNIC?</td>
+            <td class="destacar bold">Enviar para a plen&aacute;ria da CNIC?</td>
         </tr>
         <tr>
             <td>
@@ -688,7 +688,7 @@
     </table>
 </div>
 
-<?php //MODAL DE AVALIA��O DO ITEM ?>
+<?php //MODAL DE Avalia&Ccedil;&Atilde;o DO ITEM ?>
 <div id="modalItem" class="sumir">
     <table class="tabela">
         <tr>
@@ -729,7 +729,7 @@
 
     <table class="tabela">
         <tr>
-            <th colspan="6">Dados para a readequa��o</th>
+            <th colspan="6">Dados para a readequa&ccedil;&atilde;o</th>
         </tr>
         <tr class="centro">
             <td class="destacar bold">Unidade</td>
@@ -762,7 +762,7 @@
             <td id="TotalCalculado" class="direita" style="width: 125px;"></td>
         </tr>
         <tr>
-            <td colspan="6" class="destacar bold centro">Justificativa da Readequa��o <span class="red">*</span>
+            <td colspan="6" class="destacar bold centro">Justificativa da Readequa&ccedil;&atilde;o <span class="red">*</span>
                 <span
                         id="textoErroValores" style="float:right; color: red;"></span></td>
         </tr>
@@ -774,7 +774,7 @@
         </tr>
     </table>
 </div>
-<?php //FIM MODAL DE AVALIA��O DO ITEM ?>
+<?php //FIM MODAL DE Avalia&Ccedil;&Atilde;o DO ITEM ?>
 
 <?php if ($this->dados->idTipoReadequacao == 11 || $this->dados->idTipoReadequacao == 23) : ?>
     <script src="/public/js/vue.js" type="text/javascript"></script>

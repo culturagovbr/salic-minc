@@ -32,7 +32,7 @@
 
 <table class="tabela">
     <tr>
-        <th align="center" width="30%">N� PRONAC:</th>
+        <th align="center" width="30%">N&ordm; PRONAC:</th>
         <th align="center">Nome do Projeto:</th>
     </tr>
     <tr class="linha">
@@ -62,13 +62,13 @@
         <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsEtapasExecutadas; ?><br /><br /></td>
     </tr>
     <tr>
-        <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE F�SICA</td>
+        <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE F&Iacute;SICA</td>
     </tr>
     <tr>
         <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsAcessibilidade; ?><br /><br /></td>
     </tr>
     <tr>
-        <td class="destacar bold">MEDIDAS DE EST�MULO � FRU���O DE DEMOCRATIZA��O AO ACESSO P�BLICO</td>
+        <td class="destacar bold">MEDIDAS DE EST&Iacute;MULO  FRU���O DE DEMOCRATIZA&Ccedil;&Atilde;O AO ACESSO P&Uacute;BLICO</td>
     </tr>
     <tr>
         <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsDemocratizacaoAcesso; ?><br /><br /></td>
@@ -85,14 +85,14 @@
 
 <table class="tabela">
     <tr align="center">
-        <th colspan="6">Local de Realiza��o</th>
+        <th colspan="6">Local de Realiza&ccedil;&atilde;o</th>
     </tr>
     <tr align="center">
-        <td class="destacar bold">Pa�s</td>
+        <td class="destacar bold">Pa&iacute;s</td>
         <td class="destacar bold">UF</td>
-        <td class="destacar bold">Munic�pio</td>
+        <td class="destacar bold">Munic&iacute;pio</td>
         <td class="destacar bold" width="120px">Realizado</td>
-        <td class="destacar bold" width="120px" nowrap>Dt.&nbsp;Realiza��o</td>
+        <td class="destacar bold" width="120px" nowrap>Dt.&nbsp;Realiza&ccedil;&atilde;o</td>
         <td class="destacar bold" width="120px">Justificativa</td>
     </tr>
     <?php foreach ($this->LocaisDeRealizacao as $LocaisDeRealizacao) { ?>
@@ -103,7 +103,7 @@
         <td nowrap>
             <?php
                 if($LocaisDeRealizacao->siAbrangencia == 0) {
-                    echo 'Sem Informa��o';
+                    echo 'Sem Informa&ccedil;&atilde;o';
                 } else if($LocaisDeRealizacao->siAbrangencia == 1) {
                     echo 'Não Realizado';
                 } else if($LocaisDeRealizacao->siAbrangencia == 2) {
@@ -132,15 +132,15 @@
 
 <table class="tabela">
     <tr align="center">
-        <th colspan="6">Plano de Divulga��o</th>
+        <th colspan="6">Plano de Divulga&ccedil;&atilde;o</th>
     </tr>
     <tr align="center">
-        <td class="destacar bold">Pe�a</td>
-        <td class="destacar bold">Ve�culo</td>
+        <td class="destacar bold">Pe&ccedil;a</td>
+        <td class="destacar bold">Ve&iacute;culo</td>
         <td class="destacar bold" width="120px">Realizado</td>
         <td class="destacar bold" width="120px">Comprovado</td>
         <td class="destacar bold" width="120px">Arquivo</td>
-        <td class="destacar bold" width="120px">Data da Anexa��o</td>
+        <td class="destacar bold" width="120px">Data da Anexa&ccedil;&atilde;o</td>
     </tr>
     <?php foreach ($this->PlanoDeDivulgacao as $PlanoDeDivulgacao) { ?>
     <tr>
@@ -149,7 +149,7 @@
         <td nowrap>
             <?php
                 if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 0) {
-                    echo 'Sem Informa��o';
+                    echo 'Sem Informa&ccedil;&atilde;o';
                 } else if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 1) {
                     echo 'Não Realizado';
                 } else if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 2) {
@@ -176,13 +176,13 @@
 
 <table class="tabela">
     <tr align="center">
-        <th colspan="4">Plano de Distribui��o</th>
+        <th colspan="4">Plano de Distribui&ccedil;&atilde;o</th>
     </tr>
     <tr align="center">
         <td class="destacar bold">Produto</td>
         <td class="destacar bold">Patrocionador</td>
-        <td class="destacar bold">Divulga��o</td>
-        <td class="destacar bold">Popula��o de Baixa Renda</td>
+        <td class="destacar bold">Divulga&ccedil;&atilde;o</td>
+        <td class="destacar bold">Popula&ccedil;&atilde;o de Baixa Renda</td>
     </tr>
     <?php foreach ($this->PlanoDeDistribuicao as $PlanoDeDistribuicao) { ?>
     <tr>
@@ -207,12 +207,12 @@
 
 <table class="tabela">
     <tr align="center">
-        <th colspan="6">Benefici�rios de Produto Cultural</th>
+        <th colspan="6">Benefici&aacute;rios de Produto Cultural</th>
     </tr>
     <?php if(count($this->PlanosCadastrados)>0) { ?>
     <tr align="center">
         <td class="destacar bold">Produto</td>
-        <td class="destacar bold">Tipo Benefici�rio</td>
+        <td class="destacar bold">Tipo Benefici&aacute;rio</td>
         <td class="destacar bold">CNPJ/CPF</td>
         <td class="destacar bold">Nome</td>
         <td class="destacar bold">Quantidade</td>
@@ -252,12 +252,12 @@
 
 <table class="tabela">
     <tr align="center">
-        <th colspan="8" class="titulo_tabela">COMPROVA��O DE METAS</th>
+        <th colspan="8" class="titulo_tabela">COMPROVA&Ccedil;&Atilde;O DE METAS</th>
     </tr>
     <?php if(count($this->DadosCompMetas)>0) { ?>
     <tr align="center">
         <th>&nbsp;</th>
-        <th colspan="3">Meta F�sica</th>
+        <th colspan="3">Meta F&iacute;sica</th>
         <th colspan="3">Meta Financeira</th>
         <th>&nbsp;</th>
     </tr>
@@ -269,7 +269,7 @@
         <td class="destacar bold">Aprovada</td>
         <td class="destacar bold">Executada</td>
         <td class="destacar bold">% Executado</td>
-        <td class="destacar bold">Saldo � Executar</td>
+        <td class="destacar bold">Saldo &agrave; Executar</td>
     </tr>
     <?php foreach ($this->DadosCompMetas as $DadosCompMetas) { ?>
     <tr>
@@ -294,12 +294,12 @@
 
 <table class="tabela">
     <tr align="center">
-        <th colspan="8" class="titulo_tabela">COMPROVA��O DE ITENS OR�AMENT�RIOS</th>
+        <th colspan="8" class="titulo_tabela">COMPROVA&Ccedil;&Atilde;O DE ITENS OR&Ccedil;AMENT&Aacute;RIOS</th>
     </tr>
     <?php if(count($this->DadosItensOrcam)>0) { ?>
     <tr align="center">
         <th>&nbsp;</th>
-        <th colspan="3">F�sica</th>
+        <th colspan="3">F&iacute;sica</th>
         <th colspan="3">Financeira</th>
         <th>&nbsp;</th>
     </tr>
@@ -311,7 +311,7 @@
         <td class="destacar bold">Aprovada</td>
         <td class="destacar bold">Executada</td>
         <td class="destacar bold">% Executado</td>
-        <td class="destacar bold">Saldo � Executar</td>
+        <td class="destacar bold">Saldo &agrave; Executar</td>
     </tr>
     <?php foreach ($this->DadosItensOrcam as $DadosItensOrcam) { ?>
     <tr>
@@ -343,7 +343,7 @@
         <td class="destacar bold">Tipo de Comprovante</td>
         <td class="destacar bold">Nome do Arquivo</td>
         <td class="destacar bold">Data de Envio</td>
-        <td class="destacar bold">Observa��es</td>
+        <td class="destacar bold">Observa&ccedil;&otilde;es</td>
     </tr>
     <?php foreach ($this->DadosComprovantes as $DadosComprovantes) { ?>
     <tr>
@@ -375,13 +375,13 @@
 <?php if($this->DadosRelatorio->siComprovanteTrimestral == 6){ ?>
 <table class="tabela">
     <tr>
-        <th>PARECER T�CNICO</th>
+        <th>PARECER T&Eacute;CNICO</th>
     </tr>
     <tr>
         <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsParecerTecnico; ?><br /><br /></td>
     </tr>
     <tr>
-        <th>RECOMENDA��ES</th>
+        <th>RECOMENDA&Ccedil;&Otilde;ES</th>
     </tr>
     <tr>
         <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsRecomendacao; ?><br /><br /></td>

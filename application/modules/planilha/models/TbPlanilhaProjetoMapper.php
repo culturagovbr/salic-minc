@@ -15,7 +15,7 @@ class Planilha_Model_TbPlanilhaProjetoMapper extends MinC_Db_Mapper
     public function atualizarCustosVinculadosDaTbPlanilhaProjeto($idPronac)
     {
         if (empty($idPronac)) {
-            throw new Exception('idPronac é obrigatório');
+            throw new Exception('idPronac é obrigat&oacute;rio');
         }
 
         $itens = $this->obterItensCustosVinculadosParaTbPlanilhaProjeto($idPronac);

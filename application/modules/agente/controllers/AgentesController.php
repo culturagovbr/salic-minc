@@ -604,7 +604,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                 ($this->GrupoAtivoSalic != 93) &&
                 ($this->GrupoAtivoSalic != 120) &&
                 ($this->GrupoAtivoSalic != 94)) {
-            parent::message("Você n&atilde;o tem permiss&atilde;o para essa funcionalidade!", "agente/agentes/sempermissao", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para essa funcionalidade!", "agente/agentes/sempermissao", "ALERT");
         }
 
         $idAgente = (int)$this->_request->getParam("id");
@@ -1068,7 +1068,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
         $qtdTel = $this->_request->getParam("qtdTel");
 
         if ($qtdTel <= 1) {
-            parent::message("Você tem que ter pelo menos um telefone cadastrado!", "agente/agentes/telefones/id/" . $idAgente, "ALERT");
+            parent::message("Voc&ecirc; tem que ter pelo menos um telefone cadastrado!", "agente/agentes/telefones/id/" . $idAgente, "ALERT");
         } else {
             try {
                 $mapperTelefones = new Agente_Model_TelefonesMapper();
@@ -1770,7 +1770,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
         $this->autenticacao();
 
         if (($this->GrupoAtivoSalic != 137) || ($this->getParecerista != 'sim')) {
-            parent::message("Você n&atilde;o tem permiss&atilde;o para essa funcionalidade!", "agente/agentes/sempermissao", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para essa funcionalidade!", "agente/agentes/sempermissao", "ALERT");
         }
 
         $idAgente = $this->_request->getParam("id");

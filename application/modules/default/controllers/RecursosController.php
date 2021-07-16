@@ -1463,7 +1463,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 $dados = array();
 
                 if ($_POST['plenaria']) {
-                    $campoSiRecurso = 8; // 8=Enviado � Plen�ria
+                    $campoSiRecurso = 8; // 8=Enviado � Plen&aacute;ria
                 } else {
                     $campoSiRecurso = 9; // 9=Enviado para Checklist Publica��o
                     $dados['stEstado'] = 1;

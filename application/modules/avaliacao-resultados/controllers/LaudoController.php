@@ -83,7 +83,7 @@ class AvaliacaoResultados_LaudoController extends MinC_Controller_Rest_Abstract
     public function deleteAction()
     {
 //        403 Proibido
-        $this->customRenderJsonResponse(["Método não permitido"], 405);
+        $this->customRenderJsonResponse(["Método n&atilde;o permitido"], 405);
     }
 
 }

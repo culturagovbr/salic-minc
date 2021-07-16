@@ -384,7 +384,7 @@ class CadastrareditalController extends MinC_Controller_Action_Abstract
 
 
     /**
-     * M�todo para cadastro/busca de crit�rios de avalia��o
+     * M�todo para cadastro/busca de crit�rios de Avalia&Ccedil;&Atilde;o
      */
     public function criteriosavaliacaoAction()
     {
@@ -461,7 +461,7 @@ class CadastrareditalController extends MinC_Controller_Action_Abstract
                     'idEdital'              =>  $idEdital,
                     'nrVersaoDocumento'     =>  $nrVersaoDocumento,
                     'nmFormDocumento'       =>  $_POST['dsPergunta'],
-                    'dsFormDocumento'       =>  'Crit�rio de Avalia��o',
+                    'dsFormDocumento'       =>  'Crit�rio de Avalia&Ccedil;&Atilde;o',
                     'idClassificaDocumento' =>  25,
                     'dtCadastramento'       =>  new Zend_Db_Expr('GETDATE()'),
                     'stFormDocumento'       =>  'A'
@@ -543,7 +543,7 @@ class CadastrareditalController extends MinC_Controller_Action_Abstract
 
                 $tbFormDocumento = new tbFormDocumento();
                 $dadosFormDocumento = array('nmFormDocumento' => $dsPergunta,
-                    'dsFormDocumento' => 'Crit�rio de Avalia��o',
+                    'dsFormDocumento' => 'Crit�rio de Avalia&Ccedil;&Atilde;o',
                     'stFormDocumento' => 'A',
                     'dtCadastramento' => new Zend_Db_Expr('GETDATE()'),
                     'idClassificaDocumento' => 25);

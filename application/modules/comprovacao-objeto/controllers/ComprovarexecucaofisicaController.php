@@ -1108,7 +1108,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
                         $formaPagamento = 'Cheque';
                         break;
                     case 2:
-                        $formaPagamento = 'Transferência Bancária';
+                        $formaPagamento = 'Transfer&ecirc;ncia Bancária';
                         break;
                     case 3:
                         $formaPagamento = 'Saque/Dinheiro';
