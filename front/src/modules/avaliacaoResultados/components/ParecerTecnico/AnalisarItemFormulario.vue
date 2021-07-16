@@ -100,9 +100,9 @@ export default {
             itemEmAvaliacao: {},
             valid: true,
             rules: {
-                required: v => !!v || 'Campo obrigatório',
+                required: v => !!v || 'Campo obrigat&oacute;rio',
                 avaliacao: v => v !== '4' || 'Avaliação deve ser aprovado ou reprovado',
-                parecer: v => (!!v || this.$refs.stItemAvaliado.value !== '3') || 'Parecer é obrigatório',
+                parecer: v => (!!v || this.$refs.stItemAvaliado.value !== '3') || 'Parecer &eacute; obrigat&oacute;rio',
             },
         };
     },

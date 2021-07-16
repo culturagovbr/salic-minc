@@ -49,7 +49,7 @@
                                                     value="174"/>
                                                 <v-radio
                                                     color="success"
-                                                    label="Todos os itens orçamentários"
+                                                    label="Todos os itens orçament&aacute;rios"
                                                     value="645"/>
                                             </v-radio-group>
                                             <div
@@ -109,7 +109,7 @@ export default {
                 enable: false,
             },
             diligenciaRules: [
-                v => !!v || 'Tipo de diligencia é obrigatório!',
+                v => !!v || 'Tipo de diligencia &eacute; obrigat&oacute;rio!',
             ],
         };
     },
@@ -150,7 +150,7 @@ export default {
                         show: true,
                         color: 'red--text',
                         backgroundColor: { 'background-color': '#FFCDD2' },
-                        msg: 'A solicitação é obrigatória!',
+                        msg: 'A solicitação &eacute; obrigat&oacute;ria!',
                         enable: false,
                     };
                 }

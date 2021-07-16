@@ -20,17 +20,17 @@ HOST: http://localhost:4000
                             "idPronac": 217336,
                             "idReadequacao": 15123,
                             "idTipoReadequacao": 2,
-                            "dsTipoReadequacao": "Planilha orçamentária",
+                            "dsTipoReadequacao": "Planilha orçament&aacute;ria",
                             "dtSolicitacao": "2019-01-22",
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "Solicito alteração na planilha.",
-                            "dsJustificativa": "É necessário",
+                            "dsJustificativa": "&eacute; necess&aacute;rio",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
                             "dtAvaliador": "2019-02-03",
-                            "dsAvaliacao": "Avalio que está bom.",
+                            "dsAvaliacao": "Avalio que est&aacute; bom.",
                             "stAtendimento": "N",
                             "siEncaminhamento": 15,
                             "idNrReuniao": 45654,
@@ -47,7 +47,7 @@ HOST: http://localhost:4000
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "Descrição completa do impacto ambiental...",
-                            "dsJustificativa": "É necessário alterar a parte que diz sobre o consumo de água elevado.",
+                            "dsJustificativa": "&eacute; necess&aacute;rio alterar a parte que diz sobre o consumo de &aacute;gua elevado.",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
@@ -69,7 +69,7 @@ HOST: http://localhost:4000
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "Fulano de Tal",
-                            "dsJustificativa": "Ciclano não está mais no projeto, adicionando Fulano de Tal",
+                            "dsJustificativa": "Ciclano não est&aacute; mais no projeto, adicionando Fulano de Tal",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
@@ -90,8 +90,8 @@ HOST: http://localhost:4000
                             "dtSolicitacao": "2019-01-22",
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
-                            "dsSolicitacao": "19 Gramado Cine Áudio Video",
-                            "dsJustificativa": "Adicionamos 'áudio' porque é preciso",
+                            "dsSolicitacao": "19 Gramado Cine &aacute;udio Video",
+                            "dsJustificativa": "Adicionamos '&aacute;udio' porque &eacute; preciso",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
@@ -108,12 +108,12 @@ HOST: http://localhost:4000
                             "idPronac": 217336,
                             "idReadequacao": 15127,
                             "idTipoReadequacao": 13,
-                            "dsTipoReadequacao": "Período de Execução",
+                            "dsTipoReadequacao": "Per&iacute;odo de Execução",
                             "dtSolicitacao": "2019-01-22",
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "2019-06-01 00:00:00",
-                            "dsJustificativa": "Ampliando período de execução para dar tempo.",
+                            "dsJustificativa": "Ampliando per&iacute;odo de execução para dar tempo.",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
@@ -167,17 +167,17 @@ HOST: http://localhost:4000
                             "idPronac": 217336,
                             "idReadequacao": 15123,
                             "idTipoReadequacao": 2,
-                            "dsTipoReadequacao": "Planilha orçamentária",
+                            "dsTipoReadequacao": "Planilha orçament&aacute;ria",
                             "dtSolicitacao": "2019-01-22",
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "Solicito alteração na planilha.",
-                            "dsJustificativa": "É necessário",
+                            "dsJustificativa": "&eacute; necess&aacute;rio",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
                             "dtAvaliador": "2019-02-03",
-                            "dsAvaliacao": "Avalio que está bom.",
+                            "dsAvaliacao": "Avalio que est&aacute; bom.",
                             "stAtendimento": "N",
                             "siEncaminhamento": 15,
                             "idNrReuniao": 45654,
@@ -194,7 +194,7 @@ HOST: http://localhost:4000
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "<p><b>Descrição completa do impacto ambiental...</b></p>",
-                            "dsJustificativa": "É necessário alterar a parte que diz sobre o consumo de água elevado.",
+                            "dsJustificativa": "&eacute; necess&aacute;rio alterar a parte que diz sobre o consumo de &aacute;gua elevado.",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
@@ -216,7 +216,7 @@ HOST: http://localhost:4000
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "Fulano de Tal",
-                            "dsJustificativa": "Ciclano não está mais no projeto, adicionando Fulano de Tal",
+                            "dsJustificativa": "Ciclano não est&aacute; mais no projeto, adicionando Fulano de Tal",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
@@ -237,8 +237,8 @@ HOST: http://localhost:4000
                             "dtSolicitacao": "2019-01-22",
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
-                            "dsSolicitacao": "19 Gramado Cine Áudio Video",
-                            "dsJustificativa": "Adicionamos 'áudio' porque é preciso",
+                            "dsSolicitacao": "19 Gramado Cine &aacute;udio Video",
+                            "dsJustificativa": "Adicionamos '&aacute;udio' porque &eacute; preciso",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
@@ -255,12 +255,12 @@ HOST: http://localhost:4000
                             "idPronac": 217336,
                             "idReadequacao": 15127,
                             "idTipoReadequacao": 13,
-                            "dsTipoReadequacao": "Período de Execução",
+                            "dsTipoReadequacao": "Per&iacute;odo de Execução",
                             "dtSolicitacao": "2019-01-22",
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "2019-06-01 00:00:00",
-                            "dsJustificativa": "Ampliando período de execução para dar tempo.",
+                            "dsJustificativa": "Ampliando per&iacute;odo de execução para dar tempo.",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
@@ -296,7 +296,7 @@ HOST: http://localhost:4000
         --BOUNDARY
         Content-Disposition: form-data; name="dsJustificativa"
 
-        Porque é necessário.
+        Porque &eacute; necess&aacute;rio.
         --BOUNDARY
         Content-Disposition: form-data; name="documento"; filename="file.pdf"
         Content-Type: application/pdf
@@ -318,7 +318,7 @@ HOST: http://localhost:4000
                     "idSolicitante": 267,
                     "dsNomeSolicitante": "Leôncio das Neves",
                     "dsSolicitacao": "blabalbalbalablabalb",
-                    "dsJustificativa": "É necessário",
+                    "dsJustificativa": "&eacute; necess&aacute;rio",
                     "idDocumento": 19440,
                     "idAvaliador": 335,
                     "dtAvaliador": "2019-02-03",
@@ -351,7 +351,7 @@ HOST: http://localhost:4000
                 "idSolicitante": 267,
                 "dsNomeSolicitante": "Leôncio das Neves",
                 "dsSolicitacao": "blabalbalbalablabalb",
-                "dsJustificativa": "É necessário",
+                "dsJustificativa": "&eacute; necess&aacute;rio",
                 "idDocumento": 19440,
                 "idAvaliador": 335,
                 "dtAvaliador": "2019-02-03",
@@ -380,7 +380,7 @@ HOST: http://localhost:4000
         --BOUNDARY
         Content-Disposition: form-data; name="dsJustificativa"
 
-        Porque é necessário.
+        Porque &eacute; necess&aacute;rio.
         --BOUNDARY
         Content-Disposition: form-data; name="idAvaliador"
 
@@ -413,7 +413,7 @@ HOST: http://localhost:4000
                 "idSolicitante": 267,
                 "dsNomeSolicitante": "Leôncio das Neves",
                 "dsSolicitacao": "blabalbalbalablabalb",
-                "dsJustificativa": "É necessário",
+                "dsJustificativa": "&eacute; necess&aacute;rio",
                 "idDocumento": 19440,
                 "idAvaliador": 335,
                 "dtAvaliador": "2019-02-03",
@@ -461,23 +461,23 @@ HOST: http://localhost:4000
                             "idReadequacao": 15123,
                             "PRONAC": "160338",
                             "NomeProjeto": "Baile perfumado",
-                            "tpReadequacao": "Planilha orçamentária",
+                            "tpReadequacao": "Planilha orçament&aacute;ria",
                             "dtDistribuicao": "2019-01-22",
                             "qtDiasAvaliacao" "14",
                             "idTecnicoParecerista": 255,
                             "idOrgao": 262,
                             "idTipoReadequacao": 2,
-                            "dsTipoReadequacao": "Planilha orçamentária",
+                            "dsTipoReadequacao": "Planilha orçament&aacute;ria",
                             "dtSolicitacao": "2019-01-22",
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "Solicito alteração na planilha.",
-                            "dsJustificativa": "É necessário",
+                            "dsJustificativa": "&eacute; necess&aacute;rio",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
                             "dtAvaliador": "2019-02-03",
-                            "dsAvaliacao": "Avalio que está bom.",
+                            "dsAvaliacao": "Avalio que est&aacute; bom.",
                             "stAtendimento": "N",
                             "siEncaminhamento": 15,
                             "idNrReuniao": 45654,
@@ -495,31 +495,31 @@ HOST: http://localhost:4000
                             "idTecnicoParecerista": 255,
                             "idOrgao": 262,
                             "idTipoReadequacao": 2,
-                            "dsTipoReadequacao": "Planilha orçamentária",
+                            "dsTipoReadequacao": "Planilha orçament&aacute;ria",
                             "dtSolicitacao": "2019-01-22",
                             "idSolicitante": 267,
                             "dsNomeSolicitante": "Leôncio das Neves",
                             "dsSolicitacao": "Solicito alteração na planilha.",
-                            "dsJustificativa": "É necessário",
+                            "dsJustificativa": "&eacute; necess&aacute;rio",
                             "idDocumento": 19440,
                             "idAvaliador": 335,
                             "dsNomeAvaliador": "Ciclano avaliador",
                             "dtAvaliador": "2019-02-03",
-                            "dsAvaliacao": "Avalio que está bom.",
+                            "dsAvaliacao": "Avalio que est&aacute; bom.",
                             "stAtendimento": "N",
                             "siEncaminhamento": 15,
                             "idNrReuniao": 45654,
                             "stEstado": 1,
                             "dtEnvio": "2019-01-23"
                         },
-                        
 
-## Readequacao - Visualizar tipos de Readequação disponíveis para criação por Pronac [/readequacao/tipos-disponiveis?idPronac={idPronac}]
+
+## Readequacao - Visualizar tipos de Readequação dispon&iacute;veis para criação por Pronac [/readequacao/tipos-disponiveis?idPronac={idPronac}]
 
 + Parameters
     + idPronac (string, required)
 
-### Visualizar tipos de Readequação disponíveis para criação por Pronac [GET]
+### Visualizar tipos de Readequação dispon&iacute;veis para criação por Pronac [GET]
 
 + Request
     + Attributes
@@ -539,7 +539,7 @@ HOST: http://localhost:4000
                         },
                         {
                             "idTipoReadequacao": 7,
-                            "descricao": "Especificação Técnica"
+                            "descricao": "Especificação T&eacute;cnica"
                         },
                         {
                             "idTipoReadequacao": 16,
@@ -578,7 +578,7 @@ HOST: http://localhost:4000
 
 ## Readequacao - Buscar campos por tipo readequação [/readequacao/campo-atual?idPronac=217336&idTipoReadequacao=2]
 
-### Buscar campos por tipo readequação - planilha orçamentária [GET]
+### Buscar campos por tipo readequação - planilha orçament&aacute;ria [GET]
 
 + Parameters
     + idPronac: 217336 (number, required)
@@ -594,7 +594,7 @@ HOST: http://localhost:4000
                     "items": [
                         {
                             "idTipoReadequacao": "2",
-                            "descricao": "Planilha Orçamentária",
+                            "descricao": "Planilha Orçament&aacute;ria",
                             "tpCampo": "planilha_orcamentaria",
                             "dsCampo": ""
                         }
@@ -649,7 +649,7 @@ HOST: http://localhost:4000
                             "idTipoReadequacao": "6",
                             "descricao": "Impacto ambiental",
                             "tpCampo": "textarea",
-                            "dsCampo": "A independência de adubação e correção anual do solo dá-se principalmente pelo manejo de podas e com a cobertura de solo, que além de produzir uma terra de qualidade química, física e biologicamente falando, retém água, matéria orgânica, acaba com problemas de erosão e promove a infiltração de água (poupança de água) e a recarga dos lençóis freáticos. <br/> A biodiversidade promove o equilíbrio biológico e elimina a necessidade de aplicação de defensivos químicos (agrotóxicos). <br/>As condições climáticas do local de plantio (microclima) favorecem a saúde das plantas, não as expondo a estresses por excesso de insolação, ventos e variações bruscas de temperatura. E ainda a evapotranspiração das plantas promove a chuva.<br/><br/>Aqui está nossa vocação como um país florestal. Nação da abundância de água e biodiversidade. A oportunidade de geração de renda e valor para todo o mundo."
+                            "dsCampo": "A independência de adubação e correção anual do solo d&aacute;-se principalmente pelo manejo de podas e com a cobertura de solo, que al&eacute;m de produzir uma terra de qualidade qu&iacute;mica, f&iacute;sica e biologicamente falando, ret&eacute;m &aacute;gua, mat&eacute;ria orgânica, acaba com problemas de erosão e promove a infiltração de &aacute;gua (poupança de &aacute;gua) e a recarga dos lenç&oacute;is fre&aacute;ticos. <br/> A biodiversidade promove o equil&iacute;brio biol&oacute;gico e elimina a necessidade de aplicação de defensivos qu&iacute;micos (agrot&oacute;xicos). <br/>As condições clim&aacute;ticas do local de plantio (microclima) favorecem a sa&uacute;de das plantas, não as expondo a estresses por excesso de insolação, ventos e variações bruscas de temperatura. E ainda a evapotranspiração das plantas promove a chuva.<br/><br/>Aqui est&aacute; nossa vocação como um pa&iacute;s florestal. Nação da abundância de &aacute;gua e biodiversidade. A oportunidade de geração de renda e valor para todo o mundo."
                         }
                     ]
                 }
@@ -657,7 +657,7 @@ HOST: http://localhost:4000
 
 ## Readequacao - Buscar campos por tipo readequação [/readequacao/campo-atual?idPronac=217336&idTipoReadequacao=13]
 
-### Buscar campos por tipo readequação - período de execução [GET]
+### Buscar campos por tipo readequação - per&iacute;odo de execução [GET]
 
 + Parameters
     + idPronac: 217336 (number, required)
@@ -674,7 +674,7 @@ HOST: http://localhost:4000
                     "items": [
                         {
                             "idTipoReadequacao": "13",
-                            "descricao": "Período de Execução",
+                            "descricao": "Per&iacute;odo de Execução",
                             "tpCampo": "date",
                             "dsCampo": "2019-06-01 00:00:00"
                         }
@@ -697,9 +697,9 @@ HOST: http://localhost:4000
                 "mensagem": "Arquivo removido com sucesso!"
             }
 
-## Readequação - Saldo: disponível para edição de item [/readequacao/saldo-disponivel-edicao-item/{idPronac}]
+## Readequação - Saldo: dispon&iacute;vel para edição de item [/readequacao/saldo-disponivel-edicao-item/{idPronac}]
 
-### Verifica se está disponível para editar item [GET]
+### Verifica se est&aacute; dispon&iacute;vel para editar item [GET]
 
 + Parameters
     + idPronac: 217336 (number, required)
@@ -712,9 +712,9 @@ HOST: http://localhost:4000
                 "disponivelEdicaoItem": "true"
             }
 
-## Readequação - Finaliza análise de readequação [/readequacao/finalizar?idReadequacao={idReadequacao}]
+## Readequação - Finaliza an&aacute;lise de readequação [/readequacao/finalizar?idReadequacao={idReadequacao}]
 
-### Finaliza readequação e envia para análise [POST]
+### Finaliza readequação e envia para an&aacute;lise [POST]
 
 + Parameters
     + idReadequacao: 15213 (number, required)
@@ -724,7 +724,7 @@ HOST: http://localhost:4000
     + Body
 
             {
-                "mensagem": "Readequação enviada para análise."
+                "mensagem": "Readequação enviada para an&aacute;lise."
             }
 
 ## Readequação - solicitar uso do saldo [/readequacao/solicitar-saldo/{idPronac}]
@@ -747,7 +747,7 @@ HOST: http://localhost:4000
                     "idSolicitante": 267,
                     "dsNomeSolicitante": "Leôncio das Neves",
                     "dsSolicitacao": "199533,00",
-                    "dsJustificativa": "É necessário",
+                    "dsJustificativa": "&eacute; necess&aacute;rio",
                     "idDocumento": 19440,
                     "idAvaliador": 335,
                     "dtAvaliador": "2019-02-03",
@@ -778,7 +778,7 @@ HOST: http://localhost:4000
                 "numeroReuniao": "31"
                 "dtParecer": "2008-10-17 00:00:00"
                 "parecerista": "James Lovelock"
-                "resumoParecer": "Avalio readequação plausível com indicação de alterações climáticas"
+                "resumoParecer": "Avalio readequação plaus&iacute;vel com indicação de alterações clim&aacute;ticas"
                 "sugeridoReal": "331111"
                 "atendimento": "S"
                 "idEnquadramento": "33212"
@@ -792,7 +792,7 @@ HOST: http://localhost:4000
 + Parameters
     + idReadequacao: 25221 (number, required)
     + ParecerAvaliacao: 2 (number, required)
-    + dsParecer: "Avalio como plausível a justificativa da solicitação de readequação." (string, required)
+    + dsParecer: "Avalio como plaus&iacute;vel a justificativa da solicitação de readequação." (string, required)
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -808,7 +808,7 @@ HOST: http://localhost:4000
                 "numeroReuniao": "31"
                 "dtParecer": "2008-10-17 00:00:00"
                 "parecerista": "James Lovelock"
-                "resumoParecer": "Avalio readequação plausível com indicação de alterações climáticas"
+                "resumoParecer": "Avalio readequação plaus&iacute;vel com indicação de alterações clim&aacute;ticas"
                 "sugeridoReal": "331111"
                 "atendimento": "S"
                 "idEnquadramento": "33212"
@@ -865,7 +865,7 @@ HOST: http://localhost:4000
 
 ## Readequação - Finaliza readequação [/readequacao/finalizar]
 
-### Finaliza análise [POST]
+### Finaliza an&aacute;lise [POST]
 
 + Parameters
     + idPronac: 205213 (number, required)
@@ -877,7 +877,7 @@ HOST: http://localhost:4000
     + Body
 
             {
-                "mensagem": "Análise de readequação finalizada."
+                "mensagem": "An&aacute;lise de readequação finalizada."
             }
 
 
@@ -986,7 +986,7 @@ HOST: http://localhost:4000
     + idPlanilhaItem: 153 (number, required)
     + idPlanilhaAprovacao: 2315213 (number, required)
     + idPronac: 205213 (number, required)
-    + dsJustificativa: "Alteração do item tal, alterando valor unitário e quantidade." (string, required)
+    + dsJustificativa: "Alteração do item tal, alterando valor unit&aacute;rio e quantidade." (string, required)
     + idUnidade: 213 (number, required)
     + idFonte: 109 (number, required)
     + Ocorrencia: 5 (number, required)
@@ -994,7 +994,7 @@ HOST: http://localhost:4000
     + QtdeDias: 205213 (number, required)
     + ValorUnitario: 3613.50 (number, required)
     + idTipoReadequacao: 22 (number, required)
-    
+
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1007,7 +1007,7 @@ HOST: http://localhost:4000
 
 ## Readequação - calcular resumo da planilha [/readequacao/calcular-resumo-planilha]
 
-### Executa cálculos do resumo da planilha [GET]
+### Executa c&aacute;lculos do resumo da planilha [GET]
 
 + Parameters
     + idPronac: 217336 (number, required)
@@ -1024,7 +1024,7 @@ HOST: http://localhost:4000
                 "statusPlanilha": "negativo",
                 "PlanilhaReadequadaTotal": 63330.55,
                 "PlanilhaAtivaTotal": 64444.55
-                
+
             }
 
 ## Readequação - Reverter alteração de item [/readequacao/reverter-alteracao-item]
@@ -1036,7 +1036,7 @@ HOST: http://localhost:4000
     + idPlanilhaItem: 153 (number, required)
     + idPronac: 205213 (number, required)
     + idTipoReadequacao: 22 (number, required)
-    
+
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1046,14 +1046,14 @@ HOST: http://localhost:4000
                 "mensagem": "Dados do item revertidos!"
             }
 
-## Readequação - Obtém lista de técnicos disponíveis para distribuir uma readequação [/readequacao/destinatarios-distribuicao]
+## Readequação - Obt&eacute;m lista de t&eacute;cnicos dispon&iacute;veis para distribuir uma readequação [/readequacao/destinatarios-distribuicao]
 
-### Obtém lista de técnicos [GET]
+### Obt&eacute;m lista de t&eacute;cnicos [GET]
 
 + Parameters
     + idPronac: 205213 (number, required)
     + vinculada: 262 (number, required)
-    
+
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1074,7 +1074,7 @@ HOST: http://localhost:4000
 
 ## Readequação - Distribui uma readequação [/readequacao/distribuir-readequacao]
 
-### Obtém lista de técnicos [POST]
+### Obt&eacute;m lista de t&eacute;cnicos [POST]
 
 + Parameters
     + idPronac: 205213 (number, required)
@@ -1091,12 +1091,12 @@ HOST: http://localhost:4000
 
 
             {
-                "mensagem": "Readequação encaminhada para técnico."
+                "mensagem": "Readequação encaminhada para t&eacute;cnico."
             }
 
 ## Readequação - Redistribui uma readequação [/readequacao/redistribuir-readequacao]
 
-### Obtém lista de técnicos [POST]
+### Obt&eacute;m lista de t&eacute;cnicos [POST]
 
 + Parameters
     + idPronac: 205213 (number, required)
@@ -1113,12 +1113,12 @@ HOST: http://localhost:4000
 
 
             {
-                "mensagem": "Readequação redistribuída para outro técnico."
+                "mensagem": "Readequação redistribu&iacute;da para outro t&eacute;cnico."
             }
 
 ## Readequação - Devolve e redistribui uma readequação [/readequacao/devolver-readequacao]
 
-### Obtém lista de técnicos [POST]
+### Obt&eacute;m lista de t&eacute;cnicos [POST]
 
 + Parameters
     + idPronac: 205213 (number, required)
@@ -1160,9 +1160,9 @@ HOST: http://localhost:4000
                 "mensagem": "Readequação devolvida para o coordenador de acompanhamento."
             }
 
-## Readequação - Técnico ou parecerista declara impedimento e devolve ao coordenador [/readequacao/declarar-impedimento]
+## Readequação - T&eacute;cnico ou parecerista declara impedimento e devolve ao coordenador [/readequacao/declarar-impedimento]
 
-### Técnico ou parecerista declara impedimento e devolve ao coordenador [POST]
+### T&eacute;cnico ou parecerista declara impedimento e devolve ao coordenador [POST]
 
 + Parameters
     + idReadequacao: 12262 (number, required)
@@ -1178,9 +1178,9 @@ HOST: http://localhost:4000
                 "mensagem": "Readequação devolvida para o coordenador de acompanhamento."
             }
 
-## Readequação - Coordenador de acompanhamento finaliza ciclo de análise [/readequacao/avaliar-ciclo-analise]
+## Readequação - Coordenador de acompanhamento finaliza ciclo de an&aacute;lise [/readequacao/avaliar-ciclo-analise]
 
-### Coordenador de acompanhamento finaliza ciclo de análise [POST]
+### Coordenador de acompanhamento finaliza ciclo de an&aacute;lise [POST]
 
 + Parameters
     + idReadequacao: 12262 (number, required)
@@ -1193,5 +1193,5 @@ HOST: http://localhost:4000
 
 
             {
-                "mensagem": "Ciclo de análise de readequação finalizado."
+                "mensagem": "Ciclo de an&aacute;lise de readequação finalizado."
             }

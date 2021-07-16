@@ -2152,7 +2152,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
         $grafico = new Grafico($_POST["cgTipoGrafico"]);
         $grafico->setTituloGrafico("Registros");
-        $grafico->setTituloEixoXY("T&eacute;cnicos", "Registros");
+        $grafico->setTituloEixoXY("Técnicos", "Registros");
         $grafico->configurar($_POST);
 
         $aux = array();
@@ -2677,7 +2677,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
 //        if (!empty($stProposta) && $stProposta != $propostaNormal) {
         //            $situacaoProjeto = Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA;
-        //            $providenciaTomada = 'Projeto encamihado a unidade vinculada para an&aacute;lise e emiss&atilde;o de parecer t&eacute;cnico';
+        //            $providenciaTomada = 'Projeto encamihado a unidade vinculada para an&aacute;lise e emiss&atilde;o de parecer Técnico';
         //        }
 
         $sqlProjetos = "INSERT INTO SAC.dbo.Projetos

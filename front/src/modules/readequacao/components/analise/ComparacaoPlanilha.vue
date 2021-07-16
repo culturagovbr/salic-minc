@@ -8,7 +8,7 @@
             offset-xs1
         >
             <carregando
-                :text="'Montando planilha orçamentária...'"
+                :text="'Montando planilha orçament&aacute;ria...'"
             />
         </template>
         <template

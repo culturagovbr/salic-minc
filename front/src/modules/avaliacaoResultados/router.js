@@ -96,7 +96,7 @@ const routes = [
         name: 'AnalisarItem',
         component: AnalisarItem,
         meta: {
-            title: 'Análise de itens',
+            title: 'An&aacute;lise de itens',
         },
     },
     {
@@ -128,7 +128,7 @@ const routes = [
         name: 'Painel_Aba_Em_Avaliacao',
         component: Painel,
         meta: {
-            title: 'Avaliação de Resultados: Parecer Técnico',
+            title: 'Avaliação de Resultados: Parecer T&eacute;cnico',
             tab: 'tab-1',
         },
     },
@@ -137,7 +137,7 @@ const routes = [
         name: 'Painel_Aba_Em_Dashboard',
         component: Painel,
         meta: {
-            title: 'Avaliação de Resultados: Parecer Técnico',
+            title: 'Avaliação de Resultados: Parecer T&eacute;cnico',
             tab: 'tab-6',
         },
     },
@@ -146,7 +146,7 @@ const routes = [
         name: 'painel_aba_assinar',
         component: Painel,
         meta: {
-            title: 'Avaliação de Resultados: Parecer Técnico',
+            title: 'Avaliação de Resultados: Parecer T&eacute;cnico',
             tab: 'tab-2',
         },
     },
@@ -155,7 +155,7 @@ const routes = [
         name: 'painel_aba_historico',
         component: Painel,
         meta: {
-            title: 'Avaliação de Resultados: Parecer Técnico',
+            title: 'Avaliação de Resultados: Parecer T&eacute;cnico',
             tab: 'tab-4',
         },
     },
@@ -164,7 +164,7 @@ const routes = [
         name: 'painel_aba_distribuir',
         component: Painel,
         meta: {
-            title: 'Avaliação de Resultados: Parecer Técnico',
+            title: 'Avaliação de Resultados: Parecer T&eacute;cnico',
             tab: 'tab-0',
         },
     },
@@ -173,7 +173,7 @@ const routes = [
         name: 'projetosSimilares',
         component: ProjetosSimilares,
         meta: {
-            title: 'Avaliação de Resultados: Parecer Técnico',
+            title: 'Avaliação de Resultados: Parecer T&eacute;cnico',
             tab: 'tab-0',
         },
     },
@@ -182,7 +182,7 @@ const routes = [
         name: 'Painel',
         component: Painel,
         meta: {
-            title: 'Avaliação de Resultados: Parecer Técnico',
+            title: 'Avaliação de Resultados: Parecer T&eacute;cnico',
         },
     },
 ];

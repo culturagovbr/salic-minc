@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
 */
@@ -29,10 +29,10 @@ class EnviarEmail
         require_once('PhpMailer/class.phpmailer.php');
 
         $mail             = new PHPMailer();
-        $mail->IsSMTP(); // Usando a conexão SMTP
+        $mail->IsSMTP(); // Usando a conexï¿½o SMTP
         $mail->Host       = "correio.cultura.gov.br"; // Servidor SMTP
         $mail->SMTPDebug  = 2;                     // Debug do SMTP
-        $mail->SetFrom('resposta@cultura.gov.br');// Email Alias do ministério da cultura
+        $mail->SetFrom('resposta@cultura.gov.br');// Email Alias do Minist&eacute;rio da cultura
         $mail->Subject    = $this->assunto;
         $mail->MsgHTML($this->mensagem);
 

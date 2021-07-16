@@ -61,7 +61,7 @@
                                     >
                                         {{ props.item.nomeProduto }}
                                     </router-link>
-                                    <span>Clique para análisar o produto {{ props.item.nomeProduto }}</span>
+                                    <span>Clique para an&aacute;lisar o produto {{ props.item.nomeProduto }}</span>
                                 </v-tooltip>
                                 <span
                                     v-else
@@ -91,7 +91,7 @@
                                     >
                                         looks_two
                                     </v-icon>
-                                    <span>Produto secundário</span>
+                                    <span>Produto secund&aacute;rio</span>
                                 </v-tooltip>
                             </td>
                             <td>{{ props.item.dtDistribuicao | formatarData }}</td>

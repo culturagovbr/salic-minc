@@ -23,7 +23,7 @@
                 >
                     <v-icon>close</v-icon>
                 </v-btn>
-                <v-toolbar-title>Extrato bancário</v-toolbar-title>
+                <v-toolbar-title>Extrato banc&aacute;rio</v-toolbar-title>
             </v-toolbar>
 
             <v-card-text>

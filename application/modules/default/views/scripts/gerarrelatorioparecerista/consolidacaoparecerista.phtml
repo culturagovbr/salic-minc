@@ -72,7 +72,7 @@ include_once 'inc/funcoes.inc.php';
                         </td>
                     </tr>
                     <tr>
-                        <td>&Aacute;rea</td>
+                        <td>Área</td>
                         <td>
 	                        <select name="Area" id="Area" onchange="carregar_combo(this.value, 'Seguimento', '<?php echo $this->url(array('controller' => 'segmentocultural', 'action' => 'combo')); ?>', ' - Selecione uma �rea Cultural - ')" class="input_simples" style="width: 200px;">
 
@@ -94,7 +94,7 @@ include_once 'inc/funcoes.inc.php';
                             <select name="Seguimento" id="Seguimento"  class="input_simples" style="width: 200px;">
 
 								<?php if (!isset($this->areaCultural) || empty($this->areaCultural)) { ?>
-								<option value="0"> - Selecione uma &Aacute;rea Cultural - </option>
+								<option value="0"> - Selecione uma Área Cultural - </option>
 								<?php } else { ?>
 
 									<?php if (!isset($this->segmentoCultural) || empty($this->segmentoCultural)) { ?>

@@ -28,7 +28,7 @@ export const parecerMensagemErro = ({ commit }, msg) => {
         { root: true });
 };
 
-/** Análise inicial */
+/** An&aacute;lise inicial */
 
 export const obterProdutosParaAnalise = ({ commit }) => {
     AnaliseInicialService.obterProdutosParaAnalise()

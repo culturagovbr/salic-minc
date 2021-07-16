@@ -2,7 +2,7 @@
 
 ## Usuario  [/autenticacao/index/obter-dados-usuario/idUsuario/{idUsuario}]
 
-### Usuário proposta [GET]
+### Usu&aacute;rio proposta [GET]
 
 + Parameters
     + idUsuario: 1234

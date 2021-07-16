@@ -53,7 +53,7 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
         $this->_response = $this->getResponse();
 
         $routeData = $this->verifySubRoutes();
-        
+
         if($authInstance->hasIdentity() && !empty($authObject->usu_codigo)){
             //Usuario Interno
             $this->_usu_codigo = $authObject->usu_codigo;
@@ -119,9 +119,9 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
     /**
      * verifySubRoutes
      *
-     * Adiciona compatibilidade com rotas REST aninhadas, recebendo nested urls 
+     * Adiciona compatibilidade com rotas REST aninhadas, recebendo nested urls
      * e transformado numa forma em que a controller pode ler.
-     * 
+     *
      * Busca as subrotas mapeadas; caso encontre uma que bate com o padrão,
      * redireciona para a controller na forma abaixo:
      *
@@ -130,16 +130,16 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
      *                         V
      * readequacao/dados-readequacao-documento/idReadequacao/15522/idDocumento/112
      *
-     */    
+     */
     final protected function verifySubRoutes()
     {
         if (empty($this->_subRoutes)) {
             return;
         }
-        
+
         $arrRequest = $this->getAllParams();
         $currentUrl = $arrRequest['module'] . '/' .  $arrRequest['controller'];
-       
+
         if (array_key_exists('id', $arrRequest) && $arrRequest['action'] == 'get') {
             $currentUrl .= '/' . $arrRequest['id'];
         } else {
@@ -155,20 +155,20 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
                 }
             }
         }
-        
+
         $currentUrlPieces = preg_split('/\//', $currentUrl);
         $capturedParams = [];
         $capturedActions = [];
-        
+
         if (array_key_exists('module', $arrRequest) &&
             array_key_exists('controller', $arrRequest) &&
             array_key_exists('action', $arrRequest) &&
-            in_array('get', $arrRequest)            
+            in_array('get', $arrRequest)
         ) {
             foreach ($this->_subRoutes as $definedRoute) {
                 $pieceMatch = [];
                 $routePieces = preg_split('/\//', $definedRoute);
-                
+
                 if (count($currentUrlPieces) == count($routePieces)) {
                     foreach ($currentUrlPieces as $key => $piece) {
                         if ($routePieces[$key] == $currentUrlPieces[$key]) {
@@ -182,11 +182,11 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
                             $pieceMatch[$key] = false;
                         }
                     }
-                    
+
                     if (!in_array(false, $pieceMatch)) {
                         $moduleName = $capturedActions[0];
                         $controllerName = $capturedActions[1] . '-' . $capturedActions[2];
-                        
+
                         $params = '';
                         foreach ($routeData['params'] as $key => $value) {
                             if ($value != '') {
@@ -195,7 +195,7 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
                                 $params .= "$key/";
                             }
                         }
-                        
+
                         $this->redirect($moduleName . '/' . $controllerName . '/' . $params);
                     }
                 }

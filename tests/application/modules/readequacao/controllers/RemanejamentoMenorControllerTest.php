@@ -16,14 +16,14 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->autenticar();
-        
+
         $this->resetRequest()
             ->resetResponse();
-        
+
         $this->perfilParaProponente();
-        
+
         $this->resetRequest()
             ->resetResponse();
 
@@ -43,7 +43,7 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
             APPLICATION_PATH . '/configs/application.ini',
             APPLICATION_ENV
         );
-        
+
         $projetos = new Projetos();
 
         $select = $projetos->select();
@@ -65,18 +65,18 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
         $select->where('p.AnoProjeto < ?', 90);
         $select->where('p.cgccpf = ?', $config->test->params->login);
         $select->limit(30);
-        
+
         $result = $projetos->fetchAll($select);
-        
+
         $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $tbCumprimentoObjeto = new ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjeto();
         foreach ($result as $item) {
-            
+
             $existeReadequacaoEmAndamento = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoEmAndamento($item->idPronac);
             $existeReadequacaoPlanilhaEmEdicao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoPlanilhaEmEdicao($item->idPronac);
             $existeReadequacaoParcialEmEdicao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoParcialEmEdicao($item->idPronac);
             $possuiRelatorioDeCumprimento = $tbCumprimentoObjeto->possuiRelatorioDeCumprimento($item->idPronac);
-            
+
             $Readequacao_50 = false;
             if (!$existeReadequacaoEmAndamento && !$existeReadequacaoEmAndamento) {
                 $Readequacao_50 = true;
@@ -90,17 +90,17 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
             if ($possuiRelatorioDeCumprimento) {
                 $Readequacao_50 = false;
             }
-            
+
             if ($Readequacao_50) {
                 $idPronac = $item->idPronac;
                 break;
-            }                
+            }
         }
         return $idPronac;
     }
 
     /**
-     * getLastIdReadequacao - retorna último idReadequacao inserido
+     * getLastIdReadequacao - retorna &uacute;ltimo idReadequacao inserido
      *
      * @access private
      * @return void
@@ -108,7 +108,7 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
     private function getLastIdReadequacao()
     {
         $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        
+
         $select = $tbReadequacao->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -124,7 +124,7 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
 
         return $result->idReadequacao;
     }
-    
+
     /**
      * getItemReadequacao - retorna um item a partir do pronac
      *
@@ -135,7 +135,7 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
     private function getItemReadequacao($item)
     {
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
-        
+
         $select = $tbPlanilhaAprovacao->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -153,9 +153,9 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
             'qtItem ASC'
         ]);
         $select->limit($item);
-        
+
         $result = $tbPlanilhaAprovacao->fetchAll($select);
-        
+
         if (count($result) > 0) {
             return $result[$item -1];
         } else {
@@ -164,7 +164,7 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
     }
 
     /**
-     * criarRemanejamento50 - cria um remanejamento 
+     * criarRemanejamento50 - cria um remanejamento
      *
      * @access private
      * @return void
@@ -176,10 +176,10 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
                 'idPronac' => $this->idPronac,
                 'idReadequacao' => '',
                 'idTipoReadequacao' => 5
-            ]);                
+            ]);
         $this->dispatch('/readequacao/remanejamento-menor/verificar-planilha-ativa');
     }
-    
+
     /**
      * salvarAlteracaoItem - realiza uma alteração em um item e grava
      *
@@ -190,13 +190,13 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
     {
         $itemReadequacao =  $this->getItemReadequacao($item);
         $novoVlUnitario = $itemReadequacao->vlUnitario + $incremento;
-        
+
         if ($incremento > 0) {
-            $justificativa = 'Aumento do valor unitário. Realizada pelo teste.';
+            $justificativa = 'Aumento do valor unit&aacute;rio. Realizada pelo teste.';
         } else if ($incremento < 0) {
-            $justificativa = 'Diminuição do valor unitário. Realizada pelo teste.';
+            $justificativa = 'Diminuição do valor unit&aacute;rio. Realizada pelo teste.';
         }
-        
+
         $this->request->setMethod('POST')
             ->setPost([
                 'idPronac' => $this->idPronac,
@@ -208,7 +208,7 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
                 'vlUnitario' => $novoVlUnitario,
                 'Justificativa' => $justificativa
             ]);
-        
+
         $this->dispatch('/readequacao/remanejamento-menor/salvar-avaliacao-do-item-remanejamento');
     }
 
@@ -224,8 +224,8 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
             ->setPost([
                 'idPronac' => $this->idPronac,
                 'idReadequacao' => $this->getLastIdReadequacao()
-            ]);                
-        $this->dispatch('/readequacao/remanejamento-menor/reintegrar-planilha');        
+            ]);
+        $this->dispatch('/readequacao/remanejamento-menor/reintegrar-planilha');
     }
 
     /**
@@ -233,7 +233,7 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
      *
      * @access private
      * @return void
-     */   
+     */
     private function finalizarReadequacao()
     {
         $this->request->setMethod('POST')
@@ -241,29 +241,29 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
                 'idPronac' => $this->idPronac,
                 'idReadequacao' => $this->getLastIdReadequacao()
             ]);
-        
-        $this->dispatch('/readequacao/remanejamento-menor/finalizar');
-    }       
 
-    
+        $this->dispatch('/readequacao/remanejamento-menor/finalizar');
+    }
+
+
     /**
      * TestIndexAction
      *
      * @access public
      * @return void
-     */    
+     */
     public function testIndexAction()
     {
         $this->dispatch('/readequacao/remanejamento-menor?idPronac=' . $this->hashPronac);
         $this->assertUrl('readequacao','remanejamento-menor', 'index');
     }
-    
+
     /**
      * TestCarregarValorPorGrupoRemanejamentoAction
      *
      * @access public
      * @return void
-     */    
+     */
     public function testCarregarValorPorGrupoRemanejamentoAction()
     {
         $this->dispatch('/readequacao/remanejamento-menor/carregar-valor-entre-planilhas?idPronac=' . $this->idPronac);
@@ -275,36 +275,36 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
      *
      * @access public
      * @return void
-     */    
+     */
     public function testCriarRemanejamento50()
     {
         $this->criarRemanejamento50();
-        
+
         $this->assertUrl('readequacao','remanejamento-menor', 'verificar-planilha-ativa');
         $this->assertResponseCode(200);
-        
+
         $expected = new StdClass();
         $expected->msg = 'Planilha copiada corretamente';
         $expected->idReadequacao = (int)$this->getLastIdReadequacao();
-        
+
         $data = $this->getResponse()->getBody();
-        
+
         $this->assertEquals(
             json_encode($expected),
             $data
         );
-    }   
+    }
 
     /**
      * TestCarregarTelaAlterarItem
      *
      * @access public
      * @return void
-     */    
+     */
     public function testCarregarTelaAlterarItem()
     {
         $tbPlanilhaAprovacao = $this->getItemReadequacao(1);
-        
+
         $this->request->setMethod('POST')
             ->setPost([
                 'idPronac' => $this->idPronac,
@@ -312,13 +312,13 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
                 'idPlanilhaAprovacao' => $tbPlanilhaAprovacao->idPlanilhaAprovacao,
                 'idPlanilhaAprovacaoPai' => $tbPlanilhaAprovacao->idPlanilhaAprovacaoPai
             ]);
-        
+
         $this->dispatch('/readequacao/remanejamento-menor/alterar-item');
         $this->assertUrl('readequacao','remanejamento-menor', 'alterar-item');
         $this->assertResponseCode(200);
-        
+
         $data = json_decode($this->getResponse()->getBody(), true);
-        
+
         $this->assertArrayHasKey('dadosPlanilhaAtiva', $data);
         $this->assertArrayHasKey('dadosPlanilhaEditavel', $data);
         $this->assertArrayHasKey('dadosPlanilhaOriginal', $data);
@@ -327,30 +327,30 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
         $this->assertArrayHasKey('valoresDoItem', $data);
     }
 
-    
+
     /**
      * TestSalvarAlteracaoItem()
      *
      * @access public
      * @return void
-     */    
+     */
     public function testSalvarAlteracaoItem()
     {
         $this->salvarAlteracaoItem(1, 1);
-        
+
         $this->assertUrl('readequacao','remanejamento-menor', 'salvar-avaliacao-do-item-remanejamento');
         $this->assertResponseCode(200);
-        
+
         $expected = new StdClass();
         $expected->resposta = true;
         $expected->msg = "Dados salvos com sucesso!";
-        
+
         $data = $this->getResponse()->getBody();
-        
+
         $this->assertEquals(
             json_encode($expected),
             $data
-        );       
+        );
     }
 
     /**
@@ -358,21 +358,21 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
      *
      * @access public
      * @return void
-     */    
+     */
     public function testRemoverRemanejamento50()
     {
         $this->removerReadequacao();
-        
+
         $this->assertUrl('readequacao','remanejamento-menor', 'reintegrar-planilha');
         $this->assertResponseCode(200);
-    }    
-    
+    }
+
     /**
      * TestRealizarRemanejamentoFinalizando
      *
      * @access public
      * @return void
-     */    
+     */
     public function testRealizarRemanejamentoFinalizandoComErro()
     {
         $this->criarRemanejamento50();
@@ -386,7 +386,7 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
     public function testRealizarRemanejamentoFinalizandoCorretamente()
     {
         // TODO
-        // assegurar que remanejamento terá saldo zero
+        // assegurar que remanejamento ter&aacute; saldo zero
         // fazer conta de qtItem * nrOcorrencia * vlUnitario
 
         //$this->assertRedirect('default','consultardadosprojeto', 'index');

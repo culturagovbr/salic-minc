@@ -4,19 +4,19 @@
 <table class="tabela">
 	<tr>
 		<th align="center" colspan="6">Identifica&ccedil;&atilde;o</th>
-	</tr>	
+	</tr>
 	<tr>
 		<td align="left" colspan="3"><b>PRONAC	 	</b><br /><?php echo $pc->PRONAC?>				</td>
 		<td align="left" colspan="3"><b>Nome do Projeto </b><br /><?php echo utf8_decode(htmlentities($pc->NomeProjeto));?>			</td>
-	</tr>	
-	<tr>	
+	</tr>
+	<tr>
 		<td align="left"><b>Enquadramento               </b><br /><b style="color:red;"><?php echo $pc->Enquadramento?></b></td>
                 <td align="left"><b>Tipo do Parecer		</b><br /><?php echo utf8_decode(htmlentities($pc->TipoParecer));?></td>
                 <td align="left"><b>Parecer Favor&aacute;vel?	</b><br /><?php echo utf8_decode(htmlentities($pc->ParecerFavoravel));?></td>
 		<td align="left"><b>Dt.Parecer	 		</b><br /><?php echo $pc->DtConsolidacao?></td>
-		<td align="right" colspan="2"><b>Sugerido Real	</b><br /><?php echo $this->formatarReal($pc->SugeridoReal); ?></td>		
-	</tr>	
-	<tr>	
+		<td align="right" colspan="2"><b>Sugerido Real	</b><br /><?php echo $this->formatarReal($pc->SugeridoReal); ?></td>
+	</tr>
+	<tr>
 		<th align="right">Valor Solicitado (A)								</th>
 		<td align="right" colspan="5" style="color:green;"><?php echo $this->formatarReal($pc->ValorSolicitado); ?></td>
 	</tr>
@@ -29,7 +29,7 @@
 		<td align="right" colspan="5" style="color:blue;"><?php echo $this->formatarReal($pc->ValorProposta); ?></td>
 	</tr>
 	<tr>
-		<th align="right">Valor do Parecer T&eacute;cnico (D)						</th>
+		<th align="right">Valor do Parecer Técnico (D)						</th>
 		<td align="right" colspan="5"><?php echo $this->formatarReal($pc->ValorParecer); ?>		</td>
 	</tr>
 	<tr>
@@ -83,5 +83,5 @@
 		<tr>
 			<td align="center" style="color: red; font:sans-serif 13px bold;">Nenhum Registro encontrado</td>
 		</tr>
-	</table>	
-<?php endif;?>	
+	</table>
+<?php endif;?>

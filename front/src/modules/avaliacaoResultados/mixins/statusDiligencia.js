@@ -12,7 +12,7 @@ export default {
             });
             let status = {
                 color: 'grey',
-                desc: 'Histórico Diligências',
+                desc: 'Hist&oacute;rico Diligências',
                 prazo: fim,
             };
             const prazoPadrao = 20;

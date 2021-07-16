@@ -22,7 +22,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Solicitar reanálise Produto: {{ produto.nomeProduto }} - {{ produto.nomeProjeto }}
+                    Solicitar rean&aacute;lise Produto: {{ produto.nomeProduto }} - {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -129,13 +129,13 @@ export default {
                 siAnalise: TbDistribuirParecer.SI_ANALISE_EM_ANALISE,
                 siEncaminhamento: TbTipoEncaminhamento.SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA,
             },
-            obrigatorio: v => !!v || 'Este campo é obrigatório',
+            obrigatorio: v => !!v || 'Este campo &eacute; obrigat&oacute;rio',
         };
     },
 
     computed: {
         labelTextoRico() {
-            return 'Observação para reanálise';
+            return 'Observação para rean&aacute;lise';
         },
     },
 
@@ -179,7 +179,7 @@ export default {
                 return false;
             }
 
-            const mensagem = 'Confirma o envio para reanálise do parecerista?';
+            const mensagem = 'Confirma o envio para rean&aacute;lise do parecerista?';
             if (await this.$root.$confirm(mensagem) === false) {
                 return false;
             }

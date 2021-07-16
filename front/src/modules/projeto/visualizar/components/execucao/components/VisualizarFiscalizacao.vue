@@ -129,7 +129,7 @@
                             <h4
                                 class="display-1 grey--text text--darken-4 font-weight-light"
                             >
-                                Identificação do Técnico
+                                Identificação do T&eacute;cnico
                             </h4>
                         </div>
                     </v-subheader>
@@ -146,7 +146,7 @@
                             <v-flex
                                 xs6
                                 offset-xs2>
-                                <p><b>Técnico</b></p>
+                                <p><b>T&eacute;cnico</b></p>
                                 {{ dado.nmTecnico }} <br>
                             </v-flex>
                         </v-layout>
@@ -167,7 +167,7 @@
                             <h3
                                 class="display-1 white--text font-weight-light"
                             >
-                                Fiscalização Concluída para Parecer
+                                Fiscalização Conclu&iacute;da para Parecer
                             </h3>
                         </div>
                     </v-subheader>
@@ -201,7 +201,7 @@
                                     xs10
                                     offset-xs1>
                                     <br>
-                                    <p><b>Benefícios Alcançados</b></p>
+                                    <p><b>Benef&iacute;cios Alcançados</b></p>
                                     <div v-html="parecer.resumoExecucao.dsBeneficioAlcancado"/>
                                 </v-flex>
                             </v-layout>
@@ -326,7 +326,7 @@
                                     <div v-if="parecer.stDtDeCorte == 0"><br>
                                         <p>
                                             <b>
-                                                Há compatibilidade entre os recursos
+                                                H&aacute; compatibilidade entre os recursos
                                                 transferidos e a evolução do
                                                 projeto?
                                             </b>
@@ -335,7 +335,7 @@
                                     <div v-else-if="parecer.stDtDeCorte == 1"><br>
                                         <p>
                                             <b>
-                                                Há compatibilidade entre o desembolso e a evolução?
+                                                H&aacute; compatibilidade entre o desembolso e a evolução?
                                             </b>
                                         </p>
                                     </div>
@@ -355,8 +355,8 @@
                                     <p>
                                         <b>
                                             Ocorreu despesas com multas, juros,
-                                            taxas bancárias ou correção
-                                            monetária?
+                                            taxas banc&aacute;rias ou correção
+                                            monet&aacute;ria?
                                         </b>
                                     </p>
                                     <div v-html="parecer.utilizacaoRecursos.stOcorreuDespesas"/>
@@ -367,7 +367,7 @@
                                     xs10
                                     offset-xs1>
                                     <br>
-                                    <p><b>Ocorreu pagamento de servidor público?</b></p>
+                                    <p><b>Ocorreu pagamento de servidor p&uacute;blico?</b></p>
                                     <div
                                         v-html="
                                             parecer.utilizacaoRecursos.
@@ -397,7 +397,7 @@
                                     <br>
                                     <p>
                                         <b>
-                                            Há transferência de recurso para
+                                            H&aacute; transferência de recurso para
                                             clubes/associações ou outras entidades
                                             congêneres?
                                         </b>
@@ -414,8 +414,8 @@
                                     <br>
                                     <p>
                                         <b>
-                                            Há despesas com publicidade,
-                                            salvo as de caráter educativo,
+                                            H&aacute; despesas com publicidade,
+                                            salvo as de car&aacute;ter educativo,
                                             informativo ou de orientação social?
                                         </b>
                                     </p>
@@ -494,7 +494,7 @@
                                     xs10
                                     offset-xs1>
                                     <br>
-                                    <p><b>Ocorreu saldo após o encerramento do projeto?</b></p>
+                                    <p><b>Ocorreu saldo ap&oacute;s o encerramento do projeto?</b></p>
                                     <div
                                         v-html="parecer.utilizacaoRecursos.stSaldoAposEncerramento"
                                     />
@@ -534,12 +534,12 @@
                                             <b>
                                                 O proponente/convenente tem mantido
                                                 a documentação relativa ao projeto
-                                                em arquivo próprio?
+                                                em arquivo pr&oacute;prio?
                                             </b>
                                         </p>
                                     </div>
                                     <div v-else-if="parecer.stDtDeCorte == 1"><br>
-                                    <p><b>O processo está bem documentado?</b></p></div>
+                                    <p><b>O processo est&aacute; bem documentado?</b></p></div>
                                     <div
                                         v-html="parecer.comprovantesDespesa.stProcessoDocumentado"
                                     />
@@ -550,7 +550,7 @@
                                     xs10
                                     offset-xs1>
                                     <br>
-                                    <p><b>A documentação está completa e arquivada?</b></p>
+                                    <p><b>A documentação est&aacute; completa e arquivada?</b></p>
                                     <div
                                         v-html="parecer.comprovantesDespesa.stDocumentacaoCompleta"
                                     />
@@ -579,7 +579,7 @@
                                         <p>
                                             <b>
                                                 Identificam o projeto com o
-                                                número do Pronac/Convênio?
+                                                n&uacute;mero do Pronac/Convênio?
                                             </b>
                                         </p>
                                     </div>
@@ -587,7 +587,7 @@
                                         <p>
                                             <b>
                                                 Identificam o nome do projeto
-                                                e o número do convênio?
+                                                e o n&uacute;mero do convênio?
                                             </b>
                                         </p>
                                     </div>
@@ -638,7 +638,7 @@
                                     <p>
                                         <b>
                                             As despesas estão devidamente
-                                            relacionadas no extrato bancário?
+                                            relacionadas no extrato banc&aacute;rio?
                                         </b>
                                     </p>
                                     <div
@@ -696,7 +696,7 @@
                                     xs10
                                     offset-xs1>
                                     <br>
-                                    <p><b>Há material informativo do Projeto?</b></p>
+                                    <p><b>H&aacute; material informativo do Projeto?</b></p>
                                     <div v-html="parecer.divulgacao.stMaterialInformativo"/>
                                 </v-flex>
                             </v-layout>
@@ -743,7 +743,7 @@
                                     <div v-if="parecer.stDtDeCorte == 0"><br>
                                         <p>
                                             <b>
-                                                O projeto está sendo executado
+                                                O projeto est&aacute; sendo executado
                                                 de acordo com o aprovado?
                                             </b>
                                         </p>

@@ -127,7 +127,7 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
                 $response = $readequacaoService->remover();
                 if ($response) {
                     $data['message'] = 'Readequação excluída';
-                } 
+                }
             } catch (\Exception $objException) {
                 $this->customRenderJsonResponse([
                     'error' => [

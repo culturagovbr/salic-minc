@@ -191,9 +191,9 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         $this->view->status = $stAvaliacaoItemPedidoAlteracao;
 
         if ($stAvaliacaoItemPedidoAlteracao == "AG") {
-            $this->view->statusAnalise = "Aguardando Análise";
+            $this->view->statusAnalise = "Aguardando An&aacute;lise";
         } elseif ($stAvaliacaoItemPedidoAlteracao == "EA") {
-            $this->view->statusAnalise = "Em Análise";
+            $this->view->statusAnalise = "Em An&aacute;lise";
         } elseif ($stAvaliacaoItemPedidoAlteracao == "AP") {
             $this->view->statusAnalise = "Aprovado";
         } elseif ($stAvaliacaoItemPedidoAlteracao == "IN") {

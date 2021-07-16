@@ -283,7 +283,7 @@ const routes = [
                 name: 'ContasBancarias',
                 component: ContasBancarias,
                 meta: {
-                    title: 'Contas Bancárias',
+                    title: 'Contas Banc&aacute;rias',
                 },
             },
             {
@@ -291,7 +291,7 @@ const routes = [
                 name: 'ConciliacaoBancaria',
                 component: ConciliacaoBancariaView,
                 meta: {
-                    title: 'Conciliação Bancária',
+                    title: 'Conciliação Banc&aacute;ria',
                 },
             },
             {
@@ -299,7 +299,7 @@ const routes = [
                 name: 'InconsistenciaBancaria',
                 component: InconsistenciaBancaria,
                 meta: {
-                    title: 'Inconsistência Bancária',
+                    title: 'Inconsistência Banc&aacute;ria',
                 },
             },
             {
@@ -323,7 +323,7 @@ const routes = [
                 name: 'ExtratosBancarios',
                 component: ExtratosBancariosView,
                 meta: {
-                    title: 'Extratos Bancários',
+                    title: 'Extratos Banc&aacute;rios',
                 },
             },
             {
@@ -331,7 +331,7 @@ const routes = [
                 name: 'ExtratosBancariosConsolidado',
                 component: ExtratosBancariosConsolidado,
                 meta: {
-                    title: 'Extratos Bancários Consolidado',
+                    title: 'Extratos Banc&aacute;rios Consolidado',
                 },
             },
             {
@@ -379,7 +379,7 @@ const routes = [
                 name: 'PagamentosUfMunicipio',
                 component: PagamentosUfMunicipio,
                 meta: {
-                    title: 'Pagamentos Por UF / Município',
+                    title: 'Pagamentos Por UF / Munic&iacute;pio',
                 },
             },
             {
@@ -395,7 +395,7 @@ const routes = [
                 name: 'RelatorioFisico',
                 component: RelatorioFisico,
                 meta: {
-                    title: 'Relatório Físico',
+                    title: 'Relat&oacute;rio F&iacute;sico',
                 },
             },
             {
@@ -411,7 +411,7 @@ const routes = [
                 name: 'RelatorioCumprimentoObjeto',
                 component: RelatorioCumprimentoObjeto,
                 meta: {
-                    title: 'Relatório de cumprimento do Objeto',
+                    title: 'Relat&oacute;rio de cumprimento do Objeto',
                 },
             },
             {

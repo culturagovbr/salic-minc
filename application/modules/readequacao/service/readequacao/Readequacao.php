@@ -27,7 +27,7 @@ class Readequacao implements IServicoRestZend
     public function buscar($idReadequacao)
     {
         $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
-        
+
         $result = $modelTbReadequacao->buscarReadequacao($idReadequacao)[0];
 
         $return = [
@@ -55,7 +55,7 @@ class Readequacao implements IServicoRestZend
 
         $modelTbTipoReadequacao = new \Readequacao_Model_DbTable_TbTipoReadequacao();
         if ($readequacao['idTipoReadequacao']) {
-            
+
             $where = [
                 'idTipoReadequacao = ?' => $readequacao['idTipoReadequacao']
             ];
@@ -73,19 +73,19 @@ class Readequacao implements IServicoRestZend
             'solicitacao' => 3,
             'justificativa' => 10,
         ];
-        
+
         $valido = [
             'solicitacao' => false,
             'justificativa' => false,
         ];
-        
+
         if (strlen($dadosReadequacao['dsJustificativa']) > $minChar['justificativa']) {
             $valido['justificativa'] = true;
         }
-        
+
         if ((int) $dadosReadequacao['idTipoReadequacao'] === \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PERIODO_EXECUCAO) {
             $campoAtual = $this->buscarCampoAtual($dadosReadequacao['idPronac'], $dadosReadequacao['idTipoReadequacao']);
-            
+
             if (preg_match('/\//', $campoAtual[0]['dsCampo'])) {
                 $dataOriginal = preg_replace('/\//', '-', $campoAtual[0]['dsCampo']);
             }
@@ -102,7 +102,7 @@ class Readequacao implements IServicoRestZend
         }
         return $valido['solicitacao'] && $valido['justificativa'];
     }
-    
+
     public function buscarReadequacoes($idPronac, $idTipoReadequacao = '', $stStatusAtual = '')
     {
         $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
@@ -158,7 +158,7 @@ class Readequacao implements IServicoRestZend
     private function __buscarPaineisCoordenadorParecer($idOrgao)
     {
         $parametros = $this->request->getParams();
-        $result = ''; 
+        $result = '';
         $filtro = $parametros['filtro'];
         if (!$filtro) {
             return;
@@ -167,7 +167,7 @@ class Readequacao implements IServicoRestZend
         $where = [];
         $where['idUnidade = ?'] = $idOrgao;
         $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
-        
+
         switch ($filtro) {
             case 'painel_aguardando_distribuicao':
                 $result = $tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerAguardandoAnalise($where);
@@ -181,25 +181,25 @@ class Readequacao implements IServicoRestZend
         }
         return $result;
     }
-    
+
     private function __buscarPaineisCoordenador($idOrgao)
     {
         $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
         $idPerfil = $grupoAtivo->codGrupo;
-        
+
         $parametros = $this->request->getParams();
-        $result = ''; 
+        $result = '';
         $filtro = $parametros['filtro'];
         if (!$filtro) {
             return;
         }
-        
+
         if ($filtro == 'painel_aguardando_distribuicao') {
             $where['Orgao = ?'] = $idOrgao;
         } else {
             $where['projetos.Orgao = ?'] = $idOrgao;
         }
-        
+
         if ($parametros['pronac']) {
             $where['a.PRONAC = ?'] = $parametros['pronac'];
         }
@@ -210,7 +210,7 @@ class Readequacao implements IServicoRestZend
                 $where['tbDistribuirReadequacao.idUnidade = ?'] = $idOrgao;
             } else if (in_array($idPerfil, [\Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO])) {
                 unset($where['projetos.Orgao = ?']);
-                $where["CASE 
+                $where["CASE
                 WHEN projetos.Orgao IN (" . \Orgaos::ORGAO_GEAR_SACAV . "," . \Orgaos::ORGAO_SUPERIOR_SEFIC . "," . \Orgaos::SEFIC_DEIPC .")
                 THEN " . \Orgaos::SEFIC_DEIPC . "
                 WHEN projetos.Orgao IN (" . \Orgaos::ORGAO_SUPERIOR_SAV . "," . \Orgaos::ORGAO_SAV_CAP . "," . \Orgaos::ORGAO_SAV_SAL . "," . \Orgaos::ORGAO_SAV_CEP . "," . \Orgaos::ORGAO_SAV_DAP . "," . \Orgaos::ORGAO_SAV_DIECI . ")
@@ -219,7 +219,7 @@ class Readequacao implements IServicoRestZend
                 END = ?"] = $idOrgao;
             } else {
                 unset($where['projetos.Orgao = ?']);
-                $where["CASE 
+                $where["CASE
 	      WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SAV . "," . \Orgaos::ORGAO_SAV_SAL . "," . \Orgaos::SAV_DPAV . ")
 		   THEN " . \Orgaos::ORGAO_SAV_CAP . "
 	     WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SEFIC . "," . \Orgaos::SEFIC_DEIPC .")
@@ -244,14 +244,14 @@ class Readequacao implements IServicoRestZend
         $where = [];
         $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
         $auth = \Zend_Auth::getInstance();
-        
+
         $idOrgao = $grupoAtivo->codOrgao;
         $idPerfil = $grupoAtivo->codGrupo;
-        
+
         if ($parametros['pronac']) {
             $where['projetos.AnoProjeto+projetos.Sequencial = ?'] = $parametros['pronac'];
         }
-        
+
         switch ($idPerfil) {
             case \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO:
                 if ($idOrgao == \Orgaos::ORGAO_GEAR_SACAV) {
@@ -287,7 +287,7 @@ class Readequacao implements IServicoRestZend
                 $result = $this->__buscarPaineisCoordenador($idOrgao);
                 break;
         }
-        
+
         $resultArray = [];
         if (!empty($result)) {
             foreach($result as $item) {
@@ -338,11 +338,11 @@ class Readequacao implements IServicoRestZend
                     $item->diasEmDiligencia = $this->obterTempoDiligencia($item);
                     $item->diasEmAvaliacao = $this->obterTempoRestanteDeAvaliacao($item);
                 }
-                
+
                 $resultArray[] = $item;
             }
         }
-        
+
         return $resultArray;
     }
 
@@ -388,7 +388,7 @@ class Readequacao implements IServicoRestZend
 
         return $tempoDiligencia;
     }
-    
+
     public function buscarReadequacoesPorPronacTipo($idPronac, $idTipoReadequacao)
     {
         $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
@@ -767,7 +767,7 @@ class Readequacao implements IServicoRestZend
             'tpCampo' => $tpCampo,
             'dsCampo' => utf8_encode($this->converteTextoEmHtml($valorPreCarregado)),
         ];
-        
+
         return $resultArray;
     }
 
@@ -778,7 +778,7 @@ class Readequacao implements IServicoRestZend
         if (isset($parametros['idReadequacao'])){
             $idReadequacao = $parametros['idReadequacao'];
             $readequacao = $this->buscar($idReadequacao);
-            
+
             $documento = new DocumentoService(
                 $this->request,
                 $this->response
@@ -797,10 +797,10 @@ class Readequacao implements IServicoRestZend
             if (!empty($_FILES['documento'])) {
                 $metadata = [
                     'idTipoDocumento' => \Documento_Model_DbTable_tbTipoDocumento::TIPO_DOCUMENTO_READEQUACAO,
-                    'dsDocumento' => 'Solicita&ccedil;&atilde;o de Readequa&ccedil;&atilde;o',
-                    'nmTitulo' => 'Readequa&ccedil;&atilde;o'
+                    'dsDocumento' => 'Solicita&ccedil;&atilde;o de Readequação',
+                    'nmTitulo' => 'Readequação'
                 ];
-                
+
                 $parametros['idDocumento'] = $documento->inserir(
                     $_FILES['documento'],
                     'pdf',
@@ -814,7 +814,7 @@ class Readequacao implements IServicoRestZend
         }
 
         $parametros = $this->__prepararDadosGravacao($parametros);
-        
+
         $mapper = new \Readequacao_Model_TbReadequacaoMapper();
         $idReadequacao = $mapper->salvarSolicitacaoReadequacao($parametros);
 
@@ -832,11 +832,11 @@ class Readequacao implements IServicoRestZend
         unset($list['<']);
         unset($list['>']);
         unset($list['&']);
-        
+
         $search = array_map('utf8_encode', $list);
         $values = array_values($list);
         $texto = str_replace($search, $values, $texto);
-        
+
         $weirdChars = [
             '–' => '&ndash;',
             ';' => '&#894;',
@@ -845,7 +845,7 @@ class Readequacao implements IServicoRestZend
         foreach ($weirdChars as $char => $substitution) {
             $texto = str_replace($char, $substitution, $texto);
         }
-        
+
         return $texto;
     }
 
@@ -881,12 +881,12 @@ class Readequacao implements IServicoRestZend
                 '',
                 $idReadequacao
             );
-            
+
             if (!empty($readequacao['idDocumento'])) {
                 $tbDocumento = new \tbDocumento();
                 $tbDocumento->excluirDocumento($readequacao['idDocumento']);
             }
-            
+
             switch($readequacao['idTipoReadequacao']) {
             case \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL:
                     $this->removerRemanejamentoParcial($readequacao);
@@ -947,7 +947,7 @@ class Readequacao implements IServicoRestZend
             $this->__removerItensPlanilha($readequacao['idReadequacao']);
         }
     }
-    
+
     public function removerPlanilhaOrcamentaria($readequacao) {
         if (isset($readequacao['idReadequacao'])
             && $readequacao['idReadequacao'] > 0) {
@@ -959,23 +959,23 @@ class Readequacao implements IServicoRestZend
         $tbReadequacaoMapper = new \Readequacao_Model_TbPlanoDistribuicaoMapper();
         $tbReadequacaoMapper->excluirReadequacaoPlanoDistribuicaoAtiva($readequacao['idPronac']);
     }
-    
+
     public function removerSaldoAplicacao($readequacao) {
         if (isset($readequacao['idReadequacao'])
             && $readequacao['idReadequacao'] > 0) {
             $this->__removerItensPlanilha($readequacao['idReadequacao']);
         }
     }
-    
+
     public function removerTransferenciaRecursos($readequacaoModel) {
-        
-    }    
-    
+
+    }
+
     public function finalizarSolicitacao()
     {
         $parametros = $this->request->getParams();
         $data = [];
-        
+
         if (isset($parametros['idReadequacao'])
             && isset($parametros['idPronac'])
         ){
@@ -999,7 +999,7 @@ class Readequacao implements IServicoRestZend
 
     public function buscarDocumento($idReadequacao, $idDocumento) {
         $data = [];
-        
+
         $readequacao = $this->buscar($idReadequacao);
         if ($readequacao['idDocumento'] == $idDocumento) {
             $documento = new DocumentoService(
@@ -1017,10 +1017,10 @@ class Readequacao implements IServicoRestZend
 
         $auth = \Zend_Auth::getInstance()->getIdentity();
         $arrAuth = array_change_key_case((array)$auth);
-        
+
         $idUsuarioLogado = $arrAuth['idusuario'];
         $fnVerificarPermissao = new \Autenticacao_Model_FnVerificarPermissao();
-        
+
         if ($idPronac == '') {
             $idPronac = $parametros['idpronac'] ? $parametros['idpronac'] : $parametros['idPronac'];
         }
@@ -1033,7 +1033,7 @@ class Readequacao implements IServicoRestZend
             $idPronac = \Seguranca::dencrypt($idPronac);
         }
         $consulta = $fnVerificarPermissao->verificarPermissaoProjeto($idPronac, $idUsuarioLogado);
-        
+
         return $consulta->Permissao;
     }
 
@@ -1043,7 +1043,7 @@ class Readequacao implements IServicoRestZend
         $permissao = false;
         $auth = \Zend_Auth::getInstance()->getIdentity();
         $arrAuth = array_change_key_case((array)$auth);
-        
+
         if (!isset($arrAuth['usu_codigo'])) {
             $permissao = $this->__verificarPermissaoProponenteNoProjeto($idPronac);
         } else {
@@ -1059,14 +1059,14 @@ class Readequacao implements IServicoRestZend
 
         $tbReadequacaoXParecer = new \Readequacao_Model_DbTable_TbReadequacaoXParecer();
         $result = $tbReadequacaoXParecer->buscarParecerReadequacao($idReadequacao);
-        
+
         $data = [
             'idParecer' => $result['IdParecer'],
             'ParecerFavoravel' => $result['ParecerFavoravel'],
             'ParecerDeConteudo' => $result['ResumoParecer'],
             'DtParecer' => $result['DtParecer'],
         ];
-        
+
         return $data;
     }
 
@@ -1078,7 +1078,7 @@ class Readequacao implements IServicoRestZend
         $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
         $auth = \Zend_Auth::getInstance()->getIdentity();
         $arrAuth = array_change_key_case((array)$auth);
-        
+
         $idPronac = $parametros['idPronac'];
         $idTipoReadequacao = $parametros['idTipoReadequacao'];
         $idReadequacao = $parametros['idReadequacao'];
@@ -1087,7 +1087,7 @@ class Readequacao implements IServicoRestZend
         $campoTipoParecer = 8;
         $vlPlanilha = 0;
         $idUsuarioLogado = $arrAuth['usu_codigo'];
-        
+
         $enquadramentoDAO = new \Admissibilidade_Model_Enquadramento();
         $buscaEnquadramento = $enquadramentoDAO->buscarDados(
             $idPronac,
@@ -1099,11 +1099,11 @@ class Readequacao implements IServicoRestZend
         $dadosProjeto = $projetos->buscar([
             'IdPRONAC = ?' => $idPronac
         ]);
-            
+
         if (count($dadosProjeto) < 1) {
             throw new \Exception("Projeto Cultural n&atilde;o encontrado.");
         }
-            
+
         $parecerDAO = new \Parecer_Model_DbTable_Parecer();
         $dadosParecer = [
             'idPRONAC' => $idPronac,
@@ -1121,7 +1121,7 @@ class Readequacao implements IServicoRestZend
             'idTipoAgente' => 1,
             'Logon' => $idUsuarioLogado
         ];
-            
+
         $parecerAntigo = [
             'Atendimento' => 'S',
             'stAtivo' => 0
@@ -1136,7 +1136,7 @@ class Readequacao implements IServicoRestZend
             $whereUpdateParecer = 'idParecer = ' . $parecerAlterado->IdParecer;
             $alteraParecer = $parecerDAO->alterar($parecerAntigo, $whereUpdateParecer);
         }
-            
+
         if ($parecerAlterado) {
             $whereUpdateParecer = 'IdParecer = ' . $parecerAlterado->IdParecer;
             $parecerDAO->alterar($dadosParecer, $whereUpdateParecer);
@@ -1159,11 +1159,11 @@ class Readequacao implements IServicoRestZend
 
         $tbReadequacaoXParecerDbTable = new \Readequacao_Model_DbTable_TbReadequacaoXParecer();
         $possuiDocumentoAssinatura = $tbReadequacaoXParecerDbTable->possuiDocumentoAssinatura($idReadequacao);
-        
+
         if (count($possuiDocumentoAssinatura) > 0) {
             $this->__invalidarAssinatura($idReadequacao);
         }
-        
+
         $data = [
             'idParecer' => $idParecer,
             'ParecerFavoravel' => $parecerFavoravel,
@@ -1176,66 +1176,66 @@ class Readequacao implements IServicoRestZend
     {
         $parametros = $this->request->getParams();
         $data = [];
-        
+
         $idPronac = $parametros['idPronac'];
         $idParecer = $parametros['idParecer'];
         $idTipoReadequacao = $parametros['idTipoReadequacao'];
-        
+
         $auth = \Zend_Auth::getInstance();
         $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
-        
+
         $servicoReadequacaoAssinatura = new ReadequacaoAssinaturaService(
             $grupoAtivo,
             $auth
         );
         $idTipoDoAto = $servicoReadequacaoAssinatura->obterAtoAdministrativoPorTipoReadequacao($idTipoReadequacao);
-        
+
         $servicoDocumentoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\DocumentoAssinatura(
             $idPronac,
             $idTipoDoAto,
             $idParecer
         );
         $idDocumentoAssinatura = $servicoDocumentoAssinatura->iniciarFluxo();
-        
+
         $data = [
             'idDocumentoAssinatura' => $idDocumentoAssinatura,
         ];
-        
+
         return $data;
     }
 
     public function solicitarSaldo($idPronac) {
         $data = [];
-        
+
         if (strlen($idPronac) > 7) {
             $idPronac = \Seguranca::dencrypt($idPronac);
         }
-        
+
         $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
         $readequacao = $tbReadequacao->obterDadosReadequacao(
             \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SALDO_APLICACAO,
             $idPronac
         );
-        
+
         if (empty($readequacao)) {
             $idReadequacao = $tbReadequacao->criarReadequacaoPlanilha(
                 $idPronac,
                 \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SALDO_APLICACAO
             );
-            
+
             $readequacao = $tbReadequacao->obterDadosReadequacao(
                 \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SALDO_APLICACAO,
                 $idPronac,
                 $idReadequacao
             );
-            
+
             $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
             $verificarPlanilhaReadequadaAtual = $tbPlanilhaAprovacao->buscarPlanilhaReadequadaEmEdicao($idPronac, $idReadequacao);
-            
+
             if (count($verificarPlanilhaReadequadaAtual) == 0) {
                 $planilhaAtiva = $tbPlanilhaAprovacao->buscarPlanilhaAtiva($idPronac);
                 $criarPlanilha = $tbPlanilhaAprovacao->copiarPlanilhas($idPronac, $idReadequacao);
-                
+
                 if ($criarPlanilha) {
                     $data = $readequacao;
                 } else {
@@ -1269,7 +1269,7 @@ class Readequacao implements IServicoRestZend
                 $planilha[] = $item;
             }
         };
-        
+
         return $planilha;
     }
 
@@ -1283,7 +1283,7 @@ class Readequacao implements IServicoRestZend
 
         $planilhaReadequada = $spPlanilhaOrcamentaria->exec($idPronac, $tipoPlanilha, $params);
         $planilhaAtiva = $tbPlanilhaAprovacao->obterPlanilhaAtiva($idPronac);
-        
+
         $planilha = [];
         foreach ($planilhaReadequada as $item) {
             if ($item->idPlanilhaAprovacaoPai != null) {
@@ -1308,10 +1308,10 @@ class Readequacao implements IServicoRestZend
                 $planilha[] = $itemAtiva;
             }
         }
-        
+
         return $planilha;
     }
-    
+
     public function obterPlanilha() {
         $parametros = $this->request->getParams();
 
@@ -1326,7 +1326,7 @@ class Readequacao implements IServicoRestZend
 
 //        $tipoPlanilha = ($idTipoReadequacao) ? $tipoPlanilha[$idTipoReadequacao] : \spPlanilhaOrcamentaria::TIPO_PLANILHA_APROVADA_ATIVA;
         $planilhaOrcamentariaAtiva = [];
-        
+
         if ($idTipoReadequacao) {
             $planilha = $this->__obterPlanilhaEmReadequacao($idPronac, $tipos[$idTipoReadequacao]);
         } else {
@@ -1376,7 +1376,7 @@ class Readequacao implements IServicoRestZend
 
     public function alterarItemPlanilha() {
         $parametros = $this->request->getParams();
-        
+
         $idPronac = $parametros['idPronac'];
         $idPlanilhaAprovacao = $parametros['idPlanilhaAprovacao'];
         $idReadequacao = $parametros['idReadequacao'];
@@ -1392,7 +1392,7 @@ class Readequacao implements IServicoRestZend
             ])->current();
             $idTipoReadequacao = $readequacao->idTipoReadequacao;
         }
-        
+
         $auth = \Zend_Auth::getInstance();
         $cpf = isset($auth->getIdentity()->Cpf) ? $auth->getIdentity()->Cpf : $auth->getIdentity()->usu_identificacao;
 
@@ -1402,7 +1402,7 @@ class Readequacao implements IServicoRestZend
         if ($rsAgente->count() > 0) {
             $idAgente = $rsAgente[0]->idAgente;
         }
-        
+
         $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
         $editarItem = $tbPlanilhaAprovacao->buscar(
             [
@@ -1418,7 +1418,7 @@ class Readequacao implements IServicoRestZend
             $parametros['ValorUnitario'],
             $qtd - 1
         );
-        
+
         $editarItem->idUnidade = $parametros['idUnidade'];
         $editarItem->qtItem = $parametros['Quantidade'];
         $editarItem->nrOcorrencia = $parametros['Ocorrencia'];
@@ -1427,7 +1427,7 @@ class Readequacao implements IServicoRestZend
         $editarItem->nrFonteRecurso = $parametros['idFonte'];
         $editarItem->dsJustificativa = utf8_decode($parametros['dsJustificativa']);
         $editarItem->idAgente = $idAgente;
-        
+
         if ($editarItem->tpAcao == 'N') {
             $editarItem->tpAcao = 'A';
         }
@@ -1438,16 +1438,16 @@ class Readequacao implements IServicoRestZend
         ])) {
             $tbReadequacaoXParecerDbTable = new \Readequacao_Model_DbTable_TbReadequacaoXParecer();
             $possuiDocumentoAssinatura = $tbReadequacaoXParecerDbTable->possuiDocumentoAssinatura($idReadequacao);
-            
+
             if (count($possuiDocumentoAssinatura) > 0) {
                 $this->__invalidarAssinatura($idReadequacao);
             }
-            
+
             $editarItem->stCustoPraticado = 0;
         }
-        
+
         $editarItem->save();
-        
+
         $projetosDbTable = new \Projeto_Model_DbTable_Projetos();
         if ($projetosDbTable->possuiCalculoAutomaticoCustosVinculados($idPronac)
             && $idTipoReadequacao == \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
@@ -1456,14 +1456,14 @@ class Readequacao implements IServicoRestZend
                 $idPronac,
                 $idReadequacao
             );
-            
+
             if ($atualizarCustosVinculados['erro']) {
                 $this->reverterAlteracaoItem(
                     $idPronac,
                     $idReadequacao,
                     $editarItem->idPlanilhaItem
                 );
-                
+
                 throw new \Exception($atualizarCustosVinculados['mensagem']);
             } else {
                 $data = [
@@ -1488,10 +1488,10 @@ class Readequacao implements IServicoRestZend
             'mensagem' => 'Custos vinculados atualizados!',
             'erro' => false
         ];
-        
+
         $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
         $tipoReadequacao = $tbPlanilhaAprovacao->calculaSaldoReadequacaoBaseDeCusto($idPronac, $idReadequacao);
-        
+
         if (in_array($tipoReadequacao, ['COMPLEMENTACAO', 'REDUCAO'])) {
             $propostaTbCustosVinculados = new \Proposta_Model_TbCustosVinculadosMapper();
             $custosVinculados = $propostaTbCustosVinculados->obterCustosVinculadosReadequacao($idPronac, $idReadequacao);
@@ -1506,17 +1506,17 @@ class Readequacao implements IServicoRestZend
                 if (!$editarItem) {
                     continue;
                 }
-                
+
                 $comprovantePagamentoxxPlanilhaAprovacao = new \PrestacaoContas_Model_ComprovantePagamentoxPlanilhaAprovacao();
-                
+
                 $valorComprovado = $comprovantePagamentoxxPlanilhaAprovacao->valorComprovadoPorItem($idPronac, $item['idPlanilhaItens']);
                 if ($valorComprovado > $item['valorUnitario']) {
-                    
+
                     $retorno['mensagem'] = "Somente ser&aacute; permitido reduzir ou excluir itens or&ccedil;ament&aacute;rios caso tal a&ccedil;&atilde;o n&atilde;o afete negativamente os custos vinculados abaixo de valores j&aacute; comprovados.";
                     $retorno['erro'] = true;
                     return $retorno;
                 }
-                
+
                 if ($editarItem->vlUnitario != $item['valorUnitario']) {
                     $editarItem->vlUnitario = $item['valorUnitario'];
                     $editarItem->tpAcao = 'A';
@@ -1530,7 +1530,7 @@ class Readequacao implements IServicoRestZend
             }
         } else if ($tipoReadequacao == 'REMANEJAMENTO') {
                 $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
-                
+
                 $itensOriginais = $tbPlanilhaAprovacao->buscar([
                     'idPronac = ?' => $idPronac,
                     'idEtapa IN (?)' => [
@@ -1539,7 +1539,7 @@ class Readequacao implements IServicoRestZend
                     ],
                     'stAtivo = ?' => 'S'
                 ]);
-                
+
                 foreach ($itensOriginais as $itemOriginal) {
                     $editarItens = $tbPlanilhaAprovacao->buscar([
                         'idPronac = ?' => $idPronac,
@@ -1556,8 +1556,8 @@ class Readequacao implements IServicoRestZend
             $retorno['erro'] = true;
         }
         return $retorno;
-    }    
-    
+    }
+
     public function reverterAlteracaoItem(
         $idPronac = '',
         $idReadequacao = '',
@@ -1571,9 +1571,9 @@ class Readequacao implements IServicoRestZend
         $idPlanilhaItem = ($idPlanilhaItem) ? $idPlanilhaItem : $parametros['idPlanilhaItem'];
         $idPlanilhaAprovacao = ($idPlanilhaAprovacao) ? $idPlanilhaAprovacao : $parametros['idPlanilhaAprovacao'];
         $idPlanilhaAprovacaoPai = ($idPlanilhaAprovacaoPai) ? $idPlanilhaAprovacaoPai : $parametros['idPlanilhaAprovacaoPai'];
-        
+
         $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
-        
+
         if ($idPlanilhaAprovacaoPai) {
             $itemOriginal = $tbPlanilhaAprovacao->buscar([
                 'idPlanilhaAprovacao = ?' => $idPlanilhaAprovacaoPai,
@@ -1585,7 +1585,7 @@ class Readequacao implements IServicoRestZend
                 'stAtivo = ?' => 'S'
             ])->current();
         }
-        
+
         if ($idPlanilhaAprovacao) {
             $itemAlterado = $tbPlanilhaAprovacao->buscar([
                 'idPlanilhaAprovacao = ?' => $idPlanilhaAprovacao,
@@ -1597,7 +1597,7 @@ class Readequacao implements IServicoRestZend
                 'idReadequacao = ?' => $idReadequacao,
             ])->current();
         }
-        
+
         if (!empty($itemAlterado)
             && !empty($itemOriginal)) {
             $itemAlterado->vlUnitario = $itemOriginal->vlUnitario;
@@ -1612,11 +1612,11 @@ class Readequacao implements IServicoRestZend
             throw new \Exception($errorMessage);
         }
     }
-    
+
     public function calcularResumoPlanilha()
     {
         $parametros = $this->request->getParams();
-        
+
         $idPronac = $parametros['idPronac'];
         $idTipoReadequacao = $parametros['idTipoReadequacao'];
 
@@ -1681,15 +1681,15 @@ class Readequacao implements IServicoRestZend
             \Orgaos::ORGAO_IPHAN_ES
         ];
     }
-    
+
     public function buscarDestinatariosDistribuicao()
     {
         $parametros = $this->request->getParams();
-        
+
         $vinculada = $parametros['vinculada'];
         $area = $parametros['area'];
         $segmento = $parametros['segmento'];
-        
+
         $a = 0;
         $dadosUsuarios = [];
 
@@ -1707,7 +1707,7 @@ class Readequacao implements IServicoRestZend
 
             $vw = new \vwUsuariosOrgaosGrupos();
             $result = $vw->buscar($dados, ['usu_nome']);
-            
+
             if (count($result) > 0) {
                 foreach ($result as $registro) {
                     $dadosUsuarios[$a]['id'] = $registro['usu_codigo'];
@@ -1744,14 +1744,14 @@ class Readequacao implements IServicoRestZend
     {
         $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
         $auth = \Zend_Auth::getInstance();
-        
+
         $tbDocumentoAssinaturaDbTable = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
         $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
         $servicoReadequacaoAssinatura = new ReadequacaoAssinaturaService(
             $grupoAtivo,
             $auth
         );
-        
+
         $readequacao = $tbReadequacao->buscarDadosReadequacoes(['idReadequacao = ?' => $idReadequacao])->current();
         $idTipoDoAto = $servicoReadequacaoAssinatura->obterAtoAdministrativoPorTipoReadequacao($readequacao['idTipoReadequacao']);
 
@@ -1759,7 +1759,7 @@ class Readequacao implements IServicoRestZend
             $errorMessage = "Ato administrativo não encontrado!";
             throw new \Exception($errorMessage);
         }
-        
+
         $documentoAssinatura = $tbDocumentoAssinaturaDbTable->obterDocumentoAssinatura(
             $readequacao['idPronac'],
             $idTipoDoAto
@@ -1769,7 +1769,7 @@ class Readequacao implements IServicoRestZend
             $errorMessage = "Documento assinatura não encontrado!";
             throw new \Exception($errorMessage);
         }
-        
+
         $data = [
             'cdSituacao' => \Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA,
             'stEstado' => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO
@@ -1777,12 +1777,12 @@ class Readequacao implements IServicoRestZend
         $where = [
             'idDocumentoAssinatura = ?' => $documentoAssinatura['idDocumentoAssinatura'],
         ];
-        
+
         $tbDocumentoAssinaturaDbTable->update(
             $data,
             $where
         );
-        
+
         return true;
     }
 
@@ -1792,10 +1792,10 @@ class Readequacao implements IServicoRestZend
 
         $auth = \Zend_Auth::getInstance();
         $idUsuario = $auth->getIdentity()->usu_codigo;
-        
+
         $idReadequacao = $parametros['idReadequacao'];
         $idUnidade = $parametros['vinculada'];
-        
+
         $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
         $readequacao = $tbReadequacaoModel->find(['idReadequacao = ?' => $idReadequacao])->current();
         $stValidacaoCoordenador = 0;
@@ -1807,16 +1807,16 @@ class Readequacao implements IServicoRestZend
             $readequacao->dsAvaliacao = $parametros['dsAvaliacao'];
             $readequacao->dtAvaliador = new \Zend_Db_Expr('GETDATE()');
             $readequacao->idAvaliador = $idUsuario;
-            
+
             if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_INDEFERIDA) {
                 $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_INDEFERIDA;
                 $readequacao->stEstado = \Readequacao_Model_DbTable_TbReadequacao::ST_ESTADO_FINALIZADO;
-                
+
             } elseif ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA) {
                 $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE;
                 $readequacao->stEstado = \Readequacao_Model_DbTable_TbReadequacao::ST_ESTADO_EM_ANDAMENTO;
                 $readequacao->stAtendimento = \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA;
-                
+
             } else {
                 $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                 if ($parametros['vinculada'] == \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI
@@ -1837,12 +1837,12 @@ class Readequacao implements IServicoRestZend
                 throw new \Exception($errorMessage);
             }
             if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEFERIDA
-                || $parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_SEM_AVALIACAO 
+                || $parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_SEM_AVALIACAO
             ) {
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $readequacao->idReadequacao])->current();
                 $dtEnvioAvaliador = ($parametros['destinatario'] != null) ? new \Zend_Db_Expr('GETDATE()') : null;
-                
+
                 if (empty($jaDistribuiu)) {
                     $dados = [
                         'idReadequacao' => $readequacao->idReadequacao,
@@ -1885,13 +1885,13 @@ class Readequacao implements IServicoRestZend
         }
         return true;
     }
-    
+
     public function devolverAoCoordenador()
     {
         $parametros = $this->request->getParams();
 
         $idReadequacao = $parametros['idReadequacao'];
-        
+
         $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
         $readequacao = $tbReadequacaoModel->find(['idReadequacao = ?' => $idReadequacao])->current();
 
@@ -1906,11 +1906,11 @@ class Readequacao implements IServicoRestZend
             ];
             $where = [];
             $where['idReadequacao = ?'] = $idReadequacao;
-            
+
             $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
-            
+
             $excluiDistribuicao = $tbDistribuirReadequacao->update($dados, $where);
-            
+
             if (!$excluiDistribuicao) {
                 $errorMessage = "Erro ao devolver a readequação ao coordenador de acompanhamento!";
                 throw new \Exception($errorMessage);
@@ -1920,20 +1920,20 @@ class Readequacao implements IServicoRestZend
             throw new \Exception($errorMessage);
         }
     }
-    
+
     public function redistribuirReadequacao()
     {
         $parametros = $this->request->getParams();
-        
+
         $idReadequacao = $parametros['idReadequacao'];
         $dsOrientacao = $parametros['dsOrientacao'];
         $stValidacaoCoordenador = 0;
         $dataEnvio = null;
         $destinatario = $parametros['destinatario'];
         $idUnidade = $parametros['vinculada'];
-        
+
         $this->__invalidarAssinatura($idReadequacao);
-        
+
         try {
             if (in_array($idUnidade, [
                 \Orgaos::ORGAO_SAV_CAP,
@@ -1947,7 +1947,7 @@ class Readequacao implements IServicoRestZend
                 ];
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $idReadequacao])->current();
-                
+
                 if (empty($jaDistribuiu)) {
                     $tbDistribuirReadequacao->inserir($dados);
                 } else {
@@ -1955,7 +1955,7 @@ class Readequacao implements IServicoRestZend
                     $where['idReadequacao = ?'] = $idReadequacao;
                     $u = $tbDistribuirReadequacao->update($dados, $where);
                 }
-                
+
                 $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
                 $dados = [
                     'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA
@@ -1963,10 +1963,10 @@ class Readequacao implements IServicoRestZend
                 $where = [];
                 $where['idReadequacao = ?'] = $idReadequacao;
                 $tbReadequacao->update($dados, $where);
-                
+
             } else {
                 $dtEnvioAvaliador = ($destinatario != '') ? new \Zend_Db_Expr('GETDATE()') : null;
-                
+
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $dados = [
                     'idUnidade' => $idUnidade,
@@ -1977,7 +1977,7 @@ class Readequacao implements IServicoRestZend
                 ];
                 $where = [];
                 $where['idReadequacao = ?'] = $idReadequacao;
-                
+
                 $tbDistribuirReadequacao->update($dados, $where);
 
                 $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
@@ -1995,7 +1995,7 @@ class Readequacao implements IServicoRestZend
         } catch (Exception $e) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -2006,14 +2006,14 @@ class Readequacao implements IServicoRestZend
 
         $this->__invalidarAssinatura($idReadequacao);
         $this->distribuirReadequacao();
-        
+
         return true;
     }
 
     public function declararImpedimento()
     {
         $parametros = $this->request->getParams();
-        
+
         $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
         $dadosReadequacao = [
             'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE,
@@ -2027,11 +2027,11 @@ class Readequacao implements IServicoRestZend
             $errorMessage = "Erro ao declarar impedimento!";
             throw new \Exception($errorMessage);
         }
-        
+
         $dados = [];
         $dados['idAvaliador'] = 0;
         $dados['DtEnvioAvaliador'] = null;
-        
+
         $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
         $remover = $tbDistribuirReadequacao->update($dados, $where);
 
@@ -2039,7 +2039,7 @@ class Readequacao implements IServicoRestZend
             $errorMessage = "Erro ao declarar impedimento - erro ao remover distribuição!";
             throw new \Exception($errorMessage);
         }
-        
+
         return true;
     }
 
@@ -2049,23 +2049,23 @@ class Readequacao implements IServicoRestZend
 
         $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
         $auth = \Zend_Auth::getInstance();
-        
+
         $servicoReadequacaoAssinatura = new ReadequacaoAssinaturaService(
             $grupoAtivo,
             $auth
         );
-        
+
         $retorno = $servicoReadequacaoAssinatura->encaminharOuFinalizarReadequacaoChecklist(
             $parametros['idReadequacao']
         );
-        
+
         if (!$retorno) {
             $errorMessage = "Erro ao finalizar ciclo de análise da readequação!";
             throw new \Exception($errorMessage);
         }
-        
+
         $data['message'] = "Ciclo de avaliação de readequação finalizado.";
-        
+
         return $data;
     }
 
@@ -2074,15 +2074,15 @@ class Readequacao implements IServicoRestZend
         if (!isset($idPronac) || empty($idPronac)) {
             return;
         }
-        
+
         $arrRetorno = [];
         $arrRetorno['prazoPadrao']   = null;
         $arrRetorno['prazoRespostaCrescente'] = null;
         $arrRetorno['prazoRespostaDecrescente'] = null;
         $arrRetorno['tipoDiligencia'] = "a_diligenciar";
-        
+
         $tbDiligencia = new \tbDiligencia();
-        
+
         $arrBusca = [];
         $arrBusca['IdPRONAC = ?'] = $idPronac;
         if (!empty($idTipoDiligencia)) {
@@ -2093,22 +2093,22 @@ class Readequacao implements IServicoRestZend
         }
 
         $rsDiligencia = $tbDiligencia->buscar($arrBusca, ['DtSolicitacao DESC'])->current();
-        
+
         if (!empty($rsDiligencia)) {
             $prazoPadrao = 40;
-            
+
             $prazoResposta = $this->prazoParaResposta($rsDiligencia->DtSolicitacao, $prazoPadrao);
             $prazoRespostaCresc = $this->prazoParaResposta($rsDiligencia->DtSolicitacao, $prazoPadrao);
             $prazoRespostaDesc = $this->prazoParaResposta($rsDiligencia->DtSolicitacao, $prazoPadrao, true);
-        
+
             if ($blnPrazoPadrao) {
                 return $prazoPadrao;
             }
-        
+
             if ($blnPrazoResposta) {
                 return ($prazoRespostaDesc == '-1') ? $prazoPadrao : $prazoRespostaDesc;
             }
-        
+
             $arrRetorno['prazoPadrao']   = $prazoPadrao;
             $arrRetorno['prazoRespostaCrescente'] = ($prazoRespostaCresc == '-1') ? $prazoPadrao : $prazoRespostaCresc;
             $arrRetorno['prazoRespostaDecrescente'] = ($prazoRespostaDesc == '-1') ? $prazoPadrao : $prazoRespostaDesc;
@@ -2160,4 +2160,4 @@ class Readequacao implements IServicoRestZend
     }
 }
 
- 
+

@@ -532,7 +532,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 
                 $tblProjetos->alterarSituacao($idPronac, '', $codigoSituacao, $providenciaTomada, $this->idUsuario);
 
-                parent::message("Projeto encaminhado com sucesso para an&aacute;lise no Minist&eacute;rio da Cidadania.", "/listarprojetos/listarprojetos", "CONFIRM");
+                parent::message("Projeto encaminhado com sucesso para an&aacute;lise no Minist&eacute;rio da TURISMO.", "/listarprojetos/listarprojetos", "CONFIRM");
             }
         }
     }
@@ -600,7 +600,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 $tbMovimentacao = new Proposta_Model_DbTable_TbMovimentacao();
                 $insert = $tbMovimentacao->insert($dados);
 
-                parent::message("Proposta encaminhada com sucesso para an&aacute;lise no Minist&eacute;rio da Cidadania.", "/proposta/visualizar/index/idPreProjeto/" . $idPreProjeto, "CONFIRM");
+                parent::message("Proposta encaminhada com sucesso para an&aacute;lise no Minist&eacute;rio da TURISMO.", "/proposta/visualizar/index/idPreProjeto/" . $idPreProjeto, "CONFIRM");
             } else {
                 $this->view->resultado = $arrResultado;
             }
@@ -996,7 +996,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 
     /**
      * Metodo novoresponsavel()
-     * UC 89 - Fluxo FA4 - Vincular Responsï¿½vel
+     * UC 89 - Fluxo FA4 - Vincular Responsável
      * @access public
      * @param void
      * @return void

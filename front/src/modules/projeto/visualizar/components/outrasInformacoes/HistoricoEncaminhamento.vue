@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Carregando Histórico Encaminhamento'"/>
+            <Carregando :text="'Carregando Hist&oacute;rico Encaminhamento'"/>
         </div>
         <div v-else-if="dados.Encaminhamentos">
             <v-data-table

@@ -16,7 +16,7 @@
             :items="dados.items"
             :search="search"
             item-key="item.index"
-            rows-per-page-text="Items por Página"
+            rows-per-page-text="Items por P&aacute;gina"
             no-data-text="Nenhum dado encontrado"
         >
             <template
@@ -134,7 +134,7 @@
                 color="error"
                 icon="warning"
             >
-                Não foi possível encontrar um projeto com a palavra chave '{{ search }}'.
+                Não foi poss&iacute;vel encontrar um projeto com a palavra chave '{{ search }}'.
             </v-alert>
         </v-data-table>
     </div>

@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.model
- * @copyright � 2011 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2011 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -46,8 +46,8 @@ class tbArquivoImagem extends MinC_Db_Table_Abstract
         return $this->insert($dados);
     } // fecha m�todo cadastrarDados()
 
-    
-    
+
+
     public function salvarDados($dados)
     {
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -87,7 +87,7 @@ class tbArquivoImagem extends MinC_Db_Table_Abstract
     public function buscarArquivoMarca($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
     {
         $slct = $this->select();
-            
+
         $slct->setIntegrityCheck(false);
 
         $slct->from(
@@ -137,7 +137,7 @@ class tbArquivoImagem extends MinC_Db_Table_Abstract
                                   "proj.Sequencial"),
                             "SAC.dbo"
                           );
-            
+
         //adiciona quantos filtros foram enviados
         foreach ($where as $coluna=>$valor) {
             $slct->where($coluna, $valor);
@@ -154,7 +154,7 @@ class tbArquivoImagem extends MinC_Db_Table_Abstract
             }
             $slct->limit($tamanho, $tmpInicio);
         }
-            
+
         return $this->fetchAll($slct);
     }
 
@@ -201,7 +201,7 @@ class tbArquivoImagem extends MinC_Db_Table_Abstract
         $slct->where('dp.stAtivoDocumentoProjeto = ?', 'E');
         $slct->where('p.Orgao = ?', $orgao);
         $slct->order(new Zend_Db_Expr('p.AnoProjeto + p.Sequencial'));
-            
+
 
         return $this->fetchAll($slct);
     }

@@ -13,7 +13,7 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
         $PermissoesGrupo[] = 94;
         $PermissoesGrupo[] = 153;
         $PermissoesGrupo[] = 154;
-        
+
         isset($auth->getIdentity()->usu_codigo) ? parent::perfil(1, $PermissoesGrupo) : parent::perfil(4, $PermissoesGrupo);
     }
 
@@ -87,7 +87,7 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
                     $get->IdPRONAC,
                     null,
                     'B01',
-                    'Projeto encaminhado ao t&eacute;cnico para a readequa&ccedil;&atilde;o do Enquadramento'
+                    'Projeto encaminhado ao Técnico para a readequação do Enquadramento'
                 );
 
                 $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();

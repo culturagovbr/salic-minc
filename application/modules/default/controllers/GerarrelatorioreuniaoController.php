@@ -41,7 +41,7 @@ class GerarRelatorioReuniaoController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 148; // Coord. de Avalia��o
             $PermissoesGrupo[] = 150; // Tec. de Avalia��o
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)

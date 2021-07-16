@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Contas Bancárias'"/>
+            <Carregando :text="'Contas Banc&aacute;rias'"/>
         </div>
         <div v-else-if="Object.keys(dadosConta).length > 0">
             <v-card>
@@ -46,7 +46,7 @@
                                 <v-divider class="pb-2"/>
                             </v-flex>
                             <v-flex>
-                                <p><b>Número</b></p>
+                                <p><b>N&uacute;mero</b></p>
                                 <p>
                                     {{ dadosConta.ContaBloqueada | formatarConta }}
                                 </p>
@@ -75,7 +75,7 @@
                                 <v-divider class="pb-2"/>
                             </v-flex>
                             <v-flex>
-                                <p><b>Número</b></p>
+                                <p><b>N&uacute;mero</b></p>
                                 <p>
                                     {{ dadosConta.ContaLivre | formatarConta }}
                                 </p>
@@ -108,7 +108,7 @@
                     <v-flex>
                         <v-card>
                             <v-card-text class="px-0">
-                                Nenhuma Contas Bancárias encontrada
+                                Nenhuma Contas Banc&aacute;rias encontrada
                             </v-card-text>
                         </v-card>
                     </v-flex>

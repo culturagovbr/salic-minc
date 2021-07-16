@@ -80,7 +80,7 @@
                                 sm6
                                 md4
                             >
-                                <b>Valor unitário:</b> {{ item.valor | moeda }}
+                                <b>Valor unit&aacute;rio:</b> {{ item.valor | moeda }}
                             </v-flex>
                         </v-layout>
                         <v-divider class="my-2" />
@@ -116,7 +116,7 @@
                                 sm6
                                 md4
                             >
-                                <b>Período de execução:</b> {{ dtInicioExecucao | formatarData }} a {{ dtFimExecucao | formatarData }}
+                                <b>Per&iacute;odo de execução:</b> {{ dtInicioExecucao | formatarData }} a {{ dtFimExecucao | formatarData }}
                             </v-flex>
                         </v-layout>
                     </v-container>

@@ -176,7 +176,7 @@ export default {
                 { text: 'Dias', align: 'center', value: 'diasprop' },
                 { text: 'Qtde', align: 'center', value: 'quantidadeprop' },
                 { text: 'Ocor.', align: 'center', value: 'ocorrenciaprop' },
-                { text: 'Vl. Unitário', align: 'right', value: 'valorUnitarioprop' },
+                { text: 'Vl. Unit&aacute;rio', align: 'right', value: 'valorUnitarioprop' },
                 { text: 'Vl. Solicitado', align: 'right', value: 'VlSolicitado' },
                 { text: 'Valor Sugerido', align: 'left', value: 'VlSugeridoParecerista' },
                 { text: 'Justificativas', align: 'left', value: 'justificitivaproponente' },

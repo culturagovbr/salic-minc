@@ -24,7 +24,7 @@ class AreadetrabalhoController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 148;
             $PermissoesGrupo[] = 151;
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo esta no array de permissoes
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, orgaos e grupos do usuario (pega todos os grupos)
@@ -39,7 +39,7 @@ class AreadetrabalhoController extends MinC_Controller_Action_Abstract
             // pega o idAgente
             $this->idAgente = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
             $this->idAgente = ($this->idAgente) ? $this->idAgente["idAgente"] : 0;
-        } 
+        }
         else { // caso o usuario nao esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
@@ -198,7 +198,7 @@ class AreadetrabalhoController extends MinC_Controller_Action_Abstract
         } catch (Exception $e) {
             parent::message($e->getMessage(), "areadetrabalho/index", "ERROR");
         }
-    } 
+    }
 
     /**
      * Metodo para efetuar o cancelamento da retirada de pauta
@@ -230,5 +230,5 @@ class AreadetrabalhoController extends MinC_Controller_Action_Abstract
         } catch (Exception $e) {
             parent::message($e->getMessage(), "areadetrabalho/index", "ERROR");
         }
-    } 
+    }
 }

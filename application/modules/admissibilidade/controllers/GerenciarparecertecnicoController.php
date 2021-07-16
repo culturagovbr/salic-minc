@@ -6,7 +6,7 @@
  * @package application
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @author Equipe RUP - Politec
  * @author Vinícius Feitosa da Silva <viniciusfesil@gmail.com>
  */

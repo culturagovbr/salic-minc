@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.model.DAO
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -78,7 +78,7 @@ class ProjetoDAO extends Zend_Db_Table
 
     public static function buscarDadosProjeto($pronac)
     {
-        $sql = "select distinct p.AnoProjeto, p.Sequencial, p.AnoProjeto+p.Sequencial as pronac, p.NomeProjeto, p.Processo, p.CgcCpf, 
+        $sql = "select distinct p.AnoProjeto, p.Sequencial, p.AnoProjeto+p.Sequencial as pronac, p.NomeProjeto, p.Processo, p.CgcCpf,
 				p.Area as codArea, p.Segmento as codSegmento, p.Mecanismo as codMecanismo, p.SolicitadoReal, p.UfProjeto,
 				ar.Descricao as Area, s.Descricao as Segmento, m.Codigo as Mecanismo, m.Descricao as Descricao, p.Situacao
 				from SAC.dbo.Projetos p

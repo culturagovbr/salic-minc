@@ -98,8 +98,8 @@
 <!-- ========== INÍCIO CONTEÚDO ========== -->
 <div class="paginaA4">
     <div align="center">
-        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Minist�rio da Cidadania"/>
-        <br clear="all" /><span class="TituloMinC">Minist�rio da Cidadania</span>
+        <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério da TURISMO"/>
+        <br clear="all" /><span class="TituloMinC">Ministério da TURISMO</span>
         <br clear="all" /><span class="TituloDoDocumento">Relat�rio de Propostas - Resultado da pesquisa</span>
         <br clear="all" /><span class="DataDoDocumento">Data da impress�o: <?php echo date('d/m/Y - H:i:s'); ?></span>
         <br clear="all" /><br clear="all" /><span class="QntdRegistros"><?php echo count($this->dados).' propostas listadas'; ?></span>
@@ -135,13 +135,13 @@
                         } else if($d->stEstado == '1' && $d->Movimentacao == '95' && $d->estadoMovimentacao == '0' && $d->ConformidadeOK == '0' && $d->estadoAvaliacao == '0'){
                             echo 'Proposta diligenciada';
                         } else if($d->stEstado == '1' && $d->Movimentacao == '96' && $d->estadoMovimentacao == '0' && $d->ConformidadeOK == '0' && $d->estadoAvaliacao == '0'){
-                            echo 'Dilig�ncia respondida';
+                            echo 'Dilig&ecirc;ncia respondida';
                         } else if($d->stEstado == '1' && $d->Movimentacao == '95' && $d->estadoMovimentacao == '0' && $d->ConformidadeOK == NULL && $d->estadoAvaliacao == '0'){
-                            echo 'Proposta em constru��o';
+                            echo 'Proposta em constru&ccedil;&atilde;o';
                         } else if($d->stEstado == '1' && $d->Movimentacao == '96' && $d->estadoMovimentacao == '0' && $d->ConformidadeOK == '9' && $d->estadoAvaliacao == '0'){
-                            echo 'Enviada ao MinC p/ avalia��o';
+                            echo 'Enviada ao MinC p/ avalia&ccedil;&atilde;o';
                         } else {
-                            echo 'Enviada ao MinC p/ avalia��o';
+                            echo 'Enviada ao MinC p/ avalia&ccedil;&atilde;o';
                         }
                     ?>
                 </td>

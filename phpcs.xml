@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset name="pcsg-generated-ruleset">
-    <description>Ruleset para tentar procurar trazer mais qualidade no código-fonte da aplicação.</description>
+    <description>Ruleset para tentar procurar trazer mais qualidade no c&oacute;digo-fonte da aplicação.</description>
     <rule ref="Generic.Classes.DuplicateClassName"/>
     <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
     <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>

@@ -38,7 +38,7 @@
                     :value="true"
                     color="orange darken-3"
                 >
-                    Existe documento disponível para assinatura nesse projeto.
+                    Existe documento dispon&iacute;vel para assinatura nesse projeto.
                     <v-btn
                         :href="'/assinatura/index/visualizar-projeto?idDocumentoAssinatura=' + documento.idDocumentoAssinatura"
                         small

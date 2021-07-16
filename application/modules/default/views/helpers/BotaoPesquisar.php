@@ -1,21 +1,21 @@
 <?php
 /**
- * Botão Pesquisar Acessível
+ * Botï¿½o Pesquisar Acessï¿½vel
  * @author Equipe RUP - Politec
  * @since 28/04/2010
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_BotaoPesquisar
 {
     /**
-     * Método botão pesquisar
+     * Mï¿½todo botï¿½o pesquisar
      * @access public
-     * @param string $form (nome do formulário)
+     * @param string $form (nome do formulï¿½rio)
      * @return string $botao
      */
     public function botaoPesquisar($form)
@@ -32,5 +32,5 @@ class Zend_View_Helper_BotaoPesquisar
 			</noscript>";
 
         return $botao;
-    } // fecha método botaoPesquisar()
+    } // fecha mï¿½todo botaoPesquisar()
 } // fecha class

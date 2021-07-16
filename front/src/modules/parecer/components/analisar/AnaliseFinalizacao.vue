@@ -1,7 +1,7 @@
 <template>
     <s-carregando
         v-if="loading"
-        text="Carregando conteúdo"
+        text="Carregando conte&uacute;do"
     />
     <v-container
         v-else
@@ -118,17 +118,17 @@ export default {
         tasks: [
             {
                 name: 'analise-conteudo',
-                label: 'Análise de conteúdo',
+                label: 'An&aacute;lise de conte&uacute;do',
                 getter: 'analiseConteudo',
                 loading: true,
                 done: false,
                 rules: [(v, self) => (Object.keys(v).length > 0
-                    && self.stripTags(v.ParecerDeConteudo).length > 10) || 'Falta parecer da análise de conteúdo'],
+                    && self.stripTags(v.ParecerDeConteudo).length > 10) || 'Falta parecer da an&aacute;lise de conte&uacute;do'],
                 error: '',
             },
             {
                 name: 'analise-de-custos',
-                label: 'Análise de custos',
+                label: 'An&aacute;lise de custos',
                 getter: 'planilha',
                 action: 'obterPlanilhaParecer',
                 loading: true,
@@ -151,7 +151,7 @@ export default {
                     v => (v.length > 0 && v.filter(i => (i.siAnalise === 0
                         || i.siAnalise === 1)
                         && i.stPrincipal === 0).length === 0)
-                        || 'Existem produtos pendentes de análise',
+                        || 'Existem produtos pendentes de an&aacute;lise',
                 ],
                 error: '',
             },

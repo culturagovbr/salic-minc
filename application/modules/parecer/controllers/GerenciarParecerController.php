@@ -255,15 +255,15 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                             if ($tipoFiltro == 'validados' || $tipoFiltro == 'devolvida') {
                                 $projeto->alterarSituacao($idPronac, null, 'C20', 'Anlise t&eacute;cnica conclu&iacute;da');
                             } elseif ($tipoFiltro == 'em_validacao') {
-                                $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer t&eacute;cnico');
+                                $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer Técnico');
                             }
                         } else {
                             // fora das unidades acima
-                            $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer t&eacute;cnico');
+                            $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer Técnico');
                         }
                     } else {
                         // inabilitado
-                        $projeto->alterarSituacao($idPronac, null, 'C09', 'Projeto fora da pauta de reuni&atilde;o da CNIC porque o proponente est&aacute; inabilitado no Minist&eacute;rio da Cidadania.');
+                        $projeto->alterarSituacao($idPronac, null, 'C09', 'Projeto fora da pauta de reuni&atilde;o da CNIC porque o proponente est&aacute; inabilitado no Minist&eacute;rio da TURISMO.');
                     }
                 }
                 //fluxo in2013
@@ -411,11 +411,11 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                     // somente presidente
                     $projeto->alterarSituacao($idPronac, null, 'C20', 'An&aacute;lise t&eacute;cnica conclu&iacute;da');
                 } else {
-                    $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer t&eacute;cnico');
+                    $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer Técnico');
                 }
             } else {
                 // inabilitado
-                $projeto->alterarSituacao($idPronac, null, 'C09', 'Projeto fora da pauta de reuni&atilde;o da CNIC porque o proponente est&aacute; inabilitado no Minist&eacute;rio da Cidadania.');
+                $projeto->alterarSituacao($idPronac, null, 'C09', 'Projeto fora da pauta de reuni&atilde;o da CNIC porque o proponente est&aacute; inabilitado no Minist&eacute;rio da TURISMO.');
             }
 
             $db->commit();

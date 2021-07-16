@@ -69,11 +69,11 @@ export default {
                 },
                 nao_respondida: {
                     cor: 'orange lighten-3',
-                    titulo: 'Não respondida',
+                    titulo: 'N&atilde;o respondida',
                 },
                 diligencia_respondida: {
                     cor: 'green lighten-1',
-                    titulo: 'Diligência respondida',
+                    titulo: 'Dilig&ecirc;ncia respondida',
                 },
                 a_diligenciar: {
                     cor: 'grey lighten-1',

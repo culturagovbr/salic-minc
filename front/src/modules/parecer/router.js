@@ -14,14 +14,14 @@ export default [
         name: 'parecer-listar-view',
         component: ParecerAnalisarListaView,
         meta: {
-            title: 'Produtos para análise',
+            title: 'Produtos para an&aacute;lise',
         },
     },
     {
         path: '/parecer/analise-inicial/analisar/:id/:idPronac/:produtoPrincipal',
         component: ParecerAnalisarView,
         meta: {
-            title: 'Análise de custos',
+            title: 'An&aacute;lise de custos',
         },
         children: [
             {
@@ -51,7 +51,7 @@ export default [
         name: 'parecer-gerenciar-listar-view',
         component: ParecerGerenciarListaView,
         meta: {
-            title: 'Produtos para análise',
+            title: 'Produtos para an&aacute;lise',
         },
     },
     {
@@ -59,7 +59,7 @@ export default [
         name: 'parecer-gerenciar-visualizar-view',
         component: ParecerGerenciarVisualizarView,
         meta: {
-            title: 'Análise Produto',
+            title: 'An&aacute;lise Produto',
         },
     },
 ];

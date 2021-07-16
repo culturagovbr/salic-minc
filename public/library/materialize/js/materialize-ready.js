@@ -2,7 +2,7 @@
     $(document).ready(function () {
         ready();
 
-        // Extension pour comptabilité avec materialize.css
+        // Extension pour comptabilit&eacute; avec materialize.css
         $.validator.setDefaults({
             errorClass: 'invalid',
             validClass: "valid",

@@ -15,7 +15,7 @@
                             lg12
                             dark
                             class="text-xs-left">
-                            <b><h4>PARECER DE AVALIAÇÃO TÉCNICA</h4></b>
+                            <b><h4>PARECER DE AVALIAÇÃO T&eacute;CNICA</h4></b>
                             <v-divider class="pb-2"/>
                         </v-flex>
                         <v-flex>

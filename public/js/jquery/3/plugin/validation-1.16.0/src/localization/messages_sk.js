@@ -3,18 +3,18 @@
  * Locale: SK (Slovak; slovenčina, slovenský jazyk)
  */
 $.extend( $.validator.messages, {
-	required: "Povinné zadať.",
-	maxlength: $.validator.format( "Maximálne {0} znakov." ),
-	minlength: $.validator.format( "Minimálne {0} znakov." ),
-	rangelength: $.validator.format( "Minimálne {0} a maximálne {1} znakov." ),
-	email: "E-mailová adresa musí byť platná.",
-	url: "URL musí byť platná.",
-	date: "Musí byť dátum.",
-	number: "Musí byť číslo.",
-	digits: "Môže obsahovať iba číslice.",
+	required: "Povinn&eacute; zadať.",
+	maxlength: $.validator.format( "Maxim&aacute;lne {0} znakov." ),
+	minlength: $.validator.format( "Minim&aacute;lne {0} znakov." ),
+	rangelength: $.validator.format( "Minim&aacute;lne {0} a maxim&aacute;lne {1} znakov." ),
+	email: "E-mailov&aacute; adresa mus&iacute; byť platn&aacute;.",
+	url: "URL mus&iacute; byť platn&aacute;.",
+	date: "Mus&iacute; byť d&aacute;tum.",
+	number: "Mus&iacute; byť č&iacute;slo.",
+	digits: "Môže obsahovať iba č&iacute;slice.",
 	equalTo: "Dve hodnoty sa musia rovnať.",
-	range: $.validator.format( "Musí byť medzi {0} a {1}." ),
+	range: $.validator.format( "Mus&iacute; byť medzi {0} a {1}." ),
 	max: $.validator.format( "Nemôže byť viac ako {0}." ),
 	min: $.validator.format( "Nemôže byť menej ako {0}." ),
-	creditcard: "Číslo platobnej karty musí byť platné."
+	creditcard: "Č&iacute;slo platobnej karty mus&iacute; byť platn&eacute;."
 } );

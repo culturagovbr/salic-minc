@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Extratos Bancários'"/>
+            <Carregando :text="'Extratos Banc&aacute;rios'"/>
         </div>
         <div
             v-else
@@ -169,7 +169,7 @@ export default {
                     value: 'NrConta',
                 },
                 {
-                    text: 'CÓDIGO',
+                    text: 'C&oacute;DIGO',
                     align: 'center',
                     value: 'cdLancamento',
                 },

@@ -10,7 +10,7 @@ class Readequacao_DeclararImpedimentoController extends MinC_Controller_Rest_Abs
         $profiles = [
             Autenticacao_Model_Grupos::PARECERISTA,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::PARECERISTA,
@@ -20,7 +20,7 @@ class Readequacao_DeclararImpedimentoController extends MinC_Controller_Rest_Abs
 
         $subRoutes = [];
         $this->registrarSubRoutes($subRoutes);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
@@ -33,10 +33,10 @@ class Readequacao_DeclararImpedimentoController extends MinC_Controller_Rest_Abs
     public function postAction(){
         $data = [];
         $code = 200;
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
-        
+
         if (!$permissao) {
             $data['permissao'] = false;
             $data['message'] = 'Você não tem permissão para declarar impedimento.';
@@ -47,7 +47,7 @@ class Readequacao_DeclararImpedimentoController extends MinC_Controller_Rest_Abs
                 $data['message'] = "Readequação devolvida para o coordenador de acompanhamento após declarar impedimento.";
             }
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

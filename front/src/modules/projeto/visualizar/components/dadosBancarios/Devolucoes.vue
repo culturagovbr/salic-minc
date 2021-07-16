@@ -100,7 +100,7 @@ export default {
                     value: 'dtLote',
                 },
                 {
-                    text: 'VL. DEPÓSITO',
+                    text: 'VL. DEP&oacute;SITO',
                     align: 'center',
                     value: 'vlDeposito',
                 },

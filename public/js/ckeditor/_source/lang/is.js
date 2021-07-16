@@ -38,24 +38,24 @@ CKEDITOR.lang['is'] =
 	editor	: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
-	source			: 'Kóði',
-	newPage			: 'Ný síða',
+	source			: 'K&oacute;ði',
+	newPage			: 'Ný s&iacute;ða',
 	save			: 'Vista',
 	preview			: 'Forskoða',
 	cut				: 'Klippa',
 	copy			: 'Afrita',
-	paste			: 'Líma',
+	paste			: 'L&iacute;ma',
 	print			: 'Prenta',
 	underline		: 'Undirstrikað',
 	bold			: 'Feitletrað',
-	italic			: 'Skáletrað',
+	italic			: 'Sk&aacute;letrað',
 	selectAll		: 'Velja allt',
 	removeFormat	: 'Fjarlægja snið',
 	strike			: 'Yfirstrikað',
 	subscript		: 'Niðurskrifað',
 	superscript		: 'Uppskrifað',
-	horizontalrule	: 'Lóðrétt lína',
-	pagebreak		: 'Setja inn síðuskil',
+	horizontalrule	: 'L&oacute;ðr&eacute;tt l&iacute;na',
+	pagebreak		: 'Setja inn s&iacute;ðuskil',
 	unlink			: 'Fjarlægja stiklu',
 	undo			: 'Afturkalla',
 	redo			: 'Hætta við afturköllun',
@@ -63,14 +63,14 @@ CKEDITOR.lang['is'] =
 	// Common messages and labels.
 	common :
 	{
-		browseServer	: 'Fletta í skjalasafni',
-		url				: 'Vefslóð',
+		browseServer	: 'Fletta &iacute; skjalasafni',
+		url				: 'Vefsl&oacute;ð',
 		protocol		: 'Samskiptastaðall',
 		upload			: 'Senda upp',
 		uploadSubmit	: 'Hlaða upp',
 		image			: 'Setja inn mynd',
 		flash			: 'Flash',
-		form			: 'Setja inn innsláttarform',
+		form			: 'Setja inn innsl&aacute;ttarform',
 		checkbox		: 'Setja inn hökunarreit',
 		radio			: 'Setja inn valhnapp',
 		textField		: 'Setja inn textareit',
@@ -83,14 +83,14 @@ CKEDITOR.lang['is'] =
 		id				: 'Auðkenni',
 		name			: 'Nafn',
 		langDir			: 'Lesstefna',
-		langDirLtr		: 'Frá vinstri til hægri (LTR)',
-		langDirRtl		: 'Frá hægri til vinstri (RTL)',
-		langCode		: 'Tungumálakóði',
-		longDescr		: 'Nánari lýsing',
-		cssClass		: 'Stílsniðsflokkur',
+		langDirLtr		: 'Fr&aacute; vinstri til hægri (LTR)',
+		langDirRtl		: 'Fr&aacute; hægri til vinstri (RTL)',
+		langCode		: 'Tungum&aacute;lak&oacute;ði',
+		longDescr		: 'N&aacute;nari lýsing',
+		cssClass		: 'St&iacute;lsniðsflokkur',
 		advisoryTitle	: 'Titill',
-		cssStyle		: 'Stíll',
-		ok				: 'Í lagi',
+		cssStyle		: 'St&iacute;ll',
+		ok				: '&iacute; lagi',
 		cancel			: 'Hætta við',
 		close			: 'Close', // MISSING
 		preview			: 'Preview', // MISSING
@@ -119,7 +119,7 @@ CKEDITOR.lang['is'] =
 	specialChar		:
 	{
 		toolbar		: 'Setja inn merki',
-		title		: 'Velja tákn',
+		title		: 'Velja t&aacute;kn',
 		options : 'Special Character Options' // MISSING
 	},
 
@@ -136,7 +136,7 @@ CKEDITOR.lang['is'] =
 		advanced	: 'Tæknilegt',
 		type		: 'Stikluflokkur',
 		toUrl		: 'URL', // MISSING
-		toAnchor	: 'Bókamerki á þessari síðu',
+		toAnchor	: 'B&oacute;kamerki &aacute; þessari s&iacute;ðu',
 		toEmail		: 'Netfang',
 		targetFrame		: '<rammi>',
 		targetPopup		: '<sprettigluggi>',
@@ -145,38 +145,38 @@ CKEDITOR.lang['is'] =
 		popupFeatures	: 'Eigindi sprettiglugga',
 		popupResizable	: 'Resizable', // MISSING
 		popupStatusBar	: 'Stöðustika',
-		popupLocationBar: 'Fanglína',
+		popupLocationBar: 'Fangl&iacute;na',
 		popupToolbar	: 'Verkfærastika',
-		popupMenuBar	: 'Vallína',
-		popupFullScreen	: 'Heilskjár (IE)',
+		popupMenuBar	: 'Vall&iacute;na',
+		popupFullScreen	: 'Heilskj&aacute;r (IE)',
 		popupScrollBars	: 'Skrunstikur',
-		popupDependent	: 'Háð venslum (Netscape)',
+		popupDependent	: 'H&aacute;ð venslum (Netscape)',
 		popupWidth		: 'Breidd',
-		popupLeft		: 'Fjarlægð frá vinstri',
+		popupLeft		: 'Fjarlægð fr&aacute; vinstri',
 		popupHeight		: 'Hæð',
-		popupTop		: 'Fjarlægð frá efri brún',
+		popupTop		: 'Fjarlægð fr&aacute; efri br&uacute;n',
 		id				: 'Id', // MISSING
 		langDir			: 'Lesstefna',
-		langDirLTR		: 'Frá vinstri til hægri (LTR)',
-		langDirRTL		: 'Frá hægri til vinstri (RTL)',
+		langDirLTR		: 'Fr&aacute; vinstri til hægri (LTR)',
+		langDirRTL		: 'Fr&aacute; hægri til vinstri (RTL)',
 		acccessKey		: 'Skammvalshnappur',
 		name			: 'Nafn',
 		langCode		: 'Lesstefna',
-		tabIndex		: 'Raðnúmer innsláttarreits',
+		tabIndex		: 'Raðn&uacute;mer innsl&aacute;ttarreits',
 		advisoryTitle	: 'Titill',
 		advisoryContentType	: 'Tegund innihalds',
-		cssClasses		: 'Stílsniðsflokkur',
-		charset			: 'Táknróf',
-		styles			: 'Stíll',
+		cssClasses		: 'St&iacute;lsniðsflokkur',
+		charset			: 'T&aacute;knr&oacute;f',
+		styles			: 'St&iacute;ll',
 		selectAnchor	: 'Veldu akkeri',
 		anchorName		: 'Eftir akkerisnafni',
 		anchorId		: 'Eftir auðkenni einingar',
 		emailAddress	: 'Netfang',
 		emailSubject	: 'Efni',
-		emailBody		: 'Meginmál',
-		noAnchors		: '<Engin bókamerki á skrá>',
-		noUrl			: 'Sláðu inn veffang stiklunnar!',
-		noEmail			: 'Sláðu inn netfang!'
+		emailBody		: 'Meginm&aacute;l',
+		noAnchors		: '<Engin b&oacute;kamerki &aacute; skr&aacute;>',
+		noUrl			: 'Sl&aacute;ðu inn veffang stiklunnar!',
+		noEmail			: 'Sl&aacute;ðu inn netfang!'
 	},
 
 	// Anchor dialog
@@ -185,8 +185,8 @@ CKEDITOR.lang['is'] =
 		toolbar		: 'Stofna/breyta kaflamerki',
 		menu		: 'Eigindi kaflamerkis',
 		title		: 'Eigindi kaflamerkis',
-		name		: 'Nafn bókamerkis',
-		errorName	: 'Sláðu inn nafn bókamerkis!'
+		name		: 'Nafn b&oacute;kamerkis',
+		errorName	: 'Sl&aacute;ðu inn nafn b&oacute;kamerkis!'
 	},
 
 	// List style dialog
@@ -217,14 +217,14 @@ CKEDITOR.lang['is'] =
 	{
 		title				: 'Finna og skipta',
 		find				: 'Leita',
-		replace				: 'Skipta út',
+		replace				: 'Skipta &uacute;t',
 		findWhat			: 'Leita að:',
-		replaceWith			: 'Skipta út fyrir:',
+		replaceWith			: 'Skipta &uacute;t fyrir:',
 		notFoundMsg			: 'Leitartexti fannst ekki!',
-		matchCase			: 'Gera greinarmun á¡ há¡- og lágstöfum',
+		matchCase			: 'Gera greinarmun &aacute;¡ h&aacute;¡- og l&aacute;gstöfum',
 		matchWord			: 'Aðeins heil orð',
 		matchCyclic			: 'Match cyclic', // MISSING
-		replaceAll			: 'Skipta út allsstaðar',
+		replaceAll			: 'Skipta &uacute;t allsstaðar',
 		replaceSuccessMsg	: '%1 occurrence(s) replaced.' // MISSING
 	},
 
@@ -236,7 +236,7 @@ CKEDITOR.lang['is'] =
 		menu		: 'Eigindi töflu',
 		deleteTable	: 'Fella töflu',
 		rows		: 'Raðir',
-		columns		: 'Dálkar',
+		columns		: 'D&aacute;lkar',
 		border		: 'Breidd ramma',
 		align		: 'Jöfnun',
 		alignLeft	: 'Vinstrijafnað',
@@ -244,16 +244,16 @@ CKEDITOR.lang['is'] =
 		alignRight	: 'Hægrijafnað',
 		width		: 'Breidd',
 		widthPx		: 'myndeindir',
-		widthPc		: 'prósent',
+		widthPc		: 'pr&oacute;sent',
 		widthUnit	: 'width unit', // MISSING
 		height		: 'Hæð',
 		cellSpace	: 'Bil milli reita',
-		cellPad		: 'Reitaspássía',
+		cellPad		: 'Reitasp&aacute;ss&iacute;a',
 		caption		: 'Titill',
-		summary		: 'Áfram',
+		summary		: '&aacute;fram',
 		headers		: 'Fyrirsagnir',
 		headersNone		: 'Engar',
-		headersColumn	: 'Fyrsti dálkur',
+		headersColumn	: 'Fyrsti d&aacute;lkur',
 		headersRow		: 'Fyrsta röð',
 		headersBoth		: 'Hvort tveggja',
 		invalidRows		: 'Number of rows must be a number greater than 0.', // MISSING
@@ -267,14 +267,14 @@ CKEDITOR.lang['is'] =
 		cell :
 		{
 			menu			: 'Reitur',
-			insertBefore	: 'Skjóta inn reiti fyrir aftan',
-			insertAfter		: 'Skjóta inn reiti fyrir framan',
+			insertBefore	: 'Skj&oacute;ta inn reiti fyrir aftan',
+			insertAfter		: 'Skj&oacute;ta inn reiti fyrir framan',
 			deleteCell		: 'Fella reit',
 			merge			: 'Sameina reiti',
 			mergeRight		: 'Sameina til hægri',
-			mergeDown		: 'Sameina niður á við',
-			splitHorizontal	: 'Kljúfa reit lárétt',
-			splitVertical	: 'Kljúfa reit lóðrétt',
+			mergeDown		: 'Sameina niður &aacute; við',
+			splitHorizontal	: 'Klj&uacute;fa reit l&aacute;r&eacute;tt',
+			splitVertical	: 'Klj&uacute;fa reit l&oacute;ðr&eacute;tt',
 			title			: 'Cell Properties', // MISSING
 			cellType		: 'Cell Type', // MISSING
 			rowSpan			: 'Rows Span', // MISSING
@@ -302,17 +302,17 @@ CKEDITOR.lang['is'] =
 		row :
 		{
 			menu			: 'Röð',
-			insertBefore	: 'Skjóta inn röð fyrir ofan',
-			insertAfter		: 'Skjóta inn röð fyrir neðan',
+			insertBefore	: 'Skj&oacute;ta inn röð fyrir ofan',
+			insertAfter		: 'Skj&oacute;ta inn röð fyrir neðan',
 			deleteRow		: 'Eyða röð'
 		},
 
 		column :
 		{
-			menu			: 'Dálkur',
-			insertBefore	: 'Skjóta inn dálki vinstra megin',
-			insertAfter		: 'Skjóta inn dálki hægra megin',
-			deleteColumn	: 'Fella dálk'
+			menu			: 'D&aacute;lkur',
+			insertBefore	: 'Skj&oacute;ta inn d&aacute;lki vinstra megin',
+			insertAfter		: 'Skj&oacute;ta inn d&aacute;lki hægra megin',
+			deleteColumn	: 'Fella d&aacute;lk'
 		}
 	},
 
@@ -339,8 +339,8 @@ CKEDITOR.lang['is'] =
 	// Form Dialog.
 	form :
 	{
-		title		: 'Eigindi innsláttarforms',
-		menu		: 'Eigindi innsláttarforms',
+		title		: 'Eigindi innsl&aacute;ttarforms',
+		menu		: 'Eigindi innsl&aacute;ttarforms',
 		action		: 'Aðgerð',
 		method		: 'Aðferð',
 		encoding	: 'Encoding' // MISSING
@@ -354,7 +354,7 @@ CKEDITOR.lang['is'] =
 		opAvail		: 'Kostir',
 		value		: 'Gildi',
 		size		: 'Stærð',
-		lines		: 'línur',
+		lines		: 'l&iacute;nur',
 		chkMulti	: 'Leyfa fleiri kosti',
 		opText		: 'Texti',
 		opValue		: 'Gildi',
@@ -370,8 +370,8 @@ CKEDITOR.lang['is'] =
 	textarea :
 	{
 		title		: 'Eigindi textasvæðis',
-		cols		: 'Dálkar',
-		rows		: 'Línur'
+		cols		: 'D&aacute;lkar',
+		rows		: 'L&iacute;nur'
 	},
 
 	// Text Field Dialog.
@@ -380,8 +380,8 @@ CKEDITOR.lang['is'] =
 		title		: 'Eigindi textareits',
 		name		: 'Nafn',
 		value		: 'Gildi',
-		charWidth	: 'Breidd (leturtákn)',
-		maxChars	: 'Hámarksfjöldi leturtákna',
+		charWidth	: 'Breidd (leturt&aacute;kn)',
+		maxChars	: 'H&aacute;marksfjöldi leturt&aacute;kna',
 		type		: 'Gerð',
 		typeText	: 'Texti',
 		typePass	: 'Lykilorð'
@@ -416,7 +416,7 @@ CKEDITOR.lang['is'] =
 		align		: 'Jöfnun',
 		alignLeft	: 'Vinstri',
 		alignRight	: 'Hægri',
-		alertUrl	: 'Sláðu inn slóðina að myndinni',
+		alertUrl	: 'Sl&aacute;ðu inn sl&oacute;ðina að myndinni',
 		linkTab		: 'Stikla',
 		button2Img	: 'Do you want to transform the selected image button on a simple image?', // MISSING
 		img2Button	: 'Do you want to transform the selected image on a image button?', // MISSING
@@ -434,13 +434,13 @@ CKEDITOR.lang['is'] =
 		properties		: 'Eigindi Flash',
 		propertiesTab	: 'Properties', // MISSING
 		title			: 'Eigindi Flash',
-		chkPlay			: 'Sjálfvirk spilun',
+		chkPlay			: 'Sj&aacute;lfvirk spilun',
 		chkLoop			: 'Endurtekning',
 		chkMenu			: 'Sýna Flash-valmynd',
 		chkFull			: 'Allow Fullscreen', // MISSING
  		scale			: 'Skali',
 		scaleAll		: 'Sýna allt',
-		scaleNoBorder	: 'Án ramma',
+		scaleNoBorder	: '&aacute;n ramma',
 		scaleFit		: 'Fella skala að stærð',
 		access			: 'Script Access', // MISSING
 		accessAlways	: 'Always', // MISSING
@@ -450,11 +450,11 @@ CKEDITOR.lang['is'] =
 		alignLeft		: 'Vinstri',
 		alignAbsBottom	: 'Abs neðst',
 		alignAbsMiddle	: 'Abs miðjuð',
-		alignBaseline	: 'Grunnlína',
+		alignBaseline	: 'Grunnl&iacute;na',
 		alignBottom		: 'Neðst',
 		alignMiddle		: 'Miðjuð',
 		alignRight		: 'Hægri',
-		alignTextTop	: 'Efri brún texta',
+		alignTextTop	: 'Efri br&uacute;n texta',
 		alignTop		: 'Efst',
 		quality			: 'Quality', // MISSING
 		qualityBest		: 'Best', // MISSING
@@ -473,7 +473,7 @@ CKEDITOR.lang['is'] =
 		height			: 'Hæð',
 		hSpace			: 'Vinstri bil',
 		vSpace			: 'Hægri bil',
-		validateSrc		: 'Sláðu inn veffang stiklunnar!',
+		validateSrc		: 'Sl&aacute;ðu inn veffang stiklunnar!',
 		validateWidth	: 'Width must be a number.', // MISSING
 		validateHeight	: 'Height must be a number.', // MISSING
 		validateHSpace	: 'HSpace must be a number.', // MISSING
@@ -487,7 +487,7 @@ CKEDITOR.lang['is'] =
 		title			: 'Spell Check', // MISSING
 		notAvailable	: 'Sorry, but service is unavailable now.', // MISSING
 		errorLoading	: 'Error loading application service host: %s.', // MISSING
-		notInDic		: 'Ekki í orðabókinni',
+		notInDic		: 'Ekki &iacute; orðab&oacute;kinni',
 		changeTo		: 'Tillaga',
 		btnIgnore		: 'Hunsa',
 		btnIgnoreAll	: 'Hunsa allt',
@@ -495,7 +495,7 @@ CKEDITOR.lang['is'] =
 		btnReplaceAll	: 'Skipta öllu',
 		btnUndo			: 'Til baka',
 		noSuggestions	: '- engar tillögur -',
-		progress		: 'Villuleit í gangi...',
+		progress		: 'Villuleit &iacute; gangi...',
 		noMispell		: 'Villuleit lokið: Engin villa fannst',
 		noChanges		: 'Villuleit lokið: Engu orði breytt',
 		oneChange		: 'Villuleit lokið: Einu orði breytt',
@@ -516,60 +516,60 @@ CKEDITOR.lang['is'] =
 		eleTitle : '%1 element' // MISSING
 	},
 
-	numberedlist	: 'Númeraður listi',
+	numberedlist	: 'N&uacute;meraður listi',
 	bulletedlist	: 'Punktalisti',
-	indent			: 'Minnka inndrátt',
-	outdent			: 'Auka inndrátt',
+	indent			: 'Minnka inndr&aacute;tt',
+	outdent			: 'Auka inndr&aacute;tt',
 
 	justify :
 	{
 		left	: 'Vinstrijöfnun',
 		center	: 'Miðja texta',
 		right	: 'Hægrijöfnun',
-		block	: 'Jafna báðum megin'
+		block	: 'Jafna b&aacute;ðum megin'
 	},
 
-	blockquote : 'Inndráttur',
+	blockquote : 'Inndr&aacute;ttur',
 
 	clipboard :
 	{
-		title		: 'Líma',
-		cutError	: 'Öryggisstillingar vafrans þíns leyfa ekki klippingu texta með músaraðgerð. Notaðu lyklaborðið í klippa (Ctrl/Cmd+X).',
-		copyError	: 'Öryggisstillingar vafrans þíns leyfa ekki afritun texta með músaraðgerð. Notaðu lyklaborðið í afrita (Ctrl/Cmd+C).',
-		pasteMsg	: 'Límdu í svæðið hér að neðan og (<STRONG>Ctrl/Cmd+V</STRONG>) og smelltu á <STRONG>OK</STRONG>.',
-		securityMsg	: 'Vegna öryggisstillinga í vafranum þínum fær ritillinn ekki beinan aðgang að klippuborðinu. Þú verður að líma innihaldið aftur inn í þennan glugga.',
+		title		: 'L&iacute;ma',
+		cutError	: 'Öryggisstillingar vafrans þ&iacute;ns leyfa ekki klippingu texta með m&uacute;saraðgerð. Notaðu lyklaborðið &iacute; klippa (Ctrl/Cmd+X).',
+		copyError	: 'Öryggisstillingar vafrans þ&iacute;ns leyfa ekki afritun texta með m&uacute;saraðgerð. Notaðu lyklaborðið &iacute; afrita (Ctrl/Cmd+C).',
+		pasteMsg	: 'L&iacute;mdu &iacute; svæðið h&eacute;r að neðan og (<STRONG>Ctrl/Cmd+V</STRONG>) og smelltu &aacute; <STRONG>OK</STRONG>.',
+		securityMsg	: 'Vegna öryggisstillinga &iacute; vafranum þ&iacute;num fær ritillinn ekki beinan aðgang að klippuborðinu. Þ&uacute; verður að l&iacute;ma innihaldið aftur inn &iacute; þennan glugga.',
 		pasteArea	: 'Paste Area' // MISSING
 	},
 
 	pastefromword :
 	{
 		confirmCleanup	: 'The text you want to paste seems to be copied from Word. Do you want to clean it before pasting?', // MISSING
-		toolbar			: 'Líma úr Word',
-		title			: 'Líma úr Word',
+		toolbar			: 'L&iacute;ma &uacute;r Word',
+		title			: 'L&iacute;ma &uacute;r Word',
 		error			: 'It was not possible to clean up the pasted data due to an internal error' // MISSING
 	},
 
 	pasteText :
 	{
-		button	: 'Líma sem ósniðinn texta',
-		title	: 'Líma sem ósniðinn texta'
+		button	: 'L&iacute;ma sem &oacute;sniðinn texta',
+		title	: 'L&iacute;ma sem &oacute;sniðinn texta'
 	},
 
 	templates :
 	{
-		button			: 'Sniðmát',
-		title			: 'Innihaldssniðmát',
+		button			: 'Sniðm&aacute;t',
+		title			: 'Innihaldssniðm&aacute;t',
 		options : 'Template Options', // MISSING
-		insertOption	: 'Skipta út raunverulegu innihaldi',
-		selectPromptMsg	: 'Veldu sniðmát til að opna í ritlinum.<br>(Núverandi innihald víkur fyrir því!):',
-		emptyListMsg	: '(Ekkert sniðmát er skilgreint!)'
+		insertOption	: 'Skipta &uacute;t raunverulegu innihaldi',
+		selectPromptMsg	: 'Veldu sniðm&aacute;t til að opna &iacute; ritlinum.<br>(N&uacute;verandi innihald v&iacute;kur fyrir þv&iacute;!):',
+		emptyListMsg	: '(Ekkert sniðm&aacute;t er skilgreint!)'
 	},
 
 	showBlocks : 'Sýna blokkir',
 
 	stylesCombo :
 	{
-		label		: 'Stílflokkur',
+		label		: 'St&iacute;lflokkur',
 		panelTitle	: 'Formatting Styles', // MISSING
 		panelTitle1	: 'Block Styles', // MISSING
 		panelTitle2	: 'Inline Styles', // MISSING
@@ -578,8 +578,8 @@ CKEDITOR.lang['is'] =
 
 	format :
 	{
-		label		: 'Stílsnið',
-		panelTitle	: 'Stílsnið',
+		label		: 'St&iacute;lsnið',
+		panelTitle	: 'St&iacute;lsnið',
 
 		tag_p		: 'Venjulegt letur',
 		tag_pre		: 'Forsniðið',
@@ -629,7 +629,7 @@ CKEDITOR.lang['is'] =
 		textColorTitle	: 'Litur texta',
 		bgColorTitle	: 'Bakgrunnslitur',
 		panelTitle		: 'Colors', // MISSING
-		auto			: 'Sjálfval',
+		auto			: 'Sj&aacute;lfval',
 		more			: 'Fleiri liti...'
 	},
 

@@ -6,7 +6,7 @@
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Arquivo
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -30,7 +30,7 @@ class TXT
 				throw new Exception("Erro ao tentar abrir o arquivo <strong>$arq</strong>!");
 			}
 
-			// CONTEÚDO do arquivo
+			// CONTE&uacute;DO do arquivo
 			$conteudo = $msg;
 
 			if (!fwrite($ponteiro, $conteudo)) // efetua a grava��o

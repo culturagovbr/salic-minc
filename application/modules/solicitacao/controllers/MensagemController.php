@@ -517,7 +517,7 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
                 $arrayForm = $this->getRequest()->getPost();
 
                 if (empty($arrayForm['idTecnico'])) {
-                    throw new Exception("T&eacute;cnico &eacute; obrigat&oacute;rio!");
+                    throw new Exception("Técnico &eacute; obrigat&oacute;rio!");
                 }
 
                 if (empty($arrayForm['idSolicitacao'])) {

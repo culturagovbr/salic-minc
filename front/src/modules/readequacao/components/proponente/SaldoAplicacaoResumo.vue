@@ -94,7 +94,7 @@
                     >
                         <v-toolbar-title>
                             <span class="subheading">
-                                DISPONÍVEL
+                                DISPON&iacute;VEL
                             </span>
                         </v-toolbar-title>
                         <v-spacer />

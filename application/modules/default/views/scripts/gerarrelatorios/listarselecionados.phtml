@@ -5,7 +5,7 @@ function dadosProjeto(idEdital, nomeOrgao, nomeEdital){
 
 	//alert(idEdital); return false;
 
-	Texto = "Projetos selecionados do �rg�o " + nomeOrgao + " para o edital "+ nomeEdital;
+	Texto = "Projetos selecionados do &Oacute;rg&atilde;o " + nomeOrgao + " para o edital "+ nomeEdital;
 	$('#tabelaDados').html('');
 	$('#mensagemErro').html('');
 	$('#botaoPDF').html('');
@@ -39,7 +39,7 @@ function dadosProjeto(idEdital, nomeOrgao, nomeEdital){
 		var	recebe = $('#tabelaDados');
 		var	botao = $('#botaoPDF');
 		var	tabela = '<tr><th>Pronac</th><th>Nome do Projeto</th><th>Nota Final</th></tr>';
-		var	mensagem = '<tr><td>Não h� registros a serem exibidos.</td></tr>';
+		var	mensagem = '<tr><td>Não h&aacute; registros a serem exibidos.</td></tr>';
 	        if(data.resposta){
 	            recebe.html(tabela);
 	            for (i in data.conteudo)

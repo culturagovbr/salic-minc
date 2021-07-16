@@ -235,7 +235,7 @@
                 <?php if ($this->blnProponente && ($this->fnLiberarLinks['Readequacao'] || $this->fnLiberarLinks['Readequacao_50'])) {
                     ?>
                     <div class="sanfonaDiv" style="display:none;"></div>
-                    <a href="#" title="Execu��o" class="ancoraExecucao" onclick="return false;">Readequa&ccedil;&atilde;o</a>
+                    <a href="#" title="Execu��o" class="ancoraExecucao" onclick="return false;">Readequação</a>
                     <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                         <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>"
                            title="Readequar Local de realizaca&ccedil;&atilde;o"

@@ -33,7 +33,7 @@ class Zend_View_Helper_DisponivelParaAssinatura
         if (!in_array($idPerfil, array_keys($listAvailable))) {
             return;
         };
-        
+
         return in_array($siEncaminhamento, $listAvailable[$idPerfil]);
     }
 }

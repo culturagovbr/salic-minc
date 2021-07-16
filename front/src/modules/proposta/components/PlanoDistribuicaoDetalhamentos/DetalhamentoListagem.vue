@@ -152,7 +152,7 @@
             <div
                 v-if="isUltrapassouValorMedio"
                 class="col s10 red darken-3 white-text left-align">
-                <p>O preço médio do ingresso ou produto é limitado a R$ <b>{{ valorMedioMaximo | filtroFormatarParaReal }}</b></p>
+                <p>O preço m&eacute;dio do ingresso ou produto &eacute; limitado a R$ <b>{{ valorMedioMaximo | filtroFormatarParaReal }}</b></p>
             </div>
         </div>
     </div>

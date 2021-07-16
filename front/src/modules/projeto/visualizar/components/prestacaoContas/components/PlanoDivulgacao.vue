@@ -78,7 +78,7 @@ export default {
                     value: 'Peca',
                 },
                 {
-                    text: 'Veículo',
+                    text: 'Ve&iacute;culo',
                     align: 'left',
                     value: 'Veiculo',
                 },

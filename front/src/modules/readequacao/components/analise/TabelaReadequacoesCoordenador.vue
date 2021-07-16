@@ -32,7 +32,7 @@
             :pagination.sync="pagination"
             :search="search"
             item-key="item.index"
-            rows-per-page-text="Items por Página"
+            rows-per-page-text="Items por P&aacute;gina"
         >
             <template
                 slot="items"
@@ -216,7 +216,7 @@ export default {
                         position: 4,
                     },
                     {
-                        text: 'Dias em análise',
+                        text: 'Dias em an&aacute;lise',
                         align: 'center',
                         value: 'qtDiasEncaminhar',
                         position: 5,
@@ -228,7 +228,7 @@ export default {
                         position: 6,
                     },
                     {
-                        text: 'Técnico/a',
+                        text: 'T&eacute;cnico/a',
                         align: 'center',
                         value: 'nmTecnicoParecerista',
                         position: 7,

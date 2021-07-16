@@ -94,7 +94,7 @@
                                         <carregando
                                             :defined-class="`body-1`"
                                             :size="`small`"
-                                            :text="'Carregando destinatários/as...'"
+                                            :text="'Carregando destinat&aacute;rios/as...'"
                                         />
                                     </template>
                                     <template v-else>
@@ -105,14 +105,14 @@
                                             <v-select
                                                 v-model="dadosEncaminhamento.destinatario"
                                                 :items="getDestinatariosDistribuicao"
-                                                label="Destinatário/a"
+                                                label="Destinat&aacute;rio/a"
                                                 item-text="nome"
                                                 item-value="id"
                                             />
                                         </template>
                                         <template v-if="getDestinatariosDistribuicao.length === 0 && orgaoAtual">
                                             <h3 class="red--text text--darken-2">
-                                                Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
+                                                Não h&aacute; destinat&aacute;rios/as dispon&iacute;veis, imposs&iacute;vel encaminhar a readequação no momento!
                                             </h3>
                                         </template>
                                     </template>
@@ -382,7 +382,7 @@ export default {
                 destinatario: this.dadosEncaminhamento.destinatario,
                 vinculada: this.dadosEncaminhamento.vinculada,
             }).then(() => {
-                this.mensagemSucesso('Readequação distribuída!');
+                this.mensagemSucesso('Readequação distribu&iacute;da!');
                 this.dialog = false;
             });
         },

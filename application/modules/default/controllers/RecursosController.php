@@ -234,7 +234,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                     break;
                 case 'emanalise':
                     $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
-                    $where['a.siRecurso in (?)'] = array(3,4,7); // // 3=Encaminhado do MinC para a  Unidade de Análise; 4=Encaminhado para Parecerista /  T&eacute;cnico; 7=Encaminhado para o Componente da Comiss&atilde;o
+                    $where['a.siRecurso in (?)'] = array(3,4,7); // // 3=Encaminhado do MinC para a  Unidade de Análise; 4=Encaminhado para Parecerista /  Técnico; 7=Encaminhado para o Componente da Comiss&atilde;o
                     $this->view->nmPagina = 'Em Análise';
                     break;
                 case 'analisados':

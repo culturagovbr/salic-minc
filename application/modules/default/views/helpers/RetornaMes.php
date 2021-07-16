@@ -1,27 +1,27 @@
 <?php
 /**
- * Classe que retorna o Mês
+ * Classe que retorna o Mï¿½s
  * @author Equipe RUP - Politec
  * @since 08/08/2011
  * @version 1.0
  * @package application
  * @subpackage application.views.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_RetornaMes
 {
     /**
-     * Mês
+     * Mï¿½s
      * @access public
      * @param string $$mes
      * @return String
      */
     public function retornaMes($mes)
     {
-        $mesString = 'Mês inválido';
-        
+        $mesString = 'Mï¿½s invï¿½lido';
+
         switch ($mes) {
         case 1:
             $mesString = 'Janeiro';
@@ -30,7 +30,7 @@ class Zend_View_Helper_RetornaMes
             $mesString = 'Fevereiro';
             break;
         case 3:
-            $mesString = 'Março';
+            $mesString = 'Marï¿½o';
             break;
         case 4:
             $mesString = 'Abril';
@@ -60,7 +60,7 @@ class Zend_View_Helper_RetornaMes
             $mesString = 'Dezembro';
             break;
     }
-    
+
         return $mesString;
-    } // fecha método formatarMilhar()
+    } // fecha mï¿½todo formatarMilhar()
 } // fecha class

@@ -143,7 +143,7 @@ CKEDITOR.lang['no'] =
 		targetFrameName	: 'Målramme',
 		targetPopupName	: 'Navn på popup-vindus',
 		popupFeatures	: 'Egenskaper for popup-vindu',
-		popupResizable	: 'Skalérbar',
+		popupResizable	: 'Skal&eacute;rbar',
 		popupStatusBar	: 'Statuslinje',
 		popupLocationBar: 'Adresselinje',
 		popupToolbar	: 'Verktøylinje',

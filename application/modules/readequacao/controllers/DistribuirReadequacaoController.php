@@ -11,7 +11,7 @@ class Readequacao_DistribuirReadequacaoController extends MinC_Controller_Rest_A
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
@@ -22,7 +22,7 @@ class Readequacao_DistribuirReadequacaoController extends MinC_Controller_Rest_A
 
         $subRoutes = [];
         $this->registrarSubRoutes($subRoutes);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
@@ -35,7 +35,7 @@ class Readequacao_DistribuirReadequacaoController extends MinC_Controller_Rest_A
     public function postAction(){
         $data = [];
         $code = 200;
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
         if (!$permissao) {

@@ -48,7 +48,7 @@
 
         <template slot="no-data">
             <div class="text-xs-center">
-                {{ `Sem produtos aguardando análise` }}
+                {{ `Sem produtos aguardando an&aacute;lise` }}
             </div>
         </template>
     </v-data-table>
@@ -92,7 +92,7 @@ export default {
                     value: 'nomeProjeto',
                 },
                 {
-                    text: 'Produto para análise',
+                    text: 'Produto para an&aacute;lise',
                     align: 'left',
                     value: 'nomeProduto',
                 },

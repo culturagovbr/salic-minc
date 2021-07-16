@@ -78,7 +78,7 @@ class DiligenciaProjeto implements \MinC\Servico\IServicoRestZend
         foreach ($diligencias as $diligencia) {
             $tipoDiligencia = $diligencia['tipoDiligencia'];
             $qtdia = 40;
-            
+
             $resultArray[] = [
                 'produto' => $diligencia['produto'],
                 'tipoDiligencia' => html_entity_decode(utf8_encode($diligencia['tipoDiligencia'])),
@@ -101,7 +101,7 @@ class DiligenciaProjeto implements \MinC\Servico\IServicoRestZend
 
             $resultArray[] = [
                 'idAvaliarAdequacaoProjeto' => $diligencia['idAvaliarAdequacaoProjeto'],
-                'tipoDiligencia' => 'Dilig&ecirc;ncia na An&aacute;lise da adequa&ccedil;&atilde;o &agrave; realidade do projeto.',
+                'tipoDiligencia' => 'Dilig&ecirc;ncia na An&aacute;lise da adequação &agrave; realidade do projeto.',
                 'dtAvaliacao' => $diligencia['dtAvaliacao'],
             ];
         }

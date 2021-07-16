@@ -1,20 +1,20 @@
-describe('Testes da Análise de Resultados', function () {
-  before(function () { // Inicia todos os testes na Tela de Análise de Resultados - Perfil Técnico
+describe('Testes da An&aacute;lise de Resultados', function () {
+  before(function () { // Inicia todos os testes na Tela de An&aacute;lise de Resultados - Perfil T&eacute;cnico
     cy.mudarPerfil(124, 203)
     cy.visit('http://localhost/avaliacao-resultados/#/')
     cy.wait(3000)
   });
 
-  it('Renderização da tabela de análise de resultados - Perfil Técnico', function () {
+  it('Renderização da tabela de an&aacute;lise de resultados - Perfil T&eacute;cnico', function () {
     cy.get('div.v-tabs');
   });
 
-  it('[EM ANÁLISE] Verifica se há pelo menos um item na tabela', function () {
+  it('[EM AN&aacute;LISE] Verifica se h&aacute; pelo menos um item na tabela', function () {
 
     cy.get('[analisar="true"] > :nth-child(2) > .v-table__overflow > .v-datatable > tbody > tr > :nth-child(1)').contains('1');
   });
 
-  it('[EM ANÁLISE] Click para abrir/fechar modal de Diligências do projeto', function () {
+  it('[EM AN&aacute;LISE] Click para abrir/fechar modal de Diligências do projeto', function () {
     cy.get('div.v-tabs__div a').contains('Em Analise').click();
     cy.get('.v-icon.material-icons.theme--light.blue--text').contains('assignment_late').click();
     cy.wait(1000);
@@ -22,26 +22,26 @@ describe('Testes da Análise de Resultados', function () {
 
   });
 
-  it('[EM ANÁLISE] Click para abrir/fechar modal Histórico de Encaminhamentos ', function () {
+  it('[EM AN&aacute;LISE] Click para abrir/fechar modal Hist&oacute;rico de Encaminhamentos ', function () {
     cy.get('.v-icon.material-icons.theme--light').contains('history').click();
     cy.wait(1000);
     cy.get('.v-dialog__content--active > .v-dialog > .v-card > .v-card__actions > .v-btn > .v-btn__content').click();
   });
 
-  it('[EM ANÁLISE] Click para abrir/fechar modal de Analisar Projeto', function () {
+  it('[EM AN&aacute;LISE] Click para abrir/fechar modal de Analisar Projeto', function () {
     cy.get(':nth-child(7) > .v-btn--router > .v-btn__content > .v-tooltip > span > .v-icon').click();
     cy.wait(1000);
     cy.get('.v-icon.material-icons.theme--light').contains('arrow_back').click();
   });
 
-  it('[EM ANÁLISE] Click para abrir/fechar modal de Visualizar Objeto', function () {
+  it('[EM AN&aacute;LISE] Click para abrir/fechar modal de Visualizar Objeto', function () {
     cy.get('div.v-tabs__div a').contains('Em Analise').click();
     cy.get(':nth-child(5) > .v-dialog__activator > .v-tooltip > span > .v-btn > .v-btn__content > .v-icon').click();
     cy.wait(3000);
     cy.get('.v-dialog__content--active > .v-dialog > .v-card > .v-toolbar > .v-toolbar__content > .v-btn > .v-btn__content > .v-icon').click();
   });
 
-  it('[ASSINAR] Verifica se há pelo menos um item na tabela', function () {
+  it('[ASSINAR] Verifica se h&aacute; pelo menos um item na tabela', function () {
     cy.get('div.v-tabs__div a').contains('Assinar').click();
     cy.get(':nth-child(3) > .v-card > .v-card__text > :nth-child(1) > :nth-child(2) > .v-table__overflow > .v-datatable > tbody > tr > :nth-child(1)').contains('1');
   });
@@ -54,7 +54,7 @@ describe('Testes da Análise de Resultados', function () {
 
   });
 
-  it('[ASSINAR] Click para abrir/fechar modal Histórico de Encaminhamentos ', function () {
+  it('[ASSINAR] Click para abrir/fechar modal Hist&oacute;rico de Encaminhamentos ', function () {
     cy.get('[obj="[object Object]"][atual="15"][style="display: inline-block;"] > .v-dialog__activator > .v-tooltip > span > .v-btn > .v-btn__content > .v-icon').click();
     cy.wait(1000);
     cy.get('.v-dialog__content--active > .v-dialog > .v-card > .v-card__actions > .v-btn > .v-btn__content').click();
@@ -86,19 +86,19 @@ describe('Testes da Análise de Resultados', function () {
     cy.wait(1000);
   });
 
-  it('[HISTÓRICO] Verifica se há pelo menos um item na tabela', function () {
+  it('[HIST&oacute;RICO] Verifica se h&aacute; pelo menos um item na tabela', function () {
     cy.get('div.v-tabs__div a').contains('Historico').click();
     cy.get(':nth-child(4) > .v-card > .v-card__text > :nth-child(1) > :nth-child(2) > .v-table__overflow > .v-datatable > tbody > tr > :nth-child(1)').contains('1');
   });
 
-  it('[HISTÓRICO] Click para abrir/fechar modal de Histórico de Encaminhamentos', function () {
+  it('[HIST&oacute;RICO] Click para abrir/fechar modal de Hist&oacute;rico de Encaminhamentos', function () {
     cy.get('div.v-tabs__div a').contains('Historico').click();
     cy.get(':nth-child(5) > .v-card > .v-card__text > :nth-child(1) > :nth-child(2) > .v-table__overflow > .v-datatable > tbody > tr > :nth-child(6) > .v-dialog__container > .v-dialog__activator > .v-tooltip > span > .v-btn > .v-btn__content > .v-icon').click();
     cy.wait(1000);
     cy.get('.v-dialog__content--active > .v-dialog > .v-card > .v-card__actions > .v-btn > .v-btn__content').click();
   });
 
-  it('[HISTÓRICO] Click para abrir/fechar modal de Visualizar Projeto', function () {
+  it('[HIST&oacute;RICO] Click para abrir/fechar modal de Visualizar Projeto', function () {
     cy.get('div.v-tabs__div a').contains('Historico').click();
     cy.get(':nth-child(5) > .v-card > .v-card__text > :nth-child(1) > :nth-child(2) > .v-table__overflow > .v-datatable > tbody > tr > :nth-child(6) > .v-btn--router > .v-btn__content > .v-tooltip > span > .v-icon').click();
     cy.wait(3000);

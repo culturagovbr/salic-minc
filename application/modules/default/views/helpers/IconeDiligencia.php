@@ -1,19 +1,19 @@
 <?php
 /**
- * Helper para verificar o ícone da diligência do projeto
+ * Helper para verificar o ï¿½cone da diligï¿½ncia do projeto
  * @author Equipe RUP - Politec
  * @since 23/11/2011
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_IconeDiligencia
 {
     /**
-     * Método para exibir a imagem da diligencia do projeto
+     * Mï¿½todo para exibir a imagem da diligencia do projeto
      * @access public
      * @param integer $diligencia
      * @return string
@@ -42,5 +42,5 @@ class Zend_View_Helper_IconeDiligencia
         $url = Zend_Controller_Front::getInstance()->getBaseUrl();
 
         return "<a href='$url/diligenciar/listardiligenciaanalista?idPronac=" . $idPronac . "&tpDiligencia=" . $tpDiligencia . "&situacao=" . $situacao . "' title='$title' target='_blank'><img src='$url/public/img/$img.png' alt='$title' title='$title' width='23px' /></a>";
-    } // fecha método iconeDiligencia()
+    } // fecha mï¿½todo iconeDiligencia()
 } // fecha class

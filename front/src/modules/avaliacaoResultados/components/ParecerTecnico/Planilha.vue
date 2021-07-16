@@ -221,7 +221,7 @@ export default {
             CONST,
             headers: [
                 {
-                    text: 'Análise', value: 'qtComprovado', sortable: true, align: 'left', width: 0,
+                    text: 'An&aacute;lise', value: 'qtComprovado', sortable: true, align: 'left', width: 0,
                 },
                 {
                     text: '#', value: 'seq', sortable: true, width: 1,

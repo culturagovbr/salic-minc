@@ -33,12 +33,12 @@
             <div class="card ">
             <div class="card-content ">
               <div class="row">
-                <div class="input-field col s3">  
+                <div class="input-field col s3">
                   <input type="text" class="" name="pronac" id="pronac" maxlength="7" value="<?php echo $this->pronacProjeto;?>">
                   <label for="pronac">PRONAC</label>
                   <button type="button" name="btn_pesquisar" id="btn_pesquisar" class="btn " value="">Pesquisar</button>
                 </div>
-                <div class="input-field col s3 ">  
+                <div class="input-field col s3 ">
                               <select id="selectFilter" name="tipoFiltro" style="" class="input_simples comboFiltro white">
                                   <option value="aguardando_distribuicao" <?php echo isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'aguardando_distribuicao' ? 'selected="selected"':''; ?>>Aguardando distribui&ccedil;&atilde;o</option>
                                   <option value="em_analise" <?php echo isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'em_analise' ? 'selected="selected"':''; ?>>Em an&aacute;lise</option>
@@ -54,7 +54,7 @@
                                 Filtro
                             </label>
                         </div>
-                    <div class="col s3">  
+                    <div class="col s3">
                       <?php if($this->qtdDocumentos != 0){echo $this->qtdDocumentos.' Projetos listados';}else{ echo 'Nenhum Registro encontrado!';}?></td>
                     </div>
         </div>
@@ -141,7 +141,7 @@
                       <th class="center-align"><a class="black-text" href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=dtRespostaDiligencia&ordem='.$this->paginacao['novaOrdem'];?>">Dt. resposta dilig&ecirc;ncia</a></th>
                     <?php } ?>
                   <?php } else if ($this->tipoFiltro == 'em_validacao') { ?>
-                    <th class="center-align"><a class="black-text" href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TecnicoValidador&ordem='.$this->paginacao['novaOrdem'];?>">T&eacute;cnico validador</a></th>
+                    <th class="center-align"><a class="black-text" href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=TecnicoValidador&ordem='.$this->paginacao['novaOrdem'];?>">Técnico validador</a></th>
                     <th class="center-align"><a class="black-text" href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=DtValidacao&ordem='.$this->paginacao['novaOrdem'];?>">Dt. valida&ccedil;&atilde;o</a></th>
                   <?php } else if ($this->tipoFiltro == 'devolvida') { ?>
                   <th class="center-align"><a class="black-text" href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index')).'?tipoFiltro='.$this->tipoFiltro.'&pag=1&qtde='.$this->paginacao['qtde'].'&campo=JustDevolucaoPedido&ordem='.$this->paginacao['novaOrdem'];?>">Justificativa do atendimento</a></th>

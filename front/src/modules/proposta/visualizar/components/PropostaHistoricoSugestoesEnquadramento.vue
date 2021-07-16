@@ -39,7 +39,7 @@ export default {
                 { text: 'Data', value: 'data_avaliacao' },
                 { text: 'Avaliador', value: 'usu_nome' },
                 { text: 'Unidade', align: 'center', value: 'org_sigla' },
-                { text: 'Área', align: 'center', value: 'area' },
+                { text: '&aacute;rea', align: 'center', value: 'area' },
                 { text: 'Segmento', align: 'left', value: 'segmento' },
                 { text: 'Enquadramento', align: 'left', value: 'enquadramento' },
                 { text: 'Parecer', value: 'descricao_motivacao' },

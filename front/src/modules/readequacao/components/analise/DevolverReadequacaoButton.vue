@@ -65,12 +65,12 @@
                                         v-model="encaminharOutroTecnico"
                                     >
                                         <v-radio
-                                            :label="`Devolver para o mesmo técnico/parecerista`"
+                                            :label="`Devolver para o mesmo t&eacute;cnico/parecerista`"
                                             :value="false"
                                             color="green"
                                         />
                                         <v-radio
-                                            :label="`Enviar para outro técnico/parecerista`"
+                                            :label="`Enviar para outro t&eacute;cnico/parecerista`"
                                             :value="true"
                                             color="green"
                                         />
@@ -93,13 +93,13 @@
                                     <carregando
                                         v-if="loadingDestinatarios"
                                         :defined-class="`body-1`"
-                                        :text="'Carregando destinatários/as...'"
+                                        :text="'Carregando destinat&aacute;rios/as...'"
                                     />
                                     <v-select
                                         v-if="selecionarDestinatario"
                                         v-model="dadosEncaminhamento.destinatario"
                                         :items="getDestinatariosDistribuicao"
-                                        label="Destinatário/a"
+                                        label="Destinat&aacute;rio/a"
                                         item-text="nome"
                                         item-value="id"
                                     />

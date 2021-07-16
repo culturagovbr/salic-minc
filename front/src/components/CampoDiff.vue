@@ -120,7 +120,7 @@ export default {
             error: false,
             textsEquals: false,
             errorMessage: '',
-            cannotCompareMessage: 'Não é possível comparar: ambos lados devem estar preenchidos.',
+            cannotCompareMessage: 'Não &eacute; poss&iacute;vel comparar: ambos lados devem estar preenchidos.',
             textsEqualsMessage: 'Textos sem diferenças.',
         };
     },

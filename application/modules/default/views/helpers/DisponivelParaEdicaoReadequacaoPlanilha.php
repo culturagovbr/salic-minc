@@ -15,7 +15,7 @@ class Zend_View_Helper_DisponivelParaEdicaoReadequacaoPlanilha
     public function disponivelParaEdicaoReadequacaoPlanilha($idPronac, $idAgente = null)
     {
         $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        
+
         return $Readequacao_Model_DbTable_TbReadequacao->disponivelParaEdicaoReadequacaoPlanilha($idPronac, $idAgente);
     }
 }

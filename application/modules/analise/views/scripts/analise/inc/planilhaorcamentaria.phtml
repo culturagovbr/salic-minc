@@ -3,7 +3,7 @@
         color: #212121;
     }
 </style>
-<?php if( $this->planilhaProjeto ) : ?>
+<?php if ($this->planilhaProjeto) : ?>
     <table class="bordered striped responsive-table">
         <?php
         $item = 1;
@@ -40,93 +40,93 @@
             ?>
 
             <?php if (!in_array($comparadorIncentivo, $arrayIncentivo)): ?>
-                <tr>
-                    <td colspan="7">
-                        <strong>
-                            <div class="titutloPlanilha">
-                                <a href="#IFF<?php echo $comparadorIncentivo; ?>"
-                                   onclick="AbrirFecharPlanilha('IFF<?php echo $comparadorIncentivo; ?>');">
-                                    <div id="IFF<?php echo $comparadorIncentivo; ?>" class="icn_menos" style="width:90%">
+            <tr>
+                <td colspan="7">
+                    <strong>
+                        <div class="titutloPlanilha">
+                            <a href="#IFF<?php echo $comparadorIncentivo; ?>"
+                               onclick="AbrirFecharPlanilha('IFF<?php echo $comparadorIncentivo; ?>');">
+                                <div id="IFF<?php echo $comparadorIncentivo; ?>" class="icn_menos" style="width:90%">
                                         <span class=" del_link"
                                               style="font-size: 18pt;">
                                             <?php echo $resposta['DescricaoRecurso']; ?>
                                         </span>
-                                    </div>
-                                </a>
-                            </div>
-                        </strong>
-                    </td>
-                </tr>
-            <?php endif; ?>
+                                </div>
+                            </a>
+                        </div>
+                    </strong>
+                </td>
+            </tr>
+        <?php endif; ?>
 
             <?php if (!in_array($comparadorProdutos, $arrayProdutos)): ?>
-                <tr class="IFF<?php echo $comparadorIncentivo; ?> linha">
-                    <td colspan="7">
-                        <strong>
-                            <div class="titutloPlanilha">
-                                <a href="#IFF_PRODUTO<?php echo $comparadorProdutos; ?>"
-                                   onclick="AbrirFecharPlanilha('IFF_PRODUTO<?php echo $comparadorProdutos; ?>');">
-                                    <div id="IFF_PRODUTO<?php echo $comparadorProdutos; ?>" class="icn_menos"
-                                         style="width:98%; margin-left:2%;">
+            <tr class="IFF<?php echo $comparadorIncentivo; ?> linha">
+                <td colspan="7">
+                    <strong>
+                        <div class="titutloPlanilha">
+                            <a href="#IFF_PRODUTO<?php echo $comparadorProdutos; ?>"
+                               onclick="AbrirFecharPlanilha('IFF_PRODUTO<?php echo $comparadorProdutos; ?>');">
+                                <div id="IFF_PRODUTO<?php echo $comparadorProdutos; ?>" class="icn_menos"
+                                     style="width:98%; margin-left:2%;">
                                         <span class=" del_link">
                                             <?php echo $resposta['DescricaoProduto']; ?>
                                         </span>
-                                    </div>
-                                </a>
-                            </div>
-                        </strong>
-                    </td>
-                </tr>
-            <?php endif; ?>
+                                </div>
+                            </a>
+                        </div>
+                    </strong>
+                </td>
+            </tr>
+        <?php endif; ?>
 
             <?php if (!in_array($comparadorEtapas, $arrayEtapas)): ?>
-                <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?>">
-                    <td colspan="7">
-                        <strong style="margin-left:2%;">
-                            <div class="titutloPlanilha">
-                                <a href="#IFF_ETAPA<?php echo $comparadorEtapas; ?>"
-                                   onclick="AbrirFecharPlanilha('IFF_ETAPA<?php echo $comparadorEtapas; ?>');">
-                                    <div id="IFF_ETAPA<?php echo $comparadorEtapas; ?>"
-                                         class="icn_menos" style="width:90%; margin-left:4%;">
+            <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?>">
+                <td colspan="7">
+                    <strong style="margin-left:2%;">
+                        <div class="titutloPlanilha">
+                            <a href="#IFF_ETAPA<?php echo $comparadorEtapas; ?>"
+                               onclick="AbrirFecharPlanilha('IFF_ETAPA<?php echo $comparadorEtapas; ?>');">
+                                <div id="IFF_ETAPA<?php echo $comparadorEtapas; ?>"
+                                     class="icn_menos" style="width:90%; margin-left:4%;">
                                             <span class=" del_link">
                                                 <?php echo $resposta['DescricaoEtapa']; ?>
                                             </span>
-                                    </div>
-                                </a>
-                            </div>
-                        </strong>
-                    </td>
-                </tr>
-            <?php endif; ?>
+                                </div>
+                            </a>
+                        </div>
+                    </strong>
+                </td>
+            </tr>
+        <?php endif; ?>
 
             <?php if (!in_array($comparadorUFs, $arrayUFs)): ?>
-                <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?>">
-                    <td colspan="7">
-                        <strong style="margin-left:3%;">
-                            <div class="titutloPlanilha">
-                                <a href="#IFF_UF<?php echo $comparadorUFs; ?>"
-                                   onclick="AbrirFecharPlanilha('IFF_UF<?php echo $comparadorUFs; ?>');">
-                                    <div id="IFF_UF<?php echo $comparadorUFs; ?>" class="icn_menos"
-                                         style="width:90%; margin-left:6%">
+            <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?>">
+                <td colspan="7">
+                    <strong style="margin-left:3%;">
+                        <div class="titutloPlanilha">
+                            <a href="#IFF_UF<?php echo $comparadorUFs; ?>"
+                               onclick="AbrirFecharPlanilha('IFF_UF<?php echo $comparadorUFs; ?>');">
+                                <div id="IFF_UF<?php echo $comparadorUFs; ?>" class="icn_menos"
+                                     style="width:90%; margin-left:6%">
                                             <span class=" del_link">
                                                 <?php echo $resposta['DescricaoUf'] . " - " . $resposta['DescricaoMunicipio']; ?>
                                             </span>
-                                    </div>
-                                </a>
-                            </div>
-                        </strong>
-                    </td>
-                </tr>
-                <tr class="destacar IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>">
-                    <td></td>
-                    <td width="">Item</td>
-                    <td>Unidade</td>
-                    <td>Qtde</td>
-                    <td>Ocor.</td>
-                    <td width="">Vl. Unit&aacute;rio</td>
-                    <td width="">Vl. Total</td>
-                </tr>
-            <?php endif;
+                                </div>
+                            </a>
+                        </div>
+                    </strong>
+                </td>
+            </tr>
+            <tr class="destacar IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>">
+                <td></td>
+                <td width="">Item</td>
+                <td>Unidade</td>
+                <td>Qtde</td>
+                <td>Ocor.</td>
+                <td width="">Vl. Unit&aacute;rio</td>
+                <td width="">Vl. Total</td>
+            </tr>
+        <?php endif;
 
             $totalItens = 0; ?>
 
@@ -138,7 +138,7 @@
             }
 
             $tooltipped = '';
-            $tooltippedClass ='';
+            $tooltippedClass = '';
             if (strlen($resposta['dsJustificativa']) > 2) {
                 $tooltipped = 'data-tooltip="Justificativa: ' . $resposta['dsJustificativa'] . '"';
                 $tooltippedClass = 'tooltipped';
@@ -146,7 +146,8 @@
             ?>
 
 
-            <tr class="<?php echo $tooltippedClass .' '. $valorMaiorQueOPraticado; ?>" onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" <?php echo $tooltipped; ?>
+            <tr class="<?php echo $tooltippedClass . ' ' . $valorMaiorQueOPraticado; ?>" onmouseover="over_tr(this);"
+                onfocus="over_tr(this);" onmouseout="out_tr(this);" <?php echo $tooltipped; ?>
                 onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);"
                 class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>
                 <?php $totalItens--; ?> ">

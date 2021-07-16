@@ -39,7 +39,7 @@ export default {
                 { text: 'Tipo', value: 'dstelefone' },
                 { text: 'UF', value: 'ufsigla' },
                 { text: 'DDD', value: 'ddd' },
-                { text: 'Número', value: 'numero' },
+                { text: 'N&uacute;mero', value: 'numero' },
                 { text: 'Pode Divulgar?', value: 'divulgar' },
             ],
         };

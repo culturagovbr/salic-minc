@@ -14,7 +14,7 @@ class Zend_View_Helper_GetIdDocumentoAssinatura
     public function GetIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo)
     {
         $objDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        
+
         return $objDocumentoAssinatura->getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo);
     }
 }

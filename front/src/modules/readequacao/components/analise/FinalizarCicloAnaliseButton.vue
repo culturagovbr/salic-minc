@@ -11,7 +11,7 @@
             >
                 check
             </v-icon>
-            <span>Finalizar ciclo de análise da Readequação</span>
+            <span>Finalizar ciclo de an&aacute;lise da Readequação</span>
         </v-tooltip>
         <div
             v-else
@@ -22,7 +22,7 @@
             max-width="450"
         >
             <v-card>
-                <v-card-title class="headline">Finalizar o ciclo de análise da Readequação?</v-card-title>
+                <v-card-title class="headline">Finalizar o ciclo de an&aacute;lise da Readequação?</v-card-title>
                 <v-card-text>
                     <h4
                         class="title mb-2"
@@ -100,7 +100,7 @@ export default {
                     this.setSnackbar({
                         ativo: true,
                         color: 'success',
-                        text: 'Ciclo de análise de readequação finalizado!',
+                        text: 'Ciclo de an&aacute;lise de readequação finalizado!',
                     });
                     this.dialog = false;
                 });

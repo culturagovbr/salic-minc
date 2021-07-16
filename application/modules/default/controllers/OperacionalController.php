@@ -352,7 +352,7 @@ class OperacionalController extends MinC_Controller_Action_Abstract
                         }
                         $tblArea = new Area();
                         $rsArea = $tblArea->buscar(array("Codigo IN (?)"=>$idsAreas));
-                        $arrAreas = array(0=>array("NomeArea"=>"Todas as &Aacute;reas"));
+                        $arrAreas = array(0=>array("NomeArea"=>"Todas as Áreas"));
                         foreach ($rsArea as $area) {
                             $arrAreas[$area->Codigo]["NomeArea"] = $area->Descricao;
                         }

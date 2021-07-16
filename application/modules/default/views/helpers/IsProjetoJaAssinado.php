@@ -16,7 +16,7 @@ class Zend_View_Helper_IsProjetoJaAssinado
     public function IsProjetoJaAssinado($idPronac, $idTipoDoAtoAdministrativo, $idPerfilDoAssinante)
     {
         $tbDocumentoAssinatura = new Assinatura_Model_TbDocumentoAssinaturaMapper();
-        
+
         return $tbDocumentoAssinatura->IsProjetoJaAssinado($idPronac, $idTipoDoAtoAdministrativo, $idPerfilDoAssinante);
     }
 }

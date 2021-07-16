@@ -1,4 +1,4 @@
-<!-- ========== INï¿½CIO MENU ========== -->
+<!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
     <script type="text/javascript">
@@ -13,9 +13,9 @@
         });
     </script>
 
-    <!-- inï¿½cio: conteï¿½do principal #container -->
+    <!-- início: conteúdo principal #container -->
     <div id="container">
-        <!-- inï¿½cio: navegaï¿½?o local #qm0 -->
+        <!-- início: navegação local #qm0 -->
         <script type="text/javascript">
             function layout_fluido(){
                 var janela = $(window).width();
@@ -94,7 +94,7 @@
                     $('#msgErroImpressao').html("");
                     $('#frmOpcoesImpressao').submit();
                 }else{
-                    $('#msgErroImpressao').html("<center><font color='red'>ï¿½ obrigatï¿½rio selecionar ao menos uma informaï¿½ï¿½o para impressï¿½o.</font></center>");
+                    $('#msgErroImpressao').html("<center><font color='red'>É obrigatório selecionar ao menos uma informação para impressão.</font></center>");
                 }
             }
 
@@ -135,7 +135,7 @@
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'certidoes-negativas')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Certid&otilde;es Negativas">Certid&otilde;es Negativas</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'dados-complementares')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Dados complementares do projeto">Dados complementares do projeto</a>
-  <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'documentos-anexados')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Documentos anexados">Documentos anexados</a>                    
+  <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'documentos-anexados')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Documentos anexados">Documentos anexados</a>
 <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'local-realizacao-deslocamento')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Local de realiza&ccedil;&atilde;o/ Deslocamento">Local de realiza&ccedil;&atilde;o/ Deslocamento</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'plano-de-distribuicao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Plano de distribui&ccedil;&atilde;o">Plano de distribui&ccedil;&atilde;o</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'plano-de-divulgacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Plano de divulga&ccedil;&atilde;o">Plano de divulga&ccedil;&atilde;o</a>
@@ -217,7 +217,7 @@
                 <?php if ($this->blnProponente && ($this->fnLiberarLinks['Readequacao'] || $this->fnLiberarLinks['Readequacao_50'])) {
             ?>
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequa&ccedil;&atilde;o</a>
+                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequação</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <?php if ($this->fnLiberarLinks['Readequacao_50']) {
                 ?>

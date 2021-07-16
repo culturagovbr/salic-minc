@@ -27,7 +27,7 @@
                 >
                     <v-switch
                         v-model="consolidacaoEmEdicao.ParecerFavoravel"
-                        :label="`Parecer Favorável?: ${labelSimOuNao(consolidacaoEmEdicao.ParecerFavoravel)}`"
+                        :label="`Parecer Favor&aacute;vel?: ${labelSimOuNao(consolidacaoEmEdicao.ParecerFavoravel)}`"
                         color="green"
                         false-value="1"
                         true-value="2"
@@ -53,10 +53,10 @@
                     sm12
                     md12
                 >
-                    <b>Parecer técnico</b>
+                    <b>Parecer t&eacute;cnico</b>
                     <s-editor-texto
                         v-model="consolidacaoEmEdicao.ResumoParecer"
-                        :placeholder="'Parecer técnico sobre o conteúdo do produto'"
+                        :placeholder="'Parecer t&eacute;cnico sobre o conte&uacute;do do produto'"
                         :min-char="minChar"
                         @editor-texto-counter="validateText($event)"
                     />
@@ -125,9 +125,9 @@ export default {
                 SugeridoReal: 1000,
             },
             rules: {
-                parecer: v => (!!v || this.$refs.stItemAvaliado.value !== '3') || 'Parecer é obrigatório',
+                parecer: v => (!!v || this.$refs.stItemAvaliado.value !== '3') || 'Parecer &eacute; obrigat&oacute;rio',
             },
-            textoAjudaValorSugerido: 'Valor sugerido de todos os produtos(primários e secundários) do projeto',
+            textoAjudaValorSugerido: 'Valor sugerido de todos os produtos(prim&aacute;rios e secund&aacute;rios) do projeto',
         };
     },
     computed: {

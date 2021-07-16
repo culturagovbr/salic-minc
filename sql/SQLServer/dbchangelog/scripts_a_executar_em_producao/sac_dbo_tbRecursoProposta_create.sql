@@ -6,9 +6,9 @@ CREATE TABLE sac.dbo.tbRecursoProposta
   dsRecursoProponente  VARCHAR(MAX) NULL,
   -- dsRecursoProponente => Motivo da solicitação do Proponente
   idProponente INT NOT NULL,
-  -- idProponente => Proponente que está solicitando o recurso (idAgente)
+  -- idProponente => Proponente que est&aacute; solicitando o recurso (idAgente)
   idAvaliadorTecnico INT,
-  -- idAvaliadorTecnico => Código do usuário que está avaliando o recurso (Tabelas.dbo.Usuarios.usu_codigo)
+  -- idAvaliadorTecnico => C&oacute;digo do usu&aacute;rio que est&aacute; avaliando o recurso (Tabelas.dbo.Usuarios.usu_codigo)
   dtAvaliacaoTecnica DATETIME,
   dsAvaliacaoTecnica VARCHAR(MAX),
   tpRecurso CHAR(1) DEFAULT '1' NULL,
@@ -19,8 +19,8 @@ CREATE TABLE sac.dbo.tbRecursoProposta
   -- tpSolicitacao EN => Enquadramento
   stAtendimento CHAR(1) DEFAULT 'N' NOT NULL,
   -- stAtendimento - 'N' => Sem avaliação
-  -- stAtendimento - 'I' => Quando é indeferido
-  -- stAtendimento - 'D' => Quando é deferido (movimenta para frente)
+  -- stAtendimento - 'I' => Quando &eacute; indeferido
+  -- stAtendimento - 'D' => Quando &eacute; deferido (movimenta para frente)
   idArquivo INT NULL,
   stAtivo BIT DEFAULT 0 NOT NULL
   -- stAtivo => 0 - Registro Atual

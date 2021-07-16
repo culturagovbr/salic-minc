@@ -12,7 +12,7 @@ class Zend_View_Helper_ContadorTextarea
      */
     public function contadorTextarea($campo, $contador, $limite)
     {
-        $eventos = "onkeydown=\"caracteresTextarea(this." . $campo . ", this." . $contador . ", " . $limite . ");\" 
+        $eventos = "onkeydown=\"caracteresTextarea(this." . $campo . ", this." . $contador . ", " . $limite . ");\"
 					onkeyup=\"caracteresTextarea(this." . $campo . ", this." . $contador . ", " . $limite . ");\"";
         return $eventos;
     }

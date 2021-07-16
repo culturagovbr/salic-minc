@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.model
- * @copyright � 2011 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2011 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -72,7 +72,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 ['Descricao AS dsNomeSolicitante'],
                 $this->getSchema('agentes')
             );
-        
+
             $select->joinLeft(
                 ['usuarios' => 'Usuarios'],
                 'tbReadequacao.idAvaliador = usuarios.usu_codigo',
@@ -80,7 +80,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 $this->getSchema('Tabelas')
             );
 
-            
+
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbDistribuirReadequacao.stValidacaoCoordenador = ? ', 0);
             $select->where('tbReadequacao.siEncaminhamento = ? ', Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE);
@@ -88,7 +88,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
             foreach ($where as $coluna => $valor) {
                 $select->where($coluna, $valor);
             }
-            
+
             $select->order($order);
 
             if ($tamanho > -1) {
@@ -164,7 +164,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 ['Descricao AS dsNomeSolicitante'],
                 $this->getSchema('agentes')
             );
-            
+
             $select->joinInner(
                 array('tbTipoReadequacao' => 'tbTipoReadequacao'),
                 'tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao',
@@ -198,8 +198,8 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
             throw new Exception($objException->getMessage(), 0, $objException);
         }
     }
-    
-    
+
+
     public function buscarReadequacaoCoordenadorParecerAnalisados($where = array(), $order = array(), $tamanho = -1, $inicio = -1)
     {
         try {
@@ -244,13 +244,13 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                     WHEN tbReadequacao.siEncaminhamento = 24
                         THEN 'Encaminhado para Assinatura do presidente'
                     ELSE
-                        usuarios.usu_nome 
+                        usuarios.usu_nome
                  END) AS nmParecerista,
                 (CASE
                     WHEN tbReadequacao.siEncaminhamento = 24
                         THEN 'Encaminhado para Assinatura do presidente'
                     ELSE
-                        usuarios.usu_nome 
+                        usuarios.usu_nome
                  END) AS nmTecnicoParecerista
             ")
             );
@@ -280,7 +280,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 ['Descricao AS dsNomeSolicitante'],
                 $this->getSchema('agentes')
             );
-            
+
             $select->joinInner(
                 array('tbTipoReadequacao' => 'tbTipoReadequacao'),
                 'tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao',
@@ -294,7 +294,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 [],
                 $this->_schema
             );
-            
+
             $select->joinLeft(
                 ['tbDocumentoAssinatura' => 'tbDocumentoAssinatura'],
                 "tbDocumentoAssinatura.idAtoDeGestao = tbReadequacaoXParecer.idParecer
@@ -303,7 +303,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 ["idDocumentoAssinatura", "idTipoDoAtoAdministrativo"],
                 $this->_schema
             );
-            
+
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbDistribuirReadequacao.stValidacaoCoordenador = ? ', 0);
             $select->where('tbReadequacao.siEncaminhamento IN (?) ', [

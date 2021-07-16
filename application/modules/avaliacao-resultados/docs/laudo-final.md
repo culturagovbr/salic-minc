@@ -2,11 +2,11 @@
 
 ## Como acessar o Laudo Final no perfil Coordenador Geral
 
-* Primeiro passo precisa esta logado como Coordenador Geral de Prestação de Contas. 
+* Primeiro passo precisa esta logado como Coordenador Geral de Prestação de Contas.
 * Segundo passo vá em Avaliação de Resultados->Analisar laudo final.
 
-### Avaliação de Resultados: Laudo Final 
-* Na página do Laudo Final tem um Painel com as abas 'Em Analise', 'Assinar', 'Em Assinatura' e 'Finalizados'.  
+### Avaliação de Resultados: Laudo Final
+* Na página do Laudo Final tem um Painel com as abas 'Em Analise', 'Assinar', 'Em Assinatura' e 'Finalizados'.
 * Cada aba vai ter uma tabela com a listagem dos projetos de acordo com o estado atual e um campo para pesquisar por um projeto expecífico.
 
     ![Painel do Laudo](./imagens/painel_laudo.png)
@@ -28,7 +28,7 @@
     ![Tela Visualizar Parecer](./imagens/visualizar_parecer.png)
 
 
-#### Devolver 
+#### Devolver
 * Clique no botão devolver.
 
     ![Clique item devolver parecer](./imagens/acao_devolver.png)
@@ -41,7 +41,7 @@
 * Estará sendo feita a devolução do laudo final quando clicado no botão Devolver das demais abas.
 * Confirmada a devolução, o Laudo Final é invalidado, o estado do projeto muda e ele volta para a aba Em Análise para ser criado um novo laudo, reiniciando o fluxo do projeto no laudo final.
 
-### Em Análise 
+### Em Análise
 * Na primeira aba do painel, Em Análise, são listados os projetos que ainda não possui um documento de laudo final gerado.
     ![Aba em análise](./imagens/aba_em_analise.png)
 * Na ação é possível emitir o laudo final.
@@ -89,11 +89,11 @@
 
 ## Como acessar o Laudo Final no perfil Secretário
 
-* Primeiro passo precisa esta logado como Secretário. 
+* Primeiro passo precisa esta logado como Secretário.
 * Segundo passo vá em Avaliação de Resultados->Analisar laudo final.
 
-### Avaliação de Resultados: Laudo Final 
-* Na página do Laudo Final tem um Painel com a aba 'Em Assinatura'.  
+### Avaliação de Resultados: Laudo Final
+* Na página do Laudo Final tem um Painel com a aba 'Em Assinatura'.
 * Nessa aba vai ter um campo para pesquisar por um projeto expecífico e uma tabela com a listagem dos projetos que ja possuem um laudo final emitido e este ja foi assinado pelo _Coordenador Geral de Prestação de Contas_.
 
     ![Painel do Laudo secundário](./imagens/painel_laudo_Sec_Dir.png)
@@ -104,8 +104,8 @@
 
 ## Como acessar o Laudo Final no perfil Diretor
 
-* Primeiro passo precisa esta logado como Diretor de Departamento. 
+* Primeiro passo precisa esta logado como Diretor de Departamento.
 * Segundo passo vá em Avaliação de Resultados->Analisar laudo final.
 
-### Avaliação de Resultados: Laudo Final 
+### Avaliação de Resultados: Laudo Final
  [Segue da mesma forma que o perfil do secretário](#avaliação-de-resultados-laudo-final-1)

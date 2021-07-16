@@ -107,7 +107,7 @@
                                         v-if="loadingDestinatarios"
                                         defined-class="body-1"
                                         size="small"
-                                        text="Carregando destinatários/as..."
+                                        text="Carregando destinat&aacute;rios/as..."
                                     />
                                     <div v-else>
                                         <template
@@ -116,14 +116,14 @@
                                             <v-select
                                                 v-model="dadosEncaminhamento.destinatario"
                                                 :items="getDestinatariosDistribuicao"
-                                                label="Destinatário/a"
+                                                label="Destinat&aacute;rio/a"
                                                 item-text="nome"
                                                 item-value="id"
                                             />
                                         </template>
                                         <template v-if="getDestinatariosDistribuicao.length === 0 && dadosEncaminhamento.vinculada > 0">
                                             <h3 class="red--text text--darken-2">
-                                                Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
+                                                Não h&aacute; destinat&aacute;rios/as dispon&iacute;veis, imposs&iacute;vel encaminhar a readequação no momento!
                                             </h3>
                                         </template>
                                     </div>
@@ -327,7 +327,7 @@ export default {
                 this.setSnackbar({
                     ativo: true,
                     color: 'success',
-                    text: 'Readequação distribuída!',
+                    text: 'Readequação distribu&iacute;da!',
                 });
                 this.dialog = false;
             });

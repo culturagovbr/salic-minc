@@ -38,7 +38,7 @@ CKEDITOR.lang['pl'] =
 	editor	: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
-	source			: 'Źródło dokumentu',
+	source			: 'Źr&oacute;dło dokumentu',
 	newPage			: 'Nowa strona',
 	save			: 'Zapisz',
 	preview			: 'Podgląd',
@@ -53,19 +53,19 @@ CKEDITOR.lang['pl'] =
 	removeFormat	: 'Usuń formatowanie',
 	strike			: 'Przekreślenie',
 	subscript		: 'Indeks dolny',
-	superscript		: 'Indeks górny',
+	superscript		: 'Indeks g&oacute;rny',
 	horizontalrule	: 'Wstaw poziomą linię',
 	pagebreak		: 'Wstaw odstęp',
 	unlink			: 'Usuń hiperłącze',
 	undo			: 'Cofnij',
-	redo			: 'Ponów',
+	redo			: 'Pon&oacute;w',
 
 	// Common messages and labels.
 	common :
 	{
 		browseServer	: 'Przeglądaj',
 		url				: 'Adres URL',
-		protocol		: 'Protokół',
+		protocol		: 'Protok&oacute;ł',
 		upload			: 'Wyślij',
 		uploadSubmit	: 'Wyślij',
 		image			: 'Obrazek',
@@ -94,7 +94,7 @@ CKEDITOR.lang['pl'] =
 		cancel			: 'Anuluj',
 		close			: 'Close', // MISSING
 		preview			: 'Preview', // MISSING
-		generalTab		: 'Ogólne',
+		generalTab		: 'Og&oacute;lne',
 		advancedTab		: 'Zaawansowane',
 		validateNumberFailed : 'Ta wartość nie jest liczbą.',
 		confirmNewPage	: 'Wszystkie niezapisane zmiany zostaną utracone. Czy na pewno wczytać nową stronę?',
@@ -166,7 +166,7 @@ CKEDITOR.lang['pl'] =
 		advisoryTitle	: 'Opis obiektu docelowego',
 		advisoryContentType	: 'Typ MIME obiektu docelowego',
 		cssClasses		: 'Nazwa klasy CSS',
-		charset			: 'Kodowanie znaków obiektu docelowego',
+		charset			: 'Kodowanie znak&oacute;w obiektu docelowego',
 		styles			: 'Styl',
 		selectAnchor	: 'Wybierz etykietę',
 		anchorName		: 'Wg etykiety',
@@ -238,7 +238,7 @@ CKEDITOR.lang['pl'] =
 		rows		: 'Liczba wierszy',
 		columns		: 'Liczba kolumn',
 		border		: 'Grubość ramki',
-		align		: 'Wyrównanie',
+		align		: 'Wyr&oacute;wnanie',
 		alignLeft	: 'Do lewej',
 		alignCenter	: 'Do środka',
 		alignRight	: 'Do prawej',
@@ -247,8 +247,8 @@ CKEDITOR.lang['pl'] =
 		widthPc		: '%',
 		widthUnit	: 'width unit', // MISSING
 		height		: 'Wysokość',
-		cellSpace	: 'Odstęp pomiędzy komórkami',
-		cellPad		: 'Margines wewnętrzny komórek',
+		cellSpace	: 'Odstęp pomiędzy kom&oacute;rkami',
+		cellPad		: 'Margines wewnętrzny kom&oacute;rek',
 		caption		: 'Tytuł',
 		summary		: 'Podsumowanie',
 		headers		: 'Nagłowki',
@@ -261,30 +261,30 @@ CKEDITOR.lang['pl'] =
 		invalidBorder	: 'Liczba obramowań musi być liczbą.',
 		invalidWidth	: 'Szerokość tabeli musi być liczbą.',
 		invalidHeight	: 'Wysokość tabeli musi być liczbą.',
-		invalidCellSpacing	: 'Odstęp komórek musi być liczbą.',
-		invalidCellPadding	: 'Dopełnienie komórek musi być liczbą.',
+		invalidCellSpacing	: 'Odstęp kom&oacute;rek musi być liczbą.',
+		invalidCellPadding	: 'Dopełnienie kom&oacute;rek musi być liczbą.',
 
 		cell :
 		{
-			menu			: 'Komórka',
-			insertBefore	: 'Wstaw komórkę z lewej',
-			insertAfter		: 'Wstaw komórkę z prawej',
-			deleteCell		: 'Usuń komórki',
-			merge			: 'Połącz komórki',
-			mergeRight		: 'Połącz z komórką z prawej',
-			mergeDown		: 'Połącz z komórką poniżej',
-			splitHorizontal	: 'Podziel komórkę poziomo',
-			splitVertical	: 'Podziel komórkę pionowo',
-			title			: 'Właściwości komórki',
-			cellType		: 'Typ komórki',
+			menu			: 'Kom&oacute;rka',
+			insertBefore	: 'Wstaw kom&oacute;rkę z lewej',
+			insertAfter		: 'Wstaw kom&oacute;rkę z prawej',
+			deleteCell		: 'Usuń kom&oacute;rki',
+			merge			: 'Połącz kom&oacute;rki',
+			mergeRight		: 'Połącz z kom&oacute;rką z prawej',
+			mergeDown		: 'Połącz z kom&oacute;rką poniżej',
+			splitHorizontal	: 'Podziel kom&oacute;rkę poziomo',
+			splitVertical	: 'Podziel kom&oacute;rkę pionowo',
+			title			: 'Właściwości kom&oacute;rki',
+			cellType		: 'Typ kom&oacute;rki',
 			rowSpan			: 'Scalenie wierszy',
-			colSpan			: 'Scalenie komórek',
-			wordWrap		: 'Zawijanie słów',
-			hAlign			: 'Wyrównanie poziome',
-			vAlign			: 'Wyrównanie pionowe',
-			alignTop		: 'Góra',
+			colSpan			: 'Scalenie kom&oacute;rek',
+			wordWrap		: 'Zawijanie sł&oacute;w',
+			hAlign			: 'Wyr&oacute;wnanie poziome',
+			vAlign			: 'Wyr&oacute;wnanie pionowe',
+			alignTop		: 'G&oacute;ra',
 			alignMiddle		: 'Środek',
-			alignBottom		: 'Dół',
+			alignBottom		: 'D&oacute;ł',
 			alignBaseline	: 'Linia bazowa',
 			bgColor			: 'Kolor tła',
 			borderColor		: 'Kolor obramowania',
@@ -292,10 +292,10 @@ CKEDITOR.lang['pl'] =
 			header			: 'Nagłowek',
 			yes				: 'Tak',
 			no				: 'Nie',
-			invalidWidth	: 'Szerokość komórki musi być liczbą.',
-			invalidHeight	: 'Wysokość komórki musi być liczbą.',
+			invalidWidth	: 'Szerokość kom&oacute;rki musi być liczbą.',
+			invalidHeight	: 'Wysokość kom&oacute;rki musi być liczbą.',
 			invalidRowSpan	: 'Scalenie wierszy musi być liczbą całkowitą.',
-			invalidColSpan	: 'Scalenie komórek musi być liczbą całkowitą.',
+			invalidColSpan	: 'Scalenie kom&oacute;rek musi być liczbą całkowitą.',
 			chooseColor		: 'Wybierz'
 		},
 
@@ -355,12 +355,12 @@ CKEDITOR.lang['pl'] =
 		value		: 'Wartość',
 		size		: 'Rozmiar',
 		lines		: 'linii',
-		chkMulti	: 'Wielokrotny wybór',
+		chkMulti	: 'Wielokrotny wyb&oacute;r',
 		opText		: 'Tekst',
 		opValue		: 'Wartość',
 		btnAdd		: 'Dodaj',
 		btnModify	: 'Zmień',
-		btnUp		: 'Do góry',
+		btnUp		: 'Do g&oacute;ry',
 		btnDown		: 'Do dołu',
 		btnSetValue : 'Ustaw wartość zaznaczoną',
 		btnDelete	: 'Usuń'
@@ -409,11 +409,11 @@ CKEDITOR.lang['pl'] =
 		height		: 'Wysokość',
 		lockRatio	: 'Zablokuj proporcje',
 		unlockRatio	: 'Unlock Ratio', // MISSING
-		resetSize	: 'Przywróć rozmiar',
+		resetSize	: 'Przywr&oacute;ć rozmiar',
 		border		: 'Ramka',
 		hSpace		: 'Odstęp poziomy',
 		vSpace		: 'Odstęp pionowy',
-		align		: 'Wyrównaj',
+		align		: 'Wyr&oacute;wnaj',
 		alignLeft	: 'Do lewej',
 		alignRight	: 'Do prawej',
 		alertUrl	: 'Podaj adres obrazka.',
@@ -442,11 +442,11 @@ CKEDITOR.lang['pl'] =
 		scaleAll		: 'Pokaż wszystko',
 		scaleNoBorder	: 'Bez Ramki',
 		scaleFit		: 'Dokładne dopasowanie',
-		access			: 'Dostęp skryptów',
+		access			: 'Dostęp skrypt&oacute;w',
 		accessAlways	: 'Zawsze',
 		accessSameDomain: 'Ta sama domena',
 		accessNever		: 'Nigdy',
-		align			: 'Wyrównaj',
+		align			: 'Wyr&oacute;wnaj',
 		alignLeft		: 'Do lewej',
 		alignAbsBottom	: 'Do dołu',
 		alignAbsMiddle	: 'Do środka w pionie',
@@ -454,8 +454,8 @@ CKEDITOR.lang['pl'] =
 		alignBottom		: 'Do dołu',
 		alignMiddle		: 'Do środka',
 		alignRight		: 'Do prawej',
-		alignTextTop	: 'Do góry tekstu',
-		alignTop		: 'Do góry',
+		alignTextTop	: 'Do g&oacute;ry tekstu',
+		alignTop		: 'Do g&oacute;ry',
 		quality			: 'Jakość',
 		qualityBest		: 'Najlepsza',
 		qualityHigh		: 'Wysoka',
@@ -496,10 +496,10 @@ CKEDITOR.lang['pl'] =
 		btnUndo			: 'Cofnij',
 		noSuggestions	: '- Brak sugestii -',
 		progress		: 'Trwa sprawdzanie...',
-		noMispell		: 'Sprawdzanie zakończone: nie znaleziono błędów',
+		noMispell		: 'Sprawdzanie zakończone: nie znaleziono błęd&oacute;w',
 		noChanges		: 'Sprawdzanie zakończone: nie zmieniono żadnego słowa',
 		oneChange		: 'Sprawdzanie zakończone: zmieniono jedno słowo',
-		manyChanges		: 'Sprawdzanie zakończone: zmieniono %l słów',
+		manyChanges		: 'Sprawdzanie zakończone: zmieniono %l sł&oacute;w',
 		ieSpellDownload	: 'Słownik nie jest zainstalowany. Chcesz go ściągnąć?'
 	},
 
@@ -523,10 +523,10 @@ CKEDITOR.lang['pl'] =
 
 	justify :
 	{
-		left	: 'Wyrównaj do lewej',
-		center	: 'Wyrównaj do środka',
-		right	: 'Wyrównaj do prawej',
-		block	: 'Wyrównaj do lewej i prawej'
+		left	: 'Wyr&oacute;wnaj do lewej',
+		center	: 'Wyr&oacute;wnaj do środka',
+		right	: 'Wyr&oacute;wnaj do prawej',
+		block	: 'Wyr&oacute;wnaj do lewej i prawej'
 	},
 
 	blockquote : 'Cytat',
@@ -534,16 +534,16 @@ CKEDITOR.lang['pl'] =
 	clipboard :
 	{
 		title		: 'Wklej',
-		cutError	: 'Ustawienia bezpieczeństwa Twojej przeglądarki nie pozwalają na automatyczne wycinanie tekstu. Użyj skrótu klawiszowego Ctrl/Cmd+X.',
-		copyError	: 'Ustawienia bezpieczeństwa Twojej przeglądarki nie pozwalają na automatyczne kopiowanie tekstu. Użyj skrótu klawiszowego Ctrl/Cmd+C.',
-		pasteMsg	: 'Proszę wkleić w poniższym polu używając klawiaturowego skrótu (<STRONG>Ctrl/Cmd+V</STRONG>) i kliknąć <STRONG>OK</STRONG>.',
+		cutError	: 'Ustawienia bezpieczeństwa Twojej przeglądarki nie pozwalają na automatyczne wycinanie tekstu. Użyj skr&oacute;tu klawiszowego Ctrl/Cmd+X.',
+		copyError	: 'Ustawienia bezpieczeństwa Twojej przeglądarki nie pozwalają na automatyczne kopiowanie tekstu. Użyj skr&oacute;tu klawiszowego Ctrl/Cmd+C.',
+		pasteMsg	: 'Proszę wkleić w poniższym polu używając klawiaturowego skr&oacute;tu (<STRONG>Ctrl/Cmd+V</STRONG>) i kliknąć <STRONG>OK</STRONG>.',
 		securityMsg	: 'Zabezpieczenia przeglądarki uniemożliwiają wklejenie danych bezpośrednio do edytora. Proszę dane wkleić ponownie w tym okienku.',
 		pasteArea	: 'Paste Area' // MISSING
 	},
 
 	pastefromword :
 	{
-		confirmCleanup	: 'Tekst, który chcesz wkleić, prawdopodobnie pochodzi z programu Word. Czy chcesz go wyczyścic przed wklejeniem?',
+		confirmCleanup	: 'Tekst, kt&oacute;ry chcesz wkleić, prawdopodobnie pochodzi z programu Word. Czy chcesz go wyczyścic przed wklejeniem?',
 		toolbar			: 'Wklej z Worda',
 		title			: 'Wklej z Worda',
 		error			: 'It was not possible to clean up the pasted data due to an internal error' // MISSING
@@ -562,7 +562,7 @@ CKEDITOR.lang['pl'] =
 		options : 'Template Options', // MISSING
 		insertOption	: 'Zastąp aktualną zawartość',
 		selectPromptMsg	: 'Wybierz szablon do otwarcia w edytorze<br>(obecna zawartość okna edytora zostanie utracona):',
-		emptyListMsg	: '(Brak zdefiniowanych szablonów)'
+		emptyListMsg	: '(Brak zdefiniowanych szablon&oacute;w)'
 	},
 
 	showBlocks : 'Pokaż bloki',
@@ -584,12 +584,12 @@ CKEDITOR.lang['pl'] =
 		tag_p		: 'Normalny',
 		tag_pre		: 'Tekst sformatowany',
 		tag_address	: 'Adres',
-		tag_h1		: 'Nagłówek 1',
-		tag_h2		: 'Nagłówek 2',
-		tag_h3		: 'Nagłówek 3',
-		tag_h4		: 'Nagłówek 4',
-		tag_h5		: 'Nagłówek 5',
-		tag_h6		: 'Nagłówek 6',
+		tag_h1		: 'Nagł&oacute;wek 1',
+		tag_h2		: 'Nagł&oacute;wek 2',
+		tag_h3		: 'Nagł&oacute;wek 3',
+		tag_h4		: 'Nagł&oacute;wek 4',
+		tag_h5		: 'Nagł&oacute;wek 5',
+		tag_h6		: 'Nagł&oacute;wek 6',
 		tag_div		: 'Normalny (DIV)'
 	},
 
@@ -630,7 +630,7 @@ CKEDITOR.lang['pl'] =
 		bgColorTitle	: 'Kolor tła',
 		panelTitle		: 'Colors', // MISSING
 		auto			: 'Automatycznie',
-		more			: 'Więcej kolorów...'
+		more			: 'Więcej kolor&oacute;w...'
 	},
 
 	colors :

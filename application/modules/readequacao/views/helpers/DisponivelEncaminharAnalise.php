@@ -16,7 +16,7 @@ class Zend_View_Helper_DisponivelEncaminharAnalise
     {
         $auth = Zend_Auth::getInstance();
         $idOrgaoSuperior = $auth->getIdentity()->usu_org_max_superior;
-        
+
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $idOrgaoLogado = $GrupoAtivo->codOrgao;
 
@@ -32,13 +32,13 @@ class Zend_View_Helper_DisponivelEncaminharAnalise
         ];
 
         $orgaosDisponiveis = [];
-        
+
         foreach($orgaosEncaminhamento as $idOrgaoEncaminhar => $orgao) {
             if (in_array($idOrgaoLogado, $orgao)) {
                 $orgaosDisponiveis[] = $idOrgaoEncaminhar;
             }
         }
-        
+
         return implode(',', $orgaosDisponiveis);
     }
 }

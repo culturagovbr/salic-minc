@@ -277,7 +277,7 @@ export default {
             dialog: true,
             loadingSalvar: false,
             loadingFinalizar: false,
-            itemRules: [v => !!v || 'Tipo de manifestação e obrigatório!'],
+            itemRules: [v => !!v || 'Tipo de manifestação e obrigat&oacute;rio!'],
             parecerRules: {
                 show: false,
                 color: '',
@@ -404,7 +404,7 @@ export default {
                     show: true,
                     color: 'red--text',
                     backgroundColor: { 'background-color': '#FFCDD2' },
-                    msg: 'Parecer é obrigatório!',
+                    msg: 'Parecer &eacute; obrigat&oacute;rio!',
                     enable: false,
                 };
             }

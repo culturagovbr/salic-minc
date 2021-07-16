@@ -483,7 +483,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
            new Zend_Db_Expr("CASE
              WHEN stItemAvaliado = 1 THEN 'Validado'
              WHEN stItemAvaliado = 3 THEN 'Impugnado'
-             WHEN stItemAvaliado = 4 THEN 'Aguardando análise'
+             WHEN stItemAvaliado = 4 THEN 'Aguardando an&aacute;lise'
            END AS stAvaliacao"),
            "c.vlComprovacao"
        ];

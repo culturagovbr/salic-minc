@@ -7,7 +7,7 @@
  * @package application
  * @subpackage application.controller.realizaranaliseprojeto.inc
  * @link http://www.cultura.gov.br
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  */
 
 $pronac = $this->idpronac;
@@ -19,7 +19,7 @@ $pronac = $this->idpronac;
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado'));?>">Parecer T&eacute;cnico Consolidado</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado'));?>">Parecer Técnico Consolidado</a></th>
 
 <?php if (!$this->VerificarIN2017($this->idpronac)) : ?>
             <?php if ($this->bln_readequacao == "false") {
@@ -39,13 +39,13 @@ $pronac = $this->idpronac;
         } ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedecontareadequacao')); ?>">An&aacute;lise de Cortes Sugeridos</a></th>
             <?php
     } ?>
-            
+
                 <th class="<?php if (strstr($this->url(), 'analisedeconteudo') == 'analisedeconteudo') {
         echo "fundo_linha4";
     } else {
         echo "fundo_linha2";
     } ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconteudo')); ?>">An&aacute;lise de Conte&uacute;do</a></th>
-<?php endif; ?>            
+<?php endif; ?>
             <?php if ($this->bln_readequacao == "false") {
         ?>
                 <th class="<?php if (strstr($this->url(), 'analisedecustos')   == 'analisedecustos') {
@@ -63,7 +63,7 @@ $pronac = $this->idpronac;
         } ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedecustosreadequacao')); ?>" id="custos">An&aacute;lise de Custos</a></th>
             <?php
     } ?>
-            
+
                 <th class="<?php if (strstr($this->url(), 'emitirparecer')     == 'emitirparecer') {
         echo "fundo_linha4";
     } else {

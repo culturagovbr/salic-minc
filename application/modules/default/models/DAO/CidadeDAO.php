@@ -31,7 +31,7 @@ class CidadeDAO extends Zend_Db_Table
             $this->view->message = "Erro ao buscar Cidades: " . $e->getMessage();
         }
         throw new Exception('Método Transferido para Agente Model DbTable Municipios');
-        
+
         return $db->fetchAll($sql);
     }
 }

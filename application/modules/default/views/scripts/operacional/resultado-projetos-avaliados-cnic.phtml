@@ -27,20 +27,20 @@
             $("#frmPaginacao").append(campoGerarResumo);
             jqAjaxForm(document.getElementById("frmPaginacao"), "resultadoConsulta");
         });
-        
-        
+
+
         $('#btn_xls').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="xls" value="xls"/>');
             $('#frmPaginacao').submit();
             $('#xls').remove();
         });
-        
+
         $('#btn_imprimir').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="pdf" value="pdf"/>');
             $('#frmPaginacao').submit();
             $('#pdf').remove();
         });
-        
+
     });
 
     function paginar(pag){
@@ -65,7 +65,7 @@
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="16">Proponente</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="6">PRONAC</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="7">Nome do Projeto</a></th>
-        <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="13">&Aacute;rea Cultural</a></th>
+        <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="13">Área Cultural</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="14">Segmento Cultural</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="4">Resultado da Avalia&ccedil;&atilde;o</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="17">Entidade Vinculada</a></th>

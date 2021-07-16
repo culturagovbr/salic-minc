@@ -123,7 +123,7 @@
                                                 </v-icon>
                                             </v-list-tile-avatar>
                                             <v-list-tile-content>
-                                                <v-list-tile-title>Status da análise</v-list-tile-title>
+                                                <v-list-tile-title>Status da an&aacute;lise</v-list-tile-title>
                                                 <v-list-tile-sub-title v-html="getStatusAnalise(dadosReadequacao.siEncaminhamento)"/>
                                             </v-list-tile-content>
                                         </v-list-tile>
@@ -229,7 +229,7 @@
                                                 v-else
                                             >
                                                 <div class="mb-3">
-                                                    Este tipo de readequação ainda não possui uma visualização específica!
+                                                    Este tipo de readequação ainda não possui uma visualização espec&iacute;fica!
                                                 </div>
                                                 <v-btn
                                                     v-if="perfilAceito(['analise'])"
@@ -272,7 +272,7 @@
                                             <v-list-tile-content
                                                 v-else
                                             >
-                                                <v-list-tile-title>Sem avaliação até o momento</v-list-tile-title>
+                                                <v-list-tile-title>Sem avaliação at&eacute; o momento</v-list-tile-title>
                                             </v-list-tile-content>
                                         </v-list-tile>
                                         <v-list-tile avatar>

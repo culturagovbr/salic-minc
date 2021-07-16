@@ -7,20 +7,20 @@ class EnquadramentoControllerTest extends MinC_Test_ControllerActionTestCase
         parent::setUp();
 
         $this->idPronac = 215141;
-        
+
         $this->autenticar();
 
         $this->resetRequest()
             ->resetResponse();
 
         $this->alterarPerfil(Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE, Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI);
-        
+
         $this->resetRequest()
             ->resetResponse();
      }
-    
+
     /**
-     * TestEncaminharAssinaturaAction Listagem de projetos disponíveis para encaminhar para assinatura
+     * TestEncaminharAssinaturaAction Listagem de projetos dispon&iacute;veis para encaminhar para assinatura
      *
      * @access public
      * @return void
@@ -41,7 +41,7 @@ class EnquadramentoControllerTest extends MinC_Test_ControllerActionTestCase
     {
         $this->dispatch('/admissibilidade/enquadramento/gerenciar-enquadramento');
         $this->assertUrl('admissibilidade','enquadramento', 'gerenciar-enquadramento');
-       
+
         $this->assertQuery('table#enquadramento');
     }
 
@@ -56,7 +56,7 @@ class EnquadramentoControllerTest extends MinC_Test_ControllerActionTestCase
         $idPronac = 204085;
         $this->dispatch('/admissibilidade/enquadramento/enquadrarprojeto' . '?IdPRONAC=' . $idPronac);
         $this->assertUrl('admissibilidade','enquadramento', 'enquadrarprojeto');
-       
+
         $this->assertQuery('form#formEnquadramentoProjeto');
     }
 }

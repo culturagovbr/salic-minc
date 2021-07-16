@@ -1,4 +1,4 @@
-/* Inicialització en català per a l'extenció 'calendar' per jQuery. */
+/* Inicialitzaci&oacute; en català per a l'extenci&oacute; 'calendar' per jQuery. */
 /* Writers: (joan.leon@gmail.com). */
 jQuery(function($){
 	$.datepicker.regional['ca'] = {

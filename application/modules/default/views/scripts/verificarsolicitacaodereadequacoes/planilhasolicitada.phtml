@@ -169,9 +169,9 @@
     <textarea name="justificativa" id="justificativaencaminha" rows="6" cols="50" style="width:95%;" onclick="limpar_campo(this, 'Digite a observa��o...');" onkeypress=" " onblur="restaurar_campo(this, 'Digite a observa��o...');">Digite a observa��o...</textarea>
 </div>
 
-<!-- INÍCIO: #titulo -->
+<!-- IN&Iacute;CIO: #titulo -->
 <div id="titulo">
-    <div>Readequa&ccedil;&atilde;o: itens de custo
+    <div>Readequação: itens de custo
         <span class="voltar">
             <a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a>
         </span>
@@ -180,7 +180,7 @@
 <!-- final: #titulo -->
 
 
-<!-- INÍCIO: �rea principal #conteudo -->
+<!-- IN&Iacute;CIO: �rea principal #conteudo -->
 <div id="conteudo">
     <div id="miolo">
         <?php
@@ -237,16 +237,16 @@
                             <?php } else { ?>
                             <select id="analise" class="select_simples">
                                 <?php if ($this->status == "EA") { ?>
-                                    <option value="2">Em Análise</option>
+                                    <option value="2">Em An&aacute;lise</option>
                                     <option value="3">Finalizar</option>
                                 <?php } else { ?>
-                                    <option value="1">Aguardando Análise</option>
-                                    <option value="2">Em Análise</option>
+                                    <option value="1">Aguardando An&aacute;lise</option>
+                                    <option value="2">Em An&aacute;lise</option>
                                 <?php } ?>
                             </select>
                             <?php } ?>
                         </span>
-                        Planilha Or�ament�ria
+                        Planilha Or�ament&aacute;ria
                     </th>
         	</tr>
 
@@ -400,9 +400,9 @@
                                         echo (trim($verificaAnalise[0]->stAvaliacao) == 'D') ? 'Deferido' : 'Indeferido';
                                     } else {
                                     	if ($this->status == 'EA') {
-                                        	echo "Em Análise";
+                                        	echo "Em An&aacute;lise";
                                     	} else {
-                                    		echo "Aguardando Análise";
+                                    		echo "Aguardando An&aacute;lise";
                                     	}
                                     }
                                     echo '</td>';
@@ -596,9 +596,9 @@
                                                 echo (trim($verificaAnalise[0]->stAvaliacao) == 'D') ? 'Deferido' : 'Indeferido';
                                             } else {
                                             	if ($this->status == 'EA') {
-                                                	echo "Em Análise";
+                                                	echo "Em An&aacute;lise";
                                             	} else {
-                                            		echo "Aguardando Análise";
+                                            		echo "Aguardando An&aacute;lise";
                                             	}
                                             }
                                             echo '</td>';
@@ -707,7 +707,7 @@
 
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== IN&Iacute;CIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 

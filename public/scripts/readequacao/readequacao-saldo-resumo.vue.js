@@ -6,7 +6,7 @@ template: `
 		<div class="col s4 center-align">
 			<h6>Rendimento declarado</h6>
 			<span style="font-weight:bold">R$ {{valorSaldoAplicacaoFormatado}}</span>
-		</div>					
+		</div>
 		<div class="col s4 center-align" v-bind:class="{ 'blue lighten-3': valorSaldoDisponivelParaUsoPositivo, 'red lighten-3': valorSaldoDisponivelParaUsoNegativo }">
 			<h6>Dispon&iacute;vel</h6>
 			<span style="font-weight:bold">R$ {{valorSaldoDisponivelParaUsoFormatado}}</span>
@@ -37,7 +37,7 @@ template: `
 	<div class="row center-align" v-show="readequacaoAlterada">
 		<div class="col s12 center-align">
 			<i class="medium red-text material-icons" style="vertical-align: middle">warning</i>
-			<span style="font-weight:bold" class="">As informa&ccedil;&otilde;es da readequa&ccedil;&atilde;o foram alteradas. Salve para poder finalizar.</span>
+			<span style="font-weight:bold" class="">As informa&ccedil;&otilde;es da readequação foram alteradas. Salve para poder finalizar.</span>
 		</div>
 	</div>
 </div>

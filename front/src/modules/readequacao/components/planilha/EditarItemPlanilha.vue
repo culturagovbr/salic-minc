@@ -71,7 +71,7 @@
                     xs12
                     md2
                 >
-                    <label class="grey--text text--darken-1 caption">Valor unitário</label>
+                    <label class="grey--text text--darken-1 caption">Valor unit&aacute;rio</label>
                     <div class="d-inline-block subheading">
                         R$
                         <input-money
@@ -206,7 +206,7 @@ export default {
                 justificativa: 10,
             },
             rules: {
-                required: v => !!v || 'Campo obrigatório.',
+                required: v => !!v || 'Campo obrigat&oacute;rio.',
                 nonZero: v => (v && v >= 0) || 'Campo não pode ser zerado ou negativo.',
                 justificativaMin: v => (v && v.length >= this.minChar.justificativa) || this.justificativaMinMessage,
             },
@@ -219,7 +219,7 @@ export default {
             getReadequacao: 'readequacao/getReadequacao',
         }),
         justificativaMinMessage() {
-            return `Justificativa ter no mínimo ${this.minChar.justificativa} caracteres.`;
+            return `Justificativa ter no m&iacute;nimo ${this.minChar.justificativa} caracteres.`;
         },
         valorTotal() {
             return this.itemEditado.Ocorrencia * this.itemEditado.Quantidade * this.itemEditado.ValorUnitario;

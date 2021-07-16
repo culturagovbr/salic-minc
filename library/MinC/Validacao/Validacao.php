@@ -1,19 +1,19 @@
 <?php
 /**
- * Classe para realizar validações de campos especiais
+ * Classe para realizar validaï¿½ï¿½es de campos especiais
  * @author Equipe RUP - Politec
  * @since 29/03/2010
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Validacao
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Validacao
 {
 	/**
-	 * Método para adicionar máscara de CPF ou CNPJ conforme o caso
+	 * Mï¿½todo para adicionar mï¿½scara de CPF ou CNPJ conforme o caso
 	 *
 	 * @access public
 	 * @static
@@ -32,12 +32,12 @@ class Validacao
 		{
 			return (Mascara::addMaskCNPJ($valor));
 		}
-	} // fecha método mascaraCPFCNPJ()
+	} // fecha mï¿½todo mascaraCPFCNPJ()
 
 
 
 	/**
-	 * Método para validar fone
+	 * Mï¿½todo para validar fone
 	 *
 	 * @access public
 	 * @static
@@ -54,7 +54,7 @@ class Validacao
 		{
 			return is_numeric($fone);
 		}
-	} // fecha método validarFone()
+	} // fecha mï¿½todo validarFone()
 
 
 
@@ -76,12 +76,12 @@ class Validacao
 		{
 			return true;
 		}
-	} // fecha método validarEmail()
+	} // fecha mï¿½todo validarEmail()
 
 
 
 	/**
-	 * valida endereço eletrônico
+	 * valida endereï¿½o eletrï¿½nico
 	 *
 	 * @access public
 	 * @static
@@ -91,7 +91,7 @@ class Validacao
 	public static function validarURL($url)
 	{
 		return preg_match('|^http(s)?://[a-z0-9-]+(\.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
-	} // fecha método validarURL()
+	} // fecha mï¿½todo validarURL()
 
 
 
@@ -113,7 +113,7 @@ class Validacao
 		{
 			return is_numeric($cep);
 		}
-	} // fecha método validarCEP()
+	} // fecha mï¿½todo validarCEP()
 
 	/**
 	 * valida Data
@@ -123,23 +123,23 @@ class Validacao
 	 * @param string $data
 	 * @return bool
 	 */
-        
+
 	public static function validarData($dat){
-            
-            $data = explode("/","$dat"); // fatia a string $dat em pedados, usando / como referência
+
+            $data = explode("/","$dat"); // fatia a string $dat em pedados, usando / como referï¿½ncia
             $d = $data[0];
             $m = $data[1];
             $y = $data[2];
 
-            // verifica se a data é válida!
+            // verifica se a data ï¿½ vï¿½lida!
             $res = checkdate($m,$d,$y);
             if ($res == 0){
                 return false;
             }
-            
+
             return true;
-                    
-	} // fecha método validarData()
+
+	} // fecha mï¿½todo validarData()
 
 
 
@@ -157,25 +157,25 @@ class Validacao
 		{
 			return false;
 		}
-		else if ($cpf == "11111111111" || $cpf == "22222222222" || 
-		$cpf == "33333333333" || $cpf == "44444444444" || 
-		$cpf == "55555555555" || $cpf == "66666666666" || 
-		$cpf == "77777777777" || $cpf == "88888888888" || 
-		$cpf == "99999999999" || $cpf == "00000000000" || 
+		else if ($cpf == "11111111111" || $cpf == "22222222222" ||
+		$cpf == "33333333333" || $cpf == "44444444444" ||
+		$cpf == "55555555555" || $cpf == "66666666666" ||
+		$cpf == "77777777777" || $cpf == "88888888888" ||
+		$cpf == "99999999999" || $cpf == "00000000000" ||
 		$cpf == "12345678909")
 		{
 			return false;
 		}
 		else
 		{
-			// verifica o primeiro dígito verificador
+			// verifica o primeiro dï¿½gito verificador
 			$total = 0;
 			$casas = array(10, 9, 8, 7, 6, 5, 4, 3, 2);
 			for ($i = 0; $i < 9; $i++)
 			{
 				$total += (substr($cpf, $i, 1) * $casas[$i]);
 			}
-			$total %= 11; // pega o resto da divisão por 11
+			$total %= 11; // pega o resto da divisï¿½o por 11
 			if ($total < 2)
 			{
 				$d1 = 0;
@@ -185,14 +185,14 @@ class Validacao
 				$d1 = 11 - $total;
 			}
 
-			// verifica o segundo dígito verificador
+			// verifica o segundo dï¿½gito verificador
 			$total = 0;
 			$casas = array(11, 10, 9, 8, 7, 6, 5, 4, 3, 2);
 			for ($i = 0; $i < 10; $i++)
 			{
 				$total += (substr($cpf, $i, 1) * $casas[$i]);
 			}
-			$total %= 11; // pega o resto da divisão por 11
+			$total %= 11; // pega o resto da divisï¿½o por 11
 			if ($total < 2)
 			{
 				$d2 = 0;
@@ -202,8 +202,8 @@ class Validacao
 				$d2 = 11 - $total;
 			}
 
-			$dv = substr($cpf, 9, 2); // dígito verificador
-			$d = $d1 . $d2; // dígito verificador calculado
+			$dv = substr($cpf, 9, 2); // dï¿½gito verificador
+			$d = $d1 . $d2; // dï¿½gito verificador calculado
 			if ($dv == $d)
 			{
 				return true;
@@ -213,7 +213,7 @@ class Validacao
 				return false;
 			}
 		} // fecha else
-	} // fecha método validarCPF()
+	} // fecha mï¿½todo validarCPF()
 
 
 
@@ -231,24 +231,24 @@ class Validacao
 		{
 			return false;
 		}
-		else if ($cnpj == "11111111111111" || $cnpj == "22222222222222" || 
-		$cnpj == "33333333333333" || $cnpj == "44444444444444" || 
-		$cnpj == "55555555555555" || $cnpj == "66666666666666" || 
-		$cnpj == "77777777777777" || $cnpj == "88888888888888" || 
+		else if ($cnpj == "11111111111111" || $cnpj == "22222222222222" ||
+		$cnpj == "33333333333333" || $cnpj == "44444444444444" ||
+		$cnpj == "55555555555555" || $cnpj == "66666666666666" ||
+		$cnpj == "77777777777777" || $cnpj == "88888888888888" ||
 		$cnpj == "99999999999999" || $cnpj == "00000000000000")
 		{
 			return false;
 		}
 		else
 		{
-			// verifica o primeiro dígito verificador
+			// verifica o primeiro dï¿½gito verificador
 			$total = 0;
 			$casas = array(5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
 			for ($i = 0; $i < 12; $i++)
 			{
 				$total += (substr($cnpj, $i, 1) * $casas[$i]);
 			}
-			$total %= 11; // pega o resto da divisão por 11
+			$total %= 11; // pega o resto da divisï¿½o por 11
 			if ($total < 2)
 			{
 				$d1 = 0;
@@ -258,14 +258,14 @@ class Validacao
 				$d1 = 11 - $total;
 			}
 
-			// verifica o segundo dígito verificador
+			// verifica o segundo dï¿½gito verificador
 			$total = 0;
 			$casas = array(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
 			for ($i = 0; $i < 13; $i++)
 			{
 				$total += (substr($cnpj, $i, 1) * $casas[$i]);
 			}
-			$total %= 11; // pega o resto da divisão por 11
+			$total %= 11; // pega o resto da divisï¿½o por 11
 			if ($total < 2)
 			{
 				$d2 = 0;
@@ -275,8 +275,8 @@ class Validacao
 				$d2 = 11 - $total;
 			}
 
-			$dv = substr($cnpj, 12, 2); // dígito verificador
-			$d = $d1 . $d2; // dígito verificador calculado
+			$dv = substr($cnpj, 12, 2); // dï¿½gito verificador
+			$d = $d1 . $d2; // dï¿½gito verificador calculado
 			if ($dv == $d)
 			{
 				return true;
@@ -286,7 +286,7 @@ class Validacao
 				return false;
 			}
 		} // fecha else
-	} // fecha método validarCNPJ()
+	} // fecha mï¿½todo validarCNPJ()
 
 
 
@@ -310,7 +310,7 @@ class Validacao
 		{
 			return false;
 		}
-	} // fecha método validarPRONAC()
+	} // fecha mï¿½todo validarPRONAC()
 
 
 
@@ -325,7 +325,7 @@ class Validacao
 		$dig_proc   = substr($nrprocesso, -2);
 		$orgao      = substr($nrprocesso, 0, 5);
 		$ano        = substr($nrprocesso, 11, 4);
-		 
+
 		$x    = 0;
 		$y    = 16;
 		$soma = 0;
@@ -367,6 +367,6 @@ class Validacao
     }
  }
 
-	
-	
+
+
 } // fecha class

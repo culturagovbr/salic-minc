@@ -354,7 +354,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                     $i = TitulacaoConselheiroDAO::atualizaComponente($idAgente, $AtualizarComponente);
                 }
             } catch (Exception $e) {
-                parent::message("Erro ao salvar a &aacute;rea e segmento: " . $e->getMessage(), $e->getMessage(), "alterarprojeto/incluirdirigente/pronac/" . $pronac, "ERROR");
+                parent::message("Erro ao salvar a Área e segmento: " . $e->getMessage(), $e->getMessage(), "alterarprojeto/incluirdirigente/pronac/" . $pronac, "ERROR");
             }
         }
 

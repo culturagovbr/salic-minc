@@ -11,7 +11,7 @@ export default [
         name: 'PainelReadequacoesAnalise',
         component: PainelReadequacoesView,
         meta: {
-            title: 'Readequações - painel de análise',
+            title: 'Readequações - painel de an&aacute;lise',
         },
     },
     {

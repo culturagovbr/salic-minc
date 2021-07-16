@@ -7,7 +7,7 @@
  * @package application
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
- * @copyright � 2016 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2016 - Ministério da Cultura - Todos os direitos reservados.
  */
 class ProjetoCaptacaoRestControllerMobile extends MinC_Controller_Rest_Mobile_Abstract
 {

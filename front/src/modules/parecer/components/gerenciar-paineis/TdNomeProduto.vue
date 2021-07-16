@@ -49,13 +49,13 @@ export default {
     },
 
     data: () => ({
-        textoAjuda: 'Este produto pertence a outra unidade, foi solicitado análise financeira complementar.',
+        textoAjuda: 'Este produto pertence a outra unidade, foi solicitado an&aacute;lise financeira complementar.',
     }),
 
     computed: {
         tooltipProduto() {
             if (this.produto.tipoAnalise === 1) {
-                return 'Solicitado análise financeira complementar';
+                return 'Solicitado an&aacute;lise financeira complementar';
             }
             return `Clique para analisar o produto ${this.produto.nomeProduto}`;
         },

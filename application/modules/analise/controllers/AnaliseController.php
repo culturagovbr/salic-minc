@@ -231,7 +231,7 @@ class Analise_AnaliseController extends Analise_GenericController
 
                     $situacao = Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA;
                     $providenciaTomada = "Projeto encaminhado &agrave; unidade vinculada para an&aacute;lise
-                    e emiss&atilde;o de parecer t&eacute;cnico";
+                    e emiss&atilde;o de parecer Técnico";
 
                     $tbProjetos->alterarSituacao($idPronac, '', $situacao, $providenciaTomada);
                 }
@@ -311,7 +311,7 @@ class Analise_AnaliseController extends Analise_GenericController
 
             if ($this->getRequest()->isPost()) {
                 if (empty($params['idNovoTecnico']) || empty($params['tecnicoAtual'])) {
-                    throw new Exception("Id do t&eacute;cnico &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+                    throw new Exception("Id do Técnico &eacute; necess&aacute;rio para acessar essa funcionalidade.");
                 }
 
                 $dados = array(

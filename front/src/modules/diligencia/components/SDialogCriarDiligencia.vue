@@ -111,7 +111,7 @@ export default {
             textIsValid: false,
             dialog: false,
             diligenciaRules: [
-                v => !!v || 'Tipo de diligencia é obrigatório!',
+                v => !!v || 'Tipo de diligencia &eacute; obrigat&oacute;rio!',
             ],
             diligenciaEmEdicao: {
                 idPronac: this.idPronac,

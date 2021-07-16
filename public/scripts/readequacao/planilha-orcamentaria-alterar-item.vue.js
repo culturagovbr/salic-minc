@@ -46,7 +46,7 @@ Vue.component('planilha-orcamentaria-alterar-item', {
 	</table>
 
 	<br/>
-	<h6>Dados para a readequa&ccedil;&atilde;o</h6>
+	<h6>Dados para a readequação</h6>
 	<form class="col s12">
 		<div class="row">
 			<div class="col s3">
@@ -59,7 +59,7 @@ Vue.component('planilha-orcamentaria-alterar-item', {
 					>
 					<option v-for="unidade in unidades" v-bind:value="unidade.idUnidade">{{unidade.Descricao}}</option>
 				</select>
-			</div>	
+			</div>
 
 			<div class="input-field col s2">
 				<input placeholder="Qtd"
@@ -70,7 +70,7 @@ Vue.component('planilha-orcamentaria-alterar-item', {
 							 v-model="dadosPlanilhaEditavel.Quantidade">
 				<label for="qtd">Qtd</label>
 			</div>
-			
+
 			<div class="input-field col s2">
 				<input placeholder="Ocorr\xEAncia"
 							 id="ocorrencia"
@@ -80,7 +80,7 @@ Vue.component('planilha-orcamentaria-alterar-item', {
 							 v-model="dadosPlanilhaEditavel.Ocorrencia">
 				<label for="ocorrencia">Ocorr&ecirc;ncia</label>
 			</div>
-			
+
 			<div class="input-field col s2">
         <input-money
 					ref="itemValorUnitario"
@@ -89,7 +89,7 @@ Vue.component('planilha-orcamentaria-alterar-item', {
         </input-money>
 				<label for="vl_unitario">Vl. Unit&aacute;rio</label>
 			</div>
-			
+
 			<div class="input-field col s1">
 				<input placeholder="Dias"
 							 id="dias"
@@ -99,12 +99,12 @@ Vue.component('planilha-orcamentaria-alterar-item', {
 							 v-model="dadosPlanilhaEditavel.QtdeDias">
 				<label for="dias">Dias</label>
 			</div>
-			
+
 			<div class="input-field col s2">
 				<span>Total</span><br/>
 				<span>R$ {{totalItemFormatado}}</span>
 			</div>
-			
+
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
@@ -115,25 +115,25 @@ Vue.component('planilha-orcamentaria-alterar-item', {
 				<label for="dsJustificativa">Justificativa</label>
 			</div>
 		</div>
-		
+
 		<div class="row">
 		  <div class="right-align padding20 col s12">
 				<a
-					v-on:click="alterarItem"				
+					v-on:click="alterarItem"
 					title="Alterar item"
 					class="waves-effect waves-light btn white-text">
 					salvar
 				</a>
 
 				<a
-					v-on:click="cancelar"				
+					v-on:click="cancelar"
 					title="cancelar"
 					class="waves-effect waves-light btn white-text">
 					cancelar
-				</a>				
-				
+				</a>
+
 			</div>
-		</div>				
+		</div>
 	</form>
 </div>
 	`,
@@ -214,30 +214,30 @@ Vue.component('planilha-orcamentaria-alterar-item', {
 	    if (this.dadosPlanilhaEditavel.Quantidade == '') {
 		this.mensagemAlerta("\xC9 obrigat\xF3rio informar a quantidade!");
 		this.$refs.itemQtd.focus();
-                return;		
+                return;
 	    }
 	    if (this.dadosPlanilhaEditavel.Ocorrencia == '') {
 		this.mensagemAlerta("\xC9 obrigat\xF3rio informar a ocorr&ecirc;ncia!");
 		this.$refs.itemOcorrencia.focus();
-                return;		
+                return;
 	    }
 	    if (this.dadosPlanilhaEditavel.ValorUnitario == '') {
 		this.mensagemAlerta("\xC9 obrigat\xF3rio informar o valor unit&aacute;rio!");
 		this.$refs.itemValorUnitario.focus();
-                return;		
+                return;
 	    }
 	    if (this.dadosPlanilhaEditavel.Justificativa == '') {
 		this.mensagemAlerta("\xC9 obrigat\xF3rio informar a justificativa!");
 		this.$refs.itemJustificativa.focus();
                 return;
 	    }
-	    
+
             if (this.totalItem < parseInt(this.valoresDoItem.vlComprovadoDoItem)){
 		this.mensagemAlerta("O valor total do item n\xE3o pode ser menor do que o valor comprovado de " + this.valoresDoItem.vlComprovadoDoItem);
 		return;
 	    }
-            
-	    let self = this;	    
+
+	    let self = this;
 	    $3.ajax({
                 type: 'POST',
                 url: '/readequacao/readequacoes/salvar-avaliacao-do-item',
@@ -309,7 +309,7 @@ Vue.component('planilha-orcamentaria-alterar-item', {
 		    NomePRojeto: '',
 		    PRONAC: ''
 	    };
-	    
+
 	    this.valoresDoItem = {
 		vlComprovadoDoItem: '',
 		vlComprovadoDoItemValidacao: ''

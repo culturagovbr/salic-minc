@@ -98,7 +98,7 @@
                                     editable
                                     step="2"
                                 >
-                                    Planilha orçamentária
+                                    Planilha orçament&aacute;ria
                                 </v-stepper-step>
                                 <v-stepper-step
                                     editable
@@ -155,7 +155,7 @@
                                                     class="grey lighten-4 title"
                                                 >
                                                     <h5>
-                                                        Valor disponível
+                                                        Valor dispon&iacute;vel
                                                     </h5>
                                                 </v-card-title>
                                                 <valor-disponivel
@@ -601,7 +601,7 @@ export default {
         },
         arquivoTipoInvalido(payload) {
             const tiposValidos = payload.formatosAceitos.join(', ');
-            this.mensagemErro(`Tipo fornecido (${payload.formatoEnviado}) não é aceito. Tipos aceitos: ${tiposValidos}`);
+            this.mensagemErro(`Tipo fornecido (${payload.formatoEnviado}) não &eacute; aceito. Tipos aceitos: ${tiposValidos}`);
         },
         atualizarCampo(valor, campo) {
             this.readequacaoEditada[campo] = valor;

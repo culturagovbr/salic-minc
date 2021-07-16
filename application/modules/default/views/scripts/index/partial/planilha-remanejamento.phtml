@@ -61,7 +61,7 @@
                                     <th>Vl. Unit&aacute;rio</th>
                                     <th>Vl. Aprovado</th>
                                     <th>Vl. Comprovado</th>
-				    <th>Justif. Readequa&ccedil;&atilde;o</th>
+				    <th>Justif. Readequação</th>
                                 </tr>
                                 <?php
                                 $valorAprovadoTotalUf = 0;
@@ -98,7 +98,7 @@
                                     <tr class="item" style="color: <?php echo $corLinha; ?> !important;">
                                         <td style="width: 5%;"><?php echo $planilha['Seq']; ?></td>
                                         <td style="width: 20%;">
-					    <?php 
+					    <?php
 					    if ($this->ItemDisponivelParaEdicaoRemanejamento($planilha, $nrfonte)
 					    && $this->link) : ?>
                                             <a href="#"
@@ -154,7 +154,7 @@
 		      <tr>
 			  <th colspan="6"></th>
 			  <th style="text-align: right !important">Valor Aprovado</th>
-			  <th style="text-align: right !important">Valor Comprovado</th>			
+			  <th style="text-align: right !important">Valor Comprovado</th>
 		      <th></th>
 		    </tr>
                         <tr>
@@ -175,10 +175,10 @@
 		<tr>
 		    <th colspan="6" style="width:69%"></th>
 		    <th style="text-align: right !important">Valor Aprovado</th>
-		    <th style="text-align: right !important">Valor Comprovado</th>		    
+		    <th style="text-align: right !important">Valor Comprovado</th>
 		    <th style="width:20%"></th>
 		</tr>
-		
+
                     <tr>
                         <td colspan="6" class="red-text" style="width: 69%; font-size: 14pt;">Total do <?php echo $fonte; ?></td>
                         <td class="red-text" style="width: 1px; font-size: 12pt; font-weight: 800; text-align: right"><?php echo @number_format($valorAprovadoTotalIncentivo, 2, ",", "."); ?></td>
@@ -202,7 +202,7 @@
 		    <th style="text-align: right !important">Valor Comprovado</th>
 		    <th style="width: 20%"></th>
 		</tr>
-		
+
                 <tr>
 		    <td colspan="6" class="blue-text" style="width: 69%; font-size: 14pt;">Total do Projeto</td>
 		    <td class="blue-text" style="width: 1px; font-size: 12pt; font-weight: 800; text-align:right"><?php echo @number_format($TotalAprovado, 2, ",", "."); ?></td>

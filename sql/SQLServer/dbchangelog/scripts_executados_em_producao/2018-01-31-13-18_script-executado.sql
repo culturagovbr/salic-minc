@@ -126,7 +126,7 @@ SELECT @idProjeto = IdProjeto,@DtEnvio = DtEnvio,@ConformidadeOK = ConformidadeO
 SELECT @idEdital = idEdital FROM PreProjeto WHERE idPreProjeto = @IdProjeto
 
 --================================================================================================================
--- PEGAR O TÉCNICO QUE FEZ A ANÁLISE INICIAL AVALIAÇÃO DA PROPOSTA
+-- PEGAR O T&eacute;CNICO QUE FEZ A AN&aacute;LISE INICIAL AVALIAÇÃO DA PROPOSTA
 --================================================================================================================
 SELECT @idTecnico = idTecnico FROM tbAvaliacaoProposta WHERE idProjeto = @IdProjeto AND ConformidadeOK = 9
 --================================================================================================================
@@ -134,7 +134,7 @@ SELECT @idTecnico = idTecnico FROM tbAvaliacaoProposta WHERE idProjeto = @IdProj
 --================================================================================================================
 SELECT @Movimentacao = Movimentacao FROM tbMovimentacao WHERE idProjeto = @IdProjeto AND stEstado = 0
 --================================================================================================================
--- GRAVAR HISTÓRICO DE AVALIAÇÃO
+-- GRAVAR HIST&oacute;RICO DE AVALIAÇÃO
 --================================================================================================================
 IF EXISTS (SELECT * FROM tbAvaliacaoProposta WHERE idProjeto = @IdProjeto)
    BEGIN
@@ -153,16 +153,16 @@ IF EXISTS (SELECT * FROM tbAvaliacaoProposta WHERE idProjeto = @IdProjeto)
 
      IF @Rows > 1
         BEGIN
-          RAISERROR('2. Não é permitido ALTERAR %d registros ao mesmo tempo na tabela tbAvaliacaoProposta, transação cancelada',16,1,@Rows)
+          RAISERROR('2. Não &eacute; permitido ALTERAR %d registros ao mesmo tempo na tabela tbAvaliacaoProposta, transação cancelada',16,1,@Rows)
           ROLLBACK
           RETURN
         END
-     SET @Conformidade9 = 0 -- ENVIAR EMAIL PORQUE JÁ HOUVE AVALIAÇÃO INCENTIVO FISCAL FEDERAL.
+     SET @Conformidade9 = 0 -- ENVIAR EMAIL PORQUE J&aacute; HOUVE AVALIAÇÃO INCENTIVO FISCAL FEDERAL.
      SET @DtEnvio = NULL
    END
 ELSE
   BEGIN
-    SET @Conformidade9 = 1 -- NÃO ENVIAR EMAIL PORQUE É O PRIMEIRO ENVIO AO MINC.
+    SET @Conformidade9 = 1 -- NÃO ENVIAR EMAIL PORQUE &eacute; O PRIMEIRO ENVIO AO MINC.
   END
 --==========================================================================================================
 -- INSERIR INFORMAÇÕES NO TABELA tbAvaliacaoProposta
@@ -182,7 +182,7 @@ IF @Erro <> 0
 
 IF @Rows <> 1
    BEGIN
-     RAISERROR('4. Não é permitido inserir %d registros ao mesmo tempo na tabela tbAvaliacaoProposta, transação cancelada',16,1,@Rows)
+     RAISERROR('4. Não &eacute; permitido inserir %d registros ao mesmo tempo na tabela tbAvaliacaoProposta, transação cancelada',16,1,@Rows)
      ROLLBACK
      RETURN
    END
@@ -235,7 +235,7 @@ IF @Conformidade9 = 0
 
      IF @Rows <> 1
         BEGIN
-          RAISERROR('6. Não é permitido inserir %d registros ao mesmo tempo na tabela tbMovimentacao, transação cancelada',16,1,@Rows)
+          RAISERROR('6. Não &eacute; permitido inserir %d registros ao mesmo tempo na tabela tbMovimentacao, transação cancelada',16,1,@Rows)
           ROLLBACK
           RETURN
         END
@@ -303,7 +303,7 @@ IF @idEdital IS NULL AND @Conformidade9 = 0
 
      IF @Rows <> 1
         BEGIN
-          RAISERROR('8. Não é permitido inserir %d registros ao mesmo tempo na tabela tbHistoricoEmail, transação cancelada',16,1,@Rows)
+          RAISERROR('8. Não &eacute; permitido inserir %d registros ao mesmo tempo na tabela tbHistoricoEmail, transação cancelada',16,1,@Rows)
           ROLLBACK
           RETURN
         END
@@ -365,7 +365,7 @@ IF @idEdital IS NOT NULL AND @ConformidadeOK = 9 AND @stEstadoAvaliacao = 0
                                            @recipients = @Email,
                                            @body = @Mensagem,
                                            @body_format = 'HTML',
-                                           @subject = 'EDITAL - Confirmação do recebimento no Ministério da Cultura',
+                                           @subject = 'EDITAL - Confirmação do recebimento no Minist&eacute;rio da Cultura',
                                            @exclude_query_output = 1;
 
             END
@@ -389,7 +389,7 @@ IF @idEdital IS NOT NULL AND @ConformidadeOK = 9 AND @stEstadoAvaliacao = 0
 
           IF @Rows <> 1
              BEGIN
-               RAISERROR('8. Não é permitido inserir %d registros ao mesmo tempo na tabela tbHistoricoEmail, transação cancelada',16,1,@Rows)
+               RAISERROR('8. Não &eacute; permitido inserir %d registros ao mesmo tempo na tabela tbHistoricoEmail, transação cancelada',16,1,@Rows)
                ROLLBACK
                RETURN
            END
@@ -412,11 +412,11 @@ ALTER TABLE sac.dbo.PlanoDistribuicaoProduto ADD canalAberto bit DEFAULT ((0));
 -- Autor: Rômulo Menhô Barbosa
 -- Data de Criação: 29/01/2018
 -- Descrição: INSTRUÇÃO NORMATIVA 05/2017
---            Verificar se a proposta cultural do mecanismo Incentivo Fiscal Federal está complementamente preenchida
+--            Verificar se a proposta cultural do mecanismo Incentivo Fiscal Federal est&aacute; complementamente preenchida
 --            e as obrigatoriedades exigidas na IN estão cumpridas.
 --            @FLAG = O. Prosposta sem inconsistência;
 --                    1. Inconsistência na proposta;
---                    2. Tentativa de envio de proposta oa MinC fora do período permitido.
+--                    2. Tentativa de envio de proposta oa MinC fora do per&iacute;odo permitido.
 -- Wouerner: Retirando validação 31- Media no plano de distribuição
 --
 -- =================================================================================================================
@@ -467,7 +467,7 @@ DECLARE @Regiao                    BIT
 
 SET @Flag = 0
 --============================================================================================================
--- Tabela temporária
+-- Tabela tempor&aacute;ria
 --============================================================================================================
 
 CREATE TABLE #Verificacao
@@ -479,7 +479,7 @@ CREATE TABLE #Verificacao
        )
 
 --============================================================================================================
--- CARREGAR VARIÁVEIS
+-- CARREGAR VARI&aacute;VEIS
 --============================================================================================================
 ----------------------------------------------------------------------------------------------------------
 -- CARREGAR INFORMAÇÕES DA PROPOSTA
@@ -518,7 +518,7 @@ SELECT @CustoDoProdutoPrincipal = SUM(Quantidade * Ocorrencia * ValorUnitario)
 ----------------------------------------------------------------------------------------------------------
 SELECT @Segmento = Segmento FROM sac.dbo.PlanoDistribuicaoProduto  WHERE stPrincipal = 1 AND idProjeto = @idProjeto
 ----------------------------------------------------------------------------------------------------------
--- RECUPERAR O CUSTO DO PRODUTO SECUNDÁRIO
+-- RECUPERAR O CUSTO DO PRODUTO SECUND&aacute;RIO
 ----------------------------------------------------------------------------------------------------------
 SELECT @CustoDoProdutoSecundario = SUM(Quantidade * Ocorrencia * ValorUnitario)
   FROM sac.dbo.tbPlanilhaProposta a
@@ -550,7 +550,7 @@ ELSE
    SET @Regiao = 0 -- EXECUÇÃO NAS DEMAIS REGIÕES
 
 ----------------------------------------------------------------------------------------------------------
--- CALCULAR MÉTRICAS
+-- CALCULAR M&eacute;TRICAS
 ----------------------------------------------------------------------------------------------------------
 IF @QtdeProduzida > 0 AND @ReceitaPrevista > 0
    SET @CustoBeneficio            = @CustoDoProjeto      / @QtdeProduzida
@@ -577,7 +577,7 @@ SELECT @CNPJCPF = CNPJCPF, @tpPessoa = TipoPessoa FROM Agentes.dbo.Agentes WHERE
 SELECT @tpDireito = Direito, @tpEsfera = Esfera FROM Agentes.dbo.Natureza WHERE idAgente = @idAgente
 
 ----------------------------------------------------------------------------------------------------------
---REGRA DE NEGÓCIO - VERIFICAR SÓCIOS EM COMUM EM PESSOAS JURÍDICAS OU GRUPO EMPRESARIAL
+--REGRA DE NEG&oacute;CIO - VERIFICAR S&oacute;CIOS EM COMUM EM PESSOAS JUR&iacute;DICAS OU GRUPO EMPRESARIAL
 ----------------------------------------------------------------------------------------------------------
 --EXEC spCalcularQuantidadeMontanteProjetosProponenteSocios @CNPJCPF ,@qtProjetos OUTPUT,@vlAprovado OUTPUT,
 --                                                                    @vlCaptado OUTPUT,@PercCaptado OUTPUT
@@ -596,18 +596,18 @@ IF EXISTS(SELECT TOP 1 * FROM sac.dbo.tbMovimentacao
 							   AND stEstado = 0)
   BEGIN
      INSERT INTO #Verificacao
-            VALUES (@idProjeto,'','<font color=blue><b>A PROPOSTA CULTURAL ENCONTRA-SE NO MINISTÉRIO DA CULTURA.</b></font>','')
+            VALUES (@idProjeto,'','<font color=blue><b>A PROPOSTA CULTURAL ENCONTRA-SE NO MINIST&eacute;RIO DA CULTURA.</b></font>','')
      SET @Flag = 2
    END
 ELSE
 --============================================================================================================
--- 2 REGRA DE NEGÓCIO - 2 : VERIFICAR O PERÍODO DE ENVIO DA PROPOSTA
+-- 2 REGRA DE NEG&oacute;CIO - 2 : VERIFICAR O PER&iacute;ODO DE ENVIO DA PROPOSTA
 --============================================================================================================
 IF (MONTH(GETDATE()) = 1 OR MONTH(GETDATE()) = 12)
    AND NOT EXISTS(SELECT * FROM sac.dbo.tbAvaliacaoProposta WHERE idProjeto = @IdProjeto)
    BEGIN
      INSERT INTO #Verificacao
-            VALUES (@idProjeto,'','Conforme Art 2º da Instrução Normativa nº 5/2017, o período para apresentação de propostas culturais é de 1º de fevereiro até 30 de novembro de cada ano.','PENDENTE')
+            VALUES (@idProjeto,'','Conforme Art 2º da Instrução Normativa nº 5/2017, o per&iacute;odo para apresentação de propostas culturais &eacute; de 1º de fevereiro at&eacute; 30 de novembro de cada ano.','PENDENTE')
             SET @Flag = 1
      END
 ELSE
@@ -616,7 +616,7 @@ ELSE
 --============================================================================================================
 BEGIN
   ----------------------------------------------------------------------------------------------------------
-  --REGRA DE NEGÓCIO - VERIFICAR CNAE CULTURAL EM PESSOAS JURÍDICAS
+  --REGRA DE NEG&oacute;CIO - VERIFICAR CNAE CULTURAL EM PESSOAS JUR&iacute;DICAS
   ----------------------------------------------------------------------------------------------------------
 /*
   IF @tpPessoa = 1
@@ -636,7 +636,7 @@ BEGIN
 
      BEGIN
        INSERT INTO #Verificacao
-           VALUES (@idProjeto,'','<font color=blue><b>Conforme Art 7º, §3º da Instrução Normativa nº 1/2017, o proponente deverá está classificado no CNAE cultural correspondente a área e segmento cultural do proposta apresentada.</b></font>','PENDENTE')
+           VALUES (@idProjeto,'','<font color=blue><b>Conforme Art 7º, §3º da Instrução Normativa nº 1/2017, o proponente dever&aacute; est&aacute; classificado no CNAE cultural correspondente a &aacute;rea e segmento cultural do proposta apresentada.</b></font>','PENDENTE')
         SET @Flag = 1
      END
 */
@@ -649,7 +649,7 @@ BEGIN
 					                   AND Correspondencia = 1)
      BEGIN
        INSERT INTO #Verificacao
-           VALUES (@idProjeto,'Endereco','Dados cadastrais do proponente inexistente ou não há endereço selecionado para correspondência.','PENDENTE')
+           VALUES (@idProjeto,'Endereco','Dados cadastrais do proponente inexistente ou não h&aacute; endereço selecionado para correspondência.','PENDENTE')
        SET @Flag = 1
      END
   --------------------------------------------------------------------------------------------------------------
@@ -662,7 +662,7 @@ BEGIN
 
     BEGIN
       INSERT INTO #Verificacao
-          VALUES (@idProjeto,'','Proponente em situação INADIMPLENTE junto ao Ministério da Cultura, conforme disposto na alínea C, inciso I do Art. 58 da Instrução Normativa nº 5/2017.','PENDENTE')
+          VALUES (@idProjeto,'','Proponente em situação INADIMPLENTE junto ao Minist&eacute;rio da Cultura, conforme disposto na al&iacute;nea C, inciso I do Art. 58 da Instrução Normativa nº 5/2017.','PENDENTE')
           SET @Flag = 1
     END
    --------------------------------------------------------------------------------------------------------------
@@ -676,10 +676,10 @@ BEGIN
 									  AND idpreprojeto = @idProjeto)
     BEGIN
       INSERT INTO #Verificacao
-          VALUES (@idProjeto,'','Proponente em situação IRREGULAR no Ministério da Cultura.','PENDENTE')
+          VALUES (@idProjeto,'','Proponente em situação IRREGULAR no Minist&eacute;rio da Cultura.','PENDENTE')
           SET @Flag = 1
     END --------------------------------------------------------------------------------------------------------------
-  -- 6 VERIFICAR SE HÁ OS EMAILS DO PROPONENTE CADASTRADOS
+  -- 6 VERIFICAR SE H&aacute; OS EMAILS DO PROPONENTE CADASTRADOS
   --------------------------------------------------------------------------------------------------------------
   IF NOT EXISTS(SELECT TOP 1 a.* FROM  Agentes.dbo.Internet    a
                                     INNER JOIN sac.dbo.PreProjeto b on (a.idAgente = b.idAgente)
@@ -691,7 +691,7 @@ BEGIN
        SET @Flag = 1
     END
   --------------------------------------------------------------------------------------------------------------
-  -- 7 NO CASO DE PESSOA FÍSICA, VERIFICAR O LANÇAMENTO DA DATA DE NASCIMENTO
+  -- 7 NO CASO DE PESSOA F&iacute;SICA, VERIFICAR O LANÇAMENTO DA DATA DE NASCIMENTO
   --------------------------------------------------------------------------------------------------------------
   IF @tpPessoa = 0
      BEGIN
@@ -703,7 +703,7 @@ BEGIN
           END
      END
   --------------------------------------------------------------------------------------------------------------
-  -- 8 NO CASO DE PESSOA JURÍDICA, VERIFICAR O LANÇAMENTO DA NATUREZA DO PROPONENTE
+  -- 8 NO CASO DE PESSOA JUR&iacute;DICA, VERIFICAR O LANÇAMENTO DA NATUREZA DO PROPONENTE
   --------------------------------------------------------------------------------------------------------------
   IF @tpPessoa = 1
      BEGIN
@@ -716,7 +716,7 @@ BEGIN
             SET @Flag = 1
           END
        ----------------------------------------------------------------------------------------------------------
-       -- 9 VERIFICAR SE HÁ DIRIGENTE CADASTRADO
+       -- 9 VERIFICAR SE H&aacute; DIRIGENTE CADASTRADO
        ----------------------------------------------------------------------------------------------------------
        IF NOT EXISTS(SELECT TOP 1 a.*
                        FROM Agentes.dbo.Agentes as a
@@ -732,7 +732,7 @@ BEGIN
           END
      END
   -------------------------------------------------------------------------------------------------------------
-  -- 10 REGRA DE NEGÓCIO - DOS PLANOS ANUAIS - VERIFICAR SE A ENTIDADE É SEM FINS LUCRATIVOS
+  -- 10 REGRA DE NEG&oacute;CIO - DOS PLANOS ANUAIS - VERIFICAR SE A ENTIDADE &eacute; SEM FINS LUCRATIVOS
   -------------------------------------------------------------------------------------------------------------
   IF @stProposta = 614 AND (@tpDireito = 2 OR (@tpDireito = 1 AND @tpEsfera = 5))
      BEGIN
@@ -741,7 +741,7 @@ BEGIN
        SET @Flag = 1
      END
   -------------------------------------------------------------------------------------------------------------
-  -- 11 REGRA DE NEGÓCIO - DO PRINCÍPIO DA NÃO CONCENTRAÇÃO
+  -- 11 REGRA DE NEG&oacute;CIO - DO PRINC&iacute;PIO DA NÃO CONCENTRAÇÃO
   -------------------------------------------------------------------------------------------------------------
   IF @tpPessoa = 1
      BEGIN
@@ -749,21 +749,21 @@ BEGIN
           BEGIN
 	        IF @qtProjetos > 10 OR (@Regiao = 0 AND @qtProjetos > 15)
 	            ---------------------------------------------------------------------------------------------------
-                --12 REGRA DE NEGÓCIO - LIMITE DE QUANTITATIVO DE PROJETOS ATIVOS NO SALIC
+                --12 REGRA DE NEG&oacute;CIO - LIMITE DE QUANTITATIVO DE PROJETOS ATIVOS NO SALIC
                 ---------------------------------------------------------------------------------------------------
                BEGIN
                  INSERT INTO #Verificacao
-                     VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 1, o proponente atingiu o limite máximo 10 (dez) de projetos ativos no SALIC','PENDENTE')
+                     VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 1, o proponente atingiu o limite m&aacute;ximo 10 (dez) de projetos ativos no SALIC','PENDENTE')
                  SET @Flag = 1
                END
 	        IF @vlAprovado > 40000000 AND @Secretaria = 0 AND @stProposta IN (610,618,619)
 		       ---------------------------------------------------------------------------------------------------
-               --13 REGRA DE NEGÓCIO - 10.2.3 - LIMITE DO MONTANTE DE PROJETOS ATIVOS NO SALIC
+               --13 REGRA DE NEG&oacute;CIO - 10.2.3 - LIMITE DO MONTANTE DE PROJETOS ATIVOS NO SALIC
 		       ---                 - 10.5, 10.5.1, 10.5.2, 10.5.3, 10.5.4, 10.5.5, 10.5.6, 10.7
 		       ---------------------------------------------------------------------------------------------------
                BEGIN
                  INSERT INTO #Verificacao
-                     VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 1, o proponente atingiu o limite máximo de R$ 40 milhões em projetos ativos no SALIC','PENDENTE')
+                     VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 1, o proponente atingiu o limite m&aacute;ximo de R$ 40 milhões em projetos ativos no SALIC','PENDENTE')
                  SET @Flag = 1
                END
 	        IF ((@Regiao = 0 AND @CustoDoProjeto > 15000000) OR (@Regiao = 1 AND @CustoDoProjeto > 10000000))
@@ -771,12 +771,12 @@ BEGIN
 	        -- IF (@CustoDoProjeto > 10000000 OR (@Regiao = 0 AND @CustoDoProjeto > 15000000))
 	        --   AND @Secretaria = 0 AND @stProposta IN (610,618,619)
 		       ---------------------------------------------------------------------------------------------------
-               -- 14 REGRA DE NEGÓCIO - 10.2.3 - LIMITE DO MONTANTE DE PROJETOS ATIVOS NO SALIC
+               -- 14 REGRA DE NEG&oacute;CIO - 10.2.3 - LIMITE DO MONTANTE DE PROJETOS ATIVOS NO SALIC
 		       ---                 - 10.5, 10.5.1, 10.5.2, 10.5.3, 10.5.4, 10.5.5, 10.5.6, 10.7
 		       ---------------------------------------------------------------------------------------------------
                BEGIN
                  INSERT INTO #Verificacao
-                     VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 1, o proponente atingiu o limite máximo de R$ 10 milhões por projetos.','PENDENTE')
+                     VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 1, o proponente atingiu o limite m&aacute;ximo de R$ 10 milhões por projetos.','PENDENTE')
                  SET @Flag = 1
                END
           END
@@ -785,34 +785,34 @@ BEGIN
      BEGIN
 	   IF @qtProjetos > 4 --OR (@Regiao = 0 AND @qtProjetos > 6)
 	      ---------------------------------------------------------------------------------------------------
-          --15 REGRA DE NEGÓCIO - LIMITE DE QUANTITATIVO DE PROJETOS ATIVOS NO SALIC
+          --15 REGRA DE NEG&oacute;CIO - LIMITE DE QUANTITATIVO DE PROJETOS ATIVOS NO SALIC
           ---------------------------------------------------------------------------------------------------
           BEGIN
             INSERT INTO #Verificacao
-                 VALUES (@idProjeto,'','Conforme Art 4 da Instrução Normativa nº 5/2017, o proponente atingiu o limite máximo de 4 (quatro) projetos ativos no SALIC','PENDENTE')
+                 VALUES (@idProjeto,'','Conforme Art 4 da Instrução Normativa nº 5/2017, o proponente atingiu o limite m&aacute;ximo de 4 (quatro) projetos ativos no SALIC','PENDENTE')
             SET @Flag = 1
           END
        IF @vlAprovado > 1500000
           BEGIN
 		    ---------------------------------------------------------------------------------------------------
-            --16 REGRA DE NEGÓCIO - LIMITE DO MONTANTE DE PROJETOS ATIVOS NO SALIC
+            --16 REGRA DE NEG&oacute;CIO - LIMITE DO MONTANTE DE PROJETOS ATIVOS NO SALIC
 		    ---------------------------------------------------------------------------------------------------
             INSERT INTO #Verificacao
-                VALUES (@idProjeto,'','Conforme Art 4º da Instrução Normativa nº 5/2017, o proponente atingiu o limite máximo deR$ 1.500.000,00 em projetos ativos no SALIC','PENDENTE')
+                VALUES (@idProjeto,'','Conforme Art 4º da Instrução Normativa nº 5/2017, o proponente atingiu o limite m&aacute;ximo deR$ 1.500.000,00 em projetos ativos no SALIC','PENDENTE')
             SET @Flag = 1
           END
        IF @CustoDoProjeto > 700000 OR (@Regiao = 0 AND @CustoDoProjeto > 1050000)
           BEGIN
 		    ---------------------------------------------------------------------------------------------------
-            -- 17 REGRA DE NEGÓCIO - 10.2.1 - LIMITE POR PROJETOS
+            -- 17 REGRA DE NEG&oacute;CIO - 10.2.1 - LIMITE POR PROJETOS
 		    ---------------------------------------------------------------------------------------------------
             INSERT INTO #Verificacao
-                VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 1, o proponente atingiu o limite máximo de R$ 700.000,00 por projetos.','PENDENTE')
+                VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 1, o proponente atingiu o limite m&aacute;ximo de R$ 700.000,00 por projetos.','PENDENTE')
             SET @Flag = 1
           END
 	 END
   --============================================================================================================
-  -- 20 REGRA DE NEGÓCIO - VERIFICAR SE EXISTE NO MÍNIMO 90 DIAS ENTRE A DATA DE ENVIO E O INÍCIO DO PERÍODO
+  -- 20 REGRA DE NEG&oacute;CIO - VERIFICAR SE EXISTE NO M&iacute;NIMO 90 DIAS ENTRE A DATA DE ENVIO E O IN&iacute;CIO DO PER&iacute;ODO
   --                    DE EXECUÇÃO DO PROJETO
   --============================================================================================================
   IF NOT EXISTS(SELECT TOP 1 * FROM sac.dbo.tbMovimentacao a WHERE a.Movimentacao <> 95)
@@ -820,12 +820,12 @@ BEGIN
 	   IF DATEDIFF(DAY,GETDATE(),@DtInicioDeExecucao) < 90
           BEGIN
             INSERT INTO #Verificacao
-               VALUES (@idProjeto,'PeriodoExecucao','Conforme Art 2º da Instrução Normativa nº 5/2017, não serão admitidas propostas culturais apresentadas em prazo inferior a 90 (noventa) dias da data prevista para o início de sua pré-produção.','PENDENTE')
+               VALUES (@idProjeto,'PeriodoExecucao','Conforme Art 2º da Instrução Normativa nº 5/2017, não serão admitidas propostas culturais apresentadas em prazo inferior a 90 (noventa) dias da data prevista para o in&iacute;cio de sua pr&eacute;-produção.','PENDENTE')
             SET @Flag = 1
           END
      END
   --============================================================================================================
-  -- 21 VERIFICAR SE O LOCAL DE REALIZAÇÃO ESTÁ CADASTRADO
+  -- 21 VERIFICAR SE O LOCAL DE REALIZAÇÃO EST&aacute; CADASTRADO
   --============================================================================================================
   IF NOT EXISTS(SELECT TOP 1 * FROM Abrangencia WHERE idProjeto = @idProjeto)
      BEGIN
@@ -834,7 +834,7 @@ BEGIN
           SET @Flag = 1
      END
   --============================================================================================================
-  -- 22 VERIFICAR SE O PLANO DE DISTRIBUIÇÃO DO PRODUTO ESTÁ PREENCHIDO
+  -- 22 VERIFICAR SE O PLANO DE DISTRIBUIÇÃO DO PRODUTO EST&aacute; PREENCHIDO
   --============================================================================================================
   IF NOT EXISTS(SELECT * FROM PlanoDistribuicaoProduto WHERE idProjeto = @idProjeto)
      BEGIN
@@ -852,27 +852,27 @@ BEGIN
   IF @qtProdutoPrincipal = 0
      BEGIN
        INSERT INTO #Verificacao
-            VALUES (@idProjeto,'PlanoDistribuicao','Não há produto principal selecionado na proposta.','PENDENTE')
+            VALUES (@idProjeto,'PlanoDistribuicao','Não h&aacute; produto principal selecionado na proposta.','PENDENTE')
        SET @Flag = 1
      END
 
   IF @qtProdutoPrincipal > 1
      BEGIN
        INSERT INTO #Verificacao
-            VALUES (@idProjeto,'PlanoDistribuicao','Só é permitido um produto principal por proposta, a sua está com mais de um produto principal cadastrado.','PENDENTE')
+            VALUES (@idProjeto,'PlanoDistribuicao','S&oacute; &eacute; permitido um produto principal por proposta, a sua est&aacute; com mais de um produto principal cadastrado.','PENDENTE')
        SET @Flag = 1
      END
   --============================================================================================================
-  -- 24 VERIFICAR SE EXISTE NA PLANILHA ORÇAMENTÁRIA ITENS DA FONTE INCENTIVO FISCAL FEDERAL.
+  -- 24 VERIFICAR SE EXISTE NA PLANILHA ORÇAMENT&aacute;RIA ITENS DA FONTE INCENTIVO FISCAL FEDERAL.
   --============================================================================================================
   IF NOT EXISTS(SELECT TOP 1 * FROM sac.dbo.tbPlanilhaProposta WHERE FonteRecurso = 109 and idProjeto = @idProjeto)
      BEGIN
        INSERT INTO #Verificacao
-            VALUES (@idProjeto,'Planilha','Não existe item orçamentário referente a fonte de recurso - Incentivo Fiscal Federal.','PENDENTE')
+            VALUES (@idProjeto,'Planilha','Não existe item orçament&aacute;rio referente a fonte de recurso - Incentivo Fiscal Federal.','PENDENTE')
        SET @Flag = 1
      END
   --============================================================================================================
-  -- 25 VERIFICAR SE EXISTE NA PLANILHA ORÇAMENTÁRIA ITENS DA ETAPA Assessoria Contábil e Juridica - CONTADOR
+  -- 25 VERIFICAR SE EXISTE NA PLANILHA ORÇAMENT&aacute;RIA ITENS DA ETAPA Assessoria Cont&aacute;bil e Juridica - CONTADOR
   --============================================================================================================
   IF NOT EXISTS(SELECT TOP 1 * FROM sac.dbo.tbPlanilhaProposta
                                WHERE FonteRecurso = 109
@@ -880,11 +880,11 @@ BEGIN
 							         AND idProjeto = @idProjeto)
      BEGIN
        INSERT INTO #Verificacao
-            VALUES (@idProjeto,'Planilha','Não existe previsão orçamentária para contador.','PENDENTE')
+            VALUES (@idProjeto,'Planilha','Não existe previsão orçament&aacute;ria para contador.','PENDENTE')
        SET @Flag = 1
      END
    --============================================================================================================
-  -- 26 VERIFICAR SE EXISTE NA PLANILHA ORÇAMENTÁRIA ITENS DA ETAPA Assessoria Contábil e Juridica - ADVOGADO
+  -- 26 VERIFICAR SE EXISTE NA PLANILHA ORÇAMENT&aacute;RIA ITENS DA ETAPA Assessoria Cont&aacute;bil e Juridica - ADVOGADO
   --============================================================================================================
   IF NOT EXISTS(SELECT TOP 1 * FROM sac.dbo.tbPlanilhaProposta
                                WHERE FonteRecurso = 109
@@ -892,11 +892,11 @@ BEGIN
 							         AND idProjeto = @idProjeto)
      BEGIN
        INSERT INTO #Verificacao
-            VALUES (@idProjeto,'Planilha','Não existe previsão orçamentária para advogado.','PENDENTE')
+            VALUES (@idProjeto,'Planilha','Não existe previsão orçament&aacute;ria para advogado.','PENDENTE')
        SET @Flag = 1
      END
   --============================================================================================================
-  -- 27 VERIFICAR SE EXISTE ITEM ORÇAMENTÁRIO NA PLANILHA PARA CADA PRODUTO DESCRITO NO PLANO DE DISTRIBUIÇÃO DO PRODUTO
+  -- 27 VERIFICAR SE EXISTE ITEM ORÇAMENT&aacute;RIO NA PLANILHA PARA CADA PRODUTO DESCRITO NO PLANO DE DISTRIBUIÇÃO DO PRODUTO
   --============================================================================================================
   IF EXISTS(SELECT * FROM sac.dbo.PlanoDistribuicaoProduto   a WHERE a.idProjeto = @idProjeto
      AND NOT EXISTS(SELECT * FROM sac.dbo.tbPlanilhaProposta b WHERE     b.idProjeto = @idProjeto
@@ -904,48 +904,48 @@ BEGIN
 																	 AND a.idProduto <> 0))
      BEGIN
        INSERT INTO #Verificacao
-           VALUES (@idProjeto,'Planilha','Existe produto cadastrado sem a respectiva planilha orcamentária cadastrada.','PENDENTE')
+           VALUES (@idProjeto,'Planilha','Existe produto cadastrado sem a respectiva planilha orcament&aacute;ria cadastrada.','PENDENTE')
        SET @Flag = 1
      END
   --============================================================================================================
-  --28 REGRA DE NEGÓCIO - CUSTO BENEFÍCIO  - VALOR DO PROJETO / QUANTIDADE PRODUZIDA)
+  --28 REGRA DE NEG&oacute;CIO - CUSTO BENEF&iacute;CIO  - VALOR DO PROJETO / QUANTIDADE PRODUZIDA)
   --============================================================================================================
   IF @CustoBeneficio > 375  AND @stProposta = 610
      BEGIN
        INSERT INTO #Verificacao
-           VALUES (@idProjeto,'','Conforme Art 4º da Instrução Normativa nº 5/2017, o valor máximo do produto cultural, por beneficiário, será de até R$ 375,00 (trezentos e setenta e cinco reais)','PENDENTE')
+           VALUES (@idProjeto,'','Conforme Art 4º da Instrução Normativa nº 5/2017, o valor m&aacute;ximo do produto cultural, por benefici&aacute;rio, ser&aacute; de at&eacute; R$ 375,00 (trezentos e setenta e cinco reais)','PENDENTE')
        SET @Flag = 1
      END
   --============================================================================================================
-  --REGRA DE NEGÓCIO - 22 - DAS VEDAÇÕES
+  --REGRA DE NEG&oacute;CIO - 22 - DAS VEDAÇÕES
   --============================================================================================================
   --------------------------------------------------------------------------------------------------------------
-  -- 29 REGRA DE NEGÓCIO - VERIFICAR SE A RECEITA PREVISTA É MAIOR DO QUE O CUSTO TOTAL DO PROJETO - MÉTRICA
+  -- 29 REGRA DE NEG&oacute;CIO - VERIFICAR SE A RECEITA PREVISTA &eacute; MAIOR DO QUE O CUSTO TOTAL DO PROJETO - M&eacute;TRICA
   --------------------------------------------------------------------------------------------------------------
 
   IF @ReceitaPrevista > @CustoTotalDoProjeto
       BEGIN
         INSERT INTO #Verificacao
-            VALUES (@idProjeto,'','A receita prevista não poderá ser superior ao custo total do projeto','PENDENTE')
+            VALUES (@idProjeto,'','A receita prevista não poder&aacute; ser superior ao custo total do projeto','PENDENTE')
         SET @Flag = 1
       END
   --------------------------------------------------------------------------------------------------------------
-  -- 30 REGRA DE NEGÓCIO - VERIFICAR SE CUSTO DO PROUDTO SECUNDÁRIO E MAIOR DO QUE O DO PRODUTO PRINCIPAL - MÉTRICA
+  -- 30 REGRA DE NEG&oacute;CIO - VERIFICAR SE CUSTO DO PROUDTO SECUND&aacute;RIO E MAIOR DO QUE O DO PRODUTO PRINCIPAL - M&eacute;TRICA
   --------------------------------------------------------------------------------------------------------------
   IF @QtdeVendaProponente > @CustoDoProdutoPrincipal
       BEGIN
         INSERT INTO #Verificacao
-            VALUES (@idProjeto,'','Previsão de custos relativos a um Produto Secundário superiores aos custos relativos ao Produto Principal','PENDENTE')
+            VALUES (@idProjeto,'','Previsão de custos relativos a um Produto Secund&aacute;rio superiores aos custos relativos ao Produto Principal','PENDENTE')
         SET @Flag = 1
       END
   --------------------------------------------------------------------------------------------------------------
-  -- Regra Migrada para Aplicação - 31 REGRA DE NEGÓCIO - VERIFICAR PREÇO MÉDIO DO INGRESSO (R$ 225,00) MÉTRICA -
+  -- Regra Migrada para Aplicação - 31 REGRA DE NEG&oacute;CIO - VERIFICAR PREÇO M&eacute;DIO DO INGRESSO (R$ 225,00) M&eacute;TRICA -
   --------------------------------------------------------------------------------------------------------------
   /** IF @QtdeVendaProponente > 0
      IF (@PrecoVendaProponente / @QtdeVendaProponente) > 150
      BEGIN
           INSERT INTO #Verificacao
-              VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 5/2017, o preço médio do produto do ingresso ou produto está superior a R$ 225,00','PENDENTE')
+              VALUES (@idProjeto,'','Conforme Art 20 da Instrução Normativa nº 5/2017, o preço m&eacute;dio do produto do ingresso ou produto est&aacute; superior a R$ 225,00','PENDENTE')
           SET @Flag = 1
      END
   END **/
@@ -955,13 +955,13 @@ BEGIN
 IF @Flag = 1
    BEGIN
      INSERT INTO #Verificacao
-            VALUES (@idProjeto,'','<font color=red><b> A PROPOSTA CULTURAL NÃO FOI ENVIADA AO MINISTÉRIO DA CULTURA DEVIDO ÀS PENDÊNCIAS ASSINALADAS ACIMA.</b></font>','')
+            VALUES (@idProjeto,'','<font color=red><b> A PROPOSTA CULTURAL NÃO FOI ENVIADA AO MINIST&eacute;RIO DA CULTURA DEVIDO ÀS PENDÊNCIAS ASSINALADAS ACIMA.</b></font>','')
    END
 ELSE
 IF @Flag = 0
    BEGIN
       -- ----------------------------------------------------------------------------------------------------
-      --  AJUSTAR A UF E O MUNICÍPIO DOS CUSTOS VINCULADOS
+      --  AJUSTAR A UF E O MUNIC&iacute;PIO DOS CUSTOS VINCULADOS
       -- ----------------------------------------------------------------------------------------------------
 	   SELECT TOP 1 @idUFDespesa = b.UfDespesa,@idMuncipioDespesa = b.MunicipioDespesa,@idUsuario = idUsuario
         FROM sac.dbo.PlanoDistribuicaoProduto a
@@ -1014,7 +1014,7 @@ where enquadramento.ultima_sugestao is null
 --COMMIT TRANSACTION ;
 --ROLLBACK TRANSACTION ;
 
--- Definindo coluna id_orgao_superior como obrigatório
+-- Definindo coluna id_orgao_superior como obrigat&oacute;rio
 ALTER TABLE sac.dbo.sugestao_enquadramento ALTER COLUMN ultima_sugestao BIT NOT NULL;
 
 ----------------------------------
@@ -1024,7 +1024,7 @@ ALTER TABLE sac.dbo.sugestao_enquadramento ADD id_distribuicao_avaliacao_propost
 ALTER TABLE sac.dbo.sugestao_enquadramento ADD CONSTRAINT sugestao_enquadramento_distribuicao_avaliacao_proposta_id_distribuicao_avaliacao_proposta_fk FOREIGN KEY (id_distribuicao_avaliacao_proposta) REFERENCES distribuicao_avaliacao_proposta (id_distribuicao_avaliacao_proposta);
 
 -----------------------------------------------------------------------------------------------------------------------
--- Atualização sugestões distribuídas à partir de perfis diferentes de Técnico de admissibilidade,
+-- Atualização sugestões distribu&iacute;das à partir de perfis diferentes de T&eacute;cnico de admissibilidade,
 -- que ainda não possuem registro na tabela "distribuicao_avaliacao_proposta" quando fazem a primeira sugestão de
 -- enquadramento.
 -----------------------------------------------------------------------------------------------------------------------
@@ -1051,5 +1051,5 @@ update enquadramento set id_orgao_superior = tabela_temporaria.id_orgao_superior
              from sac.dbo.PreProjeto) tabela_temporaria on enquadramento.id_preprojeto = tabela_temporaria.id_preprojeto
  where enquadramento.id_orgao_superior is null
 
--- Definindo coluna id_orgao_superior como obrigatório
+-- Definindo coluna id_orgao_superior como obrigat&oacute;rio
 ALTER TABLE sac.dbo.sugestao_enquadramento ALTER COLUMN id_orgao_superior INT NOT NULL

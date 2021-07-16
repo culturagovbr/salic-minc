@@ -206,7 +206,7 @@ export default {
             textoAjuda: 'Todos os produtos que estão nesta unidade serão distribuidos/encaminhados.',
             tipoAcao: 'distribuir',
             distribuirProjeto: false,
-            obrigatorio: v => !!v || 'Este campo é obrigatório',
+            obrigatorio: v => !!v || 'Este campo &eacute; obrigat&oacute;rio',
         };
     },
 

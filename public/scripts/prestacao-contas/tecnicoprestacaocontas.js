@@ -110,7 +110,7 @@ function JSEncaminharParaConsultoriaDI(idPronac,idOrgaoDestino)
     }else if(idOrgaoDestino == 12){
         title = 'Consultoria - CONJUR';
     }else{
-        title = 'Encaminhar Projeto para Análise';
+        title = 'Encaminhar Projeto para An&aacute;lise';
     }
     $("#divDinamica").dialog({
         resizable: true,

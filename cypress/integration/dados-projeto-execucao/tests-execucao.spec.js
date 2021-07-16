@@ -1,5 +1,5 @@
 describe('Testes dos Sub-menu Execucao', function () {
-    it('Verifica se há pelo menos um item no sub-menu - "Marcas Anexadas" ', function () {
+    it('Verifica se h&aacute; pelo menos um item no sub-menu - "Marcas Anexadas" ', function () {
         cy.get('#pronac').type('171313{enter}');
         cy.get(':nth-child(6) > .collapsible > .bold > .collapsible-header > span').click();
 

@@ -62,7 +62,7 @@
                                 color="primary"
                                 @click="nextStep(index + 1)"
                             >
-                                Próximo
+                                Pr&oacute;ximo
                             </v-btn>
                         </div>
                     </v-stepper-content>
@@ -71,8 +71,8 @@
             <s-mensagem
                 v-else-if="isDisponivelParaAssinatura"
                 :url-retorno="`${urlAssinatura}?idDocumentoAssinatura=${produto.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
-                texto="Você concluiu a análise do produto.
-                Para finalizar a análise do projeto você deverá assinar o documento com o parecer!"
+                texto="Você concluiu a an&aacute;lise do produto.
+                Para finalizar a an&aacute;lise do projeto você dever&aacute; assinar o documento com o parecer!"
                 msg-url-retorno="Ir para o documento"
                 type="success"
             />
@@ -143,7 +143,7 @@ export default {
         arraySteps: [
             {
                 id: 1,
-                label: 'Análise de conteúdo',
+                label: 'An&aacute;lise de conte&uacute;do',
                 message: '',
                 name: 'analise-conteudo',
                 complete: false,
@@ -152,7 +152,7 @@ export default {
             },
             {
                 id: 2,
-                label: 'Análise de custos',
+                label: 'An&aacute;lise de custos',
                 message: '',
                 name: 'analise-de-custos',
                 complete: false,
@@ -170,7 +170,7 @@ export default {
             },
             {
                 id: 4,
-                label: 'Finalizar análise',
+                label: 'Finalizar an&aacute;lise',
                 message: '',
                 name: 'analise-finalizacao',
                 complete: false,

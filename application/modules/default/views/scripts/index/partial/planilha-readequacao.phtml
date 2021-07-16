@@ -7,7 +7,7 @@
     $TotalAprovado = 0;
     $disponivelParaAdicaoItensReadequacaoPlanilha = $this->DisponivelParaAdicaoItensReadequacaoPlanilha($this->idPronac);
     $disponivelParaEdicaoReadequacaoPlanilha = $this->DisponivelParaEdicaoReadequacaoPlanilha($this->idPronac);
-    
+
     if(is_array($this->planilha) && count($this->planilha)>0) foreach ($this->planilha as $fonte => $planilha) { //ForeachFonteIncentivo
         ?>
         <tr>
@@ -66,10 +66,10 @@
                         $disponivelParaAdicaoItensReadequacaoPlanilha &&
                         $this->link
                     ) ? true : false;
-                    
+
                     ?>
-                    
-                    <?php if ($podeAdicionarItem) : ?>                    
+
+                    <?php if ($podeAdicionarItem) : ?>
 				<a class="waves-effect waves-light btn white-text btn-incluir-novo-item"
 				   id_fonte="<?php echo $item['idFonte']; ?>"
 				   id_produto="<?php echo $item['idProduto']; ?>"
@@ -113,7 +113,7 @@
                                         $this->link,
                                         $disponivelParaEdicaoReadequacaoPlanilha
                                     );
-                                    
+
                                     $vlAprovado += $planilha['vlAprovado'];
                                     // soma somente quando não tiver excluído o item
                                     if($planilha['tpAcao'] != 'E'){

@@ -80,7 +80,7 @@
                                 history
                             </v-icon>
                         </v-btn>
-                        <span>Visualizar histórico</span>
+                        <span>Visualizar hist&oacute;rico</span>
                     </v-tooltip>
                 </td>
             </tr>
@@ -92,7 +92,7 @@
 
         <template slot="no-data">
             <div class="text-xs-center">
-                Sem produtos em análise
+                Sem produtos em an&aacute;lise
             </div>
         </template>
     </v-data-table>

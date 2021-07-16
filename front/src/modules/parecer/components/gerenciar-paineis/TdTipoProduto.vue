@@ -22,7 +22,7 @@
             >
                 looks_two
             </v-icon>
-            <span>Produto secundário</span>
+            <span>Produto secund&aacute;rio</span>
         </v-tooltip>
     </td>
 </template>

@@ -1146,6 +1146,7 @@ class Agente_Model_DbTable_Agentes extends MinC_Db_Table_Abstract
         $slct->where('b.siVinculo = ?', 2);
         $slct->where(new Zend_Db_Expr('a.CNPJCPF = c.Cpf'));
 //        echo $slct;
+
         return $this->fetchAll($slct);
     }
 }

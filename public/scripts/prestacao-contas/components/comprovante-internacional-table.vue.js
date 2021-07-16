@@ -14,7 +14,7 @@ Vue.component('sl-comprovante-internacional-table', {
                     <tr>
                         <th>Tipo Comprovante</th>
                         <td>{{tipoDocumento}}</td>
-                        <th>N�mero</th>
+                        <th>N�mero</th>
                         <td>{{dados.numero}}</td>
                         <th>S&eacute;rie</th>
                         <td colspan="3">{{dados.serie}}</td>
@@ -66,7 +66,7 @@ Vue.component('sl-comprovante-internacional-table', {
                 CNPJCPF = this.dados.fornecedor.CNPJCPF.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5');
             } else {
                 CNPJCPF = this.dados.fornecedor.CNPJCPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4');
-            } 
+            }
             return CNPJCPF;
         },
         dataEmissaoComprovante() {
@@ -75,7 +75,7 @@ Vue.component('sl-comprovante-internacional-table', {
         dataPagamentoFormatado() {
             if (moment(this.dados.dataPagamento).isValid()){
                 return moment(this.dados.dataPagamento).format('DD/MM/Y');
-            } 
+            }
             return moment(this.dados.dataPagamento, 'DD/MM/Y').format('DD/MM/Y');
         },
         tipoDocumento() {
@@ -96,7 +96,7 @@ Vue.component('sl-comprovante-internacional-table', {
             forma = '';
             switch(parseInt(this.dados.forma)) {
                 case 1: forma = 'Cheque'; break;
-                case 2: forma = 'Transferência Bancária'; break;
+                case 2: forma = 'Transferência Banc&aacute;ria'; break;
                 case 3: forma = 'Saque/Dinheiro'; break;
             }
 

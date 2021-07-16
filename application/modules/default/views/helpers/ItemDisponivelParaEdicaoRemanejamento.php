@@ -18,7 +18,7 @@ class Zend_View_Helper_ItemDisponivelParaEdicaoRemanejamento extends Zend_View_H
             PlanilhaEtapa::ETAPA_CUSTOS_VINCULADOS,
             PlanilhaEtapa::ETAPA_CAPTACAO_RECURSOS
         ];
-        
+
         if (($planilha['tpAcao'] != 'E') &&
             $fonte == '0' &&
             $planilha['vlAprovado'] > $planilha['vlComprovado'] &&

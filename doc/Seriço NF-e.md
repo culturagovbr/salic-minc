@@ -1,6 +1,6 @@
 Variaveis de ambiente para conexão com serviço de NF-e, dentro do arquivo application.ini
 
-Habilita o serviço para uso da NFe:  
+Habilita o serviço para uso da NFe:
 
 ``` sh
 vim application/configs/application.ini
@@ -8,14 +8,14 @@ vim application/configs/application.ini
 
 Adicionar a linha:
 ``` ini
-nfe=true  
+nfe=true
 ```
 Essa linha e que faz as configurações e habilita o serviço da NF-e em todo o sistema.
 
 
-A autenticação é feito por ***TOKEN JWT*** para a comunicação com serviço.  
+A autenticação &eacute; feito por ***TOKEN JWT*** para a comunicação com serviço.
 ``` ini
-jwt.token='xxxxxxxxxxxx'  
+jwt.token='xxxxxxxxxxxx'
 ```
 Essa configuração precisa ser feita no serviço NF-e
 
@@ -26,10 +26,10 @@ url.hostnfe='https://localhost:8080'
 ```
 Por padrão o projeto sobe configurado com HTTPS, tenha ateno na configuração.
 
-### Resumo das configurações: 
+### Resumo das configurações:
 ``` ini
-nfe=true  
+nfe=true
 url.hostnfe='https://localhost:8080'
-jwt.token='xxxxxxxxxxxx'  
+jwt.token='xxxxxxxxxxxx'
 
 ```

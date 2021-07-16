@@ -46,10 +46,10 @@ function layout_fluido()
                 <select name="status" disabled="disabled" id="status" style="float: right; width: 12em" class="select_simples" onchange="stAnalise(<?php echo $this->stResult[0]->idAvaliacaoItemPedidoAlteracao; ?>,<?php echo $this->escape($this->idpedidoalteracao) ?>,this ,'solaltrazsoc')" >
                 <?php
                 if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AG") {
-                    echo "<option value='0' selected='selected'>Aguardando Análise</option>
-<option value='1'>Em Análise</option>";
+                    echo "<option value='0' selected='selected'>Aguardando An&aacute;lise</option>
+<option value='1'>Em An&aacute;lise</option>";
                 } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "EA") {
-                    echo "<option value='1' selected='selected'>Em Análise</option>
+                    echo "<option value='1' selected='selected'>Em An&aacute;lise</option>
 <option value='2'>Aprovado</option>
 <option value='3'>Indeferido</option>";
                 } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "AP") {

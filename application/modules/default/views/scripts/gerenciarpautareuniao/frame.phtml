@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.realizaranaliseprojeto
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
@@ -15,7 +15,7 @@
 
         //ATUALIZA QTDE. DE PROJETOS SUBMETIDOS A PLENARIA
         window.parent.$("#qtdeProjPlenaria").html("<?php echo $this->qtdplenario;?>");
-        
+
         $(".carregando").dialog({
             resizable: false,
             width:300,
@@ -29,7 +29,7 @@
 <?php if ($this->stPlenaria == 'A') { ?>
                     $(".acao").removeClass('sumir');
 <?php } ?>
-            
+
                 $(".statusvotacao").click(function(){
                     var idpronac = $(this).attr('idpronac');
                     var pronac   = $(this).attr('pronac');
@@ -77,7 +77,7 @@
                         , dataType : 'json'
                     });
                 });
-        
+
                 $(".retornar").click(function(){
                     var pronac = $(this).attr('pronac');
                     $("#alert").html("O projeto ser&aacute; reencaminhado para o componente respons&aacute;vel e o seu parecer ser&aacute; apagado. Deseja Continuar?").css('text-align','justify');
@@ -103,7 +103,7 @@
                     })
                     $("#alert").dialog("open");
                 })
-        
+
                 $.tablesorter.addWidget({
                     id: "apagardivs",
                     format: function() {
@@ -121,7 +121,7 @@
             <th>N&uacute;mero</th>
             <th>Pronac</th>
             <th>Nome do Projeto</th>
-            <th>&Aacute;rea do Projeto</th>
+            <th>Área do Projeto</th>
             <th>Segmento Cultural</th>
             <th>Parecer Favor&aacute;vel</th>
             <th>Data da an&aacute;lise</th>

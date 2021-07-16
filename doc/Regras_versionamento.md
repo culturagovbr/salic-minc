@@ -26,7 +26,7 @@ Cada desenvolvedor faz uma branch a partir das branches dev-backlog ou dev-novaI
 <https://git-scm.com/book/en/v2/Git-Basics-Tagging>
 
 
-# Número de versões
+# N&uacute;mero de versões
 
     https://en.wikipedia.org/wiki/Software_versioning#Change_significance
 
@@ -40,7 +40,7 @@ Cada desenvolvedor faz uma branch a partir das branches dev-backlog ou dev-novaI
     1.2.0 -> novas funcionalidades
     1.2.1 -> bugfixes
     2.0.0 -> reestruturacao
-    
+
     Major: alteracao completa de funcionalidades / refatoracoes
     Minor: novas funcionalidades
     Minor-minor: bugfixes
@@ -51,4 +51,4 @@ O sistema anterior estava na versão:
 
     Branch|Tag: release-1.2 Revisao: 562
 
-Portanto, o novo irá assumir a versão 1.3.0.
+Portanto, o novo ir&aacute; assumir a versão 1.3.0.

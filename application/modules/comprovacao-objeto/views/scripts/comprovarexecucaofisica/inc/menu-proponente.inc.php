@@ -1,11 +1,11 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== IN&Iacute;CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
-    <!-- início: conteúdo principal #container -->
+    <!-- IN&Iacute;CIO: conteúdo principal #container -->
     <div id="container">
 
-        <!-- início: navegação local #qm0 -->
+        <!-- IN&Iacute;CIO: navegação local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {

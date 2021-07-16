@@ -7,7 +7,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.models
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 class AnexardocumentosDAO extends Zend_Db_Table
@@ -157,7 +157,7 @@ class AnexardocumentosDAO extends Zend_Db_Table
               inner join BDCORPORATIVO.scCorp.tbArquivo a5 on (a4.idArquivo = a5.idArquivo)
               inner join BDCORPORATIVO.scCorp.tbDocumentoProjeto tap on tap.idDocumento = a4.idDocumento
         ) tb where idpronac = $idpronac and nome <> '' order by tb.tipoDocumento, tb.idDocumento";
-        
+
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 //        die('<pre>'.$sql);
@@ -165,7 +165,7 @@ class AnexardocumentosDAO extends Zend_Db_Table
         return $resultado;
     }
 
-    
+
     public static function uploadDocumento($id, $tipo)
     {
         $db= Zend_Db_Table::getDefaultAdapter();

@@ -498,7 +498,7 @@ CKEDITOR.lang['nl'] =
 		progress		: 'Bezig met spellingscontrole...',
 		noMispell		: 'Klaar met spellingscontrole: geen fouten gevonden',
 		noChanges		: 'Klaar met spellingscontrole: geen woorden aangepast',
-		oneChange		: 'Klaar met spellingscontrole: één woord aangepast',
+		oneChange		: 'Klaar met spellingscontrole: &eacute;&eacute;n woord aangepast',
 		manyChanges		: 'Klaar met spellingscontrole: %1 woorden aangepast',
 		ieSpellDownload	: 'De spellingscontrole niet geïnstalleerd. Wilt u deze nu downloaden?'
 	},

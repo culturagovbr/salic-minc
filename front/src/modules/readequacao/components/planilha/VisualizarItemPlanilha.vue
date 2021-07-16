@@ -36,7 +36,7 @@
                 xs12
                 md3
             >
-                <b>Vl. Unitário (R$)</b>
+                <b>Vl. Unit&aacute;rio (R$)</b>
                 <div>{{ localItem.vlUnitario | filtroFormatarParaReal }}</div>
             </v-flex>
             <v-flex

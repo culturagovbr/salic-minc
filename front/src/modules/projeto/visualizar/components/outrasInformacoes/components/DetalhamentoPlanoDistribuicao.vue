@@ -106,7 +106,7 @@ export default {
                     value: 'qtPopularParcial',
                 },
                 {
-                    text: 'PREÇO UNITÁRIO',
+                    text: 'PREÇO UNIT&aacute;RIO',
                     align: 'center',
                     value: 'vlUnitarioPopularIntegral',
                 },
@@ -121,7 +121,7 @@ export default {
                     value: 'qtProponenteParcial',
                 },
                 {
-                    text: 'PREÇO UNITÁRIO',
+                    text: 'PREÇO UNIT&aacute;RIO',
                     align: 'center',
                     value: 'vlUnitarioProponenteIntegral',
                 },

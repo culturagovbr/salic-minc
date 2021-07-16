@@ -14,7 +14,7 @@ class Agente_Model_DbTable_Verificacao extends MinC_Db_Table_Abstract
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-            array($this->_name), 
+            array($this->_name),
             array('idVerificacao', 'Descricao')
         );
         $select->where('idTipo = ?', $idTipo);

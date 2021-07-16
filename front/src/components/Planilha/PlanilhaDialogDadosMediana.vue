@@ -44,7 +44,7 @@
                             xs12
                             md3
                         >
-                            <b>Município</b>
+                            <b>Munic&iacute;pio</b>
                             <div>{{ mediana.Municipio }}</div>
                         </v-flex>
                         <v-flex
@@ -65,21 +65,21 @@
                             xs12
                             md3
                         >
-                            <b>Preço máximo</b>
+                            <b>Preço m&aacute;ximo</b>
                             <div>R$ {{ mediana.Preco_Maximo | filtroFormatarParaReal }}</div>
                         </v-flex>
                         <v-flex
                             xs12
                             md3
                         >
-                            <b>Preço Médio</b>
+                            <b>Preço M&eacute;dio</b>
                             <div>R$ {{ mediana.Preco_Medio | filtroFormatarParaReal }}</div>
                         </v-flex>
                         <v-flex
                             xs12
                             md3
                         >
-                            <b>Preço Mínimo</b>
+                            <b>Preço M&iacute;nimo</b>
                             <div>R$ {{ mediana.Preco_Minimo | filtroFormatarParaReal }}</div>
                         </v-flex>
                     </v-layout>

@@ -30,12 +30,12 @@ class Captacao extends MinC_Db_Table_Abstract
         $select->order('DtChegadaRecibo');
         $select->order('DtRecibo');
         return $this->fetchAll($select);
-    } 
+    }
 
     public function cadastrarDados($dados)
     {
         return $this->insert($dados);
-    } 
+    }
 
     public function alterarDados($dados, $where)
     {
@@ -263,7 +263,7 @@ class Captacao extends MinC_Db_Table_Abstract
         );
 
         $slct->where('p.IdPRONAC = ?', $idPronac);
-        
+
 
 
         return $this->fetchAll($slct);

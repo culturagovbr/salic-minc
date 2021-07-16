@@ -16,7 +16,7 @@ class Zend_View_Helper_IsProjetoEnquadrado
         $enquadramentoDAO 		= new Admissibilidade_Model_Enquadramento();
         $buscaEnquadramento 	= $enquadramentoDAO->buscarDados($idPronac, null, false);
         $countEnquadramento 	= count($buscaEnquadramento);
-        
+
         if (count($countEnquadramento) > 0) {
             return true;
         } else {

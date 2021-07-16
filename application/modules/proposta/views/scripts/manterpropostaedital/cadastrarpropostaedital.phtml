@@ -26,12 +26,12 @@ include_once 'scripts/manterpropostaedital/inc/menu.inc.php';
 
 <form>
 
-          
+
                 <table class="tabela" cellpadding="1" cellspacing="1">
                     <tr><th>Identifica��o da Proposta</th></tr>
                     <tr><tr class="fundo">   <?php foreach($this->editalpreprojeto as $tbeditalpreprojeto) ?>
                         <td><b>Proponente:</b> <?php echo $this->escape($tbeditalpreprojeto->Nome); ?></td>
-                        
+
                     </tr><?php ;?>
                     <tr>
                         <td colspan="2">
@@ -125,7 +125,7 @@ include_once 'scripts/manterpropostaedital/inc/menu.inc.php';
                         </td>
                     </tr>
                 </table>
-                
+
             </div>
 
         </div>
@@ -137,7 +137,7 @@ include_once 'scripts/manterpropostaedital/inc/menu.inc.php';
     <center>
         <a href="<?php echo $this->url(array('controller' => 'prototipos', 'action' => 'listardadospropostas')); ?>"><img src="<?php echo $this->baseUrl(); ?>/public/img/buttons/incluir.gif" /></a>
 
-       
+
     </center>
 
     <br/>

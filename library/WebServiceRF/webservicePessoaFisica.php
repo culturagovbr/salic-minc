@@ -1,22 +1,22 @@
 <?php
 
 /**
-* Classe do componente de Pessoa Fisica que gerencia a 
+* Classe do componente de Pessoa Fisica que gerencia a
 * comunicacao via webservice entre o NovoSalic e o sistema da receita federal
-* 
-* @copyright Ministério da Cultura  
+*
+* @copyright Minist&eacute;rio da Cultura
 * @author Politec/Minc - Everton Guilherme
 * @since 21/06/2010
 * @version 1.0
 */
 	class Utils_Wspf {
-		
+
 		# Constante usada na classe para conexao com o WS
 		const CAMINHO_WSDL_PF 		= "http://localhost/PessoaFisica/wsdl - exemplo - esperando a definicao da receita federal";
-		
+
 		# Atributos da classe
 		private static $objSoapCliente;
-	
+
 		/**
 		* Funcao que verifica que possui uma conexao com o WS
 		*
@@ -27,7 +27,7 @@
 		{
 			if ( is_null( self::$objSoapCliente ) )
 			{
-				try 
+				try
 				{
 					# Instanciando a classe que conecta ao WebService
 					$objSoapCliente = new SoapClient( self::CAMINHO_WSDL_PF );
@@ -38,10 +38,10 @@
 					return ( $objException->getMessage() );
 				}
 				self::$objSoapCliente = $objSoapCliente;
-			}	
+			}
 			return ( self::$objSoapCliente );
 		}
-	
+
 		/**
 		 * Carrega o dados resumidos da pessoa fisica pelo CPF
 		 *
@@ -58,7 +58,7 @@
 			if(is_null($mixResult)) return $mixResult;
 	        else return ( self::convertXmlToArray( "/*" , $mixResult ) );
 		}
-	
+
 		/**
 		 * Carrega o dados da pessoa fisica pelo CPF
 		 *
@@ -75,7 +75,7 @@
 			if(is_null($mixResult)) return $mixResult;
 	           else return ( self::convertXmlToArray( "/*" , $mixResult ) );
 		}
-		
+
 		/**
 		 * Carrega o dados de endereco da pessoa fisica pelo CPF
 		 *
@@ -92,7 +92,7 @@
 			if(is_null($mixResult)) return $mixResult;
 	        else return ( self::convertXmlToArray( "/*" , $mixResult ) );
 		}
-		
+
 		/**
 		 * Carrega o dados de contatos da pessoa fisica pelo CPF
 		 *
@@ -109,26 +109,26 @@
 			if(is_null($mixResult)) return $mixResult;
 	       else return ( self::convertXmlToArray( "/*" , $mixResult ) );
 		}
-		
+
 		/**
 		* Converte a string equivalente a um XML para array, ignorando os atributos dos nodos caso existam
 	 	* @param STRING $strPathXml
 		* @param STRING $strXml
 		* @param DOMNode $objDOMNode
 		* @return ARRAY
-		*/ 
+		*/
 		private function convertXmlToArray( $strPathXml = "/*" , $strXml = "" , $objDOMNode = NULL )
 		{
 			# Variaveis estaticas devido a recursividade
 			static $objDOMDocument;
 			static $objDOMXPath;
-		
-			# Aplicando regex para somente trabalhar a partir de determinado caminho ou pelo root (/*)	  	
+
+			# Aplicando regex para somente trabalhar a partir de determinado caminho ou pelo root (/*)
 			if ( ! ereg( "/\*$" , $strPathXml ) ) $strPathXml = ereg_replace( "/*$" , "" , $strPathXml ) . "/*";
-		
+
 			# Array de retorno
 			$arrReturn = array();
-		
+
 		# Caso seja a primeira chamada da recursividade, instancia os objetos
 		if ( $strXml )
 		{
@@ -136,13 +136,13 @@
 			$objDOMDocument->loadXML( $strXml );
 			$objDOMXPath = new DOMXPath( $objDOMDocument );
 		}
-		
+
 		# Capturando um array com os devidos nodos do caminho atual
 		$arrNode = ( $objDOMNode ) ? $objDOMXPath->query( $strPathXml , $objDOMNode ) : $objDOMXPath->query( $strPathXml );
-		
+
 		# Construindo array que armazenara o numero de ocorrencias de cada nome de nodo
 		$arrOcorrencia = array();
-		
+
 			# Varrendo array de nodos
 			foreach ( $arrNode AS $objNode )
 			{
@@ -170,11 +170,11 @@
 					}
 				}
 			}
-		
+
 			# Retorno
 			return ( $arrReturn );
 		}
-	
+
 		/**
 		* Metodo chamado quando o objeto da classe e instanciado
 		*
@@ -184,27 +184,27 @@
 		{
 			return;
 		}
-	
+
 		/**
 		* Metodo chamado quando o objeto da classe e serializado
-		* 
+		*
 		* @return VOID
 		*/
 		public function __sleep()
 		{
 			return;
 		}
-	
+
 		/**
 		* Metodo chamado quando o objeto da classe e unserializado
-		* 
+		*
 		* @return VOID
 		*/
 		public function __wakeup()
 		{
 			return;
 		}
-	
+
 		/**
 		* Caso o metodo nao seja encontrado
 		*
@@ -216,5 +216,5 @@
 		{
 			debug( "O metodo " . $strMethod . " nao foi encontrado na classe " . get_class( $this ) . ".<br />" . __FILE__ . "(linha " . __LINE__ . ")" , 1 );
 		}
-	
+
 	} // end Utils_Wsdne

@@ -49,7 +49,7 @@
                 <tr class="destacar">
                     <th align="center"><b>UF</b></th>
                     <th align="center"><b>Mecanismo</b></th>
-                    <th align="center"><b>&Aacute;rea Cultural</b></th>
+                    <th align="center"><b>&aacute;rea Cultural</b></th>
                     <th align="center"><b>Segmento Cultural</b></th>
                     <th align="center"><b>Processo</b></th>
                 </tr>
@@ -82,7 +82,7 @@
                     <td align="center">{{ dadosProjeto.DtConvenioPrimeiraVigencia }} &agrave;
                         {{ dadosProjeto.DtConvenioUltimaVigencia }}
                     </td>
-                    <!-- OBS:período entre essas datas-->
+                    <!-- OBS:per&iacute;odo entre essas datas-->
                     <td align="center">{{ dadosProjeto.NrConvenio }}</td>
                     <td align="center">{{ dadosProjeto.DtConvenio }}</td>
                     <td align="center">{{ dadosProjeto.DtConvenioPublicacao }}</td>
@@ -134,7 +134,7 @@
                         align="center"
                         colspan="3">
                         <b>
-                            Localização física do projeto
+                            Localização f&iacute;sica do projeto
                         </b>
                     </td>
                 </tr>
