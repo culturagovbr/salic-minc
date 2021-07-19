@@ -2,7 +2,7 @@
     <div>
         <v-card>
             <v-card-title>
-                <h6>COMPROVAÇÃO DE ITENS ORÇAMENTÁRIOS</h6>
+                <h6>COMPROVAÇÃO DE ITENS ORÇAMENT&aacute;RIOS</h6>
             </v-card-title>
             <v-data-table
                 :pagination.sync="pagination"

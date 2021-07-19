@@ -10,11 +10,11 @@ Este M&oacute;dulo disponibiliza a opção para que os proponentes façam solici
 #### PERFIL DO PROPONENTE
 Essa funcionalidade permite ao proponente enviar solicitação ao MinC referente a proposta ou projeto cultural.
 
-O caso de uso poderá iniciar: 
+O caso de uso poderá iniciar:
 1. pelo botão na linha da proposta;
 2. pelo botão na linha do projeto.
 
-Quando a opção escolhida for: 
+Quando a opção escolhida for:
 
 1. se o opção for na linha da proposta o sistema deverá montar a tela 2 para a solicitação do proponente.
 
@@ -41,7 +41,7 @@ INSERT INTO sac.dbo.tbSolicitacao
 SELECT ?,?,?,GETDATE(),'TEXTO DIGITADO,
 sac.dbo.fnPegarTecnico(?,?,2),NULL,NULL,NULL,1,1
 ```
- - idProposta = (idPreprojeto para proposta ou idProjeto para projeto); 
+ - idProposta = (idPreprojeto para proposta ou idProjeto para projeto);
  - idOrgao = (prospota - se abragencia for igual a zero codigo 171 senão 262. No caso de projeto é só pegar o Orgao da tabela Projetos;
  - idSolicitante = [Usuario Logado];
  - dtSolicitacao = getdate();

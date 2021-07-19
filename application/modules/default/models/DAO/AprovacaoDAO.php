@@ -7,7 +7,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.models
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 class AprovacaoDAO extends Zend_Db_Table
@@ -125,7 +125,7 @@ class AprovacaoDAO extends Zend_Db_Table
 
     public static function SomarAprovacao($idpronac=null)
     {
-        $sql = "select SUM(AprovadoReal) as soma 
+        $sql = "select SUM(AprovadoReal) as soma
                 from SAC..Aprovacao
                 where idpronac = $idpronac
                 and portariaaprovacao is not null";
@@ -133,7 +133,7 @@ class AprovacaoDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB :: FETCH_ASSOC);
         return $db->fetchRow($sql);
     }
-    
+
     public static function SomarReadeqComplementacao($idpronac=null, $tipoaprovacao=null)
     {
         $sql = "select SUM(AprovadoReal) as soma

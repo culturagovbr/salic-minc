@@ -31,7 +31,7 @@
                         Vl. Comprovado
                     </th>
                     <th class="center-align">
-                        Justf. de Readequa&ccedil;&atilde;o
+                        Justf. de Readequação
                     </th>
                     <th class="center-align">
                         A&ccedil;&atilde;o

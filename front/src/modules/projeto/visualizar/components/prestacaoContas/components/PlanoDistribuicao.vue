@@ -52,7 +52,7 @@ export default {
                     value: 'QtdeProponente',
                 },
                 {
-                    text: 'Beneficiários',
+                    text: 'Benefici&aacute;rios',
                     align: 'right',
                     value: 'QtdeOutros',
                 },

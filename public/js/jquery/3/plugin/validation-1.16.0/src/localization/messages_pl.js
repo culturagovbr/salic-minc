@@ -14,11 +14,11 @@ $.extend( $.validator.messages, {
 	creditcard: "Proszę o podanie prawidłowej karty kredytowej.",
 	equalTo: "Proszę o podanie tej samej wartości ponownie.",
 	extension: "Proszę o podanie wartości z prawidłowym rozszerzeniem.",
-	maxlength: $.validator.format( "Proszę o podanie nie więcej niż {0} znaków." ),
-	minlength: $.validator.format( "Proszę o podanie przynajmniej {0} znaków." ),
-	rangelength: $.validator.format( "Proszę o podanie wartości o długości od {0} do {1} znaków." ),
+	maxlength: $.validator.format( "Proszę o podanie nie więcej niż {0} znak&oacute;w." ),
+	minlength: $.validator.format( "Proszę o podanie przynajmniej {0} znak&oacute;w." ),
+	rangelength: $.validator.format( "Proszę o podanie wartości o długości od {0} do {1} znak&oacute;w." ),
 	range: $.validator.format( "Proszę o podanie wartości z przedziału od {0} do {1}." ),
-	max: $.validator.format( "Proszę o podanie wartości mniejszej bądź równej {0}." ),
-	min: $.validator.format( "Proszę o podanie wartości większej bądź równej {0}." ),
+	max: $.validator.format( "Proszę o podanie wartości mniejszej bądź r&oacute;wnej {0}." ),
+	min: $.validator.format( "Proszę o podanie wartości większej bądź r&oacute;wnej {0}." ),
 	pattern: $.validator.format( "Pole zawiera niedozwolone znaki." )
 } );

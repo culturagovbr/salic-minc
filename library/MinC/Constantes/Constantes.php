@@ -20,14 +20,14 @@
 class Constantes {
 
         /* =========================================================================================================== */
-	/* ================== CódigoS (ID's) REFERENTE � TABELA TIPO (SAC.dbo.Tipo) ================================== */
+	/* ================== C&oacute;digoS (ID's) REFERENTE � TABELA TIPO (SAC.dbo.Tipo) ================================== */
         /* =========================================================================================================== */
 
         /*=== valor do campo ID da tabela SAC.dbo.Tipo que referencia ao registro "Termo de "Decisao" === */
 	const cteIdTipoTermoDecisao = 19; //(no Minc (em homologacao) o valor e 19)
 
         /* =========================================================================================================== */
-	/* ================== CódigoS (ID's) REFERENTE � TABELA VERIFICACAO (SAC.dbo.Verificacao) ==================== */
+	/* ================== C&oacute;digoS (ID's) REFERENTE � TABELA VERIFICACAO (SAC.dbo.Verificacao) ==================== */
         /* =========================================================================================================== */
 	const cteIdVerificacaoTipoTermoAnaliseInicial   = 407; //(no Minc (em homologacao) o valor e 352) /*=== valor do campo ID da tabela SAC.dbo.Verificacao que referencia o registro "Inicial" (Tipo de termo de decisao) === */
 	const cteIdVerificacaoTipoTermoReadequacao      = 408; //(no Minc (em homologacao) o valor e 353) /*=== valor do campo ID da tabela SAC.dbo.Verificacao que referencia o registro "Readequa��o" (Tipo de termo de decisao) === */

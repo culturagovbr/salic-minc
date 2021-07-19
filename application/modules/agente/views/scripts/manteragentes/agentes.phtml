@@ -21,7 +21,7 @@ if($this->grupoAtivo != 118)
 		<span class="voltar">
 
 		<?php if (isset($_GET['acao']) && $_GET['acao'] == 'cc' && isset($_GET['cpf']) && !empty($_GET['cpf']) && isset($_GET['idpronac'])) { // pega do readequacao ?>
-		<a href="<?php echo $this->url(array('controller'=>'solicitaralteracao', 'action'=>'acaoprojeto')); ?>?idpronac=<?php echo $_GET['idpronac']; ?>" title="Voltar">Voltar para a Solicita&ccedil;&atilde;o de Readequa&ccedil;&atilde;o</a>
+		<a href="<?php echo $this->url(array('controller'=>'solicitaralteracao', 'action'=>'acaoprojeto')); ?>?idpronac=<?php echo $_GET['idpronac']; ?>" title="Voltar">Voltar para a Solicita&ccedil;&atilde;o de Readequação</a>
 		<?php } else {?>
 		<a href="#" onclick="voltar();">Voltar</a>
 		<?php } ?>

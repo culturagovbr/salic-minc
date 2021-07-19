@@ -1851,13 +1851,13 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
 
         $qtdArea = $tbCredenciamentoParecerista->QtdArea($idAgente);
         if ((($qtdArea[0]->qtd) >= 3) and (($qtdSegmento[0]->qtd) == 0)) {
-            parent::message("Voc&ecirc; s&oacute; pode credenciar  3 (tr&ecirc;s) &aacute;reas culturais!", "agente/agentes/credenciamento/id/" . $idAgente, "ALERT");
+            parent::message("Voc&ecirc; s&oacute; pode credenciar  3 (tr&ecirc;s) Áreas culturais!", "agente/agentes/credenciamento/id/" . $idAgente, "ALERT");
         }
 
         $verificarCadastrado = $tbCredenciamentoParecerista->verificarCadastrado($idAgente, $segmentoCultural, $areaCultural);
 
         if (count($verificarCadastrado) > 0) {
-            parent::message("&Aacute;rea e segmento j&aacute; credenciado!", "agente/agentes/credenciamento/id/" . $idAgente, "ALERT");
+            parent::message("Área e segmento j&aacute; credenciado!", "agente/agentes/credenciamento/id/" . $idAgente, "ALERT");
         }
 
         try {
@@ -2041,7 +2041,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                         $i = TitulacaoConselheiroDAO::atualizaComponente($idAgente, $AtualizarComponente);
                     }
                 } catch (Exception $e) {
-                    throw new Exception("Erro ao salvar a &aacute;rea e segmento: " . $e->getMessage());
+                    throw new Exception("Erro ao salvar a Área e segmento: " . $e->getMessage());
                 }
             }
 
@@ -2408,7 +2408,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                     $i = TitulacaoConselheiroDAO::atualizaComponente($idAgente, $AtualizarComponente);
                 }
             } catch (Exception $e) {
-                parent::message("Erro ao salvar a &aacute;rea e segmento: " . $e->getMessage(), $e->getMessage(), "agente/agentes/incluirdirigente/id/" . $idAgenteGeral, "ERROR");
+                parent::message("Erro ao salvar a Área e segmento: " . $e->getMessage(), $e->getMessage(), "agente/agentes/incluirdirigente/id/" . $idAgenteGeral, "ERROR");
             }
         }
 

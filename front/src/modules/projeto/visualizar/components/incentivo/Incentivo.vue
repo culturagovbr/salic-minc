@@ -44,7 +44,7 @@
                 <tr class="destacar">
                     <td class="centro"><b>UF</b></td>
                     <td class="centro"><b>Mecanismo</b></td>
-                    <td class="centro"><b>&Aacute;rea Cultural</b></td>
+                    <td class="centro"><b>&aacute;rea Cultural</b></td>
                     <td class="centro"><b>Segmento Cultural</b></td>
                     <td class="centro"><b>Enquadramento</b></td>
                 </tr>
@@ -427,7 +427,7 @@
                         align="center"
                         colspan="3">
                         <b>
-                            Localização física do projeto
+                            Localização f&iacute;sica do projeto
                         </b>
                     </td>
                 </tr>

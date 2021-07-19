@@ -1,10 +1,10 @@
-Existem dois tipos de fluxos principais de trabalho: features e hotfixes. 
+Existem dois tipos de fluxos principais de trabalho: features e hotfixes.
 
 # 1 - Feature (Fluxo comum de trabalho)
- 
+
  Trata-se de novas funcionalidades, melhorias e bugs de baixa prioridade.
- 
- Além da master, existem duas branches principais de trabalho no SALIC:
+
+ Al&eacute;m da master, existem duas branches principais de trabalho no SALIC:
 
                ---- develop ------
               /
@@ -14,10 +14,10 @@ Existem dois tipos de fluxos principais de trabalho: features e hotfixes.
 
 ## Develop
 
-Cada desenvolvedor criará uma branch a partir da `develop`.
+Cada desenvolvedor criar&aacute; uma branch a partir da `develop`.
 
 ### 1 - Criando uma branch a partir da branch develop
-    
+
 ```sh
     $ git checkout develop
     $ git checkout -b feature/nome-da-funcionalidade
@@ -27,7 +27,7 @@ Cada desenvolvedor criará uma branch a partir da `develop`.
               \
                o--- develop ----------------------
                 \
-                 o--- feature/nome-da-funcionalidade --        
+                 o--- feature/nome-da-funcionalidade --
 
 ### 2 - Faça commits na sua branch e envie para o github (origin)
 
@@ -36,8 +36,8 @@ Cada desenvolvedor criará uma branch a partir da `develop`.
     $ git commit -m '[UPDATE]: modulo: funcionalidade y #numero_da_issue'
     $ git push origin feature/nome-da-funcionalidade
 ```
- Para visualizar uma lista completa do padrão de versionamento de código [clique aqui](https://github.com/devbrotherhood/codeversioningpattern).
-   
+ Para visualizar uma lista completa do padrão de versionamento de c&oacute;digo [clique aqui](https://github.com/devbrotherhood/codeversioningpattern).
+
     master   o-----------------------------------------
                \
                 o---------------- develop ----------
@@ -58,32 +58,32 @@ Cada desenvolvedor criará uma branch a partir da `develop`.
                 \               \
                  o---o----o------o--- feature/nome-da-funcionalidade ---
 
-### 4 - Fluxo de revisão de código(code review) e enviando suas alterações para a branch develop
+### 4 - Fluxo de revisão de c&oacute;digo(code review) e enviando suas alterações para a branch develop
 
-  A branch `develop` é bloqueada para envio de commits e merges automáticos. 
-  
-  **No github:**  
- 
-  Para fazer o merge da sua branch você deverá criar um `pull request` no [github](https://github.com/culturagovbr/salic-minc/pulls).
-  Após criar o `pull request`, solicite a um colega que revise e aprove o seu código.
+  A branch `develop` &eacute; bloqueada para envio de commits e merges autom&aacute;ticos.
 
-  Importante: o merge para develop só pode acontecer se o seu trabalho já tiver sido homologado pelo cliente(próximo passo).
+  **No github:**
+
+  Para fazer o merge da sua branch você dever&aacute; criar um `pull request` no [github](https://github.com/culturagovbr/salic-minc/pulls).
+  Ap&oacute;s criar o `pull request`, solicite a um colega que revise e aprove o seu c&oacute;digo.
+
+  Importante: o merge para develop s&oacute; pode acontecer se o seu trabalho j&aacute; tiver sido homologado pelo cliente(pr&oacute;ximo passo).
 
     master   o-----------------------------------------------------------
               \
                o-----------------------o ----------- develop --------------
                 \                     /
                  o---o----o------o---o --- feature/nome-da-funcionalidade ---
-    
+
 ### 5 - Excluir a branch criada
- 
- - Após o merge para a branch `develop` delete sua branch no [github](https://github.com/culturagovbr/salic-minc/branches).
- - Para remover sua branch do conteúdo local execute o comando `git branch -D feature/minha-feature`
- 
+
+ - Ap&oacute;s o merge para a branch `develop` delete sua branch no [github](https://github.com/culturagovbr/salic-minc/branches).
+ - Para remover sua branch do conte&uacute;do local execute o comando `git branch -D feature/minha-feature`
+
 ## Hmg - Homologando seu trabalho
 
   Para o cliente testar e homologar o seu trabalho, você deve fazer o merge da sua branch para a branch `hmg`.
-  Atualmente utilizamos a biblioteca node chamada Husky para versionar nossos hooks do git e adicionar tratativas para versionamento de código. Recomendamos que na raiz do projeto você execute o comando ```npm install``` pelo ao menos uma vez, para que sejam instaladas todas as dependência necessárias.
+  Atualmente utilizamos a biblioteca node chamada Husky para versionar nossos hooks do git e adicionar tratativas para versionamento de c&oacute;digo. Recomendamos que na raiz do projeto você execute o comando ```npm install``` pelo ao menos uma vez, para que sejam instaladas todas as dependência necess&aacute;rias.
 
 ```sh
     $ git checkout hmg
@@ -96,16 +96,16 @@ Cada desenvolvedor criará uma branch a partir da `develop`.
                  o-----------------------o ----------- hmg-------------
                   \                     /
                    o---o----o------o---o --- feature/nome-da-funcionalidade ---
-                 
-  Após o `push`, se você executou `npm install`, um hook atualizará automaticamente o [ambiente de homologação](https://hmg.salic.cultura.gov.br/) utilizando o [jenkins](http://jenkins.cultura.gov.br/).
 
-  Solicite ao cliente para validar o trabalho desenvolvido. Após a validação você deverá fazer um `pull request` da sua branch para a branch `develop`(passo 4 do item Develop).
-  
+  Ap&oacute;s o `push`, se você executou `npm install`, um hook atualizar&aacute; automaticamente o [ambiente de homologação](https://hmg.salic.cultura.gov.br/) utilizando o [jenkins](http://jenkins.cultura.gov.br/).
+
+  Solicite ao cliente para validar o trabalho desenvolvido. Ap&oacute;s a validação você dever&aacute; fazer um `pull request` da sua branch para a branch `develop`(passo 4 do item Develop).
+
   **OBS:** NUNCA FAÇA UM PULL REQUEST DA BRANCH **HMG** PARA QUALQUER OUTRA BRANCH.
 
 # 2 - Hotfix
 
-  Hotfix é uma alteração emergencial, que deve ser aplicada imediatamente em produção. Envolve poucos commits e dificilmente dura mais que um dia.
+  Hotfix &eacute; uma alteração emergencial, que deve ser aplicada imediatamente em produção. Envolve poucos commits e dificilmente dura mais que um dia.
 
 Para criar um hotfix, siga os passos abaixo:
 
@@ -118,12 +118,12 @@ Para criar um hotfix, siga os passos abaixo:
     $ git push hotfix/nome-da-correcao
 ```
 
-**No github:**  
+**No github:**
 
   1. crie dois pull requests da branch **hotfix/nome-da-correcao** para a branch **master** e para a branch **develop** no [github](https://github.com/culturagovbr/salic-minc/pulls).
-  2. solicite a um colega que revise e aprove seu código.   
-  
-  Dessa maneira conseguimos garantir que a branch **develop** estará sempre mais atualizada.
+  2. solicite a um colega que revise e aprove seu c&oacute;digo.
+
+  Dessa maneira conseguimos garantir que a branch **develop** estar&aacute; sempre mais atualizada.
 
 # 3 - Publicando uma versão para a master
 

@@ -103,26 +103,26 @@ class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
                 ),
                 "ValorCaptado" => new Zend_Db_Expr("sac.dbo.fnCustoProjeto (projetos.AnoProjeto,projetos.Sequencial)"),
                 new Zend_Db_Expr("CONVERT(DECIMAL(18,2),
-                    ((sac.dbo.fnTotalCaptadoProjeto (projetos.AnoProjeto,projetos.Sequencial) 
-                    + sac.dbo.fnVlRecebido(projetos.idPronac) 
-                    - sac.dbo.fnVlTransferido(projetos.idPronac)) 
+                    ((sac.dbo.fnTotalCaptadoProjeto (projetos.AnoProjeto,projetos.Sequencial)
+                    + sac.dbo.fnVlRecebido(projetos.idPronac)
+                    - sac.dbo.fnVlTransferido(projetos.idPronac))
                     / sac.dbo.fnTotalAprovadoProjeto(projetos.AnoProjeto,projetos.Sequencial)) * 100) as PercentualCaptado"
                 ),
                 new Zend_Db_Expr("sac.dbo.fnVlComprovadoProjeto(projetos.idPronac) as ValorComprovado"),
                 new Zend_Db_Expr("CONVERT(DECIMAL(18,2),
-                ((sac.dbo.fnTotalCaptadoProjeto (projetos.AnoProjeto,projetos.Sequencial) 
-                    + sac.dbo.fnVlRecebido(projetos.idPronac) 
+                ((sac.dbo.fnTotalCaptadoProjeto (projetos.AnoProjeto,projetos.Sequencial)
+                    + sac.dbo.fnVlRecebido(projetos.idPronac)
                     - sac.dbo.fnVlComprovadoProjeto(projetos.idPronac))) ) as ValorAComprovar"
                 ),
                 new Zend_Db_Expr("
                     CASE
-	                    WHEN sac.dbo.fnTotalCaptadoProjeto (projetos.AnoProjeto,projetos.Sequencial) > 0 
+	                    WHEN sac.dbo.fnTotalCaptadoProjeto (projetos.AnoProjeto,projetos.Sequencial) > 0
 	                        THEN CONVERT(DECIMAL(18,2), (
-	                        sac.dbo.fnVlComprovadoProjeto(projetos.idPronac) 
-	                        / (sac.dbo.fnTotalCaptadoProjeto (projetos.AnoProjeto,projetos.Sequencial) 
-	                        + sac.dbo.fnVlRecebido(projetos.idPronac) 
-	                        - sac.dbo.fnVlTransferido(projetos.idPronac))) * 100)  
-                        ELSE 0 
+	                        sac.dbo.fnVlComprovadoProjeto(projetos.idPronac)
+	                        / (sac.dbo.fnTotalCaptadoProjeto (projetos.AnoProjeto,projetos.Sequencial)
+	                        + sac.dbo.fnVlRecebido(projetos.idPronac)
+	                        - sac.dbo.fnVlTransferido(projetos.idPronac))) * 100)
+                        ELSE 0
                     END as PercentualComprovado
                 ")
             )
@@ -559,32 +559,32 @@ class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
                 new Zend_Db_Expr("sac.dbo.fnVlTransferido(a.idPronac) as vlTransferido"),
                 new Zend_Db_Expr("sac.dbo.fnVlRecebido(a.idPronac) as vlRecebido"),
                 new Zend_Db_Expr("CONVERT(DECIMAL(18,2),
-                    (sac.dbo.fnTotalAprovadoProjeto(a.AnoProjeto,a.Sequencial) 
-                    - (sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial) 
-                    + sac.dbo.fnVlRecebido(a.idPronac) 
+                    (sac.dbo.fnTotalAprovadoProjeto(a.AnoProjeto,a.Sequencial)
+                    - (sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial)
+                    + sac.dbo.fnVlRecebido(a.idPronac)
                     - sac.dbo.fnVlTransferido(a.idPronac)))) as vlSaldoACaptar"
                 ),
                 new Zend_Db_Expr("CONVERT(DECIMAL(18,2),
-                    ((sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial) 
-                    + sac.dbo.fnVlRecebido(a.idPronac) 
-                    - sac.dbo.fnVlTransferido(a.idPronac)) 
+                    ((sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial)
+                    + sac.dbo.fnVlRecebido(a.idPronac)
+                    - sac.dbo.fnVlTransferido(a.idPronac))
                     / sac.dbo.fnTotalAprovadoProjeto(a.AnoProjeto,a.Sequencial)) * 100) as PercentualCaptado"
                 ),
                 new Zend_Db_Expr("sac.dbo.fnVlComprovadoProjeto(a.idPronac) as vlComprovado"),
                 new Zend_Db_Expr("CONVERT(DECIMAL(18,2),
-                ((sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial) 
-                    + sac.dbo.fnVlRecebido(a.idPronac) 
+                ((sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial)
+                    + sac.dbo.fnVlRecebido(a.idPronac)
                     - sac.dbo.fnVlComprovadoProjeto(a.idPronac))) ) as vlAComprovar"
                 ),
                 new Zend_Db_Expr("
                     CASE
-	                    WHEN sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial) > 0 
+	                    WHEN sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial) > 0
 	                        THEN CONVERT(DECIMAL(18,2), (
-	                        sac.dbo.fnVlComprovadoProjeto(a.idPronac) 
-	                        / (sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial) 
-	                        + sac.dbo.fnVlRecebido(a.idPronac) 
-	                        - sac.dbo.fnVlTransferido(a.idPronac))) * 100)  
-                        ELSE 0 
+	                        sac.dbo.fnVlComprovadoProjeto(a.idPronac)
+	                        / (sac.dbo.fnTotalCaptadoProjeto (a.AnoProjeto,a.Sequencial)
+	                        + sac.dbo.fnVlRecebido(a.idPronac)
+	                        - sac.dbo.fnVlTransferido(a.idPronac))) * 100)
+                        ELSE 0
                     END as PercentualComprovado
                 ")
             ], $this->_schema
@@ -595,10 +595,10 @@ class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
             "a.idPronac = b.idPronac",
             [
                 new Zend_Db_Expr(
-                    "CASE 
-                    WHEN b.Enquadramento = '1' THEN 'Artigo 26' 
-                    WHEN b.Enquadramento = '2' THEN 'Artigo 18' 
-                    ELSE 'N&atilde;o enquadrado' 
+                    "CASE
+                    WHEN b.Enquadramento = '1' THEN 'Artigo 26'
+                    WHEN b.Enquadramento = '2' THEN 'Artigo 18'
+                    ELSE 'N&atilde;o enquadrado'
                 END as Enquadramento"
                 )
             ],
@@ -612,15 +612,15 @@ class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
                 'c.idPreProjeto',
                 'c.idAgente',
                 new Zend_Db_Expr("
-                    CASE 
-                        WHEN c.stDataFixa = 1 THEN 'Sim' 
-                        ELSE 'N&atilde;o' 
+                    CASE
+                        WHEN c.stDataFixa = 1 THEN 'Sim'
+                        ELSE 'N&atilde;o'
                     END AS DataFixa"
                 ),
                 new Zend_Db_Expr("
-                    CASE 
-                        WHEN c.tpProrrogacao = 1 THEN 'Sim' 
-                        ELSE 'N&atilde;o' 
+                    CASE
+                        WHEN c.tpProrrogacao = 1 THEN 'Sim'
+                        ELSE 'N&atilde;o'
                     END as ProrrogacaoAutomatica"
                 )
             ],
@@ -776,12 +776,12 @@ class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
             ['idPronac'],
             'sac'
         );
-        
+
         $idNormativoCustosVinculados = 6;
 
         $query->where('idPronac = ?', $idPronac);
         $query->where('idNormativo > ?', $idNormativoCustosVinculados);
-        
+
         $result = $this->fetchRow($query);
         if ($result) {
             return true;

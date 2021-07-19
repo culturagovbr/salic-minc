@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.models
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  *
  * @todo alterar para o formato com as models, dbtable e mapper.
@@ -36,7 +36,7 @@ class Ddd extends MinC_Db_Table_Abstract
             $this->view->message = "Erro ao buscar DDDs: " . $e->getMessage();
         }
 
-        
+
         return $db->fetchAll($sql);
     } // fecha buscar()
 } // fecha class

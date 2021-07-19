@@ -80,7 +80,7 @@ export default {
                     value: 'UFFornecedor',
                 },
                 {
-                    text: 'Município Fornecedor',
+                    text: 'Munic&iacute;pio Fornecedor',
                     align: 'left',
                     value: 'MunicipioFornecedor',
                 },

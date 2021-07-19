@@ -67,7 +67,7 @@ A Chave prim�ria deve ser Auto Increment e Auto Generated
 
 #1128 -
 Na view sac.dbo.vwSolicitarProrrogacaoPrazoCaptacao cont�m a trigger  trSolicitarProrrogacaoPrazoCaptacao_Insert.
-Nesta, deletar a linha 82 que cont�m o seguinte Código
+Nesta, deletar a linha 82 que cont�m o seguinte C&oacute;digo
 RAISERROR('O seu pedido de prorroga��o foi recebido no MinC, aguarde a avalia��o.<p>',16,1,@Erro)
 
 Motivo: Quando o proponente vem requerir a prorroga��o do prazo de capta��o de recursos, a aplica��o lan�a

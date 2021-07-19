@@ -8,7 +8,7 @@
  * @package application
  * @subpackage application.controllers
  * @link http://www.cultura.gov.br
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Ministério da Cultura - Todos os direitos reservados.
  */
 
 class AnexardocumentosController extends MinC_Controller_Action_Abstract
@@ -37,7 +37,7 @@ class AnexardocumentosController extends MinC_Controller_Action_Abstract
             //$PermissoesGrupo[] = 119; // Presidente da Mesa
             //$PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)

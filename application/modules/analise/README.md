@@ -16,8 +16,8 @@ RN - 37.2
 
 ##CASO DE USO
 
-APÓS CAPTADO 10%  valor total aprovado (Custo do Projeto),   
-                     
+APÓS CAPTADO 10%  valor total aprovado (Custo do Projeto),
+
 1. O sistema por meio de rotina automatizada(**dbo.spLiberarAdequacaoDoProjeto**) enviará e-mail ao proponente informando da oportunidade para adequação do projeto à realidade de execução e ao mesmo tempo alterará a situação do projeto para E90.
 
 2. A alteração da situação do projeto para E90 é a condição para que o sistema liberar na lista de projetos do Escritório Virtual do Proponente a coluna com o botão que permitirá ao proponente abrir o projeto para a adequação do projeto à realidade de execução conforme a regra de negócio RN - 37.

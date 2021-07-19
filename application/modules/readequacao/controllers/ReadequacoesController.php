@@ -18,7 +18,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $this->view->idPerfil = $this->idPerfil;
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
             parent::message(
-                "Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!",
+                "Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!",
                 "principal",
                 "ALERT"
             );
@@ -97,7 +97,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $this->redirect("/readequacao/readequacoes/painel?tipoFiltro=analisados");
         }
     }
-    
+
     /**
      * Método privado para carregar lista de cidades
      *
@@ -164,7 +164,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    
+
     /**
      * Essa função é acessada para alterar o item da planilha orçamentária.
      */
@@ -266,7 +266,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $this->_helper->json(array('resposta' => true, 'dadosPlanilhaAtiva' => $dadosPlanilhaAtiva, 'dadosPlanilhaEditavel' => $dadosPlanilhaEditavel, 'valoresDoItem' => $valoresDoItem, 'dadosProjeto' => $dadosProjeto));
         $this->_helper->viewRenderer->setNoRender(true);
     }
-    
+
     /**
      * Esse função é usada pelo proponente para solicitar a exclusão de um item da planilha orçamentária.
      */
@@ -306,25 +306,25 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                 $idPronac,
                 Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
             );
-            
+
             $atualizarCustosVinculados = $this->atualizarCustosVinculados(
                 $idPronac,
                 $idReadequacao
             );
-            
+
             if ($atualizarCustosVinculados['erro']) {
                 $this->reverterAlteracaoItem(
                     $idPronac,
                     $idReadequacao,
                     $itemTipoPlanilha['idPlanilhaItem']
                 );
-                
+
                 $this->_helper->json([
                     'resposta' => false,
                     'mensagem' => $atualizarCustosVinculados['mensagem']
                 ]);
             }
-            
+
             $this->_helper->json(array('resposta' => true));
         } else {
             $this->_helper->json(array('resposta' => false));
@@ -396,7 +396,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             );
             $valorMediana = isset($objValorMediana['Mediana']) ? $objValorMediana['Mediana'] : 0;
             $dadosInclusao['stCustoPraticado'] = (!empty($valorMediana) && $valorMediana < $ValorUnitario) ? 1 : 0;
-            
+
             $dadosInclusao['tpPlanilha'] = 'SR';
             $dadosInclusao['dtPlanilha'] = new Zend_Db_Expr('GETDATE()');
             $dadosInclusao['IdPRONAC'] = $idPronac;
@@ -440,7 +440,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                         'mensagem' => $atualizarCustosVinculados['mensagem']
                     ]);
                 }
-                
+
                 $this->_helper->json(['resposta' => true]);
             } else {
                 $this->_helper->json(['resposta' => false]);
@@ -470,11 +470,11 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $idPlanilha = $this->_request->getParam('idPlanilha');
 
         $ValorUnitario = $this->_request->getParam('ValorUnitario');
-        
+
         $ValorUnitario = str_replace('R$ ', '', $ValorUnitario);
         $ValorUnitario = str_replace('.', '', $ValorUnitario);
         $ValorUnitario = str_replace(',', '.', $ValorUnitario);
-        
+
         $idPronac = $this->_request->getParam("idPronac");
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
@@ -515,7 +515,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         );
         $valorMediana = isset($objValorMediana['Mediana']) ? $objValorMediana['Mediana'] : 0;
         $editarItem->stCustoPraticado = (!empty($valorMediana) && $valorMediana < $ValorUnitario) ? 1 : 0;
-        
+
         $editarItem->idUnidade = $this->_request->getParam('Unidade');
         $editarItem->qtItem = $this->_request->getParam('Quantidade');
         $editarItem->nrOcorrencia = $this->_request->getParam('Ocorrencia');
@@ -542,7 +542,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                 $idPronac,
                 $idReadequacao
             );
-            
+
             if ($atualizarCustosVinculados['erro']) {
                 $this->reverterAlteracaoItem(
                     $idPronac,
@@ -556,7 +556,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                 ]);
             }
         }
-        
+
         $this->_helper->json(array('resposta' => true, 'msg' => 'Dados salvos com sucesso!'));
         $this->_helper->viewRenderer->setNoRender(true);
     }
@@ -569,14 +569,14 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             'mensagem' => 'Custos vinculados atualizados!',
             'erro' => false
         ];
-        
+
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
         $tipoReadequacao = $tbPlanilhaAprovacao->calculaSaldoReadequacaoBaseDeCusto($idPronac);
-        
+
         if (in_array($tipoReadequacao, ['COMPLEMENTACAO', 'REDUCAO'])) {
             $propostaTbCustosVinculados = new Proposta_Model_TbCustosVinculadosMapper();
             $custosVinculados = $propostaTbCustosVinculados->obterCustosVinculadosReadequacao($idPronac);
-            
+
             foreach ($custosVinculados as $item) {
                 $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
                 $editarItem = $tbPlanilhaAprovacao->buscar([
@@ -588,17 +588,17 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                 if (!$editarItem) {
                     continue;
                 }
-                
+
                 $comprovantePagamentoxxPlanilhaAprovacao = new PrestacaoContas_Model_ComprovantePagamentoxPlanilhaAprovacao();
-                
+
                 $valorComprovado = $comprovantePagamentoxxPlanilhaAprovacao->valorComprovadoPorItem($idPronac, $item['idPlanilhaItens']);
                 if ($valorComprovado > $item['valorUnitario']) {
-                    
+
                     $retorno['mensagem'] = "Somente ser&aacute; permitido reduzir ou excluir itens or&ccedil;ament&aacute;rios caso tal a&ccedil;&atilde;o n&atilde;o afete negativamente os custos vinculados abaixo de valores j&aacute; comprovados.";
                     $retorno['erro'] = true;
                     return $retorno;
                 }
-                
+
                 if ($itemOriginal->vlUnitario != $item['valorUnitario']) {
                     $editarItem->vlUnitario = $item['valorUnitario'];
                     $editarItem->tpAcao = 'A';
@@ -612,7 +612,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             }
         } else if ($tipoReadequacao == 'REMANEJAMENTO') {
                 $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
-                
+
                 $itensOriginais = $tbPlanilhaAprovacao->buscar([
                     'idPronac = ?' => $idPronac,
                     'idEtapa IN (?)' => [
@@ -621,7 +621,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                     ],
                     'stAtivo = ?' => 'S'
                 ]);
-                
+
                 foreach ($itensOriginais as $itemOriginal) {
                     $editarItens = $tbPlanilhaAprovacao->buscar([
                         'idPronac = ?' => $idPronac,
@@ -650,7 +650,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-        
+
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
         $editarItem = $tbPlanilhaAprovacao->buscar(array('idPlanilhaAprovacao=?' => $_POST['idPlanilha']))->current();
 
@@ -680,7 +680,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $editarItem->tpAcao = 'N';
         }
         $editarItem->save();
-        
+
         $atualizarCustosVinculados = $this->atualizarCustosVinculados(
             $editarItem->IdPRONAC,
             $editarItem->idReadequacao
@@ -697,7 +697,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                 'mensagem' => $atualizarCustosVinculados['mensagem']
             ]);
         }
-        
+
         $this->_helper->json(array('resposta' => true, 'msg' => 'Dados salvos com sucesso!'));
         $this->_helper->viewRenderer->setNoRender(true);
     }
@@ -709,19 +709,19 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $idPlanilhaItem
     ) {
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
-                
+
         $itemOriginal = $tbPlanilhaAprovacao->buscar([
             'idPronac = ?' => $idPronac,
             'idPlanilhaItem = ?' => $idPlanilhaItem,
             'stAtivo = ?' => 'S'
         ])->current();
-        
+
         $itemAlterado = $tbPlanilhaAprovacao->buscar([
             'idPronac = ?' => $idPronac,
             'idPlanilhaItem = ?' => $idPlanilhaItem,
             'idReadequacao = ?' => $idReadequacao
-        ])->current();                
-        
+        ])->current();
+
         $itemAlterado->vlUnitario = $itemOriginal->vlUnitario;
         $itemAlterado->qtItem = $itemOriginal->qtItem;
         $itemAlterado->nrOcorrencia = $itemOriginal->nrOcorrencia;
@@ -829,7 +829,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $idPronac = $this->_request->getParam("idPronac");
         $idTipoReadequacao = $this->_request->getParam("idTipoReadequacao");
-        
+
         $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $readequacaoResult = $tbReadequacao->readequacoesCadastradasProponente(
             [
@@ -841,7 +841,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         )->current();
 
         $readequacao = [];
-        
+
         if (count($readequacaoResult) > 0) {
             $readequacao['idReadequacao'] = $readequacaoResult['idReadequacao'];
             $readequacao['idPronac'] = $readequacaoResult['idPronac'];
@@ -853,16 +853,16 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $readequacao['dsReadequacao'] = utf8_encode($readequacaoResult['dsReadequacao']);
             $readequacao['idArquivo'] = $readequacaoResult['idArquivo'];
             $readequacao['nmArquivo'] = utf8_encode($readequacaoResult['nmArquivo']);
-            
+
         }
-        
+
         $this->_helper->json([
             'success' => true,
             'readequacao' => $readequacao,
             'msg' => 'Dados salvos com sucesso!'
         ]);
     }
-    
+
 
     public function carregarValorEntrePlanilhasAction()
     {
@@ -986,7 +986,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $acaoErro = '';
 
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $idPronac = $this->_request->getParam("idPronac");
@@ -997,10 +997,10 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
-        
+
         $idReadequacao = filter_var($this->_request->getParam("idReadequacao"), FILTER_SANITIZE_NUMBER_INT);
         $idTipoReadequacao = filter_var($this->_request->getParam("tipoReadequacao"), FILTER_SANITIZE_NUMBER_INT);
-        
+
         $urlCallback = $this->_request->getParam('urlCallback');
 
         if (empty($urlCallback)) {
@@ -1050,7 +1050,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             if ($idReadequacao != '') {
                 $dadosReadequacao = [];
                 $dadosReadequacao['dsJustificativa'] = $this->_request->getParam('descJustificativa');
-                $dadosReadequacao['dsSolicitacao'] = $this->_request->getParam('descSolicitacao');                
+                $dadosReadequacao['dsSolicitacao'] = $this->_request->getParam('descSolicitacao');
                 if ($idDocumento) {
                     $dadosReadequacao['idDocumento'] = $idDocumento;
                 }
@@ -1103,36 +1103,36 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     public function finalizarSolicitacaoReadequacaoAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
-         
+
         $idPronac = $this->_request->getParam("idPronac");
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
-         
+
         $idReadequacao = $this->_request->getParam("idReadequacao");
-         
+
         try {
             $arrayBuscaReadequacao = array(
                 'a.idPronac = ?' => $idPronac,
                 'a.siEncaminhamento = ?' => Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE,
                 'a.stEstado = ?' => 0,
             );
-             
+
             if ($idReadequacao) {
                 $arrayBuscaReadequacao['a.idReadequacao = ?'] = $idReadequacao;
             } else {
                 $arrayBuscaReadequacao['b.siReadequacao = ?'] = Readequacao_Model_TbTipoReadequacao::SI_READEQUACAO_DIVERSA;
             }
-             
+
             $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
             $readequacoes = $tbReadequacao->readequacoesCadastradasProponente($arrayBuscaReadequacao, array(1), false);
             $dados = array();
             $dados['siEncaminhamento'] = Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_MINC;
             $dados['dtEnvio'] = new Zend_Db_Expr('GETDATE()');
             $where = "idPronac = $idPronac AND siEncaminhamento = " . Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE . " AND stEstado = 0";
-             
+
             if ($idReadequacao) {
                 $where .= " AND idReadequacao = $idReadequacao";
             } else {
@@ -1175,8 +1175,8 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             parent::message($e->getMessage(), "readequacao/readequacoes?idPronac=".Seguranca::encrypt($idPronac), "ERROR");
         }
     }
-    
-    
+
+
     public function painelAction()
     {
         $this->_redirect('index/index/#/readequacao/painel');
@@ -1196,7 +1196,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $perfisAcesso = array(Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO, Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO);
 
         if (!in_array($this->idPerfil, $perfisAcesso)) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $idReadequacao = $this->_request->getParam('idReadequacao');
@@ -1273,7 +1273,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                 $tbDistribuirReadequacao = new Readequacao_Model_tbDistribuirReadequacao();
                 $excluiDistribuicao = $tbDistribuirReadequacao->delete([
                     'idReadequacao = ?' => $r->idReadequacao
-                ]);                
+                ]);
             }
             if ($this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
                 parent::message('Dados salvos com sucesso!', "readequacao/readequacoes/painel-readequacoes?tipoFiltro=$filtro", "CONFIRM");
@@ -1288,7 +1288,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             }
         }
     }
-    
+
     public function painelReadequacoesAction()
     {
         $this->_redirect('index/index/#/readequacao/painel');
@@ -1300,13 +1300,13 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     public function visualizarReadequacaoAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
         $id = $this->_request->getParam('id');
         if (strlen($id) > 7) {
             $id = Seguranca::dencrypt($id);
         }
-        
+
         $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $d = $tbReadequacao->visualizarReadequacao(array('a.idReadequacao = ?' => $id))->current();
         $this->view->dados = $d;
@@ -1332,7 +1332,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $perfisAcesso = array(Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO);
 
         if (!in_array($this->idPerfil, $perfisAcesso)) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $idReadequacao = (strlen($this->_request->getParam('id')) > 7) ? (int)Seguranca::dencrypt($this->_request->getParam('id')) : $this->_request->getParam('id');
@@ -1341,7 +1341,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $dados = $tbReadequacao->buscarDadosReadequacoes(array('idReadequacao = ?' => $idReadequacao))->current();
         if (!$dados) {
-            parent::message("Readequa&ccedil;&atilde;o n&atilde;o encontrada!", "readequacao/readequacoes/painel-readequacoes", "ERROR");
+            parent::message("Readequação n&atilde;o encontrada!", "readequacao/readequacoes/painel-readequacoes", "ERROR");
         }
         $this->view->dados = $dados;
         $this->view->idPronac = $dados->idPronac;
@@ -1355,10 +1355,10 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $mensagemCustosVinculados = "";
         if ($this->isProjetoTransicaoIn2017($dados->idPronac)) {
             // fazer a comparacao com a data
-            $mensagemCustosVinculados = "<div align='center'><strong>ATEN&Ccedil;&Atilde;O:</strong><br/> Projetos adequados &agrave; realidade de execu&ccedil;&atilde;o at&eacute; a data de <strong>16/10/2018</strong> ter&atilde;o seus custos vinculados e de remunera&ccedil;&atilde;o de capta&ccedil;&atilde;o de recursos recalculados no momento em que for realizada uma readequa&ccedil;&atilde;o.</div>";
+            $mensagemCustosVinculados = "<div align='center'><strong>ATEN&Ccedil;&Atilde;O:</strong><br/> Projetos adequados &agrave; realidade de execu&ccedil;&atilde;o at&eacute; a data de <strong>16/10/2018</strong> ter&atilde;o seus custos vinculados e de remunera&ccedil;&atilde;o de capta&ccedil;&atilde;o de recursos recalculados no momento em que for realizada uma readequação.</div>";
         }
         $this->view->mensagemCustosVinculados = $mensagemCustosVinculados;
-        
+
         $TbPlanilhaUnidade = new Proposta_Model_DbTable_TbPlanilhaUnidade();
         $buscarUnidade = $TbPlanilhaUnidade->buscarUnidade();
         $this->view->Unidade = $buscarUnidade;
@@ -1379,7 +1379,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::PARECERISTA
             && $this->idPerfil != Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $params = $this->getRequest()->getParams();
@@ -1456,7 +1456,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         try {
             //ATUALIZA A SITUAÇÃO, ÁREA E SEGMENTO DO PROJETO
             $d = array();
-            $d['ProvidenciaTomada'] = 'Readequa&ccedil;&atilde;o em an&aacute;lise pela &aacute;rea t&eacute;cnica.';
+            $d['ProvidenciaTomada'] = 'Readequação em an&aacute;lise pela Área t&eacute;cnica.';
             //$d['dtSituacao'] = new Zend_Db_Expr('GETDATE()');
             $where = "IdPRONAC = $idPronac";
             $Projetos = new Projetos();
@@ -1525,18 +1525,18 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                     $this->auth
                 );
                 $idTipoDoAto = $servicoReadequacaoAssinatura->obterAtoAdministrativoPorTipoReadequacao($dadosRead->idTipoReadequacao);
-                
+
                 $servicoDocumentoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\DocumentoAssinatura(
                     $idPronac,
                     $idTipoDoAto,
                     $idParecer
                 );
                 $idDocumentoAssinatura = $servicoDocumentoAssinatura->iniciarFluxo();
-                
+
                 $origin = "readequacao/readequacoes/painel-readequacoes";
 
                 parent::message(
-                    "A avalia&ccedil;&atilde;o da readequa&ccedil;&atilde;o foi finalizada com sucesso! ",
+                    "A avalia&ccedil;&atilde;o da readequação foi finalizada com sucesso! ",
                     "/assinatura/index/visualizar-projeto?idDocumentoAssinatura={$idDocumentoAssinatura}&origin={$origin}",
                     "CONFIRM"
                 );
@@ -1553,7 +1553,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         }
     }
 
-    
+
     /*
      * Alterada em 14/03/14
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
@@ -1562,7 +1562,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     public function analisarReadequacoesCnicAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::COMPONENTE_COMISSAO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
@@ -1652,7 +1652,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     public function formAvaliarReadequacaoCnicAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::COMPONENTE_COMISSAO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $get = Zend_Registry::get('get');
@@ -1699,7 +1699,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     public function componenteComissaoSalvarAvaliacaoAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::COMPONENTE_COMISSAO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $idPronac = $_POST['idPronac'];
@@ -2187,9 +2187,9 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                         $tbDistribuirReadequacao->update($dados, $where);
                     }
 
-                    parent::message("A avalia&ccedil;&atilde;o da readequa&ccedil;&atilde;o foi finalizada com sucesso!", "readequacao/readequacoes/analisar-readequacoes-cnic", "CONFIRM");
+                    parent::message("A avalia&ccedil;&atilde;o da readequação foi finalizada com sucesso!", "readequacao/readequacoes/analisar-readequacoes-cnic", "CONFIRM");
                 } else {
-                    parent::message("Erro ao avaliar a readequa&ccedil;&atilde;o!", "readequacao/readequacoes/form-avaliar-readequacao-cnic?id=$idReadequacao", "ERROR");
+                    parent::message("Erro ao avaliar a readequação!", "readequacao/readequacoes/form-avaliar-readequacao-cnic?id=$idReadequacao", "ERROR");
                 }
             }
             $idReadequacao = Seguranca::encrypt($idReadequacao);
@@ -2204,23 +2204,23 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     {
         $fnDtAvaliacaoAdequacao = new fnDtAvaliacaoAdequacao();
         $dtAvaliacaoAdequacao = $fnDtAvaliacaoAdequacao->getDtAvaliacaoAdequacao($idPronac);
-        
+
         if (!empty($dtAvaliacaoAdequacao)) {
             $dataMin = '2017-01-01';
             $dataMax = '2018-17-10';
 
             preg_match('/(\d{4}\-\d{2}\-\d{2})/', $dtAvaliacaoAdequacao[0]->computed, $date_match);
             $diaAvaliacao = $date_match[0];
-            
+
             if ($diaAvaliacao > $dataMin &&
                 $diaAvaliacao < $dataMax) {
-            
+
                 return true;
             }
         }
         return false;
     }
-    
+
     /*
      * Página de criação de planilha orçamentária
      * Criada em 02/06/2016
@@ -2232,7 +2232,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     {
         $this->view->idPerfil = $this->idPerfil;
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $idPronac = $this->_request->getParam("idPronac");
@@ -2251,7 +2251,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $mensagemCustosVinculados = "";
         if ($this->isProjetoTransicaoIn2017($idPronac)) {
             // fazer a comparacao com a data
-            $mensagemCustosVinculados = "<div align='center'><strong>ATEN&Ccedil;&Atilde;O:</strong><br/> Projetos adequados &agrave; realidade de execu&ccedil;&atilde;o at&eacute; a data de <strong>26/10/2018</strong> ter&atilde;o seus custos vinculados e de remunera&ccedil;&atilde;o de capta&ccedil;&atilde;o de recursos recalculados no momento em que for realizada uma readequa&ccedil;&atilde;o.</div>";
+            $mensagemCustosVinculados = "<div align='center'><strong>ATEN&Ccedil;&Atilde;O:</strong><br/> Projetos adequados &agrave; realidade de execu&ccedil;&atilde;o at&eacute; a data de <strong>26/10/2018</strong> ter&atilde;o seus custos vinculados e de remunera&ccedil;&atilde;o de capta&ccedil;&atilde;o de recursos recalculados no momento em que for realizada uma readequação.</div>";
         }
         $this->view->mensagemCustosVinculados = $mensagemCustosVinculados;
 
@@ -2261,7 +2261,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $permiteReadequacaoPlanilha = $linksPermissao[14];
 
         if (!$permiteReadequacaoPlanilha) {
-            parent::message("Voc&ecirc;  n&atilde;o pode realizar uma nova readequa&ccedil;&atilde;o.", "principalproponente", "ERROR");
+            parent::message("Voc&ecirc;  n&atilde;o pode realizar uma nova readequação.", "principalproponente", "ERROR");
         }
 
         $this->view->idPronac = $idPronac;
@@ -2285,7 +2285,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $etapas = $spSelecionarEtapa->exec($idPronac);
             $etapas = array_slice($etapas, 0, 5);
             $this->view->Etapas = $etapas;
-            
+
             $TbPlanilhaUnidade = new Proposta_Model_DbTable_TbPlanilhaUnidade();
             $buscarUnidade = $TbPlanilhaUnidade->buscarUnidade();
             $this->view->Unidade = $buscarUnidade;
@@ -2458,12 +2458,12 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $this->_helper->layout->disableLayout();
 
         $httpCode = 200;
-        
+
         $idTipoReadequacao = $this->_request->getParam('idTipoReadequacao');
         $idReadequacao = $this->_request->getParam('idReadequacao');
         $idPronac = $this->_request->getParam('idPronac');
         $siEncaminhamento = $this->_request->getParam('siEncaminhamento');
-        
+
         try {
             $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
             $readequacao = $tbReadequacao->obterDadosReadequacao(
@@ -2474,7 +2474,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             );
 
             if (empty($readequacao)) {
-                $mensagem = 'Nenhuma readequa&ccedil;&atilde;o para o idPronac ' . $this->idPronac;
+                $mensagem = 'Nenhuma readequação para o idPronac ' . $this->idPronac;
                 $readequacao = [];
             }
 
@@ -2493,7 +2493,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                 [
                     'readequacao' => [],
                     'sucess' => false,
-                    'msg' => 'N&atilde;o foi poss&iacute;vel obter a readequa&ccedil;&atilde;o. Erro: ' . $objException->getMessage()
+                    'msg' => 'N&atilde;o foi poss&iacute;vel obter a readequação. Erro: ' . $objException->getMessage()
                 ]
             );
         }
@@ -2542,7 +2542,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
-        
+
         $idDocumentoAtual = $this->_request->getParam('idDocumentoAtual');
         $idReadequacao = $this->_request->getParam('idReadequacao');
         $idTipoReadequacao = $this->_request->getParam('idTipoReadequacao');
@@ -2625,7 +2625,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO
             && $this->idPerfil != Autenticacao_Model_Grupos::PRESIDENTE_VINCULADA_SUBSTITUTO
             && $this->idPerfil != Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
         }
 
         $idReadequacao = Seguranca::dencrypt($this->_request->getParam('id'));
@@ -2654,7 +2654,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $tbTitulacaoConselheiro = new tbTitulacaoConselheiro();
         $this->view->conselheiros = $tbTitulacaoConselheiro->buscarConselheirosTitularesTbUsuarios();
     }
-    
+
 
 
     public function obterPlanilhaOrcamentariaAction()

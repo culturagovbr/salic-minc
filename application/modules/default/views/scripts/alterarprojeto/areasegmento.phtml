@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.alterarprojeto
- * @copyright (c) 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright (c) 2010 - Ministério da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -19,7 +19,7 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 	<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
         <li><!--a href="<?php echo $this->baseUrl(); ?>" title="In&iacute;cio"-->Manuten&ccedil;&atilde;o<!--/a--></li>
         <li><a href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'consultarprojeto')); ?>" title="Ir para alterar projeto">Alterar projeto</a></li>
-        <li class="last">Alterar &aacute;rea/segmento</li>
+        <li class="last">Alterar Área/segmento</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
@@ -27,7 +27,7 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 
 <!-- ========== BUTTON VOLTAR ========== -->
 <div id="titulo">
-    <div>Alterar &aacute;rea/segmento <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+    <div>Alterar Área/segmento <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
@@ -115,7 +115,7 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 
         <table class="tabela">
             <tr>
-                <td width="200" class="destacar bold" align="right">&Aacute;rea</td>
+                <td width="200" class="destacar bold" align="right">Área</td>
                 <td>
                     <select name="Area" id="Area" class="input_simples" style="width: 160px;">
                         <?php foreach ($this->comboareasculturais as $key => $value ){ ?>

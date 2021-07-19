@@ -89,7 +89,7 @@
                     <v-tab
                         v-if="perfilAceito(['coordenador'])"
                         href="#aguardando_distribuicao"
-                    >Aguardando distribuição
+                    >Aguardando distribui&ccedil;&atilde;o
                         <v-icon>
                             forward
                         </v-icon>
@@ -97,7 +97,7 @@
                     <v-tab
                         v-if="perfilAceito(['proponente', 'coordenador'])"
                         href="#em_analise"
-                    >Em Análise
+                    >Em An&aacute;lise
                         <v-icon>
                             gavel
                         </v-icon>
@@ -105,7 +105,7 @@
                     <v-tab
                         v-if="perfilAceito(['analisar'])"
                         href="#analisar"
-                    >Em Análise
+                    >Em An&aacute;lise
                         <v-icon>
                             gavel
                         </v-icon>
@@ -121,7 +121,7 @@
                     <v-tab
                         v-if="perfilAceito(['coordenador_acompanhamento'])"
                         href="#aguardando_publicacao"
-                    >Aguardando publicação
+                    >Aguardando publica&ccedil;&atilde;o
                         <v-icon>
                             schedule
                         </v-icon>
@@ -716,7 +716,7 @@ export default {
             this.itemEmEdicao = idReadequacao;
         },
         excluirReadequacao() {
-            this.mensagem.conteudo = 'Readequação excluída!';
+            this.mensagem.conteudo = 'Readequação exclu&iacute;da!';
             this.mensagem.ativa = true;
             this.mensagem.cor = 'green lighteen-1';
             this.timeout = 1300;

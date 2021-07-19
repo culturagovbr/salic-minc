@@ -38,8 +38,8 @@ CKEDITOR.lang['gl'] =
 	editor	: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
-	source			: 'Código Fonte',
-	newPage			: 'Nova Páxina',
+	source			: 'C&oacute;digo Fonte',
+	newPage			: 'Nova P&aacute;xina',
 	save			: 'Gardar',
 	preview			: 'Vista Previa',
 	cut				: 'Cortar',
@@ -52,11 +52,11 @@ CKEDITOR.lang['gl'] =
 	selectAll		: 'Seleccionar todo',
 	removeFormat	: 'Eliminar Formato',
 	strike			: 'Tachado',
-	subscript		: 'Subíndice',
-	superscript		: 'Superíndice',
+	subscript		: 'Sub&iacute;ndice',
+	superscript		: 'Super&iacute;ndice',
 	horizontalrule	: 'Inserir Liña Horizontal',
-	pagebreak		: 'Inserir Salto de Páxina',
-	unlink			: 'Eliminar Ligazón',
+	pagebreak		: 'Inserir Salto de P&aacute;xina',
+	unlink			: 'Eliminar Ligaz&oacute;n',
 	undo			: 'Desfacer',
 	redo			: 'Refacer',
 
@@ -67,28 +67,28 @@ CKEDITOR.lang['gl'] =
 		url				: 'URL',
 		protocol		: 'Protocolo',
 		upload			: 'Carregar',
-		uploadSubmit	: 'Enviar ó Servidor',
+		uploadSubmit	: 'Enviar &oacute; Servidor',
 		image			: 'Imaxe',
 		flash			: 'Flash',
 		form			: 'Formulario',
-		checkbox		: 'Cadro de Verificación',
-		radio			: 'Botón de Radio',
+		checkbox		: 'Cadro de Verificaci&oacute;n',
+		radio			: 'Bot&oacute;n de Radio',
 		textField		: 'Campo de Texto',
-		textarea		: 'Área de Texto',
+		textarea		: '&aacute;rea de Texto',
 		hiddenField		: 'Campo Oculto',
-		button			: 'Botón',
-		select			: 'Campo de Selección',
-		imageButton		: 'Botón de Imaxe',
+		button			: 'Bot&oacute;n',
+		select			: 'Campo de Selecci&oacute;n',
+		imageButton		: 'Bot&oacute;n de Imaxe',
 		notSet			: '<non definido>',
 		id				: 'Id',
 		name			: 'Nome',
-		langDir			: 'Orientación do Idioma',
+		langDir			: 'Orientaci&oacute;n do Idioma',
 		langDirLtr		: 'Esquerda a Dereita (LTR)',
 		langDirRtl		: 'Dereita a Esquerda (RTL)',
-		langCode		: 'Código do Idioma',
-		longDescr		: 'Descrición Completa da URL',
+		langCode		: 'C&oacute;digo do Idioma',
+		longDescr		: 'Descrici&oacute;n Completa da URL',
 		cssClass		: 'Clases da Folla de Estilos',
-		advisoryTitle	: 'Título',
+		advisoryTitle	: 'T&iacute;tulo',
 		cssStyle		: 'Estilo',
 		ok				: 'OK',
 		cancel			: 'Cancelar',
@@ -118,7 +118,7 @@ CKEDITOR.lang['gl'] =
 	// Special char dialog.
 	specialChar		:
 	{
-		toolbar		: 'Inserir Carácter Especial',
+		toolbar		: 'Inserir Car&aacute;cter Especial',
 		title		: 'Seleccione Caracter Especial',
 		options : 'Special Character Options' // MISSING
 	},
@@ -126,44 +126,44 @@ CKEDITOR.lang['gl'] =
 	// Link dialog.
 	link :
 	{
-		toolbar		: 'Inserir/Editar Ligazón',
+		toolbar		: 'Inserir/Editar Ligaz&oacute;n',
 		other 		: '<outro>',
-		menu		: 'Editar Ligazón',
-		title		: 'Ligazón',
-		info		: 'Información da Ligazón',
+		menu		: 'Editar Ligaz&oacute;n',
+		title		: 'Ligaz&oacute;n',
+		info		: 'Informaci&oacute;n da Ligaz&oacute;n',
 		target		: 'Destino',
 		upload		: 'Carregar',
 		advanced	: 'Advanzado',
-		type		: 'Tipo de Ligazón',
+		type		: 'Tipo de Ligaz&oacute;n',
 		toUrl		: 'URL', // MISSING
-		toAnchor	: 'Referencia nesta páxina',
+		toAnchor	: 'Referencia nesta p&aacute;xina',
 		toEmail		: 'E-Mail',
 		targetFrame		: '<frame>',
 		targetPopup		: '<Xanela Emerxente>',
 		targetFrameName	: 'Nome do Marco Destino',
 		targetPopupName	: 'Nome da Xanela Emerxente',
-		popupFeatures	: 'Características da Xanela Emerxente',
+		popupFeatures	: 'Caracter&iacute;sticas da Xanela Emerxente',
 		popupResizable	: 'Resizable', // MISSING
 		popupStatusBar	: 'Barra de Estado',
-		popupLocationBar: 'Barra de Localización',
+		popupLocationBar: 'Barra de Localizaci&oacute;n',
 		popupToolbar	: 'Barra de Ferramentas',
-		popupMenuBar	: 'Barra de Menú',
+		popupMenuBar	: 'Barra de Men&uacute;',
 		popupFullScreen	: 'A Toda Pantalla (IE)',
 		popupScrollBars	: 'Barras de Desplazamento',
 		popupDependent	: 'Dependente (Netscape)',
 		popupWidth		: 'Largura',
-		popupLeft		: 'Posición Esquerda',
+		popupLeft		: 'Posici&oacute;n Esquerda',
 		popupHeight		: 'Altura',
-		popupTop		: 'Posición dende Arriba',
+		popupTop		: 'Posici&oacute;n dende Arriba',
 		id				: 'Id', // MISSING
-		langDir			: 'Orientación do Idioma',
+		langDir			: 'Orientaci&oacute;n do Idioma',
 		langDirLTR		: 'Esquerda a Dereita (LTR)',
 		langDirRTL		: 'Dereita a Esquerda (RTL)',
 		acccessKey		: 'Chave de Acceso',
 		name			: 'Nome',
-		langCode		: 'Orientación do Idioma',
-		tabIndex		: 'Índice de Tabulación',
-		advisoryTitle	: 'Título',
+		langCode		: 'Orientaci&oacute;n do Idioma',
+		tabIndex		: '&iacute;ndice de Tabulaci&oacute;n',
+		advisoryTitle	: 'T&iacute;tulo',
 		advisoryContentType	: 'Tipo de Contido',
 		cssClasses		: 'Clases da Folla de Estilos',
 		charset			: 'Fonte de Caracteres Vinculado',
@@ -175,7 +175,7 @@ CKEDITOR.lang['gl'] =
 		emailSubject	: 'Asunto do Mensaxe',
 		emailBody		: 'Corpo do Mensaxe',
 		noAnchors		: '(Non hai referencias disponibles no documento)',
-		noUrl			: 'Por favor, escriba a ligazón URL',
+		noUrl			: 'Por favor, escriba a ligaz&oacute;n URL',
 		noEmail			: 'Por favor, escriba o enderezo de e-mail'
 	},
 
@@ -232,9 +232,9 @@ CKEDITOR.lang['gl'] =
 	table :
 	{
 		toolbar		: 'Tabla',
-		title		: 'Propiedades da Táboa',
-		menu		: 'Propiedades da Táboa',
-		deleteTable	: 'Borrar Táboa',
+		title		: 'Propiedades da T&aacute;boa',
+		menu		: 'Propiedades da T&aacute;boa',
+		deleteTable	: 'Borrar T&aacute;boa',
 		rows		: 'Filas',
 		columns		: 'Columnas',
 		border		: 'Tamaño do Borde',
@@ -249,7 +249,7 @@ CKEDITOR.lang['gl'] =
 		height		: 'Altura',
 		cellSpace	: 'Marxe entre Celas',
 		cellPad		: 'Marxe interior',
-		caption		: 'Título',
+		caption		: 'T&iacute;tulo',
 		summary		: 'Sumario',
 		headers		: 'Headers', // MISSING
 		headersNone		: 'None', // MISSING
@@ -319,7 +319,7 @@ CKEDITOR.lang['gl'] =
 	// Button Dialog.
 	button :
 	{
-		title		: 'Propriedades do Botón',
+		title		: 'Propriedades do Bot&oacute;n',
 		text		: 'Texto (Valor)',
 		type		: 'Tipo',
 		typeBtn		: 'Button', // MISSING
@@ -330,8 +330,8 @@ CKEDITOR.lang['gl'] =
 	// Checkbox and Radio Button Dialogs.
 	checkboxAndRadio :
 	{
-		checkboxTitle : 'Propriedades do Cadro de Verificación',
-		radioTitle	: 'Propriedades do Botón de Radio',
+		checkboxTitle : 'Propriedades do Cadro de Verificaci&oacute;n',
+		radioTitle	: 'Propriedades do Bot&oacute;n de Radio',
 		value		: 'Valor',
 		selected	: 'Seleccionado'
 	},
@@ -341,21 +341,21 @@ CKEDITOR.lang['gl'] =
 	{
 		title		: 'Propriedades do Formulario',
 		menu		: 'Propriedades do Formulario',
-		action		: 'Acción',
-		method		: 'Método',
+		action		: 'Acci&oacute;n',
+		method		: 'M&eacute;todo',
 		encoding	: 'Encoding' // MISSING
 	},
 
 	// Select Field Dialog.
 	select :
 	{
-		title		: 'Propriedades do Campo de Selección',
+		title		: 'Propriedades do Campo de Selecci&oacute;n',
 		selectInfo	: 'Info',
-		opAvail		: 'Opcións Disponibles',
+		opAvail		: 'Opci&oacute;ns Disponibles',
 		value		: 'Valor',
 		size		: 'Tamaño',
 		lines		: 'liñas',
-		chkMulti	: 'Permitir múltiples seleccións',
+		chkMulti	: 'Permitir m&uacute;ltiples selecci&oacute;ns',
 		opText		: 'Texto',
 		opValue		: 'Valor',
 		btnAdd		: 'Engadir',
@@ -369,7 +369,7 @@ CKEDITOR.lang['gl'] =
 	// Textarea Dialog.
 	textarea :
 	{
-		title		: 'Propriedades da Área de Texto',
+		title		: 'Propriedades da &aacute;rea de Texto',
 		cols		: 'Columnas',
 		rows		: 'Filas'
 	},
@@ -381,7 +381,7 @@ CKEDITOR.lang['gl'] =
 		name		: 'Nome',
 		value		: 'Valor',
 		charWidth	: 'Tamaño do Caracter',
-		maxChars	: 'Máximo de Caracteres',
+		maxChars	: 'M&aacute;ximo de Caracteres',
 		type		: 'Tipo',
 		typeText	: 'Texto',
 		typePass	: 'Chave'
@@ -399,10 +399,10 @@ CKEDITOR.lang['gl'] =
 	image :
 	{
 		title		: 'Propriedades da Imaxe',
-		titleButton	: 'Propriedades do Botón de Imaxe',
+		titleButton	: 'Propriedades do Bot&oacute;n de Imaxe',
 		menu		: 'Propriedades da Imaxe',
-		infoTab		: 'Información da Imaxe',
-		btnUpload	: 'Enviar ó Servidor',
+		infoTab		: 'Informaci&oacute;n da Imaxe',
+		btnUpload	: 'Enviar &oacute; Servidor',
 		upload		: 'Carregar',
 		alt			: 'Texto Alternativo',
 		width		: 'Largura',
@@ -410,14 +410,14 @@ CKEDITOR.lang['gl'] =
 		lockRatio	: 'Proporcional',
 		unlockRatio	: 'Unlock Ratio', // MISSING
 		resetSize	: 'Tamaño Orixinal',
-		border		: 'Límite',
+		border		: 'L&iacute;mite',
 		hSpace		: 'Esp. Horiz.',
 		vSpace		: 'Esp. Vert.',
 		align		: 'Aliñamento',
 		alignLeft	: 'Esquerda',
 		alignRight	: 'Dereita',
 		alertUrl	: 'Por favor, escriba a URL da imaxe',
-		linkTab		: 'Ligazón',
+		linkTab		: 'Ligaz&oacute;n',
 		button2Img	: 'Do you want to transform the selected image button on a simple image?', // MISSING
 		img2Button	: 'Do you want to transform the selected image on a image button?', // MISSING
 		urlMissing	: 'Image source URL is missing.', // MISSING
@@ -434,9 +434,9 @@ CKEDITOR.lang['gl'] =
 		properties		: 'Propriedades Flash',
 		propertiesTab	: 'Properties', // MISSING
 		title			: 'Propriedades Flash',
-		chkPlay			: 'Auto Execución',
+		chkPlay			: 'Auto Execuci&oacute;n',
 		chkLoop			: 'Bucle',
-		chkMenu			: 'Activar Menú Flash',
+		chkMenu			: 'Activar Men&uacute; Flash',
 		chkFull			: 'Allow Fullscreen', // MISSING
  		scale			: 'Escalar',
 		scaleAll		: 'Amosar Todo',
@@ -451,7 +451,7 @@ CKEDITOR.lang['gl'] =
 		alignAbsBottom	: 'Abs Inferior',
 		alignAbsMiddle	: 'Abs Centro',
 		alignBaseline	: 'Liña Base',
-		alignBottom		: 'Pé',
+		alignBottom		: 'P&eacute;',
 		alignMiddle		: 'Centro',
 		alignRight		: 'Dereita',
 		alignTextTop	: 'Tope do Texto',
@@ -473,7 +473,7 @@ CKEDITOR.lang['gl'] =
 		height			: 'Altura',
 		hSpace			: 'Esp. Horiz.',
 		vSpace			: 'Esp. Vert.',
-		validateSrc		: 'Por favor, escriba a ligazón URL',
+		validateSrc		: 'Por favor, escriba a ligaz&oacute;n URL',
 		validateWidth	: 'Width must be a number.', // MISSING
 		validateHeight	: 'Height must be a number.', // MISSING
 		validateHSpace	: 'HSpace must be a number.', // MISSING
@@ -483,11 +483,11 @@ CKEDITOR.lang['gl'] =
 	// Speller Pages Dialog
 	spellCheck :
 	{
-		toolbar			: 'Corrección Ortográfica',
+		toolbar			: 'Correcci&oacute;n Ortogr&aacute;fica',
 		title			: 'Spell Check', // MISSING
 		notAvailable	: 'Sorry, but service is unavailable now.', // MISSING
 		errorLoading	: 'Error loading application service host: %s.', // MISSING
-		notInDic		: 'Non está no diccionario',
+		notInDic		: 'Non est&aacute; no diccionario',
 		changeTo		: 'Cambiar a',
 		btnIgnore		: 'Ignorar',
 		btnIgnoreAll	: 'Ignorar Todas',
@@ -495,12 +495,12 @@ CKEDITOR.lang['gl'] =
 		btnReplaceAll	: 'Substituir Todas',
 		btnUndo			: 'Desfacer',
 		noSuggestions	: '- Sen candidatos -',
-		progress		: 'Corrección ortográfica en progreso...',
-		noMispell		: 'Corrección ortográfica rematada: Non se atoparon erros',
-		noChanges		: 'Corrección ortográfica rematada: Non se substituiu nengunha verba',
-		oneChange		: 'Corrección ortográfica rematada: Unha verba substituida',
-		manyChanges		: 'Corrección ortográfica rematada: %1 verbas substituidas',
-		ieSpellDownload	: 'O corrector ortográfico non está instalado. ¿Quere descargalo agora?'
+		progress		: 'Correcci&oacute;n ortogr&aacute;fica en progreso...',
+		noMispell		: 'Correcci&oacute;n ortogr&aacute;fica rematada: Non se atoparon erros',
+		noChanges		: 'Correcci&oacute;n ortogr&aacute;fica rematada: Non se substituiu nengunha verba',
+		oneChange		: 'Correcci&oacute;n ortogr&aacute;fica rematada: Unha verba substituida',
+		manyChanges		: 'Correcci&oacute;n ortogr&aacute;fica rematada: %1 verbas substituidas',
+		ieSpellDownload	: 'O corrector ortogr&aacute;fico non est&aacute; instalado. ¿Quere descargalo agora?'
 	},
 
 	smiley :
@@ -518,14 +518,14 @@ CKEDITOR.lang['gl'] =
 
 	numberedlist	: 'Lista Numerada',
 	bulletedlist	: 'Marcas',
-	indent			: 'Aumentar Sangría',
-	outdent			: 'Disminuir Sangría',
+	indent			: 'Aumentar Sangr&iacute;a',
+	outdent			: 'Disminuir Sangr&iacute;a',
 
 	justify :
 	{
-		left	: 'Aliñar á Esquerda',
+		left	: 'Aliñar &aacute; Esquerda',
 		center	: 'Centrado',
-		right	: 'Aliñar á Dereita',
+		right	: 'Aliñar &aacute; Dereita',
 		block	: 'Xustificado'
 	},
 
@@ -534,8 +534,8 @@ CKEDITOR.lang['gl'] =
 	clipboard :
 	{
 		title		: 'Pegar',
-		cutError	: 'Os axustes de seguridade do seu navegador non permiten que o editor realice automáticamente as tarefas de corte. Por favor, use o teclado para iso (Ctrl/Cmd+X).',
-		copyError	: 'Os axustes de seguridade do seu navegador non permiten que o editor realice automáticamente as tarefas de copia. Por favor, use o teclado para iso (Ctrl/Cmd+C).',
+		cutError	: 'Os axustes de seguridade do seu navegador non permiten que o editor realice autom&aacute;ticamente as tarefas de corte. Por favor, use o teclado para iso (Ctrl/Cmd+X).',
+		copyError	: 'Os axustes de seguridade do seu navegador non permiten que o editor realice autom&aacute;ticamente as tarefas de copia. Por favor, use o teclado para iso (Ctrl/Cmd+C).',
 		pasteMsg	: 'Por favor, pegue dentro do seguinte cadro usando o teclado (<STRONG>Ctrl/Cmd+V</STRONG>) e pulse <STRONG>OK</STRONG>.',
 		securityMsg	: 'Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.', // MISSING
 		pasteArea	: 'Paste Area' // MISSING
@@ -629,8 +629,8 @@ CKEDITOR.lang['gl'] =
 		textColorTitle	: 'Cor do Texto',
 		bgColorTitle	: 'Cor do Fondo',
 		panelTitle		: 'Colors', // MISSING
-		auto			: 'Automático',
-		more			: 'Máis Cores...'
+		auto			: 'Autom&aacute;tico',
+		more			: 'M&aacute;is Cores...'
 	},
 
 	colors :

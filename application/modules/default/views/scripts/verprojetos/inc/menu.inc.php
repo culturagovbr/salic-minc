@@ -1,4 +1,4 @@
-<!-- ========== INï¿½CIO MENU ========== -->
+<!-- ========== INCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
     <script type="text/javascript">
@@ -13,9 +13,9 @@
         });
     </script>
 
-    <!-- inï¿½cio: conteï¿½do principal #container -->
+    <!-- IN&Iacute;CIO: conteúdo principal #container -->
     <div id="container">
-        <!-- inï¿½cio: navegaï¿½?o local #qm0 -->
+        <!-- IN&Iacute;CIO: navegação local #qm0 -->
         <script type="text/javascript">
             function layout_fluido(){
                 var janela = $(window).width();
@@ -94,7 +94,7 @@
                     $('#msgErroImpressao').html("");
                     $('#frmOpcoesImpressao').submit();
                 }else{
-                    $('#msgErroImpressao').html("<center><font color='red'>ï¿½ obrigatï¿½rio selecionar ao menos uma informaï¿½ï¿½o para impressï¿½o.</font></center>");
+                    $('#msgErroImpressao').html("<center><font color='red'>É obrigatório selecionar ao menos uma informação para impressão.</font></center>");
                 }
             }
 
@@ -217,7 +217,7 @@
                 <?php if ($this->blnProponente && ($this->fnLiberarLinks['Readequacao'] || $this->fnLiberarLinks['Readequacao_50'])) {
             ?>
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequa&ccedil;&atilde;o</a>
+                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequação</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <?php if ($this->fnLiberarLinks['Readequacao_50']) {
                 ?>

@@ -28,20 +28,20 @@
                 }
             }
         });
-        
+
         $(".gerarResumo").click(function(){
             var campoGerarResumo = "<input type='hidden' name='gerarResumo' id='gerarResumo' value='true'>";
             $("#frmPaginacao").append(campoGerarResumo);
             jqAjaxForm(document.getElementById("frmPaginacao"), "resumo");
         });
-        
-        
+
+
         $('#btn_xls').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="xls" value="xls"/>');
             $('#frmPaginacao').submit();
             $('#xls').remove();
         });
-        
+
         $('#btn_imprimir').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="pdf" value="pdf"/>');
             $('#frmPaginacao').submit();
@@ -121,7 +121,7 @@
             <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="2">Dt. Distribui&ccedil;&atilde;o</a></th>
         <?php endif; ?>
         <?php if(@in_array("cmpsOrd_Area", $this->parametrosBusca["visaoAgente"])): ?>
-            <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="21">&Aacute;rea Cultural</a></th>
+            <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="21">Área Cultural</a></th>
         <?php endif; ?>
         <?php if(@in_array("cmpsOrd_Segmento", $this->parametrosBusca["visaoAgente"])): ?>
             <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="22">Segmento Cultural</a></th>

@@ -56,7 +56,7 @@
 					preventDefault(e);
 					return true;
 				}
-				var key = String.fromCharCode(k);  // Valor para o Código da Chave
+				var key = String.fromCharCode(k);  // Valor para o C&oacute;digo da Chave
 				preventDefault(e);
 				input.val(maskValue(input.val()+key));
 			}

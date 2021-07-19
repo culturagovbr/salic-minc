@@ -813,7 +813,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                     $valorTotalProjeto += $item->vlAprovado;
                 }
             });
-            
+
             foreach ($planilhaOrcamentaria as $resuplanilha) {
                 $produto = $resuplanilha->Produto == null ? 'Administra&ccedil;&atilde;o do Projeto' : $resuplanilha->Produto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Seq'] = $seq;
@@ -925,7 +925,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
 
     /**
      * @return array
-     * @author Vinícius Feitosa da Silva <viniciusfesil@mail.com>
+     * @author Vin&iacute;cius Feitosa da Silva <viniciusfesil@mail.com>
      * @return mixed
      */
     protected function getOPAuthConfiguration()

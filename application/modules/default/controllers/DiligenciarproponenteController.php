@@ -104,7 +104,7 @@ class DiligenciarProponenteController extends MinC_Controller_Action_Abstract
 
                 // valida��o
                 if (empty($pronac)) {
-                    throw new Exception("Por favor, clique no Pronac Aguardando Análise!");
+                    throw new Exception("Por favor, clique no Pronac Aguardando An&aacute;lise!");
                 } else {
                     $diligencia = new Diligencia();
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Relatório Físico'"/>
+            <Carregando :text="'Relat&oacute;rio F&iacute;sico'"/>
         </div>
         <div v-else>
             <v-data-table

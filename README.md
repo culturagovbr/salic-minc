@@ -4,7 +4,7 @@
 <a href="https://app.zenhub.com/workspace/o/culturagovbr/salic-minc/boards" target="_blank">
     <img src="https://img.shields.io/badge/Managed_with-ZenHub-5e60ba.svg" alt="zenhub">
   </a>
-[![GitHub Issues Abertas](https://img.shields.io/github/issues/culturagovbr/salic-minc.svg?maxAge=2592000)]() 
+[![GitHub Issues Abertas](https://img.shields.io/github/issues/culturagovbr/salic-minc.svg?maxAge=2592000)]()
 [![GitHub Issues Fechas](https://img.shields.io/github/issues-closed-raw/culturagovbr/salic-minc.svg?maxAge=2592000)]()
 [![Build Status](https://travis-ci.org/culturagovbr/salic-minc.svg?branch=master)](https://travis-ci.org/culturagovbr/salic-minc)
 
@@ -17,7 +17,7 @@ Bem vindo/a à documentação do SALIC! Aqui você vai encontrar diversas docume
 - ```npm run build```
 
 ## Docker
-Utilizamos o Docker como plataforma de desenvolvimento com o intuito de garantir o mesmo ambiente de desenvolvimento 
+Utilizamos o Docker como plataforma de desenvolvimento com o intuito de garantir o mesmo ambiente de desenvolvimento
 independentemente do Sistema Operacional(SO) utilizado. Informaçoes mais detalhadas sobre a utilização do docker clique
 [aqui](doc/Guia_utilizacao_docker.md).
 
@@ -40,7 +40,7 @@ Para parar o container basta digitar:
 ## Tecnologias
 * [Docker](https://www.docker.com/)
 * [PHP 7.x](http://php.net/)
-* [Zend Framework 1](https://framework.zend.com/manual/1.12/en/learning.quickstart.html) 
+* [Zend Framework 1](https://framework.zend.com/manual/1.12/en/learning.quickstart.html)
 * [Composer](https://getcomposer.org/)
 * [jQuery](https://jquery.com/)
 * [Vuejs](https://vuejs.org/)
@@ -56,11 +56,11 @@ Para parar o container basta digitar:
 * [Esquema de desenvolvimento e banco](doc/Esquema_de_desenvolvimento_e_banco.md)
 * [Guia de operação e desenvolvimento](doc/Guia_de_operacao-desenvolvimento.md)
 * [Regras de versionamento](doc/Regras_versionamento.md)
-* [Roteiro de publicação de releases](doc/Roteiro_de_publicacao_de_releases.md) - contém o git workflow
+* [Roteiro de publicação de releases](doc/Roteiro_de_publicacao_de_releases.md) - cont&eacute;m o git workflow
 * [SQLs](https://github.com/culturagovbr/salic-minc-sql) de apoio ao desenvolvimento do Salic
 
 
 ## Autores
-Várias pessoas colaboraram com o desenvimento do projeto SALIC e decidimos centralizar em um único local todos os que participaram com o desenvolvimento do projeto.
-  
+V&aacute;rias pessoas colaboraram com o desenvimento do projeto SALIC e decidimos centralizar em um &uacute;nico local todos os que participaram com o desenvolvimento do projeto.
+
 Clique [aqui](https://github.com/culturagovbr/salic-minc/graphs/contributors) para visualizar.

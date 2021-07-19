@@ -13,7 +13,7 @@
                     assignment
                 </v-icon>
                 <span class="ml-2 mt-1">
-                    Análise do conteúdo
+                    An&aacute;lise do conte&uacute;do
                 </span>
                 <v-spacer />
             </v-layout>
@@ -28,7 +28,7 @@
                     sm12
                     md12
                 >
-                    <p><b>Parecer favorável: </b> {{ analiseConteudo.ParecerFavoravel | formatarLabelSimOuNao }}</p>
+                    <p><b>Parecer favor&aacute;vel: </b> {{ analiseConteudo.ParecerFavoravel | formatarLabelSimOuNao }}</p>
                 </v-flex>
                 <v-flex
                     v-if="analiseConteudo.ParecerDeConteudo.length > 1"
@@ -36,7 +36,7 @@
                     sm12
                     md12
                 >
-                    <p><b>Parecer de Conteúdo do Produto</b></p>
+                    <p><b>Parecer de Conte&uacute;do do Produto</b></p>
                     <div
                         v-html="analiseConteudo.ParecerDeConteudo"
                     />
@@ -47,12 +47,12 @@
                     sm12
                     md12
                 >
-                    <b>Conteúdo ainda não avaliado</b>
+                    <b>Conte&uacute;do ainda não avaliado</b>
                 </v-flex>
             </v-layout>
             <s-carregando
                 v-else
-                text="Carregando análise do produto"
+                text="Carregando an&aacute;lise do produto"
             />
         </v-expansion-panel-content>
         <v-expansion-panel-content v-if="produto.stPrincipal === 1">
@@ -109,7 +109,7 @@
                     monetization_on
                 </v-icon>
                 <span class="ml-2 mt-1">
-                    Análise de custo
+                    An&aacute;lise de custo
                 </span>
                 <v-spacer />
             </v-layout>

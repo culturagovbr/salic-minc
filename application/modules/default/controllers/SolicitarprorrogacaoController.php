@@ -54,7 +54,7 @@ class SolicitarprorrogacaoController extends MinC_Controller_Action_Abstract
         $dataI = explode('/', $_POST['dtInicio']);
         $dtI = checkdate($dataI[1], $dataI[0], $dataI[2]);
         if (!$dtI) {
-            parent::message("Data Início inválida.", "solicitarprorrogacao", "ERROR");
+            parent::message("Data In&iacute;cio inválida.", "solicitarprorrogacao", "ERROR");
         }
 
         $dataF = explode('/', $_POST['dtFinal']);
@@ -136,7 +136,7 @@ class SolicitarprorrogacaoController extends MinC_Controller_Action_Abstract
             $vw = new vwSolicitarProrrogacaoPrazoCaptacao();
             $vw->inserir($dados);
 
-            parent::message("Pedido de prorroga&ccedil;&atilde;o enviado ao Minist&eacute;rio da Cidadania com sucesso!", "consultardadosprojeto/index?idPronac=". Seguranca::encrypt($DadosProjeto->IdPRONAC), "CONFIRM");
+            parent::message("Pedido de prorroga&ccedil;&atilde;o enviado ao Minist&eacute;rio do Turismo com sucesso!", "consultardadosprojeto/index?idPronac=". Seguranca::encrypt($DadosProjeto->IdPRONAC), "CONFIRM");
         }
     }
 }

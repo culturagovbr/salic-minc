@@ -34,7 +34,7 @@
    * Dialog de Confirmacao
    *
    * Como utilizar:
-   * Não é necessário chamar o componente, basta chamar:
+   * Não &eacute; necess&aacute;rio chamar o componente, basta chamar:
    * this.$root.$ajuda('Deseja confirmar a alteração?')
    *
    */

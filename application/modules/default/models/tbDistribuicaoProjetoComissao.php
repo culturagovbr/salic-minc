@@ -652,7 +652,7 @@ class tbDistribuicaoProjetoComissao extends MinC_Db_Table_Abstract
         $slctReadequados->from(
             array('p' => 'Projetos'),
             array(new Zend_Db_Expr("
-                'Readequa&ccedil;&atilde;o' AS Analise
+                'Readequação' AS Analise
                 ,''
                 ,'' AS Componente
                 ,p.IdPronac AS idPronac
@@ -911,7 +911,7 @@ class tbDistribuicaoProjetoComissao extends MinC_Db_Table_Abstract
 
         $sql .= "(
             SELECT
-                'Readequa&ccedil;&atilde;o' AS Analise
+                'Readequação' AS Analise
                 ,''
                 ,'' AS Componente
                 ,p.IdPronac

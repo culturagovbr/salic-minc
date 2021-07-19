@@ -39,7 +39,7 @@
                         :items="sortByDate"
                         item-key="idDiligencia"
                         class="mt-2 pt-2 elevation-1"
-                        rows-per-page-text="Items por Página"
+                        rows-per-page-text="Items por P&aacute;gina"
                         no-data-text="Nenhum dado encontrado"
                     >
                         <template

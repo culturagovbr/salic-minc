@@ -31,7 +31,7 @@ class PlanilhaitensController extends Zend_Controller_Action
         $ids = explode(':', $post->id);
         $idPlanilhaEtapa = (int) $ids[0];
         $idProduto = (int) $ids[1];
-        
+
         // integração MODELO e VISÃO
         $tbPlanilhaItens = new PlanilhaItens();
         $this->view->comboplanilha = $tbPlanilhaItens->combo(array('tipp.idPlanilhaEtapa = ?' => $idPlanilhaEtapa), array('tpi.Descricao ASC'));

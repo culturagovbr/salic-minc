@@ -4,7 +4,7 @@ const Analisar = {
         <div>
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title">1012121 - Criança é Vida - 15 anos</span> 
+                    <span class="card-title">1012121 - Criança &eacute; Vida - 15 anos</span>
                     <div class="card-content">
                         <p> Existe Diligência para esse projeto. Acesse <a href="/proposta/diligenciar/listardiligenciaanalista/idPronac/132451">aqui</a>.</p>
                     </div>
@@ -37,7 +37,7 @@ const AnaliseAmostragem = {
     template:`
     <div class="card">
         <div class="card-content">
-           amostragem 
+           amostragem
         </div>
     </div>
     `

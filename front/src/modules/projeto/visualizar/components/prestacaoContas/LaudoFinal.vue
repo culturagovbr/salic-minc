@@ -15,7 +15,7 @@
                         lg12
                         dark
                         class="text-xs-left">
-                        <b><h4>PARECER DE AVALIAÇÃO TÉCNICA DO CUMPRIMENTO DO OBJETO</h4></b>
+                        <b><h4>PARECER DE AVALIAÇÃO T&eacute;CNICA DO CUMPRIMENTO DO OBJETO</h4></b>
                         <v-divider class="pb-2"/>
                     </v-flex>
                     <v-flex lg12>
@@ -40,7 +40,7 @@
                         lg12
                         dark
                         class="text-xs-left">
-                        <b><h4>PARECER TÉCNICO DE AVALIAÇÃO FINANCEIRA</h4></b>
+                        <b><h4>PARECER T&eacute;CNICO DE AVALIAÇÃO FINANCEIRA</h4></b>
                         <v-divider class="pb-2"/>
                     </v-flex>
                     <v-flex

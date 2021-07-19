@@ -84,24 +84,24 @@ function abrirdadosRecursos(count, idpronac, tipoagente, envioplenaria, idrecurs
         if($.trim($("#dadosplenaria"+count).html()) == '' ){
             var tr = "<tr id='dadosplenaria"+count+"' class='divdadosprojeto'>";
             tr += "<td colspan=\"10\">";
-            
+
             tr += "<fieldset>";
             tr += "<input type='button' view='parecerconsolidadorecursos' idprojeto='parecerconsolidado"+count+"' class='btn_adicionar' onClick='dadosprojetos("+idpronac+", this)'/>Parecer Consolidado do Recurso";
             tr += "</fieldset>";
             tr += "<div id='parecerconsolidado"+count+"' aberto='false'></div>";
-            
+
             tr += "<fieldset>";
             tr += "<input type='button' view='diligencias' idprojeto='diligencias"+count+"' class='btn_adicionar' onClick='dadosprojetos("+idpronac+", this)'/>Dilig&ecirc;ncias";
             tr += "</fieldset>";
             tr += "<div id='diligencias"+count+"' aberto='false'></div>";
-            
+
             if(tipoagente == 'coc'){ //componente da comissao
                 tr += "<fieldset>";
                 tr += "<input type='button' view='dadosproponente' idprojeto='dadosproponente"+count+"' class='btn_adicionar' onClick='dadosprojetos("+idpronac+", this)'/>Dados Proponente";
                 tr += "</fieldset>";
                 tr += "<div id='dadosproponente"+count+"' aberto='false'></div>";
             }
-            
+
             tr += "</td>";
             tr += "</td>";
             $(".tradd[id='"+count+"']").after(tr) ;
@@ -123,24 +123,24 @@ function abrirdadosReadequacoes(count, idpronac, tipoagente, envioplenaria, idre
         if($.trim($("#dadosplenaria"+count).html()) == '' ){
             var tr = "<tr id='dadosplenaria"+count+"' class='divdadosprojeto'>";
             tr += "<td colspan=\"9\">";
-            
+
             tr += "<fieldset>";
-            tr += "<input type='button' view='parecerconsolidadoreadequacoes' idprojeto='parecerconsolidado"+count+"' class='btn_adicionar' onClick='dadosprojetosreadequados("+idpronac+","+idreadequacao+", this)'/>Parecer Consolidado da Readequa&ccedil;&atilde;o";
+            tr += "<input type='button' view='parecerconsolidadoreadequacoes' idprojeto='parecerconsolidado"+count+"' class='btn_adicionar' onClick='dadosprojetosreadequados("+idpronac+","+idreadequacao+", this)'/>Parecer Consolidado da Readequação";
             tr += "</fieldset>";
             tr += "<div id='parecerconsolidado"+count+"' aberto='false'></div>";
-            
+
             tr += "<fieldset>";
             tr += "<input type='button' view='diligencias' idprojeto='diligencias"+count+"' class='btn_adicionar' onClick='dadosprojetos("+idpronac+", this)'/>Dilig&ecirc;ncias";
             tr += "</fieldset>";
             tr += "<div id='diligencias"+count+"' aberto='false'></div>";
-            
+
             if(tipoagente == 'coc'){ //componente da comissao
                 tr += "<fieldset>";
                 tr += "<input type='button' view='dadosproponente' idprojeto='dadosproponente"+count+"' class='btn_adicionar' onClick='dadosprojetos("+idpronac+", this)'/>Dados Proponente";
                 tr += "</fieldset>";
                 tr += "<div id='dadosproponente"+count+"' aberto='false'></div>";
             }
-            
+
             tr += "</td>";
             tr += "</td>";
             $(".tradd[id='"+count+"']").after(tr) ;

@@ -22,10 +22,10 @@
         <?php if(in_array("cmpsOrd_SolicitadoReal", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="right" bgcolor="#abda5d">Solicitado</th><?php endif; ?>
         <?php if(in_array("cmpsOrd_SugeridoReal", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="right" bgcolor="#abda5d">Sugerido</th><?php endif; ?>
         <?php if(in_array("cmpsOrd_Processo", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">Processo</th><?php endif; ?>
-        <?php if(in_array("cmpsOrd_o.Sigla", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">”rg&atilde;o</th><?php endif; ?>
+        <?php if(in_array("cmpsOrd_o.Sigla", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">ÔøΩrg&atilde;o</th><?php endif; ?>
         <?php if(in_array("cmpsOrd_TipoParecer", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">Tipo de Parecer</th><?php endif; ?>
         <?php if(in_array("cmpsOrd_NumeroReuniao", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">Nr. Reuni&atilde;o</th><?php endif; ?>
-        <?php if(in_array("cmpsOrd_#ResumoParecer", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">Parecer TÈcnico</th><?php endif; ?>
+        <?php if(in_array("cmpsOrd_#ResumoParecer", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">Parecer TÔøΩcnico</th><?php endif; ?>
         <?php if(in_array("cmpsOrd_#cgccpf", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">CNPJ/CPF</th><?php endif; ?>
         <?php if(in_array("cmpsOrd_s.Descricao", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">Situa&ccedil;&atilde;o</th><?php endif; ?>
         <?php if(in_array("cmpsOrd_Cidade", $this->parametrosBusca["visaoAgente"])): ?><th valign="middle" align="left" bgcolor="#abda5d">Cidade</th><?php endif; ?>
@@ -36,7 +36,7 @@
     <?php foreach($this->projetos as $projeto):?>
     <?php if($auxArea == "" || $projeto->Area != $auxArea):?>
     <tr>
-        <td colspan="19" align="left" bgcolor="#d1e4cf">&Aacute;rea Cultural: <?php echo $projeto->Area?></td>
+        <td colspan="19" align="left" bgcolor="#d1e4cf">√Årea Cultural: <?php echo $projeto->Area?></td>
     </tr>
     <?php endif; ?>
     <tr>

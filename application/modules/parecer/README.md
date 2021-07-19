@@ -9,4 +9,4 @@ Situação anterior: B20
 
 Situação atual: B11
 
-Providência tomada: Projeto encaminhado &agrave; unidade vinculada para an&aacute;lise e emiss&atilde;o de parecer t&eacute;cnico
+Providência tomada: Projeto encaminhado &agrave; unidade vinculada para an&aacute;lise e emiss&atilde;o de parecer Técnico

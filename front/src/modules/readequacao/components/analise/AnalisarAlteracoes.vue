@@ -28,7 +28,7 @@
                 </template>
                 <div v-else>
                     <div class="mb-3">
-                        Este tipo de readequação ainda não possui uma visualização específica!
+                        Este tipo de readequação ainda não possui uma visualização espec&iacute;fica!
                     </div>
                     <v-btn
                         color="secondary"

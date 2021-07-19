@@ -3563,10 +3563,10 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $stAvaliacaoSubItemPedidoAlteracao = $verificaSubItemPedidoAlteracao[0]->stAvaliacao;
 
         if ($stAvaliacaoSubItemPedidoAlteracao == "AG") {
-            $this->view->statusAnalise = "Aguardando Análise";
+            $this->view->statusAnalise = "Aguardando An&aacute;lise";
         }
         if ($stAvaliacaoSubItemPedidoAlteracao == "EA") {
-            $this->view->statusAnalise = "Em Análise";
+            $this->view->statusAnalise = "Em An&aacute;lise";
         }
         if ($stAvaliacaoSubItemPedidoAlteracao == "AP") {
             $this->view->statusAnalise = "Aprovado";

@@ -193,7 +193,7 @@ export default {
                 { text: 'Dias', align: 'center', value: 'QtdeDias' },
                 { text: 'Qtde', align: 'center', value: 'Quantidade' },
                 { text: 'Ocor.', align: 'center', value: 'Ocorrencia' },
-                { text: 'Vl. Unitário', align: 'right', value: 'vlUnitario' },
+                { text: 'Vl. Unit&aacute;rio', align: 'right', value: 'vlUnitario' },
                 { text: 'Vl. Total', align: 'right', value: 'vlAprovado' },
                 { text: 'Vl. Comprovado', align: 'right', value: 'vlComprovado' },
             ],
@@ -216,7 +216,7 @@ export default {
             return false;
         },
         obterMensagemCustoPraticado(item) {
-            return `O valor unitário (${this.formatarParaReal(item.vlUnitario)}) deste item para ${item.Municipio},
+            return `O valor unit&aacute;rio (${this.formatarParaReal(item.vlUnitario)}) deste item para ${item.Municipio},
                     ultrapassa o valor aprovado por este orgão. Faça uma nova sugestão de valor e justifique`;
         },
         buscarMediana(item) {

@@ -15,7 +15,7 @@
             <span
                 class="font-italic grey--text text--darken-2"
             >
-                Valor total do saldo de aplicações disponível a ser utilizado
+                Valor total do saldo de aplicações dispon&iacute;vel a ser utilizado
             </span>
         </v-flex>
     </v-layout>

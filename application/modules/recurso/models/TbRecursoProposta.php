@@ -80,7 +80,7 @@ class Recurso_Model_TbRecursoProposta extends MinC_Db_Model
         'I' => Quando é indeferido
         'D' => Quando é deferido (movimenta para frente)
      */
-    
+
     /**
      * @return mixed
      */

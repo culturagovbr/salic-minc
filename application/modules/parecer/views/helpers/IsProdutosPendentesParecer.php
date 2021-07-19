@@ -19,7 +19,7 @@ class Zend_View_Helper_IsProdutosPendentesParecer
         $where['idProduto = ?'] = $idProduto;
         $where['ParecerDeConteudo = ?'] = '';
         $naoAnalisados = $tbAnaliseDeConteudoDAO->dadosAnaliseconteudo(null, $where);
-        
+
         if (count($naoAnalisados) > 0) {
             return true;
         } else {

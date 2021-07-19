@@ -235,7 +235,7 @@ function gerarBreadCrumb($links = array(), $breadcrumbId = 'breadcrumb') {
                                 $arrayLink['module'] = $val['module'];
                             }
 
-                            // @todo: não é possivel nesse momento otimizar essa rotina.
+                            // @todo: não &eacute; possivel nesse momento otimizar essa rotina.
                             $url = $router->assemble($arrayLink);
                             $url = explode('/', $url);
                             if ($url[1] == '%23') {
@@ -285,7 +285,7 @@ function gerarNovoBreadCrumb($links = array()) {
                                 $arrayLink['module'] = $val['module'];
                             }
 
-                            // @todo: não é possivel nesse momento otimizar essa rotina.
+                            // @todo: não &eacute; possivel nesse momento otimizar essa rotina.
                             $url = $router->assemble($arrayLink);
                             $url = explode('/', $url);
                             $url = ('/'.$url[1] . '/' . $url[2] .'/'.$url[3]);

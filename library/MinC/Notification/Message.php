@@ -3,47 +3,47 @@
 /* include_once APPLICATION_PATH.'/../library/Zend/Rest/Client.php'; */
 
 /**
- * Classe para controlar As notificações enviadas para os dispositivos móveis.
+ * Classe para controlar As notificações enviadas para os dispositivos m&oacute;veis.
  *
  * @version 1.0
  * @package application
  * @subpackage application.notification
  * @link http://www.cultura.gov.br
- * @copyright © 2016 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright © 2016 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  */
 class Minc_Notification_Message
 {
 
     /**
-     * CPF do usuário que receberá a mensagem.
+     * CPF do usu&aacute;rio que receber&aacute; a mensagem.
      *
      * @var string
      */
     protected $cpf;
 
     /**
-     * Código do projeto ou idPronac.
+     * C&oacute;digo do projeto ou idPronac.
      *
      * @var integer
      */
     protected $codePronac;
 
     /**
-     * Código da diligência ou idDiligencia.
+     * C&oacute;digo da diligência ou idDiligencia.
      *
      * @var integer
      */
     protected $codeDiligencia;
 
     /**
-     * Lista de Id dos dispositivos dos usuários que receberão a notificação.
+     * Lista de Id dos dispositivos dos usu&aacute;rios que receberão a notificação.
      *
      * @var array
      */
     protected $listDeviceId;
 
     /**
-     * Lista de Ids registrations dos dispositivos dos usuários que receberão a notificação.
+     * Lista de Ids registrations dos dispositivos dos usu&aacute;rios que receberão a notificação.
      *
      * @var array
      */
@@ -92,7 +92,7 @@ class Minc_Notification_Message
     protected $gcmApiKey;
 
     /**
-     * Lista de parametros segundo a documentação do serviço que será consumido para o envio de notificações.
+     * Lista de parametros segundo a documentação do serviço que ser&aacute; consumido para o envio de notificações.
      *
      * @var array
      */
@@ -285,9 +285,9 @@ class Minc_Notification_Message
     }
 
     /**
-     * Envia notificações para dispositivos móveis.
+     * Envia notificações para dispositivos m&oacute;veis.
      *
-     * @param array $listResgistrationIds Lista de Ids dos dispositivos dos usuários que receberão a notificação.
+     * @param array $listResgistrationIds Lista de Ids dos dispositivos dos usu&aacute;rios que receberão a notificação.
      * @param string $title Titulo da mensagem.
      * @param string $text Descrição da mensagem.
      * @param array $listParameters Parametros para exibir os dados da notificação.
@@ -352,7 +352,7 @@ class Minc_Notification_Message
         if ($this->listResgistrationIds) {
             $this->loadListParametersService();
 
-            # Envia notificação se existe configurado url do serviço e o código para consumir o serviço GCM.
+            # Envia notificação se existe configurado url do serviço e o c&oacute;digo para consumir o serviço GCM.
             if ($this->gcmUrl && $this->gcmApiKey) {
                 $this->client
                     ->getHttpClient()

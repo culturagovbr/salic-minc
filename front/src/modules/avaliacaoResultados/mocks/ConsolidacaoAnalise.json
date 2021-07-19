@@ -20,7 +20,7 @@
                 "PercComprovado": "65,28"
             },
             {
-                "dsProduto": "Periódico",
+                "dsProduto": "Peri&oacute;dico",
                 "qtComprovantes": "1",
                 "vlComprovado": "5.980,80",
                 "PercComprovado": "2,34"
@@ -54,7 +54,7 @@
     "consolidadoPorEtapa": {
         "lines": [
             {
-                "Descricao": "Pré-Produção",
+                "Descricao": "Pr&eacute;-Produção",
                 "qtComprovantes": "12",
                 "vlComprovado": "20.189,05",
                 "PercComprovado": "7,91"
@@ -166,7 +166,7 @@
                 "PercComprovado": "4,16"
             },
             {
-                "Descricao": "Secretária",
+                "Descricao": "Secret&aacute;ria",
                 "qtComprovantes": "10",
                 "vlComprovado": "8.853,33",
                 "PercComprovado": "3,47"
@@ -184,7 +184,7 @@
                 "PercComprovado": "2,02"
             },
             {
-                "Descricao": "Fotografia Artística (Fotógrafo, Tratamento, Revelação, etc.)",
+                "Descricao": "Fotografia Art&iacute;stica (Fot&oacute;grafo, Tratamento, Revelação, etc.)",
                 "qtComprovantes": "1",
                 "vlComprovado": "3.000,00",
                 "PercComprovado": "1,18"
@@ -220,7 +220,7 @@
                 "PercComprovado": "0,59"
             },
             {
-                "Descricao": "Energia Elétrica",
+                "Descricao": "Energia El&eacute;trica",
                 "qtComprovantes": "1",
                 "vlComprovado": "1.142,49",
                 "PercComprovado": "0,45"
@@ -244,7 +244,7 @@
                 "PercComprovado": "0,39"
             },
             {
-                "Descricao": "Capa de CD/DVD/Rótulo de CD/DVD/Adesivo de CD\r\n",
+                "Descricao": "Capa de CD/DVD/R&oacute;tulo de CD/DVD/Adesivo de CD\r\n",
                 "qtComprovantes": "1",
                 "vlComprovado": "820,00",
                 "PercComprovado": "0,32"
@@ -274,13 +274,13 @@
                 "PercComprovado": "0,10"
             },
             {
-                "Descricao": "Banner/faixa adesiva/faixa de lona/saia de palco/testeira/pórtico\r\n",
+                "Descricao": "Banner/faixa adesiva/faixa de lona/saia de palco/testeira/p&oacute;rtico\r\n",
                 "qtComprovantes": "2",
                 "vlComprovado": "245,00",
                 "PercComprovado": "0,10"
             },
             {
-                "Descricao": "Água",
+                "Descricao": "&aacute;gua",
                 "qtComprovantes": "1",
                 "vlComprovado": "14,80",
                 "PercComprovado": "0,01"
@@ -315,7 +315,7 @@
             {
                 "UF": "MT",
                 "qtComprovantes": "6",
-                "Municipio": "Cuiabá",
+                "Municipio": "Cuiab&aacute;",
                 "vlComprovado": "12.070,00",
                 "PercComprovado": "4,73"
             },
@@ -406,7 +406,7 @@
             {
                 "tpDocumento": "Recibo de Pagamento",
                 "nrComprovante": "129",
-                "nmFornecedor": "Mafra Serviços de Formaturas Fotos e Vídeos Ltda ME",
+                "nmFornecedor": "Mafra Serviços de Formaturas Fotos e V&iacute;deos Ltda ME",
                 "qtComprovacoes": "1",
                 "vlComprovado": "6.824,00",
                 "PercComprovado": "2,67"
@@ -475,7 +475,7 @@
                 "class": "right-align"
             }
         },
-        "title": "MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBATÓRIOS",
+        "title": "MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBAT&oacute;RIOS",
         "tfoot": {
             "qtComprovacoes": "12",
             "vlComprovado": "69.360,69",
@@ -485,7 +485,7 @@
     "comprovacaoTipoDocumentoPagamento": {
         "lines": [
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "044067",
                 "nmFornecedor": "Edmar de Souza Nascimento",
                 "qtComprovacoes": "9",
@@ -493,7 +493,7 @@
                 "PercComprovado": "11,59"
             },
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "044067",
                 "nmFornecedor": "L. M. Organização Hoteleira Ltda",
                 "qtComprovacoes": "5",
@@ -501,7 +501,7 @@
                 "PercComprovado": "3,98"
             },
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "044067",
                 "nmFornecedor": "Murilo Alves Pereira",
                 "qtComprovacoes": "5",
@@ -509,7 +509,7 @@
                 "PercComprovado": "3,92"
             },
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "121815",
                 "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
                 "qtComprovacoes": "1",
@@ -517,7 +517,7 @@
                 "PercComprovado": "2,93"
             },
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "020208",
                 "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
                 "qtComprovacoes": "1",
@@ -525,15 +525,15 @@
                 "PercComprovado": "2,78"
             },
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "121601",
-                "nmFornecedor": "Mafra Serviços de Formaturas Fotos e Vídeos Ltda ME",
+                "nmFornecedor": "Mafra Serviços de Formaturas Fotos e V&iacute;deos Ltda ME",
                 "qtComprovacoes": "1",
                 "vlComprovado": "6.824,00",
                 "PercComprovado": "2,67"
             },
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "090902",
                 "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
                 "qtComprovacoes": "1",
@@ -541,7 +541,7 @@
                 "PercComprovado": "2,47"
             },
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "093007",
                 "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
                 "qtComprovacoes": "1",
@@ -549,7 +549,7 @@
                 "PercComprovado": "2,47"
             },
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "103108",
                 "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
                 "qtComprovacoes": "1",
@@ -557,7 +557,7 @@
                 "PercComprovado": "2,43"
             },
             {
-                "tpFormaDePagamento": "Transferencia Bancária",
+                "tpFormaDePagamento": "Transferencia Banc&aacute;ria",
                 "nrDocumentoDePagamento": "121603",
                 "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
                 "qtComprovacoes": "1",
@@ -620,7 +620,7 @@
             },
             {
                 "nrCNPJCPF": "10.653.045/0001-19",
-                "nmFornecedor": "Mafra Serviços de Formaturas Fotos e Vídeos Ltda ME",
+                "nmFornecedor": "Mafra Serviços de Formaturas Fotos e V&iacute;deos Ltda ME",
                 "qtComprovacoes": "3",
                 "vlComprovado": "12.820,00",
                 "PercComprovado": "5,02"
@@ -669,7 +669,7 @@
             },
             {
                 "nrCNPJCPF": "73.783.649/0001-08",
-                "nmFornecedor": "Gráfica Print Industria e Editora Ltda ME",
+                "nmFornecedor": "Gr&aacute;fica Print Industria e Editora Ltda ME",
                 "qtComprovacoes": "1",
                 "vlComprovado": "5.980,80",
                 "PercComprovado": "2,34"
@@ -683,7 +683,7 @@
             },
             {
                 "nrCNPJCPF": "045.898.471-08",
-                "nmFornecedor": "Marcos Rogério Gomes dos Santos",
+                "nmFornecedor": "Marcos Rog&eacute;rio Gomes dos Santos",
                 "qtComprovacoes": "10",
                 "vlComprovado": "5.622,64",
                 "PercComprovado": "2,20"
@@ -704,7 +704,7 @@
             },
             {
                 "nrCNPJCPF": "059.300.981-90",
-                "nmFornecedor": "José Vinicius Macedo Treib",
+                "nmFornecedor": "Jos&eacute; Vinicius Macedo Treib",
                 "qtComprovacoes": "10",
                 "vlComprovado": "5.567,14",
                 "PercComprovado": "2,18"
@@ -830,7 +830,7 @@
                 "class": "right-align"
             }
         },
-        "title": "ITENS ORÇAMENTÁRIOS IMPUGNADOS NA AVALIAÇÃO FINANCEIRA",
+        "title": "ITENS ORÇAMENT&aacute;RIOS IMPUGNADOS NA AVALIAÇÃO FINANCEIRA",
         "tfoot": {
             "NomeProjeto": "Total",
             "vlComprovado": "0,00"

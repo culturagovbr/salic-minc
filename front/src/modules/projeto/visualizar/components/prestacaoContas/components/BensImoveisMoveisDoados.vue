@@ -2,7 +2,7 @@
     <div>
         <v-card>
             <v-card-title>
-                <h6>BENS MÓVEIS / IMÓVEIS DOADOS</h6>
+                <h6>BENS M&oacute;VEIS / IM&oacute;VEIS DOADOS</h6>
             </v-card-title>
             <v-data-table
                 :pagination.sync="pagination"
@@ -14,7 +14,7 @@
                     slot="items"
                     slot-scope="props"
                 >
-                    <td class="text-xs-left">{{ (props.item.tpBem === 'M') ? 'Móvel' : 'Imóvel' }}</td>
+                    <td class="text-xs-left">{{ (props.item.tpBem === 'M') ? 'M&oacute;vel' : 'Im&oacute;vel' }}</td>
                     <td class="text-xs-left">{{ props.item.ItemOrcamentario }}</td>
                     <td
                         class="text-xs-left"
@@ -130,7 +130,7 @@ export default {
                     value: 'tpBem',
                 },
                 {
-                    text: 'Item Orçamentário',
+                    text: 'Item Orçament&aacute;rio',
                     align: 'left',
                     value: 'ItemOrcamentario',
                 },

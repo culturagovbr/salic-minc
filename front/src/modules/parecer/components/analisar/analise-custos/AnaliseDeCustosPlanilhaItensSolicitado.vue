@@ -79,7 +79,7 @@
                                         xs12
                                         md2
                                     >
-                                        <b>Vl. Unitário (R$)</b>
+                                        <b>Vl. Unit&aacute;rio (R$)</b>
                                         <div>{{ props.item.valorUnitarioprop | filtroFormatarParaReal }}</div>
                                     </v-flex>
                                     <v-flex
@@ -143,7 +143,7 @@ export default {
                 { text: 'Dias', align: 'center', value: 'diasprop' },
                 { text: 'Qtde', align: 'center', value: 'quantidadeprop' },
                 { text: 'Ocor.', align: 'center', value: 'ocorrenciaprop' },
-                { text: 'Vl. Unitário', align: 'right', value: 'valorUnitarioprop' },
+                { text: 'Vl. Unit&aacute;rio', align: 'right', value: 'valorUnitarioprop' },
                 { text: 'Vl. Solicitado', align: 'right', value: 'VlSolicitado' },
             ],
             itemEmEdicao: {},

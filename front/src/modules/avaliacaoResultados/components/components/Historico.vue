@@ -17,7 +17,7 @@
                     history
                 </v-icon>
             </v-btn>
-            <span>Histórico de Encaminhamentos</span>
+            <span>Hist&oacute;rico de Encaminhamentos</span>
         </v-tooltip>
 
         <v-card>
@@ -26,7 +26,7 @@
                 primary-title
             >
                 <span class="white--text">
-                    Histórico de encaminhamentos
+                    Hist&oacute;rico de encaminhamentos
                 </span>
             </v-card-title>
 
@@ -137,7 +137,7 @@ export default {
                     value: 'nomeRemetente',
                 },
                 {
-                    text: 'Nome do Destinatário',
+                    text: 'Nome do Destinat&aacute;rio',
                     align: 'left',
                     sortable: false,
                     value: 'nomeDestinatario',

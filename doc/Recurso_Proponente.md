@@ -5,7 +5,7 @@ Passo a passo do Teste de solicitação de recurso por parte do Proponente.
 
 
 ```
-@todo : Complementar esse arquivo com mais informações do módulo.
+@todo : Complementar esse arquivo com mais informações do m&oacute;dulo.
 ```
     <--=============INICIO DO PROCESSO DE SOLICITAÇÃO DE RECURSO===========-->
 
@@ -15,9 +15,9 @@ Passo a passo do Teste de solicitação de recurso por parte do Proponente.
 
 3°passo - Selecionar MECANISMO e um PROPONENTE( CPF Proponente) e clicar no botão LOCALIZAR.
 
-4°passo - Clicar no botão "+" ao lado do CPF do Proponente. 
+4°passo - Clicar no botão "+" ao lado do CPF do Proponente.
 
-5°passo - Clicar no número do PRONAC do projeto para o qual se deseja abrir recurso.
+5°passo - Clicar no n&uacute;mero do PRONAC do projeto para o qual se deseja abrir recurso.
 
 6°passo - No menu lateral, clicar em RECURSO, e em seguida clicar em SOLICITAR RECURSO.
 
@@ -27,4 +27,4 @@ Passo a passo do Teste de solicitação de recurso por parte do Proponente.
 
     <--=============FIM DO PROCESSO DE SOLICITAÇÃO DE RECURSO=============-->
 
-****AUTOR:** HYGOR FELLIPE MOREIRA** 
+****AUTOR:** HYGOR FELLIPE MOREIRA**

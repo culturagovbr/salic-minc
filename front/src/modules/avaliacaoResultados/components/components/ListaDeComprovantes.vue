@@ -86,14 +86,14 @@
                                         xs12
                                         sm6
                                         md3>
-                                        <b>Número</b>
+                                        <b>N&uacute;mero</b>
                                         <div>{{ itemEmEdicao.numero }}</div>
                                     </v-flex>
                                     <v-flex
                                         xs12
                                         sm6
                                         md4>
-                                        <b>Série</b>
+                                        <b>S&eacute;rie</b>
                                         <div>{{ itemEmEdicao.serie }}</div>
                                     </v-flex>
                                     <v-flex

@@ -4,7 +4,7 @@
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li>Acompanhamento</li>
-        <li class="last">Verificar readequa&ccedil;&atilde;o de projeto</li>
+        <li class="last">Verificar readequação de projeto</li>
     </ul>
 </div>
 
@@ -59,14 +59,14 @@
             <?php
                 if ($stResult->stAvaliacaoItemPedidoAlteracao == "AG") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="stReadequacao('.$stResult->idAvaliacaoItemPedidoAlteracao . ','. $this->idPronac . ',this )">';
-                    echo "<option value='0' selected='selected'>Aguardando Análise</option>
-                          <option value='1'>Em Análise</option>";
+                    echo "<option value='0' selected='selected'>Aguardando An&aacute;lise</option>
+                          <option value='1'>Em An&aacute;lise</option>";
                     echo '</select>';
                 } else if ($stResult->stAvaliacaoItemPedidoAlteracao == "EA") {
                     $emAnalise = true;
                     $disabledEA = ($todosAvaliados) ? "" : "disabled=\"disabled\"";
                     echo '<select name="status" '.$disabledEA.' id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar_avaliacao(this.value)">';
-                    echo "<option value='1' selected='selected'>Em Análise</option>";
+                    echo "<option value='1' selected='selected'>Em An&aacute;lise</option>";
                     if ($todosAvaliados)
                     {
                         echo "<option value='2'>Finalizar</option>";

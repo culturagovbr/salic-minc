@@ -63,7 +63,7 @@
                                 >
                                     <s-editor-texto
                                         v-model="dsOrientacao"
-                                        :placeholder="'Motivo do impedimento de análise de readequação'"
+                                        :placeholder="'Motivo do impedimento de an&aacute;lise de readequação'"
                                         :min-char="minChar"
                                         @editor-texto-counter="validateText($event)"
                                     />

@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.helpers
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -22,5 +22,5 @@ class Zend_View_Helper_FormatarMilhar
     {
         $valor = number_format($valor, 0, '.', '.');
         return $valor;
-    } // fecha método formatarMilhar()
+    } // fecha mï¿½todo formatarMilhar()
 } // fecha class

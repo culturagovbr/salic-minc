@@ -28,7 +28,7 @@
                 }
             }
         });
-        
+
         /* $(".gerarResumo").click(function(){
             var campoGerarResumo = "<input type='hidden' name='gerarResumo' id='gerarResumo' value='true'>";
             $("#frmPaginacao").append(campoGerarResumo);
@@ -39,7 +39,7 @@
             var campoGerarResumo = "<input type='hidden' name='imprimirResumo' id='imprimirResumo' value='html'><input type='hidden' name='gerarXls' id='gerarXls' value=''>";
             $("#frmPaginacao").append(campoGerarResumo);
             $("#frmPaginacao").attr('target', '_blank');
-            $("#frmPaginacao").submit(); 
+            $("#frmPaginacao").submit();
         }); */
 
         $(".gerarResumo").click(function(){
@@ -47,22 +47,22 @@
             $("#frmPaginacao").append(campoGerarResumo);
             jqAjaxForm(document.getElementById("frmPaginacao"), "resultadoConsulta");
         });
-        
+
         $("#btn_xls").click(function(){
             $("#frmPaginacao").attr('action','<?php echo $this->baseUrl(); ?>/operacional/gerar-xls-html-projetos-em-pauta-reuniao-cnic-sem-quebra')
             var campoGerarXsl = "<input type='hidden' name='gerarXls' id='gerarXls' value='xls'>";
             $("#frmPaginacao").append(campoGerarXsl);
             $("#frmPaginacao").attr('target', '_blank');
-            $("#frmPaginacao").submit(); 
+            $("#frmPaginacao").submit();
             $("#gerarXls").remove();
-            
+
         });
-        
+
         $("#btn_imprimir").click(function(){
             var campoGerarPdf = "<input type='hidden' name='gerarPdf' id='gerarPdf' value='pdf'>";
             $("#frmPaginacao").append(campoGerarPdf);
             $("#frmPaginacao").attr('target', '_blank');
-            $("#frmPaginacao").submit();  
+            $("#frmPaginacao").submit();
             $("#gerarPdf").remove();
         });
 
@@ -89,7 +89,7 @@
         $("#resultadoConsulta").html("");
         $("#resultadoConsulta").html("Aguarde, carregando dados ...");
     }
-    
+
     function ordenar(campo, tipo){
     	var limpaXlsHtml = "<input type='hidden' name='gerarXls' id='gerarXls' value=''><input type='hidden' name='imprimirResumo' id='imprimirResumo' value=''>";
         $("#frmPaginacao").append(limpaXlsHtml);
@@ -97,7 +97,7 @@
         $("#tipoOrdenacao").val(tipo);
         paginar(1);
     }
-    
+
     function JSGerarXLS(){
         //$(".naoImprimir").css("display", "none");
         $("#divConteudoXLS").html($(".conteudoImprimivel").html());
@@ -124,7 +124,7 @@
         };
         element.parentNode.insertBefore(scrollbar, element);
     }
-    
+
 </script>
 <fieldset>
     <legend>Resultado</legend>
@@ -144,7 +144,7 @@
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="17">Dt. In&iacute;cio Execu&ccedil;&atilde;o</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="18">Dt. Fim Execu&ccedil;&atilde;o</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="12">Dt. Distribui&ccedil;&atilde;o</a></th>
-        <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="14">&Aacute;rea Cultural</a></th>
+        <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="14">Área Cultural</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="16">Segmento Cultural</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="23">Avalia&ccedil;&atilde;o</a></th>
         <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy" valorOrdenacao="24">Vl. Solicitado</a></th>

@@ -22,7 +22,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Visualizar análise do Produto
+                    Visualizar an&aacute;lise do Produto
                     <b>"{{ produto.nomeProduto }}"</b>
                 </v-toolbar-title>
             </v-toolbar>

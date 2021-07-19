@@ -142,7 +142,7 @@ $.validator.addMethod( "bic", function( value, element ) {
 }, "Please specify a valid BIC code" );
 
 /*
- * Código de identificación fiscal ( CIF ) is the tax identification code for Spanish legal entities
+ * C&oacute;digo de identificaci&oacute;n fiscal ( CIF ) is the tax identification code for Spanish legal entities
  * Further rules can be found in Spanish on http://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
  *
  * Spanish CIF structure:
@@ -256,7 +256,7 @@ $.validator.addMethod( "cifES", function( value ) {
 }, "Please specify a valid CIF number." );
 
 /*
- * Brazillian CPF number (Cadastrado de Pessoas Físicas) is the equivalent of a Brazilian tax registration number.
+ * Brazillian CPF number (Cadastrado de Pessoas F&iacute;sicas) is the equivalent of a Brazilian tax registration number.
  * CPF numbers have 11 digits in total: 9 numbers followed by 2 check numbers that are being used for validation.
  */
 $.validator.addMethod( "cpfBR", function( value ) {
@@ -706,11 +706,11 @@ $.validator.addMethod( "mobileUK", function( phone_number, element ) {
 }, "Please specify a valid mobile number" );
 
 /*
- * The NIE (Número de Identificación de Extranjero) is a Spanish tax identification number assigned by the Spanish
+ * The NIE (N&uacute;mero de Identificaci&oacute;n de Extranjero) is a Spanish tax identification number assigned by the Spanish
  * authorities to any foreigner.
  *
- * The NIE is the equivalent of a Spaniards Número de Identificación Fiscal (NIF) which serves as a fiscal
- * identification number. The CIF number (Certificado de Identificación Fiscal) is equivalent to the NIF, but applies to
+ * The NIE is the equivalent of a Spaniards N&uacute;mero de Identificaci&oacute;n Fiscal (NIF) which serves as a fiscal
+ * identification number. The CIF number (Certificado de Identificaci&oacute;n Fiscal) is equivalent to the NIF, but applies to
  * companies rather than individuals. The NIE consists of an 'X' or 'Y' followed by 7 or 8 digits then another letter.
  */
 $.validator.addMethod( "nieES", function( value ) {
@@ -742,7 +742,7 @@ $.validator.addMethod( "nieES", function( value ) {
 }, "Please specify a valid NIE number." );
 
 /*
- * The Número de Identificación Fiscal ( NIF ) is the way tax identification used in Spain for individuals
+ * The N&uacute;mero de Identificaci&oacute;n Fiscal ( NIF ) is the way tax identification used in Spain for individuals
  */
 $.validator.addMethod( "nifES", function( value ) {
 	"use strict";
@@ -868,7 +868,7 @@ $.validator.addMethod( "phoneUS", function( phone_number, element ) {
 */
 $.validator.addMethod( "postalcodeBR", function( cep_value, element ) {
 	return this.optional( element ) || /^\d{2}.\d{3}-\d{3}?$|^\d{5}-?\d{3}?$/.test( cep_value );
-}, "Informe um CEP válido." );
+}, "Informe um CEP v&aacute;lido." );
 
 /**
  * Matches a valid Canadian Postal Code

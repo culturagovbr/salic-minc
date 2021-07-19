@@ -5,7 +5,7 @@
             <img src="/public/img/planalto_presidencia_simbolosnacionais_brasao.gif" style="height:120px">
         </div>
         <div class="center-align" style="font-size: 23px;">
-            MINIST&Eacute;RIO DA CIDADANIA
+            MINIST&Eacute;RIO DO TURISMO
         </div>
         <div class="center-align" style="font-size: 23px;">
             SECRETARIA ESPECIAL DA CULTURA
@@ -16,7 +16,7 @@
         </div>
         <?php else: ?>
         <div class="center-align" style="font-size: 23px;">
-            Secretaria do Audiovisual - SAv
+            Secretaria do Audiovisual - SAV
         </div>
         <?php endif; ?>
     </div>
@@ -80,7 +80,7 @@
         </p>
     </div>
     <div class="col s3">
-        <label style="color: black">&Aacute;rea Cultural</label>
+        <label style="color: black">Área Cultural</label>
         <p class="bold padding10 bordered">
             <?php
             echo $this->areaCultural['Descricao'];
@@ -165,7 +165,7 @@
                     ))
                     . "?IdPRONAC="
                     . $this->IdPRONAC
-                    . "','conteudo'); return false\" 
+                    . "','conteudo'); return false\"
                             title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> <font color=\"#0000FF\">"
                     . @number_format(($this->valoresProjeto['ValorAprovado']), 2, ",", ".")
                     . "</font></a>";
@@ -233,7 +233,7 @@
     <div class="col s1"></div>
     <div class="col s10">
         <p>
-            <label class="margin-bottom20" style="color: black">Parecer T&eacute;cnico:</label>
+            <label class="margin-bottom20" style="color: black">Parecer Técnico:</label>
         </p>
         <div class="padding10 bordered" style="text-align: justify">
             <?php echo $this->dadosEnquadramento['Observacao']; ?>

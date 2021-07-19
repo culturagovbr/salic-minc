@@ -1,6 +1,6 @@
 <template>
     <div class="principal">
-        Esse é o componente inicial.
+        Esse &eacute; o componente inicial.
     </div>
 </template>
 

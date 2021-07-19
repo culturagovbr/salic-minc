@@ -17,7 +17,7 @@ SELECT a.idPlanilhaAprovacao,c.idComprovantePagamento,a.IdPRONAC,d.AnoProjeto+d.
        dtEmissao,
        CASE
          WHEN c.tpFormaDePagamento = '1' THEN 'Cheque'
-         WHEN c.tpFormaDePagamento = '2' THEN 'Transferencia Bancária'
+         WHEN c.tpFormaDePagamento = '2' THEN 'Transferencia Banc&aacute;ria'
          WHEN c.tpFormaDePagamento = '3' THEN 'Saque/Dinheiro' ELSE ''
        END as tpFormaDePagamento,
        c.nrDocumentoDePagamento,c.idArquivo,g.nmArquivo,c.dsJustificativa as dsJustificativaProponente,
@@ -25,10 +25,10 @@ SELECT a.idPlanilhaAprovacao,c.idComprovantePagamento,a.IdPRONAC,d.AnoProjeto+d.
 	   CASE
 	     WHEN stItemAvaliado = 1 THEN 'Validado'
 	     WHEN stItemAvaliado = 3 THEN 'Impugnado'
-	     WHEN stItemAvaliado = 4 THEN 'Aguardando análise'
+	     WHEN stItemAvaliado = 4 THEN 'Aguardando an&aacute;lise'
 	   END AS stAvaliacao,
 	   c.vlComprovacao
-  FROM       SAC.dbo.tbplanilhaaprovacao                                  a 
+  FROM       SAC.dbo.tbplanilhaaprovacao                                  a
   INNER JOIN BDCORPORATIVO.scSAC.tbComprovantePagamentoxPlanilhaAprovacao b ON (a.idPlanilhaAprovacao    = b.idPlanilhaAprovacao)
   INNER JOIN BDCORPORATIVO.scSAC.tbComprovantePagamento                   c ON (b.idComprovantePagamento = c.idComprovantePagamento)
   INNER JOIN sac.dbo.Projetos                                             d ON (a.IdPRONAC               = d.IdPRONAC)
@@ -36,7 +36,7 @@ SELECT a.idPlanilhaAprovacao,c.idComprovantePagamento,a.IdPRONAC,d.AnoProjeto+d.
   INNER JOIN Agentes.dbo.Nomes                                            f ON (c.idFornecedor           = f.idAgente)
   LEFT  JOIN BDCORPORATIVO.scCorp.tbArquivo                               g ON (c.idArquivo              = g.idArquivo)
   INNER JOIN sac.dbo.tbPlanilhaItens                                      h ON (a.idPlanilhaItem         =h.idPlanilhaItens)
-  WHERE    a.nrFonteRecurso = 109 
+  WHERE    a.nrFonteRecurso = 109
 	  AND (sac.dbo.fnVlComprovado_Fonte_Produto_Etapa_Local_Item
-	      (a.idPronac,a.nrFonteRecurso,a.idProduto,a.idEtapa,a.idUFDespesa,a.idMunicipioDespesa, a.idPlanilhaItem)) > 0 
+	      (a.idPronac,a.nrFonteRecurso,a.idProduto,a.idEtapa,a.idUFDespesa,a.idMunicipioDespesa, a.idPlanilhaItem)) > 0
 ;

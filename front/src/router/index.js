@@ -11,7 +11,7 @@ Vue.use(Router);
 const baseRoutes = [
     {
         path: '/',
-        name: 'Página Inicial',
+        name: 'P&aacute;gina Inicial',
         component: PaginaInicial,
     },
     {

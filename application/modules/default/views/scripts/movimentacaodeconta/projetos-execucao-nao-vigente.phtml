@@ -172,12 +172,12 @@
             <td class="centro" id="coluna_<?php echo $projeto->tpValidacao."_".$ct; ?>">
                 <?php /*<select class="input_simples" name="execucao_nao_vigente" id="execucao_nao_vigente<?php echo $ct; ?>" onchange="corrigirInconsistenciaExecucaoNaoVigente('<?php echo $ct; ?>', this.value, '<?php echo Data::tratarDataZend($projeto->DtInicioExecucao, 'Brasileira'); ?>', '<?php echo Data::tratarDataZend($projeto->DtFimExecucao, 'Brasileira'); ?>');"> */?>
                 <select class="input_simples updateTmpCaptacao" idTmpCaptacao="<?php echo $projeto->idTmpCaptacao; ?>">
-                    <option value="0">- Selecione a corre��o -</option>
-                        <option value="1" <?php echo $projeto->cdPatrocinio == 1 ? 'selected="selected"' : ''; ?>>Patroc�nio</option>
-                        <option value="2" <?php echo $projeto->cdPatrocinio == 2 ? 'selected="selected"' : ''; ?>>Doa��o</option>
-                        <option value="3" <?php echo $projeto->cdPatrocinio == 3 ? 'selected="selected"' : ''; ?>>Devolu��o Judicial</option>
-                        <option value="5" <?php echo $projeto->cdPatrocinio == 5 ? 'selected="selected"' : ''; ?>>Devolu��o FNC</option>
-                        <option value="4" <?php echo $projeto->cdPatrocinio == 4 ? 'selected="selected"' : ''; ?>>Outras devolu��es</option>
+                    <option value="0">- Selecione a corre&ccedil;&atilde;o -</option>
+                        <option value="1" <?php echo $projeto->cdPatrocinio == 1 ? 'selected="selected"' : ''; ?>>Patroc&iacute;nio</option>
+                        <option value="2" <?php echo $projeto->cdPatrocinio == 2 ? 'selected="selected"' : ''; ?>>Doa&ccedil;&atilde;o</option>
+                        <option value="3" <?php echo $projeto->cdPatrocinio == 3 ? 'selected="selected"' : ''; ?>>Devolu&ccedil;&atilde;o Judicial</option>
+                        <option value="5" <?php echo $projeto->cdPatrocinio == 5 ? 'selected="selected"' : ''; ?>>Devolu&ccedil;&atilde;o FNC</option>
+                        <option value="4" <?php echo $projeto->cdPatrocinio == 4 ? 'selected="selected"' : ''; ?>>Outras devolu&ccedil;&otilde;es</option>
                 </select>
             </td>
         </tr>

@@ -7,7 +7,7 @@ Manual de testes Salic
 * PHP >= 5.6
 * Xdebug instalação opcional, apenas necessario se for gerar relatorios.
 
-É **importante** observar as versões da bibliotecas de documentação do PHPUnit, pois estamos usando a ultima versão compativel sem modificar o core do Zend Framework.
+&eacute; **importante** observar as versões da bibliotecas de documentação do PHPUnit, pois estamos usando a ultima versão compativel sem modificar o core do Zend Framework.
 
 ## Estrutura de pastas
 ```
@@ -42,15 +42,15 @@ $ cd ./caminho/projeto/tests/bin
 $ chmod +x test.sh
 ```
 
-3°passo - Configurar login dos testes, que geralmente fica no ambiente de **[testing : production]** do arquivo application.ini 
+3°passo - Configurar login dos testes, que geralmente fica no ambiente de **[testing : production]** do arquivo application.ini
 ``` sh
 $ cd ./application/configs/
-$ vim application.ini 
+$ vim application.ini
 ```
 
 Exemplo de configuração da sessão de _test_ do arquivo application.ini:
 
-test.params.login = 239XXXXXX  - usuario que será usado para executar os testes    
+test.params.login = 239XXXXXX  - usuario que ser&aacute; usado para executar os testes
 test.params.password = m2XXXX - Senha do usuario de testes
 
 resources.db.adapter = "PREENCHER"
@@ -74,17 +74,17 @@ cd ./tests/application
 ../../vendor/bin/phpunit --debug --colors --verbose -c ../phpunit.xml modules/NomeDoModulo/controllers/NomeDoTesteTest.php
 ```
 
-5°passo - Devemos receber uma resposta parecida com essa: 
+5°passo - Devemos receber uma resposta parecida com essa:
 
 ![exemplo de teste](https://github.com/culturagovbr/salic-minc/raw/develop/doc/img/teste_exemplo.png "Teste com sucesso")
 
 ## Referências
 
-Nós criamos algumas funçes auxiliáres para ajudar nos testes que se encontram nesse arquivo:
+N&oacute;s criamos algumas funçes auxili&aacute;res para ajudar nos testes que se encontram nesse arquivo:
 [ControllerActionTestCase.php](../library/MinC/Test/ControllerActionTestCase.php)
 
 
-Abaixo, referẽncia de implementação de testes possíveis:
+Abaixo, referẽncia de implementação de testes poss&iacute;veis:
 ``` php
 <?php
 
@@ -94,12 +94,12 @@ class PlanoDistribuicaoControllerTest extends MinC_Test_ControllerActionTestCase
     {
         parent::setUp();
     }
-    
+
     public function testIndexAction()
     {
         $this->autenticar();
         $this->perfilParaProponente();
-       
+
         //reset para garantir respostas.
         $this->resetRequest()
             ->resetResponse();

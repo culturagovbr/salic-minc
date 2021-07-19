@@ -2,7 +2,7 @@
     <?= $this->pageTitle(
         'Encaminhar solicita&ccedil;&atilde;o',
         [
-            ['Solicita&ccedil;&otilde;es' => 
+            ['Solicita&ccedil;&otilde;es' =>
                 ['module' => 'solicitacao',
                 'controller' => 'mensagem',
                 'action', 'index'
@@ -14,7 +14,7 @@
     <div class="content">
         <div class="card-panel">
             <div class="row">
-                <h4>Encaminhar para o outro t&eacute;cnico</h4>
+                <h4>Encaminhar para o outro Técnico</h4>
                 <form method="post" data-ajax-form="true"
                         action="<?= $this->arrPartial['arrConfig']['actionredistribuirSolicitacao']; ?>">
                     <input name="idSolicitacao" type="hidden"
@@ -29,8 +29,8 @@
                             <select class="browser-default" name="idOrgao" id="idOrgao">
                                 <option value="" disabled selected>Selecione uma unidade</option>
                                 <?php foreach ($this->arrPartial['arrConfig']['unidades'] as $unidade) : ?>
-                                    <option value="<?= $unidade->Codigo; ?>" 
-                                    <?= $this->arrPartial['dataForm']['idOrgao'] == $unidade->Codigo ? 
+                                    <option value="<?= $unidade->Codigo; ?>"
+                                    <?= $this->arrPartial['dataForm']['idOrgao'] == $unidade->Codigo ?
                                     'selected': ''; ?>>
                                         <?= strlen($unidade->novaSigla) > 1 ? $unidade->novaSigla : $unidade->Sigla ?>
                                     </option>
@@ -40,9 +40,9 @@
                     </div>
                     <div class="row">
                         <div class="col s6 m12 l4">
-                            <label>T&eacute;cnico</label>
+                            <label>Técnico</label>
                             <select class="browser-default" name="idTecnico" id="idTecnico">
-                                <option value="" disabled selected>Selecione um t&eacute;cnico</option>
+                                <option value="" disabled selected>Selecione um Técnico</option>
                             </select>
                         </div>
                     </div>
@@ -79,17 +79,17 @@
                     success: function (data) {
                         var tecnico = $('#idTecnico');
                         var idTecnicoAtual = $('#idTecnicoAtual').val();
-                        
+
                         tecnico.html('');
                         if (data) {
-                            tecnico.append('<option value="" disabled selected> - Selecione um t&eacute;cnico - </option>');
+                            tecnico.append('<option value="" disabled selected> - Selecione um Técnico - </option>');
                             for (i in data) {
                                 var selecionado = (idTecnicoAtual == data[i].usu_codigo ) ? 'selected' : '';
 
                                 tecnico.append('<option value="' + data[i].usu_codigo + '"'  + selecionado + '>' + data[i].usu_nome + '</option>');
                             }
                         } else {
-                            tecnico.append('<option> - N&atilde;o h&aacute; t&eacute;cnicos nessa unidade - </option>');
+                            tecnico.append('<option> - N&atilde;o h&aacute; Técnicos nessa unidade - </option>');
                         }
                     },
                     dataType: 'json'

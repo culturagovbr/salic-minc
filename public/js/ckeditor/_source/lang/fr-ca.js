@@ -46,16 +46,16 @@ CKEDITOR.lang['fr-ca'] =
 	copy			: 'Copier',
 	paste			: 'Coller',
 	print			: 'Imprimer',
-	underline		: 'Souligné',
+	underline		: 'Soulign&eacute;',
 	bold			: 'Gras',
 	italic			: 'Italique',
-	selectAll		: 'Tout sélectionner',
+	selectAll		: 'Tout s&eacute;lectionner',
 	removeFormat	: 'Supprimer le formatage',
 	strike			: 'Barrer',
 	subscript		: 'Indice',
 	superscript		: 'Exposant',
-	horizontalrule	: 'Insérer un séparateur',
-	pagebreak		: 'Insérer un saut de page',
+	horizontalrule	: 'Ins&eacute;rer un s&eacute;parateur',
+	pagebreak		: 'Ins&eacute;rer un saut de page',
 	unlink			: 'Supprimer le lien',
 	undo			: 'Annuler',
 	redo			: 'Refaire',
@@ -66,7 +66,7 @@ CKEDITOR.lang['fr-ca'] =
 		browseServer	: 'Parcourir le serveur',
 		url				: 'URL',
 		protocol		: 'Protocole',
-		upload			: 'Télécharger',
+		upload			: 'T&eacute;l&eacute;charger',
 		uploadSubmit	: 'Envoyer sur le serveur',
 		image			: 'Image',
 		flash			: 'Animation Flash',
@@ -75,14 +75,14 @@ CKEDITOR.lang['fr-ca'] =
 		radio			: 'Bouton radio',
 		textField		: 'Champ texte',
 		textarea		: 'Zone de texte',
-		hiddenField		: 'Champ caché',
+		hiddenField		: 'Champ cach&eacute;',
 		button			: 'Bouton',
-		select			: 'Champ de sélection',
+		select			: 'Champ de s&eacute;lection',
 		imageButton		: 'Bouton image',
-		notSet			: '<Par défaut>',
+		notSet			: '<Par d&eacute;faut>',
 		id				: 'Id',
 		name			: 'Nom',
-		langDir			: 'Sens d\'écriture',
+		langDir			: 'Sens d\'&eacute;criture',
 		langDirLtr		: 'De gauche à droite (LTR)',
 		langDirRtl		: 'De droite à gauche (RTL)',
 		langCode		: 'Code langue',
@@ -94,8 +94,8 @@ CKEDITOR.lang['fr-ca'] =
 		cancel			: 'Annuler',
 		close			: 'Close', // MISSING
 		preview			: 'Preview', // MISSING
-		generalTab		: 'Général',
-		advancedTab		: 'Avancée',
+		generalTab		: 'G&eacute;n&eacute;ral',
+		advancedTab		: 'Avanc&eacute;e',
 		validateNumberFailed : 'This value is not a number.', // MISSING
 		confirmNewPage	: 'Any unsaved changes to this content will be lost. Are you sure you want to load new page?', // MISSING
 		confirmCancel	: 'Some of the options have been changed. Are you sure to close the dialog?', // MISSING
@@ -118,22 +118,22 @@ CKEDITOR.lang['fr-ca'] =
 	// Special char dialog.
 	specialChar		:
 	{
-		toolbar		: 'Insérer un caractère spécial',
-		title		: 'Insérer un caractère spécial',
+		toolbar		: 'Ins&eacute;rer un caractère sp&eacute;cial',
+		title		: 'Ins&eacute;rer un caractère sp&eacute;cial',
 		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
 	link :
 	{
-		toolbar		: 'Insérer/modifier le lien',
+		toolbar		: 'Ins&eacute;rer/modifier le lien',
 		other 		: '<other>', // MISSING
 		menu		: 'Modifier le lien',
-		title		: 'Propriétés du lien',
+		title		: 'Propri&eacute;t&eacute;s du lien',
 		info		: 'Informations sur le lien',
 		target		: 'Destination',
-		upload		: 'Télécharger',
-		advanced	: 'Avancée',
+		upload		: 'T&eacute;l&eacute;charger',
+		advanced	: 'Avanc&eacute;e',
 		type		: 'Type de lien',
 		toUrl		: 'URL', // MISSING
 		toAnchor	: 'Ancre dans cette page',
@@ -142,33 +142,33 @@ CKEDITOR.lang['fr-ca'] =
 		targetPopup		: '<fenêtre popup>',
 		targetFrameName	: 'Nom du cadre de destination',
 		targetPopupName	: 'Nom de la fenêtre popup',
-		popupFeatures	: 'Caractéristiques de la fenêtre popup',
+		popupFeatures	: 'Caract&eacute;ristiques de la fenêtre popup',
 		popupResizable	: 'Resizable', // MISSING
-		popupStatusBar	: 'Barre d\'état',
+		popupStatusBar	: 'Barre d\'&eacute;tat',
 		popupLocationBar: 'Barre d\'adresses',
 		popupToolbar	: 'Barre d\'outils',
 		popupMenuBar	: 'Barre de menu',
-		popupFullScreen	: 'Plein écran (IE)',
-		popupScrollBars	: 'Barres de défilement',
-		popupDependent	: 'Dépendante (Netscape)',
+		popupFullScreen	: 'Plein &eacute;cran (IE)',
+		popupScrollBars	: 'Barres de d&eacute;filement',
+		popupDependent	: 'D&eacute;pendante (Netscape)',
 		popupWidth		: 'Largeur',
 		popupLeft		: 'Position à partir de la gauche',
 		popupHeight		: 'Hauteur',
 		popupTop		: 'Position à partir du haut',
 		id				: 'Id', // MISSING
-		langDir			: 'Sens d\'écriture',
+		langDir			: 'Sens d\'&eacute;criture',
 		langDirLTR		: 'De gauche à droite (LTR)',
 		langDirRTL		: 'De droite à gauche (RTL)',
-		acccessKey		: 'Équivalent clavier',
+		acccessKey		: '&eacute;quivalent clavier',
 		name			: 'Nom',
-		langCode		: 'Sens d\'écriture',
+		langCode		: 'Sens d\'&eacute;criture',
 		tabIndex		: 'Ordre de tabulation',
 		advisoryTitle	: 'Titre',
 		advisoryContentType	: 'Type de contenu',
 		cssClasses		: 'Classes de feuilles de style',
 		charset			: 'Encodage de caractère',
 		styles			: 'Style',
-		selectAnchor	: 'Sélectionner une ancre',
+		selectAnchor	: 'S&eacute;lectionner une ancre',
 		anchorName		: 'Par nom',
 		anchorId		: 'Par id',
 		emailAddress	: 'Adresse E-Mail',
@@ -182,9 +182,9 @@ CKEDITOR.lang['fr-ca'] =
 	// Anchor dialog
 	anchor :
 	{
-		toolbar		: 'Insérer/modifier l\'ancre',
-		menu		: 'Propriétés de l\'ancre',
-		title		: 'Propriétés de l\'ancre',
+		toolbar		: 'Ins&eacute;rer/modifier l\'ancre',
+		menu		: 'Propri&eacute;t&eacute;s de l\'ancre',
+		title		: 'Propri&eacute;t&eacute;s de l\'ancre',
 		name		: 'Nom de l\'ancre',
 		errorName	: 'Veuillez saisir le nom de l\'ancre'
 	},
@@ -220,7 +220,7 @@ CKEDITOR.lang['fr-ca'] =
 		replace				: 'Remplacer',
 		findWhat			: 'Rechercher:',
 		replaceWith			: 'Remplacer par:',
-		notFoundMsg			: 'Le texte indiqué est introuvable.',
+		notFoundMsg			: 'Le texte indiqu&eacute; est introuvable.',
 		matchCase			: 'Respecter la casse',
 		matchWord			: 'Mot entier',
 		matchCyclic			: 'Match cyclic', // MISSING
@@ -232,15 +232,15 @@ CKEDITOR.lang['fr-ca'] =
 	table :
 	{
 		toolbar		: 'Tableau',
-		title		: 'Propriétés du tableau',
-		menu		: 'Propriétés du tableau',
+		title		: 'Propri&eacute;t&eacute;s du tableau',
+		menu		: 'Propri&eacute;t&eacute;s du tableau',
 		deleteTable	: 'Supprimer le tableau',
 		rows		: 'Lignes',
 		columns		: 'Colonnes',
 		border		: 'Taille de la bordure',
 		align		: 'Alignement',
 		alignLeft	: 'Gauche',
-		alignCenter	: 'Centré',
+		alignCenter	: 'Centr&eacute;',
 		alignRight	: 'Droite',
 		width		: 'Largeur',
 		widthPx		: 'pixels',
@@ -250,7 +250,7 @@ CKEDITOR.lang['fr-ca'] =
 		cellSpace	: 'Espacement',
 		cellPad		: 'Contour',
 		caption		: 'Titre',
-		summary		: 'Résumé',
+		summary		: 'R&eacute;sum&eacute;',
 		headers		: 'Headers', // MISSING
 		headersNone		: 'None', // MISSING
 		headersColumn	: 'First column', // MISSING
@@ -267,8 +267,8 @@ CKEDITOR.lang['fr-ca'] =
 		cell :
 		{
 			menu			: 'Cellule',
-			insertBefore	: 'Insérer une cellule avant',
-			insertAfter		: 'Insérer une cellule après',
+			insertBefore	: 'Ins&eacute;rer une cellule avant',
+			insertAfter		: 'Ins&eacute;rer une cellule après',
 			deleteCell		: 'Supprimer des cellules',
 			merge			: 'Fusionner les cellules',
 			mergeRight		: 'Fusionner à droite',
@@ -302,16 +302,16 @@ CKEDITOR.lang['fr-ca'] =
 		row :
 		{
 			menu			: 'Ligne',
-			insertBefore	: 'Insérer une ligne avant',
-			insertAfter		: 'Insérer une ligne après',
+			insertBefore	: 'Ins&eacute;rer une ligne avant',
+			insertAfter		: 'Ins&eacute;rer une ligne après',
 			deleteRow		: 'Supprimer des lignes'
 		},
 
 		column :
 		{
 			menu			: 'Colonne',
-			insertBefore	: 'Insérer une colonne avant',
-			insertAfter		: 'Insérer une colonne après',
+			insertBefore	: 'Ins&eacute;rer une colonne avant',
+			insertAfter		: 'Ins&eacute;rer une colonne après',
 			deleteColumn	: 'Supprimer des colonnes'
 		}
 	},
@@ -319,57 +319,57 @@ CKEDITOR.lang['fr-ca'] =
 	// Button Dialog.
 	button :
 	{
-		title		: 'Propriétés du bouton',
+		title		: 'Propri&eacute;t&eacute;s du bouton',
 		text		: 'Texte (Valeur)',
 		type		: 'Type',
 		typeBtn		: 'Bouton',
 		typeSbm		: 'Soumettre',
-		typeRst		: 'Réinitialiser'
+		typeRst		: 'R&eacute;initialiser'
 	},
 
 	// Checkbox and Radio Button Dialogs.
 	checkboxAndRadio :
 	{
-		checkboxTitle : 'Propriétés de la case à cocher',
-		radioTitle	: 'Propriétés du bouton radio',
+		checkboxTitle : 'Propri&eacute;t&eacute;s de la case à cocher',
+		radioTitle	: 'Propri&eacute;t&eacute;s du bouton radio',
 		value		: 'Valeur',
-		selected	: 'Sélectionné'
+		selected	: 'S&eacute;lectionn&eacute;'
 	},
 
 	// Form Dialog.
 	form :
 	{
-		title		: 'Propriétés du formulaire',
-		menu		: 'Propriétés du formulaire',
+		title		: 'Propri&eacute;t&eacute;s du formulaire',
+		menu		: 'Propri&eacute;t&eacute;s du formulaire',
 		action		: 'Action',
-		method		: 'Méthode',
+		method		: 'M&eacute;thode',
 		encoding	: 'Encoding' // MISSING
 	},
 
 	// Select Field Dialog.
 	select :
 	{
-		title		: 'Propriétés de la liste/du menu',
+		title		: 'Propri&eacute;t&eacute;s de la liste/du menu',
 		selectInfo	: 'Info',
 		opAvail		: 'Options disponibles',
 		value		: 'Valeur',
 		size		: 'Taille',
 		lines		: 'lignes',
-		chkMulti	: 'Sélection multiple',
+		chkMulti	: 'S&eacute;lection multiple',
 		opText		: 'Texte',
 		opValue		: 'Valeur',
 		btnAdd		: 'Ajouter',
 		btnModify	: 'Modifier',
 		btnUp		: 'Monter',
 		btnDown		: 'Descendre',
-		btnSetValue : 'Valeur sélectionnée',
+		btnSetValue : 'Valeur s&eacute;lectionn&eacute;e',
 		btnDelete	: 'Supprimer'
 	},
 
 	// Textarea Dialog.
 	textarea :
 	{
-		title		: 'Propriétés de la zone de texte',
+		title		: 'Propri&eacute;t&eacute;s de la zone de texte',
 		cols		: 'Colonnes',
 		rows		: 'Lignes'
 	},
@@ -377,7 +377,7 @@ CKEDITOR.lang['fr-ca'] =
 	// Text Field Dialog.
 	textfield :
 	{
-		title		: 'Propriétés du champ texte',
+		title		: 'Propri&eacute;t&eacute;s du champ texte',
 		name		: 'Nom',
 		value		: 'Valeur',
 		charWidth	: 'Largeur en caractères',
@@ -390,7 +390,7 @@ CKEDITOR.lang['fr-ca'] =
 	// Hidden Field Dialog.
 	hidden :
 	{
-		title	: 'Propriétés du champ caché',
+		title	: 'Propri&eacute;t&eacute;s du champ cach&eacute;',
 		name	: 'Nom',
 		value	: 'Valeur'
 	},
@@ -398,12 +398,12 @@ CKEDITOR.lang['fr-ca'] =
 	// Image Dialog.
 	image :
 	{
-		title		: 'Propriétés de l\'image',
-		titleButton	: 'Propriétés du bouton image',
-		menu		: 'Propriétés de l\'image',
+		title		: 'Propri&eacute;t&eacute;s de l\'image',
+		titleButton	: 'Propri&eacute;t&eacute;s du bouton image',
+		menu		: 'Propri&eacute;t&eacute;s de l\'image',
 		infoTab		: 'Informations sur l\'image',
 		btnUpload	: 'Envoyer sur le serveur',
-		upload		: 'Télécharger',
+		upload		: 'T&eacute;l&eacute;charger',
 		alt			: 'Texte de remplacement',
 		width		: 'Largeur',
 		height		: 'Hauteur',
@@ -431,15 +431,15 @@ CKEDITOR.lang['fr-ca'] =
 	// Flash Dialog
 	flash :
 	{
-		properties		: 'Propriétés de l\'animation Flash',
+		properties		: 'Propri&eacute;t&eacute;s de l\'animation Flash',
 		propertiesTab	: 'Properties', // MISSING
-		title			: 'Propriétés de l\'animation Flash',
+		title			: 'Propri&eacute;t&eacute;s de l\'animation Flash',
 		chkPlay			: 'Lecture automatique',
 		chkLoop			: 'Boucle',
 		chkMenu			: 'Activer le menu Flash',
 		chkFull			: 'Allow Fullscreen', // MISSING
  		scale			: 'Affichage',
-		scaleAll		: 'Par défaut (tout montrer)',
+		scaleAll		: 'Par d&eacute;faut (tout montrer)',
 		scaleNoBorder	: 'Sans bordure',
 		scaleFit		: 'Ajuster aux dimensions',
 		access			: 'Script Access', // MISSING
@@ -495,18 +495,18 @@ CKEDITOR.lang['fr-ca'] =
 		btnReplaceAll	: 'Remplacer tout',
 		btnUndo			: 'Annuler',
 		noSuggestions	: '- Pas de suggestion -',
-		progress		: 'Vérification d\'orthographe en cours...',
-		noMispell		: 'Vérification d\'orthographe terminée: pas d\'erreur trouvée',
-		noChanges		: 'Vérification d\'orthographe terminée: Pas de modifications',
-		oneChange		: 'Vérification d\'orthographe terminée: Un mot modifié',
-		manyChanges		: 'Vérification d\'orthographe terminée: %1 mots modifiés',
-		ieSpellDownload	: 'Le Correcteur d\'orthographe n\'est pas installé. Souhaitez-vous le télécharger maintenant?'
+		progress		: 'V&eacute;rification d\'orthographe en cours...',
+		noMispell		: 'V&eacute;rification d\'orthographe termin&eacute;e: pas d\'erreur trouv&eacute;e',
+		noChanges		: 'V&eacute;rification d\'orthographe termin&eacute;e: Pas de modifications',
+		oneChange		: 'V&eacute;rification d\'orthographe termin&eacute;e: Un mot modifi&eacute;',
+		manyChanges		: 'V&eacute;rification d\'orthographe termin&eacute;e: %1 mots modifi&eacute;s',
+		ieSpellDownload	: 'Le Correcteur d\'orthographe n\'est pas install&eacute;. Souhaitez-vous le t&eacute;l&eacute;charger maintenant?'
 	},
 
 	smiley :
 	{
 		toolbar	: 'Emoticon',
-		title	: 'Insérer un Emoticon',
+		title	: 'Ins&eacute;rer un Emoticon',
 		options : 'Smiley Options' // MISSING
 	},
 
@@ -516,7 +516,7 @@ CKEDITOR.lang['fr-ca'] =
 		eleTitle : '%1 element' // MISSING
 	},
 
-	numberedlist	: 'Liste numérotée',
+	numberedlist	: 'Liste num&eacute;rot&eacute;e',
 	bulletedlist	: 'Liste à puces',
 	indent			: 'Augmenter le retrait',
 	outdent			: 'Diminuer le retrait',
@@ -526,7 +526,7 @@ CKEDITOR.lang['fr-ca'] =
 		left	: 'Aligner à gauche',
 		center	: 'Centrer',
 		right	: 'Aligner à Droite',
-		block	: 'Texte justifié'
+		block	: 'Texte justifi&eacute;'
 	},
 
 	blockquote : 'Citation',
@@ -534,18 +534,18 @@ CKEDITOR.lang['fr-ca'] =
 	clipboard :
 	{
 		title		: 'Coller',
-		cutError	: 'Les paramètres de sécurité de votre navigateur empêchent l\'éditeur de couper automatiquement vos données. Veuillez utiliser les équivalents claviers (Ctrl/Cmd+X).',
-		copyError	: 'Les paramètres de sécurité de votre navigateur empêchent l\'éditeur de copier automatiquement vos données. Veuillez utiliser les équivalents claviers (Ctrl/Cmd+C).',
+		cutError	: 'Les paramètres de s&eacute;curit&eacute; de votre navigateur empêchent l\'&eacute;diteur de couper automatiquement vos donn&eacute;es. Veuillez utiliser les &eacute;quivalents claviers (Ctrl/Cmd+X).',
+		copyError	: 'Les paramètres de s&eacute;curit&eacute; de votre navigateur empêchent l\'&eacute;diteur de copier automatiquement vos donn&eacute;es. Veuillez utiliser les &eacute;quivalents claviers (Ctrl/Cmd+C).',
 		pasteMsg	: 'Veuillez coller dans la zone ci-dessous en utilisant le clavier (<STRONG>Ctrl/Cmd+V</STRONG>) et appuyer sur <STRONG>OK</STRONG>.',
-		securityMsg	: 'A cause des paramètres de sécurité de votre navigateur, l\'éditeur ne peut accéder au presse-papier directement. Vous devez coller à nouveau le contenu dans cette fenêtre.',
+		securityMsg	: 'A cause des paramètres de s&eacute;curit&eacute; de votre navigateur, l\'&eacute;diteur ne peut acc&eacute;der au presse-papier directement. Vous devez coller à nouveau le contenu dans cette fenêtre.',
 		pasteArea	: 'Paste Area' // MISSING
 	},
 
 	pastefromword :
 	{
 		confirmCleanup	: 'The text you want to paste seems to be copied from Word. Do you want to clean it before pasting?', // MISSING
-		toolbar			: 'Coller en tant que Word (formaté)',
-		title			: 'Coller en tant que Word (formaté)',
+		toolbar			: 'Coller en tant que Word (format&eacute;)',
+		title			: 'Coller en tant que Word (format&eacute;)',
 		error			: 'It was not possible to clean up the pasted data due to an internal error' // MISSING
 	},
 
@@ -561,7 +561,7 @@ CKEDITOR.lang['fr-ca'] =
 		title			: 'Modèles de contenu',
 		options : 'Template Options', // MISSING
 		insertOption	: 'Remplacer tout le contenu actuel',
-		selectPromptMsg	: 'Sélectionner le modèle à ouvrir dans l\'éditeur<br>(le contenu actuel sera remplacé):',
+		selectPromptMsg	: 'S&eacute;lectionner le modèle à ouvrir dans l\'&eacute;diteur<br>(le contenu actuel sera remplac&eacute;):',
 		emptyListMsg	: '(Aucun modèle disponible)'
 	},
 
@@ -582,7 +582,7 @@ CKEDITOR.lang['fr-ca'] =
 		panelTitle	: 'Format',
 
 		tag_p		: 'Normal',
-		tag_pre		: 'Formaté',
+		tag_pre		: 'Format&eacute;',
 		tag_address	: 'Adresse',
 		tag_h1		: 'En-tête 1',
 		tag_h2		: 'En-tête 2',

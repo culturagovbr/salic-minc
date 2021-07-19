@@ -61,7 +61,7 @@
                                     watch_later
                                 </v-icon>
                             </v-btn>
-                            <span>Este produto é secundário, quando o produto principal for assinado ele será finalizado</span>
+                            <span>Este produto &eacute; secund&aacute;rio, quando o produto principal for assinado ele ser&aacute; finalizado</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -95,7 +95,7 @@
                                     report_off
                                 </v-icon>
                             </v-btn>
-                            <span>Devolver para reanálise do parecerista</span>
+                            <span>Devolver para rean&aacute;lise do parecerista</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -111,7 +111,7 @@
                                     history
                                 </v-icon>
                             </v-btn>
-                            <span>Visualizar histórico</span>
+                            <span>Visualizar hist&oacute;rico</span>
                         </v-tooltip>
                     </td>
                 </tr>

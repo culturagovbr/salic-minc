@@ -103,7 +103,7 @@ class Zend_View_Helper_PrazoRespostaDiligencia
         $arrIcones = array();
 
         //diligenciado
-        if ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null 
+        if ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null
             && $prazoResposta <= $prazoPadrao && $rsDiligencia->stEnviado == 'S') {
             $arrIcones['icone'] = "notice.png";
             $arrIcones['title'] = "Diligenciado";

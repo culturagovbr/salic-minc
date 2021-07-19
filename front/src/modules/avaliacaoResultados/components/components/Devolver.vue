@@ -44,7 +44,7 @@
                         && tecnico.nome !== 'sysLaudo'"
                     >
                         Confirma a devolução do projeto '{{ pronac }} - {{ nomeProjeto }}'
-                        para análise do Tecnico: {{ tecnico.nome }}?
+                        para an&aacute;lise do Tecnico: {{ tecnico.nome }}?
                     </div>
                     <div v-else>
                         Confirma a devolução do projeto

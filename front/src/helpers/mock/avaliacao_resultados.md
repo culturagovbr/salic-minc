@@ -40,9 +40,9 @@ HOST: http://localhost:4000
 
             Location: /principal
 
-## Informações do Usuário Logado [/autenticacao/usuario/usuario/logado]
+## Informações do Usu&aacute;rio Logado [/autenticacao/usuario/usuario/logado]
 
-### Informações do Usuário Logado [GET]
+### Informações do Usu&aacute;rio Logado [GET]
 
 + Response 200 (application/json, charset=utf-8)
 
@@ -53,9 +53,9 @@ HOST: http://localhost:4000
 
 # Group Sistema
 
-## Página Principal [/principal]
+## P&aacute;gina Principal [/principal]
 
-### Página Principal [GET]
+### P&aacute;gina Principal [GET]
 
 + Response 200 (text/html)
 
@@ -124,7 +124,7 @@ HOST: http://localhost:4000
                     "Area": "Artes Visuais",
                     "Segmento": "Fotografia",
                     "Mecanismo": "Mecenato",
-                    "Situacao": "A10 - Pré Análise",
+                    "Situacao": "A10 - Pr&eacute; An&aacute;lise",
                     "PlanoExecucaoImediata": "Projeto normal",
                     "AgenciaBancaria": "18465",
                     "ContaCaptacao": "000000480835",
@@ -179,7 +179,7 @@ HOST: http://localhost:4000
                     "NrPortariaVigente": "0537/18",
                     "DtPublicacaoPortariaVigente": "15/08/2018",
                     "ResumoProjeto": "O Festival do Jap&atilde;o RS &eacute; um evento cultural realizado anualmente pela Associa&ccedil;&atilde;o do Festival do Jap&atilde;o do Rio Grande do Sul. Em sua 7&ordf; Edi&ccedil;&atilde;o, a ser realizada no ano de 2018, ser&aacute; produzido um document&aacute;rio resgatando as ra&iacute;zes nipo-brasileiras que formaram as col&ocirc;nias japonesas no RS, com a participa&ccedil;&atilde;o dos primeiros imigrantes japonesesque aportaram em 1956. Nestes dois dias o festival celebrar&aacute; os la&ccedil;os culturais entre os dois povos, preservando suas identidades e tradi&ccedil;&otilde;es, oportunizando ao p&uacute;blico conhecer, apreciar e vivenciar os h&aacute;bitos e costumes, a culin&aacute;ria e as mais variadas express&otilde;es art&iacute;sticas e pr&aacute;ticas relacionadas ao cotidiano do povo japon&ecirc;s. Em 2018 o p&uacute;blico estimado para o evento &eacute; de 50 mil pessoas.",
-                    "ProvidenciaTomada": "Readequa&ccedil;&atilde;o em an&aacute;lise pela &aacute;rea t&eacute;cnica.",
+                    "ProvidenciaTomada": "Readequação em an&aacute;lise pela &aacute;rea t&eacute;cnica.",
                     "LocalizacaoAtual": "SEFIC/GEAR/SACAV",
                     "vlSolicitadoOriginal": "341251.2",
                     "vlOutrasFontesPropostaOriginal": "0",
@@ -213,7 +213,7 @@ HOST: http://localhost:4000
                     "Segmento": "Exposição de Artes Visuais",
                     "Mecanismo": "Mecenato",
                     "Situacao": "E12 - Autorizada a captação residual dos recursos",
-                    "PlanoExecucaoImediata": "Projeto  com contratos de patrocínios",
+                    "PlanoExecucaoImediata": "Projeto  com contratos de patroc&iacute;nios",
                     "AgenciaBancaria": "27944",
                     "ContaCaptacao": "000000462322",
                     "ContaMovimentacao": "000000462330",
@@ -253,7 +253,7 @@ HOST: http://localhost:4000
                 + 0
                     + Pronac: 1012121 (string)
                     + PRONAC: 1012121 (string)
-                    + NomeProjeto: Criança é Vida - 15 anos (string)
+                    + NomeProjeto: Criança &eacute; Vida - 15 anos (string)
                     + cdSituacao: E68 (string)
                     + Situacao: E68 (string)
                     + UfProjeto: SP (string)
@@ -271,9 +271,9 @@ HOST: http://localhost:4000
                     + Prioridade: 0 (string)
                     + idPronac: 159131 (string)
 
-## FLUXO-PROJETO - Projetos Análise [/avaliacao-resultados/fluxo-projeto?estadoid={estadoId}&idAgente={idAgente}]
+## FLUXO-PROJETO - Projetos An&aacute;lise [/avaliacao-resultados/fluxo-projeto?estadoid={estadoId}&idAgente={idAgente}]
 
-### FLUXO-PROJETO - Projetos Análise [GET]
+### FLUXO-PROJETO - Projetos An&aacute;lise [GET]
 
 + Parameters
     + estadoId: 5
@@ -301,7 +301,7 @@ HOST: http://localhost:4000
                         "Area": "3",
                         "Segmento": "32",
                         "Mecanismo": "1",
-                        "NomeProjeto": "Série de Concertos Orquestra Pianíssimo",
+                        "NomeProjeto": "S&eacute;rie de Concertos Orquestra Pian&iacute;ssimo",
                         "Processo": "01400008374201194",
                         "CgcCpf": "11861910000185",
                         "Situacao": "E17",
@@ -315,8 +315,8 @@ HOST: http://localhost:4000
                         "UnidadeAnalise": " ",
                         "Analista": " ",
                         "DtSituacao": "2018-11-21 16:28:07",
-                        "ResumoProjeto": "O projeto prevê a realização de 8 concertos da Orquestra Pianíssimo na cidade de Belo Horizonte/MG, com vistas à formação de público para música erudita/instrumental por meio do repertório clássico para orquestra de câmara.",
-                        "ProvidenciaTomada": "Projeto diligenciado na análise de prestação de contas.",
+                        "ResumoProjeto": "O projeto prevê a realização de 8 concertos da Orquestra Pian&iacute;ssimo na cidade de Belo Horizonte/MG, com vistas à formação de p&uacute;blico para m&uacute;sica erudita/instrumental por meio do repert&oacute;rio cl&aacute;ssico para orquestra de câmara.",
+                        "ProvidenciaTomada": "Projeto diligenciado na an&aacute;lise de prestação de contas.",
                         "Localizacao": " ",
                         "DtInicioExecucao": "2014-01-07 10:09:09",
                         "DtFimExecucao": "2014-05-31 00:00:00",
@@ -384,8 +384,8 @@ HOST: http://localhost:4000
                         "UnidadeAnalise": " ",
                         "Analista": " ",
                         "DtSituacao": "2018-12-13 18:12:57",
-                        "ResumoProjeto": "A Fundação Assis Gurgacz promove um Festival Cultural de Artes Integradas para a 3ª idade, com oficinas de Música, Teatro, Dança e apresentações Artísticas, oportunizando a troca de experiências, o desenvolvimento das habilidades artísticas, estimulando a participação desta camada social em atividades de interação cultural, incluindo cursos e workshops para a 3ª idade e monitores culturais que trabalham com esta faixa etária.",
-                        "ProvidenciaTomada": "Projeto diligenciado na análise de prestação de contas.",
+                        "ResumoProjeto": "A Fundação Assis Gurgacz promove um Festival Cultural de Artes Integradas para a 3ª idade, com oficinas de M&uacute;sica, Teatro, Dança e apresentações Art&iacute;sticas, oportunizando a troca de experiências, o desenvolvimento das habilidades art&iacute;sticas, estimulando a participação desta camada social em atividades de interação cultural, incluindo cursos e workshops para a 3ª idade e monitores culturais que trabalham com esta faixa et&aacute;ria.",
+                        "ProvidenciaTomada": "Projeto diligenciado na an&aacute;lise de prestação de contas.",
                         "Localizacao": " ",
                         "DtInicioExecucao": "2014-01-07 10:09:09",
                         "DtFimExecucao": "2014-02-28 00:00:00",
@@ -411,9 +411,9 @@ HOST: http://localhost:4000
                 }
             }
 
-## PROJETO-ASSINATURA - Projetos Histórico [/avaliacao-resultados/projeto-assinatura/estado/historico]
+## PROJETO-ASSINATURA - Projetos Hist&oacute;rico [/avaliacao-resultados/projeto-assinatura/estado/historico]
 
-### PROJETO-ASSINATURA - Projetos Histórico [GET]
+### PROJETO-ASSINATURA - Projetos Hist&oacute;rico [GET]
 
 + Response 200 (application/json; charset=utf-8)
     + Headers
@@ -448,8 +448,8 @@ HOST: http://localhost:4000
                         "UnidadeAnalise": " ",
                         "Analista": " ",
                         "DtSituacao": "2018-12-21 17:35:22",
-                        "ResumoProjeto": "Trata-se de  uma obra de fomento  das artes plásticas de Santa Catarina destinada ao público  escolar , com abordagem informativa, destacando a vida e obra de  20 artistas  plásticos desde a época colonial aos dias  atuais.O material  será apresentado  de forma colorida e dinâmica com brincadeiras, histórias em quadrinhos e animação. Sua primeira edição foi Lançado no Museu  de Arte de SC em 2005.e atualmente  está esgotada e necessita de atualização dos dados.",
-                        "ProvidenciaTomada": "Comprova&ccedil;&atilde;o Financeira do Projeto em Análise",
+                        "ResumoProjeto": "Trata-se de  uma obra de fomento  das artes pl&aacute;sticas de Santa Catarina destinada ao p&uacute;blico  escolar , com abordagem informativa, destacando a vida e obra de  20 artistas  pl&aacute;sticos desde a &eacute;poca colonial aos dias  atuais.O material  ser&aacute; apresentado  de forma colorida e dinâmica com brincadeiras, hist&oacute;rias em quadrinhos e animação. Sua primeira edição foi Lançado no Museu  de Arte de SC em 2005.e atualmente  est&aacute; esgotada e necessita de atualização dos dados.",
+                        "ProvidenciaTomada": "Comprova&ccedil;&atilde;o Financeira do Projeto em An&aacute;lise",
                         "Localizacao": " ",
                         "DtInicioExecucao": "2011-05-06 00:00:00",
                         "DtFimExecucao": "2016-03-31 00:00:00",
@@ -708,7 +708,7 @@ HOST: http://localhost:4000
                 "data": {
                     "code": 200,
                     "items": {
-                    "nomeProjeto": "Série de Concertos Orquestra Pianíssimo",
+                    "nomeProjeto": "S&eacute;rie de Concertos Orquestra Pian&iacute;ssimo",
                     "vlTotalComprovar": 278255.09,
                     "vlAprovado": 349399.78,
                     "vlComprovado": 71144.69,
@@ -727,7 +727,7 @@ HOST: http://localhost:4000
                 }
             }
 
-## EMISSÃO-PARECER-REST - Visualizar - Aba Análise [/avaliacao-resultados/emissao-parecer-rest/idPronac/{idPronac}]
+## EMISSÃO-PARECER-REST - Visualizar - Aba An&aacute;lise [/avaliacao-resultados/emissao-parecer-rest/idPronac/{idPronac}]
 
 + Parameters
     + idPronac: 136867
@@ -760,7 +760,7 @@ HOST: http://localhost:4000
                         "Area": "3",
                         "Segmento": "32",
                         "Mecanismo": "1",
-                        "NomeProjeto": "Série de Concertos Orquestra Pianíssimo",
+                        "NomeProjeto": "S&eacute;rie de Concertos Orquestra Pian&iacute;ssimo",
                         "Processo": "01400008374201194",
                         "CgcCpf": "11861910000185",
                         "Situacao": "D53",
@@ -774,7 +774,7 @@ HOST: http://localhost:4000
                         "UnidadeAnalise": " ",
                         "Analista": " ",
                         "DtSituacao": "2019-01-14 15:34:05",
-                        "ResumoProjeto": "O projeto prevê a realização de 8 concertos da Orquestra Pianíssimo na cidade de Belo Horizonte/MG, com vistas à formação de público para música erudita/instrumental por meio do repertório clássico para orquestra de câmara.",
+                        "ResumoProjeto": "O projeto prevê a realização de 8 concertos da Orquestra Pian&iacute;ssimo na cidade de Belo Horizonte/MG, com vistas à formação de p&uacute;blico para m&uacute;sica erudita/instrumental por meio do repert&oacute;rio cl&aacute;ssico para orquestra de câmara.",
                         "ProvidenciaTomada": "Projeto encaminhado para o setor de elabora&ccedil;&atilde;o de portaria",
                         "Localizacao": " ",
                         "DtInicioExecucao": "2014-01-07 10:09:09",
@@ -790,13 +790,13 @@ HOST: http://localhost:4000
                     },
                     "proponente": {
                         "tipoPessoa": "Pessoa Jur&iacute;dica",
-                        "Nome": "PIANÍSSIMO PRODUÇOES MUSICAIS E ARTÍSTICAS",
-                        "Endereco": "do Contorno - 4614 - sala 603 - Funcionários",
+                        "Nome": "PIAN&iacute;SSIMO PRODUÇOES MUSICAIS E ART&iacute;STICAS",
+                        "Endereco": "do Contorno - 4614 - sala 603 - Funcion&aacute;rios",
                         "CgcCpf": "11861910000185",
                         "Uf": "MG",
                         "Cidade": "Belo Horizonte",
                         "Esfera": null,
-                        "Responsavel": "César Timóteo de Oliveira Santos",
+                        "Responsavel": "C&eacute;sar Tim&oacute;teo de Oliveira Santos",
                         "Cep": "30110028",
                         "Administracao": null,
                         "Utilidade": "1",
@@ -808,14 +808,14 @@ HOST: http://localhost:4000
                         "dtAvaliacaoFinanceira": "2019-01-14 03:24:08",
                         "tpAvaliacaoFinanceira": 1,
                         "siManifestacao": "A",
-                        "dsParecer": "<p>Aprovação - Teste Assinatura Diretor e Secretário</p>",
+                        "dsParecer": "<p>Aprovação - Teste Assinatura Diretor e Secret&aacute;rio</p>",
                         "idUsuario": 236
                     },
                     "objetoParecer": {
                         "DtEnvioDaPrestacaoContas": null,
                         "stResultadoAvaliacao": "P",
                         "dsManifestacaoObjeto": "APROVADO COM RESSALVAS",
-                        "dsParecerDeCumprimentoDoObjeto": "<b>PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA DO CUMPRIMENTO DO OBJETO</B><br/><br/>A análise técnica referente ao cumprimento do objeto e objetivos do projeto foram consolidadas no parecer nº 276/2015 e encontra-se anexada ao Salic.<b>ORIENTA&Ccedil;&Otilde;ES</B><br/><br/> <b>CONCLUS&Atilde;O DO PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA QUANTO &Agrave; EXECU&Ccedil;&Atilde;O DO OBJETO E DOS OBJETIVOS DO PROJETO</B><br/><br/>Conclui-se pelo cumprimento parcial do objeto. Registra-se que foram observados de forma satisfatória os requisitos expostos nos incisos de I a III e V a VIII do art. 80 da IN nº 01/2013, no entanto, o projeto não pôde ser executado integralmente em razão da não captação total dos recursos."
+                        "dsParecerDeCumprimentoDoObjeto": "<b>PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA DO CUMPRIMENTO DO OBJETO</B><br/><br/>A an&aacute;lise t&eacute;cnica referente ao cumprimento do objeto e objetivos do projeto foram consolidadas no parecer nº 276/2015 e encontra-se anexada ao Salic.<b>ORIENTA&Ccedil;&Otilde;ES</B><br/><br/> <b>CONCLUS&Atilde;O DO PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA QUANTO &Agrave; EXECU&Ccedil;&Atilde;O DO OBJETO E DOS OBJETIVOS DO PROJETO</B><br/><br/>Conclui-se pelo cumprimento parcial do objeto. Registra-se que foram observados de forma satisfat&oacute;ria os requisitos expostos nos incisos de I a III e V a VIII do art. 80 da IN nº 01/2013, no entanto, o projeto não pôde ser executado integralmente em razão da não captação total dos recursos."
                     }
                     }
                 }
@@ -866,7 +866,7 @@ HOST: http://localhost:4000
                         "UnidadeAnalise": " ",
                         "Analista": " ",
                         "DtSituacao": "2019-01-14 12:03:27",
-                        "ResumoProjeto": "A Fundação Assis Gurgacz promove um Festival Cultural de Artes Integradas para a 3ª idade, com oficinas de Música, Teatro, Dança e apresentações Artísticas, oportunizando a troca de experiências, o desenvolvimento das habilidades artísticas, estimulando a participação desta camada social em atividades de interação cultural, incluindo cursos e workshops para a 3ª idade e monitores culturais que trabalham com esta faixa etária.",
+                        "ResumoProjeto": "A Fundação Assis Gurgacz promove um Festival Cultural de Artes Integradas para a 3ª idade, com oficinas de M&uacute;sica, Teatro, Dança e apresentações Art&iacute;sticas, oportunizando a troca de experiências, o desenvolvimento das habilidades art&iacute;sticas, estimulando a participação desta camada social em atividades de interação cultural, incluindo cursos e workshops para a 3ª idade e monitores culturais que trabalham com esta faixa et&aacute;ria.",
                         "ProvidenciaTomada": "Projeto encaminhado para o setor de elabora&ccedil;&atilde;o de portaria",
                         "Localizacao": " ",
                         "DtInicioExecucao": "2014-01-07 10:09:09",
@@ -907,18 +907,18 @@ HOST: http://localhost:4000
                         "DtEnvioDaPrestacaoContas": null,
                         "stResultadoAvaliacao": "A",
                         "dsManifestacaoObjeto": "APROVADO",
-                        "dsParecerDeCumprimentoDoObjeto": "<b>PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA DO CUMPRIMENTO DO OBJETO</B><br/><br/>Na concepção deste relatório, para averiguação do cumprimento do objeto e objetivos do projeto, bem como para aferição do retorno social e dos impactos socioculturais, econômicos e ambientais, tomou-se como base de análise o Plano Básico de Divulgação, o Plano de Distribuição e os documentos/informações apresentados pela entidade proponente visando à prestação de contas da execução. 1)Empregos e qualificações decorrentes do projeto: conforme o Relatório Físico - Anexo IV, foram contratados serviços de profissionais da área de execução do projeto, bem como de serviços de apoio. 2)Medidas preventivas quanto a impactos ambientais: não se aplica ao projeto. 3)Medidas de acessibilidade física: de acordo com o clipping de imprensa, o evento foi realizado no Auditório do Bloco 4 da Faculdade Assis Gurgacz, edificação acessível para portadores de necessidades especiais, conforme demonstrado por fotografias que retratam rampas, elevadores, banheiros adaptados, bebedouros acessíveis e estacionamento com vagas reservadas para portadores de necessidades especiais. Além disso, a própria temática do festival está relacionada à promoção da acessibilidade, ao desenvolver atividades voltadas para a formação cultural e a inclusão de idosos. 4)Medidas de estímulo à fruição e à democratização de acesso do público: conforme o clipping de imprensa, as inscrições para o evento foram gratuitas. 5)Plano de Divulgação: na análise dos documentos encaminhados pela entidade proponente, verifica-se que os itens executados do Plano Básico de Divulgação, com exceção do jornal/encarte de jornal, atenderam ao disposto no art. 47 do Decreto n. 5.761, de 27 de abril de 2006, que define a obrigatoriedade da inserção da logomarca do Ministério da Cultura nos produtos culturais provenientes de recursos incentivados. Observa-se, ainda, que o material atendeu aos requisitos do Manual de Uso das Marcas do Pronac, exibindo a marca da Lei de Incentivo à Cultura e a assinatura do Ministério da Cultura, acompanhada da marca do Governo Federal. 6)Plano de Distribuição: conforme relatório do proponente, o festival beneficiou cerca de 450 pessoas, entre alunos de terceira idade, cuidadores de idosos e representantes de programas sociais de entidades de 37 municípios da região oeste do estado de Paraná. Verificou-se, por meio da análise de registros fotográficos e videográficos, que o projeto alcançou um número representativo de beneficiários e obteve repercussão e alcance social significativos.<b>ORIENTA&Ccedil;&Otilde;ES</B><br/><br/> Não se aplica ao projeto.<b>CONCLUS&Atilde;O DO PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA QUANTO &Agrave; EXECU&Ccedil;&Atilde;O DO OBJETO E DOS OBJETIVOS DO PROJETO</B><br/><br/>Diante do exposto, tendo em vista que o proponente apresentou a prestação de contas final em 04/04/2014, que as contas vinculadas ao projeto encontram-se zeradas e bloqueadas para novos aportes, o que evidencia a finalização da execução do projeto, CONCLUI-SE QUE O OBJETO E OBJETIVOS FORAM ALCANÇADOS, conforme demonstrado na análise dos documentos anexados ao Salic. Assim, sugere-se a remessa dos autos à Coordenação-Geral de Prestação de Contas/DIC/SEFIC/MinC para análise financeira da prestação de contas."
+                        "dsParecerDeCumprimentoDoObjeto": "<b>PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA DO CUMPRIMENTO DO OBJETO</B><br/><br/>Na concepção deste relat&oacute;rio, para averiguação do cumprimento do objeto e objetivos do projeto, bem como para aferição do retorno social e dos impactos socioculturais, econômicos e ambientais, tomou-se como base de an&aacute;lise o Plano B&aacute;sico de Divulgação, o Plano de Distribuição e os documentos/informações apresentados pela entidade proponente visando à prestação de contas da execução. 1)Empregos e qualificações decorrentes do projeto: conforme o Relat&oacute;rio F&iacute;sico - Anexo IV, foram contratados serviços de profissionais da &aacute;rea de execução do projeto, bem como de serviços de apoio. 2)Medidas preventivas quanto a impactos ambientais: não se aplica ao projeto. 3)Medidas de acessibilidade f&iacute;sica: de acordo com o clipping de imprensa, o evento foi realizado no Audit&oacute;rio do Bloco 4 da Faculdade Assis Gurgacz, edificação acess&iacute;vel para portadores de necessidades especiais, conforme demonstrado por fotografias que retratam rampas, elevadores, banheiros adaptados, bebedouros acess&iacute;veis e estacionamento com vagas reservadas para portadores de necessidades especiais. Al&eacute;m disso, a pr&oacute;pria tem&aacute;tica do festival est&aacute; relacionada à promoção da acessibilidade, ao desenvolver atividades voltadas para a formação cultural e a inclusão de idosos. 4)Medidas de est&iacute;mulo à fruição e à democratização de acesso do p&uacute;blico: conforme o clipping de imprensa, as inscrições para o evento foram gratuitas. 5)Plano de Divulgação: na an&aacute;lise dos documentos encaminhados pela entidade proponente, verifica-se que os itens executados do Plano B&aacute;sico de Divulgação, com exceção do jornal/encarte de jornal, atenderam ao disposto no art. 47 do Decreto n. 5.761, de 27 de abril de 2006, que define a obrigatoriedade da inserção da logomarca do Minist&eacute;rio da Cultura nos produtos culturais provenientes de recursos incentivados. Observa-se, ainda, que o material atendeu aos requisitos do Manual de Uso das Marcas do Pronac, exibindo a marca da Lei de Incentivo à Cultura e a assinatura do Minist&eacute;rio da Cultura, acompanhada da marca do Governo Federal. 6)Plano de Distribuição: conforme relat&oacute;rio do proponente, o festival beneficiou cerca de 450 pessoas, entre alunos de terceira idade, cuidadores de idosos e representantes de programas sociais de entidades de 37 munic&iacute;pios da região oeste do estado de Paran&aacute;. Verificou-se, por meio da an&aacute;lise de registros fotogr&aacute;ficos e videogr&aacute;ficos, que o projeto alcançou um n&uacute;mero representativo de benefici&aacute;rios e obteve repercussão e alcance social significativos.<b>ORIENTA&Ccedil;&Otilde;ES</B><br/><br/> Não se aplica ao projeto.<b>CONCLUS&Atilde;O DO PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA QUANTO &Agrave; EXECU&Ccedil;&Atilde;O DO OBJETO E DOS OBJETIVOS DO PROJETO</B><br/><br/>Diante do exposto, tendo em vista que o proponente apresentou a prestação de contas final em 04/04/2014, que as contas vinculadas ao projeto encontram-se zeradas e bloqueadas para novos aportes, o que evidencia a finalização da execução do projeto, CONCLUI-SE QUE O OBJETO E OBJETIVOS FORAM ALCANÇADOS, conforme demonstrado na an&aacute;lise dos documentos anexados ao Salic. Assim, sugere-se a remessa dos autos à Coordenação-Geral de Prestação de Contas/DIC/SEFIC/MinC para an&aacute;lise financeira da prestação de contas."
                     }
                     }
                 }
             }
 
-## HISTÓRICO - Encaminhamentos [/avaliacao-resultados/historico/idPronac/{idPronac}]
+## HIST&oacute;RICO - Encaminhamentos [/avaliacao-resultados/historico/idPronac/{idPronac}]
 
 + Parameters
     + idPronac: 136867
 
-### HISTÓRICO - Encaminhamentos [GET]
+### HIST&oacute;RICO - Encaminhamentos [GET]
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -930,7 +930,7 @@ HOST: http://localhost:4000
                     "items": [
                         {
                             "PRONAC": "113575",
-                            "NomeProjeto": "Série de Concertos Orquestra Pianíssimo",
+                            "NomeProjeto": "S&eacute;rie de Concertos Orquestra Pian&iacute;ssimo",
                             "dtInicioEncaminhamento": "11/21/2018",
                             "dsJustificativa": "ContinuaÃ§Ã£o!",
                             "NomeOrigem": "Rômulo Menhô Barbosa",
@@ -1022,9 +1022,9 @@ HOST: http://localhost:4000
                 }
             }
 
-## LAUDO FINAL - Análise [/avaliacao-resultados/laudo/index?estadoId=10]
+## LAUDO FINAL - An&aacute;lise [/avaliacao-resultados/laudo/index?estadoId=10]
 
-### LAUDO - Aba em Análise [GET]
+### LAUDO - Aba em An&aacute;lise [GET]
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1067,7 +1067,7 @@ HOST: http://localhost:4000
                     "items": [
                         {
                             "IdPronac": 153408,
-                            "NomeProjeto": "São Marcos - espetáculos culturais",
+                            "NomeProjeto": "São Marcos - espet&aacute;culos culturais",
                             "PRONAC": "124545",
                             "idAvaliacaoFinanceira": 3,
                             "idPronac": 153408,
@@ -1162,7 +1162,7 @@ HOST: http://localhost:4000
     + situacao: E17
     + tpDiligencia: 147
 
-### DILIGÊNCIA - Aba Análise [GET]
+### DILIGÊNCIA - Aba An&aacute;lise [GET]
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1173,7 +1173,7 @@ HOST: http://localhost:4000
                     "code": 200,
                     "items": [
                     {
-                        "nomeProjeto": "Série de Concertos Orquestra Pianíssimo",
+                        "nomeProjeto": "S&eacute;rie de Concertos Orquestra Pian&iacute;ssimo",
                         "pronac": "113575",
                         "stProrrogacao": null,
                         "idDiligencia": 78570,
@@ -1189,7 +1189,7 @@ HOST: http://localhost:4000
                         "Arquivos": []
                     },
                     {
-                        "nomeProjeto": "Série de Concertos Orquestra Pianíssimo",
+                        "nomeProjeto": "S&eacute;rie de Concertos Orquestra Pian&iacute;ssimo",
                         "pronac": "113575",
                         "stProrrogacao": null,
                         "idDiligencia": 78630,
@@ -1205,7 +1205,7 @@ HOST: http://localhost:4000
                         "Arquivos": []
                     },
                     {
-                        "nomeProjeto": "Série de Concertos Orquestra Pianíssimo",
+                        "nomeProjeto": "S&eacute;rie de Concertos Orquestra Pian&iacute;ssimo",
                         "pronac": "113575",
                         "stProrrogacao": null,
                         "idDiligencia": 8728,
@@ -1216,7 +1216,7 @@ HOST: http://localhost:4000
                         "idCodigoDocumentosExigidos": null,
                         "idTipoDiligencia": 124,
                         "stEnviado": "S",
-                        "tipoDiligencia": "Diligência na Análise Técnica Inicial",
+                        "tipoDiligencia": "Diligência na An&aacute;lise T&eacute;cnica Inicial",
                         "produto": "Apresentação Musical",
                         "Arquivos": []
                     }

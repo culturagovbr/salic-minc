@@ -23,19 +23,19 @@
                     }
                 });
             });
-            
+
         $('#btn_xls').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="xls" value="xls"/>');
             $('#frmPaginacao').submit();
             $('#xls').remove();
         });
-        
+
         $('#btn_imprimir').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="pdf" value="pdf"/>');
             $('#frmPaginacao').submit();
             $('#pdf').remove();
         });
-            
+
     });
 
     function paginar(pag){
@@ -70,7 +70,7 @@
     <?php foreach($this->projetos as $projeto):?>
     <?php if($auxArea == "" || $projeto->Area != $auxArea):?>
     <tr>
-        <td colspan="19" align="left" bgcolor="#d1e4cf">&Aacute;rea Cultural: <?php echo $projeto->Area?></td>
+        <td colspan="19" align="left" bgcolor="#d1e4cf">Área Cultural: <?php echo $projeto->Area?></td>
     </tr>
     <?php endif; ?>
     <tr>

@@ -2,7 +2,7 @@
     <v-card @keyup.alt.67="dialog = !dialog">
         <s-carregando
             v-if="loading"
-            text="Carregando conteúdo"
+            text="Carregando conte&uacute;do"
         />
         <v-snackbar
             :value="!dialog && !loading"
@@ -54,7 +54,7 @@
                         <v-icon>close</v-icon>
                     </v-btn>
                     <v-toolbar-title>
-                        Análise de conteúdo - Produto:
+                        An&aacute;lise de conte&uacute;do - Produto:
                         {{ produto.nomeProduto }}
                     </v-toolbar-title>
                     <v-spacer />
@@ -96,7 +96,7 @@
                             >
                                 <v-switch
                                     v-model="analiseConteudoEmEdicao.ParecerFavoravel"
-                                    :label="`Parecer Favorável?: ${labelSimOuNao(analiseConteudoEmEdicao.ParecerFavoravel)}`"
+                                    :label="`Parecer Favor&aacute;vel?: ${labelSimOuNao(analiseConteudoEmEdicao.ParecerFavoravel)}`"
                                     color="green"
                                 />
                             </v-flex>
@@ -105,10 +105,10 @@
                                 sm12
                                 md12
                             >
-                                <p><b>Parecer de Conteúdo do Produto</b></p>
+                                <p><b>Parecer de Conte&uacute;do do Produto</b></p>
                                 <s-editor-texto
                                     v-model="analiseConteudoEmEdicao.ParecerDeConteudo"
-                                    :placeholder="'Parecer técnico sobre o conteúdo do produto'"
+                                    :placeholder="'Parecer t&eacute;cnico sobre o conte&uacute;do do produto'"
                                     :min-char="minChar"
                                     @editor-texto-counter="validateText($event)"
                                 />
@@ -188,7 +188,7 @@ export default {
             },
             analiseConteudoEmEdicao: {},
             rules: {
-                parecer: v => (!!v || this.$refs.stItemAvaliado.value !== '3') || 'Parecer é obrigatório',
+                parecer: v => (!!v || this.$refs.stItemAvaliado.value !== '3') || 'Parecer &eacute; obrigat&oacute;rio',
             },
         };
     },

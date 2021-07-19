@@ -46,7 +46,7 @@ export default {
                 tipoDocumento = 'Fotos';
                 break;
             case 23:
-                tipoDocumento = 'Vídeos';
+                tipoDocumento = 'V&iacute;deos';
                 break;
             case 24:
                 tipoDocumento = 'Arquivo';

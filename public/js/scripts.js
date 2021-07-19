@@ -256,7 +256,7 @@ function confirmar(msg)
 
 
 /**
- * Redirecionamento de página
+ * Redirecionamento de p&aacute;gina
  */
 function redirecionar(url)
 {
@@ -266,7 +266,7 @@ function redirecionar(url)
 
 
 /**
- * Voltar página anterior
+ * Voltar p&aacute;gina anterior
  */
 function voltar()
 {
@@ -276,7 +276,7 @@ function voltar()
 
 
 /**
- * Imprimir página
+ * Imprimir p&aacute;gina
  */
 function imprimir()
 {
@@ -780,7 +780,7 @@ function alertModal(titulo, mensagem, largura, altura, campo, url, id_formulario
 				{
 					document.getElementById(campo).focus();
 				}
-				if (url != null) // faz o redirecionamento para uma página
+				if (url != null) // faz o redirecionamento para uma p&aacute;gina
 				{
 					redirecionar(url);
 				}
@@ -817,7 +817,7 @@ function alertModalPt(titulo, mensagem, largura, altura, campo, url, id_formular
 				{
 					document.getElementById(campo).focus();
 				}
-				if (url != null) // faz o redirecionamento para uma página
+				if (url != null) // faz o redirecionamento para uma p&aacute;gina
 				{
 					redirecionar(url);
 				}
@@ -1151,7 +1151,7 @@ function JSBloquearAlteracaoFormulario()
 
 
 
-// ========== AP�S O CARREGAMENTO DA página ==========
+// ========== AP�S O CARREGAMENTO DA p&aacute;gina ==========
 $(document).ready(function()
 {
 	$('tr.registros, .registros tr').mouseover(function() // mouse em cima da linha

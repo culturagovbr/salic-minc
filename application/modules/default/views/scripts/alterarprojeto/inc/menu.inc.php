@@ -56,7 +56,7 @@ if (in_array($this->grupoAtivo, array(92,93,104,113,114,115,124,125,126,128,131,
               </tr>";
        //document.getElementById("tabelaArquivos").innerHTML += linha;
        $("#tabelaArquivos").append(linha);
-       
+
        $('#load').hide();
        $("#modalEnviarArquivo").dialog('close');
        document.getElementById("form").reset();
@@ -162,7 +162,7 @@ if (in_array($this->grupoAtivo, array(92,93,104,113,114,115,124,125,126,128,131,
 
         <table class="tabela">
             <tr class="fundo">
-                <td class="" colspan="2" align="left">Enviar anexo (tamanho m·ximo de 10 MB)<br>Tipos de arquivos permitidos: <font color="red">PDF</font></td>
+                <td class="" colspan="2" align="left">Enviar anexo (tamanho mÔøΩximo de 10 MB)<br>Tipos de arquivos permitidos: <font color="red">PDF</font></td>
             </tr>
             <tr class="fundo">
                 <td class="destacar bold" align="right" width="1">Arquivo</td>
@@ -248,7 +248,7 @@ if ($menu != 0) {
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'proponente'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar proponente">Proponente</a>
                 <?php
     } ?>
-                
+
                 <?php if (in_array($this->grupoAtivo, array(92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143))) {
         ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'situacao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar situa&ccedil;&atilde;o">Situa&ccedil;&atilde;o</a>
@@ -257,7 +257,7 @@ if ($menu != 0) {
 
                 <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))) {
         ?>
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'areasegmento'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar &aacute;rea/segmento">&Aacute;rea / Segmento</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'areasegmento'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar √Årea/segmento">√Årea / Segmento</a>
                 <?php
     } ?>
 
@@ -266,7 +266,7 @@ if ($menu != 0) {
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'planodistribuicao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para plano de distribui&ccedil;&atilde;o">Plano de distribui&ccedil;&atilde;o</a>
                 <?php
     } ?>
-		
+
                 <?php if (in_array($this->grupoAtivo, array(97))) {
         ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'orgao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar &oacute;rg&atilde;o">&Oacute;rg&atilde;o</a>
@@ -275,7 +275,7 @@ if ($menu != 0) {
 
                 <?php if (in_array($this->grupoAtivo, array(103))) {
         ?>
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'sintese', 'pronac' => $this->pronac)); ?>" title="Ir para sÌntese do projeto">SÌntese do Projeto</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'sintese', 'pronac' => $this->pronac)); ?>" title="Ir para sÔøΩntese do projeto">SÔøΩntese do Projeto</a>
                 <?php
     } ?>
 
@@ -293,7 +293,7 @@ if ($menu != 0) {
 
                 <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))) {
         ?>
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'periododeexecucao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para per&iacute;odo de execu&ccedil;&atilde;o">PerÌodo de Execu&ccedil;&atilde;o</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'periododeexecucao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para per&iacute;odo de execu&ccedil;&atilde;o">PerÔøΩodo de Execu&ccedil;&atilde;o</a>
                 <?php
     } ?>
 
@@ -315,7 +315,7 @@ if ($menu != 0) {
             </div>
 
             <div class="bottom"></div>
-            
+
         <!-- final: navegacao local -->
         </div>
     </div>

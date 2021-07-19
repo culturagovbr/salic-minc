@@ -67,7 +67,7 @@
                                         <v-card-title
                                             class="title"
                                         >
-                                            Órgão / Técnico atual:
+                                            &oacute;rgão / T&eacute;cnico atual:
                                         </v-card-title>
                                         <v-card-text>
                                             {{ dadosReadequacao.sgUnidade }} /
@@ -95,7 +95,7 @@
                                         <carregando
                                             :defined-class="`body-1`"
                                             :size="`small`"
-                                            :text="'Carregando destinatários/as...'"
+                                            :text="'Carregando destinat&aacute;rios/as...'"
                                         />
                                     </template>
                                     <template v-else>
@@ -106,14 +106,14 @@
                                                 v-if="selecionarDestinatario"
                                                 v-model="dadosEncaminhamento.destinatario"
                                                 :items="getDestinatariosDistribuicao"
-                                                label="Destinatário/a"
+                                                label="Destinat&aacute;rio/a"
                                                 item-text="nome"
                                                 item-value="id"
                                             />
                                         </template>
                                         <template v-if="exibirDestinatariosIndisponiveis">
                                             <h3 class="red--text text--darken-2">
-                                                Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
+                                                Não h&aacute; destinat&aacute;rios/as dispon&iacute;veis, imposs&iacute;vel encaminhar a readequação no momento!
                                             </h3>
                                         </template>
                                     </template>

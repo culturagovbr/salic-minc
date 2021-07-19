@@ -1442,7 +1442,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">PRONAC</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Nome do Projeto</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
-            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">&Aacute;rea / Segmento</th>';
+            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Área / Segmento</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Cidade</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Mecanismo</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt. Recebimento</th>';
@@ -2051,7 +2051,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">PRONAC</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Nome do Projeto</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
-            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">&Aacute;rea / Segmento</th>';
+            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Área / Segmento</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Estado</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Mecanismo</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt. Recebimento</th>';
@@ -2591,7 +2591,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">PRONAC</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Nome do Projeto</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
-            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">&Aacute;rea / Segmento</th>';
+            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Área / Segmento</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Estado</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Mecanismo</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt. Recebimento</th>';
@@ -3196,7 +3196,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
 <table cellspacing='0' cellpadding='2' border='1' align='center' width='99%'>
 <tr align='center'>
 <td colspan='4'>
-<h2>MINIST&Eacute;RIO DA CIDADANIA</h2>
+<h2>MINIST&Eacute;RIO DA TURISMO</h2>
 <h3>Guia de Arquivamento de projetos - Enviado</h3></td>
 </tr>
 <tr>
@@ -3551,7 +3551,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">PRONAC</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Nome do Projeto</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
-            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">&Aacute;rea / Segmento</th>';
+            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Área / Segmento</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Mecanismo</th>';
             if (isset($filtro) && $filtro == 'emanalise') {
                 $html .= $addTec;
@@ -3804,7 +3804,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             foreach ($busca as $d) {
                 switch ($d->tpCargo) {
                     case '1':
-                        $tpCargo = 'Coordenador (a) de Incentivos Fiscais e Apoio T&eacute;cnico';
+                        $tpCargo = 'Coordenador (a) de Incentivos Fiscais e Apoio Técnico';
                         break;
                     case '2':
                         $tpCargo = 'Coordenador (a) Geral de Presta&ccedil;&atilde;o de Contas';

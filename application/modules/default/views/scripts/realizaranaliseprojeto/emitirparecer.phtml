@@ -177,13 +177,13 @@
                                         else{
                                             //$('#pareceratualizado').val($('#justificativa').val());
                                             $("#formEnviar").submit();
-                                            $("#tela").html("<br><br><br><br><br><center>Salvando informações, aguarde...<br><img src='<?php echo $this->baseUrl(); ?>/public/img/ajax.gif' /></center><br>");
+                                            $("#tela").html("<br><br><br><br><br><center>Salvando informaï¿½ï¿½es, aguarde...<br><img src='<?php echo $this->baseUrl(); ?>/public/img/ajax.gif' /></center><br>");
                                         }
                                     }
                                     else{
                                         //$('#pareceratualizado').val($('#justificativa').val());
                                         $("#formEnviar").submit();
-                                        $("#tela").html("<br><br><br><br><br><center>Salvando informações, aguarde...<br><img src='<?php echo $this->baseUrl(); ?>/public/img/ajax.gif' /></center><br>");
+                                        $("#tela").html("<br><br><br><br><br><center>Salvando informaï¿½ï¿½es, aguarde...<br><img src='<?php echo $this->baseUrl(); ?>/public/img/ajax.gif' /></center><br>");
                                     }
                                 }
                                 $('html').css('overflow', 'auto');
@@ -312,7 +312,7 @@
         <form id="formEnviar" action="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'emitirparecer')); ?>" method="post">
             <input type="hidden" name="idPronac" id="idPronac" value="<?php echo $this->idpronac; ?>" />
             <div style="color:red; text-align: justify; font-weight: 600;">
-                Aten&ccedil;&atilde;o! A decis&atilde;o da aprova&ccedil;&atilde;o ou indeferimento neste quadro &eacute; sua! Caso necessite consultar a decis&atilde;o do parecerista consulte a aba 'PARECER T&Eacute;CNICO CONSOLIDADO'
+                Aten&ccedil;&atilde;o! A decis&atilde;o da aprova&ccedil;&atilde;o ou indeferimento neste quadro &eacute; sua! Caso necessite consultar a decis&atilde;o do parecerista consulte a aba 'PARECER TÃ©cnico CONSOLIDADO'
             </div>
             <div style="margin-top: 2.8em ;margin-left: 3em;">
                 <p style="font-weight: 600; font-size:1.3em; float: left; ">Tipo de Decis&atilde;o:</p>
@@ -521,13 +521,13 @@
                 <div style="color:red; text-align: center; font-size: 16pt;  padding-bottom: 2em;">O valor dos custos administrativos do projeto est&aacute;: <?php echo $this->formatarReal($this->verifica15porcento); ?> acima do permitido pela IN n&ordm; 1 de 05/10/2010 Artigo 24 Inciso V.<br /><br />Favor readequar para finalizar sua an&aacute;lise.</div><br>
             <?php }?>
             <?php if($this->totaldivulgacao == "true"){ ?>
-                <div style="color:red; text-align: center; font-size: 16pt;  padding-bottom: 2em;">Custo de Divulgação/Comercialização superior a 20% do valor total do projeto.<br><br>Favor readequar os custos em <?php echo $this->formatarReal($this->valorReadequar20porcento); ?> para finalizar sua an&aacute;lise.</div>
+                <div style="color:red; text-align: center; font-size: 16pt;  padding-bottom: 2em;">Custo de Divulgaï¿½ï¿½o/Comercializaï¿½ï¿½o superior a 20% do valor total do projeto.<br><br>Favor readequar os custos em <?php echo $this->formatarReal($this->valorReadequar20porcento); ?> para finalizar sua an&aacute;lise.</div>
             <?php }?>
             <?php if($this->totalcaptacaorecurso == "true"){ ?>
-                <div style="color:red; text-align: center; font-size: 16pt;  padding-bottom: 2em;">O Item "Remuneração para captação de recursos" está superior a 10% do valor total do projeto ou acima de R$100.000,00.<br><br>Favor readequar os custos em <?php echo $this->formatarReal($this->valorReadequar10porcento); ?> para finalizar sua an&aacute;lise.</div>
+                <div style="color:red; text-align: center; font-size: 16pt;  padding-bottom: 2em;">O Item "Remuneraï¿½ï¿½o para captaï¿½ï¿½o de recursos" estï¿½ superior a 10% do valor total do projeto ou acima de R$100.000,00.<br><br>Favor readequar os custos em <?php echo $this->formatarReal($this->valorReadequar10porcento); ?> para finalizar sua an&aacute;lise.</div>
             <?php }?>
     <?php //} elseif ( $this->totaldivulgacao == "true" and $this->parecerfavoravel != 'NAO') { ?>
-          <!--  <div style="color:red; text-align: center; font-size: 16pt;  padding-bottom: 2em;">Aten&ccedil;&atilde;o! Custo de Divulgação/Comercialização superior a 20% do valor total do projeto.<br><br>Favor readequar os custos em <?php echo $this->formatarReal($this->valorReadequar20porcento); ?> para finalizar sua an&aacute;lise.</div> -->
+          <!--  <div style="color:red; text-align: center; font-size: 16pt;  padding-bottom: 2em;">Aten&ccedil;&atilde;o! Custo de Divulgaï¿½ï¿½o/Comercializaï¿½ï¿½o superior a 20% do valor total do projeto.<br><br>Favor readequar os custos em <?php echo $this->formatarReal($this->valorReadequar20porcento); ?> para finalizar sua an&aacute;lise.</div> -->
     <?php } else {*/ ?>
             <br>
             <!--<table class="w1000" style="margin:auto;">-->
@@ -552,7 +552,7 @@
             <?php if (!$this->VerificarIN2017($this->projeto->IdPRONAC)): ?>
             <table class="tabela">
                 <tr align="center">
-                    <td class="destacar bold" colspan="2">Verificação de Limites Orçamentários</td>
+                    <td class="destacar bold" colspan="2">Verificaï¿½ï¿½o de Limites Orï¿½amentï¿½rios</td>
                 </tr>
                 <?php foreach ($this->resultadoCheckList as $dsResultado) { ?>
                 <tr>

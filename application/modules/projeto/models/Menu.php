@@ -629,8 +629,8 @@ class Projeto_Model_Menu extends MinC_Db_Table_Abstract
         if ($this->usuarioExterno && ($this->permissoesMenu['Readequacao'] || $this->permissoesMenu['Readequacao_50']) || $this->debug) {
             $menu['readequacao'] = [
                 'id' => 'readequacao',
-                'label' => 'Readequa&ccedil;&atilde;o',
-                'title' => 'Menu Readequa&ccedil;&atilde;o',
+                'label' => 'Readequação',
+                'title' => 'Menu Readequação',
                 'link' => '',
                 'ajax' => false,
                 'icon' => 'update',

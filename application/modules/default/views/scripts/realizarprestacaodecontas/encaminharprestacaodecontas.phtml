@@ -1,6 +1,6 @@
 <?php
     if(count($this->consultorias)==0 || $this->idPerfilDestino == 132 || $this->idPerfilDestino == 124) {
-?>    
+?>
 <script>
     $(document).ready(function(){
         carregarDestinatariosCombo();
@@ -26,12 +26,12 @@
 
                     if(data.resposta){
                         recebe.html('');
-                        
+
                         // altera texto conforme perfil do destinatario
-                        if (data.conteudo[0].idperfil == 132) {                        
+                        if (data.conteudo[0].idperfil == 132) {
                             recebe.append("<option value=''>- Selecione um chefe de divis&atilde;o -</option>");
                         } else {
-                            recebe.append("<option value=''>- Selecione um t&eacute;cnico -</option>");
+                            recebe.append("<option value=''>- Selecione um Técnico -</option>");
                         }
                         for ( i in data.conteudo)
                         {
@@ -116,9 +116,9 @@
             <td id="HnomeProjeto" class="centro"><?php echo $this->NomeProjeto; ?></td>
         </tr>
     </table>
-    
+
     <table class="tabela">
-        
+
         <?php if($this->ocultarJustificativa){ ?>
         <input type="hidden" name="dsjustificativa<?php echo $this->pag;?>" id="dsjustificativa<?php echo $this->pag;?>" value=".">
         <?php } else { ?>
@@ -139,7 +139,7 @@
             </td>
         </tr>
         <?php } ?>
-        
+
         <tr>
             <td class="destacar bold" align="right" width="20%" nowrap>Encaminhar para:</td>
             <td>
@@ -238,7 +238,7 @@ else {
             <br>
             <?php
             if(count($this->consultoriasResp)>=1) {
-            	
+
                 ?>
                 <textarea name="dsresposta" id="dsresposta" rows="6" style="width: 98%;" class="input_simples" readonly><?php echo $this->consultoriasResp[0]->dsJustificativa;?></textarea>
                 <?php

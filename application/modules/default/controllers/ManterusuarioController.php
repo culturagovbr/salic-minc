@@ -43,10 +43,10 @@ class ManterusuarioController extends MinC_Controller_Action_Abstract
                 $mens = "Ol&aacute; " . $scgAcessoDados['Nome'] . ",<br><br>";
                 $mens .= "Senha....: " . $senhaFormatada . "<br><br>";
                 $mens .= "Esta &eacute; a sua senha tempor&aacute;ria de acesso ao Sistema de Apresenta&ccedil;&atilde;o de Projetos via Web do ";
-                $mens .= "Minist&eacute;rio da Cidadania.<br><br>Lembramos que a mesma dever&aacute; ser ";
+                $mens .= "Minist&eacute;rio do Turismo.<br><br>Lembramos que a mesma dever&aacute; ser ";
                 $mens .= "trocada no seu primeiro acesso ao sistema.<br><br>";
                 $mens .= "Esta &eacute; uma mensagem autom&aacute;tica. Por favor n&atilde;o responda.<br><br>";
-                $mens .= "Atenciosamente,<br>Minist&eacute;rio da Cidadania";
+                $mens .= "Atenciosamente,<br>Minist&eacute;rio do Turismo";
 
                 $enviaEmail = EmailDAO::enviarEmail($email, $assunto, $mens, $perfil);
                 parent::message("A senha gerada &eacute; <b>" . $senhaFormatada . "</b> encaminhe ao proponente.", "/principal", "ALERT");
@@ -103,10 +103,10 @@ class ManterusuarioController extends MinC_Controller_Action_Abstract
                 $mens = "Ol&aacute; " . $nome . ",<br><br>";
                 $mens .= "Senha....: " . $senha . "<br><br>";
                 $mens .= "Esta &eacute; a sua senha tempor&aacute;ria de acesso ao Sistema de Apresenta&ccedil;&atilde;o de Projetos via Web do ";
-                $mens .= "Minist&eacute;rio da Cidadania.<br><br>Lembramos que a mesma dever&aacute; ser ";
+                $mens .= "Minist&eacute;rio do Turismo.<br><br>Lembramos que a mesma dever&aacute; ser ";
                 $mens .= "trocada no seu primeiro acesso ao sistema.<br><br>";
                 $mens .= "Esta &eacute; uma mensagem autom&aacute;tica. Por favor n&atilde;o responda.<br><br>";
-                $mens .= "Atenciosamente,<br>Minist&eacute;rio da Cidadania";
+                $mens .= "Atenciosamente,<br>Minist&eacute;rio do Turismo";
 
                 parent::message("A senha gerada &eacute; <b>" . $senha . "</b> encaminhe ao usuario.", "/principal", "ALERT");
                 $enviaEmail = EmailDAO::enviarEmail($email, $assunto, $mens, $perfil);

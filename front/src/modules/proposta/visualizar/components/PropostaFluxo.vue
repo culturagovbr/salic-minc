@@ -68,20 +68,20 @@ export default {
                 {
                     id: 'proposta_com_proponente',
                     label: 'Em edição',
-                    descricao: 'A proposta está disponível para edição.',
+                    descricao: 'A proposta est&aacute; dispon&iacute;vel para edição.',
                     link: `/proposta/manterpropostaincentivofiscal/identificacaodaproposta/idPreProjeto/${this.idPreProjeto}`,
                     icon: 'create',
                 },
                 {
                     id: 'proposta_analise_inicial',
                     label: 'Em Avalia&ccedil;&atilde;o',
-                    descricao: 'A proposta está em avaliação pelo Ministério da Cidadania, acompanhe na aba histórico de avaliações.',
+                    descricao: 'A proposta est&aacute; em avaliação pelo Minist&eacute;rio do Turismo, acompanhe na aba hist&oacute;rico de avaliações.',
                     icon: 'how_to_reg',
                     childrens: [
                         {
                             id: 'proposta_arquivada',
                             label: 'Arquivada',
-                            descricao: 'Proposta arquivada, acesse a aba histórico de avaliações para saber mais.',
+                            descricao: 'Proposta arquivada, acesse a aba hist&oacute;rico de avaliações para saber mais.',
                             link: '/proposta/manterpropostaincentivofiscal/listar-propostas-arquivadas',
                             icon: 'archive',
                         },
@@ -90,7 +90,7 @@ export default {
                 {
                     id: 'proposta_em_enquadramento',
                     label: 'Enquadramento',
-                    descricao: 'Sua proposta está em enquadramento.',
+                    descricao: 'Sua proposta est&aacute; em enquadramento.',
                     icon: 'build',
                     childrens: [
                         {
@@ -105,7 +105,7 @@ export default {
                 {
                     id: 'projeto_cultural',
                     label: 'Projeto',
-                    descricao: 'A proposta já é um projeto cultural.',
+                    descricao: 'A proposta j&aacute; &eacute; um projeto cultural.',
                     icon: 'beenhere',
                 },
             ],

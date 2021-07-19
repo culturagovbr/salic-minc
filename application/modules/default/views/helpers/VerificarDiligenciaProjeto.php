@@ -6,14 +6,14 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2011 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_VerificarDiligenciaProjeto
 {
     /**
-     * Método para verificar a diligencia do projeto
+     * Mï¿½todo para verificar a diligencia do projeto
      * @access public
      * @param integer $idPronac
      * @return string
@@ -24,7 +24,7 @@ class Zend_View_Helper_VerificarDiligenciaProjeto
 
             $Diligencia = new Diligencia();
 
-        // busca a situação do projeto
+        // busca a situaï¿½ï¿½o do projeto
         $buscarDiligencia = $Diligencia->buscar(array('IdPRONAC = ?' => $idPronac))->current();
 
         if (count($buscarDiligencia) > 0) :
@@ -33,5 +33,5 @@ class Zend_View_Helper_VerificarDiligenciaProjeto
         endif; else :
             return 0;
         endif;
-    } // fecha método verificarDiligenciaProjeto()
+    } // fecha mï¿½todo verificarDiligenciaProjeto()
 } // fecha class

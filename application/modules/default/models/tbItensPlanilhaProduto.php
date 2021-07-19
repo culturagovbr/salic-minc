@@ -276,7 +276,7 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
             array('a' => $this->_name),
             array('idPlanilhaItens')
         );
-        
+
         $select->joinInner(
             array('b' => 'tbPlanilhaItens'),
             'a.idPlanilhaItens = b.idPlanilhaItens',
@@ -295,9 +295,9 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
         $select->where('tpa.idMunicipioDespesa = ?', $idMunicipio);
         $select->where('tpa.tpPlanilha = ?', 'SR');
         $select->where('tpa.idPronac = ?', $idPronac);
-        
+
         $select->order('2');
-        
+
         return $this->fetchAll($select);
-    }    
+    }
 }

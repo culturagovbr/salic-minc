@@ -17,7 +17,7 @@ function confirmar(id){
 	            // Define as regras
 	            rules:{
 	                justificativa:{
-	                    // campoNome será obrigatorio (required) e ter� tamanho minimo (minLength)
+	                    // campoNome ser&aacute; obrigatorio (required) e ter� tamanho minimo (minLength)
 	                    required: true, minlength: 15
 	                }
 	            },
@@ -148,7 +148,7 @@ function confirmar(id){
 
 	function finalizarsolicitacaogeral(idAcao){
         $("#mostra").dialog("destroy");
-        $('#mostra').html('Deseja validar a Análise realizada?');
+        $('#mostra').html('Deseja validar a An&aacute;lise realizada?');
         $("#mostra").dialog
         ({
             height: 180,

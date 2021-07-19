@@ -106,7 +106,7 @@ export default {
                 { text: 'Dias', align: 'center', value: 'QtdeDias' },
                 { text: 'Qtde', align: 'center', value: 'Quantidade' },
                 { text: 'Ocor.', align: 'center', value: 'Ocorrencia' },
-                { text: 'Vl. Unitário', align: 'right', value: 'vlUnitario' },
+                { text: 'Vl. Unit&aacute;rio', align: 'right', value: 'vlUnitario' },
                 { text: 'Vl. Solicitado', align: 'right', value: 'vlSolicitado' },
                 { text: 'Vl. Aprovado', align: 'right', value: 'vlSolicitado' },
                 { text: 'Justif. Prop.', align: 'left', value: 'JustProponente' },

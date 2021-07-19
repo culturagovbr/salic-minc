@@ -143,14 +143,14 @@ Visualizar o histórico de encaminhamentos do projeto.
 
 #### 2. Assinar
 
-O [assinar](#2.-assinar) do Técnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas 
+O [assinar](#2.-assinar) do Técnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas
 
 #### 3. Devolver Projeto
 
-O [devolver](#3.-Devolver-Projeto) do Técnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas 
+O [devolver](#3.-Devolver-Projeto) do Técnico Prestação de contas e semelhante ao do Coordenador de Prestação de Contas
 
 
-#### 4. [Projeto](#3.-visualizar-projeto)  
+#### 4. [Projeto](#3.-visualizar-projeto)
 
 ## Historico
 
@@ -206,9 +206,9 @@ A ação Assinar do Coordenador Geral de Prestação de contas é semelhante a a
 
 #### 3. Devolver Projeto
 
-A ação [Devolver] do Coordenador Geral de Prestação de contas é semelhante a ação Devolver do Coordenador de Prestação de Contas e já foi descrita [aqui](#3.-Devolver-Projeto). 
+A ação [Devolver] do Coordenador Geral de Prestação de contas é semelhante a ação Devolver do Coordenador de Prestação de Contas e já foi descrita [aqui](#3.-Devolver-Projeto).
 
-#### 4. [Visualizar Projeto](#3.-visualizar-projeto)  
+#### 4. [Visualizar Projeto](#3.-visualizar-projeto)
 
 ## Historico
 

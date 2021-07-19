@@ -45,7 +45,7 @@
                     :headers="headersDeslocamento"
                     :items="dados.Deslocamento"
                     class="elevation-1 container-fluid"
-                    rows-per-page-text="Items por Página"
+                    rows-per-page-text="Items por P&aacute;gina"
                     no-data-text="Nenhum dado encontrado"
                 >
                     <template
@@ -90,7 +90,7 @@ export default {
             loading: true,
             headersLocalRealizacao: [
                 {
-                    text: 'PAÍS',
+                    text: 'PA&iacute;S',
                     align: 'left',
                     value: 'Descricao',
                 },
@@ -105,7 +105,7 @@ export default {
             ],
             headersDeslocamento: [
                 {
-                    text: 'PAÍS DE ORIGEM',
+                    text: 'PA&iacute;S DE ORIGEM',
                     align: 'left',
                     value: 'PaisOrigem',
                 },
@@ -118,7 +118,7 @@ export default {
                     value: 'MunicipioOrigem',
                 },
                 {
-                    text: 'PAÍS DE DESTINO',
+                    text: 'PA&iacute;S DE DESTINO',
                     value: 'PaisDestino',
                 },
                 {

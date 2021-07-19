@@ -26,9 +26,9 @@ Portanto cada módulo que necessitar desta funcionalidade precisa implementa-lo 
 
 #### Gestão de Atos Administrativos
 
-O Workflow do módulo depente de atos admnistrativos que são armazenados na tabela tbAtoAdministrativo. 
+O Workflow do módulo depente de atos admnistrativos que são armazenados na tabela tbAtoAdministrativo.
 
-Cada Ato Administrativo possui ligação como : 
+Cada Ato Administrativo possui ligação como :
  * Tipo do Ato Administrativo
  * Cargo
  * Perfil
@@ -44,5 +44,5 @@ Este módulo depende da library 'MinC_Assinatura_Assinatura' e utiliza serviços
   * MinC_Assinatura_Servico_Assinatura
   * MinC_Assinatura_Servico_Autenticacao
   * MinC_Assinatura_Servico_DocumentoAssinatura
-Atualmente essa dependência foi criada dentro da 
-pasta library por limitações do framework na geração de serviços. 
+Atualmente essa dependência foi criada dentro da
+pasta library por limitações do framework na geração de serviços.

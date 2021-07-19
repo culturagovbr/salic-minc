@@ -19,7 +19,7 @@ class Zend_View_Helper_IsProjetoDisponivelParaAssinatura
             $idPronac,
             $idTipoDoAtoAdministrativo
         );
-        
+
         return $isProjetoDisponivelParaAssinatura;
     }
 }

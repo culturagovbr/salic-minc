@@ -2,7 +2,7 @@ Vue.component('readequacao-formulario', {
     template: `
     <div class="card">
       <div v-if="!disabled" class="card-content">
-        <span class="card-title">Solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o</span>
+        <span class="card-title">Solicita&ccedil;&atilde;o de readequação</span>
         <input type="hidden" v-model="readequacao.idReadequacao"/>
         <div class="row">
           <div class="input-field col s12">
@@ -66,7 +66,7 @@ Vue.component('readequacao-formulario', {
       </div>
 			<template v-if="disabled && exibirInfo">
 				<div class="card-content">
-					<span class="card-title">Solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o</span>
+					<span class="card-title">Solicita&ccedil;&atilde;o de readequação</span>
 					<p>
 						{{readequacao.justificativa}}
 					</p>

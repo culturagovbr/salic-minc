@@ -28,7 +28,7 @@ class Fiscalizacao_FiscalizarprojetoculturalController extends MinC_Controller_A
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::TECNICO_FISCALIZACAO;
 
         if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal/index", "ALERT");
         }
 
         $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
@@ -101,7 +101,7 @@ class Fiscalizacao_FiscalizarprojetoculturalController extends MinC_Controller_A
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Regi&atilde;o'] = $val->Regiao;
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['UF'] = $val->uf;
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Cidade'] = $val->cidade;
-                    $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['&Aacute;rea'] = $val->dsArea;
+                    $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Área'] = $val->dsArea;
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Segmento'] = $val->dsSegmento;
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Valor'] = number_format($val->TotalAprovado, 2, ',', '.');
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Mecanismo'] = $val->dsMecanismo;
@@ -485,7 +485,7 @@ class Fiscalizacao_FiscalizarprojetoculturalController extends MinC_Controller_A
         }
         if ($dados['stAvaliacao'] == 0) {
             $FiscalizacaoDAO->alteraSituacaoProjeto(1, $idFiscalizacao);
-            parent::message("Retornado ao t&eacute;cnico com sucesso!", "fiscalizacao/pesquisarprojetofiscalizacao/grid?tipoFiltro=analisados", "CONFIRM");
+            parent::message("Retornado ao Técnico com sucesso!", "fiscalizacao/pesquisarprojetofiscalizacao/grid?tipoFiltro=analisados", "CONFIRM");
         }
 
         if ($stAprovar) {
@@ -493,8 +493,8 @@ class Fiscalizacao_FiscalizarprojetoculturalController extends MinC_Controller_A
             $idDocumentoAssinatura = $this->iniciarFluxoAssinatura($idFiscalizacao);
             if ($idDocumentoAssinatura) {
                 parent::message("Fiscaliza&ccedil;&atilde;o aprovada com sucesso! </br>
-                 Um documento foi gerado e est&aacute; dispon&iacute;vel para o t&eacute;cnico respons&aacute;vel. </br>
-                 Voc&ecirc; dever&aacute; assinar o documento ap&oacute;s o t&eacute;cnico. Acompanhe em
+                 Um documento foi gerado e est&aacute; dispon&iacute;vel para o Técnico respons&aacute;vel. </br>
+                 Voc&ecirc; dever&aacute; assinar o documento ap&oacute;s o Técnico. Acompanhe em
                  <u><a class='white-text' href='/assinatura/index/gerenciar-assinaturas'>Assinatura</a></u> no menu.",
                     "fiscalizacao/pesquisarprojetofiscalizacao/grid?tipoFiltro=analisados",
                     "CONFIRM"

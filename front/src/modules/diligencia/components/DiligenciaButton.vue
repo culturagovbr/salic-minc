@@ -83,7 +83,7 @@ export default {
                     cor: 'yellow accent-4',
                     corIcone: 'yellow darken-4',
                     corBadge: 'grey lighten-1',
-                    texto: `Diligenciado há ${this.diasEmDiligencia} dia(s)`,
+                    texto: `Diligenciado h&aacute; ${this.diasEmDiligencia} dia(s)`,
                 };
                 break;
             case 2:
@@ -91,7 +91,7 @@ export default {
                     cor: 'green lighten-3',
                     corIcone: 'green darken-4',
                     corBadge: 'grey lighten-1',
-                    texto: 'Diligência respondida',
+                    texto: 'Dilig&ecirc;ncia respondida',
                 };
                 break;
             case 3:
@@ -99,7 +99,7 @@ export default {
                     cor: 'orange lighten-3',
                     corIcone: 'orange darken-4',
                     corBadge: 'red lighten-1',
-                    texto: `Diligenciado há ${this.diasEmDiligencia} dia(s)`,
+                    texto: `Diligenciado h&aacute; ${this.diasEmDiligencia} dia(s)`,
                 };
                 break;
             default:
@@ -107,7 +107,7 @@ export default {
                     cor: 'grey lighten-3',
                     corIcone: 'blue-grey darken-2',
                     corBadge: 'grey lighten-1',
-                    texto: 'Disponível para diligência',
+                    texto: 'Dispon&iacute;vel para diligência',
                 };
                 break;
             }

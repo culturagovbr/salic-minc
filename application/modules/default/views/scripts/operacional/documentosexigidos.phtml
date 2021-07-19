@@ -1,5 +1,5 @@
 <script>
-$(document).ready(function(){	
+$(document).ready(function(){
     $(".orderBy").click(function(){
             var campo = $(this).attr("valorOrdenacao");
 
@@ -21,18 +21,18 @@ $(document).ready(function(){
                 }
             }
         });
-        
-        
+
+
         $('#btn_xls').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="xls" value="xls"/>');
             $('#frmPaginacao').submit();
-            
+
         });
-        
+
         $('#btn_imprimir').click(function(){
             $('#frmPaginacao').attr('target','_blank').append('<input type="hidden" name="tipo" id="pdf" value="pdf"/>');
             $('#frmPaginacao').submit();
-            
+
         });
     });
 
@@ -58,7 +58,7 @@ function ordenar(campo, tipo){
         <tr>
             <th valign="middle" align="center" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="1">C&oacute;digo</a></th>
             <th valign="middle" align="left" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="2">Produto</a></th>
-            <th valign="middle" align="left" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="3">&aacute;rea</a></th>
+            <th valign="middle" align="left" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="3">Área</a></th>
             <th valign="middle" align="left" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="4">Op&ccedil;&atilde;o</a></th>
             <th valign="middle" align="left" bgcolor="#abda5d"><a href="#resultadoConsulta" class="orderBy"  valorOrdenacao="6">Estado</a></th>
         </tr>
@@ -115,7 +115,7 @@ function ordenar(campo, tipo){
 	    <input type="hidden" name="tipoOrdenacao" id="tipoOrdenacao" value="<?php echo (!empty($this->parametrosBusca["tipoOrdenacao"]))?$this->parametrosBusca["tipoOrdenacao"]:""; ?>"/>
 	    <?php endif; ?>
     </form>
-    
+
     <form method="POST" id="formGerarXls" name="formGerarXls" action="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'gerar-xls')); ?>" style="display:none">
         <textarea name="html" id="conteudoXLS"></textarea>
     </form>
@@ -123,7 +123,7 @@ function ordenar(campo, tipo){
     <form method="POST" id="formGerarPdf" name="formGerarPdf" action="<?php echo $this->url(array('controller' => 'relatorio', 'action' => 'gerar-pdf')); ?>" style="display:none">
         <textarea name="html" id="conteudoImprimir"></textarea>
     </form>
-    
+
     <table class="tabela">
         <tr>
             <td align="center">

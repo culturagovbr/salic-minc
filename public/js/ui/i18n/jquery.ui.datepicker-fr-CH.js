@@ -3,13 +3,13 @@
 jQuery(function($){
 	$.datepicker.regional['fr-CH'] = {
 		closeText: 'Fermer',
-		prevText: '&#x3c;Préc',
+		prevText: '&#x3c;Pr&eacute;c',
 		nextText: 'Suiv&#x3e;',
 		currentText: 'Courant',
-		monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
-		'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-		monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
-		'Jul','Aoû','Sep','Oct','Nov','Déc'],
+		monthNames: ['Janvier','F&eacute;vrier','Mars','Avril','Mai','Juin',
+		'Juillet','Août','Septembre','Octobre','Novembre','D&eacute;cembre'],
+		monthNamesShort: ['Jan','F&eacute;v','Mar','Avr','Mai','Jun',
+		'Jul','Aoû','Sep','Oct','Nov','D&eacute;c'],
 		dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
 		dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
 		dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],

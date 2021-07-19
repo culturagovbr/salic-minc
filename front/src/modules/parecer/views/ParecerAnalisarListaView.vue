@@ -76,7 +76,7 @@
                                                 </span>
                                                 {{ props.item.dsProduto }}
                                             </v-badge>
-                                            <span>Solicitado análise financeira complementar</span>
+                                            <span>Solicitado an&aacute;lise financeira complementar</span>
                                         </v-tooltip>
                                         <div v-else>
                                             {{ props.item.dsProduto }}
@@ -105,7 +105,7 @@
                                             >
                                                 looks_two
                                             </v-icon>
-                                            <span>Produto secundário</span>
+                                            <span>Produto secund&aacute;rio</span>
                                         </v-tooltip>
                                     </td>
                                     <td class="text-xs-center">
@@ -157,8 +157,8 @@
                                                 </v-icon>
                                             </v-btn>
                                             <span>
-                                                Análise finalizada.
-                                                Este produto é secundário e será enviado após finalização do produto principal.
+                                                An&aacute;lise finalizada.
+                                                Este produto &eacute; secund&aacute;rio e ser&aacute; enviado ap&oacute;s finalização do produto principal.
                                             </span>
                                         </v-tooltip>
                                         <v-tooltip
@@ -200,14 +200,14 @@
                                                     voice_over_off
                                                 </v-icon>
                                             </v-btn>
-                                            <span>Declarar impedimento para análise deste produto</span>
+                                            <span>Declarar impedimento para an&aacute;lise deste produto</span>
                                         </v-tooltip>
                                     </td>
                                 </tr>
                             </template>
                             <template slot="no-data">
                                 <div class="text-xs-center">
-                                    Sem produtos para análise
+                                    Sem produtos para an&aacute;lise
                                 </div>
                             </template>
                         </v-data-table>
@@ -266,7 +266,7 @@ export default {
                 value: 'nomeProjeto',
             },
             {
-                text: 'Produto para análise',
+                text: 'Produto para an&aacute;lise',
                 align: 'left',
                 value: 'dsProduto',
             },
@@ -363,7 +363,7 @@ export default {
         },
         obterLabelTooltipProduto(produto) {
             if (produto.tipoAnalise === 1) {
-                return 'Solicitado análise financeira complementar';
+                return 'Solicitado an&aacute;lise financeira complementar';
             }
             return `Clique para analisar o produto ${produto.dsProduto}`;
         },

@@ -43,7 +43,7 @@ CKEDITOR.lang['da'] =
 	save			: 'Gem',
 	preview			: 'Vis eksempel',
 	cut				: 'Klip',
-	copy			: 'Kopiér',
+	copy			: 'Kopi&eacute;r',
 	paste			: 'Indsæt',
 	print			: 'Udskriv',
 	underline		: 'Understreget',
@@ -58,7 +58,7 @@ CKEDITOR.lang['da'] =
 	pagebreak		: 'Indsæt sideskift',
 	unlink			: 'Fjern hyperlink',
 	undo			: 'Fortryd',
-	redo			: 'Annullér fortryd',
+	redo			: 'Annull&eacute;r fortryd',
 
 	// Common messages and labels.
 	common :
@@ -91,7 +91,7 @@ CKEDITOR.lang['da'] =
 		advisoryTitle	: 'Titel',
 		cssStyle		: 'Typografi (CSS)',
 		ok				: 'OK',
-		cancel			: 'Annullér',
+		cancel			: 'Annull&eacute;r',
 		close			: 'Close', // MISSING
 		preview			: 'Preview', // MISSING
 		generalTab		: 'Generelt',
@@ -126,9 +126,9 @@ CKEDITOR.lang['da'] =
 	// Link dialog.
 	link :
 	{
-		toolbar		: 'Indsæt/redigér hyperlink',
+		toolbar		: 'Indsæt/redig&eacute;r hyperlink',
 		other 		: '<anden>',
-		menu		: 'Redigér hyperlink',
+		menu		: 'Redig&eacute;r hyperlink',
 		title		: 'Egenskaber for hyperlink',
 		info		: 'Generelt',
 		target		: 'Mål',
@@ -143,7 +143,7 @@ CKEDITOR.lang['da'] =
 		targetFrameName	: 'Destinationsvinduets navn',
 		targetPopupName	: 'Popup vinduets navn',
 		popupFeatures	: 'Egenskaber for popup',
-		popupResizable	: 'Justérbar',
+		popupResizable	: 'Just&eacute;rbar',
 		popupStatusBar	: 'Statuslinje',
 		popupLocationBar: 'Adresselinje',
 		popupToolbar	: 'Værktøjslinje',
@@ -182,7 +182,7 @@ CKEDITOR.lang['da'] =
 	// Anchor dialog
 	anchor :
 	{
-		toolbar		: 'Indsæt/redigér bogmærke',
+		toolbar		: 'Indsæt/redig&eacute;r bogmærke',
 		menu		: 'Egenskaber for bogmærke',
 		title		: 'Egenskaber for bogmærke',
 		name		: 'Bogmærke navn',
@@ -250,7 +250,7 @@ CKEDITOR.lang['da'] =
 		cellSpace	: 'Celleafstand',
 		cellPad		: 'Cellemargen',
 		caption		: 'Titel',
-		summary		: 'Resumé',
+		summary		: 'Resum&eacute;',
 		headers		: 'Header',
 		headersNone		: 'Ingen',
 		headersColumn	: 'Første kolonne',
@@ -359,7 +359,7 @@ CKEDITOR.lang['da'] =
 		opText		: 'Tekst',
 		opValue		: 'Værdi',
 		btnAdd		: 'Tilføj',
-		btnModify	: 'Redigér',
+		btnModify	: 'Redig&eacute;r',
 		btnUp		: 'Op',
 		btnDown		: 'Ned',
 		btnSetValue : 'Sæt som valgt',
@@ -438,7 +438,7 @@ CKEDITOR.lang['da'] =
 		chkLoop			: 'Gentagelse',
 		chkMenu			: 'Vis Flash menu',
 		chkFull			: 'Tillad fuldskærm',
- 		scale			: 'Skalér',
+ 		scale			: 'Skal&eacute;r',
 		scaleAll		: 'Vis alt',
 		scaleNoBorder	: 'Ingen ramme',
 		scaleFit		: 'Tilpas størrelse',
@@ -489,8 +489,8 @@ CKEDITOR.lang['da'] =
 		errorLoading	: 'Fejl ved indlæsning af host: %s.',
 		notInDic		: 'Ikke i ordbogen',
 		changeTo		: 'Forslag',
-		btnIgnore		: 'Ignorér',
-		btnIgnoreAll	: 'Ignorér alle',
+		btnIgnore		: 'Ignor&eacute;r',
+		btnIgnoreAll	: 'Ignor&eacute;r alle',
 		btnReplace		: 'Erstat',
 		btnReplaceAll	: 'Erstat alle',
 		btnUndo			: 'Tilbage',
@@ -681,15 +681,15 @@ CKEDITOR.lang['da'] =
 	{
 		title			: 'Stavekontrol mens du skriver',
 		opera_title		: 'Not supported by Opera', // MISSING
-		enable			: 'Aktivér SCAYT',
-		disable			: 'Deaktivér SCAYT',
+		enable			: 'Aktiv&eacute;r SCAYT',
+		disable			: 'Deaktiv&eacute;r SCAYT',
 		about			: 'Om SCAYT',
 		toggle			: 'Skift/toggle SCAYT',
 		options			: 'Indstillinger',
 		langs			: 'Sprog',
 		moreSuggestions	: 'Flere forslag',
-		ignore			: 'Ignorér',
-		ignoreAll		: 'Ignorér alle',
+		ignore			: 'Ignor&eacute;r',
+		ignoreAll		: 'Ignor&eacute;r alle',
 		addWord			: 'Tilføj ord',
 		emptyDic		: 'Ordbogsnavn må ikke være tom.',
 
@@ -720,7 +720,7 @@ CKEDITOR.lang['da'] =
 		copy		: 'Copyright &copy; $1. Alle rettigheder forbeholdes.'
 	},
 
-	maximize : 'Maximér',
+	maximize : 'Maxim&eacute;r',
 	minimize : 'Minimize', // MISSING
 
 	fakeobjects :

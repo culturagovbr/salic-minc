@@ -97,7 +97,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
             'a.idpreprojeto as idPronac',
             new Zend_Db_Expr("' ' AS PRONAC"),
             'a.nomeprojeto',
-            new Zend_Db_Expr(" 
+            new Zend_Db_Expr("
             CASE WHEN idproduto = 0
                        THEN 'Administra&ccedil;&atilde;o do Projeto'
                        ELSE c.descricao

@@ -2,7 +2,7 @@
     <div>
         <v-card>
             <v-card-title>
-                <h6>BENEFICIÁRIOS DE PRODUTO CULTURAL</h6>
+                <h6>BENEFICI&aacute;RIOS DE PRODUTO CULTURAL</h6>
             </v-card-title>
             <v-data-table
                 :pagination.sync="pagination"
@@ -58,7 +58,7 @@ export default {
                 tipoBeneficiario = 'Divulgação';
                 break;
             default:
-                tipoBeneficiario = 'Beneficiário';
+                tipoBeneficiario = 'Benefici&aacute;rio';
             }
             return tipoBeneficiario;
         },
@@ -77,7 +77,7 @@ export default {
                     value: 'Produto',
                 },
                 {
-                    text: 'Tipo Beneficiário',
+                    text: 'Tipo Benefici&aacute;rio',
                     align: 'left',
                     value: 'idTipoBeneficiario',
                 },

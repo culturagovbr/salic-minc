@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Relatório de cumprimento do objeto'"/>
+            <Carregando :text="'Relat&oacute;rio de cumprimento do objeto'"/>
         </div>
         <div v-else-if="Object.keys(dados).length > 0">
             <v-container
@@ -76,7 +76,7 @@
                     wrap>
                     <v-flex>
                         <v-card>
-                            <v-card-text class="px-0">Nenhum Relatório encontrado</v-card-text>
+                            <v-card-text class="px-0">Nenhum Relat&oacute;rio encontrado</v-card-text>
                         </v-card>
                     </v-flex>
                 </v-layout>

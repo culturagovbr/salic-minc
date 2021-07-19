@@ -20,7 +20,7 @@ class Readequacao_Model_DbTable_TbReadequacaoXParecer extends MinC_Db_Table_Abst
                 new Zend_Db_Expr("b.IdParecer, b.ParecerFavoravel, b.ResumoParecer, b.DtParecer, c.usu_nome AS Avaliador"),
                 new Zend_Db_Expr("
                     CASE WHEN b.idTipoAgente = 1
-                        THEN 'T&eacute;cnico / Parecerista'
+                        THEN 'Técnico / Parecerista'
                     WHEN b.idTipoAgente = 6
                         THEN 'Componente da Comiss&atilde;o'
                     END AS tpAvaliador
@@ -39,7 +39,7 @@ class Readequacao_Model_DbTable_TbReadequacaoXParecer extends MinC_Db_Table_Abst
             array(''),
             'TABELAS.dbo'
         );
-        
+
         //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
@@ -47,7 +47,7 @@ class Readequacao_Model_DbTable_TbReadequacaoXParecer extends MinC_Db_Table_Abst
 
         //adicionando linha order ao select
         $select->order($order);
-        
+
         return $this->fetchAll($select);
     }
 
@@ -57,7 +57,7 @@ class Readequacao_Model_DbTable_TbReadequacaoXParecer extends MinC_Db_Table_Abst
             'a.idReadequacao = ?' => $idReadequacao,
             'b.idTipoAgente = ?' => 1
         ]);
-        
+
         if (count($result) > 0) {
             $result = $result[0];
         } else {
@@ -82,7 +82,7 @@ class Readequacao_Model_DbTable_TbReadequacaoXParecer extends MinC_Db_Table_Abst
             ['tbDocumentoAssinatura.idDocumentoAssinatura'],
             $this->_schema
         );
-        
+
         $select->where('tbDocumentoAssinatura.stEstado = ?', Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO);
         $select->where('tbReadequacaoXParecer.idReadequacao = ?', $idReadequacao);
 

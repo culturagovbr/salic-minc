@@ -12,7 +12,7 @@ Módulo responsável por realizar a admissibilidade da proposta.
 Esse é um dos recursos do módulo de admissibilidade no qual permite fazer as seguintes ações na proposta:
 * Distribuir
 * Avaliar
-* Sugerir Enquadramento 
+* Sugerir Enquadramento
 * Arquivar
 
 #### Configurações
@@ -27,7 +27,7 @@ Uma das CronJobs executará uma rotina acessada através da url abaixo:
 Comandos importantes sobre as crontabs:
 
 ```
-    crontab -l # lista as entradas para crontabs 
+    crontab -l # lista as entradas para crontabs
 
     crontab -e # Edita as crontabs para o usuário atual
 ```

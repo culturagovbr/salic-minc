@@ -40,7 +40,7 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
             ->resetResponse();
 
         if (empty($config->test->params->login) || empty($config->test->params->password)) {
-            throw new exception('Configure as variáveis test.params.login e test.params.password no seu application.ini!');
+            throw new exception('Configure as vari&aacute;veis test.params.login e test.params.password no seu application.ini!');
         }
 
         $this->request->setMethod('POST')
@@ -62,7 +62,7 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
     }
 
     /**
-     * PerfAlterarilParaProponente Troca o perfil atual do usuário para perfil de Proponente
+     * PerfAlterarilParaProponente Troca o perfil atual do usu&aacute;rio para perfil de Proponente
      *
      * @access protected
      * @return void
@@ -144,7 +144,7 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
 
         if (!is_int($codGrupo) ||
             !is_int($codOrgao)) {
-            throw new exception('Perfil inválido: codGrupo(' . $codGrupo . ') / codOrgao(' . $codOrgao . ')!');
+            throw new exception('Perfil inv&aacute;lido: codGrupo(' . $codGrupo . ') / codOrgao(' . $codOrgao . ')!');
         }
 
         $this->request->setMethod('GET');

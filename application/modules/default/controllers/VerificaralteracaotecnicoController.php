@@ -1011,7 +1011,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $stAvaliacaoSubItemPedidoAlteracao = $verificaSubItemPedidoAlteracao[0]->stAvaliacao;
 
         if ($stAvaliacaoSubItemPedidoAlteracao == "AG") {
-            $this->view->statusAnalise = "Aguardando Análise";
+            $this->view->statusAnalise = "Aguardando An&aacute;lise";
         }
         if ($stAvaliacaoSubItemPedidoAlteracao == "EA") {
             $this->view->statusAnalise = "Em Análise";

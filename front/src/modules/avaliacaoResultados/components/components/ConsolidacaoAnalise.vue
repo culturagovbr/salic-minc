@@ -52,7 +52,7 @@
                                         :headers="consolidacaoHeaders(consolidacao.cols)"
                                         :items="consolidacao.lines"
                                         hide-actions
-                                        no-data-text="Não há dados disponíveis."
+                                        no-data-text="Não h&aacute; dados dispon&iacute;veis."
                                     >
                                         <template
                                             slot="items"

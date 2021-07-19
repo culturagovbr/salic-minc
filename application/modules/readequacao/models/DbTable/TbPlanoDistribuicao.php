@@ -493,7 +493,7 @@ class Readequacao_Model_DbTable_TbPlanoDistribuicao extends MinC_Db_Table_Abstra
                     FORMAT(b.qtdeVendaPopularPromocional,'0,0','pt-br') as QtdeVendaPopularPromocional,
                     FORMAT(b.vlUnitarioPopularNormal,'0,0','pt-br') as vlUnitarioPopularNormal,
                     FORMAT(b.receitaPopularNormal,'0,0','pt-br') as ReceitaPopularNormal,
-                    FORMAT(b.vlReceitaTotalPrevista,'0,0','pt-br') as Receita 
+                    FORMAT(b.vlReceitaTotalPrevista,'0,0','pt-br') as Receita
                 ")
             ),
             $this->_schema

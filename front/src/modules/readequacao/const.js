@@ -68,14 +68,14 @@ const SI_ENCAMINHAMENTO_SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_FINAL = 26;
 const SI_ENCAMINHAMENTO = {
     1: 'Solicitação encaminhada ao MinC pelo proponente',
     2: 'Solicitação indeferida e devolvida ao proponente',
-    3: 'Solicitação encaminhada a  unidade de análise pelo MinC',
-    4: 'Solicitação encaminhada ao parecerista /  técnico',
-    5: 'Solicitação devolvida ao coordenador da unidade de análise pelo parecerista',
-    6: 'Solicitação devolvida ao MinC pela unidade de análise',
+    3: 'Solicitação encaminhada a  unidade de an&aacute;lise pelo MinC',
+    4: 'Solicitação encaminhada ao parecerista /  t&eacute;cnico',
+    5: 'Solicitação devolvida ao coordenador da unidade de an&aacute;lise pelo parecerista',
+    6: 'Solicitação devolvida ao MinC pela unidade de an&aacute;lise',
     7: 'Solicitação encaminhada para o componente da comissão',
-    8: 'Solicitação encaminhada  à plenára da CNIC pelo componente da comissão',
+    8: 'Solicitação encaminhada  à plen&aacute;ra da CNIC pelo componente da comissão',
     9: 'Solicitação encaminhada para elaboração de portaria',
-    10: 'Solicitação devolvida para o coordenador pelo técnico',
+    10: 'Solicitação devolvida para o coordenador pelo t&eacute;cnico',
     11: 'Solicitação sem a necessidade de encaminhar ao MinC',
     12: 'Solicitação em cadastramento pelo proponente',
     15: 'Solicitação finalizada pelo MinC',
@@ -85,10 +85,10 @@ const SI_ENCAMINHAMENTO = {
     20: 'Solicitação encaminhada ao secretario',
     21: 'Solicitação devolvida ao coordenador pelo coordenador-geral',
     22: 'Solicitação devolvida ao coordenador pelo diretor',
-    23: 'Solicitação devolvida ao coordenador pelo secretário',
+    23: 'Solicitação devolvida ao coordenador pelo secret&aacute;rio',
     24: 'Solicitação encaminhada ao presidente da vinculada',
     25: 'Solicitação devolvida ao coordenador de parecer  pelo presidente da vinculada',
-    26: 'Solicitação devolvida ao Coordenador após completar o ciclo de assinaturas',
+    26: 'Solicitação devolvida ao Coordenador ap&oacute;s completar o ciclo de assinaturas',
 };
 
 const TP_DILIGENCIA_POR_PERMISSAO = {};

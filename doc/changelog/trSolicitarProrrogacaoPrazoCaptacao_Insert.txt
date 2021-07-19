@@ -18,7 +18,7 @@ AS
 -- ============================================================================================
 -- Autor: Jorge Arruda / Gabriel
 -- Data de Cria��o: 10/04/2015
--- Descrição: Deletar a linha 82 que cont�m o seguinte Código RAISERROR('O seu pedido de prorroga��o foi recebido no MinC, aguarde a avalia��o.<p>',16,1,@Erro)
+-- Descrição: Deletar a linha 82 que cont�m o seguinte C&oacute;digo RAISERROR('O seu pedido de prorroga��o foi recebido no MinC, aguarde a avalia��o.<p>',16,1,@Erro)
 -- Motivo: Quando o proponente vem requerir a prorroga��o do prazo de capta��o de recursos, a aplica��o lan�a
 -- um erro, porque esta linha da trigger lan�a um "erro" com a mensagem de sucesso, o Zend entende que este erro
 -- que o banco lan�a com a mensagem de "sucesso" � um erro. Por esse motivo a aplica��o quebra.

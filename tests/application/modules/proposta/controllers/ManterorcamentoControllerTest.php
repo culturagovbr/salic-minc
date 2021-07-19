@@ -82,7 +82,7 @@ class ManterorcamentoControllerTest extends MinC_Test_ControllerActionTestCase {
         $this->assertModule('proposta');
         $this->assertController('manterorcamento');
         $this->assertAction('planilhaorcamentariageral');
-//        $this->assertQueryContentContains('html body div#titulo div', 'Planilha Orçamentária ');
+//        $this->assertQueryContentContains('html body div#titulo div', 'Planilha Orçament&aacute;ria ');
 //        $this->assertQueryContentContains('div.content div#conteudo div', 'planilhaOrcamentariaMontada');
         $this->assertQuery('div.container-fluid div');
 

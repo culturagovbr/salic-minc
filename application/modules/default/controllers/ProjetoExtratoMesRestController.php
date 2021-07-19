@@ -7,14 +7,14 @@
  * @package application
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
- * @copyright � 2016 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2016 - Ministério da Cultura - Todos os direitos reservados.
  */
 class ProjetoExtratoMesRestController extends Minc_Controller_AbstractRest
 {
     public function postAction()
     {
     }
-    
+
     public function indexAction()
     {
         $projeto = $this->_request->getParam('projeto');
@@ -34,7 +34,7 @@ class ProjetoExtratoMesRestController extends Minc_Controller_AbstractRest
         # Resposta da autentica��o
         $this->getResponse()->setHttpResponseCode(200)->setBody(json_encode($listaMes));
     }
-    
+
     public function getAction()
     {
     }

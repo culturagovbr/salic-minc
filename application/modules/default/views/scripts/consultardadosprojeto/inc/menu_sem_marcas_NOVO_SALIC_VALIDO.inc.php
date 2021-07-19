@@ -170,14 +170,14 @@
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'plano-de-distribuicao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Plano de distribui&ccedil;&atilde;o">Plano de distribui&ccedil;&atilde;o</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'planilha-orcamentaria')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Planilha or&ccedil;ament&aacute;ria">Planilha or&ccedil;ament&aacute;ria</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'documentos-anexados')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Documentos anexados">Documentos anexados</a>
-                    <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'readequacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Readequa&ccedil;&atilde;o">Readequa&ccedil;&atilde;o</a>
+                    <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'readequacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Readequação">Readequação</a>
                     <!--<a href='<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista')); ?><?php echo $codPronac;?>' target="_blank" title="Ir para Dilig&ecirc;ncias do projeto">Dilig&ecirc;ncias do projeto</a>-->
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'diligencias')); ?><?php echo $codPronac;?>','conteudo'); return false"  title="Ir para Dilig&ecirc;ncias do projeto">Dilig&ecirc;ncias do projeto</a>
                     <?php if (in_array($this->intFaseProjeto, array('2','3','4'))):?>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'recurso')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Recursos">Recursos</a>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'aprovacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Aprova&ccedil;&atilde;o">Aprova&ccedil;&atilde;o</a>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-projeto')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para An&aacute;lise do projeto">An&aacute;lise do projeto</a>
-                        <!--<a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-readequacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para An&aacute;lise de readequa&ccedil;&atilde;o">An&aacute;lise de readequa&ccedil;&atilde;o</a>-->
+                        <!--<a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-readequacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para An&aacute;lise de readequação">An&aacute;lise de readequação</a>-->
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios')); ?><?php echo $codPronac;?>','conteudo'); return false"  title="Ir para Dados banc&aacute;rios">Dados banc&aacute;rios</a>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'relatorios-trimestrais')); ?><?php echo $codPronac;?>','conteudo'); return false"  title="Ir para Relat&oacute;rios trimestrais">Relat&oacute;rios trimestrais</a>
                     <?php endif;?>
@@ -200,7 +200,7 @@
                 <?php if (in_array($this->intFaseProjeto, array('2'))):?>
                     <?php if ($this->blnProcurador || $this->vinculo || $this->blnProponente) {
             ?>
-                        <a class="no_seta" href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'index', 'idpronac' => Seguranca::encrypt($this->idPronac))); ?>">Solicitar Readequa&ccedil;&atilde;o</a>
+                        <a class="no_seta" href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'index', 'idpronac' => Seguranca::encrypt($this->idPronac))); ?>">Solicitar Readequação</a>
                     <?php
         } ?>
                 <?php endif; ?>

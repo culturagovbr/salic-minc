@@ -32,7 +32,7 @@
             :pagination.sync="pagination"
             :search="search"
             item-key="item.index"
-            rows-per-page-text="Items por Página"
+            rows-per-page-text="Items por P&aacute;gina"
         >
             <template
                 slot="items"

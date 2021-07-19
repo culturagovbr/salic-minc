@@ -1,4 +1,4 @@
-Modulo de exemplo para criação de novos modulos. 
+Modulo de exemplo para criação de novos modulos.
 
 ## Mapeamento de classes
 

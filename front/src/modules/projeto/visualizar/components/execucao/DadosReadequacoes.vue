@@ -182,14 +182,14 @@
                                         lg12
                                         dark
                                         class="text-xs-left">
-                                        <b><h4>PARECER TÉCNICO</h4></b>
+                                        <b><h4>PARECER T&eacute;CNICO</h4></b>
                                         <v-divider class="pb-2"/>
                                     </v-flex>
                                     <v-layout
                                         row
                                         justify-space-between>
                                         <v-flex>
-                                            <b>Parecer favorável?</b>
+                                            <b>Parecer favor&aacute;vel?</b>
                                             <p v-if="parecer.ParecerFavoravel === '2'">
                                                 SIM
                                             </p>
@@ -207,7 +207,7 @@
                                         row
                                         justify-space-between>
                                         <v-flex>
-                                            <b>Descrição do parecer - Técnico / Parecerista</b>
+                                            <b>Descrição do parecer - T&eacute;cnico / Parecerista</b>
                                             <p v-html="parecer.ResumoParecer"/>
                                         </v-flex>
                                     </v-layout>

@@ -6,7 +6,7 @@
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Arquivo
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  *
  * MIMETYPE 								 EXTENS�ES
@@ -286,7 +286,7 @@ class Upload
 	 * @param integer $limit_ext = limitar as extens�es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
 	 * @param integer $limit_dim = limitar dimens�o da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos seráo armazenados
+	 * @param string $caminho    = caminho onde os arquivos ser&aacute;o armazenados
 	 * @param integer $sobresc   = se j� existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
@@ -393,7 +393,7 @@ class Upload
 	 * @param integer $limit_ext = limitar as extens�es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
 	 * @param integer $limit_dim = limitar dimens�o da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos seráo armazenados
+	 * @param string $caminho    = caminho onde os arquivos ser&aacute;o armazenados
 	 * @param integer $sobresc   = se j� existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
@@ -424,7 +424,7 @@ class Upload
 	 * @param integer $limit_ext = limitar as extens�es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
 	 * @param integer $limit_dim = limitar dimens�o da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos seráo armazenados
+	 * @param string $caminho    = caminho onde os arquivos ser&aacute;o armazenados
 	 * @param integer $sobresc   = se j� existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
@@ -455,7 +455,7 @@ class Upload
 	 * @param integer $limit_ext = limitar as extens�es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
 	 * @param integer $limit_dim = limitar dimens�o da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos seráo armazenados
+	 * @param string $caminho    = caminho onde os arquivos ser&aacute;o armazenados
 	 * @param integer $sobresc   = se j� existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
@@ -487,7 +487,7 @@ class Upload
 	 * @param integer $limit_ext = limitar as extens�es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
 	 * @param integer $limit_dim = limitar dimens�o da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos seráo armazenados
+	 * @param string $caminho    = caminho onde os arquivos ser&aacute;o armazenados
 	 * @param integer $sobresc   = se j� existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
@@ -529,7 +529,7 @@ class Upload
 	 * @param integer $limit_ext = limitar as extens�es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
 	 * @param integer $limit_dim = limitar dimens�o da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos seráo armazenados
+	 * @param string $caminho    = caminho onde os arquivos ser&aacute;o armazenados
 	 * @param integer $sobresc   = se j� existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */
@@ -580,7 +580,7 @@ class Upload
 	 * @param integer $limit_ext = limitar as extens�es do arquivo? (0 = nao ou 1 = sim)
 	 * @param integer $limit_tam = limitar o tamanho do arquivo? (0 ou 1)
 	 * @param integer $limit_dim = limitar dimens�o da imagem? (0 ou 1)
-	 * @param string $caminho    = caminho onde os arquivos seráo armazenados
+	 * @param string $caminho    = caminho onde os arquivos ser&aacute;o armazenados
 	 * @param integer $sobresc   = se j� existir o arquivo, indica se ele deve ser sobrescrito (0 ou 1)
 	 * @return void
 	 */

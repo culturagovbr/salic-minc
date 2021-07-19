@@ -15,7 +15,7 @@ class MensagemRestController extends Minc_Controller_AbstractRest
     public function postAction()
     {
     }
-    
+
     public function indexAction()
     {
         $next = $this->_request->getParam('next');
@@ -23,7 +23,7 @@ class MensagemRestController extends Minc_Controller_AbstractRest
         $total = $this->_request->getParam('total');
         $idRegistration = $this->registrationId;
         $new = $this->_request->getParam('new');
-        
+
         $listaMensagens = array();
         $modelMensagem = new Mensagem();
         $objParam = (object) array(
@@ -47,7 +47,7 @@ class MensagemRestController extends Minc_Controller_AbstractRest
             'total' => (int)$total)
         ));
     }
-    
+
     public function getAction()
     {
     }
@@ -65,7 +65,7 @@ class MensagemRestController extends Minc_Controller_AbstractRest
             }
             $result = (object)$mensagem->toArray();
         }
-        
+
         # Resposta do serviço.
         $this->getResponse()->setHttpResponseCode(200)->setBody(json_encode($result));
     }
@@ -83,7 +83,7 @@ class MensagemRestController extends Minc_Controller_AbstractRest
             }
             $result = (object)$mensagem->toArray();
         }
-        
+
         # Resposta do serviço.
         $this->getResponse()->setHttpResponseCode(200)->setBody(json_encode($result));
     }
@@ -104,7 +104,7 @@ class MensagemRestController extends Minc_Controller_AbstractRest
                 $listaMensagens[] = (object)$mensagem;
             }
         }
-        
+
         return $listaMensagens;
     }
 }

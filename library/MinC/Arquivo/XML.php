@@ -6,14 +6,14 @@
  * @version 1.0
  * @package library
  * @subpackage library.MinC.Arquivo
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
+ * @copyright � 2010 - Minist&eacute;rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
 class XML
 {
 	/**
-	 * M�todo para gerar o XML de um combo 
+	 * M�todo para gerar o XML de um combo
 	 * que � gerado atrav�s de outro via AJAX
 	 *
 	 * @access public

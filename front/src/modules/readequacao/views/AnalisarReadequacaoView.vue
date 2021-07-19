@@ -33,7 +33,7 @@
             >
                 <v-card>
                     <carregando
-                        :text="'Montando análise de readequação...'"
+                        :text="'Montando an&aacute;lise de readequação...'"
                         class="mt-5 pb-4"
                     />
                 </v-card>
@@ -125,7 +125,7 @@
                                     >
                                         <v-switch
                                             v-model="parecerReadequacao.ParecerFavoravel"
-                                            :label="`Parecer Favorável?: ${parecerFavoravelTexto}`"
+                                            :label="`Parecer Favor&aacute;vel?: ${parecerFavoravelTexto}`"
                                             value="'2'"
                                             false-value="1"
                                             true-value="2"
@@ -195,7 +195,7 @@
                             Finalizar avaliação da Readequação?
                         </v-card-title>
                         <v-card-text>
-                            Após finalizada, será gerado um documento para assinatura do técnico.
+                            Ap&oacute;s finalizada, ser&aacute; gerado um documento para assinatura do t&eacute;cnico.
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer/>

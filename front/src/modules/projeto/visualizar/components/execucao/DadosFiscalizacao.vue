@@ -74,7 +74,7 @@ export default {
             },
             headers: [
                 {
-                    text: 'DT. INÍCIO',
+                    text: 'DT. IN&iacute;CIO',
                     align: 'center',
                     value: 'dtInicio',
                 },
@@ -84,12 +84,12 @@ export default {
                     value: 'dtFim',
                 },
                 {
-                    text: 'CPF TÉCNICO',
+                    text: 'CPF T&eacute;CNICO',
                     align: 'left',
                     value: 'cpfTecnico',
                 },
                 {
-                    text: 'NOME TÉCNICO',
+                    text: 'NOME T&eacute;CNICO',
                     align: 'left',
                     value: 'nmTecnico',
                 },

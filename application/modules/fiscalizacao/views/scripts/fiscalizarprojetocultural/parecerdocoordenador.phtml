@@ -62,7 +62,7 @@ echo $this->partial("fiscalizarprojetocultural/inc/menu-suspenso.phtml", $this);
                         <td colspan="2"><?php echo $projeto->cidade; ?></td>
                     </tr>
                     <tr>
-                        <th colspan="2">&Aacute;rea</th>
+                        <th colspan="2">Área</th>
                         <th colspan="2">Segmento</th>
                     </tr>
                     <tr>
@@ -887,7 +887,7 @@ echo $this->partial("fiscalizarprojetocultural/inc/menu-suspenso.phtml", $this);
                 removerBtFechar: true,
                 title: 'Alerta'
             });
-            nomeJanelaAlerta.divConteudo.html(' sfdgfgh Deseja devolver para o t&eacute;cnico? <table><tr><th colspan="4">Justificativa:</th></tr><tr><td colspan="4"><textarea null="false" id="justTecnico" name="justTecnico" cols="1" rows="3" style="width: 80%;"><?php if (isset($relatorio->dsJustificativaDevolucao)) echo $relatorio->dsJustificativaDevolucao;?></textarea></td></tr></table>');
+            nomeJanelaAlerta.divConteudo.html(' sfdgfgh Deseja devolver para o Técnico? <table><tr><th colspan="4">Justificativa:</th></tr><tr><td colspan="4"><textarea null="false" id="justTecnico" name="justTecnico" cols="1" rows="3" style="width: 80%;"><?php if (isset($relatorio->dsJustificativaDevolucao)) echo $relatorio->dsJustificativaDevolucao;?></textarea></td></tr></table>');
             alert('aeaeaea');
             nomeJanelaAlerta.abrirJanela();
             return false;

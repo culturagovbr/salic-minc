@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Pagamentos por UF/Município'"/>
+            <Carregando :text="'Pagamentos por UF/Munic&iacute;pio'"/>
         </div>
         <div v-else-if="dados">
             <v-card>
@@ -129,7 +129,7 @@ export default {
                     value: 'UFFornecedor',
                 },
                 {
-                    text: 'Município Fornecedor',
+                    text: 'Munic&iacute;pio Fornecedor',
                     align: 'left',
                     value: 'MunicipioFornecedor',
                 },

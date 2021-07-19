@@ -105,7 +105,7 @@ export default {
                     value: 'Etapa',
                 },
                 {
-                    text: 'ITEM ORÇAMENTÁRIO',
+                    text: 'ITEM ORÇAMENT&aacute;RIO',
                     align: 'left',
                     value: 'Item',
                 },

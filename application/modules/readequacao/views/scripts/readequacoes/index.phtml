@@ -234,7 +234,7 @@
                     enviarformulario();
                 } else {
                     $("#msgAlerta").dialog("destroy");
-                    $("#msgAlerta").html('Deseja incluir essa solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
+                    $("#msgAlerta").html('Deseja incluir essa solicita&ccedil;&atilde;o de readequação?');
                     $("#msgAlerta").dialog({
                         resizable: false,
                         title: 'Alerta!',
@@ -268,7 +268,7 @@
         $('.btn-excluir').click(function () {
             var idReadequacao = $(this).attr('readequacao');
             $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html('Deseja excluir a solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
+            $("#msgAlerta").html('Deseja excluir a solicita&ccedil;&atilde;o de readequação?');
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -352,7 +352,7 @@
 
         $('#btn_finalizar').click(function () {
             $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html('Deseja realmente finalizar as solicita&ccedil;&otilde;es de readequa&ccedil;&atilde;o cadastradas?<br /><br />Ao finalizar, todas as solicita&ccedil;&otilde;es ser&atilde;o encaminhadas ao MinC.');
+            $("#msgAlerta").html('Deseja realmente finalizar as solicita&ccedil;&otilde;es de readequação cadastradas?<br /><br />Ao finalizar, todas as solicita&ccedil;&otilde;es ser&atilde;o encaminhadas ao MinC.');
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -457,10 +457,10 @@
                 if (typeof data.readequacao.idReadequacao !== 'undefined') {
                     $3('#readequacaoEdicao').removeClass('sumir');
                     if (data.readequacao.stAtendimento == 'E') {
-                        $3('#readequacaoEdicao .title h4').html('Editando readequa&ccedil;&atilde;o devolvida ao proponente');
+                        $3('#readequacaoEdicao .title h4').html('Editando readequação devolvida ao proponente');
                         $3('#readequacaoEdicao .title').removeClass().addClass('lime');
                     } else {
-                        $3('#readequacaoEdicao .title h4').html('Editando readequa&ccedil;&atilde;o');
+                        $3('#readequacaoEdicao .title h4').html('Editando readequação');
                         $3('#readequacaoEdicao .title').removeClass().addClass('light-green');
                     }
                     $3('#idReadequacao').val(data.readequacao.idReadequacao);
@@ -499,14 +499,14 @@
             <div class="row">
                 <div class="col s12 m9 l10">
                     <h1>
-                        Solicitar Readequa&ccedil;&atilde;o
+                        Solicitar Readequação
                     </h1>
 
                     <?php
                     gerarNovoBreadCrumb(
                         [
                             ['Dados do projeto' => '/default/consultardadosprojeto/index' . '?idPronac=' . Seguranca::encrypt($this->idPronac)],
-                            ['Solicitar Readequa&ccedil;&atilde;o' => '']
+                            ['Solicitar Readequação' => '']
                         ]
                     );
                     ?>
@@ -537,7 +537,7 @@
                     </table>
                     <table class="tabela">
                         <tr>
-                            <td class="destacar bold" style="font-size: 13px;">Tipo de Readequa&ccedil;&atilde;o</td>
+                            <td class="destacar bold" style="font-size: 13px;">Tipo de Readequação</td>
                         </tr>
                         <tr>
                             <td>
@@ -651,7 +651,7 @@
                             <legend>Readequa&ccedil;&otilde;es cadastradas</legend>
                             <table class="tabela">
                                 <tr>
-                                    <th>Tipo Readequa&ccedil;&atilde;o</th>
+                                    <th>Tipo Readequação</th>
                                     <th>Dt. Solicita&ccedil;&atilde;o</th>
                                     <th>Descri&ccedil;&atilde;o</th>
                                     <th>Justificativa</th>
@@ -715,7 +715,7 @@
                                                 <a
                                                     href="javascript:void(0)"
                                                     class="btn small waves-effect waves-light btn-danger btn-excluir"
-                                                    title="Excluir readequa&ccedil;&atilde;o"
+                                                    title="Excluir readequação"
                                                     readequacao="<?php echo $rc->idReadequacao; ?>"
                                                 >
                                                 <i class="material-icons">delete</i>

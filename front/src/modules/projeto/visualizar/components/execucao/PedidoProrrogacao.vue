@@ -73,7 +73,7 @@ export default {
                 },
                 {
                     align: 'center',
-                    text: 'Dt.Início',
+                    text: 'Dt.In&iacute;cio',
                     value: 'DtInicio',
                 },
                 {

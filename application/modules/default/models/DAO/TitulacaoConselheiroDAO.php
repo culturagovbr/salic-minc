@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.model.DAO
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2010 - MinistÃ©rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 
@@ -27,10 +27,10 @@ class TitulacaoConselheiroDAO extends Zend_Db_Table
 					,SC.Descricao Segmento
 					,A.stTitular
 
-				FROM AGENTES.dbo.tbTitulacaoConselheiro A 
-					INNER JOIN AGENTES.dbo.Nomes N ON A.idAgente = N.idAgente 
-					INNER JOIN SAC.dbo.Area AC ON A.cdArea = AC.Codigo 
-					LEFT JOIN SAC.dbo.Segmento SC ON A.cdSegmento = SC.Codigo 
+				FROM AGENTES.dbo.tbTitulacaoConselheiro A
+					INNER JOIN AGENTES.dbo.Nomes N ON A.idAgente = N.idAgente
+					INNER JOIN SAC.dbo.Area AC ON A.cdArea = AC.Codigo
+					LEFT JOIN SAC.dbo.Segmento SC ON A.cdSegmento = SC.Codigo
 
 				WHERE A.cdArea = " . $area . " AND stConselheiro = 'A' ";
 
