@@ -195,7 +195,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $sqlAguardAnalise2 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 2, $unidade_autorizada); //Troca de Agente
         $AguardAnalise2 = $db->fetchAll($sqlAguardAnalise2);
 
-        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 3, $unidade_autorizada); //Ficha Técnica
+        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 3, $unidade_autorizada); //Ficha T&eacute;cnica
         $AguardAnalise3 = $db->fetchAll($sqlAguardAnalise3);
 
         $sqlAguardAnalise4 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 4, $unidade_autorizada); //Local de realiza��o
@@ -232,7 +232,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $sqlDevolvAnalise2 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 2, $unidade_autorizada); //Raz�o social
         $DevolvAnalise2 = $db->fetchAll($sqlDevolvAnalise2);
 
-        $sqlDevolvAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 3, $unidade_autorizada); //Ficha Técnica
+        $sqlDevolvAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 3, $unidade_autorizada); //Ficha T&eacute;cnica
         $DevolvAnalise3 = $db->fetchAll($sqlDevolvAnalise3);
 
         $sqlDevolvAnalise4 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 4, $unidade_autorizada); //Local de realiza��o
@@ -450,7 +450,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $AguardAnalise2 = $db->fetchAll($sqlAguardAnalise2);
 
 
-        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 3, $this->getIdUsuario, $this->getIdOrgao); //Ficha Técnica
+        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 3, $this->getIdUsuario, $this->getIdOrgao); //Ficha T&eacute;cnica
         $AguardAnalise3 = $db->fetchAll($sqlAguardAnalise3);
 
         $sqlAguardAnalise4 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 4, $this->getIdUsuario, $this->getIdOrgao); //Local de realiza��o
@@ -1907,7 +1907,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $whereProdutoAT = array('idPedidoAlteracao = ?' => $reg[0]->idPedidoAlteracao, 'tpPlanoDistribuicao = ?' => 'AT');
         $listaProdutosAT = $this->tbPlanoDistribuicao->buscar($whereProdutoAT);
 
-        //VERIFICA SE J� POSSUI PLANO DE DISTRIBUI��O DO TIPO AT PARA Não GERAR OUTRA C�PIA DE Análise Técnica
+        //VERIFICA SE J� POSSUI PLANO DE DISTRIBUI��O DO TIPO AT PARA Não GERAR OUTRA C�PIA DE Análise T&eacute;cnica
         if (count($listaProdutosAT) <= 0) {
             foreach ($listaProdutosSR as $d) {
                 if ($d->tpAcao != 'N') {
@@ -2215,7 +2215,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                      * ==============================================================
                      */
                 } elseif ($tpAlt == 3) {
-                    //FICHA Técnica
+                    //FICHA T&eacute;cnica
                     $fichatecAtual = FichaTecnicaDAO::buscarFichaTecnicaFinal($idPronac, $idPedidoAlt);
                     $Atual = $fichatecAtual[0]->FichaTecnica;
                     $idPreProjeto = $fichatecAtual[0]->idPreProjeto;

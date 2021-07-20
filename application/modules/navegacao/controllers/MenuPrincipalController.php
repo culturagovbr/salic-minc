@@ -274,8 +274,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             'grupo' => [Autenticacao_Model_Grupos::PARECERISTA]
         ];
         $arrMenu['analise']['menu'][] = [
-            'label' => 'Parecer Técnico FNC',
-            'title' => 'Ir para Parecer Técnico FNC',
+            'label' => 'Parecer T&eacute;cnico FNC',
+            'title' => 'Ir para Parecer T&eacute;cnico FNC',
             'url' => ['module' => 'default', 'controller' => 'aprovacaoeparecer', 'action' => 'index'],
             'grupo' => [143]
         ];

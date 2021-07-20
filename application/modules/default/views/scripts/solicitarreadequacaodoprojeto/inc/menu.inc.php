@@ -91,7 +91,7 @@
                     <a href="#" id="botaoProjetosConfigura" title="Projetos" class="abrir_fechar4">Projetos</a>
                     <div class="sanfonaDiv" style="width: 90%;">
                         <a href='#' id='abrir_fechar'>Produtos</a>
-                        <a href='#' class='abrir_fechar5'>Ficha Técnica</a>
+                        <a href='#' class='abrir_fechar5'>Ficha T&eacute;cnica</a>
                         <a href='#' class='abrir_fechar6'>Local de Realiza��o</a>
                         <a href='#' class='abrir_fechar7'>Nome do Projeto</a>
                         <a href='#' class='abrir_fechar8'>Prorrogar Prazos de Execu��o</a>

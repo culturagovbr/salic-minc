@@ -644,7 +644,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     /*
      * Criada em 18/03/2014
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Essa função é usada pelostécnicos, pareceristas e componentes da comissão para alterarem os itens da planilha orçamentária.
+     * Essa função é usada pelosT&eacute;cnicos, pareceristas e componentes da comissão para alterarem os itens da planilha orçamentária.
      */
     public function alteracoesTecnicasNoItemAction()
     {
@@ -731,7 +731,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     /*
    * Criada em 18/03/2014
    * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-   * Essa função é usada pelostécnicos, pareceristas e componentes da comissão para alterarem os locais de realização.
+   * Essa função é usada pelosT&eacute;cnicos, pareceristas e componentes da comissão para alterarem os locais de realização.
    */
     public function alteracoesTecnicasNoLocalDeRealizacaoAction()
     {
@@ -763,7 +763,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
      /*
      * Criada em 28/03/2014
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Essa função é usada pelostécnicos, pareceristas e componentes da comissão para alterarem os planos de divulgação.
+     * Essa função é usada pelosT&eacute;cnicos, pareceristas e componentes da comissão para alterarem os planos de divulgação.
      */
     public function alteracoesTecnicasNoPlanoDeDivulgacaoAction()
     {
@@ -795,7 +795,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     /*
      * Criada em 1/04/2014
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Essa função é usada pelostécnicos, pareceristas, proponente e componentes da comissão para alterarem os planos de distribuição.
+     * Essa função é usada pelosT&eacute;cnicos, pareceristas, proponente e componentes da comissão para alterarem os planos de distribuição.
      */
     public function alteracoesTecnicasNoPlanoDeDistribuicaoAction()
     {

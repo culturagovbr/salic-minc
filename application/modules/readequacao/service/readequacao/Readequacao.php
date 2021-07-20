@@ -530,7 +530,7 @@ class Readequacao implements IServicoRestZend
                         $valorPreCarregado = $dadosPreProjeto->EspecificacaoTecnica;
                     }
                 }
-                $descricao = 'Especificação técnica';
+                $descricao = 'Especificação T&eacute;cnica';
                 $tpCampo = 'textarea';
                 break;
 
@@ -741,7 +741,7 @@ class Readequacao implements IServicoRestZend
                         $valorPreCarregado = $dadosPreProjeto->FichaTecnica;
                     }
                 }
-                $descricao = 'Ficha técnica';
+                $descricao = 'Ficha T&eacute;cnica';
                 $tpCampo = 'textarea';
                 break;
 

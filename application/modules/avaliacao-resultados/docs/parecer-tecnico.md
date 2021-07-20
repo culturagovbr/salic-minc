@@ -212,7 +212,7 @@ A ação [Devolver] do Coordenador Geral de Prestação de contas é semelhante 
 
 ## Historico
 
-![Parecer técnico aba Historico](./imagens/parecer_tecnico_historico_coord_geral.png)
+![Parecer T&eacute;cnico aba Historico](./imagens/parecer_tecnico_historico_coord_geral.png)
 
 ### Aç&otilde;es disponíveis:
 

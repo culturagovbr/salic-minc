@@ -29,8 +29,8 @@
 <div id="conteudo">
     <script type='text/javascript' src='<?php echo $this->baseUrl(); ?>/public/js/projetosGerenciar.js'></script>
 
-    <!-- MODAL PARA NOTA Técnica -->
-    <div style="display:none;" id="notatec" title="Nota Técnica do Projeto" >
+    <!-- MODAL PARA NOTA T&eacute;cnica -->
+    <div style="display:none;" id="notatec" title="Nota T&eacute;cnica do Projeto" >
         <form name="formencaminhar" id="form" method="post">
             <table>
                 <tr>
@@ -53,7 +53,7 @@
                 </p>
             </form>
         </div>
-        <!-- FIM DO MODAL NOTA Técnica -->
+        <!-- FIM DO MODAL NOTA T&eacute;cnica -->
 
 
         <?php foreach ($this->dados as $dados): ?>
@@ -89,7 +89,7 @@
                         <th colspan="2">CURSOS APROVADOS</th>
                     </tr>
                     <tr>
-                        <td colspan="2" class="destacar bold">ESPECIFICA��O Técnica</td>
+                        <td colspan="2" class="destacar bold">ESPECIFICA��O T&eacute;cnica</td>
                     </tr>
                     <tr>
                         <td colspan="2"><center><textarea name="justificativa" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo empty($dados->EspecificacaoTecnica) ? strip_tags("Não Aplic�vel") : strip_tags($dados->EspecificacaoTecnica); ?></textarea></center></td>
@@ -104,7 +104,7 @@
                         <th colspan="2">SOLICITADO PELO PROPONENTE</th>
                     </tr>
                     <tr>
-                        <td colspan="2" class="destacar bold">NOVA ESPECIFICA��O Técnica</td>
+                        <td colspan="2" class="destacar bold">NOVA ESPECIFICA��O T&eacute;cnica</td>
                     </tr>
                     <tr>
                         <td colspan="2"><center><textarea name="solicitacao" style="width: 99%" cols="70" rows="7" class="textarea_simples w1100" readonly="readonly"><?php echo strip_tags($dados->dsEspecificacaoSolicitacao); ?></textarea></center></td>
@@ -133,7 +133,7 @@
                     </tr>-->
                     <tr>
                         <td colspan="2" style="padding-left: 2em; padding-right: 2em;">
-                            Análise DA ESPECIFICA��O Técnica:<br /><br />
+                            Análise DA ESPECIFICA��O T&eacute;cnica:<br /><br />
                             <?php echo strip_tags($dados->Justificativa); ?>
                         </td>
                     </tr>

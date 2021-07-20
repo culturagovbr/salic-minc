@@ -3196,7 +3196,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
 <table cellspacing='0' cellpadding='2' border='1' align='center' width='99%'>
 <tr align='center'>
 <td colspan='4'>
-<h2>MINIST&Eacute;RIO DA TURISMO</h2>
+<h2>MINIST&Eacute;RIO DO TURISMO</h2>
 <h3>Guia de Arquivamento de projetos - Enviado</h3></td>
 </tr>
 <tr>

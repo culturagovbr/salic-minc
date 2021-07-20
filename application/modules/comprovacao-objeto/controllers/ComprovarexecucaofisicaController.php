@@ -1850,7 +1850,7 @@ class ComprovacaoObjeto_ComprovarexecucaofisicaController extends MinC_Controlle
                 $Projetos = new Projetos();
                 $d = array();
                 $d['situacao'] = 'E24';
-                $d['ProvidenciaTomada'] = 'Prestação de Contas final apresentada, aguardando análise.';
+                $d['ProvidenciaTomada'] = 'Prestação de Contas final apresentada, aguardando an&acute;lise.';
                 $d['dtSituacao'] = new Zend_Db_Expr('GETDATE()');
                 $d['Logon'] = $idUsuario;
                 $w = "IdPRONAC = $idpronac";

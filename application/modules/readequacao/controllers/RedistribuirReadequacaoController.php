@@ -46,7 +46,7 @@ class Readequacao_RedistribuirReadequacaoController extends MinC_Controller_Rest
         } else {
             $encaminhar = $readequacaoService->redistribuirReadequacao();
             if ($encaminhar) {
-                $data['message'] = "Readequação redistribuída para técnico.";
+                $data['message'] = "Readequação redistribuída para T&eacute;cnico.";
             }
         }
 

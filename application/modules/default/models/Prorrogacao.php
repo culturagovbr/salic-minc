@@ -51,7 +51,7 @@ class Prorrogacao extends MinC_Db_Table_Abstract
             $slct->limit($tamanho, $tmpInicio);
         }
 
-        
+
         return $this->fetchAll($slct);
     }
 
@@ -74,7 +74,7 @@ class Prorrogacao extends MinC_Db_Table_Abstract
             $slct->where($coluna, $valor);
         }
 
-        
+
         return $this->fetchAll($slct)->current();
     }
 
@@ -87,7 +87,7 @@ class Prorrogacao extends MinC_Db_Table_Abstract
         );
         $select->where('idProrrogacao = ?', $idProrrogacao);
 
-        
+
         return $this->fetchRow($select);
     }
 
@@ -101,7 +101,7 @@ class Prorrogacao extends MinC_Db_Table_Abstract
                     new Zend_Db_Expr("
                         CASE
                             WHEN Atendimento ='A'
-                                THEN 'Em an&aacute;lise'
+                                THEN 'Em análise'
                             WHEN Atendimento ='N'
                                 THEN 'Deferido'
                             WHEN Atendimento ='I'
@@ -120,7 +120,7 @@ class Prorrogacao extends MinC_Db_Table_Abstract
         );
         $slct->where('idPronac = ?', $idPronac);
 
-        
+
         return $this->fetchAll($slct);
     }
 }

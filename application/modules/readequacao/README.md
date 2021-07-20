@@ -26,7 +26,7 @@ projetos.
     - dtAvaliador
     - dsAvaliacao
 
-### Fluxo 3 - Técnico de acompanhamento
+### Fluxo 3 - T&eacute;cnico de acompanhamento
 
   Ao finalizar a avaliação na tbReadequacao:
 

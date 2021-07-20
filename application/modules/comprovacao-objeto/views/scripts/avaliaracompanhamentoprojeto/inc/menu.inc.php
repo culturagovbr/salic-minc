@@ -37,7 +37,7 @@
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
-                <a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/avaliaracompanhamentoprojeto/parecer-tecnico?idPronac=<?php echo $this->idPronac; ?>" title="Parecer Técnico" class="no_seta">Parecer Técnico</a>
+                <a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/avaliaracompanhamentoprojeto/parecer-tecnico?idPronac=<?php echo $this->idPronac; ?>" title="Parecer T&eacute;cnico" class="no_seta">Parecer T&eacute;cnico</a>
                 <a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/avaliaracompanhamentoprojeto/etapas-de-trabalho-final?idPronac=<?php echo $this->idPronac; ?>" title="Etapas de Trabalho" class="no_seta">Etapas de Trabalho</a>
                 <a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/avaliaracompanhamentoprojeto/local-de-realizacao-final?idPronac=<?php echo $this->idPronac; ?>" title="Local de Realiza&ccedil;&atilde;o" class="no_seta">Local de Realiza&ccedil;&atilde;o</a>
                 <a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/avaliaracompanhamentoprojeto/plano-de-divulgacao-final?idPronac=<?php echo $this->idPronac; ?>" title="Plano de Divulga&ccedil;&atilde;o" class="no_seta">Plano de Divulga&ccedil;&atilde;o</a>
