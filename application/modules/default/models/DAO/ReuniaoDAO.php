@@ -4,7 +4,7 @@ class ReuniaoDAO extends Zend_Db_Table
     protected $_name = 'sac.dbo.tbreuniao'; // nome da tabela
 
     /**
-     * M�todo para buscar a reuni�o em aberto
+     * M�todo para buscar a reuni&atilde;o em aberto
      * @access public
      * @param void
      * @return object $db->fetchAll($sql)

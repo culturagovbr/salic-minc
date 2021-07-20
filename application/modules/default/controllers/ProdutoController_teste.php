@@ -3,18 +3,18 @@
 class PlanoDistribuicaoController extends MinC_Controller_Action_Abstract
 {
     /**
-     * Reescreve o método init()
+     * Reescreve o mï¿½todo init()
      * @access public
      * @param void
      * @return void
      */
     public function init()
     {
-        // verifica as permissões
+        // verifica as permissï¿½es
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 93;  // Coordenador de Parecerista
             $PermissoesGrupo[] = 94;  // Parecerista
-            $PermissoesGrupo[] = 121; // Técnico
+            $PermissoesGrupo[] = 121; // T&eacute;cnico
             $PermissoesGrupo[] = 122; // Coordenador de Acompanhamento
             parent::perfil(1, $PermissoesGrupo);
         parent::init();

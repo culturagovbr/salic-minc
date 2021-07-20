@@ -1,9 +1,9 @@
 <script type="text/javascript">
-$(document).ready(function() 
-	    { 
-			
-	        $("#tabelabusca").tablesorter(); 
-	    } 
+$(document).ready(function()
+	    {
+
+	        $("#tabelabusca").tablesorter();
+	    }
 	);
 
 $('th').css("cursor","pointer");
@@ -15,15 +15,15 @@ $('th').attr("title","Clique aqui para ordenar");
 <thead>
 <tr>
 	<th align="center">UF</th>
-	<th>Município</th>
-	<th align="center">Nº <?php echo $this->nome ?></th>
+	<th>Municï¿½pio</th>
+	<th align="center">Nï¿½ <?php echo $this->nome ?></th>
 	<th><?php echo $this->nome ?></th><th>PROPONENTE</th>
-	<th align="center">Nº DO EDITAL</th>
+	<th align="center">Nï¿½ DO EDITAL</th>
 	<th>EDITAL</th>
 	<th align="center">DATA DE ENVIO</th>
-        <th align="center">DATA DA &Uacute;LTIMA AVALIAÇÃO</th>
+        <th align="center">DATA DA &Uacute;LTIMA Avalia&Ccedil;&Atilde;o</th>
 </tr>
-</thead> 
+</thead>
 <tbody>
 <?php foreach($this->busca as $b):?>
 <tr>
@@ -43,7 +43,7 @@ $('th').attr("title","Clique aqui para ordenar");
 	<td><?php echo utf8_decode(htmlentities($b->c9)); ?></td>
 </tr>
 <?php endforeach; ?>
-</tbody> 
+</tbody>
 </table>
 <?php } else {?>
 <table class="tabela">

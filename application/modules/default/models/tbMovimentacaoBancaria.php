@@ -146,7 +146,7 @@ class tbMovimentacaoBancaria extends MinC_Db_Table_Abstract
             $select->where(new Zend_Db_Expr("mx.idTipoInconsistencia IS NULL"));
         }
 
-        // busca pelo per�odo
+        // busca pelo per&iacute;odo
         if (!empty($periodo)) {
             if ($periodo[0] == "A") { // Hoje
                 $select->where(new Zend_Db_Expr("CONVERT(DATE, m.dtInicioMovimento) = CONVERT(DATE, GETDATE())
@@ -313,7 +313,7 @@ class tbMovimentacaoBancaria extends MinC_Db_Table_Abstract
                     }
                 }
             }
-        } 
+        }
 
         // filtra pelo tipo de opera��o
         if (!empty($operacao)) {
@@ -332,7 +332,7 @@ class tbMovimentacaoBancaria extends MinC_Db_Table_Abstract
         }
 
         return $this->fetchAll($select);
-    } 
+    }
 
     /**
      * M�todo para cadastrar
@@ -343,7 +343,7 @@ class tbMovimentacaoBancaria extends MinC_Db_Table_Abstract
     public function cadastrarDados($dados)
     {
         return $this->insert($dados);
-    } 
+    }
 
     /**
      * M�todo para alterar
@@ -368,5 +368,5 @@ class tbMovimentacaoBancaria extends MinC_Db_Table_Abstract
     {
         $where = "idMovimentacaoBancaria = " . $where;
         return $this->delete($where);
-    } 
-} 
+    }
+}

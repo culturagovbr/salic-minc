@@ -251,7 +251,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
         $idpronac = $this->_request->getParam("idpronac");
 
         if ($this->bln_readequacao == "true") {
-            echo "<br><br><br><center><font color='red'><b>Este Projeto encontra-se em Análise de Readequa��o.</b></font><center>";
+            echo "<br><br><br><center><font color='red'><b>Este Projeto encontra-se em Análise de Readequa&ccedil;&atilde;o.</b></font><center>";
             $this->_helper->viewRenderer->setNoRender(true);
         }
 
@@ -467,7 +467,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
                 // INÍCIO devolver pra vinculada
                 if ($tpAcao == 3) {
                     if ($this->bln_readequacao == "true") {
-                        throw new Exception("Este Projeto encontra-se em Análise de Readequa��o!");
+                        throw new Exception("Este Projeto encontra-se em Análise de Readequa&ccedil;&atilde;o!");
                     }
                     $arrBusca = array();
                     $arrBusca['p.IdPRONAC = ?']    = $idPronac;

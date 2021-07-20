@@ -124,7 +124,7 @@
             <td colspan="3" style="text-align: justify;"><?php echo $this->DadosRelatorio->dsMedidasAcessibilidade; ?><br /><br /></td>
         </tr>
         <tr>
-            <td colspan="3" class="destacar bold">MEDIDAS DE DEMOCRATIZAÇÃO DO ACESSO, NOS TERMOS DA PORTARIA DE APROVA&Ccedil;&Atilde;O</td>
+            <td colspan="3" class="destacar bold">MEDIDAS DE DEMOCRATIZA&Ccedil;ÃO DO ACESSO, NOS TERMOS DA PORTARIA DE APROVA&Ccedil;&Atilde;O</td>
         </tr>
         <tr>
             <td colspan="3" style="text-align: justify;"><?php echo $this->DadosRelatorio->dsMedidasFruicao; ?><br /><br /></td>
@@ -175,7 +175,7 @@
             <td nowrap>
                 <?php
                     if($LocaisDeRealizacao->siAbrangencia == 0) {
-                        echo 'Sem Informação';
+                        echo 'Sem Informa&ccedil;ão';
                     } else if($LocaisDeRealizacao->siAbrangencia == 1) {
                         echo 'Não Realizado';
                     } else if($LocaisDeRealizacao->siAbrangencia == 2) {
@@ -449,7 +449,7 @@
         <?php if(count($this->BensCadastrados)>0) { ?>
         <tr align="center">
             <td class="destacar bold">Tipo do Bem</td>
-            <td class="destacar bold">Item Orçament&aacute;rio</td>
+            <td class="destacar bold">Item Or&ccedil;ament&aacute;rio</td>
             <td class="destacar bold">CNPJ/CPF</td>
             <td class="destacar bold">Nome</td>
             <td class="destacar bold">Arquivo Doa&ccedil;&atilde;o</td>
@@ -459,7 +459,7 @@
         </tr>
         <?php foreach ($this->BensCadastrados as $bens) { ?>
         <tr>
-            <td><?php echo ($bens->tpBem == 'M') ? 'Móvel' : 'Imóvel'; ?></td>
+            <td><?php echo ($bens->tpBem == 'M') ? 'M&oacute;vel' : 'Im&oacute;vel'; ?></td>
             <td><?php echo $bens->ItemOrcamentario; ?></td>
             <td align="center"><?php echo (strlen($bens->CNPJCPF) == 11) ? Mascara::addMaskCPF($bens->CNPJCPF) : Mascara::addMaskCNPJ($bens->CNPJCPF); ?></td>
             <td><?php echo $bens->NomeAgente; ?></td>

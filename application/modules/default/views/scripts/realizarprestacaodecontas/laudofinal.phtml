@@ -159,7 +159,7 @@
                     <tr>
                         <th style="" colspan="1">
                             <input type="checkbox" name="pt" id="pt" value="1" class="" />
-                            <label for="pt">Parecer T�cnico</label>
+                            <label for="pt">Parecer T&eacute;cnico</label>
                             <br/>
                         </th>
                     </tr>
@@ -230,7 +230,7 @@
         <input type="hidden" name="IN" value="reprovado" />
         <table cellspacing="1" class="bordered">
             <tr>
-                <th style="text-align: left" <?php echo (!empty($this->tipoInabilitacao)) ? '' : 'colspan="2"'; ?> class="" align="center" width="50%"><b>Conforme IN n� 1 de 05/10/2010.&nbsp;&nbsp;Se��o III Art. 76 a Art. 80</b></th>
+                <th style="text-align: left" <?php echo (!empty($this->tipoInabilitacao)) ? '' : 'colspan="2"'; ?> class="" align="center" width="50%"><b>Conforme IN n� 1 de 05/10/2010.&nbsp;&nbsp;Se&ccedil;&atilde;o III Art. 76 a Art. 80</b></th>
                 <?php if(!empty($this->tipoInabilitacao)) { ?>
                 <th style="text-align: left" class="" align="center"><b>Conforme IN n� 1 de 05/10/2010. Art. 88</b></th>
                 <?php } ?>
@@ -261,7 +261,7 @@
             </tr>
             <tr>
                 <td>
-                    <p>Coordenador(a) de Incentivos Fiscais e Apoio T�cnico</p>
+                    <p>Coordenador(a) de Incentivos Fiscais e Apoio T&eacute;cnico</p>
                     <select name="coordenadorIncentivoFiscal" class="input_simples">
                         <?php foreach ($this->CoordIncFisc as $a){ ?>
                         <option value="<?php echo $a->nmAssinante; ?>"><?php echo $a->nmAssinante; ?></option>
@@ -285,7 +285,7 @@
                     </select>
                 </td>
                 <td>
-                    <p>Secret�rio(a) de Fomento e Incentivo � Cultura</p>
+                    <p>Secret&aacute;rio(a) de Fomento e Incentivo � Cultura</p>
                     <select name="coordenadorIncentivoACultura" class="input_simples">
                         <?php foreach ($this->Secretarios as $d){ ?>
                         <option value="<?php echo $d->nmAssinante; ?>"><?php echo $d->nmAssinante; ?></option>

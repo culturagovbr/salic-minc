@@ -475,7 +475,7 @@ class ReadequacaoAssinatura implements IServico
                         'idUF = ?' => $abg->idUF,
                         'idMunicipioIBGE = ?' => $abg->idMunicipioIBGE
                     ]);
-                } elseif ($abg->tpSolicitacao == 'I') { //Se a abangência foi incluída, cria um novo registro na tabela SAC.dbo.Abrangencia
+                } elseif ($abg->tpSolicitacao == 'I') { //Se a abang&ecirc;ncia foi incluída, cria um novo registro na tabela SAC.dbo.Abrangencia
                     $novoLocalRead = [];
                     $novoLocalRead['idProjeto'] = $dadosPrj->idProjeto;
                     $novoLocalRead['idPais'] = $abg->idPais;

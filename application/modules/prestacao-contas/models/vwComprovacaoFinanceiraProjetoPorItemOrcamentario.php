@@ -5,7 +5,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     protected $_name = 'vwComprovacaoFinanceiraProjetoPorItemOrcamentario';
     protected $_schema = 'sac';
     protected $_primary = 'IdPRONAC';
-    /* --COMPROVAÇÃO CONSOLIDADA POR PRODUTO */
+    /* --COMPROVAÇ&atilde;O CONSOLIDADA POR PRODUTO */
     public function consolidacaoPorProduto($idPronac)
     {
         $cols = new Zend_Db_Expr("
@@ -115,7 +115,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /* COMPROVAÇÃO CONSOLIDADA POR UF E MUNICIPIO */
+    /* COMPROVAÇ&atilde;O CONSOLIDADA POR UF E MUNICIPIO */
     public function comprovacaoConsolidadaUfMunicipio($idPronac)
     {
         $cols =new Zend_Db_Expr("
@@ -151,7 +151,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /* MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBATÓRIO */
+    /* MAIORES COMPROVAÇ&Otilde;ES POR TIPO DE DOCUMENTOS COMPROBAT&oacute;RIO */
     public function maioresComprovacaoTipoDocumento($idPronac)
     {
         $cols =new Zend_Db_Expr("
@@ -198,7 +198,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /* MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS DE PAGAMENTO */
+    /* MAIORES COMPROVAÇ&Otilde;ES POR TIPO DE DOCUMENTOS DE PAGAMENTO */
     public function comprovacaoTipoDocumentoPagamento($idPronac)
     {
         $cols =new Zend_Db_Expr("

@@ -257,7 +257,7 @@ if ($menu != 0) {
 
                 <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))) {
         ?>
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'areasegmento'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar Área/segmento">Área / Segmento</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'areasegmento'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar &Aacute;rea/segmento">&Aacute;rea / Segmento</a>
                 <?php
     } ?>
 
@@ -293,7 +293,7 @@ if ($menu != 0) {
 
                 <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))) {
         ?>
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'periododeexecucao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para per&iacute;odo de execu&ccedil;&atilde;o">Per�odo de Execu&ccedil;&atilde;o</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'periododeexecucao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para per&iacute;odo de execu&ccedil;&atilde;o">Per&iacute;odo de Execu&ccedil;&atilde;o</a>
                 <?php
     } ?>
 

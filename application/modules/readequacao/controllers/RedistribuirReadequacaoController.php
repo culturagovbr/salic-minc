@@ -41,12 +41,12 @@ class Readequacao_RedistribuirReadequacaoController extends MinC_Controller_Rest
 
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para redistribuir esta readequação';
+            $data['message'] = 'Voc&ecirc; não tem permissão para redistribuir esta readequação';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $encaminhar = $readequacaoService->redistribuirReadequacao();
             if ($encaminhar) {
-                $data['message'] = "Readequação redistribuída para técnico.";
+                $data['message'] = "Readequação redistribuída para T&eacute;cnico.";
             }
         }
 

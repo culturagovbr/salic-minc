@@ -10,15 +10,15 @@
                     document.getElementById('cpf').maxLength = "14";
                     document.getElementById('cpf').onkeyup   = function() { mascara(document.formBuscar.cpf, format_cpf); };
                     document.getElementById('cpf').focus();
-                  
+
                 }
                 else {
-                  
+
                    document.getElementById('cpf').value     = "";
                    document.getElementById('cpf').maxLength = "18";
                    document.getElementById('cpf').onkeyup   = function() { mascara(document.formBuscar.cpf, format_cnpj); };
                    document.getElementById('cpf').focus();
-                  
+
                 }
 
 
@@ -29,7 +29,7 @@
 
 <div id="breadcrumb">
 	 <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'listarprojetos', 'action' => 'index')); ?>" title="Ir para InÃ¯Â¿Â½cio">In&iacute;cio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'listarprojetos', 'action' => 'index')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
       <li class="second"><a href="<?php echo $this->url(array('controller' => 'listarprojetos', 'action' => 'projetos')); ?>" title="Projetos">Projetos</a></li>
        <li class="last">Listar Projetos</li>
     </ul>
@@ -51,7 +51,7 @@
 <div id="conteudo">
 
 <form name="formBuscar" action="<?php echo $this->url(array('controller' => 'listarprojetos','action' => 'listarprojetos')); ?>" method="post">
-	
+
 		<table class="tabela_busca" style="width:50%;">
 			<tr>
 				<th class="esquerda titulo_campo">
@@ -61,20 +61,20 @@
 				<td>
 					<div class="left"></div>
 					<label for="cpf"> </label>
-					<input class="input_simples" type="text" name="cpf" id="cpf" 
-						 
+					<input class="input_simples" type="text" name="cpf" id="cpf"
+
 						onkeyup="formata();" onmouseup="formata() " value=" <?php echo (isset($this->cpf) ? $this->cpf : ''); ?> "  />
 					<div class="right"></div>
 				</td>
-			</tr>			
+			</tr>
 		</table>
 
 		<p class="centro">
-			<input class="btn" type="submit" value=" buscar " />		
+			<input class="btn" type="submit" value=" buscar " />
 		</p>
-		
+
 	</form>
-	
+
 
 	<div id="dialog-alert" class="sumir">Informe um documento vÃ¡lido!</div>
 </div>

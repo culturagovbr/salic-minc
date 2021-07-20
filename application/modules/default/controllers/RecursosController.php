@@ -127,7 +127,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                     break;
             }
         } else {
-            $this->view->nmPagina = 'Aguardando Análise';
+            $this->view->nmPagina = 'Aguardando An&aacute;lise';
             $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
             $where['a.siRecurso = ?'] = 1; // 1=Solicitado pelo proponente
         }
@@ -244,7 +244,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                     break;
             }
         } else {
-            $this->view->nmPagina = 'Aguardando Análise';
+            $this->view->nmPagina = 'Aguardando An&aacute;lise';
             $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
             $where['a.siRecurso = ?'] = 1; // 1=Solicitado pelo proponente
         }
@@ -511,7 +511,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 break;
             }
         } else {
-            $this->view->nmPagina = 'Aguardando Análise';
+            $this->view->nmPagina = 'Aguardando An&aacute;lise';
             if ($this->idPerfil == 93) {
                 $where['d.siRecurso = ?'] = 3;
                 $where['a.idAvaliador IS NULL'] = '';
@@ -1463,7 +1463,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 $dados = array();
 
                 if ($_POST['plenaria']) {
-                    $campoSiRecurso = 8; // 8=Enviado � Plen�ria
+                    $campoSiRecurso = 8; // 8=Enviado � Plen&aacute;ria
                 } else {
                     $campoSiRecurso = 9; // 9=Enviado para Checklist Publica��o
                     $dados['stEstado'] = 1;

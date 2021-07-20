@@ -92,7 +92,7 @@
 
         <template slot="no-data">
             <div class="text-xs-center">
-                Sem produtos em an&aacute;lise
+                Sem produtos em análise
             </div>
         </template>
     </v-data-table>

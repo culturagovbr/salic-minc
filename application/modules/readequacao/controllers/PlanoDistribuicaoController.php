@@ -85,7 +85,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     {
 
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &Aacute;rea do sistema!", "principal", "ALERT");
         }
 
         if (empty($this->idPronac)) {
@@ -98,7 +98,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
         }
 
         if ($this->_existeSolicitacaoEmAnalise) {
-            parent::message('J&aacute; existe uma solicita&ccedil;ao de readequação em an&aacute;lise!', $urlCallback, "ERROR");
+            parent::message('J&aacute; existe uma solicita&ccedil;ao de readequaç&atilde;o em an&aacute;lise!', $urlCallback, "ERROR");
         }
 
         try {
@@ -120,7 +120,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
 
             $arrDoc = [];
             $arrDoc['idTipoDocumento'] = Arquivo_Model_TbTipoDocumento::TIPO_DOCUMENTO_SOLICITACAO_READEQUACAO;
-            $arrDoc['dsDocumento'] = 'Solicita&ccedil;&atilde;o de Readequação';
+            $arrDoc['dsDocumento'] = 'Solicita&ccedil;&atilde;o de Readequaç&atilde;o';
             $mapperArquivo = new Arquivo_Model_TbDocumentoMapper();
             $idDocumento = $mapperArquivo->saveCustom($arrDoc, new Zend_File_Transfer());
 
@@ -278,7 +278,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
                 $this->_helper->json(array('resposta' => false, 'msg' => "Erro ao salvar!"));
             }
         } else {
-            $msg = utf8_encode('N&atilde;o foi poss&iacute;vel salvar sua solicita&ccedil;&atilde;o, delete a readequação antes de alterar!');
+            $msg = utf8_encode('N&atilde;o foi poss&iacute;vel salvar sua solicita&ccedil;&atilde;o, delete a readequaç&atilde;o antes de alterar!');
             $this->_helper->json(array('resposta' => false, 'msg' => $msg));
         }
         $this->_helper->viewRenderer->setNoRender(true);
@@ -403,11 +403,11 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             }
 
             if ($this->idPerfil !== Autenticacao_Model_Grupos::PROPONENTE) {
-                throw new Exception("Voc&ecirc; n&atilde;o pode criar uma readequação");
+                throw new Exception("Voc&ecirc; n&atilde;o pode criar uma readequaç&atilde;o");
             }
 
             if ($this->_existeSolicitacaoEmAnalise) {
-                throw new Exception("Readequação em an&aacute;lise");
+                throw new Exception("Readequaç&atilde;o em an&aacute;lise");
             }
 
             $tbPlanoDistribuicaoMapper = new Readequacao_Model_TbPlanoDistribuicaoMapper($this->projeto);
@@ -417,7 +417,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             $this->getResponse()->setHttpResponseCode(412);
             $this->_helper->json(
                 [
-                    'msg' => "Erro ao criar readequação. " . $e->getMessage(),
+                    'msg' => "Erro ao criar readequaç&atilde;o. " . $e->getMessage(),
                     'data' => [],
                     'success' => 'false'
                 ]
@@ -524,7 +524,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     {
 
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!");
+            throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &Aacute;rea do sistema!");
         }
 
         if (empty($data['idPronac'])) {
@@ -555,7 +555,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     {
         try {
             if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!");
+                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &Aacute;rea do sistema!");
             }
 
             if (empty($this->idPronac)) {

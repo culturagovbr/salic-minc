@@ -52,12 +52,12 @@
             <div class="bottom">
             </div>
             <div id="cronometro" style="background: #f8f8f8; display: none; font-size: 1.8em; padding-top: 2em; text-align: center; color: red; font-weight: 800; padding-left: 0.3em;" >
-                INÍCIO da Plen�ria em <br/><br/> <span id="minu"></span>' : <span id="seg" ></span>"
+                INÍCIO da Plen&aacute;ria em <br/><br/> <span id="minu"></span>' : <span id="seg" ></span>"
             </div>
             <div id="space_menu">
             </div>
         </div>
-        <div id="iniciareuniao" class="sumir">Plen�ria Iniciada. Voc� será redirecionado</div>
+        <div id="iniciareuniao" class="sumir">Plen&aacute;ria Iniciada. Voc&ecirc; ser&aacute; redirecionado</div>
 
         <div id="alertar"></div>
         <!-- final: navega��o local #qm0 -->

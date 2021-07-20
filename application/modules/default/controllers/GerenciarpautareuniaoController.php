@@ -277,7 +277,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
             $buscarvotacao = $votacao->buscar(array('idNrReuniao = ?' => $reuniaoaberta, 'dtVoto is null' => ''));
             if ($buscarvotacao->count() > 0) {
                 $buscarvotacao = $buscarvotacao->current()->toArray();
-                if ($buscarvotacao['tpVotacao'] == 3) { //Se for readequa��o
+                if ($buscarvotacao['tpVotacao'] == 3) { //Se for readequa&Ccedil;&Atilde;o
                     $this->view->pronacvotacaoatual = $buscarvotacao['IdPRONAC'].'_'.$buscarvotacao['tpTipoReadequacao'];
                 } else {
                     $this->view->pronacvotacaoatual = $buscarvotacao['IdPRONAC'];
@@ -793,7 +793,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
                             'idAgente' => $adicionarvotacao->idAgente,
                             'IdPRONAC' => $_POST['idpronac'],
                             'tpVotacao' => $tpVotacao, //1.Inical, 2.Recurso, 3.Readequacao
-                            'tpTipoReadequacao' => $idtipo //Se for readequa��o, esse campo retornar� o valor do idTipoReadequacao
+                            'tpTipoReadequacao' => $idtipo //Se for readequa&ccedil;&atilde;o, esse campo retornar� o valor do idTipoReadequacao
                         );
                         $inserirvotacao = $votacao->inserir($dadosinserirvotacao);
                     }
@@ -809,7 +809,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
                         'status' => "aberta",
                         'datahora' => date('Y-m-d H:i:s')
                     );
-                    if ($tpVotacao == 3) { //Se for readequa��o
+                    if ($tpVotacao == 3) { //Se for readequa&ccedil;&atilde;o
                         $dadosvotacao['idtiporeadequacao'] = $idtipo;
                     }
                     $fp = fopen($arquivo, "a+");
@@ -1395,7 +1395,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
     /*
      * Alterada em 13/03/14
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Fun��o criada buscar os dados consolidados da readequa��o.
+     * Fun��o criada buscar os dados consolidados da readequa&ccedil;&atilde;o.
     */
     public function parecerconsolidadoreadequacoesAction()
     {
@@ -2137,7 +2137,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
             $projetosRecursos = $tbRecurso->buscarRecursosEnviadosPlenaria($idNrReuniao);
             $qntdPlenariaRecursos = $projetosRecursos->count();
 
-            //GRID - PROJETO SUBMETIDOS A PLENARIA - READEQUA��O
+            //GRID - PROJETO SUBMETIDOS A PLENARIA - Readequa&Ccedil;&Atilde;o
         } elseif ($grid == "readequacao") {
             $view = "listar-projetos-plenaria-readequacao.phtml";
             $projetosReadequacoes = $Readequacao_Model_DbTable_TbReadequacao->buscarReadequacoesEnviadosPlenaria($idNrReuniao);
@@ -2312,7 +2312,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         /* ================== PAGINACAO ======================*/
         $where = array();
         $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
-        $where['a.siRecurso = ?'] = 9; // 9=Não submetidos a plen�ria - Checklist Publica��o
+        $where['a.siRecurso = ?'] = 9; // 9=Não submetidos a plen&aacute;ria - Checklist Publica��o
 
         $tbRecurso = new tbRecurso();
         $recursos = $tbRecurso->recursosNaoSubmetidos($where, array());
@@ -2325,7 +2325,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
     /*
      * Alterada em 13/03/14
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Fun��o criada acessar as readequa��es que Não foram submetidas � plen�ria.
+     * Fun��o criada acessar as readequa��es que Não foram submetidas � plen&aacute;ria.
     */
     public function readequacoesNaoSubmetidasAction()
     {
@@ -2335,7 +2335,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         /* ================== PAGINACAO ======================*/
         $where = array();
         $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
-        $where['a.siEncaminhamento = ?'] = 9; // 9=Não submetidos a plen�ria - Checklist Publica��o
+        $where['a.siEncaminhamento = ?'] = 9; // 9=Não submetidos a plen&aacute;ria - Checklist Publica��o
 
         $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $readequacoes = $Readequacao_Model_DbTable_TbReadequacao->readequacoesNaoSubmetidas($where, array());

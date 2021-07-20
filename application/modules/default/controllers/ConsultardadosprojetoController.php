@@ -4182,7 +4182,7 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
         if ($this->intFaseProjeto=='2' || $this->intFaseProjeto=='3' || $this->intFaseProjeto=='4') {
             $qtdePag = 3;
         }
-        $msg = "O retatorio contem 3(tr�s) páginas, deseja imprimir a {$numPagina} pagina?";
+        $msg = "O retatorio contem 3(tr&ecirc;s) páginas, deseja imprimir a {$numPagina} pagina?";
 
         $this->view->msgImpressao =  $msg;
         $this->view->qtdePagImpressao =  $qtdePag;

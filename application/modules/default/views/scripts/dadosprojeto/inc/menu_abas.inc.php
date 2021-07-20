@@ -19,22 +19,22 @@ $pronac = $this->idpronac;
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado')); ?>?idPronac=<?php echo $pronac; ?>">Parecer T�cnico Consolidado</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado')); ?>?idPronac=<?php echo $pronac; ?>">Parecer T&eacute;cnico Consolidado</a></th>
         <th class="<?php if (strstr($this->url(), 'analisedeconta') == 'analisedeconta') {
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconta')); ?>?idPronac=<?php echo $pronac; ?>">Análise de Cortes Sugeridos</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconta')); ?>?idPronac=<?php echo $pronac; ?>">An&aacute;lise de Cortes Sugeridos</a></th>
         <th class="<?php if (strstr($this->url(), 'analisedeconteudo') == 'analisedeconteudo') {
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconteudo')); ?>?idPronac=<?php echo $pronac; ?>">Análise de CONTEÚDO</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconteudo')); ?>?idPronac=<?php echo $pronac; ?>">An&Aacute;lise de CONTE&Uacute;DO</a></th>
         <th class="<?php if (strstr($this->url(), 'analisedecustos') == 'analisedecustos') {
     echo "fundo_linha4";
 } else {
     echo "fundo_linha2";
-} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedecustos')); ?>?idPronac=<?php echo $pronac; ?>" id="custos">Análise de Custos</a></th>
+} ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedecustos')); ?>?idPronac=<?php echo $pronac; ?>" id="custos">An&Aacute;lise de Custos</a></th>
         <th class="<?php if (strstr($this->url(), 'emitirparecer') == 'emitirparecer') {
     echo "fundo_linha4";
 } else {

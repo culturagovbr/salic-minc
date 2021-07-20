@@ -902,7 +902,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     /*
      * Criada em 16/03/2014
      * @author: Jefferson Alessandro
-     * Fun��o usada para detalhar a readequa��o para Análise do componente da comissão.
+     * Fun��o usada para detalhar a readequa&ccedil;&atilde;o para Análise do componente da comissão.
      */
     public function buscarDadosReadequacoesCnic($where = array(), $order = array())
     {

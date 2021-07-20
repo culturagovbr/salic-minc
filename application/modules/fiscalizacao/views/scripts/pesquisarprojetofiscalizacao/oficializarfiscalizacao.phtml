@@ -503,7 +503,7 @@ $ExcluirHref = $this->url(array('controller' => 'Pesquisarprojetofiscalizacao', 
         if (mensagem == undefined) {
             mensagem = '';
         }
-        /* VALIDAÇÃO DO CNPJCPF */
+        /* VALIDAÇ&atilde;O DO CNPJCPF */
         $(form).find('[cnpjcpf=true]').each(function () {
             var este = this;
             var marcado = 'cpf';//buscarRadioMarcado(este);
@@ -516,7 +516,7 @@ $ExcluirHref = $this->url(array('controller' => 'Pesquisarprojetofiscalizacao', 
                 mensagem += '<br />Preencha o CNPJ.';
             }
         });
-        /* VALIDAÇÃO DA DATA */
+        /* VALIDAÇ&atilde;O DA DATA */
         $(form).find('[data=true]').each(function () {
             var iddata = this;
             var estadata = $(this).val().slice(6, 10) + '' + $(this).val().slice(3, 5) + '' + $(this).val().slice(0, 2);
@@ -530,7 +530,7 @@ $ExcluirHref = $this->url(array('controller' => 'Pesquisarprojetofiscalizacao', 
                     }
                 }
             }
-            /* VALIDAÇÃO DA MAIOR QUE */
+            /* VALIDAÇ&atilde;O DA MAIOR QUE */
             if ($(this).attr('maiorque') != undefined) {
                 var maiorid = '#' + $(this).attr('maiorque');
                 if ($(maiorid).val() != '') {
@@ -541,7 +541,7 @@ $ExcluirHref = $this->url(array('controller' => 'Pesquisarprojetofiscalizacao', 
                     }
                 }
             }
-            /* VALIDAÇÃO DT RESPOSTA MAIOR QUE DATA FIM */
+            /* VALIDAÇ&atilde;O DT RESPOSTA MAIOR QUE DATA FIM */
             if ($(this).attr('menorquedtfim') != undefined && $(this).val() != "") {
                 //maiorquedtinicio="dtInicio" menorquedtfim="dtFim"
                 var idDtFim = '#' + $(this).attr('menorquedtfim');
@@ -592,7 +592,7 @@ $ExcluirHref = $this->url(array('controller' => 'Pesquisarprojetofiscalizacao', 
             //            return false;
         });
 
-        /* VALIDAÇÃO DE NULL */
+        /* VALIDAÇ&atilde;O DE NULL */
         $(form).find('[null=false]').each(function () {
             if ($(this).attr('type') == 'radio') {
                 var validaRadio = true;

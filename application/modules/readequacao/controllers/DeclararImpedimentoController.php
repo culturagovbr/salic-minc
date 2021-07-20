@@ -39,12 +39,12 @@ class Readequacao_DeclararImpedimentoController extends MinC_Controller_Rest_Abs
 
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para declarar impedimento.';
+            $data['message'] = 'Voc&ecirc; não tem permissão para declarar impedimento.';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $encaminhar = $readequacaoService->declararImpedimento();
             if ($encaminhar) {
-                $data['message'] = "Readequação devolvida para o coordenador de acompanhamento após declarar impedimento.";
+                $data['message'] = "Readequação devolvida para o coordenador de acompanhamento ap&oacute;s declarar impedimento.";
             }
         }
 

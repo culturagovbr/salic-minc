@@ -29,7 +29,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
     {
         $mapperArea = new Agente_Model_AreaMapper();
 
-        // combo com as �reas culturais
+        // combo com as &aacute;reas culturais
         $this->view->comboareasculturais = $mapperArea->fetchPairs('codigo', 'descricao');
 
         // busca os pa�ses
@@ -42,7 +42,7 @@ class SolicitarReadequacaoDoProjetoController extends MinC_Controller_Action_Abs
         $r_estado = $estado->buscar();
         $this->view->buscaestado = $r_estado;
 
-        // cria o objeto de readequa��o de projetos
+        // cria o objeto de readequa&ccedil;&atilde;o de projetos
         $buscaprojeto = new ReadequacaoProjetos();
 
         // recebe o id do pronac via get

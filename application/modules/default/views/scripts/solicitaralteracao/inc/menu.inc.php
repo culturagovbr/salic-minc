@@ -14,7 +14,7 @@ $menuExiste = false;
 } ?>Tem certeza que deseja Enviar e Finalizar?</div>
         <div style="display:none" id="validarPlan">Antes de enviar a Solicitação � necess�rio cadastrar os Itens de Custos para os Produtos sem planilha or�ament�ria!</div>
         <div style="display:none" id="dialog-alerta">Solicitação realizada com sucesso!</div>
-        <div style="display:none" id="dialog-em-analise">H� pedido de readequa��o em Análise. Favor aguardar.</div>
+        <div style="display:none" id="dialog-em-analise">H� pedido de readequa&ccedil;&atilde;o em Análise. Favor aguardar.</div>
         <!-- INÍCIO: navega��o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()

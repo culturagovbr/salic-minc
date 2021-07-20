@@ -202,13 +202,13 @@ class ManterloginController extends MinC_Controller_Action_Abstract
             $mens .= "Olá " . $nome . ",<br><br>";
             $mens .= "Senha....: <B>" . $senha . "</B><br><br>";
             $mens .= "Esta &eacute; a sua nova senha de acesso ao Sistema de Apresentação de Projetos via Web do ";
-            $mens .= "Ministério do Turismo.<br><br>Lembramos que a mesma deverá ser ";
+            $mens .= "Minist&eacute;rio do Turismo.<br><br>Lembramos que a mesma deverá ser ";
             $mens .= "trocada no seu próximo acesso ao sistema.<br><br>";
-            $mens .= "Esta é uma mensagem automática. Por favor não responda.<br><br>";
+            $mens .= "Esta &eacute; uma mensagem automática. Por favor não responda.<br><br>";
             $mens .= "Para acessar o Sistema, clique no link abaixo:<br>";
             $mens .= "<a href='sistemas.cultura.gov.br/propostaweb/'>";
             $mens .= "Apresentação de Projetos via Web</a><br><br>";
-            $mens .= "Atenciosamente,<br><B>Ministério do Turismo</B></font>";
+            $mens .= "Atenciosamente,<br><B>Minist&eacute;rio do Turismo</B></font>";
 
             $enviaEmail = EnviaemailController::enviaEmail($mens, "Solicitação de senha", "tiago.rodrigues@cultura.gov.br", $email);
             parent::message("Senha gerada com sucesso. Verifique seu email!", "/manterlogin/index");

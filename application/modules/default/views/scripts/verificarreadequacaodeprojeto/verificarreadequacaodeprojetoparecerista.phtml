@@ -88,7 +88,7 @@
                 <tr>
                     <th width="7%" align="center">PRONAC</th>
                     <th width="37%" style="text-align:left;">Nome do projeto</th>
-                    <th width="20%" align="center">�rea / Segmento</th>
+                    <th width="20%" align="center">&Aacute;rea / Segmento</th>
                     <th width="5%" align="center">Qtd de dias</th>
                     <th width="8%" align="center">Data de Recebimento</th>
                     <th width="5%" align="center">Estado(s)</th>
@@ -104,7 +104,7 @@
                     <td style="text-align:left;"><?php echo $AguardAnalise10->NomeProjeto; ?></td>
                     <td align="center"><?php echo $AguardAnalise10->areaDesc." / ".$AguardAnalise10->segmentoDesc; ?></td>
                     <td align="center"><?php if($AguardAnalise10->DataEnvio==''){echo '';} else { ?>  <script>document.write(diasDecorridosEntreDuasDatas('<?php echo date('d/m/Y'); ?>', '<?php echo Data::tratarDataZend($AguardAnalise10->DataEnvio,'brasileiro'); ?>'));</script><?php } ?></td>
-                    <td align="center"><?php if($AguardAnalise10->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise10->DataEnvio,'brasileiro');} ?></td>
+                    <td align="center"><?php if($AguardAnalise10->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise10->DataEnvio,'brasileiro');} ?></td>
                     <td align="center">
                         <?php foreach($this->UFs as $UFs): ?>
                         <?php if($AguardAnalise10->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>

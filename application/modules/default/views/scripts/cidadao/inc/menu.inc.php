@@ -15,7 +15,7 @@
 
     <!-- início: conteúdo principal #container -->
     <div id="container">
-        <!-- início: navegação local #qm0 -->
+        <!-- início: navega&ccedil;ão local #qm0 -->
         <script type="text/javascript">
             function layout_fluido(){
                 var janela = $(window).width();
@@ -94,7 +94,7 @@
                     $('#msgErroImpressao').html("");
                     $('#frmOpcoesImpressao').submit();
                 }else{
-                    $('#msgErroImpressao').html("<center><font color='red'>É obrigatório selecionar ao menos uma informação para impressão.</font></center>");
+                    $('#msgErroImpressao').html("<center><font color='red'>&Eacute; obrigatório selecionar ao menos uma informa&ccedil;ão para impressão.</font></center>");
                 }
             }
 
@@ -129,9 +129,9 @@
                 <a href='<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'consultapronac')); ?>?idPronac=<?php echo Seguranca::encrypt($id); ?>' class="no_seta" title="Ir para Projeto Atual">Projeto Atual</a>
 
 
-                <!-- ======================= Outras Informações  =======================   -->
+                <!-- ======================= Outras Informa&ccedil;&otilde;es  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Outras Informações" class="ancoraOutrasInformacoes" onclick="return false;">Outras Informações</a>
+                <a href="#" title="Outras Informa&ccedil;&otilde;es" class="ancoraOutrasInformacoes" onclick="return false;">Outras Informa&ccedil;ões</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'certidoes-negativas')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Certid&otilde;es Negativas">Certid&otilde;es Negativas</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'dados-complementares')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Dados complementares do projeto">Dados complementares do projeto</a>
@@ -146,28 +146,28 @@
                     <?php
 //        } ?>
                 </div>
-                <!-- ==================== FIM - Outras Informações  =======================   -->
+                <!-- ==================== FIM - Outras Informa&ccedil;ões  =======================   -->
 
 
                 <?php if (($this->fnLiberarLinks['Analise'] && in_array($this->fnLiberarLinks['FaseDoProjeto'], array('2','3','4'))) || $this->usuarioInterno) {
             ?>
-                <!-- ======================= Análise e Aprovação  =======================   -->
+                <!-- ======================= Análise e Aprova&ccedil;ão  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Análise e Aprovação" class="ancoraAnaliseAprovacao" onclick="return false;">Análise e Aprovação</a>
+                <a href="#" title="Análise e Aprova&ccedil;ão" class="ancoraAnaliseAprovacao" onclick="return false;">Análise e Aprova&ccedil;ão</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'analise-projeto')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para An&aacute;lise do projeto">An&aacute;lise do projeto</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'aprovacao')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para Aprova&ccedil;&atilde;o">Aprova&ccedil;&atilde;o</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'recurso')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para Recursos">Recursos</a>
                 </div>
-                <!-- ==================== FIM - Análise e Aprovação  =======================   -->
+                <!-- ==================== FIM - Análise e Aprova&ccedil;ão  =======================   -->
                 <?php
         } ?>
 
 
 
-                <!-- ======================= Execução  =======================   -->
+                <!-- ======================= Execu&ccedil;ão  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Execução</a>
+                <a href="#" title="Execu&ccedil;ão" class="ancoraExecucao" onclick="return false;">Execu&ccedil;ão</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <?php if (in_array($this->fnLiberarLinks['FaseDoProjeto'], array('2','3','4','5')) || $this->usuarioInterno) {
             ?>
@@ -180,11 +180,11 @@
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'pedido-prorrogacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Pedido de Prorroga&ccedil;&atilde;o">Pedido de Prorroga&ccedil;&atilde;o</a>
                 </div>
 
-                <!-- ==================== FIM - Execução  =======================   -->
+                <!-- ==================== FIM - Execu&ccedil;ão  =======================   -->
 
 
 
-                <!-- ======================= Prestação de Contas  =======================   -->
+                <!-- ======================= Presta&ccedil;ão de Contas  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
                 <a href="#" title="Prestação de Contas" class="ancoraExecucao" onclick="return false;">Presta&ccedil;&atilde;o de Contas</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">

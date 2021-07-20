@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @todo Mover todas os métodos e alterar todas as referências para da antiga classe para essa.
+ * @todo Mover todas os métodos e alterar todas as refer&ecirc;ncias para da antiga classe para essa.
  */
 class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
 {

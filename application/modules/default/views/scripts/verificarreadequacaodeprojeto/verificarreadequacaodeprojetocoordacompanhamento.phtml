@@ -6,28 +6,28 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li class="second">Acompanhamento</li>
-        <li class="last">Verificar readequação de projeto</li>
+        <li class="last">Verificar readequa&ccedil;&atilde;o de projeto</li>
     </ul>
 </div>
 
 
 <!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
-    <div>Verificar readequação de projeto</div>
+    <div>Verificar readequa&ccedil;&atilde;o de projeto</div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
 
 <!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
-    <div id="erro" class="sumir">Dados obrigat�rios Não preenchidos!</div>
+    <div id="erro" class="sumir">Dados obrigat&oacute;rios Não preenchidos!</div>
     <script type='text/javascript' src='<?php echo $this->baseUrl(); ?>/public/js/projetosGerenciar.js'></script>
 
     <div id="dialog-alert"></div>
     <div style="width:100%; margin: 0 auto;">
         <table class="tabela">
             <tr>
-                <th style="text-align:left; padding-left:2%" colspan="2">TIPOS DE READEQUA��ES</th>
+                <th style="text-align:left; padding-left:2%" colspan="2">TIPOS DE READEQUA&Ccedil;&Otilde;ES</th>
                 <th width="150px" align="center">Qntd de Projetos</th>
             </tr>
         </table>
@@ -116,7 +116,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td><?php echo $AnaliseGeral->NomeProjeto; ?></td>
                     </tr>
                     <tr>
-                        <td class="destacar bold" colspan="2">Observa��o</td>
+                        <td class="destacar bold" colspan="2">Observa&ccedil;&atilde;o</td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -131,7 +131,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td class="destacar bold" width="130px;">Encaminhar para:</td>
                         <td>
                             <select name="passaValor" id="passaValor" class="select_simples" style="width:100%;">
-                                <option value="0">Selecione uma op��o</option>
+                                <option value="0">Selecione uma op&ccedil;&atilde;o</option>
                                 <?php foreach ($this->listaEntidades as $listaEntidades): ?>
                                 <option value="<?php echo $listaEntidades->Codigo; ?>"><?php echo $listaEntidades->Sigla; ?></option>
                                 <?php endforeach; ?>
@@ -255,8 +255,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                 <br /><br />
 
                 <textarea maxlength="255" name="justificativa" id="justificativaencaminha" rows="6" cols="50" style="width:95%;"
-                onclick="limpar_campo(this, 'Digite a observa��o...');" onkeypress=" " class="textarea_simples"
-                onblur="restaurar_campo(this, 'Digite a observa��o...');">Digite a observa��o...</textarea>
+                onclick="limpar_campo(this, 'Digite a observa&ccedil;&atilde;o...');" onkeypress=" " class="textarea_simples"
+                onblur="restaurar_campo(this, 'Digite a observa&ccedil;&atilde;o...');">Digite a observa&ccedil;&atilde;o...</textarea>
                 <span style="font-size: 11px;">Quantidade m&aacute;xima de 255 caracteres.</span>
 
                 <br /><br>
@@ -265,7 +265,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td><b>Encaminhar para:</b></td>
                         <td>
                             <select name="passaValor" id="passaValor" style="width: 70%;" class="select_simples">
-                                <option value="0">Selecione uma op��o</option>
+                                <option value="0">Selecione uma op&ccedil;&atilde;o</option>
                                 <?php foreach($this->listaEntidadesPar as $listaEntidades): ?>
                                 <option value="<?php echo $listaEntidades->Codigo;?>"><?php echo $listaEntidades->Sigla; ?></option>
                                 <?php endforeach; ?>
@@ -379,8 +379,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                 <br /><br />
 
                 <textarea maxlength="255" name="justificativa" id="justificativaencaminha" rows="6" cols="50" style="width:95%;"
-                            onclick="limpar_campo(this, 'Digite a observa��o...');" onkeypress=" "
-                            onblur="restaurar_campo(this, 'Digite a observa��o...');">Digite a observa��o...</textarea>
+                            onclick="limpar_campo(this, 'Digite a observa&ccedil;&atilde;o...');" onkeypress=" "
+                            onblur="restaurar_campo(this, 'Digite a observa&ccedil;&atilde;o...');">Digite a observa&ccedil;&atilde;o...</textarea>
                 <span style="font-size: 11px;">Quantidade m&aacute;xima de 255 caracteres.</span>
 
                 <br /><br>
@@ -390,7 +390,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td><b>Encaminhar para:</b></td>
                         <td>
                             <select name="passaValor" id="passaValor" style="width: 70%; " class="select_simples">
-                            <option value="0">Selecione uma op��o</option>
+                            <option value="0">Selecione uma op&ccedil;&atilde;o</option>
                             <?php foreach($this->listaEntidades as $listaEntidades): ?>
                             <option value="<?php echo $listaEntidades->Codigo;?>"><?php echo $listaEntidades->Sigla; ?></option>
                             <?php endforeach; ?>
@@ -489,8 +489,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                 <br /><br />
 
                 <textarea maxlength="255" onkeypress="javascript:limita('justificativaencaminha');" name="justificativa" id="justificativaencaminha" rows="6" cols="50" style="width:95%;"
-                            onclick="limpar_campo(this, 'Digite a observa��o...');" onkeypress=" " class="textarea_simples"
-                            onblur="restaurar_campo(this, 'Digite a observa��o...');">Digite a observa��o...</textarea>
+                            onclick="limpar_campo(this, 'Digite a observa&ccedil;&atilde;o...');" onkeypress=" " class="textarea_simples"
+                            onblur="restaurar_campo(this, 'Digite a observa&ccedil;&atilde;o...');">Digite a observa&ccedil;&atilde;o...</textarea>
                 <span style="font-size: 11px;">Quantidade m&aacute;xima de 255 caracteres.</span>
 
                 <br /><br>
@@ -500,7 +500,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td><b>Encaminhar para:</b></td>
                         <td>
                             <select name="passaValor" id="passaValor" style="width: 70%; " class="select_simples">
-                                <option value="0">Selecione uma op��o</option>
+                                <option value="0">Selecione uma op&ccedil;&atilde;o</option>
                                 <?php foreach ($this->listaEntidadesPar as $listaEntidades): ?>
                                 <option value="<?php echo $listaEntidades->Codigo; ?>"><?php echo $listaEntidades->Sigla; ?></option>
                                 <?php endforeach; ?>
@@ -543,9 +543,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 	<?php endforeach; ?>
 	<!-- FIM DO MODAL PARA VISUALIZAR HIST�RICO -->
 
-	<!-- MODAL PARA Confirmação DE ENCAMINHAMENTO-->
+	<!-- MODAL PARA Confirma&ccedil;&atilde;o DE ENCAMINHAMENTO-->
 	<div id="mostra"></div>
-	<!-- MODAL PARA Confirmação DE ENCAMINHAMENTO-->
+	<!-- MODAL PARA Confirma&ccedil;&atilde;o DE ENCAMINHAMENTO-->
 
 
 	<table class="tabela" summary="Aguardando An&aacute;lise">
@@ -571,7 +571,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -581,7 +581,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise5->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise5->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise5->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise5->areaDesc." / ".$AguardAnalise5->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise5->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise5->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise5->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise5->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs): ?>
                             <?php if($AguardAnalise5->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -597,7 +597,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if(count($this->AguardAnalise5) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -617,7 +617,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -627,7 +627,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     	<td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise2->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise2->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise2->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise2->areaDesc." / ".$AguardAnalise2->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise2->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise2->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise2->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise2->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs): ?>
                             <?php if($AguardAnalise2->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -643,15 +643,15 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if(count($this->AguardAnalise2) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
             </div>
 
-            <table class="tabela" summary="local de realiza��o">
+            <table class="tabela" summary="local de realiza&ccedil;&atilde;o">
                <tr>
-                 <td width="94%"><input type="button" name="grid1" id="g1_analise_localderealizacao" class="btn_adicionar" title="Expandir" /> Local de Realiza��o</td>
+                 <td width="94%"><input type="button" name="grid1" id="g1_analise_localderealizacao" class="btn_adicionar" title="Expandir" /> Local de Realiza&ccedil;&atilde;o</td>
                  <td width="6%"  align="center"><?php echo count($this->AguardAnalise4);?></td>
                </tr>
             </table>
@@ -663,7 +663,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -673,7 +673,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     	<td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise4->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise4->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise4->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise4->areaDesc." / ".$AguardAnalise4->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise4->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise4->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise4->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise4->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs): ?>
                             <?php if($AguardAnalise4->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -689,7 +689,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if(count($this->AguardAnalise4) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -710,7 +710,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -720,7 +720,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     	<td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise1->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise1->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise1->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise1->areaDesc." / ".$AguardAnalise1->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise1->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise1->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise1->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise1->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs){ ?>
                             <?php if($AguardAnalise1->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -736,7 +736,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if(count($this->AguardAnalise1) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -745,7 +745,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
             <table class="tabela" summary="ficha Técnica">
                <tr>
-                 <td width="94%"><input type="button" name="grid1" id="g1_analise_fichatecnica" class="btn_adicionar" title="Expandir" />  Ficha Técnica</td>
+                 <td width="94%"><input type="button" name="grid1" id="g1_analise_fichatecnica" class="btn_adicionar" title="Expandir" />  Ficha T&eacute;cnica</td>
                  <td width="6%" align="center"><?php echo count($this->AguardAnalise3);?></td>
                </tr>
             </table>
@@ -757,7 +757,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -767,7 +767,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise3->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise3->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise3->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise3->areaDesc." / ".$AguardAnalise3->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise3->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise3->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise3->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise3->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs){ ?>
                             <?php if($AguardAnalise3->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -783,16 +783,16 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if(count($this->AguardAnalise3) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
             </div>
 
 
-            <table class="tabela" summary="prorroga��o de prazos - capta��o">
+            <table class="tabela" summary="prorroga&ccedil;&atilde;o de prazos - capta&ccedil;&atilde;o">
                <tr>
-                 <td width="94%"><input type="button" name="grid1" id="g1_analise_prorrogacaocaptacao" class="btn_adicionar" title="Expandir" /> Prorroga��o de Prazos - Capta��o</td>
+                 <td width="94%"><input type="button" name="grid1" id="g1_analise_prorrogacaocaptacao" class="btn_adicionar" title="Expandir" /> Prorroga&ccedil;&atilde;o de Prazos - Capta&ccedil;&atilde;o</td>
                  <td width="6%" align="center"><?php echo count($this->AguardAnalise8);?></td>
                </tr>
             </table>
@@ -804,7 +804,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -814,7 +814,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise8->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise8->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise8->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise8->areaDesc." / ".$AguardAnalise8->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise8->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise8->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise8->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise8->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs){ ?>
                             <?php if($AguardAnalise8->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -830,16 +830,16 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if(count($this->AguardAnalise8) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
             </div>
 
 
-            <table class="tabela" summary="prorroga��o de prazos - execu��o">
+            <table class="tabela" summary="prorroga&ccedil;&atilde;o de prazos - execu&ccedil;&atilde;o">
                <tr>
-                 <td width="94%"><input type="button" name="grid1" id="g1_analise_prorrogacaoexecucao" class="btn_adicionar" title="Expandir" /> Prorroga��o de Prazos - Execu��o</td>
+                 <td width="94%"><input type="button" name="grid1" id="g1_analise_prorrogacaoexecucao" class="btn_adicionar" title="Expandir" /> Prorroga&ccedil;&atilde;o de Prazos - Execu&ccedil;&atilde;o</td>
                  <td width="6%" align="center"><?php echo count($this->AguardAnalise9);?></td>
                </tr>
             </table>
@@ -851,7 +851,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar Mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -861,7 +861,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise9->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise9->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise9->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise9->areaDesc." / ".$AguardAnalise9->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise9->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise9->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise9->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise9->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs){ ?>
                             <?php if($AguardAnalise9->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -877,7 +877,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if(count($this->AguardAnalise9) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -898,7 +898,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar Mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -908,7 +908,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     	<td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise7->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise7->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise7->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise7->areaDesc." / ".$AguardAnalise7->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise7->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise7->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise7->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise7->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs){ ?>
                             <?php if($AguardAnalise7->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -924,7 +924,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if (count($this->AguardAnalise7) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -933,7 +933,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
             <table class="tabela" summary="proposta pedagogica">
                <tr>
-                 <td width="94%"><input type="button" name="grid1" id="g1_analise_propostapedagogica" class="btn_adicionar" title="Expandir" /> Proposta Pedag�gica</td>
+                 <td width="94%"><input type="button" name="grid1" id="g1_analise_propostapedagogica" class="btn_adicionar" title="Expandir" /> Proposta Pedag&oacute;gica</td>
                  <td width="6%" align="center"><?php echo count($this->AguardAnalise6);?></td>
                </tr>
             </table>
@@ -945,7 +945,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar Mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -955,7 +955,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     	<td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise6->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise6->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise6->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise6->areaDesc." / ".$AguardAnalise6->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise6->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise6->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise6->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise6->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs){ ?>
                             <?php if($AguardAnalise6->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -971,7 +971,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if (count($this->AguardAnalise6) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -992,7 +992,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <th width="20%" align="center">&Aacute;rea / Segmento</th>
                         <th width="10%" align="center">Data de Recebimento</th>
                         <th width="10%" align="center">Estado(s)</th>
-                        <th>Visualizar Readequação</th>
+                        <th>Visualizar Readequa&ccedil;&atilde;o</th>
                         <!--<th>Enviar Mensagem</th>-->
                         <th width="8%" align="center">Encaminhar p/ An&aacute;lise</th>
                         <th width="5%" align="center">Controle</th>
@@ -1002,7 +1002,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                         <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $AguardAnalise10->ID_PRONAC; ?>" target="_blank"><?php echo $AguardAnalise10->PRONAC; ?></a></td>
                         <td style="text-align:left;"><?php echo $AguardAnalise10->NomeProjeto; ?></td>
                         <td align="center"><?php echo $AguardAnalise10->areaDesc." / ".$AguardAnalise10->segmentoDesc; ?></td>
-                        <td align="center"><?php if($AguardAnalise10->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($AguardAnalise10->DataEnvio,'brasileiro');} ?></td>
+                        <td align="center"><?php if($AguardAnalise10->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($AguardAnalise10->DataEnvio,'brasileiro');} ?></td>
                         <td align="center">
                             <?php foreach($this->UFs as $UFs){ ?>
                             <?php if($AguardAnalise10->ID_PRONAC == $UFs->ID_PRONAC ){ echo $UFs->Sigla;} ?>
@@ -1018,7 +1018,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <?php } ?>
                     <?php if(count($this->AguardAnalise10) <= 0){ ?>
                     <tr>
-                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                        <td colspan="9" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                     </tr>
                     <?php } ?>
                 </table>
@@ -1028,7 +1028,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
     <table class="tabela" summary="Devolvidos ap&oacute;s An&aacute;lise">
         <tr class="destacar bold">
-          <td><input type="button" name="grid1" id="g1_devolvido" class="btn_remover" title="Recolher" /> DEVOLVIDOS AP&Oacute;S An&aacute;lise</td>
+          <td><input type="button" name="grid1" id="g1_devolvido" class="btn_remover" title="Recolher" /> Devolvidos Ap&oacute;S An&aacute;lise</td>
           <td width="150px" align="center"><?php echo $this->DevolvAnaliseQNTD;?></td>
         </tr>
     </table>
@@ -1137,7 +1137,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
                 <?php if (count($this->DevolvAnalise2) <= 0) : ?>
                 <tr>
-                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                 </tr>
                 <?php endif; ?>
 
@@ -1172,8 +1172,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $DevolvAnalise4->ID_PRONAC; ?>" target="_blank"><?php echo $DevolvAnalise4->PRONAC; ?></a></td>
                     <td style="text-align:left;"><?php echo $DevolvAnalise4->NomeProjeto; ?></td>
                     <td align="center"><?php echo $DevolvAnalise4->areaDesc." / ".$DevolvAnalise4->segmentoDesc; ?></td>
-                    <td align="center"><?php if($DevolvAnalise4->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise4->DataEnvio,'brasileiro');} ?></td>
-                    <td align="center"><?php if($DevolvAnalise4->DataFim==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise4->DataFim,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise4->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise4->DataEnvio,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise4->DataFim==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise4->DataFim,'brasileiro');} ?></td>
                     <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return reencaminhar('<?php echo $DevolvAnalise4->ID_PRONAC.$DevolvAnalise4->tpAlteracaoProjeto; ?>')" onkeypress="return reencaminhar('<?php echo $DevolvAnalise4->ID_PRONAC.$DevolvAnalise4->tpAlteracaoProjeto; ?>')" alt="Reencaminhar" /></td>
                     <td align="center"><img style="cursor: pointer;" border="0" class="abrirJanela" src="../public/img/table_multiple.png" idAvaliacao="<?php echo $DevolvAnalise4->idAvaliacaoItemPedidoAlteracao; ?>" alt="Visualizar Hist&oacute;rico" /></td>
 					<td class="centro"><img style="cursor: pointer;" src="../public/img/ico/kdict.png" alt="Visualizar Projeto" title="Visualizar Projeto" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/verificaralteracaocoordenador/solaltlocrel?idpedidoalteracao=<?php echo $DevolvAnalise4->ID_PRONAC; ?>');" /></td>
@@ -1192,7 +1192,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
                 <?php if (count($this->DevolvAnalise4) <= 0) : ?>
                 <tr>
-                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                 </tr>
                 <?php endif; ?>
 
@@ -1216,7 +1216,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
                     <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
                     <th width="8%" align="center">Visualizar Hist&oacute;rico</th>
-                    <th>Visualizar Readequação</th>
+                    <th>Visualizar Readequa&ccedil;&atilde;o</th>
                     <th>Diligenciar</th>
                     <th>Enviar Mensagem</th>
                     <th width="5%" align="center">Finalizar</th>
@@ -1227,8 +1227,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $DevolvAnalise1->ID_PRONAC; ?>" target="_blank"><?php echo $DevolvAnalise1->PRONAC; ?></a></td>
                     <td style="text-align:left;"><?php echo $DevolvAnalise1->NomeProjeto; ?></td>
                     <td align="center"><?php echo $DevolvAnalise1->areaDesc." / ".$DevolvAnalise1->segmentoDesc; ?></td>
-                    <td align="center"><?php if($DevolvAnalise1->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise1->DataEnvio,'brasileiro');} ?></td>
-                    <td align="center"><?php if($DevolvAnalise1->DataFim==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise1->DataFim,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise1->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise1->DataEnvio,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise1->DataFim==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise1->DataFim,'brasileiro');} ?></td>
                     <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return reencaminhar('<?php echo $DevolvAnalise1->ID_PRONAC.$DevolvAnalise1->tpAlteracaoProjeto; ?>')" onkeypress="return reencaminhar('<?php echo $DevolvAnalise1->ID_PRONAC.$DevolvAnalise1->tpAlteracaoProjeto; ?>')" alt="Reencaminhar" /></td>
                     <td align="center"><img style="cursor: pointer;" border="0" class="abrirJanela" src="../public/img/table_multiple.png" idAvaliacao="<?php echo $DevolvAnalise1->idAvaliacaoItemPedidoAlteracao; ?>" alt="Visualizar Hist&oacute;rico" /></td>
                     <td class="centro"><img style="cursor: pointer;" src="../public/img/ico/kdict.png" alt="Visualizar Projeto" title="Visualizar Projeto" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/verificaralteracaocoordenador/solaltnomprp?idpedidoalteracao=<?php echo $DevolvAnalise1->ID_PRONAC; ?>');" /></td>
@@ -1247,7 +1247,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
                 <?php if (count($this->DevolvAnalise1) <= 0) : ?>
                 <tr>
-                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                 </tr>
                 <?php endif; ?>
 
@@ -1257,7 +1257,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
         <table class="tabela" summary="ficha Técnica">
            <tr>
-             <td width="94%"><input type="button" name="grid1" id="g1_devolvido_fichatecnica" class="btn_adicionar" title="Expandir" /> Ficha Técnica</td>
+             <td width="94%"><input type="button" name="grid1" id="g1_devolvido_fichatecnica" class="btn_adicionar" title="Expandir" /> Ficha T&eacute;cnica</td>
              <td width="6%" align="center"><?php echo count($this->DevolvAnalise3);?></td>
            </tr>
         </table>
@@ -1271,7 +1271,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
                     <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
                     <th width="8%" align="center">Visualizar Hist&oacute;rico</th>
-                    <th>Visualizar Readequação</th>
+                    <th>Visualizar Readequa&ccedil;&atilde;o</th>
                     <th>Diligenciar</th>
                     <th>Enviar Mensagem</th>
                     <th width="5%" align="center">Finalizar</th>
@@ -1282,8 +1282,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $DevolvAnalise3->ID_PRONAC; ?>" target="_blank"><?php echo $DevolvAnalise3->PRONAC; ?></a></td>
                     <td style="text-align:left;"><?php echo $DevolvAnalise3->NomeProjeto; ?></td>
                     <td align="center"><?php echo $DevolvAnalise3->areaDesc." / ".$DevolvAnalise3->segmentoDesc; ?></td>
-                    <td align="center"><?php if($DevolvAnalise3->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise3->DataEnvio,'brasileiro');} ?></td>
-                    <td align="center"><?php if($DevolvAnalise3->DataFim==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise3->DataFim,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise3->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise3->DataEnvio,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise3->DataFim==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise3->DataFim,'brasileiro');} ?></td>
                     <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return reencaminhar('<?php echo $DevolvAnalise3->ID_PRONAC.$DevolvAnalise3->tpAlteracaoProjeto; ?>')" onkeypress="return reencaminhar('<?php echo $DevolvAnalise3->ID_PRONAC.$DevolvAnalise3->tpAlteracaoProjeto; ?>')" alt="Reencaminhar" /></td>
                     <td align="center"><img style="cursor: pointer;" border="0" class="abrirJanela" src="../public/img/table_multiple.png" idAvaliacao="<?php echo $DevolvAnalise3->idAvaliacaoItemPedidoAlteracao; ?>" alt="Visualizar Hist&oacute;rico" /></td>
                     <td class="centro"><img style="cursor: pointer;" src="../public/img/ico/kdict.png" alt="Visualizar Projeto" title="Visualizar Projeto" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/verificaralteracaocoordenador/solaltfictec?idpedidoalteracao=<?php echo $DevolvAnalise3->ID_PRONAC; ?>');" /></td>
@@ -1302,7 +1302,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
                 <?php if (count($this->DevolvAnalise3) <= 0) : ?>
                 <tr>
-                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                 </tr>
                 <?php endif; ?>
 
@@ -1310,9 +1310,9 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
         </div>
 
 
-        <table class="tabela" summary="prorroga��o de prazos - capta��o">
+        <table class="tabela" summary="prorroga&ccedil;&atilde;o de prazos - capta&ccedil;&atilde;o">
            <tr>
-             <td width="94%"><input type="button" name="grid1" id="g1_devolvido_prorrogacaocaptacao" class="btn_adicionar" title="Expandir" /> Prorroga��o de Prazos - Capta��o</td>
+             <td width="94%"><input type="button" name="grid1" id="g1_devolvido_prorrogacaocaptacao" class="btn_adicionar" title="Expandir" /> Prorroga&ccedil;&atilde;o de Prazos - Capta&ccedil;&atilde;o</td>
              <td width="6%" align="center"><?php echo count($this->DevolvAnalise8);?></td>
            </tr>
         </table>
@@ -1326,7 +1326,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
                     <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
                     <th width="8%" align="center">Visualizar Hist&oacute;rico</th>
-                    <th>Visualizar Readequação</th>
+                    <th>Visualizar Readequa&ccedil;&atilde;o</th>
                     <th>Diligenciar</th>
                     <th>Enviar Mensagem</th>
                     <th width="5%" align="center">Finalizar</th>
@@ -1337,8 +1337,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $DevolvAnalise8->ID_PRONAC; ?>" target="_blank"><?php echo $DevolvAnalise8->PRONAC; ?></a></td>
                     <td style="text-align:left;"><?php echo $DevolvAnalise8->NomeProjeto; ?></td>
                     <td align="center"><?php echo $DevolvAnalise8->areaDesc." / ".$DevolvAnalise8->segmentoDesc; ?></td>
-                    <td align="center"><?php if($DevolvAnalise8->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise8->DataEnvio,'brasileiro');} ?></td>
-                    <td align="center"><?php if($DevolvAnalise8->DataFim==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise8->DataFim,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise8->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise8->DataEnvio,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise8->DataFim==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise8->DataFim,'brasileiro');} ?></td>
                     <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return reencaminhar('<?php echo $DevolvAnalise8->ID_PRONAC.$DevolvAnalise8->tpAlteracaoProjeto; ?>')" onkeypress="return reencaminhar('<?php echo $DevolvAnalise8->ID_PRONAC.$DevolvAnalise8->tpAlteracaoProjeto; ?>')" alt="Reencaminhar" /></td>
                     <td align="center"><img style="cursor: pointer;" border="0" class="abrirJanela" src="../public/img/table_multiple.png" idAvaliacao="<?php echo $DevolvAnalise8->idAvaliacaoItemPedidoAlteracao; ?>" alt="Visualizar Hist&oacute;rico" /></td>
                     <td class="centro"><img style="cursor: pointer;" src="../public/img/ico/kdict.png" alt="Visualizar Projeto" title="Visualizar Projeto" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/verificaralteracaocoordenador/solaltprogprazcap?idpedidoalteracao=<?php echo $DevolvAnalise8->ID_PRONAC; ?>');" /></td>
@@ -1357,7 +1357,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
                 <?php if (count($this->DevolvAnalise8) <= 0) : ?>
                 <tr>
-                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                 </tr>
                 <?php endif; ?>
 
@@ -1365,7 +1365,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
         </div>
 
 
-        <table class="tabela" summary="prorroga��o de prazos - execu��o">
+        <table class="tabela" summary="prorroga&ccedil;&atilde;o de prazos - execu&ccedil;&atilde;o">
            <tr>
              <td width="94%"><input type="button" name="grid1" id="g1_devolvido_prorrogacaoexecucao" class="btn_adicionar" title="Expandir" /> Prorroga��o de Prazos - Execu��o</td>
              <td width="6%" align="center"><?php echo count($this->DevolvAnalise9);?></td>
@@ -1381,7 +1381,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
                     <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
                     <th width="8%" align="center">Visualizar Hist&oacute;rico</th>
-                    <th>Visualizar Readequação</th>
+                    <th>Visualizar Readequa&ccedil;&atilde;o</th>
                     <th>Diligenciar</th>
                     <th>Enviar Mensagem</th>
                     <th width="5%" align="center">Finalizar</th>
@@ -1392,8 +1392,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $DevolvAnalise9->ID_PRONAC; ?>" target="_blank"><?php echo $DevolvAnalise9->PRONAC; ?></a></td>
                     <td style="text-align:left;"><?php echo $DevolvAnalise9->NomeProjeto; ?></td>
                     <td align="center"><?php echo $DevolvAnalise9->areaDesc." / ".$DevolvAnalise9->segmentoDesc; ?></td>
-                    <td align="center"><?php if($DevolvAnalise9->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise9->DataEnvio,'brasileiro');} ?></td>
-                    <td align="center"><?php if($DevolvAnalise9->DataFim==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise9->DataFim,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise9->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise9->DataEnvio,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise9->DataFim==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise9->DataFim,'brasileiro');} ?></td>
                     <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return reencaminhar('<?php echo $DevolvAnalise9->ID_PRONAC.$DevolvAnalise9->tpAlteracaoProjeto; ?>')" onkeypress="return reencaminhar('<?php echo $DevolvAnalise9->ID_PRONAC.$DevolvAnalise9->tpAlteracaoProjeto; ?>')" alt="Reencaminhar" /></td>
                     <td align="center"><img style="cursor: pointer;" border="0" class="abrirJanela" src="../public/img/table_multiple.png" idAvaliacao="<?php echo $DevolvAnalise9->idAvaliacaoItemPedidoAlteracao; ?>" alt="Visualizar Hist&oacute;rico" /></td>
                     <td class="centro"><img style="cursor: pointer;" src="../public/img/ico/kdict.png" alt="Visualizar Projeto" title="Visualizar Projeto" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/verificaralteracaocoordenador/solaltprogprazexec?idpedidoalteracao=<?php echo $DevolvAnalise9->ID_PRONAC; ?>');" /></td>
@@ -1412,7 +1412,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
                 <?php if (count($this->DevolvAnalise9) <= 0) : ?>
                 <tr>
-                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                 </tr>
                 <?php endif; ?>
 
@@ -1436,7 +1436,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
                     <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
                     <th width="8%" align="center">Visualizar Hist&oacute;rico</th>
-                    <th>Visualizar Readequação</th>
+                    <th>Visualizar Readequa&ccedil;&atilde;o</th>
                     <th>Diligenciar</th>
                     <th>Enviar Mensagem</th>
                     <th width="5%" align="center">Finalizar</th>
@@ -1447,8 +1447,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $DevolvAnalise7->ID_PRONAC; ?>" target="_blank"><?php echo $DevolvAnalise7->PRONAC; ?></a></td>
                     <td style="text-align:left;"><?php echo $DevolvAnalise7->NomeProjeto; ?></td>
                     <td align="center"><?php echo $DevolvAnalise7->areaDesc." / ".$DevolvAnalise7->segmentoDesc; ?></td>
-                    <td align="center"><?php if($DevolvAnalise7->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise7->DataEnvio,'brasileiro');} ?></td>
-                    <td align="center"><?php if($DevolvAnalise7->DataFim==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise7->DataFim,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise7->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise7->DataEnvio,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise7->DataFim==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise7->DataFim,'brasileiro');} ?></td>
                     <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return reencaminhar('<?php echo $DevolvAnalise7->ID_PRONAC.$DevolvAnalise7->tpAlteracaoProjeto; ?>')" onkeypress="return reencaminhar2('<?php echo $DevolvAnalise7->ID_PRONAC.$DevolvAnalise7->tpAlteracaoProjeto; ?>')" alt="Reencaminhar" /></td>
                     <td align="center"><img style="cursor: pointer;" border="0" class="abrirJanela" src="../public/img/table_multiple.png" idAvaliacao="<?php echo $DevolvAnalise7->idAvaliacaoItemPedidoAlteracao; ?>" alt="Visualizar Hist&oacute;rico" /></td>
                     <td class="centro"><img style="cursor: pointer;" src="../public/img/ico/kdict.png" alt="Visualizar Projeto" title="Visualizar Projeto" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/verificarreadequacaodeprojeto/readequacaoprodutos?id=<?php echo $DevolvAnalise7->ID_PRONAC; ?>');" /></td>
@@ -1467,7 +1467,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
                 <?php if (count($this->DevolvAnalise7) <= 0) : ?>
                 <tr>
-                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                 </tr>
                 <?php endif; ?>
 
@@ -1477,7 +1477,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
         <table class="tabela" summary="proposta pedagogica">
            <tr>
-             <td width="94%"><input type="button" name="grid1" id="g1_devolvido_propostapedagogica" class="btn_adicionar" title="Expandir" /> Proposta Pedag�gica</td>
+             <td width="94%"><input type="button" name="grid1" id="g1_devolvido_propostapedagogica" class="btn_adicionar" title="Expandir" /> Proposta Pedag&oacute;gica</td>
              <td width="6%" align="center"><?php echo count($this->DevolvAnalise6);?></td>
            </tr>
         </table>
@@ -1491,7 +1491,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="8%" align="center">Data de recebimento da An&aacute;lise</th>
                     <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
                     <th width="8%" align="center">Visualizar Hist&oacute;rico</th>
-                    <th>Visualizar Readequação</th>
+                    <th>Visualizar Readequa&ccedil;&atilde;o</th>
                     <th>Diligenciar</th>
                     <th>Enviar Mensagem</th>
                     <th width="5%" align="center">Finalizar</th>
@@ -1502,8 +1502,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $DevolvAnalise6->ID_PRONAC; ?>" target="_blank"><?php echo $DevolvAnalise6->PRONAC; ?></a></td>
                     <td style="text-align:left;"><?php echo $DevolvAnalise6->NomeProjeto; ?></td>
                     <td align="center"><?php echo $DevolvAnalise6->areaDesc." / ".$DevolvAnalise6->segmentoDesc; ?></td>
-                    <td align="center"><?php if($DevolvAnalise6->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise6->DataEnvio,'brasileiro');} ?></td>
-                    <td align="center"><?php if($DevolvAnalise6->DataFim==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise6->DataFim,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise6->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise6->DataEnvio,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise6->DataFim==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise6->DataFim,'brasileiro');} ?></td>
                     <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return reencaminhar('<?php echo $DevolvAnalise6->ID_PRONAC.$DevolvAnalise6->tpAlteracaoProjeto; ?>')" onkeypress="return reencaminhar('<?php echo $DevolvAnalise6->ID_PRONAC.$DevolvAnalise6->tpAlteracaoProjeto; ?>')" alt="Reencaminhar" /></td>
                     <td align="center"><img style="cursor: pointer;" border="0" class="abrirJanela" src="../public/img/table_multiple.png" idAvaliacao="<?php echo $DevolvAnalise6->idAvaliacaoItemPedidoAlteracao; ?>" alt="Visualizar Hist&oacute;rico" /></td>
                     <td class="centro"><img style="cursor: pointer;" src="../public/img/ico/kdict.png" alt="Visualizar Projeto" title="Visualizar Projeto" onclick="redirecionar('<?php echo $this->baseUrl(); ?>/verificarreadequacaodeprojeto/propostapedagogicadev?id=<?php echo $DevolvAnalise6->ID_PRONAC; ?>');" /></td>
@@ -1522,7 +1522,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
                 <?php if (count($this->DevolvAnalise6) <= 0) : ?>
                 <tr>
-                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                	<td colspan="12" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                 </tr>
                 <?php endif; ?>
 
@@ -1547,7 +1547,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <th width="7%" align="center">Reencaminhar p/ An&aacute;lise</th>
                     <th width="8%" align="center">Visualizar Hist&oacute;rico</th>
                     <th width="7%" align="center">Encaminhar p/ Componente</th>
-                    <th>Visualizar Readequação</th>
+                    <th>Visualizar Readequa&ccedil;&atilde;o</th>
                     <th>Diligenciar</th>
                     <th>Enviar Mensagem</th>
                     <th width="5%" align="center">Finalizar</th>
@@ -1558,8 +1558,8 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
                     <td align="center"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $DevolvAnalise10->ID_PRONAC; ?>" target="_blank"><?php echo $DevolvAnalise10->PRONAC; ?></a></td>
                     <td style="text-align:left;"><?php echo $DevolvAnalise10->NomeProjeto; ?></td>
                     <td align="center"><?php echo $DevolvAnalise10->areaDesc." / ".$DevolvAnalise10->segmentoDesc; ?></td>
-                    <td align="center"><?php if($DevolvAnalise10->DataEnvio==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise10->DataEnvio,'brasileiro');} ?></td>
-                    <td align="center"><?php if($DevolvAnalise10->DataFim==''){echo 'Não h� registro';} else{ echo Data::tratarDataZend($DevolvAnalise10->DataFim,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise10->DataEnvio==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise10->DataEnvio,'brasileiro');} ?></td>
+                    <td align="center"><?php if($DevolvAnalise10->DataFim==''){echo 'Nãoh&aacute; registro';} else{ echo Data::tratarDataZend($DevolvAnalise10->DataFim,'brasileiro');} ?></td>
                     <td align="center"><img style="cursor: pointer;" src="../public/img/user_gray.png" onclick="return reencaminhar2('<?php echo $DevolvAnalise10->ID_PRONAC.$DevolvAnalise10->tpAlteracaoProjeto; ?>')" onkeypress="return reencaminhar2('<?php echo $DevolvAnalise10->ID_PRONAC.$DevolvAnalise10->tpAlteracaoProjeto; ?>')" alt="Reencaminhar" /></td>
                     <td align="center"><img style="cursor: pointer;" border="0" class="abrirJanela" src="../public/img/table_multiple.png" idAvaliacao="<?php echo $DevolvAnalise10->idAvaliacaoItemPedidoAlteracao; ?>" alt="Visualizar Hist&oacute;rico" /></td>
                     <td align="center"><img style="cursor: pointer;" src="../public/img/buttons/sair-p-off.gif" onclick="return componentecomissao(<?php echo $DevolvAnalise10->ID_PRONAC; ?>,<?php echo $DevolvAnalise10->idAcao; ?>)"></td>
@@ -1580,7 +1580,7 @@ $historicoLink = $this->url(array('controller' => 'verificarreadequacaodeprojeto
 
                 <?php if (count($this->DevolvAnalise10) <= 0) : ?>
                 <tr>
-                	<td colspan="13" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequação!</td>
+                	<td colspan="13" class="centro">N&atilde;o existe(m) Projeto(s) com solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o!</td>
                 </tr>
                 <?php endif; ?>
 

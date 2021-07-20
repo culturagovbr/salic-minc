@@ -68,7 +68,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
                 $this->nomeOrgao      = "";
                 /*if($this->codOrgaoSuperior == 251){ //SEFIC
                     $this->nomeSecretario = "HENILTON PARENTE DE MENEZES";
-                    $this->nomeOrgao      = "Secret�rio de Fomento e Incentivo � Cultura";
+                    $this->nomeOrgao      = "Secret&aacute;rio de Fomento e Incentivo � Cultura";
                 }else{ //SAV
                     $this->nomeSecretario = "ANA PAULA DOURADO SANTANA";
                     $this->nomeOrgao      = "Secret�ria de Audiovisual";

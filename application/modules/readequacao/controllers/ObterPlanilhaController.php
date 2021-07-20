@@ -13,7 +13,7 @@ class Readequacao_ObterPlanilhaController extends MinC_Controller_Rest_Abstract
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::PROPONENTE
@@ -32,11 +32,11 @@ class Readequacao_ObterPlanilhaController extends MinC_Controller_Rest_Abstract
 
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
-        
+
         if (!$permissao) {
             $data['permissao'] = false;
             $httpCode = 203;
-            $data['message'] = utf8_decode('Você não tem permissão para acessar este projeto');
+            $data['message'] = utf8_decode('Voc&ecirc; não tem permissão para acessar este projeto');
         } else {
             $data = $readequacaoService->obterPlanilha();
         }

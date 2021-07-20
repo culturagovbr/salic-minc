@@ -10,7 +10,7 @@ class Readequacao_DevolverAoCoordenadorController extends MinC_Controller_Rest_A
         $profiles = [
             Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
@@ -20,7 +20,7 @@ class Readequacao_DevolverAoCoordenadorController extends MinC_Controller_Rest_A
 
         $subRoutes = [];
         $this->registrarSubRoutes($subRoutes);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
@@ -33,13 +33,13 @@ class Readequacao_DevolverAoCoordenadorController extends MinC_Controller_Rest_A
     public function postAction(){
         $data = [];
         $code = 200;
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
-        
+
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para devolver esta readequação.';
+            $data['message'] = 'Voc&ecirc; não tem permissão para devolver esta readequação.';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $encaminhar = $readequacaoService->devolverAoCoordenador();
@@ -47,7 +47,7 @@ class Readequacao_DevolverAoCoordenadorController extends MinC_Controller_Rest_A
                 $data['message'] = "Readequação devolvida para o coordenador de acompanhamento.";
             }
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

@@ -1,6 +1,6 @@
 # Readequação
 
-Módulo que trata de todos os tipos de readequações que podem ser feitas nos
+M&oacute;dulo que trata de todos os tipos de readequaç&otilde;es que podem ser feitas nos
 projetos.
 
 
@@ -26,7 +26,7 @@ projetos.
     - dtAvaliador
     - dsAvaliacao
 
-### Fluxo 3 - Técnico de acompanhamento
+### Fluxo 3 - T&eacute;cnico de acompanhamento
 
   Ao finalizar a avaliação na tbReadequacao:
 

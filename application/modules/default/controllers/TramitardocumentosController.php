@@ -75,7 +75,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract
             }
 
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc� Não tem permiss�o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
         } else {
             parent::perfil(4, $PermissoesGrupo);

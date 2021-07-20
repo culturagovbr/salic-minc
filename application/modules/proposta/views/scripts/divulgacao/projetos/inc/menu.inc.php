@@ -39,7 +39,7 @@
             <div class="top"></div>
             <div id="qm0" class="qmmc">
             		<a class="no_seta" href="<?php echo $this->url(array('controller' => 'prototipos', 'action' => 'listarprojetos')); ?>" title="Ir para Listar Projetos">Listar Projetos</a>
-                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'prototipos', 'action' => 'infocomplementares')); ?>" title="Ir para Informações Complementares">Informa&ccedil;&otilde;es Complementares</a>
+                    <a class="no_seta" href="<?php echo $this->url(array('controller' => 'prototipos', 'action' => 'infocomplementares')); ?>" title="Ir para Informaç&otilde;es Complementares">Informa&ccedil;&otilde;es Complementares</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'prototipos', 'action' => 'localderealizacao')); ?>" title="localderealizacao">Local e Per&iacute;odo de Realiza&ccedil;&atilde;o</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'prototipos', 'action' => 'divulgacao')); ?>" title="contabancaria">Divulga&ccedil;&atilde;o</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'prototipos', 'action' => 'orcamentoprojeto')); ?>" title="contabancaria">Or&ccedil;amento do Projeto</a>

@@ -16,7 +16,7 @@ class Readequacao_ItemPlanilhaController extends MinC_Controller_Rest_Abstract
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::PARECERISTA,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::PROPONENTE,
@@ -38,18 +38,18 @@ class Readequacao_ItemPlanilhaController extends MinC_Controller_Rest_Abstract
     public function postAction(){
         $data = [];
         $code = 200;
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
-        
+
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para alterar este item de planilha';
+            $data['message'] = 'Voc&ecirc; não tem permissão para alterar este item de planilha';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $data = $readequacaoService->alterarItemPlanilha();
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

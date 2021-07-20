@@ -1355,7 +1355,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             $whereI['AnoProjeto = ?'] = $dadosProjeto->AnoProjeto;
             $whereI['Sequencial = ?'] = $dadosProjeto->Sequencial;
             $retorno = $tbl->Localizar($whereI);
-            $msg = 'O proponente não pode ser habilitado à presente data. Para habilitá-lo, favor anexar documento.';
+            $msg = 'O proponente não pode ser habilitado &agrave; presente data. Para habilitá-lo, favor anexar documento.';
             if ((count($retorno) > 0) && ($retorno[0]->idTipoInabilitado > 0) && ($retorno[0]->idTipoInabilitado <= 7) && ($retorno[0]->Anos < 1)) {
                 parent::message($msg, "alterarprojeto/" . $post->pagina . "?pronac=" . Seguranca::encrypt($dadosProjeto->pronac) . "&menu=" . $post->menu, "ALERT");
             } elseif ((count($retorno) > 0) && ($retorno[0]->idTipoInabilitado >= 4) && ($retorno[0]->idTipoInabilitado <= 5) && ($retorno[0]->Anos < 2)) {

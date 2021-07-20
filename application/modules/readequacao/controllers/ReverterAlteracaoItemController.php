@@ -12,7 +12,7 @@ class Readequacao_ReverterAlteracaoItemController extends MinC_Controller_Rest_A
             Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::PARECERISTA,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::PROPONENTE,
@@ -34,17 +34,17 @@ class Readequacao_ReverterAlteracaoItemController extends MinC_Controller_Rest_A
     public function postAction(){
         $data = [];
         $code = 200;
-        
+
         $idPronac = $this->getRequest()->getParam('idPronac');
         $idReadequacao = $this->getRequest()->getParam('idReadequacao');
         $idPlanilhaItem = $this->getRequest()->getParam('idPlanilhaItem');
         $idPlanilhaAprovacao = $this->getRequest()->getParam('idPlanilhaAprovacao');
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para alterar esta readequação';
+            $data['message'] = 'Voc&ecirc; não tem permissão para alterar esta readequação';
             $this->customRenderJsonResponse($data, $code);
         } else {
             try {
@@ -54,7 +54,7 @@ class Readequacao_ReverterAlteracaoItemController extends MinC_Controller_Rest_A
                     $idPlanilhaItem,
                     $idPlanilhaAprovacao
                 );
-                
+
             } catch (\Exception $objException) {
                 $this->customRenderJsonResponse([
                     'error' => [
@@ -64,7 +64,7 @@ class Readequacao_ReverterAlteracaoItemController extends MinC_Controller_Rest_A
                 ], 412);
             }
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

@@ -11,20 +11,20 @@
 
     ![Painel do Laudo](./imagens/painel_laudo.png)
 ### Tabela dos projetos
-* A tabela é montada com os itens 'PRONAC', 'Nome do projeto', 'Manifestação', 'Devolver' e 'Ação'.
-* Nos itens 'PRONAC' e 'Manifestação', são executadas ações comum a todas as abas do painel.
+* A tabela &eacute; montada com os itens 'PRONAC', 'Nome do projeto', 'Manifestação', 'Devolver' e 'Ação'.
+* Nos itens 'PRONAC' e 'Manifestação', são executadas aç&otilde;es comum a todas as abas do painel.
 * No item 'Devolver', a funcionalidade se difere apenas na aba Em Análise.
 * A 'Ação' no projeto muda conforme o estado do projeto.
 
 #### Consultar Dados do Projeto
-* Ao clicar no número do Pronac o usuário é redirecionado para o módulo de `Projetos` podendo visualizar os dados do projeto.
+* Ao clicar no número do Pronac o usuário &eacute; redirecionado para o módulo de `Projetos` podendo visualizar os dados do projeto.
 
     ![Clique item pronac](./imagens/dados_projeto.png)
 
-#### Visulizar o Parecer técnico
+#### Visulizar o Parecer t&eacute;cnico
 * Clique na manifestação do projeto.
     ![Clique item manifestação](./imagens/manifestacao.png)
-* Ao clicar vai abrir uma modal para visualizar o parecer emitido pelo técnico.
+* Ao clicar vai abrir uma modal para visualizar o parecer emitido pelo t&eacute;cnico.
     ![Tela Visualizar Parecer](./imagens/visualizar_parecer.png)
 
 
@@ -34,17 +34,17 @@
     ![Clique item devolver parecer](./imagens/acao_devolver.png)
 * Em seguida vai abrir uma modal para que confirme a devolução com o Pronac e o nome do projeto selecionado.
     ![modal confirmar devolver](./imagens/modal_devolver.png)
-##### - Parecer Técnico
+##### - Parecer T&eacute;cnico
 * Estará sendo feita a devolução do parecer tecnico quando clicado no botão Devolver da aba Em Análise.
-* Se confirmada a devolução, o parecer do técnico é invalidado o e projeto volta pra _Avaliação de Resultados: Analisar Parecer_, finalizando o fluxo do projeto no laudo final.
+* Se confirmada a devolução, o parecer do t&eacute;cnico &eacute; invalidado o e projeto volta pra _Avaliação de Resultados: Analisar Parecer_, finalizando o fluxo do projeto no laudo final.
 ##### - Laudo final
 * Estará sendo feita a devolução do laudo final quando clicado no botão Devolver das demais abas.
-* Confirmada a devolução, o Laudo Final é invalidado, o estado do projeto muda e ele volta para a aba Em Análise para ser criado um novo laudo, reiniciando o fluxo do projeto no laudo final.
+* Confirmada a devolução, o Laudo Final &eacute; invalidado, o estado do projeto muda e ele volta para a aba Em Análise para ser criado um novo laudo, reiniciando o fluxo do projeto no laudo final.
 
 ### Em Análise
 * Na primeira aba do painel, Em Análise, são listados os projetos que ainda não possui um documento de laudo final gerado.
     ![Aba em análise](./imagens/aba_em_analise.png)
-* Na ação é possível emitir o laudo final.
+* Na ação &eacute; possível emitir o laudo final.
 
 #### Emitir Laudo Final
 * Clique na ação da aba Em Análise.
@@ -53,27 +53,27 @@
 
 * Uma modal vai abrir para que o usuário crie o laudo final.
     ![tela form laudo final](./imagens/tela_emitir_laudo.png)
-* É necessário o preenchimento de todos os campos para que o laudo seja gerado.
-* O usuário tem duas opções no canto superior direito: 1) Salvar, criando assim apenas um rascunho do laudo; 2) Finalizar, que estará salvando, gerando o documento do laudo final e mudando o estado do projeto para iniciar o fluxo de assinaturas.
+* &eacute; necessário o preenchimento de todos os campos para que o laudo seja gerado.
+* O usuário tem duas opç&otilde;es no canto superior direito: 1) Salvar, criando assim apenas um rascunho do laudo; 2) Finalizar, que estará salvando, gerando o documento do laudo final e mudando o estado do projeto para iniciar o fluxo de assinaturas.
 
     ![finalizar laudo final](./imagens/opcoes_laudo.png)
 
 
 ### Assinar
-* Segunda aba do painel onde são listados os projetos que já possuem um laudo final gerado porém não teve nenhuma assinatura ainda.
+* Segunda aba do painel onde são listados os projetos que já possuem um laudo final gerado por&eacute;m não teve nenhuma assinatura ainda.
     ![Aba assinar](./imagens/aba_assinar.png)
-* A ação disponível nessa aba é para assinar o documento.
+* A ação disponível nessa aba &eacute; para assinar o documento.
 
 #### Assinar Laudo
 * Ao clicar na ação da aba Assinar o sistema redireciona para o módulo de `Assinatura` onde será assinado o documento do laudo final.
-* Quem deve assinar é o próprio coordenador geral, criador do documento.
+* Quem deve assinar &eacute; o próprio coordenador geral, criador do documento.
 
     ![Clique ação assinar](./imagens/acao_assinar.png)
 
 ### Em Assinatura
 * Terceira aba do painel, a listagem apresenta os projetos que já possuem um laudo final emitido e este já foi assinado pelo menos pelo Coordenador Geral, mas ainda não tem todas as assinaturas.
     ![Aba em assinatura](./imagens/aba_em_assinatura.png)
-* A ação é para visualizar o laudo final.
+* A ação &eacute; para visualizar o laudo final.
 
 #### Visualizar Laudo
 * Clique na ação da aba Em Assinatura.
@@ -85,7 +85,7 @@
 ### Finalizados
 * Ultima aba do painel com a listagem dos projetos finalizados, ou seja, projetos que já possuem um laudo final emitido e este foi assinado por todos os responsáveis.
     ![Aba finalizados](./imagens/aba_finalizados.png)
-* A ação nessa aba é para [visualizar o laudo final](#visualizar-laudo) da mesma forma que na aba Em Assinatura.
+* A ação nessa aba &eacute; para [visualizar o laudo final](#visualizar-laudo) da mesma forma que na aba Em Assinatura.
 
 ## Como acessar o Laudo Final no perfil Secretário
 
@@ -98,9 +98,9 @@
 
     ![Painel do Laudo secundário](./imagens/painel_laudo_Sec_Dir.png)
 ### Tabela de listagem
-* A [tabela](#tabela-dos-projetos) é a mesma do perfil do Coordenador geral.
+* A [tabela](#tabela-dos-projetos) &eacute; a mesma do perfil do Coordenador geral.
 * No campo _Devolver_, o Secretário vai poder estar devolvendo o [Laudo final](#laudo-final).
-* Na 'Ação', é possível [Visualizar o laudo](#visualizar-laudo) emitido.
+* Na 'Ação', &eacute; possível [Visualizar o laudo](#visualizar-laudo) emitido.
 
 ## Como acessar o Laudo Final no perfil Diretor
 

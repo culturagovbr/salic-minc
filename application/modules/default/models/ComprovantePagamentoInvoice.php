@@ -69,7 +69,7 @@ class ComprovantePagamentoInvoice extends ComprovantePagamento
         $dtFimExecucao = new DateTime($projeto->DtFimExecucao);
 
         if (!$this->dataEmissao || ($this->dataEmissao < $dtInicioExecucao) || ($this->dataEmissao > $dtFimExecucao)) {
-            throw new Exception('A data do documento deve estar dentro do per�odo de execu��o do projeto.');
+            throw new Exception('A data do documento deve estar dentro do per&iacute;odo de execu��o do projeto.');
         }
 
         if (!$this->comprovanteValor) {

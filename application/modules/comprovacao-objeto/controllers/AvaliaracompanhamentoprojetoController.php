@@ -8,7 +8,7 @@ class ComprovacaoObjeto_AvaliaracompanhamentoprojetoController extends MinC_Cont
 
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio às Leis de Incentivo à Cultura";
+        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura";
         $auth = Zend_Auth::getInstance();
         $Usuario = new UsuarioDAO();
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
@@ -290,7 +290,7 @@ class ComprovacaoObjeto_AvaliaracompanhamentoprojetoController extends MinC_Cont
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt. Relat&oacute;rio</th>';
             if (isset($tipoFiltro) && $tipoFiltro != 'aguardando') {
-                $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Técnico</th>';
+                $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">T&eacute;cnico</th>';
             }
             $html .= '</tr>';
 
@@ -925,7 +925,7 @@ class ComprovacaoObjeto_AvaliaracompanhamentoprojetoController extends MinC_Cont
                     }
 
                     if (empty($post['resultadoAvaliacao'])) {
-                        throw new Exception("Avalia&ccedil;&atilde;o é obrigat&oacute;rio");
+                        throw new Exception("Avalia&ccedil;&atilde;o &eacute; obrigat&oacute;rio");
                     }
                 }
 

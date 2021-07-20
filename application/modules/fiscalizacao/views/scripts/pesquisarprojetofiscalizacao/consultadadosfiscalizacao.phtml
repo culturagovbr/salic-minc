@@ -66,11 +66,11 @@ $dtDeCorte = strtotime(date('2013-09-15 00:00:00'));
                         <td><?php if ($this->infoProjeto[0]->dtRespostaSolicitada != '') echo date('d/m/Y', strtotime($this->infoProjeto[0]->dtRespostaSolicitada)); ?></td>
                     </tr>
                     <tr>
-                        <td class="destacar bold" align="right">CPF do Técnico</td>
+                        <td class="destacar bold" align="right">CPF do T&eacute;cnico</td>
                         <td><?php echo Validacao::mascaraCPFCNPJ($this->infoProjeto[0]->cpfTecnico); ?></td>
                     </tr>
                     <tr>
-                        <td class="destacar bold" align="right">Nome do Técnico</td>
+                        <td class="destacar bold" align="right">Nome do T&eacute;cnico</td>
                         <td><?php echo $this->infoProjeto[0]->nmTecnico; ?></td>
                     </tr>
                     <tr>

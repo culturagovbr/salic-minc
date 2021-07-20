@@ -101,7 +101,7 @@ class DiligenciaProjeto implements \MinC\Servico\IServicoRestZend
 
             $resultArray[] = [
                 'idAvaliarAdequacaoProjeto' => $diligencia['idAvaliarAdequacaoProjeto'],
-                'tipoDiligencia' => 'Dilig&ecirc;ncia na An&aacute;lise da adequação &agrave; realidade do projeto.',
+                'tipoDiligencia' => 'Dilig&ecirc;ncia na An&aacute;lise da adequa&ccedil;ão &agrave; realidade do projeto.',
                 'dtAvaliacao' => $diligencia['dtAvaliacao'],
             ];
         }

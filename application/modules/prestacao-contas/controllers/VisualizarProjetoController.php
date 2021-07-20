@@ -173,7 +173,7 @@ class PrestacaoContas_VisualizarProjetoController extends MinC_Controller_Action
             'vlComprovado' => ['name' => 'Valor Comprovado', 'class' => 'right-align'],
             'PercComprovado' => ['name' => '% Comprovado', 'class' => 'right-align']
         ];
-        $json['maioresComprovacaoTipoDocumento']['title'] = 'MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBATÓRIOS';
+        $json['maioresComprovacaoTipoDocumento']['title'] = 'MAIORES COMPROVAÇ&Otilde;ES POR TIPO DE DOCUMENTOS COMPROBATÓRIOS';
         $json['maioresComprovacaoTipoDocumento']['icon'] = 'description';
         $totalAux['vlComprovado'] = number_format($totalAux['vlComprovado'], 2, ',', '.');
         $totalAux['qtComprovacoes'] = number_format($totalAux['qtComprovacoes'], 0, ',', '.');
@@ -204,7 +204,7 @@ class PrestacaoContas_VisualizarProjetoController extends MinC_Controller_Action
             'vlComprovado' => ['name' => 'Valor Comprovado', 'class' => 'right-align'],
             'PercComprovado' => ['name' => '% Comprovado', 'class' => 'right-align']
         ];
-        $json['comprovacaoTipoDocumentoPagamento']['title'] = 'MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS DE PAGAMENTO';
+        $json['comprovacaoTipoDocumentoPagamento']['title'] = 'MAIORES COMPROVAÇ&Otilde;ES POR TIPO DE DOCUMENTOS DE PAGAMENTO';
         $json['comprovacaoTipoDocumentoPagamento']['icon'] = 'receipt';
         $totalAux['vlComprovado'] = number_format($totalAux['vlComprovado'], 2, ',', '.');
         $json['comprovacaoTipoDocumentoPagamento']['tfoot'] = $totalAux;
@@ -233,7 +233,7 @@ class PrestacaoContas_VisualizarProjetoController extends MinC_Controller_Action
         $json['maioresFornecedoresProjeto']['cols'] = [
             'nrCNPJCPF' => ['name' => 'CNPJ/CPF'],
             'nmFornecedor' => ['name' => 'Fornecedor'],
-            'qtComprovacoes' => ['name' => 'Qtde. Comprovações', 'class' => 'right-align'],
+            'qtComprovacoes' => ['name' => 'Qtde. Comprovaç&otilde;es', 'class' => 'right-align'],
             'vlComprovado' => ['name' => 'Valor Comprovado', 'class' => 'right-align'],
             'PercComprovado' => ['name' => '% Comprovado', 'class' => 'right-align']
         ];

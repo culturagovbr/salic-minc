@@ -21,9 +21,9 @@ class Zend_View_Helper_InconsistenciaBancaria
     public function inconsistenciaBancaria($tipo)
     {
         if ($tipo == 1) {
-            $dsTipo = "O Per�odo de Execu��o Não est� vigente.";
+            $dsTipo = "O Per&iacute;odo de Execu��o Não est� vigente.";
         } elseif ($tipo == 2) {
-            $dsTipo = "O Per�odo de Capta��o Não est� vigente.";
+            $dsTipo = "O Per&iacute;odo de Capta��o Não est� vigente.";
         } elseif ($tipo == 3) {
             $dsTipo = "Incentivador Não cadastrado.";
         } elseif ($tipo == 4) {

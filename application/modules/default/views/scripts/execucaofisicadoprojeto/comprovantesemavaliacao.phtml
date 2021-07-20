@@ -1,6 +1,6 @@
 <?php
 /**
- * Busca todos os Comprovantes do PRONAC 'Em Avalia��o' (Acesso: T�CNICOS)
+ * Busca todos os Comprovantes do PRONAC 'Em Avalia&Ccedil;&Atilde;o' (Acesso: T�CNICOS)
  * @author Equipe RUP - Politec
  * @since 28/04/2010
  * @version 1.0
@@ -94,7 +94,7 @@
 			<td class="centro"><?php echo (isset($d->dtJustificativaCoordenador)) ? $d->dtJustificativaCoordenador : ''; ?></td>
 			<td class="centro <?php echo $d->stParecerComprovante; ?>"><?php echo $this->statusCompFisicaProjeto($d->stParecerComprovante); ?></td>
 			<td class="centro">
-				<?php if ($d->stParecerComprovante == "AG") { // 'Aguardando Avalia��o' ?>
+				<?php if ($d->stParecerComprovante == "AG") { // 'Aguardando Avalia&Ccedil;&Atilde;o' ?>
 				<input type="button" class="btn_avaliar" title=" Avaliar " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'avaliarcomprovante')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $d->idComprovante; ?>');" />
 				<?php } else { // outros status ?>
 				<input type="button" class="btn_ver" title=" Ver " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'visualizardocumentos')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $d->idComprovante; ?>');" />
@@ -124,7 +124,7 @@
 			<td class="centro"><?php echo $h->dtJustificativaCoordenador; ?></td>
 			<td class="centro <?php echo $h->stParecerComprovante; ?>"><?php echo $this->statusCompFisicaProjeto($h->stParecerComprovante); ?></td>
 			<td class="centro">
-				<?php if ($h->stParecerComprovante == "AG") { // 'Aguardando Avalia��o' ?>
+				<?php if ($h->stParecerComprovante == "AG") { // 'Aguardando Avalia&Ccedil;&Atilde;o' ?>
 				<input type="button" class="btn_avaliar" title=" Avaliar " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'avaliarcomprovante')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $h->idComprovante; ?>');" />
 				<?php } else { // outros status ?>
 				<input type="button" class="btn_ver" title=" Ver " value=" " onkeypress=" " onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'visualizardocumentos')); ?>?pronac=<?php echo $p->pronac; ?>&doc=<?php echo $h->idComprovante; ?>');" />
@@ -160,7 +160,7 @@
 		<tr>
 			<td>
 				<div class="float_left">
-					<input type="button" class="btn_voltar" title=" página Anterior "
+					<input type="button" class="btn_voltar" title=" p&aacute;gina Anterior "
 						onkeypress=" "
 						onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'aguardandoavaliacao')); ?>');" />
 				</div>

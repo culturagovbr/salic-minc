@@ -914,7 +914,7 @@
          } else {
 	     idReadequacao = <?php echo $idReadequacao; ?>
          }
-         // verifica se h� planilha ativa; se falso, cria uma nova planilha
+         // verifica seh&aacute; planilha ativa; se falso, cria uma nova planilha
          $.ajax({
 	     url: "<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'verificar-planilha-ativa'), '', true) ?>",
 	     type: 'POST',

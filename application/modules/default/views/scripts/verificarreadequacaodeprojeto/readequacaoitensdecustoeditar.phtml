@@ -178,7 +178,7 @@
                                         if($dados->tpPlanoDistribuicao == 'AP'){
                                             echo "APROVADO";
                                         } elseif($dados->tpPlanoDistribuicao == 'SR'){
-                                            echo "Solicitação DE READEQUA��O";
+                                            echo "Solicitação DE Readequa&Ccedil;&Atilde;o";
                                         } elseif($dados->tpPlanoDistribuicao == 'AT'){ ?>
 
                                         <?php if ($dados->tpAcao != "N") { ?>
@@ -236,7 +236,7 @@
                                                           ?>
                                                     </td>
                                                     <td>
-                                                        <b>�rea</b><br>
+                                                        <b>&Aacute;rea</b><br>
                                                         <?php echo $dados->Area; ?>
                                                     </td>
                                                     <td>
@@ -364,7 +364,7 @@
                             </td>
                         </tr>
 
-                        <!-- CAMPOS PARA EDI�AO DO T�CNICO DE ACOMPANHAMENTO -->
+                        <!-- CAMPOS PARA EDI�AO DO T&eacute;cnico DE ACOMPANHAMENTO -->
                         <?php } else { ?>
                         <tr class="planoNum<?php echo $dados->idPlano;?> sumir" align="left">
                             <td>
@@ -397,7 +397,7 @@
                                                               ?>
                                                         </td>
                                                         <td>
-                                                            <b>�rea</b><br>
+                                                            <b>&Aacute;rea</b><br>
                                                             <?php echo $dados->Area; ?>
                                                         </td>
                                                         <td>
@@ -1077,7 +1077,7 @@
         if (dsJustificativa == "")
         {
             $("#modal-validacao").dialog("destroy");
-            $("#modal-validacao").html("Favor preencher a justificativa da avalia��o do produto.");
+            $("#modal-validacao").html("Favor preencher a justificativa da Avalia&Ccedil;&Atilde;o do produto.");
             $("#modal-validacao").dialog
             ({
                 height: 180,

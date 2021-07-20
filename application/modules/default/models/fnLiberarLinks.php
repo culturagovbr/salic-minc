@@ -66,7 +66,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             ->where('idPronac = ? ', $idPronac);
         $dadosProjeto = $db->fetchRow($dadosProjeto);
 
-        # Verifica o numero da reuni�o da CNIC do projeto
+        # Verifica o numero da reuni&atilde;o da CNIC do projeto
         $dadosCnic = $db->select()
             ->from(
                 array('tbp' => 'tbPauta'),
@@ -197,7 +197,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
         }
 
 
-        # FASE 4 - DA LIBERA��O DA CONTA AT� A DATA FINAL DO PER�ODO DE EXECUCAO
+        # FASE 4 - DA LIBERA��O DA CONTA AT� A DATA FINAL DO PER&iacute;ODO DE EXECUCAO
         $sqlDataAtualBanco = new Zend_Db_Expr('SELECT CONVERT( CHAR(8), GETDATE(), 112)');
         $dataAtualBanco = $db->fetchOne($sqlDataAtualBanco);
 
@@ -303,7 +303,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             } else {
                 /* ===== CHECAR SE EXISTE READEQUA�AO DE 50% ===== */
 
-                // VERIFICAR O QUE ESTÁ CHECANDO AQUI. É PRA LIBERAR A DE 50%
+                // VERIFICAR O QUE ESTÁ CHECANDO AQUI. &Eacute; PRA LIBERAR A DE 50%
                 $readequacaoFase5 = $db->select()
                     ->from(
                         array('a' => 'tbReadequacao'),
@@ -351,7 +351,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             $Fase = 5;
         }
 
-        //Fases que não pode liberar menu Análise Técnica
+        //Fases que não pode liberar menu Análise T&eacute;cnica
         if (in_array($dadosProjeto->Situacao, array('B11', 'B14', 'C10', 'C30', 'C20', 'D50', 'D51'))) {
             $Analise = 0;
         }else{

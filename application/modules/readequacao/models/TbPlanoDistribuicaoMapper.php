@@ -243,7 +243,7 @@ class Readequacao_Model_TbPlanoDistribuicaoMapper extends MinC_Db_Mapper
                 $avaliacao = $planoReadequado['tpAnaliseTecnica'];
             }
 
-            //Se a avalia��o foi deferida, realiza as mudan�as necess�rias na tabela original.
+            //Se a Avalia&Ccedil;&Atilde;o foi deferida, realiza as mudan�as necess�rias na tabela original.
             if ($avaliacao == 'D' && !empty($idPlanoDistribuicaoOriginal)
             ) {
                 // pega dados da tabela temporaria (tbPlanoDistribuicao) e faz update em PlanoDistribuicaoProduto

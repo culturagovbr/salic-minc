@@ -40,9 +40,9 @@ foreach ($this->consultaReuniao as $value) {
         echo "<div id='teste'></div>";
         echo "<table>";
         echo "<tr>";
-        echo "<td>Status da Reuni�o: </td>";
+        echo "<td>Status da Reuni&atilde;o: </td>";
         if ($value->stEstado == 0 and Data::CompararDatas($value->DtFechamento) >= 0) {
-            echo "<td>Reuni�o em andamento</td>";
+            echo "<td>Reuni&atilde;o em andamento</td>";
         }
 
         if (Data::CompararDatas($value->DtFechamento) <= 0 and $value->stEstado <= 0) {
@@ -50,11 +50,11 @@ foreach ($this->consultaReuniao as $value) {
         }
         echo "</tr>";
         echo "<tr >";
-        echo "<td>Per�odo para inclus�o de projetos:</td>";
+        echo "<td>Per&iacute;odo para inclus�o de projetos:</td>";
         echo "<td>" . $value->DtInicio . " a " . $value->DtFechamento . "</td>";
         echo "</tr>";
         echo "<tr >";
-        echo "<td>Total de projetos submetidos a Plen�ria:</td>";
+        echo "<td>Total de projetos submetidos a Plen&aacute;ria:</td>";
         if (isset($submetidosPlenaria)) {
             echo "<td>$submetidosPlenaria</td>";
         } else {
@@ -62,7 +62,7 @@ foreach ($this->consultaReuniao as $value) {
         }
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Total de projetos Não submetidos a Plen�ria:</td>";
+        echo "<td>Total de projetos Não submetidos a Plen&aacute;ria:</td>";
         if (isset($naoSubmetidosPauta)) {
             echo "<td>$naoSubmetidosPauta</td>";
         } else {
@@ -86,14 +86,14 @@ foreach ($this->consultaReuniao as $value) {
                 echo "'>";
                 echo "<input type='hidden' value='encerrar' name='reuniao'>";
                 echo "<td></td>";
-                echo "<td><input type='submit' size='30' value='Encerrar Reuni�o'></td>";
+                echo "<td><input type='submit' size='30' value='Encerrar Reuni&atilde;o'></td>";
             } else {
                 echo "<input name='idReuniao' type='hidden' value='";
                 echo $this->consultaProjetosPautaReuniao[0]->NumeroReuniao;
                 echo "'>";
                 echo "<input type='hidden' value='iniciar' name='reuniao'>";
                 echo "<td></td>";
-                echo "<td><input type='submit' size='30' value='Fechar pauta/iniciar reuni�o'></td>";
+                echo "<td><input type='submit' size='30' value='Fechar pauta/iniciar reuni&atilde;o'></td>";
             }
         }
         echo "</form>";

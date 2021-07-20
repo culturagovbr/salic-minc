@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto está disponível para finalização
+ * Helper para verificar se projeto est&aacute; disponível para finalização
  */
 
 class Zend_View_Helper_DisponivelParaFinalizar
 {
     /**
-     * Método para verificar se o projeto está disponível para finalizar
+     * Método para verificar se o projeto est&aacute; disponível para finalizar
      * @access public
      * @param integer $siEncaminhamento
      * @return string

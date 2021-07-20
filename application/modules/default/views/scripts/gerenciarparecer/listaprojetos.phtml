@@ -12,9 +12,9 @@
 <div id="titulo">
 <?php
 $filtros = array(
-		 'aguardando_distribuicao' => 'Aguardando distribui��o',
+		 'aguardando_distribuicao' => 'Aguardando distribuição',
 		 'em_analise' => 'Em Análise',
-		 'em_validacao' => 'Em valida��o',
+		 'em_validacao' => 'Em validação',
 		 'validados' => 'Validados',
 		 'devolvida' => 'Devolvidas para Análise',
 		 'impedimento_parecerista' => 'Impedimento do parecerista'
@@ -34,7 +34,7 @@ $filtros = array(
                 <input type="button" name="btn_pesquisar" id="btn_pesquisar" class="btn_pesquisar" value="">
                 <select name="tipoFiltro" style="width: 220px;" class="input_simples comboFiltro">
                     <option value="aguardando_distribuicao" <?php echo isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'aguardando_distribuicao' ? 'selected="selected"':''; ?>>Aguardando distribui&ccedil;&atilde;o</option>
-                    <option value="em_analise" <?php echo isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'em_analise' ? 'selected="selected"':''; ?>>Em an&aacute;lise</option>
+                    <option value="em_analise" <?php echo isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'em_analise' ? 'selected="selected"':''; ?>>Em análise</option>
                     <option value="em_validacao" <?php echo isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'em_validacao' ? 'selected="selected"':''; ?>>Em valida&ccedil;&atilde;o</option>
                     <option value="validados" <?php echo isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'validados' ? 'selected="selected"':''; ?>>Validados</option>
                     <option value="devolvida" <?php echo isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'devolvida' ? 'selected="selected"':''; ?>>Devolvidas para nova an&aacute;lise</option>

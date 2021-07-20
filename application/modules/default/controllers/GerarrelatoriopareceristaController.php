@@ -1320,7 +1320,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
                         <td>F�rias:{$conteudo['ferias']}</td>
                     </tr>
                     <tr>
-                        <td> �reas, Segmentos e N�vel</td>
+                        <td> &Aacute;reas, Segmentos e N�vel</td>
                         <td>
                             ";
                             foreach ($conteudo['area_segmento_nivel'] as $val) {

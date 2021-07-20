@@ -6,7 +6,7 @@ class tbPedidoAlteracaoXTipoAlteracao extends MinC_Db_Table_Abstract
     protected $_name    = "tbPedidoAlteracaoXTipoAlteracao";
 
     /**
-     * Busca as justificativas dos pedidos de readequa��o
+     * Busca as justificativas dos pedidos de readequa&ccedil;&atilde;o
      * @access public
      * @param array $where (filtros)
      * @param array $order (ordena��o)
@@ -48,7 +48,7 @@ class tbPedidoAlteracaoXTipoAlteracao extends MinC_Db_Table_Abstract
     }
 
     /**
-     * Busca os pedidos de readequa��o do checklist
+     * Busca os pedidos de readequa&ccedil;&atilde;o do checklist
      * @access public
      * @param array $where (filtros)
      * @param array $order (ordena��o)

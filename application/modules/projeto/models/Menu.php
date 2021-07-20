@@ -140,8 +140,8 @@ class Projeto_Model_Menu extends MinC_Db_Table_Abstract
 
         $menu['outrasinformacoes'] = [
             'id' => 'outrasinformacoes',
-            'label' => 'Outras Informações',
-            'title' => 'Outras Informações',
+            'label' => 'Outras Informaç&otilde;es',
+            'title' => 'Outras Informaç&otilde;es',
             'link' => '',
             'ajax' => false,
             'icon' => 'style',
@@ -218,7 +218,7 @@ class Projeto_Model_Menu extends MinC_Db_Table_Abstract
         $menu['solicitacoes'] = [
             'id' => 'solicitacoes',
             'label' => $this->usuarioExterno ? "Minhas solicita&ccedil;&otilde;es" : "Solicita&ccedil;&otilde;es",
-            'title' => 'Ir para Solicitações',
+            'title' => 'Ir para Solicitaç&otilde;es',
             'link' => '/solicitacao/mensagem/index/listarTudo/true/idPronac/' . $idPronac,
             'ajax' => false,
             'icon' => 'contact_mail',
@@ -273,8 +273,8 @@ class Projeto_Model_Menu extends MinC_Db_Table_Abstract
 
         $menu['outrasinformacoes'] = [
             'id' => 'outrasinformacoes',
-            'label' => 'Outras Informações',
-            'title' => 'Outras Informações',
+            'label' => 'Outras Informaç&otilde;es',
+            'title' => 'Outras Informaç&otilde;es',
             'link' => '',
             'ajax' => false,
             'icon' => 'style',
@@ -871,7 +871,7 @@ class Projeto_Model_Menu extends MinC_Db_Table_Abstract
         $menu['solicitacoes'] = [
             'id' => 'solicitacoes',
             'label' => $this->usuarioExterno ? "Minhas solicita&ccedil;&otilde;es" : "Solicita&ccedil;&otilde;es",
-            'title' => 'Ir para Solicitações',
+            'title' => 'Ir para Solicitaç&otilde;es',
             'link' => '/solicitacao/mensagem/index/listarTudo/true/idPronac/' . $idPronacHash,
             'ajax' => false,
             'icon' => 'contact_mail',

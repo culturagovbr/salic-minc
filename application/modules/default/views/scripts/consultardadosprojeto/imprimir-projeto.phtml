@@ -156,8 +156,8 @@
     <div class="paginaA4">
 
         <div align="center">
-            <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério da TURISMO"/>
-            <br clear="all" /><span class="TituloMinC">Ministério da TURISMO</span>
+            <img id="brasao" src="<?php echo $this->baseUrl(); ?>/public/img/brasaoArmas.jpg" alt="Ministério do Turismo"/>
+            <br clear="all" /><span class="TituloMinC">Ministério do Turismo</span>
             <br clear="all" /><span class="TituloDoDocumento">PRONAC: <?php echo empty($this->NrProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->NrProjeto; ?> - <?php echo empty($this->NomeProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->NomeProjeto; ?></span>
             <br clear="all" /><span class="TituloDoDocumento">Proponente: <?php echo empty($this->NomeProponente) ? '<em>Dados n&atilde;o informados!</em>' : $this->NomeProponente; ?></span>
             <!--<br clear="all" /><span class="DataDoDocumento">Data da impress�o: <?php //echo date('d/m/Y - H:i:s'); ?></span>-->
@@ -384,7 +384,7 @@
                                         <tr class="destacar" align="left">
                                             <td class="centro"><b>UF</b></td>
                                             <td class="centro"><b>Mecanismo</b></td>
-                                            <td class="centro"><b>�rea Cultural</b></td>
+                                            <td class="centro"><b>&Aacute;rea Cultural</b></td>
                                             <td class="centro"><b>Segmento</b></td>
                                             <td class="centro"><b>Processo</b></td>
                                             <td class="centro"><b>Enquadramento</b></td>
@@ -547,7 +547,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Ficha Técnica</legend>
+                    <legend>Ficha T&eacute;cnica</legend>
                     <table class="tabela">
 
                         <tr>
@@ -577,7 +577,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Especifica�&otilde;es Técnicas do produto</legend>
+                    <legend>Especifica�&otilde;es T&eacute;cnicas do produto</legend>
                     <table class="tabela">
 
                         <tr>
@@ -1192,11 +1192,11 @@
                             <td align="right"><span style="color: blue; font-weight: bold;"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->ValorProposta); ?></span></td>
                         </tr>
                         <tr class="destacar">
-                            <td align="right"><b>Valor do Parecer T�cnico (D)</b></td>
+                            <td align="right"><b>Valor do Parecer T&eacute;cnico (D)</b></td>
                             <td align="right"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->ValorParecer); ?></td>
                         </tr>
                         <tr class="destacar">
-                            <td align="right"><b>Valor de Elabora��o e Agenciamento (E)</b></td>
+                            <td align="right"><b>Valor de Elabora&ccedil;&atilde;o e Agenciamento (E)</b></td>
                             <td align="right"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->Elaboracao); ?></td>
                         </tr>
                         <tr class="destacar">
@@ -1233,7 +1233,7 @@
                     <?php if(count($this->identificacaoParecerConsolidado)>0){ ?>
                     <table class="tabela">
                         <tr class="destacar">
-                            <td align="center"><b>Parecer T�cnico</b></td>
+                            <td align="center"><b>Parecer T&eacute;cnico</b></td>
                         </tr>
                         <tr class="destacar">
                             <td style="text-align: justify;"><?php echo $this->identificacaoParecerConsolidado[0]->ResumoParecer; ?></td>
@@ -2093,9 +2093,9 @@
                                                     <td colspan="5">
                                                             <table class="tabela">
                                                                     <tr>
-                                                                            <td class="w100 destacar"><b>Avalia��o</b></td>
+                                                                            <td class="w100 destacar"><b>Avalia&Ccedil;&Atilde;o</b></td>
                                                                             <td class="w100 centro <?php echo $r->stAtendimento == 'D' ? 'blue' : 'red'; ?>"><?php echo ($r->tpSolicitacao == 'OR' && $r->stAtendimento == 'D') ? 'Avaliado': $this->tipoAtendimentoRecurso($r->stAtendimento); ?></td>
-                                                                            <td class="w150 destacar"><b>Data da Avalia��o</b></td>
+                                                                            <td class="w150 destacar"><b>Data da Avalia&Ccedil;&Atilde;o</b></td>
                                                                             <td class="w150 centro">
                                                                                     <?php
                                                                                     $r->dtAvaliacao = trim($r->dtAvaliacao); // necess�rio, pois, caso venha vazio, a mesma est� vindo com 2 espa�os
@@ -2127,7 +2127,7 @@
                                                                             <td class="centro bold">Item</td>
                                                                             <td colspan="2" class="centro bold" width="30%">Justificativa do Proponente</td>
                                                                             <td colspan="2" class="centro bold" width="30%">Justificativa do Ministro</td>
-                                                                            <td class="centro bold">Avalia��o do Ministro</td>
+                                                                            <td class="centro bold">Avalia&Ccedil;&Atilde;o do Ministro</td>
                                                                     </tr>
                                                                     <?php
                                                                     // arrays que servem para armazenar os elementos, e, posteriormente,
@@ -2175,11 +2175,11 @@
                                                                             <td colspan="6">&nbsp;</td>
                                                                     </tr>
                                                                     <tr>
-                                                                            <td colspan="6" class="destacar centro"><b>Per�odo de Execu��o Solicitado</b></td>
+                                                                            <td colspan="6" class="destacar centro"><b>Per&iacute;odo de Execu��o Solicitado</b></td>
                                                                     </tr>
                                                                     <tr>
                                                                             <td colspan="6" class="centro">
-                                                                                    <?php echo Seguranca::tratarVarHTML(str_replace("Per�odo de Execu��o: ", "", $dsSolicitacaoRecurso[0])); ?>
+                                                                                    <?php echo Seguranca::tratarVarHTML(str_replace("Per&iacute;odo de Execu��o: ", "", $dsSolicitacaoRecurso[0])); ?>
                                                                             </td>
                                                                     </tr>
                                                                     <?php
@@ -2196,11 +2196,11 @@
                                                                             <td colspan="6">&nbsp;</td>
                                                                     </tr>
                                                                     <tr>
-                                                                            <td colspan="6" class="destacar centro"><b>Per�odo de Capta��o Solicitado</b></td>
+                                                                            <td colspan="6" class="destacar centro"><b>Per&iacute;odo de Capta��o Solicitado</b></td>
                                                                     </tr>
                                                                     <tr>
                                                                             <td colspan="6" class="centro">
-                                                                                    <?php echo Seguranca::tratarVarHTML(str_replace("Per�odo de Capta��o: ", "", $dsSolicitacaoRecurso[0])); ?>
+                                                                                    <?php echo Seguranca::tratarVarHTML(str_replace("Per&iacute;odo de Capta��o: ", "", $dsSolicitacaoRecurso[0])); ?>
                                                                             </td>
                                                                     </tr>
                                                                     <?php
@@ -5057,7 +5057,7 @@
                                                    <?php }
                                                     } else {
                                                        ?>
-                                                        <tr><td style="color:red;" colspan="2">Não h� arquivos anexados!</td></tr>
+                                                        <tr><td style="color:red;" colspan="2">Nãoh&aacute; arquivos anexados!</td></tr>
                                                     <?php
                                                     }
                                                //FIM - RELATORIO FISCALIZACAO
@@ -5105,7 +5105,7 @@
                     <?php if(is_object($this->parecerCoordenador) && count($this->parecerCoordenador)>0):?>
                         <table cellspacing="1" class="tabela">
                             <tr>
-                                <td class="destacar" align="center"><b>Parecer T�cnico</b></td>
+                                <td class="destacar" align="center"><b>Parecer T&eacute;cnico</b></td>
                             </tr>
                             <tr>
                                 <td><?php echo !empty($this->parecerTecnico)? $this->parecerTecnico->meRelatorio : 'Dados n&atilde;o informados'; ?></td>
@@ -5126,7 +5126,7 @@
 
                         <table cellspacing="1" class="tabela">
                             <tr>
-                                <td class="destacar" align="center" width="50%"><b>Conforme IN n� 1 de 05/10/2010.&nbsp;&nbsp;Se��o III Art. 76 a Art. 80</b></td>
+                                <td class="destacar" align="center" width="50%"><b>Conforme IN n� 1 de 05/10/2010.&nbsp;&nbsp;Se&ccedil;&atilde;o III Art. 76 a Art. 80</b></td>
                                 <?php if(!empty($this->tipoInabilitacao)) { ?>
                                     <td class="destacar" align="center"><b>Conforme IN n� 1 de 05/10/2010. Art. 88</b></td>
                                 <?php } ?>

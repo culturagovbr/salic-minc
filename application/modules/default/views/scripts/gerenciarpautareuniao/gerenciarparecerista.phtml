@@ -38,15 +38,15 @@ echo $this->partial('gerenciarpautareuniao/inc/menu.inc.php', $this);
 echo "<form action='" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao')) . "' method='post'>";
 if ($this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->stEstado == 0 and $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->stPlenaria == 'N')
 {
-    echo "<div id=\"titulo\"><div>Gerenciar Pauta da Reuni�o N�: " . $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->NrReuniao . " - Representante da Vinculada -  ";
-    echo "Status: Plen�ria Não Iniciada";
+    echo "<div id=\"titulo\"><div>Gerenciar Pauta da Reuni&atilde;o N�: " . $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->NrReuniao . " - Representante da Vinculada -  ";
+    echo "Status: Plen&aacute;ria Não Iniciada";
     echo "<span>ID #23A</span> <span class=\"voltar\"><a href=\"#\">Voltar</a></span></div></div>";
     echo "<td></td>";
 }
 else if ($this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->stEstado == 0 and $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->stPlenaria == 'A')
 {
-    echo "<div id=\"titulo\"><div>Gerenciar Pauta da Reuni�o N�: " . $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->NrReuniao . " - Representante da Vinculada -  ";
-    echo "Status: Plen�ria Iniciada";
+    echo "<div id=\"titulo\"><div>Gerenciar Pauta da Reuni&atilde;o N�: " . $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->NrReuniao . " - Representante da Vinculada -  ";
+    echo "Status: Plen&aacute;ria Iniciada";
     echo "</div></div>";
     echo "<td></td>";
 }
@@ -57,7 +57,7 @@ echo "</form>";
         <table class="tabela">
             <tr>
                 <td>
-                    <input type="button" id="abrir_fechar" class="btn_adicionar" />Projetos em pauta da Plen�ria da Reuni�o N�.
+                    <input type="button" id="abrir_fechar" class="btn_adicionar" />Projetos em pauta da Plen&aacute;ria da Reuni&atilde;o N�.
                     <?php echo $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->NrReuniao; ?>
                     <?php if (count($this->consultaProjetosPautaReuniaoEnvioPlenaria) > 0)
                     {
@@ -76,7 +76,7 @@ echo "</form>";
                     <th>N�mero</th>
                     <th>Pronac</th>
                     <th>Nome do Projeto</th>
-                    <th>�rea do Projeto</th>
+                    <th>&Aacute;rea do Projeto</th>
                     <th>Segmento Cultural</th>
                     <th>Parecer Favor�vel</th>
                     <th>Data do Recebimento</th>
@@ -129,7 +129,7 @@ echo "</form>";
             <table class="tabela">
                 <tr>
                     <td>
-                        <input type="button" id="abrir_fechar1" class="btn_adicionar" />Projetos Não Submetidos a pauta da Reuni�o N�.
+                        <input type="button" id="abrir_fechar1" class="btn_adicionar" />Projetos Não Submetidos a pauta da Reuni&atilde;o N�.
                     <?php echo $this->consultaProjetosPautaReuniaoEnvioPlenaria[0]->NrReuniao; ?>
                     <?php if (count($this->consultaProjetosPautaReuniaoNaoAnalisado) > 0)
                     {
@@ -149,7 +149,7 @@ echo "</form>";
                     <th>N�mero</th>
                     <th>Pronac</th>
                     <th>Nome do Projeto</th>
-                    <th>�rea do Projeto</th>
+                    <th>&Aacute;rea do Projeto</th>
                     <th>Segmento Cultural</th>
                     <th>Parecer Favor�vel</th>
                     <th>Data do Recebimento</th>

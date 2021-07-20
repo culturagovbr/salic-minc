@@ -799,7 +799,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
 
     /**
-     * M�todo para avalia��o dos locais de realiza��o
+     * M�todo para Avalia&Ccedil;&Atilde;o dos locais de realiza��o
      * @param void
      * @return void
      */
@@ -822,8 +822,8 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 					<br />- Pronac
 					<br />- Abrang�ncia
 					<br />- Código da Avaliacao do Item de Pedido de Alteracao
-					<br />- A avalia��o (Deferido / Indeferido)
-					<br />- A justificativa da avalia��o");
+					<br />- A Avalia&Ccedil;&Atilde;o (Deferido / Indeferido)
+					<br />- A justificativa da Avalia&Ccedil;&Atilde;o");
             }
             // envia pro banco
             else {
@@ -834,7 +834,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
                     ,'stAvaliacaoSubItemPedidoAlteracao' => $avaliacao
                     ,'dsAvaliacaoSubItemPedidoAlteracao' => $dsAvaliacao);
 
-                // cadastra a avalia��o
+                // cadastra a Avalia&Ccedil;&Atilde;o
                 $dao = $tbAbrangencia->avaliarLocalRealizacao($dados);
 
                 // pega o �ltimo idAvaliacaoSubItemPedidoAlteracao inserido
@@ -850,9 +850,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
                 // caso seja cadastrado
                 if ($dao && $dados_abrangencia) {
-                    parent::message("Avalia��o efetuada com sucesso!", "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=" . $idPronac, "CONFIRM");
+                    parent::message("Avalia&Ccedil;&Atilde;o efetuada com sucesso!", "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=" . $idPronac, "CONFIRM");
                 } else {
-                    throw new Exception("Erro ao tentar efetuar avalia��o!");
+                    throw new Exception("Erro ao tentar efetuar Avalia&Ccedil;&Atilde;o!");
                 }
             } // fecha else
         } // fecha try

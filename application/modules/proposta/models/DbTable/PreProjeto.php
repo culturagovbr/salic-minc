@@ -2617,7 +2617,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
 
                 //VERIFICAR AS INFORMACOES DO PROPONENTE
                 if (empty($vCadastrarProponente)) {
-                    $validacao->dsInconsistencia = 'Dados cadastrais do proponente inexistente ou não h&aacute; endereço para correspondência selecionado.';
+                    $validacao->dsInconsistencia = 'Dados cadastrais do proponente inexistente ou não h&aacute; endereço para correspond&ecirc;ncia selecionado.';
                     $validacao->Observacao = 'PENDENTE';
                     $validacao->Url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'agentes', 'id' => $idAgente);
                     $listaValidacao[] = clone($validacao);
@@ -2808,7 +2808,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
                     $validacao->Url = array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index', 'idPreProjeto' => $idPreProjeto);
                     $listaValidacao[] = clone($validacao);
                 } elseif ($quantidade > 1) {
-                    $validacao->dsInconsistencia = 'Só poder&aacute; haver um produto principal em cada proposta, a sua est&aacute; com mais de um produto.';
+                    $validacao->dsInconsistencia = 'S&oacute; poder&aacute; haver um produto principal em cada proposta, a sua est&aacute; com mais de um produto.';
                     $validacao->Observacao = 'PENDENTE';
                     $validacao->Url = array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index', 'idPreProjeto' => $idPreProjeto);
                     $listaValidacao[] = clone($validacao);

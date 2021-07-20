@@ -30,7 +30,7 @@ function layout_fluido()
     <ul>
         <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="INÍCIO">INÍCIO</a></li>
         <li class="last">Acompanhamento</li>
-        <li class="last">Verificar Readequa��o de Projeto</li>
+        <li class="last">Verificar Readequa&ccedil;&atilde;o de Projeto</li>
     </ul>
 </div>
 <div id="mostra"></div>
@@ -148,14 +148,14 @@ function layout_fluido()
                 <tr>
                     <td style="width: 25%; padding-left: 5%; text-decoration: underline;"><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivo->idArquivo; ?>"><?php echo $arquivo->nmarquivo ?></a></td>
                 </tr>
-                <?php } } else { echo '<tr><td><span style="color: red;">Não h� arquivos anexados!</span></td></tr>'; } ?>
+                <?php } } else { echo '<tr><td><span style="color: red;">Nãoh&aacute; arquivos anexados!</span></td></tr>'; } ?>
 
                 <?php if ($this->resultParecerTecnico) { ?>
                 <tr>
-                    <th>Parecer do T�cnico</th>
+                    <th>Parecer do T&eacute;cnico</th>
                 </tr>
                 <tr>
-                    <td>Coment�rios:</td>
+                    <td>Coment&aacute;rios:</td>
                 </tr>
                 <?php
                     $justificativa = "";

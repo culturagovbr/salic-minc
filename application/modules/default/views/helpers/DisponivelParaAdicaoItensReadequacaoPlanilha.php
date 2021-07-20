@@ -1,12 +1,12 @@
 <?php
 /**
- * Helper para verificar se projeto está disponível para adição de itens da readequação da planilha
+ * Helper para verificar se projeto está disponível para adi&ccedil;ão de itens da readequa&ccedil;ão da planilha
  */
 
 class Zend_View_Helper_DisponivelParaAdicaoItensReadequacaoPlanilha
 {
     /**
-     * Método para verificar se o projeto está disponível para adição de itens da readequação da planilha
+     * Método para verificar se o projeto está disponível para adi&ccedil;ão de itens da readequa&ccedil;ão da planilha
      * @access public
      * @param integer $idPronac
      * @param integer $idAgente

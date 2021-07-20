@@ -79,7 +79,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
            parent::perfil(1, $PermissoesGrupo);
 
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
-                parent::message("Voc� Não tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+                parent::message("Voc� Não tem permiss�o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
             // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
@@ -751,7 +751,7 @@ class TramitarprojetosController extends MinC_Controller_Action_Abstract
                         parent::message("Projeto inexistente.", "tramitarprojetos/despacharprojetos", "ALERT");
                     }
 
-                    //CHECAR SE H� DOCUMENTO SEM ANEXACAO PARA O PROJETO
+                    //CHECAR SEH&Aacute; DOCUMENTO SEM ANEXACAO PARA O PROJETO
                     $whereHistorio = array();
                     $whereHistorio['idPronac = ?'] = $dadosProjeto->IdPRONAC;
                     $whereHistorio['idDocumento != ?'] = 0;

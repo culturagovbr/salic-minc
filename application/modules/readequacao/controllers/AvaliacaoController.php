@@ -30,23 +30,23 @@ class Readequacao_AvaliacaoController extends MinC_Controller_Rest_Abstract
     public function indexAction(){
         $data = [];
         $code = 200;
-        
+
         $idReadequacao = $this->getRequest()->getParam('idReadequacao');
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
-        
+
         if (!$permissao) {
             $data['permissao'] = false;
             $code = 203;
-            $data['message'] = 'Você não tem permissão para acessar este projeto';
+            $data['message'] = 'Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar este projeto';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $code = 200;
-            $data['message'] = 'Readequação gravada com sucesso.';
+            $data['message'] = 'Readequaç&atilde;o gravada com sucesso.';
             $data = $readequacaoService->buscarAvaliacao($idReadequacao);
         }
-        
+
         $this->renderJsonResponse(\TratarArray::utf8EncodeArray($data), $code);
     }
 
@@ -56,11 +56,11 @@ class Readequacao_AvaliacaoController extends MinC_Controller_Rest_Abstract
         $data = [];
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
-        
+
         if (!$permissao) {
             $data['permissao'] = false;
             $code = 203;
-            $data['message'] = 'Você não tem permissão para avaliar esta readequação';
+            $data['message'] = 'Voc&ecirc; n&atilde;o tem permiss&atilde;o para avaliar esta readequaç&atilde;o';
         } else {
             $code = 200;
             try {
