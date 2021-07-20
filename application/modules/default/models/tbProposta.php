@@ -20,7 +20,7 @@ class tbProposta extends MinC_Db_Table_Abstract
 
 
     /**
-     * Busca os pedidos de readequa��o
+     * Busca os pedidos de readequa&ccedil;&atilde;o
      * @access public
      * @param array $where (filtros)
      * @param array $order (ordena��o)
@@ -85,7 +85,7 @@ class tbProposta extends MinC_Db_Table_Abstract
 
 
     /**
-     * Busca o hist�rico de readequa��o
+     * Busca o hist�rico de readequa&ccedil;&atilde;o
      * @access public
      * @param array $where (filtros)
      * @param array $order (ordena��o)

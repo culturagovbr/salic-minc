@@ -66,23 +66,23 @@ function carregaPagina(){
 		<div id="UC27" style="width:180px; height:280px; margin-left: 10px;"></div>
         <table style="width:16.8em; height:13em; margin: 1.5em 0em 0em 1em; border: 0;">
             <tr>
-                <th colspan="2"><span style="font-weight: normal; font-size: 10px">TIPO DE Solicitação</span></th>
+                <th colspan="2"><span style="font-weight: normal; font-size: 10px">TIPO DE Solicita&ccedil;&atilde;o</span></th>
             </tr>
             <tr>
                 <td width="1%"; style="font-size: 40px; color: blue;">&bull;</td>
-                <td width="99%" style="text-align:left;" >Readequa��o de itens do produto</td>
+                <td width="99%" style="text-align:left;" >Readequa&ccedil;&atilde;o de itens do produto</td>
             </tr>
             <tr>
                 <td style="font-size: 40px; color: green;">&bull;</td>
-                <td style="text-align:left; padding-left:3%;">Inclus�o de novo produto</td>
+                <td style="text-align:left; padding-left:3%;">Inclus&atilde;o de novo produto</td>
             </tr>
             <tr>
                 <td style="font-size: 40px; color: red;">&bull;</td>
-                <td style="text-align:left;">Exclus�o de produto</td>
+                <td style="text-align:left;">Exclus&atilde;o de produto</td>
             </tr>
             <tr>
                 <td style="font-size: 40px; color: black;">&bull;</td>
-                <td style="text-align:left; padding-left:3%;">Nenhuma Solicitação de altera��o</td>
+                <td style="text-align:left; padding-left:3%;">Nenhuma Solicita&ccedil;&atilde;o de altera&ccedil;&atilde;o</td>
             </tr>
         </table>
     </div>

@@ -41,12 +41,12 @@ class Readequacao_DevolverReadequacaoController extends MinC_Controller_Rest_Abs
 
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para devolver esta readequação.';
+            $data['message'] = 'Voc&ecirc; não tem permissão para devolver esta readequação.';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $encaminhar = $readequacaoService->devolverReadequacao();
             if ($encaminhar) {
-                $data['message'] = "Readequação devolvida para o técnico.";
+                $data['message'] = "Readequação devolvida para o T&eacute;cnico.";
             }
         }
 

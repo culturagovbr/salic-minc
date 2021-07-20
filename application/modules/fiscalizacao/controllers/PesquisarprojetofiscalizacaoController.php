@@ -105,7 +105,7 @@ class Fiscalizacao_PesquisarprojetofiscalizacaoController extends MinC_Controlle
             switch ($filtro) {
                 case 'analisados':
                     $where['b.stFiscalizacaoProjeto = ?'] = '2';
-                    $this->view->nmPagina = 'Fiscaliza&ccedil;&atilde;o conclu&iacute;da pelo Técnico';
+                    $this->view->nmPagina = 'Fiscaliza&ccedil;&atilde;o conclu&iacute;da pelo T&eacute;cnico';
                     break;
                 case 'concluidos':
                     $where['b.stFiscalizacaoProjeto = ?'] = '3';

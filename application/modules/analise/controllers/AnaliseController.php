@@ -182,7 +182,7 @@ class Analise_AnaliseController extends Analise_GenericController
                 }
 
                 /**
-                 * Adequacao já deve chegar aqui preenchida
+                 * Adequacao j&aacute; deve chegar aqui preenchida
                  * 1 - Quando o proponente envia o projeto readequado para o MinC o sistema registra a primeira avaliacao
                  * 2 - Existe uma rotina que pega os projetos na situacao E90 com prazo de adequacao expirado,
                  * a rotina escolhe o tecnico e registra uma nova avaliacao.

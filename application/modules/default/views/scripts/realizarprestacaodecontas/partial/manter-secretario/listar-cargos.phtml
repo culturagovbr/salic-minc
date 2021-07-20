@@ -2,9 +2,9 @@
     <option value=""> - Todos - </option>
     <?php foreach ($this->cargos as $cargo) : ?>
     <option value="<?php echo $cargo->idCargoAssinantePrestacaoConta; ?>" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == $cargo->idCargoAssinantePrestacaoConta) ? 'selected="selected"' : ''; ?>><?php echo $cargo->nmCargo; ?></option>
-<!--    <option value="1" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 1) ? 'selected="selected"' : ''; ?>>Coordenador (a) de Incentivos Fiscais e Apoio Técnico</option>
-    <option value="2" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 2) ? 'selected="selected"' : ''; ?>>Coordenador (a) Geral de Prestação de Contas</option>
-    <option value="3" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 3) ? 'selected="selected"' : ''; ?>>Diretor (a) Executivo de Incentivo à Cultura</option>
-    <option value="4" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 4) ? 'selected="selected"' : ''; ?>>Secretário (a) de Fomento e Incentivo à Cultura</option>-->
+<!--    <option value="1" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 1) ? 'selected="selected"' : ''; ?>>Coordenador (a) de Incentivos Fiscais e Apoio T&eacute;cnico</option>
+    <option value="2" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 2) ? 'selected="selected"' : ''; ?>>Coordenador (a) Geral de Prestaï¿½ï¿½o de Contas</option>
+    <option value="3" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 3) ? 'selected="selected"' : ''; ?>>Diretor (a) Executivo de Incentivo ï¿½ Cultura</option>
+    <option value="4" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 4) ? 'selected="selected"' : ''; ?>>Secret&aacute;rio (a) de Fomento e Incentivo ï¿½ Cultura</option>-->
     <?php endforeach; ?>
 </select>

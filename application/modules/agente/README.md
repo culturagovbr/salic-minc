@@ -1,17 +1,17 @@
-Módulo de Agentes
+M&oacute;dulo de Agentes
 =========================
 
 Modulo responsavel por manter agentes e os cadastros de contato.
 
 ```
-@todo : Complementar esse arquivo com mais informações do módulo.
+@todo : Complementar esse arquivo com mais informaç&otilde;es do m&oacute;dulo.
 ```
 
-## Tipos de Agentes (Visões)
+## Tipos de Agentes (Vis&otilde;es)
 
-No sistema um Agente pode ter uma ou várias visões, em um projeto um agente pode desempenhar diversos papeis.
+No sistema um Agente pode ter uma ou v&aacute;rias vis&otilde;es, em um projeto um agente pode desempenhar diversos papeis.
 Um exemplo, pela mecanismo de Incentivo Fiscal, obrigatoriamente vai existir Proponente e Incentivador,
-pode ter também um Beneficiário e Fornecedor. Abaixo segue uma lista das principais visões de agentes.
+pode ter também um Benefici&aacute;rio e Fornecedor. Abaixo segue uma lista das principais vis&otilde;es de agentes.
 
 #### Proponente
 Para cadastrar um proponente:
@@ -20,34 +20,34 @@ Para cadastrar um proponente:
 
 #### Incentivador
 Para cadastrar um Incentivador:
- - Perfil de Coordenador ou Técnico de Acompanhamento
+ - Perfil de Coordenador ou T&eacute;cnico de Acompanhamento
  - Caminho:
-  - Menu Principal -> Acompanhamento -> Movimentação Bancária
-  - Menu lateral -> Relatórios -> Inconsistências de conta captação
-  - Na listagem verificar um projeto com inconsistência do tipo `Sem incentivador`
-  - Clicar na opção da coluna `Ações`
+  - Menu Principal -> Acompanhamento -> Movimenta&ccedil;&atilde;o Banc&aacute;ria
+  - Menu lateral -> Relat&oacute;rios -> Inconsist&ecirc;ncias de conta capta&ccedil;&atilde;o
+  - Na listagem verificar um projeto com inconsist&ecirc;ncia do tipo `Sem incentivador`
+  - Clicar na op&ccedil;&atilde;o da coluna `Aç&otilde;es`
 
 #### Fornecedor
 Para cadastrar Fornecedor:
  - Perfil de Proponente
- - Caminho: Menu Lateral -> Realizar Comprovação Financeira
+ - Caminho: Menu Lateral -> Realizar Comprova&ccedil;&atilde;o Financeira
  - Acessar um link da coluna `Item de Custo`
- - Na próxima tela preencher o campo CNPJ/CPF
+ - Na pr&oacute;xima tela preencher o campo CNPJ/CPF
 
 #### Beneficiário
-Para cadastrar um beneficiário:
+Para cadastrar um benefici&aacute;rio:
  - Perfil de Proponente
  - Caminho:
-    - Menu Lateral -> Realizar Comprovação Física -> Relatório Trimestral
+    - Menu Lateral -> Realizar Comprovação Física -> Relat&oacute;rio Trimestral
     - Na tela clicar no link da coluna `Status`
-    - Menu Lateral -> Plano de Distribuição
+    - Menu Lateral -> Plano de Distribui&ccedil;&atilde;o
     - Preencher o campo CNPJ/CPF
 
-#### Outras visões
-O sistema permite que o Gestor do sistema cadastre um agente com outras visões
+#### Outras vis&otilde;es
+O sistema permite que o Gestor do sistema cadastre um agente com outras vis&otilde;es
  - Perfil Gestor do SALIC
  - Caminho: Menu Principal -> Administrativo -> Manter Agentes
- - Visões disponíveis para cadastro pelo Gestor:
+ - Vis&otilde;es disponíveis para cadastro pelo Gestor:
      - Proponente
     - Incentivador
     - Servidor

@@ -24,7 +24,7 @@ class Zend_View_Helper_StatusProjetoRelatorio
             $valor = 'N&atilde;o Analisado';
         }
         if ($status == 2) {
-            $valor = 'Em An&aacute;lise';
+            $valor = 'Em Análise';
         }
         if ($status == 3) {
             $valor = 'Analisado';

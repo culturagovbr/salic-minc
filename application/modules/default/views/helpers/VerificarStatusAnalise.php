@@ -1,6 +1,6 @@
 <?php
 /**
- * Verifica o status da Análise na Readequa��o
+ * Verifica o status da Análise na Readequa&ccedil;&atilde;o
  * @author emanuel.sampaio - Politec
  * @since 23/09/2011
  * @version 1.0

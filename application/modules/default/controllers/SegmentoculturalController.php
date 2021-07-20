@@ -13,7 +13,7 @@
 class SegmentoculturalController extends Zend_Controller_Action
 {
     /**
-     * M�todo para buscar os segmentos culturais de uma �rea
+     * M�todo para buscar os segmentos culturais de uma &aacute;rea
      * @param void
      * @return void
      */
@@ -32,7 +32,7 @@ class SegmentoculturalController extends Zend_Controller_Action
 
 
     /**
-     * M�todo para buscar os segmentos culturais de uma �rea
+     * M�todo para buscar os segmentos culturais de uma &aacute;rea
      * Busca como XML para o AJAX
      * @access public
      * @param void
@@ -50,7 +50,7 @@ class SegmentoculturalController extends Zend_Controller_Action
     }
 
     /**
-     * M�todo para buscar os segmentos culturais de uma �rea
+     * M�todo para buscar os segmentos culturais de uma &aacute;rea
      * Busca como XML para o AJAX
      * @access public
      * @param void

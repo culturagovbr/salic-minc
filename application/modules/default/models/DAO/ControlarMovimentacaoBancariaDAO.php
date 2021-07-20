@@ -30,7 +30,7 @@ class ControlarMovimentacaoBancariaDAO extends Zend_Db_Table
             $sql.= " AnoProjeto+Sequencial = '" . $pronac . "' ";
         }
 
-        // busca pelo per�odo
+        // busca pelo per&iacute;odo
         if (!empty($periodo))
         {
             // filtra conforme uma data inicial e uma data final
@@ -92,7 +92,7 @@ class ControlarMovimentacaoBancariaDAO extends Zend_Db_Table
         $dados[0]['saldo']           = "59.487,23";
         $dados[0]['idPronac']        = 57016;
         $dados[0]['pronac']          = "066044";
-        $dados[0]['NomeProjeto']     = "Elabora��o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
+        $dados[0]['NomeProjeto']     = "Elabora&ccedil;&atilde;o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
 
         $dados[1]['dt_movimentacao'] = "03/01/2011";
         $dados[1]['deposito_origem'] = "";
@@ -104,7 +104,7 @@ class ControlarMovimentacaoBancariaDAO extends Zend_Db_Table
         $dados[1]['saldo']           = "";
         $dados[1]['idPronac']        = 57016;
         $dados[1]['pronac']          = "066044";
-        $dados[1]['NomeProjeto']     = "Elabora��o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
+        $dados[1]['NomeProjeto']     = "Elabora&ccedil;&atilde;o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
 
         $dados[2]['dt_movimentacao'] = "03/01/2011";
         $dados[2]['deposito_origem'] = "";
@@ -116,7 +116,7 @@ class ControlarMovimentacaoBancariaDAO extends Zend_Db_Table
         $dados[2]['saldo']           = "60.487,10";
         $dados[2]['idPronac']        = 57016;
         $dados[2]['pronac']          = "066044";
-        $dados[2]['NomeProjeto']     = "Elabora��o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
+        $dados[2]['NomeProjeto']     = "Elabora&ccedil;&atilde;o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
 
         $dados[3]['dt_movimentacao'] = "09/01/2011";
         $dados[3]['deposito_origem'] = "1236-X";
@@ -128,7 +128,7 @@ class ControlarMovimentacaoBancariaDAO extends Zend_Db_Table
         $dados[3]['saldo']           = "60.187,10";
         $dados[3]['idPronac']        = 57016;
         $dados[3]['pronac']          = "066044";
-        $dados[3]['NomeProjeto']     = "Elabora��o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
+        $dados[3]['NomeProjeto']     = "Elabora&ccedil;&atilde;o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
 
         $dados[4]['dt_movimentacao'] = "17/01/2011";
         $dados[4]['deposito_origem'] = "1236-X";
@@ -140,7 +140,7 @@ class ControlarMovimentacaoBancariaDAO extends Zend_Db_Table
         $dados[4]['saldo']           = "58.187,10";
         $dados[4]['idPronac']        = 57016;
         $dados[4]['pronac']          = "066044";
-        $dados[4]['NomeProjeto']     = "Elabora��o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
+        $dados[4]['NomeProjeto']     = "Elabora&ccedil;&atilde;o de Projetos Executivos para a Restaura��o dos Monumentos da Floresta da Tijuca";
 
         $dados[5]['dt_movimentacao'] = "09/01/2011";
         $dados[5]['deposito_origem'] = "1236-X";

@@ -326,7 +326,7 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
     }
 
     /**
-     * Na adequação à realidade a versão do projeto será salva apenas uma vez
+     * Na adequação &agrave; realidade a versão do projeto será salva apenas uma vez
      */
     public function salvarPropostaSerializadaAlterarProjeto($idPreProjeto)
     {

@@ -225,7 +225,7 @@ class tbPedidoAlteracaoProjeto extends MinC_Db_Table_Abstract
                 'vp.stAnaliseProjeto',
                 'status' => new Zend_Db_Expr("CASE WHEN vp.stAnaliseProjeto IS NULL THEN 'Aguardando An&aacute;lise'
 												WHEN vp.stAnaliseProjeto = '1' THEN 'Aguardando An&aacute;lise'
-												WHEN vp.stAnaliseProjeto = '2' THEN 'Em An&aacute;lise'
+												WHEN vp.stAnaliseProjeto = '2' THEN 'Em Análise'
 												WHEN vp.stAnaliseProjeto = '3' THEN 'An&aacute;lise Finalizada'
 												WHEN vp.stAnaliseProjeto = '4' THEN 'Encaminhado para portaria'
 												END "),

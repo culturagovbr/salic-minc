@@ -532,7 +532,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 
                 $tblProjetos->alterarSituacao($idPronac, '', $codigoSituacao, $providenciaTomada, $this->idUsuario);
 
-                parent::message("Projeto encaminhado com sucesso para an&aacute;lise no Minist&eacute;rio da TURISMO.", "/listarprojetos/listarprojetos", "CONFIRM");
+                parent::message("Projeto encaminhado com sucesso para an&aacute;lise no Minist&eacute;rio do Turismo.", "/listarprojetos/listarprojetos", "CONFIRM");
             }
         }
     }
@@ -600,7 +600,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 $tbMovimentacao = new Proposta_Model_DbTable_TbMovimentacao();
                 $insert = $tbMovimentacao->insert($dados);
 
-                parent::message("Proposta encaminhada com sucesso para an&aacute;lise no Minist&eacute;rio da TURISMO.", "/proposta/visualizar/index/idPreProjeto/" . $idPreProjeto, "CONFIRM");
+                parent::message("Proposta encaminhada com sucesso para an&aacute;lise no Minist&eacute;rio do Turismo.", "/proposta/visualizar/index/idPreProjeto/" . $idPreProjeto, "CONFIRM");
             } else {
                 $this->view->resultado = $arrResultado;
             }
@@ -1044,7 +1044,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
     }
 
     /**
-     * Este metodo deve estar igual à regra de negocio 1.3 da spCheckListParaApresentacaoDeProposta
+     * Este metodo deve estar igual &agrave; regra de negocio 1.3 da spCheckListParaApresentacaoDeProposta
      * @param $idPreProjeto
      * @return ArrayObject|bool|mixed
      */

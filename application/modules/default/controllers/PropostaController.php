@@ -283,7 +283,7 @@ class PropostaController extends MinC_Controller_Action_Abstract
                     <table width="100%">
                         <tr>
                             <th style="font-size:36px;">
-                                Avalia��o: Reavalia��o
+                                Avalia&Ccedil;&Atilde;o: Reavalia&ccedil;&atilde;o
                             </th>
                         </tr>
                     ';
@@ -334,7 +334,7 @@ class PropostaController extends MinC_Controller_Action_Abstract
                     <table width="100%">
                         <tr>
                             <th style="font-size:36px;">
-                                Avalia��o: Inicial
+                                Avalia&Ccedil;&Atilde;o: Inicial
                             </th>
                         </tr>
                     ';

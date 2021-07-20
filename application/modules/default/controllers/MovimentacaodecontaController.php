@@ -37,7 +37,7 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
-        $this->view->title = 'Salic - Sistema de Apoio às Leis de Incentivo à Cultura'; // titulo da pagina
+        $this->view->title = 'Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura'; // titulo da pagina
 
         /* ========== INICIO PERFIL ==========*/
         // define os grupos que tem acesso
@@ -1571,7 +1571,7 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
             @ini_set('mssql.timeout', 10485760000);
             @ini_set('upload_max_filesize', '100M');
 
-            // pega as informações do arquivo
+            // pega as informaç&otilde;es do arquivo
                 $arquivoNome    = $_FILES['arquivo']['name']; // nome
                 $arquivoTemp    = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
                 $arquivoTipo    = $_FILES['arquivo']['type']; // tipo

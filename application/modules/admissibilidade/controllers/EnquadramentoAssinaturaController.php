@@ -174,7 +174,7 @@ class Admissibilidade_EnquadramentoAssinaturaController extends Assinatura_Gener
         $get = Zend_Registry::get('get');
         try {
             if (!filter_input(INPUT_GET, 'IdPRONAC')) {
-                throw new Exception("Identificador do projeto é necessário para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto &eacute; necessário para acessar essa funcionalidade.");
             }
 
             $assinaturaService = new \MinC\Assinatura\Servico\Assinatura(

@@ -1,4 +1,4 @@
-<?php 
+<?php
 class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
 {
     private $getIdAgente  = 0;
@@ -16,12 +16,12 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
     {
         // verifica as permissï¿½es
         $PermissoesGrupo = array();
-        $PermissoesGrupo[] = 121;  // Tï¿½cnico de Acompanhamento
+        $PermissoesGrupo[] = 121;  // T&eacute;cnico de Acompanhamento
         $PermissoesGrupo[] = 122;  // Coordenador de Acompanhamento
         parent::perfil(1, $PermissoesGrupo);
 
-        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuário
-        $auth = Zend_Auth::getInstance(); // pega a autenticação
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuï¿½rio
+        $auth = Zend_Auth::getInstance(); // pega a autenticaï¿½ï¿½o
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessï¿½o com o grupo ativo
         $this->getIdAgente = $idagente['idAgente'];
@@ -89,7 +89,7 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
             $where['CONCAT(p.AnoProjeto, p.Sequencial) = ?'] = $this->_request->getParam('pronac');
             $this->view->pronac = $this->_request->getParam('pronac');
         }
-        
+
         $Projetos = new Projetos();
         $total = $Projetos->pedidosDeProrrogacao($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;
@@ -176,7 +176,7 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
             $where['CONCAT(p.AnoProjeto, p.Sequencial) = ?'] = $this->_request->getParam('pronac');
             $this->view->pronac = $this->_request->getParam('pronac');
         }
-        
+
         $Projetos = new Projetos();
         $total = $Projetos->pedidosDeProrrogacao($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;
@@ -185,14 +185,14 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
 
         $busca = $Projetos->pedidosDeProrrogacao($where, $order, $tamanho, $inicio);
-        
+
         $this->view->qtdRelatorios = $total;
         $this->view->dados         = $busca;
         $this->view->intTamPag     = $this->intTamPag;
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
     }
-    
-    
+
+
     public function detalharAction()
     {
         $prorrogacao = 0;
@@ -204,7 +204,7 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
 
         $Usuariosorgaosgrupos = new Usuariosorgaosgrupos();
         $dadosOrgaos = $Usuariosorgaosgrupos->buscarOrgaoSuperiorUnico($this->getIdOrgao);
-        
+
         $where = array();
         if (PerfilModel::TECNICO_DE_ACOMPANHAMENTO == $this->getIdGrupo) {
             $where['pr.Atendimento = ?'] = ProrrogacaoModel::EM_ANALISE;
@@ -237,7 +237,7 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
         try {
             if (ProrrogacaoModel::DEFERIDO == $this->getRequest()->getParam('analise')) {
                 if (empty($opcaoDeferimento) && PerfilModel::TECNICO_DE_ACOMPANHAMENTO == $this->getIdGrupo) {
-                    parent::message("Ao dererir, escolha uma das opï¿½ï¿½es antes de salvar a sua avaliaï¿½ï¿½o!", "avaliarpedidoprorrogacao/detalhar/prorrogacao/{$idProrrogacao}", "ERROR");
+                    parent::message("Ao dererir, escolha uma das opï¿½ï¿½es antes de salvar a sua Avalia&Ccedil;&Atilde;o!", "avaliarpedidoprorrogacao/detalhar/prorrogacao/{$idProrrogacao}", "ERROR");
                 }
                 $prorrogacaoModel->deferir(
                     $idProrrogacao,
@@ -280,7 +280,7 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
             }
         }
     }
-    
+
     public function deletarProrrogacaoAction()
     {
         $prorrogacaoModel = new ProrrogacaoModel();

@@ -68,7 +68,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             }
         });
         $("#tela").dialog({
-            title: 'Projeto em an&aacute;lise',
+            title: 'Projeto em análise',
             resizable: true,
             width:1200,
             height:600,
@@ -355,7 +355,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 }else{
                     var botoesvoto = JSMontaBotoes('',idPronac);
                     $("#botoesvoto_"+idPronac).html(botoesvoto);
-                    message('Ocorreu um erro ao tentar salvar os dados. O seu voto Não foi registrado. '+data.descricao, 'ERROR');
+                    message('Ocorreu um erro ao tentar salvar os dados. O seu voto N&atilde;o foi registrado. '+data.descricao, 'ERROR');
                 }
                 $("#processando").html('');
                 //direciona o usuario ate a mensagem na tela
@@ -366,7 +366,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
             error: function(data) {
                 var botoesvoto = JSMontaBotoes('',idPronac);
                 $("#botoesvoto_"+idPronac).html(botoesvoto);
-                message('Ocorreu um erro ao tentar salvar os dados. O seu voto Não foi registrado. '+data.descricao, 'ERROR');
+                message('Ocorreu um erro ao tentar salvar os dados. O seu voto N&atilde;o foi registrado. '+data.descricao, 'ERROR');
                 $("#processando").html('');
             },
             complete: function(){

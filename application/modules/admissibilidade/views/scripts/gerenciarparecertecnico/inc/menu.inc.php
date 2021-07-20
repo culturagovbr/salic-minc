@@ -42,7 +42,7 @@
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
                 <a class="no_seta" href='<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'imprimiretiqueta')); ?>'>Imprimir Etiqueta</a>
-				<a class="no_seta" href='<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'imprimirparecertecnico')); ?>'>Imprimir Parecer Técnico</a>
+				<a class="no_seta" href='<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'imprimirparecertecnico')); ?>'>Imprimir Parecer T&eacute;cnico</a>
 				<a class="no_seta" href='<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'gerenciarparecertecnico', 'action' => 'parecertecnico')); ?>'>Parecer Técnico</a>
             </div>
             <div class="bottom">

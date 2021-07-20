@@ -1,6 +1,6 @@
 <?php
 /**
- * Avalia��o de comprovantes (Acesso: T�CNICOS)
+ * Avalia��o de comprovantes (Acesso: T&eacute;cnicoS)
  * @author Equipe RUP - Politec
  * @since 28/04/2010
  * @version 1.0
@@ -14,7 +14,7 @@
 <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="last">Comprova��o de Execu��o F�sica do Projeto</li>
+		<li class="last">Comprova&ccedil;&atilde;o de Execu&ccedil;&atilde;o F&iacute;sica do Projeto</li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
@@ -23,7 +23,7 @@
 
 <!-- ========== INÍCIO T�TULO ========== -->
 <div id="titulo">
-	<div>Comprova��o de Execu��o F�sica do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'comprovantesemavaliacao')); ?>?pronac=<?php echo $_GET['pronac']; ?>');">Voltar</a></span></div>
+	<div>Comprova&ccedil;&atilde;o de Execu&ccedil;&atilde;o F&iacute;sica do Projeto <span class="voltar"><a href="#" onclick="redirecionar('<?php echo $this->url(array('controller' => 'execucaofisicadoprojeto', 'action' => 'comprovantesemavaliacao')); ?>?pronac=<?php echo $_GET['pronac']; ?>');">Voltar</a></span></div>
 </div>
 <!-- ========== FIM T�TULO ========== -->
 
@@ -71,11 +71,11 @@
 							<td><?php echo $s->dsTipoDocumento; ?></td>
 						</tr>
 						<tr>
-							<th>T�TULO</th>
+							<th>T&Iacute;TULO</th>
 							<td><?php echo $s->nmComprovante; ?></td>
 						</tr>
 						<tr>
-							<th>Descrição</th>
+							<th>Descri&ccedil;&atilde;o</th>
 							<td><?php echo $s->dsComprovante; ?></td>
 						</tr>
 						<tr>
@@ -88,18 +88,18 @@
 					<!-- ========== Solicitação DE ALTERA��O ========== -->
 					<table style="width:48%; float:left;">
 						<tr class="titulo_tabela centro">
-							<th colspan="2">Solicitação DE ALTERA��O - <?php echo $d->dtEnvioComprovante; ?></th>
+							<th colspan="2">Solicitação DE ALTERA&Ccedil;&Atilde;O - <?php echo $d->dtEnvioComprovante; ?></th>
 						</tr>
 						<tr>
 							<th width="20%">TIPO DE DOCUMENTO</th>
 							<td <?php if ($d->dsTipoDocumento != $s->dsTipoDocumento) echo "class=\"red\""; ?>><?php echo $d->dsTipoDocumento; ?></td>
 						</tr>
 						<tr>
-							<th>T�TULO</th>
+							<th>T&Iacute;TULO</th>
 							<td <?php if ($d->nmComprovante != $s->nmComprovante) echo "class=\"red\""; ?>><?php echo $d->nmComprovante; ?></td>
 						</tr>
 						<tr>
-							<th>Descrição</th>
+							<th>Descri&ccedil;&atilde;o</th>
 							<td <?php if ($d->dsComprovante != $s->dsComprovante) echo "class=\"red\""; ?>><?php echo $d->dsComprovante; ?></td>
 						</tr>
 						<tr>
@@ -127,11 +127,11 @@
 				<td><?php echo $d->dsTipoDocumento; ?></td>
 			</tr>
 			<tr>
-				<th>T�TULO</th>
+				<th>T&Iacute;TULO</th>
 				<td><?php echo $d->nmComprovante; ?></td>
 			</tr>
 			<tr>
-				<th>Descrição</th>
+				<th>Descri&ccedil;&atilde;o</th>
 				<td><?php echo $d->dsComprovante; ?></td>
 			</tr>
 			<tr>

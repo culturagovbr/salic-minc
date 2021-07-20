@@ -96,11 +96,11 @@ class ConsolidacaoParecer implements \MinC\Servico\IServicoRestZend
         try {
 
             if (empty($idPronac) || count($resumoParecer) > 10 || empty($parecerFavoravel) ) {
-                throw new \Exception("Dados obrigatórios não informados");
+                throw new \Exception("Dados obrigat&oacute;rios não informados");
             }
 
             if (!$this->isPermitidoAvaliar($idPronac, $idProduto)) {
-                throw new \Exception('Você não tem permissão para analisar este produto');
+                throw new \Exception('Voc&ecirc; não tem permissão para analisar este produto');
             }
 
             $enquadramentoDAO = new \Admissibilidade_Model_Enquadramento();

@@ -1442,7 +1442,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">PRONAC</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Nome do Projeto</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
-            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Área / Segmento</th>';
+            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">&Aacute;rea / Segmento</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Cidade</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Mecanismo</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt. Recebimento</th>';
@@ -1681,7 +1681,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
                 ) {
                     // altera a situacao do projeto AO ENCAMINHAR PARA O TECNICO
                     $tblProjeto = new Projetos();
-                    $tblProjeto->alterarSituacao($idPronac, '', 'E27', 'Comprova&ccedil;&atilde;o Financeira do Projeto em Análise');
+                    $tblProjeto->alterarSituacao($idPronac, '', 'E27', 'Comprova&ccedil;&atilde;o Financeira do Projeto em An&aacute;lise');
                 } elseif ($this->codGrupo == 124 && $idGrupoDestino == 132) {
                     // SE O ENCAMINHAMENTO FOR DO TECNICO PARA O CHEFE/COORDENADOR (DEVOLUCAO) - ALTERAR SITUACAO DO PROJETO
                     $tblProjeto = new Projetos();
@@ -1918,7 +1918,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
         $where['e.idAgenteDestino = ?'] = $this->getIdUsuario; //id Tecnico de Presta&ccedil;&atilde;o de Contas
         $where['e.cdGruposDestino in (?)'] = [124, 125]; //grupo do tecnico de prestacao de contas
 
-        // t�cnico s� visualiza projetos encaminhados para ele
+        // t&eacute;cnico s� visualiza projetos encaminhados para ele
         $where['p.Situacao in (?)'] = array('E17', 'E20', 'E27', 'E30');
         $where['e.idSituacaoEncPrestContas = ?'] = '2';
 
@@ -2051,7 +2051,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">PRONAC</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Nome do Projeto</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
-            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Área / Segmento</th>';
+            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">&Aacute;rea / Segmento</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Estado</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Mecanismo</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt. Recebimento</th>';
@@ -2273,7 +2273,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $this->redirect(
                 "realizarprestacaodecontas/dadosprojeto?idPronac="
                 . $idPronac
-                . "&tipoMsg=ERROR&msg=Erro ao gravar Parecer t�cnico!"
+                . "&tipoMsg=ERROR&msg=Erro ao gravar Parecer t&eacute;cnico!"
             );
             return;
         }
@@ -2591,7 +2591,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">PRONAC</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Nome do Projeto</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
-            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Área / Segmento</th>';
+            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">&Aacute;rea / Segmento</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Estado</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Mecanismo</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt. Recebimento</th>';
@@ -3196,7 +3196,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
 <table cellspacing='0' cellpadding='2' border='1' align='center' width='99%'>
 <tr align='center'>
 <td colspan='4'>
-<h2>MINIST&Eacute;RIO DA TURISMO</h2>
+<h2>MINIST&Eacute;RIO DO TURISMO</h2>
 <h3>Guia de Arquivamento de projetos - Enviado</h3></td>
 </tr>
 <tr>
@@ -3541,7 +3541,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $html .= '<tr><td colspan="' . $colspan . '"></td></tr>';
 
             if (isset($filtro) && $filtro == 'emanalise') {
-                $addTec = '<th style="border: 1px dotted black; background-color: #9BBB59;">T�cnico</th>';
+                $addTec = '<th style="border: 1px dotted black; background-color: #9BBB59;">T&eacute;cnico</th>';
                 $addDataEnvio = '<th style="border: 1px dotted black; background-color: #9BBB59;">Dt. Envio</th>';
                 $addDiasAnalise = '<th style="border: 1px dotted black; background-color: #9BBB59;">Dias em An&aacute;lise</th>';
             }
@@ -3551,7 +3551,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">PRONAC</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Nome do Projeto</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Situa&ccedil;&atilde;o</th>';
-            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Área / Segmento</th>';
+            $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">&Aacute;rea / Segmento</th>';
             $html .= '<th style="border: 1px dotted black; background-color: #9BBB59;">Mecanismo</th>';
             if (isset($filtro) && $filtro == 'emanalise') {
                 $html .= $addTec;
@@ -3665,7 +3665,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
         if (isset($_POST['tipoFiltro']) || isset($_GET['tipoFiltro'])) {
             $filtro = isset($_POST['tipoFiltro']) ? $_POST['tipoFiltro'] : $_GET['tipoFiltro'];
             switch ($filtro) {
-                case 'coordIncFiscTec': //Coordenador (a) de Incentivos Fiscais e Apoio T�cnico
+                case 'coordIncFiscTec': //Coordenador (a) de Incentivos Fiscais e Apoio T&eacute;cnico
                     $where['a.tpCargo = ?'] = 1;
                     break;
                 case 'coordGeral': //Coordenador (a) Geral de Presta&ccedil;&atilde;o de Contas
@@ -3674,7 +3674,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
                 case 'diretorExecutivo': //Diretor (a) Executivo de Incentivo � Cultura
                     $where['a.tpCargo = ?'] = 3;
                     break;
-                case 'secretarioFomento': //Secret�rio (a) de Fomento e Incentivo � Cultura
+                case 'secretarioFomento': //Secret&aacute;rio (a) de Fomento e Incentivo � Cultura
                     $where['a.tpCargo = ?'] = 4;
                     break;
                 default: //Todos os cargos

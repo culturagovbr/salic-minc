@@ -33,7 +33,7 @@ class Zend_View_Helper_StatusAvalicacaoPedidoAlteracao
                     if ($tipo) {
                         $resposta = 3;
                     } else {
-                        $resposta = "Retorno ao T�cnico";
+                        $resposta = "Retorno ao T&eacute;cnico";
                     }
                 } else {
                     if (!empty($resultadobusca[0]->dsJustificativaAvaliacao) and !empty($resultadobusca[0]->dtAvaliacao) and !empty($resultadobusca[0]->idAvaliador) and $resultadobusca[0]->stDeferimentoAvaliacao=='I') {

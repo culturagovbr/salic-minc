@@ -4,9 +4,9 @@
     <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
     ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
 } ?>Tem certeza que deseja Enviar e Finalizar?</div>
-    <div style="display:none" id="validarPlan">Antes de enviar a Solicitação � necess�rio cadastrar os Itens de Custos para os Produtos sem planilha or�ament�ria!</div>
-    <div style="display:none" id="dialog-alerta">Solicitação realizada com sucesso!</div>
-    <div style="display:none" id="dialog-em-analise">H� pedido de readequa��o em Análise. Favor aguardar.</div>
+    <div style="display:none" id="validarPlan">Antes de enviar a Solicitação &eacute; necess&aacute;rio cadastrar os Itens de Custos para os Produtos sem planilha or&ccedil;ament&aacute;ria!</div>
+    <div style="display:none" id="dialog-alerta">Solicita&ccedil;&atilde;o realizada com sucesso!</div>
+    <div style="display:none" id="dialog-em-analise">H&aacute; pedido de readequa&ccedil;&atilde;o em An&aacute;lise. Favor aguardar.</div>
 
     <!-- INÍCIO: CONTEÚDO principal #container -->
     <div id="container">
@@ -91,7 +91,7 @@
                     <a href="#" id="botaoProjetosConfigura" title="Projetos" class="abrir_fechar4">Projetos</a>
                     <div class="sanfonaDiv" style="width: 90%;">
                         <a href='#' id='abrir_fechar'>Produtos</a>
-                        <a href='#' class='abrir_fechar5'>Ficha Técnica</a>
+                        <a href='#' class='abrir_fechar5'>Ficha T&eacute;cnica</a>
                         <a href='#' class='abrir_fechar6'>Local de Realiza��o</a>
                         <a href='#' class='abrir_fechar7'>Nome do Projeto</a>
                         <a href='#' class='abrir_fechar8'>Prorrogar Prazos de Execu��o</a>

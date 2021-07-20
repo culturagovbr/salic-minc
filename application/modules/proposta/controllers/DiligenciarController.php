@@ -991,7 +991,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $data = array(
             'DtResposta' => new Zend_Db_Expr('GETDATE()'),
             'stEnviado' => 'S',
-            'RESPOSTA' => 'O PROPONENTE NÃO RESPONDEU A DILIGÊNCIA NO PRAZO DETERMINADO PELA IN 3 DE 30 DE DEZEMBRO DE 2010; ESPERANDO DECISÃO.'
+            'RESPOSTA' => 'O PROPONENTE NÃO RESPONDEU A DILIG&ecirc;NCIA NO PRAZO DETERMINADO PELA IN 3 DE 30 DE DEZEMBRO DE 2010; ESPERANDO DECISÃO.'
         );
         $where = array('idPronac in (?)' => $diligenciaProjeto);
         $diligenciaDao->update($data, $where);
@@ -1001,7 +1001,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $data = array(
             'dtResposta' => new Zend_Db_Expr('GETDATE()'),
             'stEnviado' => 'S',
-            'dsResposta' => 'O PROPONENTE NÃO RESPONDEU A DILIGÊNCIA NO PRAZO DETERMINADO PELA IN 3 DE 30 DE DEZEMBRO DE 2010; ESPERANDO DECISÃO.'
+            'dsResposta' => 'O PROPONENTE NÃO RESPONDEU A DILIG&ecirc;NCIA NO PRAZO DETERMINADO PELA IN 3 DE 30 DE DEZEMBRO DE 2010; ESPERANDO DECISÃO.'
         );
         $where = array('idPronac in (?)' => $diligenciaProposta);
         $AvaliacaoPropostaDao->update($data, $where);

@@ -140,7 +140,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             }
 
             if (!$this->isPermitidoAvaliar($idPronac, $idProduto)) {
-                throw new \Exception('Você não tem permissão para analisar');
+                throw new \Exception('Voc&ecirc; não tem permissão para analisar');
             }
 
             $dadosWhere = [];
@@ -439,7 +439,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $params = $this->request->getParams();
 
         if (empty($params['idDistribuirParecer'])) {
-            throw new \Exception("Dados obrigatórios não informado");
+            throw new \Exception("Dados obrigat&oacute;rios não informado");
         }
 
         $whereDistribuicaoAtual = [];
@@ -471,7 +471,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $params = $this->request->getParams();
 
         if (empty($params['idDistribuirParecer'])) {
-            throw new \Exception("Dados obrigatórios não informado");
+            throw new \Exception("Dados obrigat&oacute;rios não informado");
         }
 
         $whereDistribuicaoAtual = [];

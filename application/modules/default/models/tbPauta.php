@@ -954,7 +954,7 @@ class tbPauta extends MinC_Db_Table_Abstract
         $slct2->where('a.stEstado = ?', 0);
 
 
-        //PROJETOS DE READEQUA��O
+        //PROJETOS DE Readequa&Ccedil;&Atilde;o
         $slct3 = $this->select();
         $slct3->setIntegrityCheck(false);
         $slct3->from(

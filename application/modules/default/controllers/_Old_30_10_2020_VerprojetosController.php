@@ -1385,7 +1385,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             $rsProjeto = $Projetos->buscar(array("IdPronac=?"=>$idPronac))->current();
             $this->view->projeto = $rsProjeto;
 
-            // verifica se h� pedidos de reconsidera��o e de recurso
+            // verifica seh&aacute; pedidos de reconsidera��o e de recurso
             $tbRecurso = new tbRecurso();
             $recursos = $tbRecurso->buscar(array('IdPRONAC = ?'=>$idPronac));
             $pedidoReconsideracao = 0;
@@ -4760,7 +4760,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
         if ($this->intFaseProjeto=='2' || $this->intFaseProjeto=='3' || $this->intFaseProjeto=='4') {
             $qtdePag = 3;
         }
-        $msg = "O retatorio contem 3(tr�s) páginas, deseja imprimir a {$numPagina} pagina?";
+        $msg = "O retatorio contem 3(tr&ecirc;s) páginas, deseja imprimir a {$numPagina} pagina?";
 
         $this->view->msgImpressao =  $msg;
         $this->view->qtdePagImpressao =  $qtdePag;

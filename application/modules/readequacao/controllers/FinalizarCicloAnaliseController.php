@@ -10,7 +10,7 @@ class Readequacao_FinalizarCicloAnaliseController extends MinC_Controller_Rest_A
         $profiles = [
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
@@ -20,7 +20,7 @@ class Readequacao_FinalizarCicloAnaliseController extends MinC_Controller_Rest_A
 
         $subRoutes = [];
         $this->registrarSubRoutes($subRoutes);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
@@ -33,17 +33,17 @@ class Readequacao_FinalizarCicloAnaliseController extends MinC_Controller_Rest_A
     public function postAction(){
         $data = [];
         $code = 200;
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para finalizar esta readequação';
+            $data['message'] = 'Voc&ecirc; não tem permissão para finalizar esta readequação';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $data = $readequacaoService->finalizarCicloAnalise();
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

@@ -134,7 +134,7 @@ export default {
             },
             {
                 id: 'em_analise',
-                label: 'Em an&aacute;lise',
+                label: 'Em análise',
                 component: 'gerenciar-lista-itens-em-analise',
 
             },
@@ -155,12 +155,12 @@ export default {
             },
             {
                 id: 'enviada_vinculada',
-                label: 'Enviadas para an&aacute;lise compartilhada (outra unidade)',
+                label: 'Enviadas para análise compartilhada (outra unidade)',
                 component: 'gerenciar-lista-itens-em-analise',
             },
             {
                 id: 'devolucao_vinculada',
-                label: 'Devolvidas an&aacute;lise compartilhada (outra unidade)',
+                label: 'Devolvidas análise compartilhada (outra unidade)',
                 component: 'gerenciar-lista-em-validacao',
             },
             {

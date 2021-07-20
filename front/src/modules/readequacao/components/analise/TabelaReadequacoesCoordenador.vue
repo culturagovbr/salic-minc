@@ -216,7 +216,7 @@ export default {
                         position: 4,
                     },
                     {
-                        text: 'Dias em an&aacute;lise',
+                        text: 'Dias em análise',
                         align: 'center',
                         value: 'qtDiasEncaminhar',
                         position: 5,
@@ -228,7 +228,7 @@ export default {
                         position: 6,
                     },
                     {
-                        text: 'T&eacute;cnico/a',
+                        text: 'Técnico/a',
                         align: 'center',
                         value: 'nmTecnicoParecerista',
                         position: 7,

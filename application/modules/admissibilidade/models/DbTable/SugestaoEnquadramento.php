@@ -261,11 +261,11 @@ class Admissibilidade_Model_DbTable_SugestaoEnquadramento extends MinC_Db_Table_
 
         $descricao_motivacao = trim($dadosSugestaoEnquadramento['descricao_motivacao']);
         if (empty($descricao_motivacao)) {
-            throw new Exception("O campo 'Parecer de Enquadramento' é de preenchimento obrigatório.");
+            throw new Exception("O campo 'Parecer de Enquadramento' &eacute; de preenchimento obrigat&oacute;rio.");
         }
 
         if (!$sugestaoEnquadramento->isPermitidoSugerirEnquadramento()) {
-            throw new Exception("Perfil sem permissão para executar a ação");
+            throw new Exception("Perfil sem permiss&atilde;o para executar a aç&atilde;o");
         }
 
         $id_area = ($dadosSugestaoEnquadramento['id_area']) ? $dadosSugestaoEnquadramento['id_area'] : null;
@@ -344,7 +344,7 @@ class Admissibilidade_Model_DbTable_SugestaoEnquadramento extends MinC_Db_Table_
         }
 
         /**
-         * @todo Mover bloco abaixo para o método "Cadastrar Recurso de proposta"
+         * @todo Mover bloco abaixo para o m&eacute;todo "Cadastrar Recurso de proposta"
          */
         $planoDistribuicao = (new Proposta_Model_DbTable_PlanoDistribuicaoProduto())->buscar(
             [

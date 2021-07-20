@@ -51,24 +51,24 @@
         <tr>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="1">pronac</a></th>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="2">Nome do Projeto</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="20">�rea Cultural/Segmento</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="20">&Aacute;rea Cultural/Segmento</a></th>
             <th>Resumo</th>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="9">UF</a></th>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="22">Art.</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="12">Per�odo de Capta&ccedil;&atilde;o</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="10">Per�odo de Execu&ccedil;&atilde;o</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="12">Per&iacute;odo de Capta&ccedil;&atilde;o</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="10">Per&iacute;odo de Execu&ccedil;&atilde;o</a></th>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="19">Valor Aprovado</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="25">N� da Reuni�o</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="25">N� da Reuni&atilde;o</a></th>
             <?php if (!empty ($this->coordenador ) ){?>
-                <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="28">T�cnico</a></th>
+                <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="28">T&eacute;cnico</a></th>
             <?php }?>
             <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="29">Status</a></th>
-            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="31">Tempo de Análise</a></th>
+            <th><a href="#proponenteirregular_resultado" class="orderByPI" valorOrdenacaoPI="31">Tempo de An&aacute;lise</a></th>
             <th>Regularidade do Proponente</th>
             <th>Dilig&ecirc;ncia</th>
             <th id="testetoltip">Alterar</th>
             <th>Enviar Mensagem</th>
-            <th>Finalizar Análise</th>
+            <th>Finalizar An&aacute;lise</th>
             <?php if (!empty ($this->coordenador ) ){?>
                 <th>Encaminhar Para Portaria</th>
             <?php }?>
@@ -132,7 +132,7 @@
                 </td>
                 <td id="colunafinalizar<?php echo ($projeto['idpronac']); ?>">
                     <?php if($projeto['stAnaliseProjeto'] == '1' || $projeto['stAnaliseProjeto'] == '2' ): ?>
-                        <input type="button" name="finalizar" id="finalizar" class="btn_finalizar" onclick="JSFinalizarAnalise('<?php echo ($projeto['idpronac']); ?>','<?php echo ($projeto['idAprovacao']); ?>','proponenteirregular')"  title="Finalizar Análise">
+                        <input type="button" name="finalizar" id="finalizar" class="btn_finalizar" onclick="JSFinalizarAnalise('<?php echo ($projeto['idpronac']); ?>','<?php echo ($projeto['idAprovacao']); ?>','proponenteirregular')"  title="Finalizar An&aacute;lise">
                     <?php else: ?>
                         <input type="button" name="finalizar" id="finalizar" class="btn_finalizar-off">
                     <?php endif; ?>

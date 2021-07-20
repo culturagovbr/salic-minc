@@ -4,7 +4,7 @@
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li>Acompanhamento</li>
-        <li class="last">Verificar readequação de projeto</li>
+        <li class="last">Verificar readequa&ccedil;&atilde;o de projeto</li>
     </ul>
 </div>
 
@@ -12,7 +12,7 @@
 <!-- ========== INÍCIO T�TULO ========== -->
 <form name="formfinalizar" action="<?php echo $this->url(array('controller' => 'verificaralteracaotecnico', 'action' => 'finalizaprop')); ?>" method="post" >
     <div id="titulo">
-        <div>READEQUA��O: NOME DO PROJETO
+        <div>READEQUA&Ccedil;&Atilde;O: NOME DO PROJETO
             <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
             <span style="vertical-align: middle;">
                 <?php
@@ -24,7 +24,7 @@
                     echo '</select>';
                 } else if ($this->dados->stAvaliacaoItemPedidoAlteracao == "EA") {
                     echo '<select name="status" id="status" style="float: right; width: 12em;" class="select_simples" onchange="finalizar()">';
-                    echo "<option value='1' selected='selected'>Em Análise</option>
+                    echo "<option value='1' selected='selected'>Em An&aacute;lise</option>
                           <option value='2'>Aprovado</option>
                           <option value='3'>Indeferido</option>";
                     echo '</select>';
@@ -93,7 +93,7 @@
                 <table class="tabela">
                     <thead>
                         <tr>
-                            <th align="center">N� PRONAC:</th>
+                            <th align="center">N&ordm; PRONAC:</th>
                             <th align="center">Nome do Projeto:</th>
                         </tr>
                     </thead>
@@ -117,7 +117,7 @@
 
             <table class="tabela">
                 <tr>
-                    <th colspan="2">Informa��es do Projeto</th>
+                    <th colspan="2">Informa&ccedil;&otilde;es do Projeto</th>
                 </tr>
                 <tr>
                     <td colspan="2">Resumo do Projeto:</td>
@@ -126,7 +126,7 @@
                     <td align="center" colspan="2"><textarea class="textarea_simples" style="width: 98%" readonly="readonly" cols="" rows="5"><?php echo strip_tags($this->resultAlteracaoNomeProjeto['Objetivos']); ?></textarea></td>
                 </tr>
                 <tr>
-                    <th colspan="2">Solicitação de Altera��o do Nome do Projeto</th>
+                    <th colspan="2">Solicita&ccedil;&atilde;o de Altera&ccedil;&atilde;o do Nome do Projeto</th>
                 </tr>
                 <tr>
                     <td colspan="2">Novo Nome do Projeto: <?php echo $this->escape($this->resultAlteracaoNomeProjeto['nmProjeto']); ?></td>
@@ -147,12 +147,12 @@
                 <tr>
                     <td style="width: 25%; padding-left: 5%; text-decoration: underline;" colspan="2"><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivo->idArquivo; ?>"><?php echo $arquivo->nmarquivo ?></a></td>
                 </tr>
-                <?php } } else { echo '<tr><td><span style="color: red;">Não h� arquivos anexados!</span></td></tr>'; } ?>
+                <?php } } else { echo '<tr><td><span style="color: red;">Nãoh&aacute; arquivos anexados!</span></td></tr>'; } ?>
 
                 <?php if ($this->dados->stAvaliacaoItemPedidoAlteracao != 'AG') { ?>
                 <tr>
                     <th colspan="2">
-                        Análise DA PROPOSTA E ALTERA��O
+                        AN&Aacute;LISE DA PROPOSTA E ALTERA&Ccedil;&Atilde;O
                     </th>
                 </tr>
                 <tr>
@@ -199,7 +199,7 @@
                 <td><?php echo $this->resultConsulta['NomeProjeto']; ?></td>
             </tr>
         </table>
-        <br /><label for="solicitacao">Solicitação:</label><br />
+        <br /><label for="solicitacao">Solicita&ccedil;&atilde;o:</label><br />
         <textarea name="solicitacao" id="solicitacao" rows="6" class="input_simples" cols="170" style="width:100%;"></textarea>
         <input type="hidden" name="IdPronac" value="<?php echo $this->dados->IdPRONAC; ?>" />
         <p align="left" style="margin-top:1%;">

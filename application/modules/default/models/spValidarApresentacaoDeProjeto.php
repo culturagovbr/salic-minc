@@ -81,7 +81,7 @@ class spValidarApresentacaoDeProjeto extends MinC_Db_Table_Abstract
 
                 //VERIFICAR AS INFORMACOES DO PROPONENTE
                 if (empty($vCadastrarProponente)) {
-                    $validacao->Descricao = 'Dados cadastrais do proponente inexistente ou não há endereço para correspondência selecionado.';
+                    $validacao->Descricao = 'Dados cadastrais do proponente inexistente ou não há endereço para correspond&ecirc;ncia selecionado.';
                     $validacao->Observacao = 'PENDENTE';
                     $listaValidacao[] =  clone($validacao);
                 } else {
@@ -504,7 +504,7 @@ class spValidarApresentacaoDeProjeto extends MinC_Db_Table_Abstract
             $validacao->Observacao = 'OK';
             $listaValidacao[] =  clone($validacao);
         } else {
-            $validacao->Descricao = '<font color=red><b> A PROPOSTA CULTURAL NÃO FOI ENVIADA AO MINISTÉRIO DO TURISMO DEVIDO ÀS PENDÊNCIAS ASSINALADAS ACIMA.</b></font>';
+            $validacao->Descricao = '<font color=red><b> A PROPOSTA CULTURAL NÃO FOI ENVIADA AO MINISTÉRIO DO TURISMO DEVIDO &Agrave;S PEND&Ecirc;NCIAS ASSINALADAS ACIMA.</b></font>';
             $validacao->Observacao = '';
             $listaValidacao[] =  clone($validacao);
         }

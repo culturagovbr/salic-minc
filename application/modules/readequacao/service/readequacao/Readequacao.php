@@ -470,7 +470,7 @@ class Readequacao implements IServicoRestZend
                         $valorPreCarregado = $dadosBancarios->Agencia;
                     }
                 }
-                $descricao = 'Agência bancária';
+                $descricao = 'Ag&ecirc;ncia bancária';
                 $tpCampo = 'input';
                 break;
 
@@ -530,7 +530,7 @@ class Readequacao implements IServicoRestZend
                         $valorPreCarregado = $dadosPreProjeto->EspecificacaoTecnica;
                     }
                 }
-                $descricao = 'Especificação técnica';
+                $descricao = 'Especificação T&eacute;cnica';
                 $tpCampo = 'textarea';
                 break;
 
@@ -741,7 +741,7 @@ class Readequacao implements IServicoRestZend
                         $valorPreCarregado = $dadosPreProjeto->FichaTecnica;
                     }
                 }
-                $descricao = 'Ficha técnica';
+                $descricao = 'Ficha T&eacute;cnica';
                 $tpCampo = 'textarea';
                 break;
 
@@ -751,7 +751,7 @@ class Readequacao implements IServicoRestZend
                 break;
 
             case \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_TRANSFERENCIA_RECURSOS:
-                $descricao = 'Transferência de recursos';
+                $descricao = 'Transfer&ecirc;ncia de recursos';
                 $tpCampo = 'transferencia_recursos';
                 break;
 

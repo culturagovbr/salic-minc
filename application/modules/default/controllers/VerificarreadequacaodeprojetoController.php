@@ -44,7 +44,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     {
         $tbPedidoAlteracaoProjeto = new tbPedidoAlteracaoProjeto();
 
-        // busca os id do �ltimo pedido de readequa��o Não finalizado
+        // busca os id do �ltimo pedido de readequa&ccedil;&atilde;o Não finalizado
         $wherePedido                    = array('IdPRONAC = ?' => $idPronac, 'siVerificacao IN (?)' => array(0, 1), 'stPedidoAlteracao = ?' => 'I');
         $orderPedido                    = array('idPedidoAlteracao DESC');
         $buscarPedidoAlteracao          = $tbPedidoAlteracaoProjeto->buscar($wherePedido, $orderPedido)->current();
@@ -180,8 +180,8 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
         // ========== DEFINE QUAIS PROJETOS DETERMINADOS PERFIS PODER�O VISUALIZAR ==========
         // S� quem visualiza os Projetos s�o os Coordenadores de Acompanhamento da SAV/CGAV/CAP e da SEFIC/GEAR/SACAV.
-        // Caso o �rg�o logado seja SAV/CGAV/CAP (166) pega somente os projetos da �rea de Audiovisual (2).
-        // SeNão, quando o �rg�o for SEFIC/GEAR/SACAV (272), busca os Projetos das �reas que Não seja a de Audiovisual.
+        // Caso o �rg�o logado seja SAV/CGAV/CAP (166) pega somente os projetos da &aacute;rea de Audiovisual (2).
+        // SeNão, quando o �rg�o for SEFIC/GEAR/SACAV (272), busca os Projetos das &aacute;reas que Não seja a de Audiovisual.
         // O �rg�o/unidade � passada atrav�s de $this->getIdOrgao
         $unidade_autorizada = ($this->getIdOrgao == 166 || $this->getIdOrgao == 272) ? $this->getIdOrgao : 0;
 
@@ -195,7 +195,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $sqlAguardAnalise2 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 2, $unidade_autorizada); //Troca de Agente
         $AguardAnalise2 = $db->fetchAll($sqlAguardAnalise2);
 
-        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 3, $unidade_autorizada); //Ficha Técnica
+        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 3, $unidade_autorizada); //Ficha T&eacute;cnica
         $AguardAnalise3 = $db->fetchAll($sqlAguardAnalise3);
 
         $sqlAguardAnalise4 = ReadequacaoProjetos::retornaSQL("sqlCoordAcomp", 4, $unidade_autorizada); //Local de realiza��o
@@ -232,7 +232,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $sqlDevolvAnalise2 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 2, $unidade_autorizada); //Raz�o social
         $DevolvAnalise2 = $db->fetchAll($sqlDevolvAnalise2);
 
-        $sqlDevolvAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 3, $unidade_autorizada); //Ficha Técnica
+        $sqlDevolvAnalise3 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 3, $unidade_autorizada); //Ficha T&eacute;cnica
         $DevolvAnalise3 = $db->fetchAll($sqlDevolvAnalise3);
 
         $sqlDevolvAnalise4 = ReadequacaoProjetos::retornaSQL("sqlCoordAcompDev", 4, $unidade_autorizada); //Local de realiza��o
@@ -450,7 +450,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $AguardAnalise2 = $db->fetchAll($sqlAguardAnalise2);
 
 
-        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 3, $this->getIdUsuario, $this->getIdOrgao); //Ficha Técnica
+        $sqlAguardAnalise3 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 3, $this->getIdUsuario, $this->getIdOrgao); //Ficha T&eacute;cnica
         $AguardAnalise3 = $db->fetchAll($sqlAguardAnalise3);
 
         $sqlAguardAnalise4 = ReadequacaoProjetos::retornaSQLTec("sqlTecnico", 4, $this->getIdUsuario, $this->getIdOrgao); //Local de realiza��o
@@ -752,7 +752,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Readequa��o de Produtos
+    * Fun��o que chama a view Readequa&ccedil;&atilde;o de Produtos
     * ************************************************************************************************************************/
     public function consultareadequacaoprodutosAction()
     {
@@ -792,7 +792,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Readequa��o de Itens de Custo
+    * Fun��o que chama a view Readequa&ccedil;&atilde;o de Itens de Custo
     * ************************************************************************************************************************/
     public function consultareadequacaoitensdecustoAction()
     {
@@ -1037,7 +1037,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Readequa��o de Produtos
+    * Fun��o que chama a view Readequa&ccedil;&atilde;o de Produtos
     * ************************************************************************************************************************/
     public function readequacaoprodutosAction()
     {
@@ -1090,7 +1090,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
     }
 
     /**************************************************************************************************************************
-    * Fun��o que chama a view Readequa��o de Itens de Custo
+    * Fun��o que chama a view Readequa&ccedil;&atilde;o de Itens de Custo
     * ************************************************************************************************************************/
     public function readequacaoitensdecustoAction()
     {
@@ -1227,7 +1227,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-     * SALVA A READEQUA��O
+     * SALVA A Readequa&Ccedil;&Atilde;o
      * ************************************************************************************************************************/
     public function salvarreadequacaoAction()
     {
@@ -1280,7 +1280,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * FINALIZA A READEQUA��O
+    * FINALIZA A Readequa&Ccedil;&Atilde;o
     * ************************************************************************************************************************/
     public function finalizarreadequacaoAction()
     {
@@ -1475,7 +1475,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * Fun��o que altera o status da Solicitação na view Readequa��o de Produtos
+    * Fun��o que altera o status da Solicitação na view Readequa&ccedil;&atilde;o de Produtos
     * ************************************************************************************************************************/
     public function readequacaoprodutoseditarAction()
     {
@@ -1529,7 +1529,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 
 
     /**************************************************************************************************************************
-    * Fun��o que altera o status da Solicitação na view Readequa��o de Produtos
+    * Fun��o que altera o status da Solicitação na view Readequa&ccedil;&atilde;o de Produtos
     * ************************************************************************************************************************/
     public function readequacaoitensdecustoeditarAction()
     {
@@ -1679,11 +1679,11 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
 //                        $where = " idpedidoalteracao = $idpedidoalteracao";
 //                        //$avaliacao = $buscaInformacoes->atualizarAvaliacaopedido($dados, $where);
 //
-//                        //parent::message("N&atilde;o h�  readequa�&otilde;es para produto, por favor verifique os itens de custo", "/verificarsolicitacaodereadequacoes/planilhasolicitada?idPronac=$id_Pronac", "ALERT");
+//                        //parent::message("N&atilde;oh&aacute;  readequa�&otilde;es para produto, por favor verifique os itens de custo", "/verificarsolicitacaodereadequacoes/planilhasolicitada?idPronac=$id_Pronac", "ALERT");
 //                        $this->_redirect('verificarsolicitacaodereadequacoes/planilhasolicitada?idPronac='.$id_Pronac);
 //                }
 //
-//		//LISTA COMBO DE "�REA" NA VIEW
+//		//LISTA COMBO DE "&Aacute;rea" NA VIEW
 //		$sqlListaArea = ReadequacaoProjetos::retornaSQLproposta("sqlListaArea","NULL");
 //		$ListaArea = $db->fetchAll($sqlListaArea);
 //
@@ -1907,7 +1907,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $whereProdutoAT = array('idPedidoAlteracao = ?' => $reg[0]->idPedidoAlteracao, 'tpPlanoDistribuicao = ?' => 'AT');
         $listaProdutosAT = $this->tbPlanoDistribuicao->buscar($whereProdutoAT);
 
-        //VERIFICA SE J� POSSUI PLANO DE DISTRIBUI��O DO TIPO AT PARA Não GERAR OUTRA C�PIA DE Análise Técnica
+        //VERIFICA SE J� POSSUI PLANO DE DISTRIBUI��O DO TIPO AT PARA Não GERAR OUTRA C�PIA DE Análise T&eacute;cnica
         if (count($listaProdutosAT) <= 0) {
             foreach ($listaProdutosSR as $d) {
                 if ($d->tpAcao != 'N') {
@@ -2215,7 +2215,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                      * ==============================================================
                      */
                 } elseif ($tpAlt == 3) {
-                    //FICHA Técnica
+                    //FICHA T&eacute;cnica
                     $fichatecAtual = FichaTecnicaDAO::buscarFichaTecnicaFinal($idPronac, $idPedidoAlt);
                     $Atual = $fichatecAtual[0]->FichaTecnica;
                     $idPreProjeto = $fichatecAtual[0]->idPreProjeto;

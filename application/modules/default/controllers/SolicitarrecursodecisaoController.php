@@ -206,9 +206,9 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract
             }
 
             RecursoDAO::cadastrar($dados);
-            parent::message('A desistência do prazo recursal foi cadastrada com sucesso!', "consultardadosprojeto?idPronac=" . Seguranca::encrypt($idPronac), "CONFIRM");
+            parent::message('A desist&ecirc;ncia do prazo recursal foi cadastrada com sucesso!', "consultardadosprojeto?idPronac=" . Seguranca::encrypt($idPronac), "CONFIRM");
         } else {
-            parent::message('É necessário estar de acordo com os termos para registrar a sua desistência do prazo recursal!', "solicitarrecursodecisao/recurso-desistir-enquadramento?idPronac=" . Seguranca::encrypt($idPronac), "ERROR");
+            parent::message('É necessário estar de acordo com os termos para registrar a sua desist&ecirc;ncia do prazo recursal!', "solicitarrecursodecisao/recurso-desistir-enquadramento?idPronac=" . Seguranca::encrypt($idPronac), "ERROR");
         }
     }
 

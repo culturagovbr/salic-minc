@@ -1043,7 +1043,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
     /**
      * Metodo para emitir parecer
      *
-     * @DEPRECATED - função movida e refatorada para módulo 'parecer'
+     * @DEPRECATED - função movida e refatorada para m&oacute;dulo 'parecer'
      */
     public function emitirparecerAction()
     {

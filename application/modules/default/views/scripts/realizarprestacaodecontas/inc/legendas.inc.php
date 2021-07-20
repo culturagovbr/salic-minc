@@ -47,7 +47,7 @@ $(document).ready(function()
         </tr>
         <tr>
             <td style="font-size: 40px; color: blue;">&bull;</td>
-            <td class="no_seta esquerda">< 10 dias para t�rmino do prazo da Análise do projeto</td>
+            <td class="no_seta esquerda">< 10 dias para t&eacute;rmino do prazo da An&aacute;lise do projeto</td>
         </tr>
         <tr>
             <td style="font-size: 40px; color: green;">&bull;</td>

@@ -30,7 +30,7 @@ function layout_fluido()
     <ul>
         <li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="INÍCIO">INÍCIO</a></li>
         <li class="last">Acompanhamento</li>
-        <li class="last">Verificar Readequa��o de Projeto</li>
+        <li class="last">Verificar Readequa&ccedil;&atilde;o de Projeto</li>
     </ul>
 </div>
 <div id="mostra"></div>
@@ -134,7 +134,7 @@ function layout_fluido()
                 </tr>
                 <tr>
                     <th colspan="5">
-                        Per�odo de Execu��o Atual
+                        Per&iacute;odo de Execu��o Atual
                     </th>
                 </tr>
                 <tr>
@@ -147,7 +147,7 @@ function layout_fluido()
                 </tr>
                 <tr>
                     <th colspan="5">
-                        Per�odo de Capta��o Atual
+                        Per&iacute;odo de Capta��o Atual
                     </th>
                 </tr>
                 <tr>
@@ -186,15 +186,15 @@ function layout_fluido()
                 <tr>
                     <td style="width: 25%; padding-left: 5%; text-decoration: underline;" colspan="5"><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivo->idArquivo; ?>"><?php echo $arquivo->nmarquivo ?></a></td>
                 </tr>
-                <?php } } else { echo '<tr><td colspan="5"><span style="color: red;">Não h� arquivos anexados!</span></td></tr>'; } ?>
+                <?php } } else { echo '<tr><td colspan="5"><span style="color: red;">Nãoh&aacute; arquivos anexados!</span></td></tr>'; } ?>
 
 
                 <?php if ($this->resultParecerTecnico) { ?>
                 <tr>
-                    <th colspan="5">Parecer do T�cnico</th>
+                    <th colspan="5">Parecer do T&eacute;cnico</th>
                 </tr>
                 <tr>
-                    <td colspan="5">Coment�rios:</td>
+                    <td colspan="5">Coment&aacute;rios:</td>
                 </tr>
                     <?php
                     $justificativa = "";

@@ -148,7 +148,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                 $this->view->DtFinalDeExecucao = $dados[0]->DtFinalDeExecucao;
                 $this->view->idEdital = $dados[0]->idEdital;
             } else {
-                $this->view->mensagem = 'Pré Projeto não encontrado.';
+                $this->view->mensagem = 'Pré Projeto n&atilde;o encontrado.';
                 $this->view->tpmensagem = "msgERROR";
             }
 
@@ -236,7 +236,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                 if (isset($params['idPreProjeto']) ) {
                     $array['idPreProjeto'] 	= $params['idPreProjeto'];
                     $dados = ManterpropostaeditalDAO::alterarDadosProposta($array);
-                    $array['mensagem'] 		= 'Alteração realizada com sucesso!';
+                    $array['mensagem'] 		= 'Altera&ccedil;&atilde;o realizada com sucesso!';
                     $array['tpmensagem'] 	= 'msgCONFIRM';
                     $array['mensagem'] 		= htmlspecialchars($array['mensagem']);
                     parent::message("Altera&ccedil;&atilde;o realizada com sucesso!", "/manterpropostaedital/dadospropostaedital?idPreProjeto=" . $array['idPreProjeto'], "CONFIRM");
@@ -288,7 +288,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                     $array['tpmensagem'] = 'msgCONFIRM';
                 }
             } catch (Zend_Exception $ex) {
-                parent::message("Não foi possível realizar a operação!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
+                parent::message("N&atilde;o foi possível realizar a opera&ccedil;&atilde;o!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
             }
         } else {
             $array['mensagem'] 	 = 'Dados incorretos.';
@@ -334,7 +334,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
             $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
             $dados = $tblPreProjeto->buscarPropostaEditalCompleto($where);
         } else {
-            parent::message("Projeto não informado!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
+            parent::message("Projeto n&atilde;o informado!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
         }
         if ($dados) {
             $this->view->idPreProjeto = $dados[0]->idPreProjeto;
@@ -345,7 +345,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
             $this->view->idEdital = $dados[0]->idEdital;
             $this->view->dados = $dados[0];
         } else {
-            parent::message("Pré Projeto não encontrado!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
+            parent::message("Pré Projeto n&atilde;o encontrado!", "/proposta/manterpropostaincentivofiscal/listar-propostas", "ERROR");
         }
         $this->view->idUsuario = $this->idUsuario;
     }
@@ -507,7 +507,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                 $arquivoHash = Upload::setHash($arquivoTemp); // hash
             }
             if ($arquivoTamanho > 10485760) { // tamanho do arquivo: 10MB
-                parent::message("O arquivo não pode ser maior do que 10MB!", "proposta/manterpropostaedital/enviararquivoedital?idPreProjeto=" . $post->idPreProjeto . "&edital=" . $post->edital, "ALERT");
+                parent::message("O arquivo n&atilde;o pode ser maior do que 10MB!", "proposta/manterpropostaedital/enviararquivoedital?idPreProjeto=" . $post->idPreProjeto . "&edital=" . $post->edital, "ALERT");
             }
             // cadastra dados do arquivo
             $dadosArquivo = array(
@@ -727,7 +727,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
             $this->view->dados = $array;
             $this->view->idAgente = $_REQUEST['idAgente'];
         } else {
-            $this->view->mensagem = "CPF não encontrado.";
+            $this->view->mensagem = "CPF n&atilde;o encontrado.";
         }
     }
 
@@ -744,7 +744,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
             $this->view->dado = ManterpropostaeditalDAO::buscaEditalConfirmarLocalizar(array('idEdital' => $_REQUEST['idEdital']));
         }
         if (!$this->view->dado || !$_REQUEST['idEdital']) {
-            $this->view->message = 'Edital não encontrado.';
+            $this->view->message = 'Edital n&atilde;o encontrado.';
         } else {
             $this->view->dado = $this->view->dado[0];
         }
@@ -901,7 +901,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                 "erro" => $arrResultado['erro'],
                 "resultado" => $arrResultado));
         } else {
-            parent::message("Necessário informar o número da proposta.", "/proposta/manterpropostaedital/index", "ERROR");
+            parent::message("Necess&aacute;rio informar o número da proposta.", "/proposta/manterpropostaedital/index", "ERROR");
         }
     }
 

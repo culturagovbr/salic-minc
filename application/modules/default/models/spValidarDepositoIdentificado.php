@@ -6,7 +6,7 @@ class spValidarDepositoIdentificado extends MinC_Db_Table_Abstract
 
     /**
      * Método para executar a SP de movimentação bancária.
-     * A mesma verifica se as inconsistências foram corrigidas.
+     * A mesma verifica se as inconsist&ecirc;ncias foram corrigidas.
      */
     public function verificarInconsistencias($idUsuarioLogado)
     {

@@ -138,7 +138,7 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
             if ($atualizar) {
                 parent::message("Altera��o realizada com sucesso!", "mantercalendariocnic/index", "CONFIRM");
             } else {
-                throw new Exception("Erro ao efetuar altera��o da reuni�o");
+                throw new Exception("Erro ao efetuar altera��o da reuni&atilde;o");
             }
         }
     }

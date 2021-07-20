@@ -2165,7 +2165,7 @@ class ReadequacaoProjetos extends Zend_Db_Table
     }
 
     /*     * *****************************************************************************
-      SQL PARA INICIAR A Solicitação DE READEQUA��O DE PRODUTOS
+      SQL PARA INICIAR A Solicitação DE Readequa&Ccedil;&Atilde;o DE PRODUTOS
      * ***************************************************************************** */
 
     public static function stReadequacaoInicio($sqlDesejado, $idPedidoAlteracao, $idAgente)

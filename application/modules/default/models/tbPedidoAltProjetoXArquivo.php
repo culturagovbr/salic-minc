@@ -6,7 +6,7 @@ class tbPedidoAltProjetoXArquivo extends MinC_Db_Table_Abstract
     protected $_name    = "tbPedidoAltProjetoXArquivo";
 
     /**
-     * Busca os arquivos da Solicitação de readequa��o
+     * Busca os arquivos da Solicitação de readequa&ccedil;&atilde;o
      * @access public
      * @param array $where (filtros)
      * @param array $order (ordena��o)

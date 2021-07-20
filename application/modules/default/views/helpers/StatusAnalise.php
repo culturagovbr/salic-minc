@@ -1,6 +1,6 @@
 <?php
 /**
- * Tipos de status da Análise para Verificar a Readequa��o
+ * Tipos de status da Análise para Verificar a Readequa&ccedil;&atilde;o
  * @author emanuel.sampaio - Politec
  * @since 30/08/2011
  * @version 1.0

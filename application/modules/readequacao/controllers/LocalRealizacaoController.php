@@ -35,7 +35,7 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
     public function salvarReadequacaoAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Área do sistema!", "principal", "ALERT");
+            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &Aacute;rea do sistema!", "principal", "ALERT");
         }
 
         if (empty($this->idPronac)) {
@@ -49,7 +49,7 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
         }
 
         if ($this->_existeSolicitacaoEmAnalise) {
-            parent::message('J� existe uma solicita&ccedil;ao de readequação em an&aacute;lise!', $urlCallback, "ERROR");
+            parent::message('J� existe uma solicita&ccedil;ao de readequa&ccedil;ão em an&aacute;lise!', $urlCallback, "ERROR");
         }
 
 
@@ -69,7 +69,7 @@ class Readequacao_LocalRealizacaoController extends Readequacao_GenericControlle
 
             $arrDoc = [];
             $arrDoc['idTipoDocumento'] = Arquivo_Model_TbTipoDocumento::TIPO_DOCUMENTO_SOLICITACAO_READEQUACAO;
-            $arrDoc['dsDocumento'] = 'Solicita&ccedil;&atilde;o de Readequação';
+            $arrDoc['dsDocumento'] = 'Solicita&ccedil;&atilde;o de Readequa&ccedil;ão';
             $mapperArquivo = new Arquivo_Model_TbDocumentoMapper();
             $idDocumento = $mapperArquivo->saveCustom($arrDoc, new Zend_File_Transfer());
 

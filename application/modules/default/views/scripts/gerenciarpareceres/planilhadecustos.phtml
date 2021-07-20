@@ -221,7 +221,7 @@
 
             $ultimaUF = isset($this->buscarProd[$item]->idMunicipio) ? $this->buscarProd[$item]->idFonte . $this->buscarProd[$item]->idProduto . $this->buscarProd[$item]->idPlanilhaEtapa . $this->buscarProd[$item]->idUF . $this->buscarProd[$item]->idMunicipio : null;
 
-            // compara a uf atual com a próxima uf para poder exibir o valor total
+            // compara a uf atual com a pr&oacute;xima uf para poder exibir o valor total
             if ($resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa . $resposta->idUF . $resposta->idMunicipio != $ultimaUF) :
                 ?>
                 <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>">
@@ -249,7 +249,7 @@
 
             $ultimaEtapa = isset($this->buscarProd[$item]->idPlanilhaEtapa) ? $this->buscarProd[$item]->idFonte . $this->buscarProd[$item]->idProduto . $this->buscarProd[$item]->idPlanilhaEtapa : null;
 
-            // compara a etapa atual com a próxima etapa para poder exibir o valor total
+            // compara a etapa atual com a pr&oacute;xima etapa para poder exibir o valor total
             if ($resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa != $ultimaEtapa) :
                 ?>
                 <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?>">
@@ -279,7 +279,7 @@
 
             $ultimoProduto = isset($this->buscarProd[$item]->idProduto) ? $this->buscarProd[$item]->idFonte . $this->buscarProd[$item]->idProduto : null;
 
-            // compara o produto atual com o próximo produto para poder exibir o valor total
+            // compara o produto atual com o pr&oacute;ximo produto para poder exibir o valor total
             if ($resposta->idFonte . $resposta->idProduto != $ultimoProduto) :
                 ?>
                 <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?>">
@@ -310,7 +310,7 @@
 
             $ultimaFonte = isset($this->buscarProd[$item]->idFonte) ? $this->buscarProd[$item]->idFonte : null;
 
-            // compara a etapa atual com a próxima etapa para poder exibir o valor total
+            // compara a etapa atual com a pr&oacute;xima etapa para poder exibir o valor total
             if ($resposta->idFonte != $ultimaFonte) :
                 ?>
                 <tr class="IFF<?php echo $comparadorIncentivo; ?>">
@@ -336,7 +336,7 @@
             <!-- ========== FIM TOTAL PRODUTOS ========== -->
 
             <?php
-            // adiciona os elementos no array para guardar no histórico
+            // adiciona os elementos no array para guardar no hist&oacute;rico
             $arrayIncentivo[] = $resposta->idFonte;
             $arrayProdutos[] = $resposta->idFonte . $resposta->idProduto;
             $arrayEtapas[] = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa;

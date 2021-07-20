@@ -5,7 +5,7 @@ Modulo reponsavel pela avaliação de notas/comprovantes de despesas gastos nos 
 ## Requisitos:
 - Modulo de Autenticação.
 - Modulo de Assinatura.
-- Modulo de Diligências.
+- Modulo de Dilig&ecirc;ncias.
 - Modulo de Fluxos.
 
 ## Banco de dados:

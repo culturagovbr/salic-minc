@@ -275,7 +275,7 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
 
 
     /**
-     * Busca os projetos com os status 'Aguardando Avalia��o', 'Em Avalia��o', 'Em aprovação' e 'Avaliado'
+     * Busca os projetos com os status 'Aguardando Avalia&Ccedil;&Atilde;o', 'Em Avalia&Ccedil;&Atilde;o', 'Em aprovação' e 'Avaliado'
      * @access public
      * @param string $pronac
      * @param string $status
@@ -318,7 +318,7 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
         // consulta pelo status do pronac
         if (!empty($status)) {
             // se o projeto tiver pelo menos um comprovante
-            // com o status 'Aguardando Avalia��o'
+            // com o status 'Aguardando Avalia&Ccedil;&Atilde;o'
             if ($status == "AG") {
                 $sql.= "AND doc.stParecerComprovante = 'AG' ";
             }
@@ -330,13 +330,13 @@ class ComprovanteExecucaoFisicaDAO extends Zend_Db_Table
             }
 
             // se o projeto tiver pelo menos um comprovante
-            // com o status 'Em Avalia��o'
+            // com o status 'Em Avalia&Ccedil;&Atilde;o'
             if ($status == "AV") {
                 $sql.= "AND doc.stParecerComprovante = 'AV' ";
             }
 
             // se o projeto Não tiver comprovantes
-            // com os status 'Aguardando Avalia��o', 'Em aprovação' em 'Em Avalia��o'
+            // com os status 'Aguardando Avalia&Ccedil;&Atilde;o', 'Em aprovação' em 'Em Avalia&Ccedil;&Atilde;o'
             if ($status == "AA") {
                 $sql.= "AND doc.stParecerComprovante <> 'AG' ";
                 $sql.= "AND doc.stParecerComprovante <> 'EA' ";

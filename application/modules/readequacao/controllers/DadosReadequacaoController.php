@@ -44,7 +44,7 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
         if (!$permissao) {
             $data['permissao'] = false;
             $httpCode = 203;
-            $data['message'] = utf8_decode('Você não tem permissão para acessar este projeto');
+            $data['message'] = utf8_decode('Voc&ecirc; não tem permissão para acessar este projeto');
         } else {
             $data = $readequacaoService->buscar($idReadequacao);
         }
@@ -71,7 +71,7 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
         if (!$permissao) {
             $data['permissao'] = false;
             $code = 203;
-            $data['message'] = 'Você não tem permissão para acessar este projeto';
+            $data['message'] = 'Voc&ecirc; não tem permissão para acessar este projeto';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $code = 200;
@@ -91,7 +91,7 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
         if (!$permissao) {
             $data['permissao'] = false;
             $code = 203;
-            $data['message'] = 'Você não tem permissão para alterar esta readequação';
+            $data['message'] = 'Voc&ecirc; não tem permissão para alterar esta readequação';
         } else {
             $code = 200;
             try {
@@ -121,7 +121,7 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
         if (!$permissao) {
             $data['permissao'] = false;
             $code = 203;
-            $data['message'] = 'Você não tem permissão para excluir esta readequação';
+            $data['message'] = 'Voc&ecirc; não tem permissão para excluir esta readequação';
         } else {
             try {
                 $response = $readequacaoService->remover();

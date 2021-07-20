@@ -55,7 +55,7 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
         $get = Zend_Registry::get('get');
         try {
             if (!filter_input(INPUT_GET, 'IdPRONAC')) {
-                throw new Exception("Identificador do projeto é necessário para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto &eacute; necessário para acessar essa funcionalidade.");
             }
 
             $objTbProjetos = new Projeto_Model_DbTable_Projetos();
@@ -87,7 +87,7 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
                     $get->IdPRONAC,
                     null,
                     'B01',
-                    'Projeto encaminhado ao Técnico para a readequação do Enquadramento'
+                    'Projeto encaminhado ao T&eacute;cnico para a readequação do Enquadramento'
                 );
 
                 $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();

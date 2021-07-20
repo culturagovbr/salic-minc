@@ -13,7 +13,7 @@ class Readequacao_DocumentoController extends MinC_Controller_Rest_Abstract
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
         ];
-        
+
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::PROPONENTE
@@ -23,7 +23,7 @@ class Readequacao_DocumentoController extends MinC_Controller_Rest_Abstract
 
         $subRoutes = [];
         $this->registrarSubRoutes($subRoutes);
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
 
@@ -35,17 +35,17 @@ class Readequacao_DocumentoController extends MinC_Controller_Rest_Abstract
 
         $idReadequacao = $this->getRequest()->getParam('idReadequacao');
         $idDocumento = $this->getRequest()->getParam('idDocumento');
-        
+
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para visualizar esta readequação';
+            $data['message'] = 'Voc&ecirc; n&atilde;o tem permiss&atilde;o para visualizar esta readequaç&atilde;o';
             $this->customRenderJsonResponse($data, $code);
         } else {
             $data = $readequacaoService->buscarDocumento($idReadequacao, $idDocumento);
         }
-        
+
         $this->renderJsonResponse($data, $code);
     }
 

@@ -40,8 +40,8 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
         $PermissoesGrupo[] = 123; // Coordenador - Geral de Acompanhamento
         $PermissoesGrupo[] = 108; // Acompanhamento - Coordenador
 
-        $PermissoesGrupo[] = 138; // Coordenador de Avalia��o
-        $PermissoesGrupo[] = 139; // T�cnico de Avalia��o
+        $PermissoesGrupo[] = 138; // Coordenador de Avalia&Ccedil;&Atilde;o
+        $PermissoesGrupo[] = 139; // T�cnico de Avalia&Ccedil;&Atilde;o
 
         $PermissoesGrupo[] = 125; // Coordenador de Presta��o de Contas
         $PermissoesGrupo[] = 124; // T�cnico de Presta��o de Contas

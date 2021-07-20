@@ -60,13 +60,13 @@
             }
         </style>
         <div style="display:none" id="dialog-alert">Solicitação realizada com sucesso!</div>
-        <div style="display:none" id="produtoDesativado">Não h� produtos cadastrados para este projeto!</div>
+        <div style="display:none" id="produtoDesativado">Nãoh&aacute; produtos cadastrados para este projeto!</div>
         <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
     ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
 } ?>Tem certeza que deseja Enviar e Finalizar?</div>
-        <div style="display:none" id="validarPlan">Antes de enviar a Solicitação � necess�rio cadastrar os Itens de Custos para os Produtos sem planilha or�ament�ria!</div>
+        <div style="display:none" id="validarPlan">Antes de enviar a Solicitação &eacute; necess&aacute;rio cadastrar os Itens de Custos para os Produtos sem planilha or&ccedilament&aacute;ria!</div>
         <div style="display:none" id="validar15pct"></div>
-        <div style="display:none" id="dialog-em-analise">H� pedido de readequa��o em Análise. Favor aguardar.</div>
+        <div style="display:none" id="dialog-em-analise">H&aacute; pedido de readequa&ccedil;&atilde;o em An&aacute;lise. Favor aguardar.</div>
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">

@@ -44,10 +44,10 @@ class OperacionalController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 131; // Coord. de Admissibilidade
         $PermissoesGrupo[] = 132; // Chefe de Divis�o
         $PermissoesGrupo[] = 135; // Tec. De Fiscaliza��o
-        $PermissoesGrupo[] = 138; // Coord. de Avalia��o
-        $PermissoesGrupo[] = 139; // Tec. de Avalia��o
-        $PermissoesGrupo[] = 148; // Coord. de Avalia��o
-        $PermissoesGrupo[] = 151; // Tec. de Avalia��o
+        $PermissoesGrupo[] = 138; // Coord. de Avalia&Ccedil;&Atilde;o
+        $PermissoesGrupo[] = 139; // Tec. de Avalia&Ccedil;&Atilde;o
+        $PermissoesGrupo[] = 148; // Coord. de Avalia&Ccedil;&Atilde;o
+        $PermissoesGrupo[] = 151; // Tec. de Avalia&Ccedil;&Atilde;o
 
         parent::perfil(1, $PermissoesGrupo);
         parent::init();

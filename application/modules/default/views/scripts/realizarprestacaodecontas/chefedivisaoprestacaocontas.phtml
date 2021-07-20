@@ -109,7 +109,7 @@
             type : 'post'
         });
 
-        var title = 'Encaminhar Projeto para T�cnico';
+        var title = 'Encaminhar Projeto para T&eacute;cnico';
         $("#divDinamica").dialog({
             resizable: true,
             width:750,
@@ -283,10 +283,10 @@
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=2&ordem='.$this->paginacao['novaOrdem'];?>">PRONAC</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=3&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Projeto</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">Situa��o</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=7&ordem='.$this->paginacao['novaOrdem'];?>">�rea / Segmento</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=7&ordem='.$this->paginacao['novaOrdem'];?>">&Aacute;rea / Segmento</a></th>
                 <th><a href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&campo=9&ordem='.$this->paginacao['novaOrdem'];?>">Mecanismo</a></th>
 		<?php if($this->filtro != '') { ?>
-		<th>T�cnico</th>
+		<th>T&eacute;cnico</th>
 		<?php } ?>
 		<th>Encaminhar para Técnico</th>
 
@@ -316,7 +316,7 @@
 		<td align="center"><?php echo $projeto->Tecnico; ?></td>
 		<?php } ?>
                 <td align="center">
-                    <img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/user_gray.png" onclick="return JSEncaminharParaTecnico('<?php echo $projeto->idPronac; ?>','<?php echo $this->codOrgao; ?>','<?php echo (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) ? $_GET['tipoFiltro'] : 0; ?>',true)" alt="Encaminhar para t�cnico" />
+                    <img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/user_gray.png" onclick="return JSEncaminharParaTecnico('<?php echo $projeto->idPronac; ?>','<?php echo $this->codOrgao; ?>','<?php echo (isset($_GET['tipoFiltro']) && !empty($_GET['tipoFiltro'])) ? $_GET['tipoFiltro'] : 0; ?>',true)" alt="Encaminhar para t&eacute;cnico" />
                 </td>
 		<?php if($this->filtro == 'analisados') { ?>
                 <td align="center"><img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" onclick="window.location='<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria', 'idPronac' => $projeto->idPronac)); ?>'" alt="Analisar"></td>

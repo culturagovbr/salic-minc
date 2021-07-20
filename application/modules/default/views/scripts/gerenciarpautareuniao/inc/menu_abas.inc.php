@@ -34,13 +34,13 @@ $pronac = (isset($_GET['idPronac']) ? $_GET['idPronac'] : '');
             if (strstr($this->url(), 'aprovarparecer') == 'aprovarparecer') {
                 echo "class=\"bg_white\"";
             }
-            echo"> <a href=\"" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'aprovarparecer')) . "?idPronac=" . $_GET['idPronac'] . "&idReuniao=" . $_GET['idReuniao'] . "&tipoprojeto=" . $_GET['tipoprojeto'] . "&tipousuario=" . $_GET['tipousuario'] . "\">Retirar da Plen�ria</a></th>";
+            echo"> <a href=\"" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'aprovarparecer')) . "?idPronac=" . $_GET['idPronac'] . "&idReuniao=" . $_GET['idReuniao'] . "&tipoprojeto=" . $_GET['tipoprojeto'] . "&tipousuario=" . $_GET['tipousuario'] . "\">Retirar da Plen&aacute;ria</a></th>";
         } elseif ($_GET['tipoprojeto'] == 'N') {
             echo "<th ";
             if (strstr($this->url(), 'aprovarparecer') == 'aprovarparecer') {
                 echo "class=\"bg_white\"";
             }
-            echo"> <a href=\"" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'aprovarparecer')) . "?idPronac=" . $_GET['idPronac'] . "&idReuniao=" . $_GET['idReuniao'] . "&tipoprojeto=" . $_GET['tipoprojeto'] . "&tipousuario=" . $_GET['tipousuario'] . "\">Submeter Plen�ria</a></th>";
+            echo"> <a href=\"" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'aprovarparecer')) . "?idPronac=" . $_GET['idPronac'] . "&idReuniao=" . $_GET['idReuniao'] . "&tipoprojeto=" . $_GET['tipoprojeto'] . "&tipousuario=" . $_GET['tipousuario'] . "\">Submeter Plen&aacute;ria</a></th>";
         }
         ?>
     </tr>

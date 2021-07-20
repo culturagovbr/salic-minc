@@ -59,7 +59,7 @@
                             <option value="">Fiscaliza&ccedil;&atilde;o em andamento</option>
                             <option
                                 value="analisados" <?= ($this->filtro == 'analisados') ? 'selected="selected"' : ''; ?>>
-                                Fiscaliza&ccedil;&atilde;o conclu&iacute;da pelo Técnico
+                                Fiscaliza&ccedil;&atilde;o conclu&iacute;da pelo T&eacute;cnico
                             </option>
                             <option
                                 value="concluidos" <?= ($this->filtro == 'concluidos') ? 'selected="selected"' : ''; ?>>
@@ -67,7 +67,7 @@
                             </option>
                         </select>
                         <select name="tecFiltro" id="tecFiltro" style="width: 235px;" class="input_simples">
-                            <option value="">Todos os Técnicos</option>
+                            <option value="">Todos os T&eacute;cnicos</option>
                             <?php foreach ($this->Usuarios as $usuario) { ?>
                                 <option
                                     value="<?= $usuario->idUsuario; ?>"

@@ -95,7 +95,7 @@ $(document).ready(function(){
                         dados += data;
                         $("#parecerista").html(dados);
                     } else {
-                        var dados = '<option value=""> - Nenhum Parecerista para o Órgão Selecionado - </option>';
+                        var dados = '<option value=""> - Nenhum Parecerista para o ï¿½rgï¿½o Selecionado - </option>';
                         $("#parecerista").html(dados);
                     }
                 }
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
         });
     });
-    function verificaDatas() { 
+    function verificaDatas() {
         if(($("#pronac").val() == '') ||($("#pronac").val() == undefined)){
         	switch($("#periodo").val())
             {
@@ -161,7 +161,7 @@ $(document).ready(function(){
         if($("#pronac").val() != ''){
 	        if ( $("#pronac").val().length < 6)
 	    	{
-	    		$("#MsgPronac").html('O Pronac deve ter no mínimo 6 caracteres!');
+	    		$("#MsgPronac").html('O Pronac deve ter no mï¿½nimo 6 caracteres!');
 	    	}
 	        else{
 	    		$("#MsgPronac").html('');
@@ -211,7 +211,7 @@ $(document).ready(function(){
                         <select name="filtro[produto]" class="input_simples block" style="width: 250px;">
                             <option value="0">Selecione</option>
                             <option value="1">Principal</option>
-                            <option value="2">Secundário</option>
+                            <option value="2">Secundï¿½rio</option>
                         </select>
                     </td>
                     <?php if ($this->perfilAtual == 'CoordenadorParecerista') { ?>
@@ -221,7 +221,7 @@ $(document).ready(function(){
                     </td>
                     <?php }?>
                 </tr>
-        <?php }?>  
+        <?php }?>
                 <?php
             if ($this->Areas) {
                 ?>
@@ -229,7 +229,7 @@ $(document).ready(function(){
             if ($this->Orgaos) {
                 ?>
                 <tr>
-                    <td>Órgão</td>
+                    <td>ï¿½rgï¿½o</td>
                     <td colspan="8">
                         <select id="orgao" name="filtro[orgao]" class="input_simples" style="width: 250px;">
                             <option value="">Todos</option>
@@ -244,7 +244,7 @@ $(document).ready(function(){
                 <?php
             }?>
                 <tr>
-                    <td>Área</td>
+                    <td>&Aacute;rea</td>
                     <td>
                         <select id="area" name="filtro[area]" class="input_simples" style="width: 250px;">
                             <option value="">Todas</option>
@@ -278,13 +278,13 @@ $(document).ready(function(){
                         <option value="0">Selecione</option>
                             <?php
                             $idParecerista = '';
-                            foreach ($this->pareceristas as $key => $parecerista) 
+                            foreach ($this->pareceristas as $key => $parecerista)
                             {
 								if($parecerista['idParecerista'] != $idParecerista)
 								{
                             		echo "<option value='{$parecerista['idParecerista']}'>{$parecerista['Nome']} </option>";
 								}
-								
+
 								$idParecerista = $parecerista['idParecerista'];
                             }
                             ?>
@@ -299,11 +299,11 @@ $(document).ready(function(){
                 ?>
                 <tr>
                     <td>
-                        Atestado ou Férias
+                        Atestado ou Fï¿½rias
                     </td>
                     <td colspan="7">
                         <input type="radio" name="filtro[statusParecerista]" value="3" checked="checked" /> Todos
-                        <input type="radio" name="filtro[statusParecerista]" value="2" /> Férias
+                        <input type="radio" name="filtro[statusParecerista]" value="2" /> Fï¿½rias
                         <input type="radio" name="filtro[statusParecerista]" value="1" /> Atestado
                     </td>
                 </tr>
@@ -395,7 +395,7 @@ $(document).ready(function(){
             </tr>
         </table>
     </form>
-    
+
     <form id="formConsultaPronac" method="post" action="<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'tratardadosrelatorio')); ?>">
     	<input type="hidden" name="titulo" value="<?php echo $this->titulo; ?>" />
     	<input type="hidden" name="pronac" id="teste" value="" />

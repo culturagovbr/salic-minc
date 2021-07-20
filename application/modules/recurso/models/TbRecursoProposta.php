@@ -27,7 +27,7 @@ class Recurso_Model_TbRecursoProposta extends MinC_Db_Model
     protected $_tpRecurso;
     /**
      * @var $_tpSolicitacao
-            DR => Desistência do Prazo Recursal
+            DR => Desist&ecirc;ncia do Prazo Recursal
             EN => Enquadramento
      */
     protected $_tpSolicitacao;
